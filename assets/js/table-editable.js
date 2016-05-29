@@ -176,6 +176,9 @@ var EditableTable = function () {
                 boTable.fnDraw();
             }
 
+            jQuery('#editable-sample_wrapper .dataTables_filter input').addClass("form-control medium");
+            jQuery('#editable-sample_wrapper .dataTables_length select').addClass("form-control xsmall");
+
             var nEditingDashboard = null;
             var nEditingDatabase = null;
             var nEditingFtp = null;
@@ -188,7 +191,7 @@ var EditableTable = function () {
                         url: $(this).attr('href'),
                         success: function(msg){
                             var nRow = $('#table-dashboard #delete-dashboard').parents('tr')[0];
-                            $('#table-dashboard').dataTable().fnDeleteRow(nRow);
+                            dashboardTable.fnDeleteRow(nRow);
                         },
                         error: function(msg){
                             console.log(msg);
@@ -372,9 +375,6 @@ var EditableTable = function () {
                     editRowWebsiteBackoffice(boTable, nRow, nUrl);
                     nEditingBackoffice = nRow;
                 }
-            });
-            $(document).on('keyup', '#table-dashboard_filter input', function (e) {
-                $('#table-dashboard').DataTable().search( this.value ).draw();
             });
         }
 

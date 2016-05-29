@@ -20,7 +20,18 @@ class Tasks extends CI_Controller {
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
+			$data['all_languages'] = $this->model_front->get_all_languages();
+			$data['all_categories'] = $this->model_front->get_all_categories();
 
+			$data['all_domains'] = $this->model_front->get_all_domains();
+			$data['all_subdomains'] = $this->model_front->get_all_subdomains();
+			$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
+			$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
+			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
+			$data['login'] = $this->session->userdata['name'];
+			$data['user_role'] = $this->aauth->get_user_groups();
+
+			$this->load->view('tasks', $data);
 		}else {
 			$this->load->view('index');
 		}

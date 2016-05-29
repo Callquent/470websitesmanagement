@@ -82,30 +82,28 @@
 
             ]
         }
-        /*var myLineChart = new Chart(document.getElementById("line-chart-js").getContext("2d")).Line(Linedata);*/
-
-
-/*        var pieData = [
-            {
-                value: 30,
-                color:"#E67A77"
-            },
-            {
-                value : 50,
-                color : "#D9DD81"
-            },
-            {
-                value : 100,
-                color : "#79D1CF"
+        var options ={
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                      var dataset = data.datasets[tooltipItem.datasetIndex];
+                      var label = data.labels[tooltipItem.index];
+                      var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                        return previousValue + currentValue;
+                      });
+                      var currentValue = dataset.data[tooltipItem.index];
+                      var precentage = currentValue;
+                      return label + ': ' + precentage + '%';
+                    }
+                }
             }
-
-        ];*/
+        };
 
        var ctx = document.getElementById("pie-chart-language").getContext("2d");
-       var myPie = new Chart(ctx,{ type: 'pie', data: pieDataLanguage });
+       var myPie = new Chart(ctx,{ type: 'pie', data: pieDataLanguage, options: options });
 
        var ctx = document.getElementById("pie-chart-category").getContext("2d");
-       var myPie = new Chart(ctx,{ type: 'pie', data: pieDataCategory });
+       var myPie = new Chart(ctx,{ type: 'pie', data: pieDataCategory, options: options });
 
 
         var donutData = [

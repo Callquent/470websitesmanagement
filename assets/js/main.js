@@ -80,6 +80,65 @@ $( document ).ready(function() {
 		});
 
 		EditableTable.init();
+	} else if (window.location.href.split('/').pop() == "add-website" || window.location.href.split('/').pop() == "add-category" || window.location.href.split('/').pop() == "add-language") {
+		$("#results").hide();
+		$("#form-add-website").validate({
+			rules: {
+				nom: "required",
+				url: "required",
+			},
+			messages: {
+				nom: "Veuillez saisir le nom de votre site web",
+				url: "Veuillez saisir l'URL' de votre site web",
+			}
+		});
+		$("#form-add-website").submit(function(e){
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data:$(this).serialize(),
+				success: function(msg){
+					console.log(msg);
+					$("#form-add-website").fadeOut('slow');
+					$('#results').fadeIn('fast');
+					setTimeout(function() {
+					 $('#results').fadeOut('slow');
+					 $("#form-add-website").find("input[type=text], textarea").val("");
+					 $("#form-add-website").fadeIn('slow');
+					}, 3000 );
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+			e.preventDefault();
+		});
+		$("#form-add-category").submit(function(e){
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data:$(this).serialize(),
+				success: function(msg){
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+			e.preventDefault();
+		});
+		$("#form-add-language").submit(function(e){
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data:$(this).serialize(),
+				success: function(msg){
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+			e.preventDefault();
+		});
 	} else if (window.location.href.split('/').pop() == "dashboard") {
 
 	} else if (window.location.href.split('/').pop() == "category") {
@@ -120,28 +179,34 @@ $( document ).ready(function() {
 
 
 		$('#delete-category').on('show.bs.modal',function(event){
-			$.ajax({
-				type: "POST",
-				url: window.location.href+'/loadCategories/',
-				success: function(data){
+
 					$.getJSON( window.location.href+'/loadCategories/', function( data ) {
 						languageList = '<select id="category" class="form-control">';
 						$.each( data, function( key, val ) {
-							if ( val.c_title == aData[4] ) {
-								languageList += '<option value="'+val.c_id+'" selected>'+ val.c_title + '</option>';
-							} else{
-								languageList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
-							}
+							languageList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
 						});
 						languageList += '</select>';
-						jqTds[4].innerHTML = languageList;
+						$( "#delete-category .modal-body" ).append( languageList );
 					});
-				},
-				error: function(){
-					alert("failure");
-				}
-			});
+
 		});
+        $(document).on('click', '#table-category #delete-dashboard', function (e) {
+            if (confirm('Voulez vous supprimer cette enregistrement')) {
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('href'),
+                    data: $(this).serialize(),
+                    success: function(msg){
+                        var nRow = $('#table-dashboard #delete-dashboard').parents('tr')[0];
+                        dashboardTable.fnDeleteRow(nRow);
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+            }
+            e.preventDefault();
+        });
 
         $(document).on('click', '#table-category #cancel-dashboard', function (e) {
             e.preventDefault();
@@ -297,7 +362,7 @@ $( document ).ready(function() {
 				$.ajax({
 					xhr: function () {
 					    var xhr = new window.XMLHttpRequest();
-					    xhr.upload.addEventListener("progress-bar", function (evt) {
+					    xhr.upload.addEventListener("progress", function (evt) {
 					        if (evt.lengthComputable) {
 					            var percentComplete = evt.loaded / evt.total;
 					            console.log(percentComplete);
@@ -309,7 +374,7 @@ $( document ).ready(function() {
 					            }
 					        }
 					    }, false);
-					    xhr.addEventListener("progress-bar", function (evt) {
+					    xhr.addEventListener("load", function (evt) {
 					        if (evt.lengthComputable) {
 					            var percentComplete = evt.loaded / evt.total;
 					            console.log(percentComplete);
@@ -338,6 +403,29 @@ $( document ).ready(function() {
 			}
 			e.preventDefault();
 		});
+	} else if (window.location.href.split('/').pop() == "tasks") {
+        $('.todo-check label').click(function () {
+            $(this).parents('li').children('.todo-title').toggleClass('line-through');
+        });
+
+
+        $(document).on('click', '.todo-remove', function () {
+            $(this).closest("li").remove();
+            return false;
+        });
+
+
+        $('.stat-tab .stat-btn').click(function () {
+
+            $(this).addClass('active');
+            $(this).siblings('.btn').removeClass('active');
+
+        });
+
+        $('select.styled').customSelect();
+        $("#sortable-todo").sortable();
+        
+		DraggablePortlet.init();
 	} else if (window.location.href.split('/').pop() == "members") {
 		$('a#delete-user').click(function(e) {
 			if (confirm('Voulez vous supprimer cette enregistrement')) {
@@ -483,6 +571,14 @@ $( document ).ready(function() {
 			e.preventDefault();
 		});
 	}
-
-
+	$('li.language a').click(function(e) {
+		$.ajax({
+			type: "POST",
+			url: $(this).attr('href'),
+			success: function(msg){
+				console.log(msg);
+			}
+		});
+		e.preventDefault();
+	});
 });

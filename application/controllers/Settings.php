@@ -12,7 +12,6 @@ class Settings extends CI_Controller {
 		$this->load->library("Aauth");
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->library(array('encrypt','session'));
-		$this->load->library('email');
 		$this->load->helper(array('functions', 'text', 'url'));
 	}
 	public function index($w_id = '')
@@ -33,6 +32,21 @@ class Settings extends CI_Controller {
 			$data['user_role'] = $this->aauth->get_user_groups();
 
 			$this->load->view('settings', $data);
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function languages($lang = '')
+	{
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+			$this->load->helper('language');
+			$this->lang->load('fr', 'french');
+			$this->config->set_item('language', 'french');
+            $this->session->set_userdata('language', 'french');
+			var_dump($this->lang);
 		}else {
 			$this->load->view('index');
 		}

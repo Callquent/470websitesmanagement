@@ -73,11 +73,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Delete Category</h4>
       </div>
-      <form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact/'); ?>">
+      <form id="form-email" method="post" action="<?php echo site_url('/category/delete-category/'); ?>">
         <div class="modal-body">
-          <select>
-            <option value="volvo">Volvo</option>
-          </select>
         </div>
         <div class="modal-footer ">
           <button type="submit" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-share"></span> Envoyer</button>

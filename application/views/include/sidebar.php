@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo site_url('tasks'); ?>">
                         <i class="fa fa-tasks"></i>
                         <span>Tasks</span>
                     </a>
@@ -69,19 +69,19 @@
                 <li class="sub-menu">
                     <a href="<?php echo site_url('language'); ?>">
                         <i class="fa fa-code"></i>
-                        <span>Languages</span>
+                        <span><?php echo lang('languages'); ?></span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo site_url('category'); ?>">
                         <i class="fa fa-th"></i>
-                        <span>Categories</span>
+                        <span><?php echo lang('categories'); ?></span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo site_url('members'); ?>">
                         <i class="fa fa-users"></i>
-                        <span>Members</span>
+                        <span><?php echo lang('members'); ?></span>
                     </a>
                 </li>
                 <?php } ?>

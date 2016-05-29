@@ -105,6 +105,7 @@ class Model_back extends CI_Model {
 		$this->db->where('w_id_info', $id)->delete('website_backoffice');
 		$this->db->where('w_id_info', $id)->delete('website_database');
 		$this->db->where('w_id_info', $id)->delete('website_ftp');
+		$this->db->where('w_id_info', $id)->delete('whois');
 		$this->db->where('w_id', $id)->delete('website_info');
 	}
 }

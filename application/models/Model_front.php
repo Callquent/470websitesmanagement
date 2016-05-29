@@ -53,7 +53,7 @@ class Model_front extends CI_Model {
 		$i = 0;
 		if(isset($_POST['search']['value'])){
 			foreach ($this->column as $item) {
-				if($i===0) // first loop
+				if($i===0)
 				{
 					$this->db->like($item, $_POST['search']['value']);
 				}
@@ -61,9 +61,9 @@ class Model_front extends CI_Model {
 				{
 					$this->db->or_like($item, $_POST['search']['value']);
 				}
-			    
-			    $column[$i] = $item;
-			    $i++;
+
+				$column[$i] = $item;
+				$i++;
 			}
 		}
 		if(isset($_POST['order'])) // here order processing
@@ -155,6 +155,26 @@ class Model_front extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	function get_category($id)
+	{
+		$this->db->select('*')
+				->from('category')
+				->where('c_id', $id)
+				->limit(1);
+
+		$query = $this->db->get();
+		return $query;
+	}
+	function get_language($id)
+	{
+		$this->db->select('*')
+				->from('language')
+				->where('l_id', $id)
+				->limit(1);
+
+		$query = $this->db->get();
+		return $query;
+	}
 	function get_website_per_ftp($id)
 	{
 		$this->db->select('*')
@@ -183,26 +203,6 @@ class Model_front extends CI_Model {
 				->from('website_info')
 				->join('website_backoffice', 'website_backoffice.w_id_info = website_info.w_id')
 				->where('w_id', $id)
-				->limit(1);
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function get_category($id)
-	{
-		$this->db->select('*')
-				->from('category')
-				->where('c_id', $id)
-				->limit(1);
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function get_language($id)
-	{
-		$this->db->select('*')
-				->from('language')
-				->where('l_id', $id)
 				->limit(1);
 
 		$query = $this->db->get();

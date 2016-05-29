@@ -55,8 +55,10 @@ class Category extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output( json_encode($data['all_categories']->result()));
 	}
-	public function delete_category($c_id = '')
+	public function delete_category($c_id_old = '')
 	{
+		$c_id_new = $this->input->post('category');
+
 		if ($this->model_front->get_category($c_id)->num_rows() == 1){
 			$this->model_language->transfert_website_language($c_id_old, $c_id_new);
 			$this->model_front->delete_category($c_id);
