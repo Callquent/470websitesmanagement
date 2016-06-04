@@ -9,12 +9,14 @@ class Dashboard extends CI_Controller {
 		$this->load->database();
 		$this->load->model('model_front');
 		$this->load->model('model_users');
+		$this->load->model('model_settings');
 		$this->load->library("Aauth");
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->library(array('encrypt','session'));
 		$this->load->helper(array('functions', 'text', 'url'));
 		$this->load->helper('language');
-		$this->lang->load('en', 'english');
+
+		$this->lang->load('fr', $this->model_settings->view_settings_lang()->value_s);
 	}
 	public function index()
 	{
@@ -74,6 +76,23 @@ class Dashboard extends CI_Controller {
 			$data['chart_category'] = json_encode($chart_category);*/
 			
 			$this->load->view('dashboard', $data);
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function languages($lang = '')
+	{
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+			$this->load->helper('language');
+			$this->lang->load('fr', 'french');
+			
+			$this->session->userdata('language');
+			$this->config->set_item('language', 'french');
+            $this->session->set_userdata('language', 'french');
+			var_dump($this->lang);
 		}else {
 			$this->load->view('index');
 		}

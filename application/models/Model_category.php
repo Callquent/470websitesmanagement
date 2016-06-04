@@ -10,7 +10,7 @@ class Model_category extends CI_Model {
 			'c_title_url' => str_replace( " ", "-", strtolower($c_title))
 		);
 
-		$this->db->insert('category', $data);
+		$this->db->insert('470websitesmanagement_category', $data);
 	}
 	function update_category($c_id, $c_title)
 	{
@@ -19,7 +19,7 @@ class Model_category extends CI_Model {
 		);
 
 		$this->db->where('c_id', $c_id)
-				 ->update('category', $data);
+				 ->update('470websitesmanagement_category', $data);
 	}
 	function transfert_website_language($c_id_old, $c_id_new)
 	{
@@ -28,10 +28,10 @@ class Model_category extends CI_Model {
 		);
 
 		$this->db->where('c_id', $c_id_new)
-				 ->update('website_info', $data);
+				 ->update('470websitesmanagement_info', $data);
 	}
 	function delete_category($c_id)
 	{
-		$this->db->where('c_id', $c_id)->delete('category'); 
+		$this->db->where('c_id', $c_id)->delete('470websitesmanagement_category'); 
 	}
 }

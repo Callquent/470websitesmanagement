@@ -11,7 +11,7 @@ class Model_language extends CI_Model {
 			'l_color' => $l_color
 		);
 
-		$this->db->insert('language', $data);
+		$this->db->insert('470websitesmanagement_language', $data);
 	}
 	function update_language($l_id, $l_title)
 	{
@@ -20,10 +20,10 @@ class Model_language extends CI_Model {
 		);
 
 		$this->db->where('l_id', $l_id)
-				 ->update('language', $data);
+				 ->update('470websitesmanagement_language', $data);
 	}
 	function delete_language($l_id)
 	{
-		$this->db->where('l_id', $l_id)->delete('language'); 
+		$this->db->where('l_id', $l_id)->delete('470websitesmanagement_language'); 
 	}
 }

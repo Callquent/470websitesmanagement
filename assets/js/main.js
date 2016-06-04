@@ -426,6 +426,8 @@ $( document ).ready(function() {
         $("#sortable-todo").sortable();
         
 		DraggablePortlet.init();
+	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
+		TreeView.init();
 	} else if (window.location.href.split('/').pop() == "members") {
 		$('a#delete-user').click(function(e) {
 			if (confirm('Voulez vous supprimer cette enregistrement')) {

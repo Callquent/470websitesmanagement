@@ -6,9 +6,9 @@ class Model_whois extends CI_Model {
 	function view_all_whois()
 	{
 		$this->db->select('*')
-				 ->from('whois')
-				 ->join('website_info', 'whois.w_id_info = website_info.w_id')
-				 ->order_by('whois.expiration_date', 'ASC');
+				 ->from('470websitesmanagement_whois')
+				 ->join('470websitesmanagement_info', '470websitesmanagement_whois.w_id_info = 470websitesmanagement_info.w_id')
+				 ->order_by('470websitesmanagement_whois.expiration_date', 'ASC');
 
 		$query = $this->db->get();
 		return $query;
@@ -16,7 +16,7 @@ class Model_whois extends CI_Model {
 	function check_whois($w_id)
 	{
 		$this->db->select('*')
-				 ->from('whois')
+				 ->from('470websitesmanagement_whois')
 				 ->where('w_id_info', $w_id);
 
 		$query = $this->db->get();
@@ -32,7 +32,7 @@ class Model_whois extends CI_Model {
 			'register'				=> $register,
 		);
 
-		$this->db->insert('whois', $data);
+		$this->db->insert('470websitesmanagement_whois', $data);
 		return $this->db->insert_id();
 	}
 	function update_whois($w_id, $whois, $creation_date, $expiration_date, $register)
@@ -46,6 +46,6 @@ class Model_whois extends CI_Model {
 		);
 
 		$this->db->where('w_id_info', $w_id)
-				 ->update('whois', $data);
+				 ->update('470websitesmanagement_whois', $data);
 	}
 }
