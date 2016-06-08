@@ -20,13 +20,30 @@
 <div class="top-nav clearfix">
     <ul class="nav pull-right top-menu">
         <li class="dropdown language">
-            <a href="<?php echo site_url('dashboard/languages/en'); ?>" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                <img alt="" src="<?php echo img_url('flags/us.png'); ?>">
-                <span class="username">US</span>
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <?php 
+                switch ($language) {
+                    case "english":
+                        echo "<img alt=\"\" src=".img_url('flags/us.png').">&nbsp;<span class=\"username\">English</span>";
+                        break;
+                    case "french":
+                        echo "<img alt=\"\" src=".img_url('flags/fr.png').">&nbsp;<span class=\"username\">French</span>";
+                        break;
+                }
+                ?>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="<?php echo site_url('dashboard/languages/fr'); ?>"><img alt="" src="<?php echo img_url('flags/fr.png'); ?>"> French</a></li>
+                <?php 
+                switch ($language) {
+                    case "english":
+                        echo "<li><a href=".site_url('dashboard/languages/french')."><img alt=\"\" src=".img_url('flags/fr.png')."> French</a></li>";
+                        break;
+                    case "french":
+                        echo "<li><a href=".site_url('dashboard/languages/english')."><img alt=\"\" src=".img_url('flags/us.png')."> English</a></li>";
+                        break;
+                }
+                ?>
             </ul>
         </li>
         <li class="dropdown">

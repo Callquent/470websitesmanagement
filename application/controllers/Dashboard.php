@@ -15,8 +15,7 @@ class Dashboard extends CI_Controller {
 		$this->load->library(array('encrypt','session'));
 		$this->load->helper(array('functions', 'text', 'url'));
 		$this->load->helper('language');
-
-		$this->lang->load('fr', $this->model_settings->view_settings_lang()->value_s);
+		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 	}
 	public function index()
 	{
@@ -74,6 +73,7 @@ class Dashboard extends CI_Controller {
 
 			$chart_category = array('labels' => $chart_c_title, 'datasets' => [array('data' => $chart_c_percent, 'backgroundColor' => $chart_c_color )]);
 			$data['chart_category'] = json_encode($chart_category);*/
+			$data['language'] = unserialize($this->model_settings->view_settings_lang()->value_s)['language'];
 			
 			$this->load->view('dashboard', $data);
 		}else {
@@ -86,13 +86,15 @@ class Dashboard extends CI_Controller {
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
-			$this->load->helper('language');
+			/*$this->load->helper('language');
 			$this->lang->load('fr', 'french');
 			
 			$this->session->userdata('language');
 			$this->config->set_item('language', 'french');
-            $this->session->set_userdata('language', 'french');
-			var_dump($this->lang);
+            $this->session->set_userdata('language', 'french');*/
+			if (file_exists("./application/language/".$lang)) {
+				$this->model_settings->update_settings_lang($lang);
+			}
 		}else {
 			$this->load->view('index');
 		}

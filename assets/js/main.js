@@ -578,6 +578,9 @@ $( document ).ready(function() {
 			type: "POST",
 			url: $(this).attr('href'),
 			success: function(msg){
+				window.location.reload();
+			},
+			error: function(msg){
 				console.log(msg);
 			}
 		});
