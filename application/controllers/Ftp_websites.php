@@ -9,13 +9,18 @@ class Ftp_websites extends CI_Controller {
 		$this->load->database();
 		$this->load->model('model_front');
 		$this->load->model('model_users');
+		$this->load->model('model_settings');
 		$this->load->library("Aauth");
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->library(array('encrypt','session'));
 		$this->load->helper(array('functions', 'text', 'url'));
 		$this->load->library('ftp');
 		$this->load->helper('language');
-		$this->lang->load('en', 'english');
+		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
+		$sesslanguage = array(
+		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
+		);
+		$this->session->set_userdata($sesslanguage);
 	}
 	public function index($w_id = '')
 	{
@@ -41,10 +46,17 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			$data['list'] = $this->ftp->list_files('/');
+			$data['list'] = $this->ftp->list_files('/public_html');
 			
 			foreach ($data['list'] as $row) {
-				$tree_data[] = array('name' => ltrim($row,'/'), 'type' => 'folder');
+				/*$this->abc($row)*/
+				var_dump(is_dir($row));
+				if (is_file($row)) {
+					$tree_data[] = array('name' => ltrim($row,'/'), 'type' => 'file-o');
+				} else {
+					$tree_data[] = array('name' => ltrim($row,'/'), 'type' => 'folder');
+				}
+				
 			}
 			$data['tree_data'] = json_encode($tree_data);
 
@@ -53,4 +65,8 @@ class Ftp_websites extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
+    private function abc()
+    {
+      
+    }
 }

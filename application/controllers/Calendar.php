@@ -9,11 +9,16 @@ class Calendar extends CI_Controller {
 		// Chargement des ressources pour ce controller
 		$this->load->database();
 		$this->load->model('model_front');
+		$this->load->model('model_settings');
 		$this->load->library("Aauth");
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->library(array('encrypt','session'));
 		$this->load->library('email');
 		$this->load->helper(array('functions', 'text', 'url'));
+		$sesslanguage = array(
+		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
+		);
+		$this->session->set_userdata($sesslanguage);
 	}
 	public function index($w_id = '')
 	{

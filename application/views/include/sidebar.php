@@ -35,7 +35,7 @@
                     </ul>
                 </li>
                 <!-- <li>
-                    <a href="#">
+                    <a href="<?php echo site_url('ftp-websites'); ?>">
                         <i class="fa fa-exchange"></i>
                         <span>FTP Websites</span>
                     </a>

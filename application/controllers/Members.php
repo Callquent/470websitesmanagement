@@ -9,10 +9,17 @@ class Members extends CI_Controller {
 		$this->load->database();
 		$this->load->model('model_front');
 		$this->load->model('model_users');
+		$this->load->model('model_settings');
 		$this->load->library("Aauth");
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->library(array('encrypt','session'));
 		$this->load->helper(array('functions', 'text', 'url'));
+		$this->load->helper('language');
+		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
+		$sesslanguage = array(
+		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
+		);
+		$this->session->set_userdata($sesslanguage);
 	}
 	public function index()
 	{

@@ -24,7 +24,7 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-                                    <h4>Gestion du parc : <?php echo $all_domains; ?> Domaines et <?php echo $all_subdomains; ?> Sous-domaines</h4>
+                                    <h4>Nom de Domaine inclus : .com, .net, .org, .uk, .cn, .paris, .ovh, .fr, .it, .ru, .pl</h4>
                                 </div>
                                 <div class="btn-group pull-right">
                                     <a href="#" id="load-whois" class="btn btn-primary" role="button">Télécharger Whois</a>

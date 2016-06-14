@@ -360,7 +360,7 @@ $( document ).ready(function() {
 		$('a#load-whois').click(function(e) {
 			if (confirm('Voulez vous télécharger les whois des sites dans la base de donnée')) {
 				$.ajax({
-					xhr: function () {
+					/*xhr: function () {
 					    var xhr = new window.XMLHttpRequest();
 					    xhr.upload.addEventListener("progress", function (evt) {
 					        if (evt.lengthComputable) {
@@ -384,7 +384,7 @@ $( document ).ready(function() {
 					        }
 					    }, false);
 					    return xhr;
-					},
+					},*/
 					type: "POST",
 					url: window.location.href+'/downloadWhois/',
 					beforeSend: function() {

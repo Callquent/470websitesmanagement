@@ -44,6 +44,7 @@
                                       <?php if ($user_role[0]->name == "Developper") { ?>
                                         <th>Modifier</th>
                                         <th>Supprimer</th>
+                                        <th>FTP</th>
                                       <?php } ?>
                                   </tr>
                                 </thead>

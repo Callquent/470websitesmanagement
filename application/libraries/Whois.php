@@ -115,6 +115,25 @@ class Whois
                 } else {
                     $result="";
                 }
+            } else if ($this->tld == 'ru') {
+                preg_match_all('/registrar:\s(.*)admin-contact.*created:\s(.*)\spaid-till:\s(.*)\sfree-date/siU', $string_utf8, $data);
+                if (isset($data[3][0]) && isset($data[2][0])) {
+                    $result[]=trim($data[2][0]);
+                    $result[]=trim($data[3][0]);
+                    $result[]=trim($data[1][0]);
+                } else {
+                    $result="";
+                }
+            }  else if ($this->tld == 'pl') {
+                preg_match_all('/created:(.*\...\...).*renewal\sdate:(.*\...\...).*REGISTRAR:\n(.*)\n/siU', $string_utf8, $data);
+                if (isset($data[3][0]) && isset($data[2][0])) {
+                    $result[]=trim($data[1][0]);
+                    $result[]=trim($data[2][0]);
+                    $result[]=trim($data[3][0]);
+                    var_dump($result);
+                } else {
+                    $result="";
+                }
             } else if ($this->tld == 'cn') {
                 preg_match_all('/Sponsoring\sRegistrar:\s(.*)Name\sServer.*Registration\sTime:\s(.*)Expiration\sTime:\s(.*)DNSSEC/siU', $string_utf8, $data);
                 if (isset($data[2][0]) && isset($data[3][0])) {
