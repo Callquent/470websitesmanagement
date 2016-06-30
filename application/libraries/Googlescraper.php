@@ -10,8 +10,6 @@ class Googlescraper
 	private $metaurlList			=	"";
 	/*private $metatitleList			=	"";
 	private $metadescriptionList	=	"";*/
-	private $time1					=	1000000;
-	private $time2					=	2000000;
 	private $cookie					=	"";
 	private $header					=	"";
 	private $ei						=	"";
@@ -48,20 +46,16 @@ class Googlescraper
 		return $data;
 	}
 
-	function pause() {
-		usleep(rand($this->time1,$this->time2));
-	}
-
 	function initGoogle() {
 		$data=$this->getpagedata('https://www.google.com');
-		$this->pause();
+		sleep(2);
 		$this->getpagedata('https://www.google.com/ncr');
 	}
 
 	function fetchUrlList()
 	{
 		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num=100');
-		preg_match('/;ei=(.*?)&amp;/', $data, $matches);
+		preg_match('/;ei=(.*?)&amp;/siU', $data, $matches);
 		$this->ei=urlencode($matches[1]);
 		if ($data) {
 			if(preg_match("/sorry.google.com/", $data)) {
@@ -94,9 +88,9 @@ class Googlescraper
 	function getUrlList($keyword,$proxy='') {
 		$this->keyword=$keyword;
 		$this->initGoogle();
-		$this->pause();
+		sleep(2);
 		$this->fetchUrlList();
-		$this->pause();
+		sleep(2);
 		return $this->metaurlList;
 		/*return array($this->metatitleList, $this->metadescriptionList);*/
 	}

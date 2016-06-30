@@ -18,6 +18,7 @@ $( document ).ready(function() {
 				}
 			});
 		});
+		
 		$('#view-ftp').on('hide.bs.modal',function(event){
 			$('#table-ftp-dashboard').dataTable().fnClearTable();
 		});
@@ -164,7 +165,7 @@ $( document ).ready(function() {
 		function editRowCategory(categoryTable, nRow, nUrl) {
             var aData = categoryTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
-            var languageList;
+            var categoryList;
             jqTds[0].innerHTML = '<input type="text" class="form-control small" id="titlecategory" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
             jqTds[2].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
@@ -178,36 +179,38 @@ $( document ).ready(function() {
         }
 
 
-		$('#delete-category').on('show.bs.modal',function(event){
+		$('#delete-category').on('show.bs.modal',function(event) {
+			if (confirm('Voulez vous supprimer cette enregistrement')) {
+				var modal = $(this);
+				var id = $(event.relatedTarget).data('id');
 
-					$.getJSON( window.location.href+'/loadCategories/', function( data ) {
-						languageList = '<select id="category" class="form-control">';
-						$.each( data, function( key, val ) {
-							languageList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
-						});
-						languageList += '</select>';
-						$( "#delete-category .modal-body" ).append( languageList );
+				$('#form-category').attr("action",window.location.href+'/delete-category/'+id);
+				$.getJSON( window.location.href+'/loadCategories/', function( data ) {
+					categoryList = '<select id="category" name="category" class="form-control">';
+					$.each( data, function( key, val ) {
+						categoryList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
 					});
-
-		});
-        $(document).on('click', '#table-category #delete-dashboard', function (e) {
-            if (confirm('Voulez vous supprimer cette enregistrement')) {
-                $.ajax({
-                    type: "POST",
-                    url: $(this).attr('href'),
-                    data: $(this).serialize(),
-                    success: function(msg){
-                        var nRow = $('#table-dashboard #delete-dashboard').parents('tr')[0];
-                        dashboardTable.fnDeleteRow(nRow);
-                    },
-                    error: function(msg){
-                        console.log(msg);
-                    }
-                });
+					categoryList += '</select>';
+					$( "#delete-category .modal-body" ).append( categoryList );
+				});
             }
+		});
+		$('#form-category').submit(function(e) {
+            $.ajax({
+                type: "POST",
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                	$('#delete-category').modal('hide');
+                    var nRow = $('#table-category #delete-dashboard').parents('tr')[0];
+                    categoryTable.fnDeleteRow(nRow);
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
             e.preventDefault();
-        });
-
+		});
         $(document).on('click', '#table-category #cancel-dashboard', function (e) {
             e.preventDefault();
             if ($(this).attr("data-mode") == "new") {
@@ -284,7 +287,37 @@ $( document ).ready(function() {
 
             pTable.fnDraw();
         }
+        
+		$('#delete-language').on('show.bs.modal',function(event) {
+			var modal = $(this);
+			var id = $(event.relatedTarget).data('id');
 
+			$('#form-language').attr("action",window.location.href+'/delete-language/'+id);
+			$.getJSON( window.location.href+'/loadLanguages/', function( data ) {
+				languageList = '<select id="language" name="language" class="form-control">';
+				$.each( data, function( key, val ) {
+					languageList += '<option value="'+val.l_id+'">'+ val.l_title + '</option>';
+				});
+				languageList += '</select>';
+				$( "#delete-language .modal-body" ).append( languageList );
+			});
+		});
+		$('#form-language').submit(function(e) {
+            $.ajax({
+                type: "POST",
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                	$('#delete-language').modal('hide');
+                    var nRow = $('#table-language #delete-dashboard').parents('tr')[0];
+					languageTable.fnDeleteRow(nRow);
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
+            e.preventDefault();
+		});
         $(document).on('click', '#table-language #cancel-dashboard', function (e) {
             e.preventDefault();
             if ($(this).attr("data-mode") == "new") {
@@ -426,6 +459,8 @@ $( document ).ready(function() {
         $("#sortable-todo").sortable();
         
 		DraggablePortlet.init();
+	} else if (window.location.href.split('/').pop() == "seo-websites") {
+
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
 		TreeView.init();
 	} else if (window.location.href.split('/').pop() == "members") {

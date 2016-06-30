@@ -49,7 +49,7 @@
                                       <td><?php echo $row->c_title; ?></td>
                                       <?php if ($user_role[0]->name == "Developper") { ?>
                                         <td><a id="edit-dashboard" href="<?php echo site_url('category/edit-category/'.$row->c_id); ?>">Edit</a></td>
-                                        <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#delete-category">Delete</a></td>
+                                        <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#delete-category" data-id="<?php echo $row->c_id; ?>">Delete</a></td>
                                       <?php } ?>
                                     </tr>
                                   <?php } ?>
@@ -73,7 +73,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Delete Category</h4>
       </div>
-      <form id="form-email" method="post" action="<?php echo site_url('/category/delete-category/'); ?>">
+      <form id="form-category" method="post" action="#">
         <div class="modal-body">
         </div>
         <div class="modal-footer ">

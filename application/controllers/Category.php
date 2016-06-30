@@ -66,9 +66,9 @@ class Category extends CI_Controller {
 	{
 		$c_id_new = $this->input->post('category');
 
-		if ($this->model_front->get_category($c_id)->num_rows() == 1){
-			$this->model_language->transfert_website_language($c_id_old, $c_id_new);
-			$this->model_front->delete_category($c_id);
+		if ($this->model_front->get_category($c_id_old)->num_rows() == 1){
+			$this->model_category->transfert_website_category($c_id_old, $c_id_new);
+			$this->model_category->delete_category($c_id_old);
 		}
 	}
 }

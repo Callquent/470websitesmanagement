@@ -49,8 +49,8 @@
                                       <td><?php echo $row->l_title; ?></td>
                                       <?php if ($user_role[0]->name == "Developper") { ?>
                                         <td><a id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->l_id); ?>">Edit</a></td>
-                                        <td><a id="delete-dashboard" href="<?php echo site_url('language/delete-language/'.$row->l_id); ?>">Delete</a></td>
-                                    <?php } ?>
+                                        <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#delete-language" data-id="<?php echo $row->l_id; ?>">Delete</a></td>
+                                      <?php } ?>
                                     </tr>
                                   <?php } ?>
                                 </tbody>
@@ -65,4 +65,23 @@
     </section>
     <!--main content end-->
 </section>
+
+<div class="modal fade" id="delete-language" tabindex="-1" role="dialog" aria-labelledby="delete-language" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-success">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Delete Language</h4>
+      </div>
+      <form id="form-language" method="post" action="#">
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer ">
+          <button type="submit" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-share"></span> Envoyer</button>
+          <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <?php $this->load->view('include/footer.php'); ?>

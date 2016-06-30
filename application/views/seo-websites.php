@@ -100,7 +100,4 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  var end = '<?php echo $all_websites; ?>';
-</script>
 <?php $this->load->view('include/footer.php'); ?>

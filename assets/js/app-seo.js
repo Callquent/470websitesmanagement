@@ -37,20 +37,34 @@ $( document ).ready(function() {
 		init++;
 	} while (init < end);*/
 
-var seoTable = $('#table-seo').DataTable({
+var seoTable = $('#table-seo').dataTable({
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
     "processing": true, //Feature control the processing indicator.
     "serverSide": true, //Feature control DataTables' server-side processing mode.
     "order": [], //Initial no order.
-
+    "dom": 'lBfrtip',
+    "buttons": [
+        {
+            extend: 'collection',
+            text: 'Export',
+            buttons: [
+                'copy',
+                'excel',
+                'csv',
+                'pdf',
+                'print'
+            ]
+        }
+    ],
     "ajax": {
-        "url":  window.location.href+'/metawebsite/',
+        "url":  window.location.href+'/ajaxSeowebsites/',
         "type": "POST"
     },
 
     //Set column definition initialisation properties.
     "columnDefs": [
     { 
-        "targets": [ -1 ], //last column
+        "targets": [ 0 ], //last column
         "orderable": false, //set not orderable
     },
     ],

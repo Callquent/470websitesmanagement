@@ -21,13 +21,13 @@ class Model_category extends CI_Model {
 		$this->db->where('c_id', $c_id)
 				 ->update('470websitesmanagement_category', $data);
 	}
-	function transfert_website_language($c_id_old, $c_id_new)
+	function transfert_website_category($c_id_old, $c_id_new)
 	{
 		$data = array(
-			'c_id' => $c_id_old,
+			'c_id' => $c_id_new,
 		);
 
-		$this->db->where('c_id', $c_id_new)
+		$this->db->where('c_id', $c_id_old)
 				 ->update('470websitesmanagement_info', $data);
 	}
 	function delete_category($c_id)

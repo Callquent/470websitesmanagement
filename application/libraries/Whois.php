@@ -124,13 +124,22 @@ class Whois
                 } else {
                     $result="";
                 }
-            }  else if ($this->tld == 'pl') {
+            } else if ($this->tld == 'pl') {
                 preg_match_all('/created:(.*\...\...).*renewal\sdate:(.*\...\...).*REGISTRAR:\n(.*)\n/siU', $string_utf8, $data);
-                if (isset($data[3][0]) && isset($data[2][0])) {
+                if (isset($data[1][0]) && isset($data[2][0])) {
                     $result[]=trim($data[1][0]);
                     $result[]=trim($data[2][0]);
                     $result[]=trim($data[3][0]);
-                    var_dump($result);
+                    
+                } else {
+                    $result="";
+                }
+            } else if ($this->tld == 'jp') {
+                preg_match_all('/\[登録年月日\](.*)\[有効期限\](.*)\[状態\]/siU', $string_utf8, $data);
+                if (isset($data[1][0]) && isset($data[2][0])) {
+                    $result[]=trim($data[1][0]);
+                    $result[]=trim($data[2][0]);
+                    $result[]=null;
                 } else {
                     $result="";
                 }

@@ -158,7 +158,7 @@ class Model_front extends CI_Model {
 	function get_category($id)
 	{
 		$this->db->select('*')
-				->from('category')
+				->from('470websitesmanagement_category')
 				->where('c_id', $id)
 				->limit(1);
 
@@ -168,7 +168,7 @@ class Model_front extends CI_Model {
 	function get_language($id)
 	{
 		$this->db->select('*')
-				->from('language')
+				->from('470websitesmanagement_language')
 				->where('l_id', $id)
 				->limit(1);
 

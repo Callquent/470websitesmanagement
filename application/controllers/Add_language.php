@@ -9,7 +9,7 @@ class Add_language extends CI_Controller {
 		// Chargement des ressources pour ce controller
 		$this->load->database();
 		$this->load->model('model_front');
-		$this->load->model('model_category');
+		$this->load->model('model_language');
 		$this->load->model('model_settings');
 		$this->load->library("Aauth");
 		$this->load->library(array('form_validation', 'session'));
@@ -54,7 +54,7 @@ class Add_language extends CI_Controller {
 		$l_color = $this->input->post('colorlanguage');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_category->create_language($l_title, $l_color);
+			$this->model_language->create_language($l_title, $l_color);
 		}
 	}
 }

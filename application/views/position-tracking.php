@@ -24,28 +24,18 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-                                    <h4>Nom de Domaine inclus : .com, .net, .org, .uk, .cn, .paris, .ovh, .fr, .it, .ru, .jp, .pl</h4>
+                                    <h4>Gestion du parc : <?php echo $all_domains; ?> Domaines et <?php echo $all_subdomains; ?> Sous-domaines</h4>
                                 </div>
-                                <div class="btn-group pull-right">
-                                    <a href="#" id="load-whois" class="btn btn-primary" role="button">Télécharger Whois</a>
-                                </div>
-
-                                <div class="progress progress-striped active progress-sm">
-                                    <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                        <span class="sr-only">45% Complete</span>
-                                    </div>
-                                </div>
-
                             </div>
                             <div class="space15"></div>
-                            <table class="table table-striped table-hover table-bordered table-dashboard" id="table-whois">
+                            <table class="table table-striped table-hover table-bordered table-dashboard" id="table-dashboard">
                                 <thead>
                                   <tr>
                                       <th>Nom</th>
                                       <th>Site Web</th>
-                                      <th>Hebergeur</th>
-                                      <th>Date de mise en ligne</th>
-                                      <th>Date d'expiration</th>
+                                      <th>Adresse IP</th>
+                                      <th>Mots Clés</th>
+                                      <th>Statistiques</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -60,6 +50,5 @@
         <!-- page end-->
         </section>
     </section>
-    <!--main content end-->
-</section>
+    <!--main 
 <?php $this->load->view('include/footer.php'); ?>

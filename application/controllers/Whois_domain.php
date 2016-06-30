@@ -60,7 +60,7 @@ class Whois_domain extends CI_Controller {
 			foreach ($all_whois->result() as $row)
 			{
 				$list = array();
-				$list[] = $row->w_title;;
+				$list[] = $row->w_title;
 				$list[] = '<a href="'.prep_url($row->w_url_rw).'" target="_blank">'.$row->w_url_rw.'</a>';
 				$list[] = $row->register;
 				$list[] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
@@ -84,16 +84,15 @@ class Whois_domain extends CI_Controller {
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
 			$all_websites = $this->model_front->get_all_websites();
-			/*$all_count_websites = $this->model_front->count_all_websites()->row()->count_all_websites;
-			$i*100/$all_count_websites;*/
 			set_time_limit(0);
 			foreach ($all_websites->result() as $row) {
 				if ($this->model_whois->check_whois($row->w_id)->w_id_info != $row->w_id) {
 					$domain = new Whois($row->w_url_rw);
 					$whois = $domain->lookup();
+					var_dump($whois);
 					$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 					$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
-					$this->model_whois->create_all_whois($row->w_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null),trim($whois[3]));
+					$this->model_whois->create_all_whois($row->w_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
 					$pos = strrpos($row->w_url_rw, ".fr");
 					if (!$pos === false) {
 						sleep(10);
@@ -103,7 +102,7 @@ class Whois_domain extends CI_Controller {
 					$whois = $domain->lookup();
 					$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 					$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
-					$this->model_whois->update_whois($row->w_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null),trim($whois[3]));
+					$this->model_whois->update_whois($row->w_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
 					$pos = strrpos($row->w_url_rw, ".fr");
 					if (!$pos === false) {
 						sleep(10);

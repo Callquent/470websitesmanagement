@@ -54,34 +54,39 @@
 
         /*var myLine = new Chart(document.getElementById("bar-chart-js").getContext("2d")).Bar(barChartData);*/
 
+        if (document.getElementById("line-chart-positiontracking")) {
+            var data = {
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [
+                    {
+                        label: "My First dataset",
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderColor: "rgba(75,192,192,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                    }
+                ]
+            };
 
-        var Linedata = {
-            labels : ["January","February","March","April","May","June","July"],
-            datasets : [
-                {
-                    fillColor : "#E67A77",
-                    strokeColor : "#E67A77",
-                    pointColor : "#E67A77",
-                    pointStrokeColor : "#fff",
-                    data : [100,159,190,281,156,155,140]
-                },
-                {
-                    fillColor : "#79D1CF",
-                    strokeColor : "#79D1CF",
-                    pointColor : "#79D1CF",
-                    pointStrokeColor : "#fff",
-                    data : [65,59,90,181,56,55,40]
-                },
-                {
-                    fillColor : "#D9DD81",
-                    strokeColor : "#D9DD81",
-                    pointColor : "#D9DD81",
-                    pointStrokeColor : "#fff",
-                    data : [28,48,40,19,96,27,100]
-                }
-
-            ]
+            var ctx = document.getElementById("line-chart-positiontracking").getContext("2d");
+            var myPie = new Chart(ctx,{ type: 'line', data: data });            
         }
+
+
         var options ={
             tooltips: {
                 callbacks: {
@@ -99,11 +104,11 @@
             }
         };
 
-       var ctx = document.getElementById("pie-chart-language").getContext("2d");
-       var myPie = new Chart(ctx,{ type: 'pie', data: pieDataLanguage, options: options });
+        var ctx = document.getElementById("pie-chart-language").getContext("2d");
+        var myPie = new Chart(ctx,{ type: 'pie', data: pieDataLanguage, options: options });
 
-       var ctx = document.getElementById("pie-chart-category").getContext("2d");
-       var myPie = new Chart(ctx,{ type: 'pie', data: pieDataCategory, options: options });
+        var ctx = document.getElementById("pie-chart-category").getContext("2d");
+        var myPie = new Chart(ctx,{ type: 'pie', data: pieDataCategory, options: options });
 
 
         var donutData = [

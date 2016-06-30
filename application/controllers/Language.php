@@ -55,10 +55,20 @@ class Language extends CI_Controller {
 			$this->model_language->update_language($l_id, $l_title);
 		}
 	}
-	public function delete_language($l_id = '')
+	public function loadLanguages(){
+		$data['all_languages'] = $this->model_front->get_all_languages();
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output( json_encode($data['all_languages']->result()));
+	}
+	public function delete_language($l_id_old = '')
 	{
-		if ($this->model_front->get_language($l_id)->num_rows() == 1){
-			$this->model_language->delete_language($l_id);
+		$c_id_new = $this->input->post('language');
+
+		if ($this->model_front->get_language($l_id_old)->num_rows() == 1){
+			$this->model_language->transfert_website_language($l_id_old, $l_id_new);
+			$this->model_language->delete_language($l_id_old);
 		}
 	}
 }

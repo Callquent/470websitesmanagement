@@ -70,7 +70,7 @@
               <h4 class="modal-title custom_align" id="Heading">Afficher FTP</h4>
             </div>
             <div class="modal-body">
-              <form id="acces-ftp" class="form-horizontal" role="form">
+              <form id="acces-ftp" class="form-horizontal" role="form" action="#">
                 <fieldset>
                  <table class="table table-striped table-hover table-bordered table-dashboard" id="table-ftp-dashboard">
                       <thead>
@@ -102,7 +102,7 @@
               <h4 class="modal-title custom_align" id="Heading">Afficher SQL</h4>
             </div>
             <div class="modal-body">
-              <form id="acces-sql" class="form-horizontal" role="form">
+              <form id="acces-sql" class="form-horizontal" role="form" action="#">
                 <fieldset>
                  <table class="table table-striped table-hover table-bordered table-dashboard" id="table-database-dashboard">
                       <thead>
@@ -135,7 +135,7 @@
               <h4 class="modal-title custom_align" id="Heading">Afficher le site web</h4>
             </div>
             <div class="modal-body">
-              <form id="acces-backoffice" class="form-horizontal" role="form">
+              <form id="acces-backoffice" class="form-horizontal" role="form" action="#">
                 <fieldset>
                  <table class="table table-striped table-hover table-bordered table-dashboard" id="table-backoffice-dashboard">
                       <thead>

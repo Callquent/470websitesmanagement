@@ -62,9 +62,19 @@
                         <li><a href="<?php echo site_url('seo-websites'); ?>">Website Scapper Google</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript:;">
+                        <i class="fa fa-bar-chart"></i>
+                        <span>Position Tracking</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="<?php echo site_url('position-tracking'); ?>">Position Tracking Google</a></li>
+                        <li><a href="<?php echo site_url('position-tracking'); ?>">Edit Keyword Google</a></li>
+                    </ul>
+                </li>
                 <?php if ($user_role[0]->name == "Developper") { ?>
                 <li>
-                    <span>Administrator : </span>
+                    <span>Administration : </span>
                 </li>
                 <li class="sub-menu">
                     <a href="<?php echo site_url('language'); ?>">
@@ -77,6 +87,9 @@
                         <i class="fa fa-th"></i>
                         <span><?php echo lang('categories'); ?></span>
                     </a>
+                </li>
+                <li>
+                    <span>Administration : </span>
                 </li>
                 <li>
                     <a href="<?php echo site_url('members'); ?>">
