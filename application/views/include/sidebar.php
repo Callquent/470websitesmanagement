@@ -55,7 +55,7 @@
                 <li>
                     <a href="javascript:;">
                         <i class="fa fa-bar-chart"></i>
-                        <span>SEO</span>
+                        <span>Meta SEO</span>
                     </a>
                     <ul class="sub">
                         <li><a href="<?php echo site_url('seo-websites'); ?>">Search Scapper Google</a></li>

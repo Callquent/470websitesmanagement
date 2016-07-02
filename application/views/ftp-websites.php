@@ -25,36 +25,7 @@
 
             <div class="row">
 
-                <div class="col-md-6">
-                    <div class="panel">
-                        <div class="panel-heading">
-                            Tree Style #1
-                          <span class="tools pull-right">
-                                <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                <a class="fa fa-cog" href="javascript:;"></a>
-                                <a class="fa fa-times" href="javascript:;"></a>
-                            </span>
-                        </div>
-                        <div class="panel-body">
-                            <div id="FlatTree" class="tree tree-plus-minus">
-                                <div class = "tree-folder" style="display:none;">
-                                    <div class="tree-folder-header">
-                                        <i class="fa fa-folder"></i>
-                                        <div class="tree-folder-name"></div>
-                                    </div>
-                                    <div class="tree-folder-content"></div>
-                                    <div class="tree-loader" style="display:none"></div>
-                                </div>
-                                <div class="tree-item" style="display:none;">
-                                    <i class="tree-dot"></i>
-                                    <div class="tree-item-name"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="panel">
                         <div class="panel-heading">
                             Tree Style #2

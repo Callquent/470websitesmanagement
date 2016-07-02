@@ -45,6 +45,7 @@
                                 <th>SERP</th>
                                 <th>Meta Title</th>
                                 <th>Meta Description</th>
+                                <th>Meta Robots</th>
                                 <?php if($this->uri->total_segments() != 2){ ?>
                                   <th>Analyse Site</th>
                                 <?php } ?>

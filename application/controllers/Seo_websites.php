@@ -56,7 +56,40 @@ class Seo_websites extends CI_Controller {
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
-			$obj = new Googlescraper();
+			$all_websites = $this->model_front->get_all_websites();
+			$count_websites =  $this->model_front->count_all_websites();
+
+			foreach ($all_websites->result() as $row)
+			{
+				$parser = new WebsiteParser($row->w_url_rw);
+				$meta_tags = $parser->getMetaTags(true);
+				$meta_title = $parser->getTitle(true);
+				$meta_description = "";
+
+				foreach ($meta_tags as $meta_tag){
+					if ($meta_tag[0] == 'description') {
+						$meta_description = $meta_tag[1];
+					}
+					if ($meta_tag[0] == 'robots') {
+						$meta_robots = $meta_tag[1];
+					}
+				}
+				$list = array();
+				$list[] = $row->w_title;
+				$list[] = '<a href="https://www.google.com/search?q=info:'.$row->w_url_rw.'" target="_blank">'.$row->w_url_rw.'</a>';
+				$list[] = html_entity_decode($meta_title,ENT_QUOTES);
+				$list[] = html_entity_decode($meta_description,ENT_QUOTES);
+				$list[] = html_entity_decode($meta_robots,ENT_QUOTES);
+				$list[] = '<a href="'.site_url('seo-websites/'.$row->w_id).'" class="viewdata btn btn-success btn-xs" data-toggle="modal"><span class="fa fa-eye"></a>';
+
+				$data[] = $list;
+			}
+			$output = array("draw" => $_POST['draw'],
+				"recordsTotal" => $all_websites->num_rows(),
+				"recordsFiltered" => $count_websites->num_rows(),
+				"data" => $data);
+			echo json_encode($output);
+			/*$obj = new Googlescraper();
 
 			$all_websites = $this->model_front->get_all_websites();
 			$count_websites =  $this->model_front->count_all_websites();
@@ -67,13 +100,13 @@ class Seo_websites extends CI_Controller {
 				$list[] = $obj->getUrlList('site:'.$row->w_url_rw);
 
 				$data[] = $list;
-			}
+			}*/
 			/*$output = array("draw" => $_POST['draw'],
 							"recordsTotal" => $all_whois->num_rows(),
 							"recordsFiltered" => $count_websites->num_rows(),
 							"data" => $data);
 			echo json_encode($output);*/
-			var_dump($data);
+			/*var_dump($data);*/
 		}else {
 			$this->load->view('index');
 		}

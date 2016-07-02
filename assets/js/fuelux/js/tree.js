@@ -6,6 +6,7 @@
  */
 
 !function ($) {
+
 	var Tree = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.tree.defaults, options);
@@ -108,18 +109,16 @@
 				data.push($el.data());
 			}
 
-			if (this.options.selectable) {
-				var eventType = 'selected';
-				if($el.hasClass('tree-selected')) {
-					eventType = 'unselected';
-					$el.removeClass('tree-selected');
-					$el.find('i').removeClass('icon-ok').addClass('tree-dot');
-				} else {
-					$el.addClass ('tree-selected');
-					$el.find('i').removeClass('tree-dot').addClass('icon-ok');
-					if (this.options.multiSelect) {
-						data.push( $el.data() );
-					}
+			var eventType = 'selected';
+			if($el.hasClass('tree-selected')) {
+				eventType = 'unselected';
+				$el.removeClass('tree-selected');
+				$el.find('i').removeClass('icon-ok').addClass('tree-dot');
+			} else {
+				$el.addClass ('tree-selected');
+				$el.find('i').removeClass('tree-dot').addClass('icon-ok');
+				if (this.options.multiSelect) {
+					data.push( $el.data() );
 				}
 			}
 
@@ -206,27 +205,32 @@
 
 	// TREE PLUGIN DEFINITION
 
-	$.fn.tree = function (option, value) {
+	$.fn.tree = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('tree');
+			var $this   = $( this );
+			var data    = $this.data( 'tree' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('tree', (data = new Tree(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('tree', (data = new Tree( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.tree.defaults = {
-		selectable: true,
 		multiSelect: false,
 		loadingHTML: '<div>Loading...</div>',
 		cacheItems: true
 	};
 
 	$.fn.tree.Constructor = Tree;
+
+	$.fn.tree.noConflict = function () {
+		$.fn.tree = old;
+		return this;
+	};
 }(window.jQuery);

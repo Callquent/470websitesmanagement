@@ -46,11 +46,11 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			$data['list'] = $this->ftp->list_files('/public_html');
-			
+			var_dump($this->ftp->connect);
+
+			$data['list'] = $this->ftp->list_files('/public_html/');
 			foreach ($data['list'] as $row) {
-				/*$this->abc($row)*/
-				var_dump(is_dir($row));
+				var_dump($this->ftp->list_files('/public_html/wp-signup.php'));
 				if (is_file($row)) {
 					$tree_data[] = array('name' => ltrim($row,'/'), 'type' => 'file-o');
 				} else {
