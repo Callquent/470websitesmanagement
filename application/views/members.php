@@ -38,7 +38,7 @@
                                         <?php } elseif($row->name_group=="Visitor") { ?>
                                             <div class="twt-feed green-bg">
                                         <?php } ?>
-                                            <div class="fa fa-twitter wtt-mark"></div>
+                                            <div class="fa fa-user wtt-mark"></div>
                                             <a href="#">
                                                 <img alt="" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>">
                                             </a>

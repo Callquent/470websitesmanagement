@@ -22,20 +22,8 @@
                     <div class="panel-body">
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
-                                <div class="btn-group">
-                                  <h4>Gestion du parc : <?php echo $all_domains; ?> Domaines et <?php echo $all_subdomains; ?> Sous-domaines</h4>
-                                </div>
                                 <div class="btn-group pull-right">
                                   <button class="btn btn-success btn-ls" data-title="Ajouter" data-toggle="modal" data-target="#serptools" >Simulateur de SERP</button>
-                                </div>
-                                <div class="btn-group pull-right">
-                                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="#">Print</a></li>
-                                        <li><a href="#">Save as PDF</a></li>
-                                        <li><a href="#">Export to Excel</a></li>
-                                    </ul>
                                 </div>
                             </div>
                             <div class="space15"></div>

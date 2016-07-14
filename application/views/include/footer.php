@@ -63,9 +63,14 @@
 		<?php echo js_url('js/jquery.validate.min.js'); ?>
 		<?php echo js_url('js/app-add-newelement.js'); ?>
 	<?php } ?>
-	<?php if ($this->uri->segment(1)=='seo-websites') { ?>
+	<?php if ($this->uri->segment(1)=='website-scrapper-google' || $this->uri->segment(1)=='search-scrapper-google') { ?>
 		<?php echo js_url('js/data-tables/jquery.dataTables.min.js'); ?>
+		<?php echo js_url('js/data-tables/Buttons/js/dataTables.buttons.js'); ?>
+		<?php echo js_url('js/data-tables/Buttons/js/buttons.flash.js'); ?>
+		<?php echo js_url('js/data-tables/Buttons/js/buttons.html5.js'); ?>
+		<?php echo js_url('js/data-tables/Buttons/js/buttons.print.js'); ?>
 		<?php echo js_url('js/data-tables/DT_bootstrap.js'); ?>
+		<?php echo js_url('js/data-tables/dataTables.tableTools.js'); ?>
 		<?php echo js_url('js/app-seo.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='settings') { ?>

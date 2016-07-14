@@ -1,11 +1,8 @@
-$( document ).ready(function() {
-
+$(document).ready(function(){
 
 	if (window.location.href.split('/').pop() == "all-websites" || window.location.href.split('/').pop() == "website-category" || window.location.href.split('/').pop() == "website-language") {
-		$('#view-ftp').on('show.bs.modal',function(event){
-			var modal = $(this);
-			var id = $(event.relatedTarget).data('id');
-
+		$(document).on('click', '.access-ftp', function(e) {
+			var id = $(this).data('id');
 			$.ajax({
 				type: "POST",
 				url: window.location.href+'/modal-ftp-website/'+id,
@@ -17,15 +14,15 @@ $( document ).ready(function() {
 					alert("failure");
 				}
 			});
+			e.preventDefault();
 		});
 		
 		$('#view-ftp').on('hide.bs.modal',function(event){
 			$('#table-ftp-dashboard').dataTable().fnClearTable();
 		});
-		$('#view-database').on('show.bs.modal',function(event){
-			var modal = $(this);
-			var id = $(event.relatedTarget).data('id');
+		$(document).on('click', '.access-sql', function(e) {
 
+			var id = $(this).data('id');
 			$.ajax({
 				type: "POST",
 				url: window.location.href+'/modal-database-website/'+id,
@@ -37,13 +34,14 @@ $( document ).ready(function() {
 					alert("failure");
 				}
 			});
+			e.preventDefault();
 		});
 		$('#view-database').on('hide.bs.modal',function(event){
 			$('#table-database-dashboard').dataTable().fnClearTable();
 		});
-		$('#view-backoffice').on('show.bs.modal',function(event){
-			var modal = $(this);
-			var id = $(event.relatedTarget).data('id');
+		$(document).on('click', '.access-backoffice', function(e) {
+
+			var id = $(this).data('id');
 			$.ajax({
 				type: "POST",
 				url: window.location.href+'/modal-backoffice-website/'+id,
@@ -55,6 +53,7 @@ $( document ).ready(function() {
 					alert("failure");
 				}
 			});
+			e.preventDefault();
 		});
 		$('#view-backoffice').on('hide.bs.modal',function(event){
 			$('#table-backoffice-dashboard').dataTable().fnClearTable();
@@ -459,8 +458,77 @@ $( document ).ready(function() {
         $("#sortable-todo").sortable();
         
 		DraggablePortlet.init();
-	} else if (window.location.href.split('/').pop() == "seo-websites") {
-
+	} else if (window.location.href.split('/').pop() == "website-scrapper-google") {
+		var seoTable = $('#table-seo').dataTable({
+		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+		    "processing": true,
+		    "serverSide": true,
+		    "order": [],
+		    "dom": 'lBfrtip',
+		    "buttons": [
+		        {
+		            extend: 'collection',
+		            text: 'Export',
+		            buttons: [
+		                'copy',
+		                'excel',
+		                'csv',
+		                'pdf',
+		                'print'
+		            ]
+		        }
+		    ],
+		    "ajax": {
+		        "url":  window.location.href+'/ajaxWebsiteScrapperGoogle/',
+		        "type": "POST"
+		    },
+		    "columnDefs": [
+			    {
+			        "targets": [ 0 ],
+			        "orderable": false,
+			    },
+		    ],
+		});
+	} else if (window.location.href.split('/').pop() == "search-scrapper-google") {
+		var searchgoogleTable = $('#table-search-scrapper-google').DataTable({
+		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+		    "order": [],
+		    "dom": 'lBfrtip',
+		    "buttons": [
+		        {
+		            extend: 'collection',
+		            text: 'Export',
+		            buttons: [
+		                'copy',
+		                'excel',
+		                'csv',
+		                'pdf',
+		                'print'
+		            ]
+		        }
+		    ],
+		    "columnDefs": [
+			    {
+			        "targets": [ 0 ],
+			        "orderable": false,
+			    },
+		    ],
+		});
+		$('#form-search-scrapper-google').submit(function(e) {
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data: $(this).serialize(),
+				success: function(data){
+					var jsdata = JSON.parse(data);
+					$('#table-search-scrapper-google').DataTable().rows.add(jsdata).draw();
+				},
+				error: function(){
+					console.log(msg);
+				}
+			});
+			e.preventDefault();
+		});
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
 		TreeView.init();
 	} else if (window.location.href.split('/').pop() == "members") {
@@ -497,7 +565,7 @@ $( document ).ready(function() {
 			$.ajax({
 				type: "POST",
 				url: $(this).attr('action'),
-				data:$(this).serialize(),
+				data: $(this).serialize(),
 				success: function(msg){
 					/*event.relatedTarget.dataset.idgroup = msg;*/
 					/*$(event.relatedTarget).data('idgroup', msg);*/

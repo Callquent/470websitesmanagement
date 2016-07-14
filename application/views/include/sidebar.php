@@ -58,8 +58,8 @@
                         <span>Meta SEO</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="<?php echo site_url('seo-websites'); ?>">Search Scapper Google</a></li>
-                        <li><a href="<?php echo site_url('seo-websites'); ?>">Website Scapper Google</a></li>
+                        <li><a href="<?php echo site_url('search-scrapper-google'); ?>">Search Scrapper Google</a></li>
+                        <li><a href="<?php echo site_url('website-scrapper-google'); ?>">Website Scrapper Google</a></li>
                     </ul>
                 </li>
                 <li>

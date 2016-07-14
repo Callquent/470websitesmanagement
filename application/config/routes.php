@@ -53,6 +53,6 @@ $route['default_controller'] = 'index';
 $route['ftp-websites/(:any)'] = 'ftp-websites/index/$1';
 $route['website-category/(:any)'] = 'website-category/index/$1';
 $route['website-language/(:any)'] = 'website-language/index/$1';
-/*$route['seo-websites/(:any)'] = 'seo-websites/index/$1';*/
+$route['website-scapper-google/(:num)'] = 'website-scapper-google/index/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;

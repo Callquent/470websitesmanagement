@@ -1,7 +1,7 @@
 <?php $this->load->view('include/header.php'); ?>
 
 <div class="pen-title">
-	<h1>Websites Management</h1>
+	<h1>470 WEBSITESMANAGEMENT</h1>
 </div>
 <!-- Form Module-->
 <div class="module form-module">
