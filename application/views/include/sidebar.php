@@ -11,7 +11,7 @@
                 </li>
                 <li>
                     <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
+                        <i class="fa fa-desktop"></i>
                         <span>Website Management</span>
                     </a>
                     <ul class="sub">
@@ -54,7 +54,7 @@
                 </li>
                 <li>
                     <a href="javascript:;">
-                        <i class="fa fa-bar-chart"></i>
+                        <i class="fa fa-list-ul"></i>
                         <span>Meta SEO</span>
                     </a>
                     <ul class="sub">

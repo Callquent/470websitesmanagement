@@ -520,6 +520,7 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(data){
+					$('#table-search-scrapper-google').DataTable().rows().remove().draw();
 					var jsdata = JSON.parse(data);
 					$('#table-search-scrapper-google').DataTable().rows.add(jsdata).draw();
 				},

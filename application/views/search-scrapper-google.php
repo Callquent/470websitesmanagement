@@ -30,7 +30,7 @@
                         <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
                             <div class="form-group">
                                 <div class="col-lg-10">
-                                    <input type="keyword-google" class="form-control" id="keyword-google" placeholder="Search">
+                                    <input type="keyword-google" class="form-control" name="keyword-google" id="keyword-google" placeholder="Search">
                                 </div>
                             </div>
                             <div class="form-group">

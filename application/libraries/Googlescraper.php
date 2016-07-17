@@ -6,10 +6,8 @@
  */
 class Googlescraper
 {
-	private $keyword				=	"testing";
+	private $keyword				=	"";
 	private $metaurlList			=	"";
-	/*private $metatitleList			=	"";
-	private $metadescriptionList	=	"";*/
 	private $cookie					=	"";
 	private $header					=	"";
 	private $ei						=	"";
@@ -54,7 +52,7 @@ class Googlescraper
 
 	function fetchUrlList()
 	{
-		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num=100');
+		$data=$this->getpagedata('https://www.google.com/search?q='.urlencode($this->keyword).'&num=100');
 		preg_match('/;ei=(.*?)&amp;/siU', $data, $matches);
 		$this->ei=urlencode($matches[1]);
 		if ($data) {
@@ -63,18 +61,10 @@ class Googlescraper
 				exit;
 			} else {
 				preg_match_all('/<div\s*class="g">.*<h3\s*class="r"><a\s[^>]*href\s*=\s*\"([^\"]*)\"[^>]*>.*<\/a><\/h3>.*<\/div>/siU', $data, $meta_url);
-				/*preg_match_all('/<div\s*class="g">.*<h3\s*class="r"><a\s[^>]*href\s*=\s*\"([^\"]*)\"[^>]*>(.*)<\/a><\/h3>.*<\/div>/siU', $data, $meta_title);
-				preg_match_all('/<span\s*class="st">((<span\s*class="f">(.*)<\/span>(.*))<\/span>|(.*)<\/span>)/siU', $data, $meta_description);*/
 				for ($j = 0; $j <= 100; $j++) {
 					if (isset($meta_url[1][$j]) && !is_null($meta_url[1][$j])) {
 						$this->metaurlList[] =  html_entity_decode($meta_url[1][$j],ENT_QUOTES);
 					}
-					/*if (isset($meta_title[2][$j]) && !is_null($meta_title[2][$j])) {
-						$this->metatitleList[] =  html_entity_decode($meta_title[2][$j],ENT_QUOTES);
-					}
-					if (isset($meta_description[3][$j]) && isset($meta_description[4][$j]) && isset($meta_description[5][$j])) {
-						$this->metadescriptionList[] = ($meta_description[3][$j].$meta_description[4][$j].$meta_description[5][$j]);
-					}*/
 				}
 			}
 		} 
@@ -92,7 +82,6 @@ class Googlescraper
 		$this->fetchUrlList();
 		sleep(2);
 		return $this->metaurlList;
-		/*return array($this->metatitleList, $this->metadescriptionList);*/
 	}
 }	
 ?>

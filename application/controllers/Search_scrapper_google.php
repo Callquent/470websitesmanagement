@@ -75,9 +75,9 @@ class Search_scrapper_google extends CI_Controller {
 
 				$list = array();
 				$list[] = '<a href="https://www.google.com/search?q=info:'.$row.'" target="_blank">'.$row.'</a>';
-				$list[] = utf8_encode((isset($meta_title)?$meta_title:""));
-				$list[] = utf8_encode((isset($meta_description)?$meta_description:""));
-				$list[] = utf8_encode((isset($meta_robots)?$meta_robots:""));
+				$list[] = htmlentities((isset($meta_title)?$meta_title:""), ENT_QUOTES, "UTF-8");
+				$list[] = htmlentities((isset($meta_description)?$meta_description:""), ENT_QUOTES, "UTF-8");
+				$list[] = htmlentities((isset($meta_robots)?$meta_robots:""), ENT_QUOTES, "UTF-8");
 
 				$data[] = $list;
 			}
