@@ -594,7 +594,7 @@ $(document).ready(function(){
 				e.preventDefault();
 			});
 	} else if (window.location.href.split('/').pop() == "index") {
-		$('.toggle').click(function(){
+/*		$('.toggle').click(function(){
 			$(this).children('i').toggleClass('fa-pencil');
 			$('.form-login-account').animate({
 				height: "toggle",
@@ -608,15 +608,9 @@ $(document).ready(function(){
 				'padding-bottom': 'toggle',
 				opacity: "toggle"
 			}, "slow");
-			/*$('.form-login-account').fadeOut();
-			$('.form-create-account').fadeIn();
-			$(this).addClass("toggle-in").removeClass("toggle");*/
 		});
 		$('.toggle-in').click(function(){
 			$(this).children('i').toggleClass('fa-pencil');
-			/*$('.form-create-account').fadeOut();
-			$('.form-login-account').fadeIn();
-			$(this).addClass("toggle").removeClass("toggle-in");*/
 		});
 		$('.link-forgot-password').click(function(){
 			if ($('.form-login-account').is(':visible')) {
@@ -641,11 +635,8 @@ $(document).ready(function(){
 				opacity: "toggle"
 			}, "slow");
 			$('.toggle').toggle();
-			/*$('.form-login-account').fadeOut();
-			$('.form-create-account').fadeOut();
-			$('.forgot-your-password').fadeIn();*/
 			$(this).text('Already have an account?');
-		});
+		});*/
 		$("#forgotpasswordform").submit(function(e){
 
 			console.log($(this).attr('action'));

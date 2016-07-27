@@ -76,6 +76,7 @@ a,a:hover,a:focus {
     margin-bottom:14px;
 }
 .form-signin .checkbox {
+    padding-left: 20px;
     font-weight:normal;
     color:#b6b6b6;
     font-weight:300;
@@ -4097,7 +4098,7 @@ tr.odd.gradeX td.sorting_1,tr.even.gradeX td.sorting_1,table.display tr.even.gra
 }
 /*lock screen*/
 .lock-screen {
-    background: #1FB3A3 url("../images/lock-screen.jpg") no-repeat fixed 0 0 / cover;
+    background: #1FB3A3 url("../img/app/lock-screen.jpg") no-repeat fixed 0 0 / cover;
 }
 .lock-wrapper {
     margin:10% auto;
