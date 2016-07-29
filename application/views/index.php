@@ -21,7 +21,7 @@
 	<body class="lock-screen">
 
 <div class="pen-title">
-	<h1>470 WEBSITESMANAGEMENT</h1>
+	<h1>470 WEBSITES MANAGEMENT</h1>
 </div>
 
 

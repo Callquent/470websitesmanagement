@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Sam 04 Juin 2016 à 06:59
+-- Généré le :  Ven 29 Juillet 2016 à 06:51
 -- Version du serveur :  5.7.9
 -- Version de PHP :  5.6.16
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_backoffice` (
   `w_password_bo` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_bo`,`w_id_info`),
   KEY `fk_id_bo` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -45,10 +45,10 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_backoffice` (
 DROP TABLE IF EXISTS `470websitesmanagement_category`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_category` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
-  `c_title` varchar(255) NOT NULL,
-  `c_title_url` varchar(255) NOT NULL,
+  `c_title` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `c_title_url` varchar(255) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,8 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_database` (
   `w_password_db` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_db`,`w_id_info`),
   KEY `fk_id_db` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_ftp` (
   `w_password_ftp` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_ftp`,`w_id_info`),
   KEY `fk_id_ftp` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -102,7 +103,8 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_info` (
   UNIQUE KEY `w_url_rw` (`w_url_rw`),
   KEY `fk_c_id` (`c_id`),
   KEY `l_id` (`l_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -135,6 +137,38 @@ INSERT INTO `470websitesmanagement_language` (`l_id`, `l_title`, `l_title_url`, 
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `470websitesmanagement_positiontracking`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_positiontracking`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_positiontracking` (
+  `w_id_pt` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `w_id_info` int(11) UNSIGNED NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`w_id_pt`,`w_id_info`),
+  KEY `fk_id_positiontracking` (`w_id_info`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_positiontracking_scheduled`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_positiontracking_scheduled`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_positiontracking_scheduled` (
+  `w_id_ptsd` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `w_id_pt` int(11) UNSIGNED NOT NULL,
+  `list_website_position` text CHARACTER SET utf8 NOT NULL,
+  `position` int(11) NOT NULL,
+  `date_position` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`w_id_ptsd`,`w_id_pt`),
+  KEY `fk_id_positiontracking_sc` (`w_id_pt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `470websitesmanagement_settings`
 --
 
@@ -144,14 +178,14 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_settings` (
   `name_s` varchar(255) NOT NULL,
   `value_s` text NOT NULL,
   PRIMARY KEY (`id_s`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `470websitesmanagement_settings`
 --
 
 INSERT INTO `470websitesmanagement_settings` (`id_s`, `name_s`, `value_s`) VALUES
-(1, 'lang', 'french');
+(1, 'lang', 'a:2:{s:4:"file";s:2:"fr";s:8:"language";s:6:"french";}');
 
 -- --------------------------------------------------------
 
@@ -161,16 +195,16 @@ INSERT INTO `470websitesmanagement_settings` (`id_s`, `name_s`, `value_s`) VALUE
 
 DROP TABLE IF EXISTS `470websitesmanagement_whois`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
+  `w_id_info` int(10) UNSIGNED NOT NULL,
+  `w_id_whois` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `whois` text,
   `creation_date` date DEFAULT NULL,
   `expiration_date` date DEFAULT NULL,
   `register` varchar(255) DEFAULT NULL,
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `w_id_whois` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `w_id_info` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`w_id_whois`,`w_id_info`),
   KEY `fk_id_whois` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=238 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -297,7 +331,6 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `aauth_user_to_group`
@@ -309,6 +342,7 @@ CREATE TABLE IF NOT EXISTS `aauth_user_to_group` (
   `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -354,6 +388,18 @@ ALTER TABLE `470websitesmanagement_ftp`
 ALTER TABLE `470websitesmanagement_info`
   ADD CONSTRAINT `fk_c_id` FOREIGN KEY (`c_id`) REFERENCES `470websitesmanagement_category` (`c_id`),
   ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`l_id`) REFERENCES `470websitesmanagement_language` (`l_id`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_positiontracking`
+--
+ALTER TABLE `470websitesmanagement_positiontracking`
+  ADD CONSTRAINT `fk_id_positiontracking` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_info` (`w_id`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_positiontracking_scheduled`
+--
+ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
+  ADD CONSTRAINT `fk_id_positiontracking_sc` FOREIGN KEY (`w_id_pt`) REFERENCES `470websitesmanagement_positiontracking` (`w_id_pt`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_whois`

@@ -36,7 +36,7 @@ class Index extends CI_Controller {
 			redirect(site_url('dashboard'));
 		}
 	}
-	public function registration()
+/*	public function registration()
 	{
 		$name = $this->input->post('name');
 		$password = $this->input->post('password');
@@ -55,7 +55,7 @@ class Index extends CI_Controller {
 			$this->session->set_flashdata('success', 'Votre profil a bien été creée.');
 			redirect(site_url('dashboard'));
 		}
-	}
+	}*/
 	public function remind_password()
 	{
 		$config['mailtype'] = "html";
