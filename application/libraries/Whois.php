@@ -97,6 +97,15 @@ class Whois
                 } else {
                     $result="";
                 }
+            } else if ($this->tld  == 'ie') {
+                preg_match_all('/registration:(.*)renewal:(.*)holder-type:/siU', $string_utf8, $data);
+                if (isset($data[2][0]) && isset($data[3][0])) {
+                    $result[]=trim($data[2][0]);
+                    $result[]=trim($data[3][0]);
+                    $result[]=trim($data[1][0]);
+                } else {
+                    $result="";
+                }
             } else if ($this->tld  == 'it') {
                 preg_match_all('/Created:(.*-..-..).*Expire\sDate:\s(.*)\sRegistrant.*Registrar.*Organization:(.*)Name/siU', $string_utf8, $data);
                 if (isset($data[1][0]) && isset($data[2][0])) {
