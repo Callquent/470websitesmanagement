@@ -65,6 +65,7 @@ class Whois_domain extends CI_Controller {
 				$list[] = $row->register;
 				$list[] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
 				$list[] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
+				$list[] = '<a  class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->w_id.'">Whois</a>';
 
 				$data[] = $list;
 			}
@@ -109,6 +110,21 @@ class Whois_domain extends CI_Controller {
 					}
 				}
 			}
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function modal_whois($w_id = '')
+	{
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+			$whois = $this->model_whois->check_whois($w_id)->whois;
+
+			$datatable = array(0 => $whois);
+
+			echo $whois;
 		}else {
 			$this->load->view('index');
 		}

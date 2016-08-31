@@ -435,6 +435,24 @@ $(document).ready(function(){
 			}
 			e.preventDefault();
 		});
+		$(document).on('click', '.access-whois', function(e) {
+
+			var id = $(this).data('id');
+			$.ajax({
+				type: "POST",
+				url: window.location.href+'/modal-whois/'+id,
+				success: function(data){		
+					$( "#view-whois .modal-body" ).append("<pre>"+data+"</pre>");
+				},
+				error: function(){
+					alert("failure");
+				}
+			});
+			e.preventDefault();
+		});
+		$('#view-whois').on('hide.bs.modal',function(event){
+			$( "#view-whois .modal-body pre" ).remove();
+		});
 	} else if (window.location.href.split('/').pop() == "tasks") {
         $('.todo-check label').click(function () {
             $(this).parents('li').children('.todo-title').toggleClass('line-through');

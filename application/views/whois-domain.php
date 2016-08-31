@@ -24,7 +24,7 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-                                    <h4>Nom de Domaine inclus : .com, .net, .org, .uk, .cn, .paris, .ovh, .fr, .it, .ru, .jp, .pl</h4>
+                                    <h4>Nom de Domaine inclus : .com, .net, .org, .uk, .ie, .paris, .ovh, .fr, .it, .se, .fi, .ru, .cn, .jp, .dk, .pl</h4>
                                 </div>
                                 <div class="btn-group pull-right">
                                     <a href="#" id="load-whois" class="btn btn-primary" role="button">Télécharger Whois</a>
@@ -46,6 +46,7 @@
                                       <th>Hebergeur</th>
                                       <th>Date de mise en ligne</th>
                                       <th>Date d'expiration</th>
+                                      <th>Whois</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -57,9 +58,30 @@
                 </section>
             </div>
         </div>
-        <!-- page end-->
         </section>
     </section>
-    <!--main content end-->
 </section>
+      <div class="modal fade" id="view-whois" tabindex="-1" role="dialog" aria-labelledby="view" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header modal-header-success">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+              <h4 class="modal-title custom_align" id="Heading">Afficher Whois</h4>
+            </div>
+            <div class="modal-body">
+              <form id="acces-ftp" class="form-horizontal" role="form" action="#">
+                <fieldset>
+                 <table class="table table-striped table-hover table-bordered table-dashboard" id="table-ftp-dashboard">
+                      <thead>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                  </table>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 <?php $this->load->view('include/footer.php'); ?>

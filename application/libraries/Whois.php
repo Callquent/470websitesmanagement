@@ -99,10 +99,10 @@ class Whois
                 }
             } else if ($this->tld  == 'ie') {
                 preg_match_all('/registration:(.*)renewal:(.*)holder-type:/siU', $string_utf8, $data);
-                if (isset($data[2][0]) && isset($data[3][0])) {
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
+                if (isset($data[1][0]) && isset($data[2][0])) {
                     $result[]=trim($data[1][0]);
+                    $result[]=trim($data[2][0]);
+                    $result[]=null;
                 } else {
                     $result="";
                 }
@@ -124,6 +124,42 @@ class Whois
                 } else {
                     $result="";
                 }
+            } else if ($this->tld  == 'pt') {
+                preg_match_all('/Creation\sDate\s\(dd\/mm\/yyyy\):\s(.*)Data.*Expiration\sDate\s\(dd\/mm\/yyyy\):\s(.*)Estado/siU', $string_utf8, $data);
+                if (isset($data[3][0]) && isset($data[2][0])) {
+                    $result[]=trim($data[3][0]);
+                    $result[]=trim($data[2][0]);
+                    $result[]=trim($data[1][0]);
+                } else {
+                    $result="";
+                }
+            } else if ($this->tld  == 'se') {
+                preg_match_all('/created:(.*)modified:.*expires:(.*)transferred:.*registrar:(.*)$/siU', $string_utf8, $data);
+                if (isset($data[1][0]) && isset($data[2][0])) {
+                    $result[]=trim($data[1][0]);
+                    $result[]=trim($data[2][0]);
+                    $result[]=trim($data[3][0]);
+                } else {
+                    $result="";
+                }
+            } else if ($this->tld  == 'fi') {
+                preg_match_all('/created:(.*)modified:.*expires:(.*)nserver/siU', $string_utf8, $data);
+                if (isset($data[1][0]) && isset($data[2][0])) {
+                    $result[]=trim($data[1][0]);
+                    $result[]=trim($data[2][0]);
+                    $result[]=null;
+                } else {
+                    $result="";
+                }
+            } else if ($this->tld  == 'dk') {
+                preg_match_all('/Registered:(.*)Expires:(.*)Registration\speriod:/siU', $string_utf8, $data);
+                if (isset($data[1][0]) && isset($data[2][0])) {
+                    $result[]=trim($data[1][0]);
+                    $result[]=trim($data[2][0]);
+                    $result[]=null;
+                } else {
+                    $result="";
+                }
             } else if ($this->tld == 'ru') {
                 preg_match_all('/registrar:\s(.*)admin-contact.*created:\s(.*)\spaid-till:\s(.*)\sfree-date/siU', $string_utf8, $data);
                 if (isset($data[3][0]) && isset($data[2][0])) {
@@ -134,11 +170,11 @@ class Whois
                     $result="";
                 }
             } else if ($this->tld == 'pl') {
-                preg_match_all('/created:(.*\...\...).*renewal\sdate:(.*\...\...).*REGISTRAR:\n(.*)\n/siU', $string_utf8, $data);
+                preg_match_all('/created:\s(.*\...\...).*renewal\sdate:\s(.*\...\...).*REGISTRAR:/siU', $string_utf8, $data);
                 if (isset($data[1][0]) && isset($data[2][0])) {
                     $result[]=trim($data[1][0]);
                     $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
+                    $result[]=null;
                     
                 } else {
                     $result="";

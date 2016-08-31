@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Import extends CI_Controller {
+class Export extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
@@ -27,7 +27,6 @@ class Import extends CI_Controller {
 	{
 		$key = bin2hex($this->encryption->create_key(6));
 		var_dump($key);
-		$config['encryption_key'] = 'ewKU0KcTsIeXa5JhfLNP0e6gDGuG2PHP';
 		$this->encryption->initialize(
 			array(
 			        'cipher' => 'aes-256',

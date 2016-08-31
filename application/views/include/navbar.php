@@ -15,7 +15,8 @@
     <a href="<?php echo site_url('add-website'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Website</a>
     <a href="<?php echo site_url('add-category'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Category</a>
     <a href="<?php echo site_url('add-language'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Language</a>
-    <a href="<?php echo site_url('import'); ?>" class="btn btn-warning"><i class="fa fa-reply"></i> Import CSV</a>
+    <a href="<?php echo site_url('export'); ?>" class="btn btn-warning"><i class="fa fa-share"></i> Export</a>
+    <a href="<?php echo site_url('import'); ?>" class="btn btn-warning"><i class="fa fa-reply"></i> Import</a>
 </div>
 
 <div class="top-nav clearfix">
