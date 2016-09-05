@@ -139,7 +139,22 @@ $(document).ready(function(){
 			});
 			e.preventDefault();
 		});
-	} else if (window.location.href.split('/').pop() == "dashboard") {
+	} else if (window.location.href.split('/').pop() == "export") {
+		$('#form-export a').click(function(e) {
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('href'),
+				success: function(msg){
+					$('#form-export #keysecrete').val(msg);
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+			e.preventDefault();
+		});
+	} else if (window.location.href.split('/').pop() == "import") {
+
 
 	} else if (window.location.href.split('/').pop() == "category") {
         var categoryTable = $('#table-category').dataTable({

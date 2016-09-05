@@ -25,31 +25,6 @@ class Import extends CI_Controller {
 	}
 	public function index()
 	{
-		$key = bin2hex($this->encryption->create_key(6));
-		var_dump($key);
-		$config['encryption_key'] = 'ewKU0KcTsIeXa5JhfLNP0e6gDGuG2PHP';
-		$this->encryption->initialize(
-			array(
-			        'cipher' => 'aes-256',
-			        'mode' => 'ctr',
-			        'key' => $key
-			)
-		);
-		$ciphertext = $this->encryption->encrypt('Nom,"Site Web","Hebergeur","Date de mise en ligne","Date d ,expiration","Whois"');
-		var_dump($ciphertext);
-		$reponse=$this->encryption->decrypt($ciphertext);
-		var_dump($reponse);
-
-		$this->load->helper('file');
-		if ( ! write_file('c:/websitesmanagement.470', $ciphertext))
-		{
-		    echo 'Unable to write the file';
-		}
-		else
-		{
-		    echo 'File written!';
-		}
-
 		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
@@ -66,6 +41,35 @@ class Import extends CI_Controller {
 			$data['user_role'] = $this->aauth->get_user_groups();
 
 			$this->load->view('import', $data);
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function import_470websitesmanagement()
+	{
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+			$key_secrete = $_POST['keysecrete'];
+			$this->encryption->initialize(
+				array(
+				        'cipher' => 'aes-256',
+				        'mode' => 'ctr',
+				        'key' => $key_secrete
+				)
+			);
+			var_dump($_FILES['importfile']);
+
+			if ($_FILES['importfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['importfile']['tmp_name']))
+			{
+				$file = file_get_contents($_FILES['importfile']['tmp_name']);
+			}
+			
+			$decrypt=$this->encryption->decrypt($file);
+			var_dump($decrypt);
+
+			echo $decrypt;
 		}else {
 			$this->load->view('index');
 		}
