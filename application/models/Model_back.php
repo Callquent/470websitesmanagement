@@ -108,4 +108,55 @@ class Model_back extends CI_Model {
 		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_whois');
 		$this->db->where('w_id', $id)->delete('470websitesmanagement_info');
 	}
+	function export_website()
+	{
+		$sql = "";
+
+		$query_info = $this->db->get('470websitesmanagement_info');
+		foreach ($query_info->result() as $row) {
+			$data = array(
+				'w_id' => $row->w_id,
+				'c_id'  => $row->c_id,
+				'l_id'  => $row->l_id,
+				'w_title' => $row->w_title,
+				'w_url_rw'  => $row->w_url_rw
+			);
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_info').";";
+		}
+		$query_ftp = $this->db->get('470websitesmanagement_ftp');
+		foreach ($query_ftp->result() as $row) {
+			$data = array(
+				'w_id_ftp' => $row->w_id_ftp,
+				'w_id_info'  => $row->w_id_info,
+				'w_host_ftp'  => $row->w_host_ftp,
+				'w_login_ftp'  => $row->w_login_ftp,
+				'w_password_ftp' => $row->w_password_ftp
+			);
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_ftp').";";
+		}
+		$query_database = $this->db->get('470websitesmanagement_database');
+		foreach ($query_database->result() as $row) {
+			$data = array(
+				'w_id_db' => $row->w_id_db,
+				'w_id_info'  => $row->w_id_info,
+				'w_host_db'  => $row->w_host_db,
+				'w_name_db' => $row->w_name_db,
+				'w_login_db' => $row->w_login_db,
+				'w_password_db'  => $row->w_password_db
+			);
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_database').";";
+		}
+		$query_backoffice = $this->db->get('470websitesmanagement_backoffice');
+		foreach ($query_backoffice->result() as $row) {
+			$data = array(
+				'w_id_bo' => $row->w_id_bo,
+				'w_id_info'  => $row->w_id_info,
+				'w_login_bo'  => $row->w_login_bo,
+				'w_password_bo' => $row->w_password_bo
+			);
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_backoffice').";";
+		}
+
+		return $sql;
+	}
 }

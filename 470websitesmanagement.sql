@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 29 Juillet 2016 à 06:51
+-- Généré le :  Mar 06 Septembre 2016 à 06:54
 -- Version du serveur :  5.7.9
 -- Version de PHP :  5.6.16
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_backoffice` (
   `w_password_bo` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_bo`,`w_id_info`),
   KEY `fk_id_bo` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -66,8 +66,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_database` (
   `w_password_db` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_db`,`w_id_info`),
   KEY `fk_id_db` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -84,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_ftp` (
   `w_password_ftp` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_ftp`,`w_id_info`),
   KEY `fk_id_ftp` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -103,8 +102,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_info` (
   UNIQUE KEY `w_url_rw` (`w_url_rw`),
   KEY `fk_c_id` (`c_id`),
   KEY `l_id` (`l_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=6002 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -204,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`w_id_whois`,`w_id_info`),
   KEY `fk_id_whois` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=238 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -331,6 +329,7 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `aauth_user_to_group`
@@ -342,7 +341,6 @@ CREATE TABLE IF NOT EXISTS `aauth_user_to_group` (
   `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 

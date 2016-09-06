@@ -65,7 +65,8 @@ class Export extends CI_Controller {
 				        'key' => $key_secrete
 				)
 			);
-			$crypt = $this->encryption->encrypt('Nom,"Site Web","Hebergeur","Date de mise en ligne","Date d ,expiration","Whois"');
+			$content = $this->model_back->export_website();
+			$crypt = $this->encryption->encrypt($content);
 
 			echo $crypt;
 		}else {
