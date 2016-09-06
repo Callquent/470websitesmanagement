@@ -112,17 +112,26 @@ class Model_back extends CI_Model {
 	{
 		$sql = "";
 
-		$query_info = $this->db->get('470websitesmanagement_info');
-		foreach ($query_info->result() as $row) {
+		$query_language = $this->db->get('470websitesmanagement_language');
+		foreach ($query_language->result() as $row) {
 			$data = array(
-				'w_id' => $row->w_id,
-				'c_id'  => $row->c_id,
-				'l_id'  => $row->l_id,
-				'w_title' => $row->w_title,
-				'w_url_rw'  => $row->w_url_rw
+				'l_id' => $row->l_id,
+				'l_title'  => $row->l_title,
+				'l_title_url'  => $row->l_title_url,
+				'l_color'  => $row->l_color
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_info').";";
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_language').";";
 		}
+		$query_category = $this->db->get('470websitesmanagement_category');
+		foreach ($query_category->result() as $row) {
+			$data = array(
+				'c_id' => $row->c_id,
+				'c_title'  => $row->c_title,
+				'c_title_url'  => $row->c_title_url
+			);
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_category').";";
+		}
+
 		$query_ftp = $this->db->get('470websitesmanagement_ftp');
 		foreach ($query_ftp->result() as $row) {
 			$data = array(
@@ -155,6 +164,17 @@ class Model_back extends CI_Model {
 				'w_password_bo' => $row->w_password_bo
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_backoffice').";";
+		}
+		$query_info = $this->db->get('470websitesmanagement_info');
+		foreach ($query_info->result() as $row) {
+			$data = array(
+				'w_id' => $row->w_id,
+				'c_id'  => $row->c_id,
+				'l_id'  => $row->l_id,
+				'w_title' => $row->w_title,
+				'w_url_rw'  => $row->w_url_rw
+			);
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_info').";";
 		}
 
 		return $sql;
