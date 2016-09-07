@@ -132,6 +132,17 @@ class Model_back extends CI_Model {
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_category').";";
 		}
 
+		$query_info = $this->db->get('470websitesmanagement_info');
+		foreach ($query_info->result() as $row) {
+			$data = array(
+				'w_id' => $row->w_id,
+				'c_id'  => $row->c_id,
+				'l_id'  => $row->l_id,
+				'w_title' => $row->w_title,
+				'w_url_rw'  => $row->w_url_rw
+			);
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_info').";";
+		}
 		$query_ftp = $this->db->get('470websitesmanagement_ftp');
 		foreach ($query_ftp->result() as $row) {
 			$data = array(
@@ -165,18 +176,26 @@ class Model_back extends CI_Model {
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_backoffice').";";
 		}
-		$query_info = $this->db->get('470websitesmanagement_info');
-		foreach ($query_info->result() as $row) {
+
+		$query_whois = $this->db->get('470websitesmanagement_whois');
+		foreach ($query_whois->result() as $row) {
 			$data = array(
-				'w_id' => $row->w_id,
-				'c_id'  => $row->c_id,
-				'l_id'  => $row->l_id,
-				'w_title' => $row->w_title,
-				'w_url_rw'  => $row->w_url_rw
+				'w_id_info' => $row->w_id_info,
+				'w_id_whois'  => $row->w_id_whois,
+				'whois'  => $row->whois,
+				'creation_date' => $row->creation_date,
+				'expiration_date'  => $row->expiration_date,
+				'registrar'  => $row->registrar,
+				'release_date_whois'  => $row->release_date_whois
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_info').";";
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_whois').";";
 		}
 
 		return $sql;
+	}
+	function import_website($decrypt)
+	{
+		var_dump($decrypt);
+		$this->db->query($decryp);
 	}
 }

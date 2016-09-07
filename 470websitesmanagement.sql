@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
   `whois` text,
   `creation_date` date DEFAULT NULL,
   `expiration_date` date DEFAULT NULL,
-  `register` varchar(255) DEFAULT NULL,
+  `registrar` varchar(255) DEFAULT NULL,
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`w_id_whois`,`w_id_info`),
   KEY `fk_id_whois` (`w_id_info`)

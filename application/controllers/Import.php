@@ -59,17 +59,15 @@ class Import extends CI_Controller {
 				        'key' => $key_secrete
 				)
 			);
-			var_dump($_FILES['importfile']);
-
 			if ($_FILES['importfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['importfile']['tmp_name']))
 			{
 				$file = file_get_contents($_FILES['importfile']['tmp_name']);
 			}
 			
-			$decrypt=$this->encryption->decrypt($file);
-			var_dump($decrypt);
+			$decrypt = $this->encryption->decrypt($file);
+			$this->model_back->import_website($decrypt);
 
-			echo $decrypt;
+			/*var_dump($decrypt);*/
 		}else {
 			$this->load->view('index');
 		}
