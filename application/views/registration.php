@@ -24,7 +24,7 @@
 	<h1>470 WEBSITES MANAGEMENT</h1>
 </div>
     <div class="container">
-      <form action="<?php echo site_url('registration'); ?>" method="post" id="loginform" class="form-signin">
+      <form action="<?php echo site_url('registration/create'); ?>" method="post" id="loginform" class="form-signin">
         <h2 class="form-signin-heading">registration now</h2>
         <div class="login-wrap">
             <p>Enter your personal details below</p>
@@ -36,7 +36,21 @@
                 <input type="checkbox" value="agree this condition"> I agree to the Terms of Service and Privacy Policy
             </label>
             <button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
+            <?php if($this->session->flashdata('success')){ ?>
+            <div class="alert alert-success">
+                <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
+            </div>
+            <?php } ?>
+            <?php if($this->session->flashdata('disconnect')){ ?>
+            <div class="alert alert-danger">
+                <?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
+            </div>
+            <?php } ?>
 
+            <?php if(validation_errors()){
+                echo validation_errors('<div class="alert alert-danger">', ' <a class="close" data-dismiss="alert" href="#">×</a></div>');
+            } ?>
+                
             <div class="registration">
                 Already Registered.
                 <a class="" href="<?php echo site_url('index'); ?>">

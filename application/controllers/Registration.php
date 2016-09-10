@@ -16,7 +16,7 @@ class Registration extends CI_Controller {
 	{
 		$this->load->view('registration');
 	}
-	public function registration()
+	public function create()
 	{
 		$name = $this->input->post('name');
 		$password = $this->input->post('password');
@@ -27,12 +27,13 @@ class Registration extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('index');
+			$this->load->view('registration');
 		}
 		else
 		{
 			$new_user = $this->aauth->create_user($email, $password, $name);
 			$this->session->set_flashdata('success', 'Votre profil a bien été creée.');
+			$this->load->view('index');
 		}
 	}
 }

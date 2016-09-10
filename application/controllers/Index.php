@@ -36,26 +36,6 @@ class Index extends CI_Controller {
 			redirect(site_url('dashboard'));
 		}
 	}
-/*	public function registration()
-	{
-		$name = $this->input->post('name');
-		$password = $this->input->post('password');
-		$email = $this->input->post('email');
-
-		$this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[4]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
-
-		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('index');
-		}
-		else
-		{
-			$new_user = $this->aauth->create_user($email, $password, $name);
-			$this->session->set_flashdata('success', 'Votre profil a bien été creée.');
-			redirect(site_url('dashboard'));
-		}
-	}*/
 	public function remind_password()
 	{
 		$config['mailtype'] = "html";

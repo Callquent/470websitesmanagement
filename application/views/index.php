@@ -133,15 +133,16 @@
 		              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		              <h4 class="modal-title">Forgot Password ?</h4>
 		          </div>
-		          <div class="modal-body">
-		              <p>Enter your e-mail address below to reset your password.</p>
-		              <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-
-		          </div>
-		          <div class="modal-footer">
-		              <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-		              <button class="btn btn-success" type="button">Submit</button>
-		          </div>
+					<form action="<?php echo site_url('index/remind_password'); ?>" method="post" id="forgotpasswordform" class="form-horizontal" role="form">
+			          <div class="modal-body">
+			              <p>Enter your e-mail address below to reset your password.</p>
+			              <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+			          </div>
+			          <div class="modal-footer">
+			              <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+			              <button class="btn btn-success" type="submit">Submit</button>
+			          </div>
+			        </form>
 		      </div>
 		  </div>
 		</div>
