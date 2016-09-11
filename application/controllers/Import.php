@@ -67,7 +67,6 @@ class Import extends CI_Controller {
 			$decrypt = $this->encryption->decrypt($file);
 			$this->model_back->import_website($decrypt);
 
-			/*var_dump($decrypt);*/
 		}else {
 			$this->load->view('index');
 		}

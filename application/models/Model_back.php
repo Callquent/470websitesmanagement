@@ -195,7 +195,6 @@ class Model_back extends CI_Model {
 	}
 	function import_website($decrypt)
 	{
-		var_dump($decrypt);
-		$this->db->query($decryp);
+		$this->db->query($decrypt);
 	}
 }
