@@ -116,9 +116,9 @@ class Model_back extends CI_Model {
 		foreach ($query_language->result() as $row) {
 			$data = array(
 				'l_id' => $row->l_id,
-				'l_title'  => $row->l_title,
-				'l_title_url'  => $row->l_title_url,
-				'l_color'  => $row->l_color
+				'l_title' => $row->l_title,
+				'l_title_url' => $row->l_title_url,
+				'l_color' => $row->l_color
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_language').";";
 		}
