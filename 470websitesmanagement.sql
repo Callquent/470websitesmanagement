@@ -233,6 +233,34 @@ INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `aauth_group_to_group`
+--
+
+DROP TABLE IF EXISTS `aauth_group_to_group`;
+CREATE TABLE IF NOT EXISTS `aauth_group_to_group` (
+  `group_id` int(11) UNSIGNED NOT NULL,
+  `subgroup_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`group_id`,`subgroup_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `aauth_login_attempts`
+--
+
+DROP TABLE IF EXISTS `aauth_login_attempts`;
+CREATE TABLE IF NOT EXISTS `aauth_login_attempts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(39) DEFAULT '0',
+  `timestamp` datetime DEFAULT NULL,
+  `login_attempts` tinyint(2) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `aauth_perms`
 --
 
@@ -252,8 +280,8 @@ CREATE TABLE IF NOT EXISTS `aauth_perms` (
 
 DROP TABLE IF EXISTS `aauth_perm_to_group`;
 CREATE TABLE IF NOT EXISTS `aauth_perm_to_group` (
-  `perm_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `perm_id` int(11) UNSIGNED NOT NULL,
+  `group_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`perm_id`,`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -265,8 +293,8 @@ CREATE TABLE IF NOT EXISTS `aauth_perm_to_group` (
 
 DROP TABLE IF EXISTS `aauth_perm_to_user`;
 CREATE TABLE IF NOT EXISTS `aauth_perm_to_user` (
-  `perm_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `perm_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`perm_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -285,22 +313,10 @@ CREATE TABLE IF NOT EXISTS `aauth_pms` (
   `message` text,
   `date_sent` datetime DEFAULT NULL,
   `date_read` datetime DEFAULT NULL,
+  `pm_deleted_sender` int(1) DEFAULT NULL,
+  `pm_deleted_receiver` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `full_index` (`id`,`sender_id`,`receiver_id`,`date_read`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_system_variables`
---
-
-DROP TABLE IF EXISTS `aauth_system_variables`;
-CREATE TABLE IF NOT EXISTS `aauth_system_variables` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `key` varchar(100) NOT NULL,
-  `value` text,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -314,20 +330,19 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
   `pass` varchar(64) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
   `banned` tinyint(1) DEFAULT '0',
   `last_login` datetime DEFAULT NULL,
   `last_activity` datetime DEFAULT NULL,
-  `last_login_attempt` datetime DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
   `forgot_exp` text,
   `remember_time` datetime DEFAULT NULL,
   `remember_exp` text,
   `verification_code` text,
   `totp_secret` varchar(16) DEFAULT NULL,
   `ip_address` text,
-  `login_attempts` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -337,8 +352,8 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
 
 DROP TABLE IF EXISTS `aauth_user_to_group`;
 CREATE TABLE IF NOT EXISTS `aauth_user_to_group` (
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `group_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`user_id`,`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -352,7 +367,7 @@ DROP TABLE IF EXISTS `aauth_user_variables`;
 CREATE TABLE IF NOT EXISTS `aauth_user_variables` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(11) UNSIGNED NOT NULL,
-  `key` varchar(100) NOT NULL,
+  `data_key` varchar(100) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`)

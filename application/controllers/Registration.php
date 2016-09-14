@@ -31,7 +31,7 @@ class Registration extends CI_Controller {
 		}
 		else
 		{
-			$new_user = $this->aauth->create_user($email, $password, $name);
+			$this->aauth->create_user($email, $password, $name);
 			$this->session->set_flashdata('success', 'Votre profil a bien été creée.');
 			$this->load->view('index');
 		}

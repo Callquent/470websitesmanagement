@@ -52,7 +52,7 @@ class ReCaptcha
      *
      * @param string $secret shared secret between site and ReCAPTCHA server.
      */
-    function ReCaptcha($secret)
+    public function __construct($secret)
     {
         if ($secret == null || $secret == "") {
             die("To use reCAPTCHA you must get an API key from <a href='"
@@ -126,7 +126,6 @@ class ReCaptcha
         $answers = json_decode($getResponse, true);
         $recaptchaResponse = new ReCaptchaResponse();
 
-        print_r($answers);
         if (trim($answers['success']) == true) {
             $recaptchaResponse->success = true;
         } else {

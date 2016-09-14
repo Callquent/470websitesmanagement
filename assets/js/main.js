@@ -627,7 +627,7 @@ $(document).ready(function(){
 				e.preventDefault();
 			});
 	} else if (window.location.href.split('/').pop() == "index") {
-		$("#forgotpasswordform").submit(function(e){
+		/*$("#forgotpasswordform").submit(function(e){
 
 			console.log($(this).attr('action'));
 			console.log($(this).serialize());
@@ -656,7 +656,7 @@ $(document).ready(function(){
 				}
 			});
 			e.preventDefault();
-		});
+		});*/
 	}
 	$('li.language a').click(function(e) {
 		$.ajax({

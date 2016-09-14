@@ -35,7 +35,7 @@ class Edit_keyword_google extends CI_Controller {
 			$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
 			$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
 			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
-			$data['login'] = $this->session->userdata['name'];
+			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
 
 			$this->load->view('all-websites', $data);
