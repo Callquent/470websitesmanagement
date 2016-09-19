@@ -15,6 +15,7 @@
 		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/blue-theme.css'); ?>
 		<?php echo css_url('css/theme-responsive.css'); ?>
+		<?php echo css_url('css/jquery.steps.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
 		<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 	</head>

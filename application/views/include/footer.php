@@ -76,6 +76,8 @@
 	<?php if ($this->uri->segment(1)=='settings') { ?>
 		<?php echo js_url('js/bootstrap-fileupload/bootstrap-fileupload.js'); ?>
 	<?php } ?>
+		<?php echo js_url('js/jquery-steps/jquery.steps.js'); ?>
+
 	<?php echo js_url('js/scripts.js'); ?>
 	<?php echo js_url('js/main.js'); ?>
 	</body>
