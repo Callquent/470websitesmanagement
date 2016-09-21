@@ -12,10 +12,6 @@ class Install extends CI_Controller {
 	}
 	public function index()
 	{
-		$this->load->database();
-		
-		$contenu=file_get_contents(FCPATH."470websitesmanagement.sql");
-		$this->db->query($contenu);
 		$this->load->view('install');
 	}
 	public function step1()
@@ -42,6 +38,11 @@ class Install extends CI_Controller {
 		fclose($text2);
 
 		$this->load->database();
+		if ( $this->load->database() === FALSE )
+		{
+			$contenu=file_get_contents(FCPATH."470websitesmanagement.sql");
+			mysqli_multi_query($this->db->conn_id, $contenu);
+		}
 	}
 	public function step2()
 	{
