@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controllerindex/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'install';
+$route['default_controller'] = 'index';
 $route['ftp-websites/(:any)'] = 'ftp-websites/index/$1';
 $route['website-category/(:any)'] = 'website-category/index/$1';
 $route['website-language/(:any)'] = 'website-language/index/$1';

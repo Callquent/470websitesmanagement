@@ -93,7 +93,6 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_language` (
   `l_id` int(11) NOT NULL AUTO_INCREMENT,
   `l_title` varchar(255) NOT NULL,
   `l_title_url` varchar(255) NOT NULL,
-  `l_color` varchar(7) NOT NULL,
   PRIMARY KEY (`l_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
@@ -101,14 +100,14 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_language` (
 -- Contenu de la table `470websitesmanagement_language`
 --
 
-INSERT INTO `470websitesmanagement_language` (`l_id`, `l_title`, `l_title_url`, `l_color`) VALUES
-(1, 'HTML', 'html', '#E44D26'),
-(2, 'Ruby on Rails', 'ruby-on-rails', '#C61704'),
-(3, 'Django', 'django', '#FFE873'),
-(4, 'Wordpress', 'wordpress', '#B1B1B1'),
-(5, 'Prestashop', 'prestashop', '#E40B70'),
-(6, 'Joomla', 'joomla', '#91BC53'),
-(8, 'Drupal', 'drupal', '#00A9DF');
+INSERT INTO `470websitesmanagement_language` (`l_id`, `l_title`, `l_title_url`) VALUES
+(1, 'HTML', 'html'),
+(2, 'Ruby on Rails', 'ruby-on-rails'),
+(3, 'Django', 'django'),
+(4, 'Wordpress', 'wordpress'),
+(5, 'Prestashop', 'prestashop'),
+(6, 'Joomla', 'joomla'),
+(8, 'Drupal', 'drupal');
 
 -- --------------------------------------------------------
 

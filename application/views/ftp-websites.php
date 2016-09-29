@@ -21,35 +21,33 @@
                              </span>
                         </header>
                         <div class="panel-body">
-                            <?php var_dump($list); ?>
 
             <div class="row">
-
                 <div class="col-md-12">
                     <div class="panel">
                         <div class="panel-heading">
                             Tree Style #2
-                         <span class="tools pull-right">
-                                <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                <a class="fa fa-cog" href="javascript:;"></a>
-                                <a class="fa fa-times" href="javascript:;"></a>
-                            </span>
                         </div>
                         <div class="panel-body">
-                            <div id="FlatTree2" class="tree">
-                                <div class = "tree-folder" style="display:none;">
-                                    <div class="tree-folder-header">
-                                        <i class="fa fa-folder"></i>
-                                        <div class="tree-folder-name"></div>
-                                    </div>
-                                    <div class="tree-folder-content"></div>
-                                    <div class="tree-loader" style="display:none"></div>
+                            <ul class="tree tree-folder-select" role="tree" id="myTree">
+                              <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                                <div class="tree-branch-header">
+                                  <button type="button" class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
+                                  <button type="button" class="tree-branch-name">
+                                    <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+                                    <span class="tree-label"></span>
+                                  </button>
                                 </div>
-                                <div class="tree-item" style="display:none;">
-                                    <i class="tree-dot"></i>
-                                    <div class="tree-item-name"></div>
-                                </div>
-                            </div>
+                                <ul class="tree-branch-children" role="group"></ul>
+                                <div class="tree-loader" role="alert">Loading...</div>
+                              </li>
+                              <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                                <button type="button" class="tree-item-name">
+                                  <span class="glyphicon icon-item fueluxicon-bullet"></span>
+                                  <span class="tree-label"></span>
+                                </button>
+                              </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

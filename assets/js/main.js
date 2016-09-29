@@ -564,7 +564,18 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
-		TreeView.init();
+		dataSource = function(parentData, callback){
+			setTimeout(function () {
+				callback({
+					data: tree_data,
+					delay: 400
+				});
+			}, 400);
+		};
+		$('#myTree').tree({ dataSource: dataSource });
+		$('#myTree').on('refreshedFolder.fu.tree', function (event, data) {
+			console.log("toto");
+		})
 	} else if (window.location.href.split('/').pop() == "members") {
 		$('a#delete-user').click(function(e) {
 			if (confirm('Voulez vous supprimer cette enregistrement')) {
@@ -627,7 +638,7 @@ $(document).ready(function(){
 				e.preventDefault();
 			});
 	} else if (window.location.href.split('/').pop() == "index") {
-		/*$("#forgotpasswordform").submit(function(e){
+		$("#forgotpasswordform").submit(function(e){
 
 			console.log($(this).attr('action'));
 			console.log($(this).serialize());
@@ -636,27 +647,14 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(msg){
-					$('.forgot-your-password').animate({
-						height: "toggle",
-						'padding-top': 'toggle',
-						'padding-bottom': 'toggle',
-						opacity: "toggle"
-					}, "slow");
-					$('.toggle').toggle();
-					$('.verification-code').animate({
-						height: "toggle",
-						'padding-top': 'toggle',
-						'padding-bottom': 'toggle',
-						opacity: "toggle"
-					}, "slow");
-					$('.toggle').toggle();
+
 				},
 				error: function(msg){
 					alert(msg.responseText);
 				}
 			});
 			e.preventDefault();
-		});*/
+		});
 	}
 	$('li.language a').click(function(e) {
 		$.ajax({

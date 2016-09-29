@@ -44,8 +44,8 @@
 		<?php echo js_url('js/jquery.customSelect.min.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
-		<?php echo js_url('js/fuelux/js/tree.js'); ?>
-		<?php echo js_url('js/tree.js'); ?>
+		<?php echo js_url('js/fuelux/js/fuelux.js'); ?>
+		
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='add-website' || $this->uri->segment(1)=='add-category' || $this->uri->segment(1)=='add-language') { ?>
 		<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>

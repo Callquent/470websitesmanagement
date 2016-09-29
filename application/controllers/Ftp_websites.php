@@ -46,15 +46,13 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			var_dump($this->ftp->connect);
-
-			$data['list'] = $this->ftp->list_files('/public_html/');
+			$data['list'] = $this->ftp->list_files('/');
 			foreach ($data['list'] as $row) {
-				var_dump($this->ftp->list_files('/public_html/wp-signup.php'));
-				if (is_file($row)) {
-					$tree_data[] = array('name' => ltrim($row,'/'), 'type' => 'file-o');
+				$item = pathinfo($row);
+				if (isset($item["extension"])) {
+					$tree_data[] = array('name' => '<i class=\"fa fa-file-o\"></i>'.ltrim($item["basename"],'/'), 'type' => 'item');
 				} else {
-					$tree_data[] = array('name' => ltrim($row,'/'), 'type' => 'folder');
+					$tree_data[] = array('name' => ltrim($item["basename"],'/'), 'type' => 'folder');
 				}
 				
 			}
@@ -65,8 +63,33 @@ class Ftp_websites extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
-    private function abc()
+    public function abc($path)
     {
-      
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+			$config['hostname'] = $row->w_host_ftp;
+			$config['username'] = $row->w_login_ftp;
+			$config['password'] = $row->w_password_ftp;
+
+			$this->ftp->connect($config);
+
+			$data['list'] = $this->ftp->list_files($path);
+			foreach ($data['list'] as $row) {
+				$item = pathinfo($row);
+				if (isset($item["extension"])) {
+					$tree_data[] = array('name' => '<i class=\"fa fa-file-o\"></i>'.ltrim($item["basename"],'/'), 'type' => 'item');
+				} else {
+					$tree_data[] = array('name' => ltrim($item["basename"],'/'), 'type' => 'folder');
+				}
+				
+			}
+			$data['tree_data'] = json_encode($tree_data);
+
+			$this->load->view('ftp-websites', $data);
+		}else {
+			$this->load->view('index');
+		}
     }
 }

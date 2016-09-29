@@ -128,8 +128,8 @@ $config_aauth["default"] = array(
 
  'login_with_name'                => false,
 
- 'email'                          => 'admin@admin.com',
- 'name'                           => 'Emre Akay',
+ 'email'                          => 'noreply@470websitesmanagement.com',
+ 'name'                           => 'Noreply',
  'email_config'                   => false,
 
  'verification'                   => false,

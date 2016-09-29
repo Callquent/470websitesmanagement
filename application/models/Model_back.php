@@ -118,7 +118,6 @@ class Model_back extends CI_Model {
 				'l_id' => $row->l_id,
 				'l_title' => $row->l_title,
 				'l_title_url' => $row->l_title_url,
-				'l_color' => $row->l_color
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_language').";";
 		}
@@ -195,6 +194,11 @@ class Model_back extends CI_Model {
 	}
 	function import_website($decrypt)
 	{
-		$this->db->query($decrypt);
+		$insert_sql = explode(";", $decrypt);
+		
+		foreach ($insert_sql as $row) {
+			var_dump($row);
+			/*$this->db->query($row);*/
+		}
 	}
 }

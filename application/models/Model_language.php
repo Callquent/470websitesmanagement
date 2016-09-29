@@ -3,12 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_language extends CI_Model {
 
-	function create_language($l_title, $l_color)
+	function create_language($l_title)
 	{
 		$data = array(
 			'l_title' => $l_title,
 			'l_title_url' => str_replace( " ", "-", strtolower($l_title)),
-			'l_color' => $l_color
 		);
 
 		$this->db->insert('470websitesmanagement_language', $data);

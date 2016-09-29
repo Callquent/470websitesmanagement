@@ -46,9 +46,10 @@ class Index extends CI_Controller {
 
 		$this->aauth->remind_password($emailreset);
 	}
-	public function reset_password($u_mail)
+	public function reset_password()
 	{
-		$this->aauth->reset_password($u_mail);
+		$codereset = $this->input->post('codereset');
+		$this->aauth->reset_password($codereset);
 	}
 	public function logout()
 	{
