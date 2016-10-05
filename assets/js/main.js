@@ -564,18 +564,33 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
-		dataSource = function(parentData, callback){
-			setTimeout(function () {
-				callback({
-					data: tree_data,
-					delay: 400
-				});
-			}, 400);
-		};
-		$('#myTree').tree({ dataSource: dataSource });
-		$('#myTree').on('refreshedFolder.fu.tree', function (event, data) {
-			console.log("toto");
-		})
+		UITree.init();
+
+	$("#tree_3").bind("open_node.jstree", function (event, data) {
+		var glue = '/';
+		var pathftp = $('#tree_3').jstree().get_path(data.node, glue, true );
+		var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+		var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+		$.ajax({
+			type: "POST",
+			url: url+'/refreshpath/'+id,
+			data: 'pathftp='+pathftp,
+			success: function(msg){
+				/*var ElemSelected=$("#tree_3").jstree(true).get_selected(true);
+				var position = 'inside';
+				var childNode = msg;
+
+				$('#tree_3').jstree("create_node",null, childNode);*/
+				$('#tree_3').jstree().create_node(data.node.text, JSON.parse(msg), "last");
+				console.log(msg);
+			},
+			error: function(msg){
+				console.log(msg);
+			}
+		});
+		return false;
+	});
 	} else if (window.location.href.split('/').pop() == "members") {
 		$('a#delete-user').click(function(e) {
 			if (confirm('Voulez vous supprimer cette enregistrement')) {
@@ -585,7 +600,7 @@ $(document).ready(function(){
 					success: function(msg){
 						$('.member-entry-'+$(this).attr('url').split("/").pop()).remove();
 					},
-					error: function(){
+					error: function(msg){
 						console.log(msg);
 					}
 				});

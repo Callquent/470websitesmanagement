@@ -11,8 +11,9 @@
 		<?php echo css_url('js/bootstrap-colorpicker/css/colorpicker.css'); ?>
 		<?php echo css_url('js/data-tables/DT_bootstrap.css'); ?>
 		<?php echo css_url('js/data-tables/Buttons/css/buttons.dataTables.css'); ?>
-		<?php echo css_url('js/fuelux/css/fuelux.css'); ?>
+		<?php echo css_url('js/jstree/themes/default/style.min.css'); ?>
 		<?php echo css_url('css/theme.css'); ?>
+		<?php echo css_url('css/plugins.css'); ?>
 		<?php echo css_url('css/blue-theme.css'); ?>
 		<?php echo css_url('css/theme-responsive.css'); ?>
 		<?php echo css_url('css/jquery.steps.css'); ?>
