@@ -577,13 +577,11 @@ $(document).ready(function(){
 			url: url+'/refreshpath/'+id,
 			data: 'pathftp='+pathftp,
 			success: function(msg){
-				/*var ElemSelected=$("#tree_3").jstree(true).get_selected(true);
-				var position = 'inside';
-				var childNode = msg;
-
-				$('#tree_3').jstree("create_node",null, childNode);*/
-				$('#tree_3').jstree().create_node(data.node.text, JSON.parse(msg), "last");
-				console.log(msg);
+				results = JSON.parse(msg);
+				for(var key in results) {
+					$('#tree_3').jstree().create_node(data.node.text, results[key], "last");
+				}
+				console.log(JSON.parse(msg));
 			},
 			error: function(msg){
 				console.log(msg);

@@ -24,24 +24,6 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="portlet yellow-lemon box">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-cogs"></i>Contextual Menu with Drag & Drop </div>
-                                    <div class="tools">
-                                        <a href="javascript:;" class="collapse"> </a>
-                                        <a href="#portlet-config" data-toggle="modal" class="config"> </a>
-                                        <a href="javascript:;" class="reload"> </a>
-                                        <a href="javascript:;" class="remove"> </a>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div id="tree_3" class="tree-demo"> </div>
-                                    <div class="alert alert-success no-margin margin-top-10"> Note! Opened and selected nodes will be saved in the user's browser, so when returning to the same tree the previous state will be restored. </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="portlet red-pink box">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -59,6 +41,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="portlet yellow-lemon box">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-cogs"></i>Contextual Menu with Drag & Drop </div>
+                                    <div class="tools">
+                                        <a href="javascript:;" class="collapse"> </a>
+                                        <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                        <a href="javascript:;" class="reload"> </a>
+                                        <a href="javascript:;" class="remove"> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="tree_3" class="tree-demo"> </div>
+                                    <div class="alert alert-success no-margin margin-top-10"> Note! Opened and selected nodes will be saved in the user's browser, so when returning to the same tree the previous state will be restored. </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                         </div>
@@ -70,7 +70,4 @@
     </section>
     <!--main content end-->
 </section>
-<script type="text/javascript">
-  var tree_data = JSON.parse('<?php echo $tree_data; ?>');
-</script>
 <?php $this->load->view('include/footer.php'); ?>

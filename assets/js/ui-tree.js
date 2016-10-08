@@ -90,7 +90,12 @@ var UITree = function () {
                 }, 
                 // so that create works
                 "check_callback" : true,
-                'data': tree_data
+                'data': {
+                    'url' : window.location.href.substring(0, window.location.href.lastIndexOf("/"))+'/refreshpath/'+window.location.href.substr(window.location.href.lastIndexOf('/') + 1),
+                    'data' : function (node) {
+                        return { "id" : node.id };
+                    }
+                }
             },
             "types" : {
                 "default" : {

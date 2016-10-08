@@ -40,6 +40,19 @@ class Ftp_websites extends CI_Controller {
 			$data['user_role'] = $this->aauth->get_user_groups();
 			$row =  $this->model_front->get_website($w_id)->row();
 
+			$this->load->view('ftp-websites', $data);
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function refreshpath($w_id = '')
+	{
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+			$row =  $this->model_front->get_website($w_id)->row();
+
 			$config['hostname'] = $row->w_host_ftp;
 			$config['username'] = $row->w_login_ftp;
 			$config['password'] = $row->w_password_ftp;
@@ -50,10 +63,11 @@ class Ftp_websites extends CI_Controller {
 			foreach ($data['list'] as $row) {
 				$item = pathinfo($row);
 				if (isset($item["extension"])) {
-					$tree_data[] = array('text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
+					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
 				} else {
 					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder', 'children' => [array('text' => '', 'icon' => 'fa' )]);
-					
+
+
 					/*function recurse_tree($parent, $niveau, $array) {
 					   $result = array();
 					   foreach ($array as $noeud) {
@@ -68,38 +82,6 @@ class Ftp_websites extends CI_Controller {
 					   return $result;
 					}*/
 					/*[array('text' => 'toto', 'icon' => 'fa fa-folder' )]*/
-				}
-			}
-			$data['tree_data'] = json_encode($tree_data);
-
-			$this->load->view('ftp-websites', $data);
-		}else {
-			$this->load->view('index');
-		}
-	}
-	public function refreshpath($w_id = '')
-	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
-		{
-			$pathftp = $this->input->post('pathftp');
-
-			$row =  $this->model_front->get_website($w_id)->row();
-
-			$config['hostname'] = $row->w_host_ftp;
-			$config['username'] = $row->w_login_ftp;
-			$config['password'] = $row->w_password_ftp;
-
-			$this->ftp->connect($config);
-
-			$data['list'] = $this->ftp->list_files($pathftp);
-			foreach ($data['list'] as $row) {
-				$item = pathinfo($row);
-				if (isset($item["extension"])) {
-					$tree_data[] = array('name' => '<i class=\"fa fa-file-o\"></i>'.ltrim($item["basename"],'/'), 'type' => 'item');
-				} else {
-					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder', 'children' => [array('text' => '', 'icon' => 'fa' )]);
 				}
 				
 			}
@@ -119,13 +101,32 @@ class Ftp_websites extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
-	public function deleteftp()
+	public function deleteftp($w_id = '')
 	{
 		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
+			$pathftp = $this->input->post('pathftp');
 
+			$row =  $this->model_front->get_website($w_id)->row();
+
+			$config['hostname'] = $row->w_host_ftp;
+			$config['username'] = $row->w_login_ftp;
+			$config['password'] = $row->w_password_ftp;
+
+			$this->ftp->connect($config);
+
+			$data['list'] = $this->ftp->list_files($pathftp);
+			foreach ($data['list'] as $row) {
+				$item = pathinfo($row);
+				if (isset($item["extension"])) {
+					$this->ftp->delete_file('/public_html/joe/blog.html');
+				} else {
+					$this->ftp->delete_dir('/public_html/path/to/folder/');
+				}
+				
+			}
 		}else {
 			$this->load->view('index');
 		}
