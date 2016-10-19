@@ -62,7 +62,6 @@
 		<?php echo js_url('js/advanced-form.js'); ?>
 
 		<?php echo js_url('js/jquery.validate.min.js'); ?>
-		<?php echo js_url('js/app-add-newelement.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='website-scrapper-google' || $this->uri->segment(1)=='search-scrapper-google') { ?>
 		<?php echo js_url('js/data-tables/jquery.dataTables.min.js'); ?>

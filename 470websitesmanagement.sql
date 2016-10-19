@@ -6,13 +6,13 @@
 
 DROP TABLE IF EXISTS `470websitesmanagement_backoffice`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_backoffice` (
-  `w_id_bo` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `w_id_bo` int(11) UNSIGNED NOT NULL,
   `w_id_info` int(11) UNSIGNED NOT NULL,
   `w_login_bo` varchar(255) NOT NULL,
   `w_password_bo` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_bo`,`w_id_info`),
   KEY `fk_id_bo` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_category` (
 
 DROP TABLE IF EXISTS `470websitesmanagement_database`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_database` (
-  `w_id_db` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `w_id_db` int(11) UNSIGNED NOT NULL,
   `w_id_info` int(10) UNSIGNED NOT NULL,
   `w_host_db` varchar(255) NOT NULL,
   `w_name_db` varchar(255) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_database` (
   `w_password_db` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_db`,`w_id_info`),
   KEY `fk_id_db` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -54,14 +54,14 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_database` (
 
 DROP TABLE IF EXISTS `470websitesmanagement_ftp`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_ftp` (
-  `w_id_ftp` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `w_id_ftp` int(11) UNSIGNED NOT NULL,
   `w_id_info` int(11) UNSIGNED NOT NULL,
   `w_host_ftp` varchar(255) NOT NULL,
   `w_login_ftp` varchar(255) NOT NULL,
   `w_password_ftp` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id_ftp`,`w_id_info`),
   KEY `fk_id_ftp` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -74,13 +74,15 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_info` (
   `w_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `c_id` int(11) NOT NULL,
   `l_id` int(11) NOT NULL,
+  `whois_id` int(11) NOT NULL,
   `w_title` varchar(255) NOT NULL,
   `w_url_rw` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id`),
   UNIQUE KEY `w_url_rw` (`w_url_rw`),
   KEY `fk_c_id` (`c_id`),
-  KEY `l_id` (`l_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6002 DEFAULT CHARSET=utf8;
+  KEY `fk_l_id` (`l_id`) USING BTREE,
+  KEY `whois_id` (`whois_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -170,16 +172,14 @@ INSERT INTO `470websitesmanagement_settings` (`id_s`, `name_s`, `value_s`) VALUE
 
 DROP TABLE IF EXISTS `470websitesmanagement_whois`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
-  `w_id_info` int(10) UNSIGNED NOT NULL,
-  `w_id_whois` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `whois_id` int(11) NOT NULL,
   `whois` text,
   `creation_date` date DEFAULT NULL,
   `expiration_date` date DEFAULT NULL,
   `registrar` varchar(255) DEFAULT NULL,
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`w_id_whois`,`w_id_info`),
-  KEY `fk_id_whois` (`w_id_info`)
-) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`whois_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -377,7 +377,8 @@ ALTER TABLE `470websitesmanagement_ftp`
 --
 ALTER TABLE `470websitesmanagement_info`
   ADD CONSTRAINT `fk_c_id` FOREIGN KEY (`c_id`) REFERENCES `470websitesmanagement_category` (`c_id`),
-  ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`l_id`) REFERENCES `470websitesmanagement_language` (`l_id`);
+  ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`l_id`) REFERENCES `470websitesmanagement_language` (`l_id`),
+  ADD CONSTRAINT `fk_whois_id` FOREIGN KEY (`whois_id`) REFERENCES `470websitesmanagement_whois` (`whois_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_positiontracking`
@@ -390,9 +391,3 @@ ALTER TABLE `470websitesmanagement_positiontracking`
 --
 ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
   ADD CONSTRAINT `fk_id_positiontracking_sc` FOREIGN KEY (`w_id_pt`) REFERENCES `470websitesmanagement_positiontracking` (`w_id_pt`);
-
---
--- Contraintes pour la table `470websitesmanagement_whois`
---
-ALTER TABLE `470websitesmanagement_whois`
-  ADD CONSTRAINT `fk_id_whois` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_info` (`w_id`);

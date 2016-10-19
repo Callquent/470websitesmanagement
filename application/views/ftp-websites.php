@@ -70,4 +70,7 @@
     </section>
     <!--main content end-->
 </section>
+<script type="text/javascript">
+  var tree_data = JSON.parse('<?php echo $tree_data; ?>');
+</script>
 <?php $this->load->view('include/footer.php'); ?>

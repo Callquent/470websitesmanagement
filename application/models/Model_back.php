@@ -18,7 +18,11 @@ class Model_back extends CI_Model {
 
 	function create_database_websites($w_id_info, $w_host_db, $w_name_db, $w_login_db, $w_password_db)
 	{
+		$this->db->select_max('w_id_db');
+		$this->db->where('w_id_info', $w_id_info); 
+		$query = $this->db->get('470websitesmanagement_database');
 		$data = array(
+			'w_id_db'			=> $query->row()->w_id_db+1,
 			'w_id_info'			=> $w_id_info,
 			'w_host_db'			=> $w_host_db,
 			'w_name_db'			=> $w_name_db,
@@ -31,7 +35,11 @@ class Model_back extends CI_Model {
 	}
 	function create_ftp_websites($w_id_info, $w_host_ftp, $w_login_ftp, $w_password_ftp)
 	{
+		$this->db->select_max('w_id_ftp');
+		$this->db->where('w_id_info', $w_id_info); 
+		$query = $this->db->get('470websitesmanagement_ftp');
 		$data = array(
+			'w_id_ftp'				=> $query->row()->w_id_ftp+1,
 			'w_id_info'				=> $w_id_info,
 			'w_host_ftp'			=> $w_host_ftp,
 			'w_login_ftp'			=> $w_login_ftp,
@@ -43,7 +51,11 @@ class Model_back extends CI_Model {
 	}
 	function create_backoffice_websites($w_id_info, $w_login_bo, $w_password_bo)
 	{
+		$this->db->select_max('w_id_bo');
+		$this->db->where('w_id_info', $w_id_info); 
+		$query = $this->db->get('470websitesmanagement_backoffice');
 		$data = array(
+			'w_id_bo'			=> $query->row()->w_id_bo+1,
 			'w_id_info'			=> $w_id_info,
 			'w_login_bo'		=> $w_login_bo,
 			'w_password_bo'		=> $w_password_bo,
@@ -112,7 +124,7 @@ class Model_back extends CI_Model {
 	{
 		$sql = "";
 
-		$query_language = $this->db->get('470websitesmanagement_language');
+		/*$query_language = $this->db->get('470websitesmanagement_language');
 		foreach ($query_language->result() as $row) {
 			$data = array(
 				'l_id' => $row->l_id,
@@ -130,9 +142,15 @@ class Model_back extends CI_Model {
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_category').";";
 		}
+*/
+		$this->db->select('*')
+					->from('470websitesmanagement_info')
+					->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.w_id_info = 470websitesmanagement_info.w_id')
+					->join('470websitesmanagement_database', '470websitesmanagement_database.w_id_info = 470websitesmanagement_info.w_id')
+					->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.w_id_info = 470websitesmanagement_info.w_id');
 
-		$query_info = $this->db->get('470websitesmanagement_info');
-		foreach ($query_info->result() as $row) {
+		$query = $this->db->get();
+		foreach ($query->result() as $row) {
 			$data = array(
 				'w_id' => $row->w_id,
 				'c_id'  => $row->c_id,
@@ -141,35 +159,29 @@ class Model_back extends CI_Model {
 				'w_url_rw'  => $row->w_url_rw
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_info').";";
-		}
-		$query_ftp = $this->db->get('470websitesmanagement_ftp');
-		foreach ($query_ftp->result() as $row) {
+
 			$data = array(
-				'w_id_ftp' => $row->w_id_ftp,
 				'w_id_info'  => $row->w_id_info,
+				'w_id_ftp'  => $row->w_id_ftp,
 				'w_host_ftp'  => $row->w_host_ftp,
 				'w_login_ftp'  => $row->w_login_ftp,
 				'w_password_ftp' => $row->w_password_ftp
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_ftp').";";
-		}
-		$query_database = $this->db->get('470websitesmanagement_database');
-		foreach ($query_database->result() as $row) {
+
 			$data = array(
-				'w_id_db' => $row->w_id_db,
 				'w_id_info'  => $row->w_id_info,
+				'w_id_db'  => $row->w_id_db,
 				'w_host_db'  => $row->w_host_db,
 				'w_name_db' => $row->w_name_db,
 				'w_login_db' => $row->w_login_db,
 				'w_password_db'  => $row->w_password_db
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_database').";";
-		}
-		$query_backoffice = $this->db->get('470websitesmanagement_backoffice');
-		foreach ($query_backoffice->result() as $row) {
+
 			$data = array(
-				'w_id_bo' => $row->w_id_bo,
 				'w_id_info'  => $row->w_id_info,
+				'w_id_bo'  => $row->w_id_bo,
 				'w_login_bo'  => $row->w_login_bo,
 				'w_password_bo' => $row->w_password_bo
 			);
@@ -180,7 +192,6 @@ class Model_back extends CI_Model {
 		foreach ($query_whois->result() as $row) {
 			$data = array(
 				'w_id_info' => $row->w_id_info,
-				'w_id_whois'  => $row->w_id_whois,
 				'whois'  => $row->whois,
 				'creation_date' => $row->creation_date,
 				'expiration_date'  => $row->expiration_date,
@@ -197,8 +208,20 @@ class Model_back extends CI_Model {
 		$insert_sql = explode(";", $decrypt);
 		
 		foreach ($insert_sql as $row) {
-			var_dump($row);
-			/*$this->db->query($row);*/
+			$this->db->select_max('w_id');
+			$pos = strpos($row,'470websitesmanagement_info');
+			if ($pos !== false) {
+				$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id+1;
+			} else {
+				$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id;
+			}
+			
+
+			$patterns = array('/VALUES \(\'(.*)\'/siU');
+			$replacements = array('VALUES (\''.$max_id_website.'\'');
+			$result = preg_replace($patterns,$replacements, $row);
+			var_dump($result);
+			/*$this->db->query($result);*/
 		}
 	}
 }

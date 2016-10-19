@@ -26,15 +26,6 @@
                                 <div class="btn-group">
                                     <h4>Nom de Domaine inclus : .com, .net, .org, .uk, .ie, .paris, .ovh, .fr, .it, .se, .fi, .ru, .cn, .jp, .dk, .pl</h4>
                                 </div>
-                                <div class="btn-group pull-right">
-                                    <a href="#" id="load-whois" class="btn btn-primary" role="button">Télécharger Whois</a>
-                                </div>
-
-                                <div class="progress progress-striped active progress-sm">
-                                    <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                        <span class="sr-only">45% Complete</span>
-                                    </div>
-                                </div>
 
                             </div>
                             <div class="space15"></div>

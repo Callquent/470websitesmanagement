@@ -40,6 +40,25 @@ class Ftp_websites extends CI_Controller {
 			$data['user_role'] = $this->aauth->get_user_groups();
 			$row =  $this->model_front->get_website($w_id)->row();
 
+			$config['hostname'] = $row->w_host_ftp;
+			$config['username'] = $row->w_login_ftp;
+			$config['password'] = $row->w_password_ftp;
+
+			$this->ftp->connect($config);
+
+			$data['list'] = $this->ftp->list_files('/');
+			foreach ($data['list'] as $row) {
+				$item = pathinfo($row);
+				if (isset($item["extension"])) {
+					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
+				} else {
+					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder', 'children' => [array('text' => '', 'icon' => 'fa' )]);
+				}
+			}
+			/*'children' => [array('text' => '', 'icon' => 'fa' )]*/
+					
+			$data['tree_data'] = json_encode($tree_data);
+
 			$this->load->view('ftp-websites', $data);
 		}else {
 			$this->load->view('index');
@@ -65,26 +84,12 @@ class Ftp_websites extends CI_Controller {
 				if (isset($item["extension"])) {
 					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
 				} else {
-					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder', 'children' => [array('text' => '', 'icon' => 'fa' )]);
-
-
-					/*function recurse_tree($parent, $niveau, $array) {
-					   $result = array();
-					   foreach ($array as $noeud) {
-					      if ($parent == $noeud['parent_id']) {
-					         $result[] = array(
-					            'text' => $noeud['basename'],
-					            'name' => 'fa fa-folder',
-					            'children' => recurse_tree($noeud['page_id'], ($niveau + 1), $array)
-					         );      
-					      }
-					   }
-					   return $result;
-					}*/
-					/*[array('text' => 'toto', 'icon' => 'fa fa-folder' )]*/
+					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder', 'children' => true );
 				}
-				
 			}
+			/*'children' => [array('text' => '', 'icon' => 'fa' )]*/
+					
+			$this->output->set_content_type('application/json');
 			echo json_encode($tree_data);
 		}else {
 			$this->load->view('index');
