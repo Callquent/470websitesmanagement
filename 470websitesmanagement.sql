@@ -172,7 +172,7 @@ INSERT INTO `470websitesmanagement_settings` (`id_s`, `name_s`, `value_s`) VALUE
 
 DROP TABLE IF EXISTS `470websitesmanagement_whois`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
-  `whois_id` int(11) NOT NULL,
+  `whois_id` int(11) NOT NULL AUTO_INCREMENT,
   `whois` text,
   `creation_date` date DEFAULT NULL,
   `expiration_date` date DEFAULT NULL,
@@ -180,6 +180,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`whois_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 

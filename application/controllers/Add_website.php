@@ -10,8 +10,10 @@ class Add_website extends CI_Controller {
 		$this->load->database();
 		$this->load->model('model_front');
 		$this->load->model('model_back');
+		$this->load->model('model_whois');
 		$this->load->model('model_settings');
 		$this->load->library("Aauth");
+		$this->load->library("Whois");
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->library(array('encrypt','session'));
 		$this->load->helper(array('functions','url'));
@@ -68,7 +70,17 @@ class Add_website extends CI_Controller {
 		$this->form_validation->set_rules('url', 'Url', 'required');
 
 		if ($this->form_validation->run() == TRUE){*/
-			$website_id = $this->model_back->create_websites($c_id, $l_id, $w_title, $w_url_rw);
+			$domain = new Whois($w_url_rw);
+			$whois = $domain->lookup();
+			$date_create = str_replace(array('/', '.'), '-', $whois[1]);
+			$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
+			$whois_id = $this->model_whois->create_all_whois(utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
+			$pos = strrpos($w_url_rw, ".fr");
+			if (!$pos === false) {
+				sleep(10);
+			}
+
+			$website_id = $this->model_back->create_websites($c_id, $l_id, $whois_id, $w_title, $w_url_rw);
 			$this->model_back->create_ftp_websites($website_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
 			$this->model_back->create_database_websites($website_id, $w_host_db, $w_name_db, $w_login_db, $w_password_db);
 			$this->model_back->create_backoffice_websites($website_id, $w_login_bo, $w_password_bo);

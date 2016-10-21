@@ -65,7 +65,7 @@ class Whois_domain extends CI_Controller {
 				$list[] = $row->registrar;
 				$list[] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
 				$list[] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
-				$list[] = '<a  class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->w_id.'">Whois</a>';
+				$list[] = '<a  class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->whois_id.'">Whois</a>';
 
 				$data[] = $list;
 			}
@@ -88,7 +88,7 @@ class Whois_domain extends CI_Controller {
 			set_time_limit(0);
 			foreach ($all_websites->result() as $row) {
 				if ($this->model_whois->check_whois($row->w_id)->w_id_info != $row->w_id) {
-					$domain = new Whois($row->w_url_rw);
+					/*$domain = new Whois($row->w_url_rw);
 					$whois = $domain->lookup();
 					var_dump($whois);
 					$date_create = str_replace(array('/', '.'), '-', $whois[1]);
@@ -97,7 +97,7 @@ class Whois_domain extends CI_Controller {
 					$pos = strrpos($row->w_url_rw, ".fr");
 					if (!$pos === false) {
 						sleep(10);
-					}
+					}*/
 				} else if (strtotime($this->model_whois->check_whois($row->w_id)->expiration_date) <= strtotime(date('Y-m-d')) && strtotime($this->model_whois->check_whois($row->w_id)->expiration_date) != 0 ) {
 					$domain = new Whois($row->w_url_rw);
 					$whois = $domain->lookup();
@@ -114,13 +114,13 @@ class Whois_domain extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
-	public function modal_whois($w_id = '')
+	public function modal_whois($whois_id = '')
 	{
 		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
-			$whois = $this->model_whois->check_whois($w_id)->whois;
+			$whois = $this->model_whois->check_whois($whois_id)->whois;
 
 			$datatable = array(0 => $whois);
 

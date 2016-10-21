@@ -3,11 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_back extends CI_Model {
 	
-	function create_websites($c_id, $l_id, $w_title, $w_url_rw)
+	function create_websites($c_id, $l_id, $whois_id, $w_title, $w_url_rw)
 	{
 		$data = array(
 			'c_id'				=> $c_id,
 			'l_id'				=> $l_id,
+			'whois_id'			=> $whois_id,
 			'w_title'			=> $w_title,
 			'w_url_rw'			=> $w_url_rw,
 		);
@@ -124,25 +125,6 @@ class Model_back extends CI_Model {
 	{
 		$sql = "";
 
-		/*$query_language = $this->db->get('470websitesmanagement_language');
-		foreach ($query_language->result() as $row) {
-			$data = array(
-				'l_id' => $row->l_id,
-				'l_title' => $row->l_title,
-				'l_title_url' => $row->l_title_url,
-			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_language').";";
-		}
-		$query_category = $this->db->get('470websitesmanagement_category');
-		foreach ($query_category->result() as $row) {
-			$data = array(
-				'c_id' => $row->c_id,
-				'c_title'  => $row->c_title,
-				'c_title_url'  => $row->c_title_url
-			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_category').";";
-		}
-*/
 		$this->db->select('*')
 					->from('470websitesmanagement_info')
 					->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.w_id_info = 470websitesmanagement_info.w_id')
@@ -191,8 +173,6 @@ class Model_back extends CI_Model {
 		$query_whois = $this->db->get('470websitesmanagement_whois');
 		foreach ($query_whois->result() as $row) {
 			$data = array(
-				'w_id_info' => $row->w_id_info,
-				'whois'  => $row->whois,
 				'creation_date' => $row->creation_date,
 				'expiration_date'  => $row->expiration_date,
 				'registrar'  => $row->registrar,
@@ -209,17 +189,20 @@ class Model_back extends CI_Model {
 		
 		foreach ($insert_sql as $row) {
 			$this->db->select_max('w_id');
-			$pos = strpos($row,'470websitesmanagement_info');
-			if ($pos !== false) {
-				$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id+1;
-			} else {
-				$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id;
-			}
-			
 
-			$patterns = array('/VALUES \(\'(.*)\'/siU');
-			$replacements = array('VALUES (\''.$max_id_website.'\'');
-			$result = preg_replace($patterns,$replacements, $row);
+			if ((strpos($row,'470websitesmanagement_ftp' !== false))) {
+				$pos = strpos($row,'470websitesmanagement_info');
+				if ($pos !== false) {
+					$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id+1;
+				} else {
+					$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id;
+				}
+				$patterns = array('/VALUES \(\'(.*)\'/siU');
+				$replacements = array('VALUES (\''.$max_id_website.'\'');
+				$result = preg_replace($patterns,$replacements, $row);
+			}
+
+
 			var_dump($result);
 			/*$this->db->query($result);*/
 		}
