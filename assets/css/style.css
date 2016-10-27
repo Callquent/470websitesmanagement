@@ -15,26 +15,6 @@ h1 {
 /***********************/
 /*        LOGIN        */
 /***********************/
-/* Pen Title */
-.pen-title {
-  padding: 50px 0;
-  text-align: center;
-  letter-spacing: 2px;
-}
-.pen-title h1 {
-  margin: 0 0 20px;
-}
-.pen-title span {
-  font-size: 12px;
-}
-.pen-title span .fa {
-  color: #33b5e5;
-}
-.pen-title span a {
-  color: #33b5e5;
-  font-weight: 600;
-  text-decoration: none;
-}
 
 /* Form Module */
 .form-module {
@@ -156,8 +136,13 @@ h1 {
 /*********************/
 /*      NAVBAR       */
 /*********************/
-.badge { background: #33b5e5 !important }
-
+.badge { background: #3598dc !important }
+ul.sidebar-menu li a span {
+  font-size: 14px;
+}
+ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+  border-left: 5px solid #3598dc;
+}
 /***********************/
 /*      META SEO       */
 /***********************/
@@ -299,6 +284,16 @@ h3.r{
 /***********************/
 /*      Datables       */
 /***********************/
+table th {
+  background: #38354a !important;
+  color: #FFF;
+  vertical-align: middle !important;
+  text-align: center;
+  text-transform: uppercase;
+}
+table tr {
+  vertical-align: middle !important;
+}
 .adv-table .dataTables_length, .adv-table .dataTables_filter {
   padding: 0;
 }

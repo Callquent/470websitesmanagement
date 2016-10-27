@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_info` (
   `w_url_rw` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id`),
   UNIQUE KEY `w_url_rw` (`w_url_rw`),
+  UNIQUE KEY `whois_id_2` (`whois_id`),
   KEY `fk_c_id` (`c_id`),
   KEY `fk_l_id` (`l_id`) USING BTREE,
   KEY `whois_id` (`whois_id`)
@@ -379,7 +380,7 @@ ALTER TABLE `470websitesmanagement_ftp`
 ALTER TABLE `470websitesmanagement_info`
   ADD CONSTRAINT `fk_c_id` FOREIGN KEY (`c_id`) REFERENCES `470websitesmanagement_category` (`c_id`),
   ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`l_id`) REFERENCES `470websitesmanagement_language` (`l_id`),
-  ADD CONSTRAINT `fk_whois_id` FOREIGN KEY (`whois_id`) REFERENCES `470websitesmanagement_whois` (`whois_id`);
+  ADD CONSTRAINT `fk_whois_id` FOREIGN KEY (`whois_id`) REFERENCES `470websitesmanagement_whois` (`whois_id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `470websitesmanagement_positiontracking`

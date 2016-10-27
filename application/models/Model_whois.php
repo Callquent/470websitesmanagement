@@ -22,9 +22,10 @@ class Model_whois extends CI_Model {
 		$query = $this->db->get();
 		return $query->row();
 	}
-	function create_all_whois($whois, $creation_date, $expiration_date, $registrar)
+	function create_all_whois($whois_id, $whois, $creation_date, $expiration_date, $registrar)
 	{
 		$data = array(
+			'whois_id'				=> $whois_id,
 			'whois'					=> $whois,
 			'expiration_date'		=> $expiration_date,
 			'creation_date'			=> $creation_date,

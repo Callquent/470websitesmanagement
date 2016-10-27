@@ -253,6 +253,7 @@ class All_websites extends CI_Controller {
 	public function delete_website($w_id = '')
 	{
 		// Si le site existe, on peut le supprimer
+		var_dump($this->model_front->get_website($w_id)->result());
 		if ($this->model_front->get_website($w_id)->num_rows() == 1){
 			$this->model_back->delete_website($w_id);
 		}

@@ -3,12 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_back extends CI_Model {
 	
-	function create_websites($c_id, $l_id, $whois_id, $w_title, $w_url_rw)
+	function create_websites($c_id, $l_id, $w_title, $w_url_rw)
 	{
 		$data = array(
 			'c_id'				=> $c_id,
 			'l_id'				=> $l_id,
-			'whois_id'			=> $whois_id,
 			'w_title'			=> $w_title,
 			'w_url_rw'			=> $w_url_rw,
 		);
@@ -115,10 +114,11 @@ class Model_back extends CI_Model {
 	}
 	function delete_website($id)
 	{
+		/*$tables = array('470websitesmanagement_backoffice', '470websitesmanagement_database', '470websitesmanagement_ftp');
+		$this->db->where('w_id_info', $id)->delete($tables);*/
 		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_backoffice');
 		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_database');
 		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_ftp');
-		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_whois');
 		$this->db->where('w_id', $id)->delete('470websitesmanagement_info');
 	}
 	function export_website()
@@ -173,6 +173,7 @@ class Model_back extends CI_Model {
 		$query_whois = $this->db->get('470websitesmanagement_whois');
 		foreach ($query_whois->result() as $row) {
 			$data = array(
+				'whois_id'  => $row->whois_id,
 				'creation_date' => $row->creation_date,
 				'expiration_date'  => $row->expiration_date,
 				'registrar'  => $row->registrar,
@@ -190,21 +191,16 @@ class Model_back extends CI_Model {
 		foreach ($insert_sql as $row) {
 			$this->db->select_max('w_id');
 
-			if ((strpos($row,'470websitesmanagement_ftp' !== false))) {
-				$pos = strpos($row,'470websitesmanagement_info');
-				if ($pos !== false) {
-					$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id+1;
-				} else {
-					$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id;
-				}
-				$patterns = array('/VALUES \(\'(.*)\'/siU');
-				$replacements = array('VALUES (\''.$max_id_website.'\'');
-				$result = preg_replace($patterns,$replacements, $row);
+			if (strpos($row,'470websitesmanagement_info') !== false) {
+				$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id+1;
+			} else {
+				$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id;
 			}
-
-
-			var_dump($result);
-			/*$this->db->query($result);*/
+			$patterns = array('/VALUES \(\'(.*)\'/siU');
+			$replacements = array('VALUES (\''.$max_id_website.'\'');
+			$result = preg_replace($patterns,$replacements, $row);
+			/*var_dump($result);*/
+			$this->db->query($result);
 		}
 	}
 }
