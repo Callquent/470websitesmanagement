@@ -7,7 +7,7 @@ class Model_whois extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_whois')
-				 ->join('470websitesmanagement_info', '470websitesmanagement_whois.whois_id = 470websitesmanagement_info.whois_id')
+				 ->join('470websitesmanagement_info', '470websitesmanagement_whois.whois_id = 470websitesmanagement_info.w_id')
 				 ->order_by('470websitesmanagement_whois.expiration_date', 'ASC');
 
 		$query = $this->db->get();

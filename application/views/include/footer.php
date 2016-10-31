@@ -48,7 +48,7 @@
 		<?php echo js_url('js/ui-tree.js'); ?>
 		
 	<?php } ?>
-	<?php if ($this->uri->segment(1)=='add-website' || $this->uri->segment(1)=='add-category' || $this->uri->segment(1)=='add-language') { ?>
+	<?php if ($this->uri->segment(1)=='add-website' || $this->uri->segment(1)=='add-category' || $this->uri->segment(1)=='add-language' || $this->uri->segment(1)=='export') { ?>
 		<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
 		<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 		<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>

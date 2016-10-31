@@ -29,6 +29,7 @@ class Export extends CI_Controller {
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
+			$data['all_websites'] = $this->model_front->get_all_websites();
 			$data['all_languages'] = $this->model_front->get_all_languages();
 			$data['all_categories'] = $this->model_front->get_all_categories();
 

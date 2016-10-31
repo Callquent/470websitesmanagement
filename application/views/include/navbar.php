@@ -12,11 +12,11 @@
 <!--logo end-->
 
 <div class="nav notify-row" id="top_menu">
-    <a href="<?php echo site_url('add-website'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Website</a>
-    <a href="<?php echo site_url('add-category'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Category</a>
-    <a href="<?php echo site_url('add-language'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Language</a>
-    <a href="<?php echo site_url('export'); ?>" class="btn btn-warning"><i class="fa fa-share"></i> Export</a>
-    <a href="<?php echo site_url('import'); ?>" class="btn btn-warning"><i class="fa fa-reply"></i> Import</a>
+    <a href="<?php echo site_url('add-website'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_website'); ?></a>
+    <a href="<?php echo site_url('add-category'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_category'); ?></a>
+    <a href="<?php echo site_url('add-language'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_language'); ?></a>
+    <a href="<?php echo site_url('export'); ?>" class="btn btn-warning"><i class="fa fa-share"></i><?php echo lang('export'); ?></a>
+    <a href="<?php echo site_url('import'); ?>" class="btn btn-warning"><i class="fa fa-reply"></i><?php echo lang('import'); ?></a>
 </div>
 
 <div class="top-nav clearfix">
@@ -103,9 +103,9 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="<?php echo site_url('profile'); ?>"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                <li><a href="<?php echo site_url('settings'); ?>"><i class="fa fa-cog"></i> Settings</a></li>
-                <li><a href="<?php echo site_url('index/logout'); ?>"><i class="fa fa-key"></i> Log Out</a></li>
+                <li><a href="<?php echo site_url('profile'); ?>"><i class=" fa fa-user"></i><?php echo lang('profile'); ?></a></li>
+                <li><a href="<?php echo site_url('settings'); ?>"><i class="fa fa-cog"></i><?php echo lang('settings'); ?></a></li>
+                <li><a href="<?php echo site_url('index/logout'); ?>"><i class="fa fa-key"></i><?php echo lang('log_out'); ?></a></li>
             </ul>
         </li>
     </ul>

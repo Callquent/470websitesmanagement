@@ -13,8 +13,6 @@ include('Server.php');
 
 class Whois
 {
-    const VERSION = "1.0";
-
     public $domain;
 
     public $tld;
@@ -70,135 +68,172 @@ class Whois
         } else {
             $string_utf8 = $this->lookupDomain($this->domain);
             $result[] = $string_utf8;
-            if ($this->tld == 'com' || $this->tld == 'net') {
+
+
+
+
+            switch ($this->tld) // on indique sur quelle variable on travaille
+            { 
+                case 'com':
+                case 'net':
                 preg_match_all('/Creation\sDate:\s(.*)T.*Expiration\sDate:\s(.*)T.*Registrar:(.*)Registrar/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
-                } else {
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'org':
+                case 'paris':
+                case 'ovh':
+                    preg_match_all('/Creation\sDate:\s(.*)T.*Registry\sExpiry\sDate:\s(.*)T.*Sponsoring\sRegistrar:(.*)Sponsoring\sRegistrar/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+                
+                case 'uk':
+                    preg_match_all('/Registrar:(.*)URL.*Registered\son:\s(.*)\sExpiry\sDate:\s(.*)L/siU', $string_utf8, $data);
+                    if (isset($data[2][0]) && isset($data[3][0])) {
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                        $result[]=trim($data[1][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+                
+                case 'ie':
+                    preg_match_all('/registration:(.*)renewal:(.*)holder-type:/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=null;
+                    } else {
+                        $result="";
+                    }
+                break;
+                
+                case 'it':
+                    preg_match_all('/Created:(.*-..-..).*Expire\sDate:\s(.*)\sRegistrant.*Registrar.*Organization:(.*)Name/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+                
+                case 'fr':
+                    preg_match_all('/registrar:\s(.*)\sExpiry\sDate:\s(.*)\screated:\s(.*)\slast-update/siU', $string_utf8, $data);
+                    if (isset($data[3][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[3][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[1][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+                
+                case 'pt':
+                    preg_match_all('/Creation\sDate\s\(dd\/mm\/yyyy\):\s(.*)Data.*Expiration\sDate\s\(dd\/mm\/yyyy\):\s(.*)Estado/siU', $string_utf8, $data);
+                    if (isset($data[3][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[3][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[1][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'se':
+                    preg_match_all('/created:(.*)modified:.*expires:(.*)transferred:.*registrar:(.*)$/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'fi':
+                    preg_match_all('/created:(.*)modified:.*expires:(.*)nserver/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=null;
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'dk':
+                    preg_match_all('/Registered:(.*)Expires:(.*)Registration\speriod:/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=null;
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'ru':
+                    preg_match_all('/registrar:\s(.*)admin-contact.*created:\s(.*)\spaid-till:\s(.*)\sfree-date/siU', $string_utf8, $data);
+                    if (isset($data[3][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                        $result[]=trim($data[1][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'pl':
+                    preg_match_all('/created:\s(.*\...\...).*renewal\sdate:\s(.*\...\...).*REGISTRAR:/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=null;
+                        
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'jp':
+                    preg_match_all('/\[登録年月日\](.*)\[有効期限\](.*)\[状態\]/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=null;
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'cn':
+                    preg_match_all('/Sponsoring\sRegistrar:\s(.*)Name\sServer.*Registration\sTime:\s(.*)Expiration\sTime:\s(.*)DNSSEC/siU', $string_utf8, $data);
+                    if (isset($data[2][0]) && isset($data[3][0])) {
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                        $result[]=trim($data[1][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+                
+                default:
                     $result="";
-                }
-            } else if ($this->tld  == 'org' || $this->tld == 'paris' || $this->tld == 'ovh') {
-                preg_match_all('/Creation\sDate:\s(.*)T.*Registry\sExpiry\sDate:\s(.*)T.*Sponsoring\sRegistrar:(.*)Sponsoring\sRegistrar/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld  == 'uk') {
-                preg_match_all('/Registrar:(.*)URL.*Registered\son:\s(.*)\sExpiry\sDate:\s(.*)L/siU', $string_utf8, $data);
-                if (isset($data[2][0]) && isset($data[3][0])) {
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
-                    $result[]=trim($data[1][0]);
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld  == 'ie') {
-                preg_match_all('/registration:(.*)renewal:(.*)holder-type:/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=null;
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld  == 'it') {
-                preg_match_all('/Created:(.*-..-..).*Expire\sDate:\s(.*)\sRegistrant.*Registrar.*Organization:(.*)Name/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld == 'fr') {
-                preg_match_all('/registrar:\s(.*)\sExpiry\sDate:\s(.*)\screated:\s(.*)\slast-update/siU', $string_utf8, $data);
-                if (isset($data[3][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[3][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[1][0]);
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld  == 'pt') {
-                preg_match_all('/Creation\sDate\s\(dd\/mm\/yyyy\):\s(.*)Data.*Expiration\sDate\s\(dd\/mm\/yyyy\):\s(.*)Estado/siU', $string_utf8, $data);
-                if (isset($data[3][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[3][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[1][0]);
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld  == 'se') {
-                preg_match_all('/created:(.*)modified:.*expires:(.*)transferred:.*registrar:(.*)$/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld  == 'fi') {
-                preg_match_all('/created:(.*)modified:.*expires:(.*)nserver/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=null;
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld  == 'dk') {
-                preg_match_all('/Registered:(.*)Expires:(.*)Registration\speriod:/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=null;
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld == 'ru') {
-                preg_match_all('/registrar:\s(.*)admin-contact.*created:\s(.*)\spaid-till:\s(.*)\sfree-date/siU', $string_utf8, $data);
-                if (isset($data[3][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
-                    $result[]=trim($data[1][0]);
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld == 'pl') {
-                preg_match_all('/created:\s(.*\...\...).*renewal\sdate:\s(.*\...\...).*REGISTRAR:/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=null;
-                    
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld == 'jp') {
-                preg_match_all('/\[登録年月日\](.*)\[有効期限\](.*)\[状態\]/siU', $string_utf8, $data);
-                if (isset($data[1][0]) && isset($data[2][0])) {
-                    $result[]=trim($data[1][0]);
-                    $result[]=trim($data[2][0]);
-                    $result[]=null;
-                } else {
-                    $result="";
-                }
-            } else if ($this->tld == 'cn') {
-                preg_match_all('/Sponsoring\sRegistrar:\s(.*)Name\sServer.*Registration\sTime:\s(.*)Expiration\sTime:\s(.*)DNSSEC/siU', $string_utf8, $data);
-                if (isset($data[2][0]) && isset($data[3][0])) {
-                    $result[]=trim($data[2][0]);
-                    $result[]=trim($data[3][0]);
-                    $result[]=trim($data[1][0]);
-                } else {
-                    $result="";
-                }
-            } else {
-                $result="";
             }
         }
 

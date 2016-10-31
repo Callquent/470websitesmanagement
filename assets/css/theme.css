@@ -2,7 +2,6 @@
 /* Import fonts */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
 @import url(http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
-@import url(bucket-ico-fonts.css);
 
 html {
     text-rendering: optimizeLegibility !important;
@@ -5713,4 +5712,20 @@ right: -1px;
     -ms-transition: none;
     -o-transition: none;
     transition: none;
+}
+
+.right-side-accordion .terques-bg,.slimScrollBar,.brand,.sidebar-toggle-box,ul.top-menu>li>a:hover,ul.top-menu>li>a:focus,.toggle-right-box:hover  {
+    background:#2b2838 !important;
+}
+
+
+ul.sidebar-menu li ul.sub li a:hover,ul.sidebar-menu li ul.sub li.active a ,ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus,ul.sidebar-menu li a.active i,ul.sidebar-menu li a:hover i,ul.sidebar-menu li a:focus i{
+    color: #1fb5ac;
+}
+
+#sidebar {
+    background: #38354a;
+}
+.sidebar-toggle-box .fa-bars {
+    color: #FFFFFF;
 }

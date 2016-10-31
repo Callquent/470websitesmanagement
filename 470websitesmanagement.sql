@@ -74,15 +74,12 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_info` (
   `w_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `c_id` int(11) NOT NULL,
   `l_id` int(11) NOT NULL,
-  `whois_id` int(11) NOT NULL,
   `w_title` varchar(255) NOT NULL,
   `w_url_rw` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id`),
   UNIQUE KEY `w_url_rw` (`w_url_rw`),
-  UNIQUE KEY `whois_id_2` (`whois_id`),
   KEY `fk_c_id` (`c_id`),
-  KEY `fk_l_id` (`l_id`) USING BTREE,
-  KEY `whois_id` (`whois_id`)
+  KEY `fk_l_id` (`l_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -173,7 +170,7 @@ INSERT INTO `470websitesmanagement_settings` (`id_s`, `name_s`, `value_s`) VALUE
 
 DROP TABLE IF EXISTS `470websitesmanagement_whois`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
-  `whois_id` int(11) NOT NULL AUTO_INCREMENT,
+  `whois_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `whois` text,
   `creation_date` date DEFAULT NULL,
   `expiration_date` date DEFAULT NULL,
@@ -379,8 +376,7 @@ ALTER TABLE `470websitesmanagement_ftp`
 --
 ALTER TABLE `470websitesmanagement_info`
   ADD CONSTRAINT `fk_c_id` FOREIGN KEY (`c_id`) REFERENCES `470websitesmanagement_category` (`c_id`),
-  ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`l_id`) REFERENCES `470websitesmanagement_language` (`l_id`),
-  ADD CONSTRAINT `fk_whois_id` FOREIGN KEY (`whois_id`) REFERENCES `470websitesmanagement_whois` (`whois_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`l_id`) REFERENCES `470websitesmanagement_language` (`l_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_positiontracking`
@@ -393,3 +389,9 @@ ALTER TABLE `470websitesmanagement_positiontracking`
 --
 ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
   ADD CONSTRAINT `fk_id_positiontracking_sc` FOREIGN KEY (`w_id_pt`) REFERENCES `470websitesmanagement_positiontracking` (`w_id_pt`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_whois`
+--
+ALTER TABLE `470websitesmanagement_whois`
+  ADD CONSTRAINT `fk_whois_id` FOREIGN KEY (`whois_id`) REFERENCES `470websitesmanagement_info` (`w_id`) ON DELETE CASCADE;

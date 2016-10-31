@@ -6,7 +6,7 @@
                 <li>
                     <a href="<?php echo site_url('dashboard'); ?>">
                         <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
+                        <span><?php echo lang('dashboard'); ?></span>
                     </a>
                 </li>
                 <li>
@@ -74,7 +74,7 @@
                 </li>
                 <?php if ($user_role[0]->name == "Developper") { ?>
                 <li>
-                    <span>Administration : </span>
+                    <span><?php echo lang('groups'); ?></span>
                 </li>
                 <li class="sub-menu">
                     <a href="<?php echo site_url('language'); ?>">
@@ -89,7 +89,7 @@
                     </a>
                 </li>
                 <li>
-                    <span>Administration : </span>
+                    <span><?php echo lang('management'); ?></span>
                 </li>
                 <li>
                     <a href="<?php echo site_url('members'); ?>">

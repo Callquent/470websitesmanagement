@@ -36,6 +36,39 @@
                                             </div>
                                         </div>
 
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Choix le type d'exportation :</label>
+
+                                        <div class="col-sm-9 icheck minimal">
+                                            <div class="radio single-row">
+                                                <input tabindex="3" type="radio"  name="demo-radio">
+                                                <label>Tous les sites web</label>
+                                            </div>
+
+                                            <div class="radio single-row">
+                                                <input tabindex="3" type="radio"  name="demo-radio">
+                                                <label>Selectionnez vos site web</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                        <div class="form-group last">
+                                            <label class="control-label col-md-3">Searchable</label>
+                                            <div class="col-md-9">
+                                                <select name="country" class="multi-select" multiple="" id="my_multi_select3" >
+                                                    <?php foreach ($all_websites->result() as $row) {  ?>
+                                                        <option value="<?php echo $row->w_id; ?>"><?php echo $row->w_url_rw; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+                
                                         <div class="form-group">
 			                                <div class="col-lg-offset-2 col-lg-10">
 			                                    <button type="submit" class="btn btn-info">Export</button>

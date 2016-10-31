@@ -15,7 +15,26 @@ h1 {
 /***********************/
 /*        LOGIN        */
 /***********************/
-
+/* Pen Title */
+.pen-title {
+  padding: 50px 0;
+  text-align: center;
+  letter-spacing: 2px;
+}
+.pen-title h1 {
+  margin: 0 0 20px;
+}
+.pen-title span {
+  font-size: 12px;
+}
+.pen-title span .fa {
+  color: #33b5e5;
+}
+.pen-title span a {
+  color: #33b5e5;
+  font-weight: 600;
+  text-decoration: none;
+}
 /* Form Module */
 .form-module {
   position: relative;
@@ -136,12 +155,19 @@ h1 {
 /*********************/
 /*      NAVBAR       */
 /*********************/
-.badge { background: #3598dc !important }
+.badge { background: #1fb5ac !important }
 ul.sidebar-menu li a span {
   font-size: 14px;
 }
+ul.sidebar-menu li > span {
+  color: #1fb5ac;
+  display: block;
+  padding: 18px 0 18px 25px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-  border-left: 5px solid #3598dc;
+  border-left: 5px solid #1fb5ac;
 }
 /***********************/
 /*      META SEO       */

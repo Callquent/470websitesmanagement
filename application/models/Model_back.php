@@ -186,8 +186,8 @@ class Model_back extends CI_Model {
 	}
 	function import_website($decrypt)
 	{
-		$insert_sql = explode(";", $decrypt);
-		
+		$insert_sql =explode(";", $decrypt,-1);
+
 		foreach ($insert_sql as $row) {
 			$this->db->select_max('w_id');
 
