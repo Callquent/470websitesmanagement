@@ -140,6 +140,14 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/').pop() == "export") {
+		$(":input[type='radio']").on("change", function () {
+			if ($("#radio_quick_export").prop("checked") ) {
+				$(".export-search-table").hide();
+			}
+			else {
+				$(".export-search-table").show();
+			}
+		});
 		$('#form-export a').click(function(e) {
 			$.ajax({
 				type: "POST",
