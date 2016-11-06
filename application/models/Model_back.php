@@ -121,15 +121,19 @@ class Model_back extends CI_Model {
 		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_ftp');
 		$this->db->where('w_id', $id)->delete('470websitesmanagement_info');
 	}
-	function export_website()
+	function export_website($websites = "")
 	{
 		$sql = "";
 
 		$this->db->select('*')
 					->from('470websitesmanagement_info')
+					->join('470websitesmanagement_whois', '470websitesmanagement_whois.whois_id = 470websitesmanagement_info.w_id')
 					->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.w_id_info = 470websitesmanagement_info.w_id')
 					->join('470websitesmanagement_database', '470websitesmanagement_database.w_id_info = 470websitesmanagement_info.w_id')
 					->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.w_id_info = 470websitesmanagement_info.w_id');
+		if (!empty ($websites)) {
+			$this->db->where_in('470websitesmanagement_info.w_id', $websites);
+		}
 
 		$query = $this->db->get();
 		foreach ($query->result() as $row) {
@@ -168,12 +172,9 @@ class Model_back extends CI_Model {
 				'w_password_bo' => $row->w_password_bo
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_backoffice').";";
-		}
 
-		$query_whois = $this->db->get('470websitesmanagement_whois');
-		foreach ($query_whois->result() as $row) {
 			$data = array(
-				'whois_id'  => $row->whois_id,
+				'whois_id'  => $row->w_id_info,
 				'creation_date' => $row->creation_date,
 				'expiration_date'  => $row->expiration_date,
 				'registrar'  => $row->registrar,
@@ -181,7 +182,7 @@ class Model_back extends CI_Model {
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_whois').";";
 		}
-
+		
 		return $sql;
 	}
 	function import_website($decrypt)

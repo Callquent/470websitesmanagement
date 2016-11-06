@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Export extends CI_Controller {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		// Chargement des ressources pour ce controller
@@ -53,7 +53,6 @@ class Export extends CI_Controller {
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
-
 			header("Cache-Control: ");
 			header("Content-type: text/plain");
 			header('Content-Disposition: attachment; filename="websitesmanagement.470"');
@@ -66,7 +65,9 @@ class Export extends CI_Controller {
 				        'key' => $key_secrete
 				)
 			);
-			$content = $this->model_back->export_website();
+			$websites = $this->input->post('websites');
+			
+			$content = $this->model_back->export_website($websites);
 			$crypt = $this->encryption->encrypt($content);
 
 			echo $crypt;

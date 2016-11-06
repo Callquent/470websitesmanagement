@@ -140,14 +140,6 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/').pop() == "export") {
-		$(":input[type='radio']").on("change", function () {
-			if ($("#radio_quick_export").prop("checked") ) {
-				$(".export-search-table").hide();
-			}
-			else {
-				$(".export-search-table").show();
-			}
-		});
 		$('#form-export a').click(function(e) {
 			$.ajax({
 				type: "POST",
@@ -161,6 +153,29 @@ $(document).ready(function(){
 			});
 			e.preventDefault();
 		});
+		$(":input[type='radio']").on("change", function () {
+			if ($("#radio_quick_export").prop("checked") ) {
+				$(".export-search-table").hide();
+			}
+			else {
+				$(".export-search-table").show();
+			}
+		});
+		/*$('#form-export').submit(function(e) {
+			console.log($(this).serialize());
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data: $(this).serialize(),
+				success: function(msg){
+					console.log(msg);
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+			e.preventDefault();
+		});*/
 	} else if (window.location.href.split('/').pop() == "import") {
 
 

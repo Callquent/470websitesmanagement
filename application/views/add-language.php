@@ -34,19 +34,6 @@
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label class="control-label col-md-3">Color</label>
-                                    <div class="col-md-4 col-xs-11">
-                                      <div data-color-format="rgb" data-color="rgb(255, 146, 180)" class="input-append colorpicker-default color">
-                                        <input type="text" readonly="" name="colorlanguage" value="" class="form-control">
-                                        <span class=" input-group-btn add-on">
-                                          <button class="btn btn-white" type="button" style="padding: 8px">
-                                            <i style="background-color: rgb(124, 66, 84);"></i>
-                                          </button>
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
                                       <div class="col-lg-offset-3 col-lg-6">
                                           <button class="btn btn-primary" type="submit">Save</button>
                                           <button class="btn btn-default" type="button">Cancel</button>
