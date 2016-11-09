@@ -70,10 +70,11 @@ class Add_website extends CI_Controller {
 		$this->form_validation->set_rules('url', 'Url', 'required');
 
 		if ($this->form_validation->run() == TRUE){*/
-
-			$website_id = $this->model_back->create_websites($c_id, $l_id, $w_title, $w_url_rw);
 			$domain = new Whois($w_url_rw);
 			$whois = $domain->lookup();
+			var_dump($whois);
+
+			$website_id = $this->model_back->create_websites($c_id, $l_id, $w_title, $w_url_rw);
 			$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 			$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
 			$this->model_whois->create_all_whois($website_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));

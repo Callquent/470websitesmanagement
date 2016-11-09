@@ -15,9 +15,9 @@
                         <span>Website Management</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="<?php echo site_url('all-websites'); ?>">All Websites <span class="badge"><?php echo $all_count_websites->count_all_websites; ?></span></a></li>
+                        <li><a href="<?php echo site_url('all-websites'); ?>"><?php echo lang('all_websites'); ?> <span class="badge"><?php echo $all_count_websites->count_all_websites; ?></span></a></li>
                         <li>
-                            <a href="javascript:;"><i class="fa fa-plus"></i>Website Languages</a>
+                            <a href="javascript:;"><i class="fa fa-plus"></i><?php echo lang('website_languages'); ?></a>
                             <ul class="sub">
                                 <?php foreach ($all_count_websites_per_language->result() as $row) {  ?>
                                 <li><a href="<?php echo site_url('website-language/'.$row->l_title_url); ?>"><?php echo $row->l_title; ?> <span class="badge"><?php echo $row->count_websites_per_language; ?></span></a></li>
@@ -25,7 +25,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:;"><i class="fa fa-plus"></i>Website Catgories</a>
+                            <a href="javascript:;"><i class="fa fa-plus"></i><?php echo lang('website_categories'); ?></a>
                             <ul class="sub">
                                 <?php foreach ($all_count_websites_per_category->result() as $row) {  ?>
                                 <li><a href="<?php echo site_url('website-category/'.$row->c_title_url); ?>"><?php echo $row->c_title; ?> <span class="badge"><?php echo $row->count_websites_per_category; ?></span></a></li>

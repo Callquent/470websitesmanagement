@@ -23,27 +23,27 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-			                        <form class="form-horizontal" id="form-search-scrapper-google" method="post" action="<?php echo site_url('/import/import-470websitesmanagement/'); ?>" enctype="multipart/form-data">
+			                        <form class="form-horizontal" id="form-import" method="post" action="<?php echo site_url('/import/import-470websitesmanagement/'); ?>" enctype="multipart/form-data">
 			                            <div class="form-group">
                                             <label class="control-label col-md-3">Clé secrète</label>
                                             <div class="controls col-md-9">
 			                                    <input type="text" class="form-control" name="keysecrete" id="keysecrete" placeholder="cle secrete">
 			                                </div>
 			                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Charger votre fichier .470</label>
-                                <div class="controls col-md-9">
-                                    <div class="fileupload fileupload-new" data-provides="fileupload">
-                                                <span class="btn btn-white btn-file">
-                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select file</span>
-                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                                                <input type="file" name="importfile" class="default" />
-                                                </span>
-                                        <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                        <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                                    </div>
-                                </div>
-                            </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Charger votre fichier .470</label>
+                                            <div class="controls col-md-9">
+                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                            <span class="btn btn-white btn-file">
+                                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select file</span>
+                                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                                <input type="file" name="importfile" class="default" />
+                                                            </span>
+                                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                </div>
+                                            </div>
+                                        </div>
 			                            <div class="form-group">
 			                                <div class="col-lg-offset-2 col-lg-10">
 			                                    <button type="submit" class="btn btn-danger">Sign in</button>

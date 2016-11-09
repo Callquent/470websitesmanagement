@@ -10,6 +10,9 @@ $lang['settings'] = " Settings";
 $lang['log_out'] = " Log Out";
 
 $lang['dashboard'] = "Dashboard";
+$lang['all_websites'] = "All Websites";
+$lang['website_languages'] = "Website Languages";
+$lang['website_categories'] = "Website Categories";
 $lang['languages'] = "Languages";
 $lang['groups'] = "Groups : ";
 $lang['categories'] = "Categories";

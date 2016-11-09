@@ -81,7 +81,8 @@ $(document).ready(function(){
 
 		EditableTable.init();
 	} else if (window.location.href.split('/').pop() == "add-website" || window.location.href.split('/').pop() == "add-category" || window.location.href.split('/').pop() == "add-language") {
-		$("#results").hide();
+		$("#results .alert-success").hide();
+		$("#results .alert-danger").hide();
 		$("#form-add-website").validate({
 			rules: {
 				nom: "required",
@@ -100,15 +101,22 @@ $(document).ready(function(){
 				success: function(msg){
 					console.log(msg);
 					$("#form-add-website").fadeOut('slow');
-					$('#results').fadeIn('fast');
+					$('#results .alert-success').fadeIn('fast');
 					setTimeout(function() {
-					 $('#results').fadeOut('slow');
-					 $("#form-add-website").find("input[type=text], textarea").val("");
-					 $("#form-add-website").fadeIn('slow');
+						$('#results .alert-success').fadeOut('slow');
+						$("#form-add-website").find("input[type=text], textarea").val("");
+						$("#form-add-website").fadeIn('slow');
 					}, 3000 );
 				},
 				error: function(msg){
 					console.log(msg);
+					$("#form-add-website").fadeOut('slow');
+					$('#results .alert-danger').fadeIn('fast');
+					setTimeout(function() {
+						$('#results .alert-danger').fadeOut('slow');
+						$("#form-add-website").find("input[type=text], textarea").val("");
+						$("#form-add-website").fadeIn('slow');
+					}, 3000 );
 				}
 			});
 			e.preventDefault();
@@ -161,12 +169,23 @@ $(document).ready(function(){
 				$(".export-search-table").show();
 			}
 		});
-		/*$('#form-export').submit(function(e) {
+	} else if (window.location.href.split('/').pop() == "import") {
+
+		$('#form-import').submit(function(e) {
 			console.log($(this).serialize());
+			var formData = new FormData($(this)[0]);
+			console.log(formData);
+
+			var formDataSerialized = $(this).serialize();
+			console.log(formDataSerialized);
 			$.ajax({
 				type: "POST",
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
 				success: function(msg){
 					console.log(msg);
 				},
@@ -175,10 +194,7 @@ $(document).ready(function(){
 				}
 			});
 			e.preventDefault();
-		});*/
-	} else if (window.location.href.split('/').pop() == "import") {
-
-
+		});
 	} else if (window.location.href.split('/').pop() == "category") {
         var categoryTable = $('#table-category').dataTable({
             "columnDefs": [
