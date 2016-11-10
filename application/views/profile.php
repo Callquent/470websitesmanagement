@@ -18,11 +18,8 @@
                        </div>
                        <div class="col-md-6">
                            <div class="profile-desk">
-                               <h1><?php echo $user->name; ?></h1>
-                               <span class="text-muted">Product Manager</span>
-                               <p>
-                                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor vestibulum imperdiet. Ut auctor accumsan erat, a vulputate metus tristique non. Aliquam aliquam vel orci quis sagittis.
-                               </p>
+                               <h1><?php echo $user->username; ?></h1>
+                               <span class="text-muted">Date de Creation : <?php echo $user->date_created; ?></span>
                               <div class="change-password">
                                 <form action="<?php echo site_url('profile/change-password'); ?>" method="post" id="changepassword-form" class="form-horizontal" role="form">
                                   <input class="form-control input-lg" name="newpassword" placeholder="Entre ton mot de passe actuel" type="password">

@@ -603,14 +603,53 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
-		UITree.init();
+	/*UITree.init();
 	        $("#tree_3 ul li").removeClass('jstree-leaf').addClass('jstree-closed');
 
 	$("#tree_3").on('after_open.jstree', function(event, data) {
 	    if (data.node.icon == 'fa fa-folder') {
 	        $("#tree_3").addClass('jstree-open').removeClass('jstree-leaf');
 	    }
-	});
+	});*/
+$.fn.extend({
+	treeview:	function() {
+		return this.each(function() {
+			// Initialize the top levels;
+			var tree = $(this);
+			
+			tree.addClass('treeview-tree');
+			tree.find('li').each(function() {
+				var stick = $(this);
+			});
+			tree.find('li').has("ul").each(function () {
+				var branch = $(this); //li with children ul
+				
+				branch.prepend("<i class='tree-indicator glyphicon glyphicon-chevron-right'></i>");
+				branch.addClass('tree-branch');
+				branch.on('click', function (e) {
+					if (this == e.target) {
+						var icon = $(this).children('i:first');
+						
+						icon.toggleClass("glyphicon-chevron-down glyphicon-chevron-right");
+						$(this).children().children().toggle();
+					}
+				})
+				branch.children().children().toggle();
+				branch.children('.tree-indicator, button, a').click(function(e) {
+					branch.click();
+					
+					e.preventDefault();
+				});
+			});
+		});
+	}
+});
+$(window).on('load', function () {
+	$('.treeview').each(function () {
+		var tree = $(this);
+		tree.treeview();
+	})
+})
 	$("#tree_3").bind("open_node.jstree", function (event, data) {
 		var glue = '/';
 		var pathftp = $('#tree_3').jstree().get_path(data.node, glue, true );
@@ -622,11 +661,11 @@ $(document).ready(function(){
 			url: url+'/refreshpath/'+id,
 			data: 'pathftp='+pathftp,
 			success: function(msg){
-				/*results = JSON.parse(msg);
+				results = JSON.parse(msg);
 				for(var key in results) {
 					$('#tree_3').jstree().create_node(data.node.text, results[key], "last");
 				}
-				console.log(JSON.parse(msg));*/
+				console.log(JSON.parse(msg));
 			},
 			error: function(msg){
 				console.log(msg);

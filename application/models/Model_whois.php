@@ -35,7 +35,7 @@ class Model_whois extends CI_Model {
 		$this->db->insert('470websitesmanagement_whois', $data);
 		return $this->db->insert_id();
 	}
-	function update_whois($whois, $creation_date, $expiration_date, $registrar)
+	function update_whois($whois_id, $whois, $creation_date, $expiration_date, $registrar)
 	{
 		$data = array(
 			'whois'					=> $whois,
@@ -44,7 +44,7 @@ class Model_whois extends CI_Model {
 			'registrar'				=> $registrar,
 		);
 
-		$this->db->where('w_id_info', $w_id)
+		$this->db->where('whois_id', $whois_id)
 				 ->update('470websitesmanagement_whois', $data);
 	}
 }
