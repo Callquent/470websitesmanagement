@@ -29,10 +29,8 @@ class Whois
         $this->domain = $this->clean($domain);
         $validator = new Validator();
 
-        // check if domain is ip
-        if ($validator->validateIp($this->domain)) {
-            $this->ip = $this->domain;
-        } elseif ($validator->validateDomain($this->domain)) {
+        // check if domain is valid
+        if ($validator->validateDomain($this->domain)) {
             $domainParts = explode(".", $this->domain);
             $this->tld = strtolower(array_pop($domainParts));
         } else {
@@ -63,13 +61,9 @@ class Whois
      */
     public function lookup()
     {
-        if ($this->ip) {
-            $string_utf8 = $this->lookupIp($this->ip);
-        } else {
+        if ($this->domain) {
             $string_utf8 = $this->lookupDomain($this->domain);
             $result[] = $string_utf8;
-
-
 
 
             switch ($this->tld) // on indique sur quelle variable on travaille
@@ -269,40 +263,6 @@ class Whois
         }
         return $result;
     }
-
-    /**
-     * IP lookup.
-     *
-     * @param string $ip
-     *
-     * @return string IP lookup results.
-     */
-    public function lookupIp($ip)
-    {
-        $results = array();
-
-        $continentServer = new Server();
-        foreach ($continentServer->getContinentServers() as $server) {
-            $result = $this->queryServer($server, $ip);
-                if ($result && !in_array($result, $results)) {
-                    $results[$server]= $result;
-                }
-        }
-        $res = "RESULTS FOUND: " . count($results);
-        foreach ($results as $server => $result) {
-            $res .= "Lookup results for " . $ip . " from " . $server . " server: " . $result;
-        }
-        return $res;
-    }
-
-    /**
-     * Queries the whois server.
-     *
-     * @param string $server
-     * @param string $domain
-     *
-     * @return string Information returned from whois server.
-     */
     public function queryServer($server, $domain)
     {
         $port = 43;

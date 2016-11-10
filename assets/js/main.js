@@ -766,4 +766,7 @@ $(window).on('load', function () {
 		});
 		e.preventDefault();
 	});
+	$('.leftside-navigation .sidebar-menu li a').load(function(e) {
+		$(this).addClass("active");
+	});
 });

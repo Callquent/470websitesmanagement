@@ -17,7 +17,7 @@ class Validator
      */
     public function validateDomain($domain)
     {
-        if (!preg_match("/^(([-a-z0-9]{2,100})|(([-a-z0-9]{2,100})\.([-a-z0-9]{2,100})))\.([a-z\.]{2,8})$/i", $domain)) {
+        if (!preg_match("/^([-a-z0-9\.]{2,150})(\.[a-z]{2,20})$/i", $domain)) {
             return false;
         }
         return $domain;

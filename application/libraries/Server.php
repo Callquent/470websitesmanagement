@@ -241,6 +241,7 @@ class Server
         "sm" => "whois.nic.sm", // San Marino
         "sn" => "whois.nic.sn", // Senegal
         "so" => "whois.nic.so", // Somalia
+        "social" => "whois.safenames.net",
         // sr - Suriname - no whois server assigned
         "st" => "whois.nic.st", // Sao Tome And Principe
         "su" => "whois.tcinet.ru", // Russian Federation
