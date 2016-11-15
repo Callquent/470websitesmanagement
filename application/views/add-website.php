@@ -13,7 +13,7 @@
                 <div class="col-lg-12">
                     <section class="panel">
                         <header class="panel-heading">
-                            Ajouter un site web
+                            <?php echo lang('add_website'); ?>
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
                                 <a class="fa fa-cog" href="javascript:;"></a>
@@ -24,22 +24,22 @@
                             <div class=" form">
                                 <form class="form-horizontal " id="form-add-website" method="post" action="<?php echo site_url('/add-website/submit'); ?>">
                                   <div class="row-fluid">
-                                    <h4 class=""> General Information</h4>
+                                    <h4 class=""><?php echo lang('general_information'); ?></h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="cname" class="control-label col-lg-3">Nom (required)</label>
+                                        <label for="cname" class="control-label col-lg-3"><?php echo lang('name_add_website'); ?></label>
                                         <div class="col-lg-6">
                                           <input class="form-control" type="text" name="nom" placeholder="Nom" required />
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="cemail" class="control-label col-lg-3">URL (required)</label>
+                                        <label for="cemail" class="control-label col-lg-3"><?php echo lang('url_add_website'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="url" placeholder="Site Web" required />
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="curl" class="control-label col-lg-3">Langages (optional)</label>
+                                        <label for="curl" class="control-label col-lg-3"><?php echo lang('languages'); ?></label>
                                         <div class="col-lg-6">
                                           <select name="languages" class="form-control">
                                           <?php foreach ($all_languages->result() as $row){  ?>
@@ -49,7 +49,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="curl" class="control-label col-lg-3">Catégories (optional)</label>
+                                        <label for="curl" class="control-label col-lg-3"><?php echo lang('categories'); ?></label>
                                         <div class="col-lg-6">
                                           <select name="categories" class="form-control">
                                           <?php foreach ($all_categories->result() as $row){  ?>
@@ -63,19 +63,19 @@
                                     <h4 class=""><i class="fa fa-plus-square"></i> FTP</h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Host FTP</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('host_ftp'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="hostftp" placeholder="Host FTP">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Login FTP</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('login_ftp'); ?></label>
                                         <div class="col-lg-6">
                                           <input class="form-control" type="text" name="loginftp" placeholder="Login FTP">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Password FTP</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('password_ftp'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="passwordftp" placeholder="Mot de Passe FTP">
                                         </div>
@@ -85,25 +85,25 @@
                                     <h4 class=""><i class="fa fa-plus-square"></i> SQL</h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Host SQL</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('host_sql'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="hostsql" placeholder="Host SQL">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Base de Donnée</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('name_sql'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="namedatabase" placeholder="Nom de la base">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Login SQL</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('login_sql'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="loginsql" placeholder="Login SQL">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Password SQL</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('password_sql'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="passwordsql" placeholder="Mot de Passe SQL">
                                         </div>
@@ -113,13 +113,13 @@
                                     <h4 class=""><i class="fa fa-plus-square"></i> Back Office</h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Login Back Office</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('login_backoffice'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="adminlogin" placeholder="Admin Login">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">Password Back Office</label>
+                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('password_backoffice'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="adminpassword" placeholder="Admin Mot de Passe">
                                         </div>

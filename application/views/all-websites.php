@@ -24,7 +24,7 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-                                    <h4>Gestion du parc : <?php echo $all_domains; ?> Domaines et <?php echo $all_subdomains; ?> Sous-domaines</h4>
+                                    <h4><?php echo lang('number_websites_management'); ?><?php echo $all_domains; ?> <?php echo lang('domains'); ?> <?php echo $all_subdomains; ?> <?php echo lang('sub_domains'); ?></h4>
                                 </div>
                             </div>
                             <div class="space15"></div>

@@ -84,7 +84,6 @@ class Website_scrapper_google extends CI_Controller {
 
 					$data[] = $list;
 				}
-				var_dump($data);
 				$output = array("draw" => $_POST['draw'],
 								"recordsTotal" => $all_websites->num_rows(),
 								"recordsFiltered" => $count_websites->num_rows(),

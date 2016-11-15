@@ -603,14 +603,7 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
-	/*UITree.init();
-	        $("#tree_3 ul li").removeClass('jstree-leaf').addClass('jstree-closed');
 
-	$("#tree_3").on('after_open.jstree', function(event, data) {
-	    if (data.node.icon == 'fa fa-folder') {
-	        $("#tree_3").addClass('jstree-open').removeClass('jstree-leaf');
-	    }
-	});*/
 $.fn.extend({
 	treeview:	function() {
 		return this.each(function() {

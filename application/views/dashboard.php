@@ -24,7 +24,7 @@
                           <div class="col-sm-6">
                               <section class="panel">
                                   <header class="panel-heading">
-                                      Site Web par langues
+                                    <?php echo lang('website_per_languages'); ?>
                                   <span class="tools pull-right">
                                       <a href="javascript:;" class="fa fa-chevron-down"></a>
                                       <a href="javascript:;" class="fa fa-cog"></a>
@@ -41,7 +41,7 @@
                           <div class="col-sm-6">
                               <section class="panel">
                                   <header class="panel-heading">
-                                      Site Web par catégories
+                                    <?php echo lang('website_per_categories'); ?>
                                   <span class="tools pull-right">
                                       <a href="javascript:;" class="fa fa-chevron-down"></a>
                                       <a href="javascript:;" class="fa fa-cog"></a>
