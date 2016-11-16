@@ -13,7 +13,7 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Editable Table
+                        <?php echo lang('websites_management'); ?>
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
                             <a href="javascript:;" class="fa fa-cog"></a>
@@ -32,18 +32,18 @@
                                 <thead>
                                   <tr>
                                       <th>Code</th>
-                                      <th>Nom</th>
-                                      <th>Site Web</th>
-                                      <th>Adresse IP</th>
-                                      <th>Catégorie</th>
-                                      <th>Langages</th>
-                                      <th>Access FTP</th>
-                                      <th>Access SQL</th>
-                                      <th>Access Back office</th>
-                                      <th>Envoyer</th>
+                                      <th><?php echo lang('name'); ?></th>
+                                      <th><?php echo lang('website'); ?></th>
+                                      <th><?php echo lang('address_ip'); ?></th>
+                                      <th><?php echo lang('categories'); ?></th>
+                                      <th><?php echo lang('languages'); ?></th>
+                                      <th><?php echo lang('access_ftp'); ?></th>
+                                      <th><?php echo lang('access_sql'); ?></th>
+                                      <th><?php echo lang('access_backoffice'); ?></th>
+                                      <th><?php echo lang('send'); ?></th>
                                       <?php if ($user_role[0]->name == "Developper") { ?>
-                                        <th>Modifier</th>
-                                        <th>Supprimer</th>
+                                        <th><?php echo lang('edit'); ?></th>
+                                        <th><?php echo lang('delete'); ?></th>
                                         <th>FTP</th>
                                       <?php } ?>
                                   </tr>

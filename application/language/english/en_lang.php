@@ -18,9 +18,7 @@ $lang['dashboard'] = "Dashboard";
 $lang['all_websites'] = "All Websites";
 $lang['website_languages'] = "Website Languages";
 $lang['website_categories'] = "Website Categories";
-$lang['languages'] = "Languages";
 $lang['groups'] = "Groups : ";
-$lang['categories'] = "Categories";
 $lang['management'] = "Management : ";
 $lang['members'] = "Members";
 /***********************/
@@ -51,6 +49,19 @@ $lang['website_per_categories'] = "Websites per categories";
 /***********************/
 /* Website Management */
 /***********************/
+$lang['websites_management'] = "Websites Management";
 $lang['number_websites_management'] = "Number of websites you manage : ";
 $lang['domains'] = "Domains";
 $lang['sub_domains'] = "Sub-domains";
+
+$lang['name'] = "Name";
+$lang['website'] = "Website";
+$lang['address_ip'] = "Address IP";
+$lang['categories'] = "Categories";
+$lang['languages'] = "Languages";
+$lang['access_ftp'] = "Access FTP";
+$lang['access_sql'] = "Access SQL";
+$lang['access_backoffice'] = "Access Backoffice";
+$lang['send'] = "Send";
+$lang['edit'] = "Edit";
+$lang['delete'] = "Delete";

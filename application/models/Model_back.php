@@ -187,7 +187,7 @@ class Model_back extends CI_Model {
 	}
 	function import_website($decrypt)
 	{
-		$insert_sql =explode(";", $decrypt,-1);
+		$insert_sql = explode(";", $decrypt,-1);
 
 		foreach ($insert_sql as $row) {
 			$this->db->select_max('w_id');
@@ -200,7 +200,7 @@ class Model_back extends CI_Model {
 			$patterns = array('/VALUES \(\'(.*)\'/siU');
 			$replacements = array('VALUES (\''.$max_id_website.'\'');
 			$result = preg_replace($patterns,$replacements, $row);
-			/*var_dump($result);*/
+			/*var_dump($decrypt);*/
 			$this->db->query($result);
 		}
 	}

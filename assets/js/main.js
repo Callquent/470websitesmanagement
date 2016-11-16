@@ -170,27 +170,46 @@ $(document).ready(function(){
 			}
 		});
 	} else if (window.location.href.split('/').pop() == "import") {
-
+		$("#results .alert-success").hide();
+		$("#results .alert-danger").hide();
 		$('#form-import').submit(function(e) {
-			console.log($(this).serialize());
 			var formData = new FormData($(this)[0]);
-			console.log(formData);
 
-			var formDataSerialized = $(this).serialize();
-			console.log(formDataSerialized);
 			$.ajax({
 				type: "POST",
 				url: $(this).attr('action'),
-				data: $(this).serialize(),
-				async : false,
+				data: formData,
+				dataType: 'json',
 				cache : false,
 				contentType : false,
 				processData : false,
-				success: function(msg){
-					console.log(msg);
+				success: function(response){
+					if(response.type != 'error'){
+						$("#form-import").fadeOut('slow');
+						$('#results .alert-success').fadeIn('fast');
+						setTimeout(function() {
+							$('#results .alert-success').fadeOut('slow');
+							$("#form-import").find("input[type=text], textarea").val("");
+							$("#form-import").fadeIn('slow');
+						}, 3000 );
+					} else {
+						$("#form-import").fadeOut('slow');
+						$('#results .alert-danger').fadeIn('fast');
+						setTimeout(function() {
+							$('#results .alert-danger').fadeOut('slow');
+							$("#form-import").find("input[type=text], textarea").val("");
+							$("#form-import").fadeIn('slow');
+						}, 3000 );
+					}
 				},
-				error: function(msg){
-					console.log(msg);
+				error: function(response){
+					$("#form-import").fadeOut('slow');
+					$('#results .alert-danger').fadeIn('fast');
+					setTimeout(function() {
+						$('#results .alert-danger').fadeOut('slow');
+						$("#form-import").find("input[type=text], textarea").val("");
+						$("#form-import").fadeIn('slow');
+					}, 3000 );
 				}
 			});
 			e.preventDefault();

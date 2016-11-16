@@ -66,6 +66,11 @@ class Import extends CI_Controller {
 			
 			$decrypt = $this->encryption->decrypt($file);
 			$this->model_back->import_website($decrypt);
+			if (empty($decrypt)) {
+				echo json_encode(array( 'type'=>'error' ));
+			} else {
+				echo json_encode(array( 'type'=>'success' ));
+			}
 
 		}else {
 			$this->load->view('index');

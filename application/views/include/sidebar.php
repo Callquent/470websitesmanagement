@@ -12,7 +12,7 @@
                 <li>
                     <a href="javascript:;">
                         <i class="fa fa-desktop"></i>
-                        <span>Website Management</span>
+                        <span><?php echo lang('websites_management'); ?></span>
                     </a>
                     <ul class="sub">
                         <li><a href="<?php echo site_url('all-websites'); ?>"><?php echo lang('all_websites'); ?> <span class="badge"><?php echo $all_count_websites->count_all_websites; ?></span></a></li>
