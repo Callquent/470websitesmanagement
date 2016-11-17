@@ -41,6 +41,9 @@ $lang['password_sql'] = "Password SQL";
 
 $lang['login_backoffice'] = "Login Back Office";
 $lang['password_backoffice'] = "Password Back Office";
+
+$lang['save'] = "Save";
+$lang['cancel'] = "Cancel";
 /***********************/
 /*     Dashboard     */
 /***********************/

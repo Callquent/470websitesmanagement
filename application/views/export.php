@@ -15,10 +15,9 @@
                         Export
                     </header>
                     <div class="panel-body">
-                        <div class="adv-table editable-table ">
-                            <div class="clearfix">
-                                <div class="btn-group">
-			                        <form class="form-horizontal" id="form-export" role="form" method="post" action="<?php echo site_url('/export/export-470websitesmanagement/'); ?>">
+                        <div class="position-center">
+
+			                        <form class="form-horizontal" id="form-export" method="post" action="<?php echo site_url('/export/export-470websitesmanagement/'); ?>">
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label col-lg-3">Clé secrète :</label>
                                             <div class="col-lg-6">
@@ -30,8 +29,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Choix le type d'exportation :</label>
 
@@ -47,8 +44,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                         <div class="form-group export-search-table last">
                                             <label class="control-label col-md-3">Listes Sites Web :</label>
                                             <div class="col-md-9">
@@ -59,17 +54,14 @@
                                                 </select>
                                             </div>
                                         </div>
-
-
                                         <div class="form-group">
 			                                <div class="col-lg-offset-2 col-lg-10">
 			                                    <button type="submit" class="btn btn-info">Export</button>
 			                                </div>
 			                            </div>
 			                        </form>
-                                </div>
-                            </div>
-                            <div class="space15"></div>
+
+
                         </div>
 
                     </div>

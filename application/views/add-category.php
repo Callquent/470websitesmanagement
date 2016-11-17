@@ -24,7 +24,7 @@
                             <div class=" form">
                                 <form class="form-horizontal " id="form-add-category" method="post" action="<?php echo site_url('/add-category/submit'); ?>">
                                   <div class="row-fluid">
-                                    <h4 class=""> General Information</h4>
+                                    <h4 class=""><?php echo lang('general_information'); ?></h4>
                                     <hr>
                                     <div class="form-group ">
                                         <label for="cname" class="control-label col-lg-3">Nom de la catégorie *</label>
@@ -35,8 +35,8 @@
                                   </div>
                                   <div class="form-group">
                                       <div class="col-lg-offset-3 col-lg-6">
-                                          <button class="btn btn-primary" type="submit">Save</button>
-                                          <button class="btn btn-default" type="button">Cancel</button>
+                                          <button class="btn btn-primary" type="submit"><?php echo lang('save'); ?></button>
+                                          <button class="btn btn-default" type="button"><?php echo lang('cancel'); ?></button>
                                       </div>
                                   </div>
                                 </form>
