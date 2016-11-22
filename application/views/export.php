@@ -12,14 +12,14 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Export
+                        <?php echo lang('export'); ?>
                     </header>
                     <div class="panel-body">
                         <div class="position-center">
 
 			                        <form class="form-horizontal" id="form-export" method="post" action="<?php echo site_url('/export/export-470websitesmanagement/'); ?>">
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label col-lg-3">Clé secrète :</label>
+                                            <label class="col-sm-3 control-label col-lg-3"><?php echo lang('key_secrete'); ?></label>
                                             <div class="col-lg-6">
                                                 <div class="input-group m-bot15">
                                                     <input type="text" name="keysecrete" id="keysecrete" class="form-control" value="<?php echo $key_secrete; ?>">
@@ -30,17 +30,17 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">Choix le type d'exportation :</label>
+                                            <label class="col-sm-3 control-label"><?php echo lang('choose_type_export'); ?></label>
 
                                             <div class="col-sm-9 icheck minimal">
                                                 <div class="radio single-row">
                                                     <input tabindex="3" type="radio" name="demo-radio" id="radio_quick_export" checked>
-                                                    <label>Tous les sites web</label>
+                                                    <label><?php echo lang('all_websites_export'); ?></label>
                                                 </div>
 
                                                 <div class="radio single-row">
                                                     <input tabindex="3" type="radio" name="demo-radio" id="radio_custom_export">
-                                                    <label>Selectionnez vos sites web</label>
+                                                    <label><?php echo lang('select_websites_export'); ?></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="form-group">
 			                                <div class="col-lg-offset-2 col-lg-10">
-			                                    <button type="submit" class="btn btn-info">Export</button>
+			                                    <button type="submit" class="btn btn-info"><?php echo lang('export'); ?></button>
 			                                </div>
 			                            </div>
 			                        </form>

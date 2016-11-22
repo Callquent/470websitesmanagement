@@ -197,7 +197,7 @@
           <div style="line-height: 24px;">
             <font face="Arial, Helvetica, sans-serif" size="4" color="#57697e" style="font-size: 15px;">
             <span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
-              Serveur : <a href="<?php echo $w_host_db; ?>">test</a>
+              Serveur : <?php echo $w_host_db; ?>
             </span></font>
           </div>
           <div style="line-height: 24px;">
@@ -226,9 +226,9 @@
         <div style="line-height: 24px;">
           <a href="#" target="_blank" style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 13px;">
             <font face="Arial, Helvetica, sans-seri; font-size: 13px;" size="3" color="#596167">
-            <button type="button" style="display: inline-block; padding: 6px 12px; margin-bottom: 0; font-size: 14px; font-weight: 700; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none; border: 1px solid transparent; border-radius: 4px; color: #fff; background-color: #FF6B57; border-color: #FF6B57;">
+            <a href="mailto:<?php echo $w_email; ?>" style="display: inline-block; padding: 6px 12px; margin-bottom: 0; font-size: 14px; font-weight: 700; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none; border: 1px solid transparent; border-radius: 4px; color: #fff; background-color: #FF6B57; border-color: #FF6B57;">
               Contacter le webmaster
-            </button>
+            </a>
         </div>
         <!-- padding --><div style="height: 60px; line-height: 60px; font-size: 10px;"></div>
       </td></tr>

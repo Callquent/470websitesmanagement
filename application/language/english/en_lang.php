@@ -68,3 +68,15 @@ $lang['access_backoffice'] = "Access Backoffice";
 $lang['send'] = "Send";
 $lang['edit'] = "Edit";
 $lang['delete'] = "Delete";
+/***********************/
+/*        Export       */
+/***********************/
+$lang['key_secrete'] = "Key secrete :";
+$lang['choose_type_export'] = "Choose the export type :";
+$lang['all_websites_export'] = "All your websites";
+$lang['select_websites_export'] = "Select your websites";
+/***********************/
+/*        Import       */
+/***********************/
+$lang['save_key_secrete'] = "Get your secret key :";
+$lang['charge_file_470'] = "Load your file .470 :";

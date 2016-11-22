@@ -31,7 +31,7 @@
             <input type="text" class="form-control" name="name" placeholder="User name" autofocus>
             <input type="text" class="form-control" name="email" placeholder="Email" autofocus>
             <input type="password" class="form-control" name="password" placeholder="Password">
-            <input type="password" class="form-control" placeholder="Re-type Password">
+            <input type="password" class="form-control" name="password_confirm" placeholder="Re-type Password">
             <label class="checkbox">
                 <input type="checkbox" value="agree this condition"> I agree to the Terms of Service and Privacy Policy
             </label>
@@ -44,6 +44,11 @@
             <?php if($this->session->flashdata('disconnect')){ ?>
             <div class="alert alert-danger">
                 <?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
+            </div>
+            <?php } ?>
+            <?php if($this->session->flashdata('danger')){ ?>
+            <div class="alert alert-danger">
+                <?php echo $this->session->flashdata('danger'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
             </div>
             <?php } ?>
 

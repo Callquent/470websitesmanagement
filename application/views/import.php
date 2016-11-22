@@ -12,20 +12,20 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Import
+                        <?php echo lang('import'); ?>
                     </header>
                     <div class="panel-body">
                         <div class="position-center">
 
 			                        <form class="form-horizontal" id="form-import" method="post" action="<?php echo site_url('/import/import-470websitesmanagement/'); ?>" enctype="multipart/form-data">
 			                            <div class="form-group">
-                                            <label class="col-sm-3 control-label col-lg-3">Clé secrète :</label>
+                                            <label class="col-sm-3 control-label col-lg-3"><?php echo lang('save_key_secrete'); ?></label>
                                             <div class="col-lg-6">
-			                                    <input type="text" class="form-control" name="keysecrete" id="keysecrete" placeholder="cle secrete">
+			                                    <input type="text" class="form-control" name="keysecrete" id="keysecrete" placeholder="Cle Secrete">
 			                                </div>
 			                            </div>
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label col-lg-3">Charger votre fichier .470</label>
+                                            <label class="col-sm-3 control-label col-lg-3"><?php echo lang('charge_file_470'); ?></label>
                                             <div class="col-lg-6">
                                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                                             <span class="btn btn-white btn-file">
@@ -40,7 +40,7 @@
                                         </div>
 			                            <div class="form-group">
 			                                <div class="col-lg-offset-2 col-lg-10">
-			                                    <button type="submit" class="btn btn-danger">Import</button>
+			                                    <button type="submit" class="btn btn-danger"><?php echo lang('import'); ?></button>
 			                                </div>
 			                            </div>
 			                        </form>

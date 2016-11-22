@@ -68,3 +68,15 @@ $lang['access_backoffice'] = "Acces Backoffice";
 $lang['send'] = "Envoyer";
 $lang['edit'] = "Modifier";
 $lang['delete'] = "Supprimer";
+/***********************/
+/*        Export       */
+/***********************/
+$lang['key_secrete'] = "Clé secrète :";
+$lang['choose_type_export'] = "Choix le type d'exportation :";
+$lang['all_websites_export'] = "Tous vos sites web";
+$lang['select_websites_export'] = "Selectionnez vos sites web";
+/***********************/
+/*        Import       */
+/***********************/
+$lang['save_key_secrete'] = "Saissisez votre clé secrète :";
+$lang['charge_file_470'] = "Charger votre fichier .470 :";

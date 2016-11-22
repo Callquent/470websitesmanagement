@@ -31,12 +31,16 @@
                             <?php foreach($list_users->result() as $row){ ?>
                                 <div class="col-md-4 member-entry member-entry-<?php echo $row->id; ?>">
                                     <section class="panel">
-                                        <?php if($row->name_group=="Developper"){ ?>
+                                        <?php if($row->name_group=="Admin"){ ?>
+                                            <div class="twt-feed red-bg">
+                                        <?php } elseif($row->name_group=="Developper"){ ?>
                                             <div class="twt-feed blue-bg">
                                         <?php } elseif($row->name_group=="Marketing") { ?>
                                             <div class="twt-feed gray-bg">
                                         <?php } elseif($row->name_group=="Visitor") { ?>
                                             <div class="twt-feed green-bg">
+                                       <?php } elseif($row->name_group=="Unknown") { ?>
+                                            <div class="twt-feed white-bg">
                                         <?php } ?>
                                             <div class="fa fa-user wtt-mark"></div>
                                             <a href="#">

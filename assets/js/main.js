@@ -622,7 +622,30 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
+		for (var i = 0; i < tree_data.length; i++) {
+			tree_data[i].id
+			$('ul.treeview').append('<li class="tree-branch"><a href="#"><i class="'+tree_data[i].icon+'"></i> '+tree_data[i].text+'</li>');
+		};
+		$('.tree-branch a').click(function(e) {
+			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 
+			$.ajax({
+				type: "POST",
+				url: url+'/refreshpath/'+id,
+				data: 'pathftp='+pathftp,
+				success: function(msg){
+					results = JSON.parse(msg);
+					for(var key in results) {
+						$('#tree_3').jstree().create_node(data.node.text, results[key], "last");
+					}
+					console.log(JSON.parse(msg));
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+		});
 $.fn.extend({
 	treeview:	function() {
 		return this.each(function() {
@@ -662,7 +685,7 @@ $(window).on('load', function () {
 		tree.treeview();
 	})
 })
-	$("#tree_3").bind("open_node.jstree", function (event, data) {
+	/*$("#tree_3").bind("open_node.jstree", function (event, data) {
 		var glue = '/';
 		var pathftp = $('#tree_3').jstree().get_path(data.node, glue, true );
 		var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
@@ -684,7 +707,7 @@ $(window).on('load', function () {
 			}
 		});
 		return false;
-	});
+	});*/
 	} else if (window.location.href.split('/').pop() == "members") {
 		$('a#delete-user').click(function(e) {
 			if (confirm('Voulez vous supprimer cette enregistrement')) {

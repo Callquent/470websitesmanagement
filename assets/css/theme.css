@@ -3146,11 +3146,27 @@ input:focus:invalid:focus,textarea:focus:invalid:focus,select:focus:invalid:focu
     width:100%;
     text-align:left;
 }
+.member-entry .panel {
+    border: 1px solid #eee;
+}
+.twt-feed.red-bg {
+    background:#ae4c4c;
+}
 .twt-feed.gray-bg {
     background:#474751;
 }
 .twt-feed.green-bg {
     background:#198C73;
+}
+.twt-feed.white-bg {
+    background:#FFFFFF;
+    border-bottom: 1px solid #eee;
+}
+.twt-feed.white-bg .wtt-mark {
+    color: rgba(0, 0, 0, 0.15);
+}
+.twt-feed.white-bg, .twt-feed.white-bg h1 {
+    color: #000;
 }
 .terques-bg {
     background:#1fb5ad;

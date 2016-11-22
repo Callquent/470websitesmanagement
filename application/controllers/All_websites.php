@@ -192,6 +192,8 @@ class All_websites extends CI_Controller {
 			$data['w_admin_login'] = $row->w_login_bo;
 			$data['w_admin_password'] = $row->w_password_bo;
 
+			$data['w_email'] = $this->session->userdata['email'];
+
 			$this->email->message($this->load->view('template-mail', $data, true));
 			$this->email->send();
 			
