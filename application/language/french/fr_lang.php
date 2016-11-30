@@ -44,6 +44,15 @@ $lang['password_backoffice'] = "Mot de passe Back Office";
 
 $lang['save'] = "Enregistrer";
 $lang['cancel'] = "Annuler";
+/*************************/
+/*     add categorie     */
+/*************************/
+$lang['name_add_categorie'] = "Nom de la catégorie *";
+
+/*************************/
+/*     add categorie     */
+/*************************/
+$lang['name_add_language'] = "Nom du langage *";
 /***********************/
 /*     Dashboard     */
 /***********************/

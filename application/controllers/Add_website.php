@@ -72,7 +72,6 @@ class Add_website extends CI_Controller {
 		if ($this->form_validation->run() == TRUE){*/
 			$domain = new Whois($w_url_rw);
 			$whois = $domain->lookup();
-			var_dump($whois);
 
 			$website_id = $this->model_back->create_websites($c_id, $l_id, $w_title, $w_url_rw);
 			$date_create = str_replace(array('/', '.'), '-', $whois[1]);

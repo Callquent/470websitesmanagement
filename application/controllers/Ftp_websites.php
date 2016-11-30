@@ -62,12 +62,14 @@ class Ftp_websites extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
-	public function refreshpath($folder = '')
+	public function refreshfolder($w_id = '')
 	{
 		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
+			$pathfolder = $this->input->post('pathfolder');
+
 			$row =  $this->model_front->get_website($w_id)->row();
 
 			$config['hostname'] = $row->w_host_ftp;
@@ -76,18 +78,16 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			$data['list'] = $this->ftp->list_files('/'.$folder);
+			$data['list'] = $this->ftp->list_files('/'.$pathfolder);
 			foreach ($data['list'] as $row) {
 				$item = pathinfo($row);
 				if (isset($item["extension"])) {
-					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
+					$tree_data[] = array('text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
 				} else {
-					$tree_data[] = array('id' => ltrim($item["basename"],'/'), 'text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder', 'children' => true );
+					$tree_data[] = array('text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
 				}
 			}
-			/*'children' => [array('text' => '', 'icon' => 'fa' )]*/
 					
-			$this->output->set_content_type('application/json');
 			echo json_encode($tree_data);
 		}else {
 			$this->load->view('index');

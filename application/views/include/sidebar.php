@@ -34,12 +34,12 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li>
+                <li>
                     <a href="<?php echo site_url('ftp-websites'); ?>">
                         <i class="fa fa-exchange"></i>
                         <span>FTP Websites</span>
                     </a>
-                </li> -->
+                </li>
                 <li>
                     <a href="<?php echo site_url('whois-domain'); ?>">
                         <i class="fa fa-file"></i>

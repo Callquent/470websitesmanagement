@@ -13,6 +13,7 @@ class Registration extends CI_Controller {
 		$this->load->library(array('encrypt','session'));
 		$this->load->helper(array('functions','url'));
 		$this->load->helper('language');
+		$this->load->helper('captcha');
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']

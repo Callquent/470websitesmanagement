@@ -27,7 +27,7 @@
                                     <h4 class=""><?php echo lang('general_information'); ?></h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="cname" class="control-label col-lg-3">Nom du langage *</label>
+                                        <label for="cname" class="control-label col-lg-3"><?php echo lang('name_add_language'); ?></label>
                                         <div class="col-lg-6">
                                           <input class="form-control" type="text" name="language" placeholder="Language" required />
                                         </div>

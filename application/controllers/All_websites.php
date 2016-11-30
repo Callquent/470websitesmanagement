@@ -57,7 +57,6 @@ class All_websites extends CI_Controller {
 			foreach ($all_websites->result() as $row)
 			{
 				$list = array();
-				$list[] = $row->w_id;
 				$list[] = $row->w_title;
 				$list[] = '<a href="'.prep_url($row->w_url_rw).'" target="_blank">'.$row->w_url_rw.'</a>';
 				$list[] = ($this->input->valid_ip(gethostbyname($row->w_url_rw))?gethostbyname($row->w_url_rw):"ADRESSE IP NON VALIDE");
@@ -168,7 +167,7 @@ class All_websites extends CI_Controller {
 			$config['newline'] = "\r\n";
 			$this->email->initialize($config);
 
-			$this->email->from('noreply@user.com');
+			$this->email->from('noreply@user.com', "noreply");
 			$this->email->to($email); 
 			$this->email->subject('Information Site Web - '.$row->w_title);
 			$data['email'] = $email;
@@ -194,7 +193,7 @@ class All_websites extends CI_Controller {
 
 			$data['w_email'] = $this->session->userdata['email'];
 
-			$this->email->message($this->load->view('template-mail', $data, true));
+			$this->email->message($this->load->view('mail/template', $data, true));
 			$this->email->send();
 			
 			echo ("Merci ! Votre message a bien été envoyé");

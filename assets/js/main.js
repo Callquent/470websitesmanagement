@@ -623,21 +623,22 @@ $(document).ready(function(){
 		});
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
 		for (var i = 0; i < tree_data.length; i++) {
-			tree_data[i].id
-			$('ul.treeview').append('<li class="tree-branch"><a href="#"><i class="'+tree_data[i].icon+'"></i> '+tree_data[i].text+'</li>');
+			$('ul.treeview').append('<li class="tree-branch"><a href="#" class="'+tree_data[i].text+'"><i class="'+tree_data[i].icon+'"></i> '+tree_data[i].text+'</li>');
 		};
 		$('.tree-branch a').click(function(e) {
+			var pathfolder = $(this).attr('class');
 			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
 			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 
 			$.ajax({
 				type: "POST",
-				url: url+'/refreshpath/'+id,
-				data: 'pathftp='+pathftp,
+				url: url+'/refreshfolder/'+id,
+				data: 'pathfolder='+pathfolder,
 				success: function(msg){
 					results = JSON.parse(msg);
+					$('ul.treeview .'+pathfolder).after('<ul>');
 					for(var key in results) {
-						$('#tree_3').jstree().create_node(data.node.text, results[key], "last");
+						$('ul.treeview .'+pathfolder).next().append('<li class="tree-branch"><a href="#" class="'+results[key].text+'"><i class="'+results[key].icon+'"></i> '+results[key].text+'</li>');
 					}
 					console.log(JSON.parse(msg));
 				},

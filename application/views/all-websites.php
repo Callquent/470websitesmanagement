@@ -28,22 +28,21 @@
                                 </div>
                             </div>
                             <div class="space15"></div>
-                            <table class="table table-striped table-hover table-bordered table-dashboard" id="table-dashboard">
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-dashboard">
                                 <thead>
                                   <tr>
-                                      <th>Code</th>
-                                      <th><?php echo lang('name'); ?></th>
-                                      <th><?php echo lang('website'); ?></th>
-                                      <th><?php echo lang('address_ip'); ?></th>
-                                      <th><?php echo lang('categories'); ?></th>
-                                      <th><?php echo lang('languages'); ?></th>
-                                      <th><?php echo lang('access_ftp'); ?></th>
-                                      <th><?php echo lang('access_sql'); ?></th>
-                                      <th><?php echo lang('access_backoffice'); ?></th>
-                                      <th><?php echo lang('send'); ?></th>
+                                      <th class="desktop"><?php echo lang('name'); ?></th>
+                                      <th class="all"><?php echo lang('website'); ?></th>
+                                      <th class="desktop"><?php echo lang('address_ip'); ?></th>
+                                      <th class="desktop"><?php echo lang('categories'); ?></th>
+                                      <th class="desktop"><?php echo lang('languages'); ?></th>
+                                      <th class="desktop"><?php echo lang('access_ftp'); ?></th>
+                                      <th class="desktop"><?php echo lang('access_sql'); ?></th>
+                                      <th class="desktop"><?php echo lang('access_backoffice'); ?></th>
+                                      <th class="all"><?php echo lang('send'); ?></th>
                                       <?php if ($user_role[0]->name == "Developper") { ?>
-                                        <th><?php echo lang('edit'); ?></th>
-                                        <th><?php echo lang('delete'); ?></th>
+                                        <th class="desktop"><?php echo lang('edit'); ?></th>
+                                        <th class="desktop"><?php echo lang('delete'); ?></th>
                                         <th>FTP</th>
                                       <?php } ?>
                                   </tr>

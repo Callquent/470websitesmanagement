@@ -27,7 +27,7 @@
                                     <h4 class=""><?php echo lang('general_information'); ?></h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="cname" class="control-label col-lg-3">Nom de la catégorie *</label>
+                                        <label for="cname" class="control-label col-lg-3"><?php echo lang('name_add_categorie'); ?></label>
                                         <div class="col-lg-6">
                                           <input class="form-control" type="text" name="category" placeholder="Category" required />
                                         </div>

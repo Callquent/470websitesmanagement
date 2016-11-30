@@ -15,11 +15,9 @@ var EditableTable = function () {
                 pTable.fnDraw();
             }
             var dashboardTable = $('#table-dashboard').dataTable({
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
                 "processing": true, //Feature control the processing indicator.
                 "serverSide": true, //Feature control DataTables' server-side processing mode.
-                "order": [], //Initial no order.
-                "dom": 'lBfrtip',
+                "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
                 "buttons": [
                     {
                         extend: 'collection',
@@ -37,14 +35,26 @@ var EditableTable = function () {
                     "url":  window.location.href+'/ajaxDashboard/',
                     "type": "POST"
                 },
-
-                //Set column definition initialisation properties.
-                "columnDefs": [
-                { 
-                    "targets": [ 0 ], //last column
-                    "orderable": false, //set not orderable
+                responsive: {
+                    details: {
+                       
+                    }
                 },
+                columnDefs: [ {
+                    className: 'control',
+                    orderable: false,
+                    targets:   0
+                } ],
+
+                order: [ 1, 'asc' ],
+                
+                // pagination control
+                "lengthMenu": [
+                    [5, 10, 15, 20, -1],
+                    [5, 10, 15, 20, "All"] // change per page values here
                 ],
+                // set the initial value
+                "pageLength": 10,
             });
             $(".dt-button").append("<i class='fa fa-angle-down'></i>");
             var ftpTable = $('#table-ftp-dashboard').dataTable({
@@ -76,45 +86,44 @@ var EditableTable = function () {
                 var aData = dashboardTable.fnGetData(nRow);
                 var jqTds = $('>td', nRow);
                 var languageList;
-                jqTds[0].innerHTML = '<span id="id">' + aData[0] + '</span>';
-                jqTds[1].innerHTML = '<input type="text" class="form-control small" id="titlewebsite" value="' + aData[1] + '">';
-                jqTds[2].innerHTML = '<input type="text" class="form-control small" id="website" value="' + $(aData[2]).text() + '">';
+                jqTds[0].innerHTML = '<input type="text" class="form-control small" id="titlewebsite" value="' + aData[0] + '">';
+                jqTds[1].innerHTML = '<input type="text" class="form-control small" id="website" value="' + $(aData[1]).text() + '">';
                 $.getJSON( window.location.href+'/loadCategories/', function( data ) {
                     languageList = '<select id="category" class="form-control">';
                     $.each( data, function( key, val ) {
-                        if ( val.c_title == aData[4] ) {
+                        if ( val.c_title == aData[3] ) {
                             languageList += '<option value="'+val.c_id+'" selected>'+ val.c_title + '</option>';
                         } else{
                             languageList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
                         }
                     });
                     languageList += '</select>';
-                    jqTds[4].innerHTML = languageList;
+                    jqTds[3].innerHTML = languageList;
                 });
                 $.getJSON( window.location.href+'/loadLanguages/', function( data ) {
                     languageList = '<select id="language" class="form-control">';
                     $.each( data, function( key, val ) {
-                        if ( val.l_title == aData[5] ) {
+                        if ( val.l_title == aData[4] ) {
                             languageList += '<option value="'+val.l_id+'" selected>'+ val.l_title + '</option>';
                         } else{
                             languageList += '<option value="'+val.l_id+'">'+ val.l_title + '</option>';
                         }
                     });
                     languageList += '</select>';
-                    jqTds[5].innerHTML = languageList;
+                    jqTds[4].innerHTML = languageList;
                 });
-                jqTds[10].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
-                jqTds[11].innerHTML = '<a id="cancel-dashboard" href="">Cancel</a>';
+                jqTds[9].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
+                jqTds[10].innerHTML = '<a id="cancel-dashboard" href="">Cancel</a>';
             }
             function saveRowWebsiteInfo(dashboardTable, nRow) {
                 var jqInputs = $('input', nRow);
-                dashboardTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-                dashboardTable.fnUpdate($.parseHTML('<a href="'+jqInputs[1].value+'" target="_blank">'+jqInputs[1].value+'</a>'), nRow, 2, false);
+                dashboardTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+                dashboardTable.fnUpdate($.parseHTML('<a href="'+jqInputs[1].value+'" target="_blank">'+jqInputs[1].value+'</a>'), nRow, 1, false);
                 var jqSelects = $('select', nRow);
-                dashboardTable.fnUpdate(jqSelects[0].options[jqSelects[0].selectedIndex].text, nRow, 4, false);
-                dashboardTable.fnUpdate(jqSelects[1].options[jqSelects[1].selectedIndex].text, nRow, 5, false);
-                dashboardTable.fnUpdate($.parseHTML('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>'), nRow, 10, false);
-                dashboardTable.fnUpdate($.parseHTML('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>'), nRow, 11, false);
+                dashboardTable.fnUpdate(jqSelects[0].options[jqSelects[0].selectedIndex].text, nRow, 3, false);
+                dashboardTable.fnUpdate(jqSelects[1].options[jqSelects[1].selectedIndex].text, nRow, 4, false);
+                dashboardTable.fnUpdate($.parseHTML('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>'), nRow, 9, false);
+                dashboardTable.fnUpdate($.parseHTML('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>'), nRow, 10, false);
                 dashboardTable.fnDraw();
             }
 
