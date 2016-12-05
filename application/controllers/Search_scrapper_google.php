@@ -54,11 +54,12 @@ class Search_scrapper_google extends CI_Controller {
 			$keyword_google = $this->input->post('keyword-google');
 
 			$googlescraper = new Googlescraper();
-			$all_websites = $googlescraper->getUrlList($keyword_google);
+			$all_websites = $googlescraper->getUrlList(urlencode($keyword_google));
 
+			$i=1;
 			foreach ($all_websites as $row)
 			{
-				$parser = new WebsiteParser($row);
+			/*	$parser = new WebsiteParser($row);
 				$meta_tags = $parser->getMetaTags(true);
 				$meta_title = $parser->getTitle(true);
 				$meta_description = "";
@@ -71,13 +72,13 @@ class Search_scrapper_google extends CI_Controller {
 					if ($meta_tag[0] == 'robots') {
 						$meta_robots = $meta_tag[1];
 					}
-				}
+				}*/
 
 				$list = array();
-				$list[] = '<a href="https://www.google.com/search?q=info:'.$row.'" target="_blank">'.$row.'</a>';
-				$list[] = htmlentities((isset($meta_title)?$meta_title:""), ENT_QUOTES, "UTF-8");
-				$list[] = htmlentities((isset($meta_description)?$meta_description:""), ENT_QUOTES, "UTF-8");
-				$list[] = htmlentities((isset($meta_robots)?$meta_robots:""), ENT_QUOTES, "UTF-8");
+				$list[] = $i++;
+				$list[] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
+				$list[] = strip_tags($row['title']);
+				$list[] = strip_tags($row['description']);
 
 				$data[] = $list;
 			}

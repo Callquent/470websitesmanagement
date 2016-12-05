@@ -28,10 +28,10 @@
                                 </div>
                             </div>
                             <div class="space15"></div>
-                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-dashboard">
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-dashboard">
                                 <thead>
                                   <tr>
-                                      <th class="desktop"><?php echo lang('name'); ?></th>
+                                      <th class="all"><?php echo lang('name'); ?></th>
                                       <th class="all"><?php echo lang('website'); ?></th>
                                       <th class="desktop"><?php echo lang('address_ip'); ?></th>
                                       <th class="desktop"><?php echo lang('categories'); ?></th>
@@ -39,11 +39,11 @@
                                       <th class="desktop"><?php echo lang('access_ftp'); ?></th>
                                       <th class="desktop"><?php echo lang('access_sql'); ?></th>
                                       <th class="desktop"><?php echo lang('access_backoffice'); ?></th>
-                                      <th class="all"><?php echo lang('send'); ?></th>
+                                      <th class="desktop"><?php echo lang('send'); ?></th>
                                       <?php if ($user_role[0]->name == "Developper") { ?>
                                         <th class="desktop"><?php echo lang('edit'); ?></th>
                                         <th class="desktop"><?php echo lang('delete'); ?></th>
-                                        <th>FTP</th>
+                                        <th class="desktop">FTP</th>
                                       <?php } ?>
                                   </tr>
                                 </thead>

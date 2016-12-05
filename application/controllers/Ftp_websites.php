@@ -38,24 +38,44 @@ class Ftp_websites extends CI_Controller {
 			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
-			$row =  $this->model_front->get_website($w_id)->row();
+			if (empty($w_id)) {
+				$all_websites = $this->model_front->get_all_websites();
+				$count_websites = $this->model_front->count_all_websites_per_page();
+				$data = array();
+				foreach ($all_websites->result() as $row)
+				{
+					$list = array();
+					$list[] = $row->w_title;
+					$list[] = '<a href="'.prep_url($row->w_url_rw).'" target="_blank">'.$row->w_url_rw.'</a>';
+					$list[] = '<a href="'.site_url('ftp-websites/'.$row->w_id).'">Connect FTP</a>';
 
-			$config['hostname'] = $row->w_host_ftp;
-			$config['username'] = $row->w_login_ftp;
-			$config['password'] = $row->w_password_ftp;
-
-			$this->ftp->connect($config);
-
-			$data['list'] = $this->ftp->list_files('/');
-			foreach ($data['list'] as $row) {
-				$item = pathinfo($row);
-				if (isset($item["extension"])) {
-					$tree_data[] = array('text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
-				} else {
-					$tree_data[] = array('text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
+					$data[] = $list;
 				}
-			}					
-			$data['tree_data'] = json_encode($tree_data);
+
+				$output = array("draw" => $_POST['draw'],
+								"recordsTotal" => $all_websites->num_rows(),
+								"recordsFiltered" => $count_websites->num_rows(),
+								"data" => $data);
+				echo json_encode($output);
+			} else {
+				$row =  $this->model_front->get_website($w_id)->row();
+
+				$config['hostname'] = $row->w_host_ftp;
+				$config['username'] = $row->w_login_ftp;
+				$config['password'] = $row->w_password_ftp;
+
+				$this->ftp->connect($config);
+
+				$data['list'] = $this->ftp->list_files('/');
+				foreach ($data['list'] as $row) {
+					$item = pathinfo($row);
+					if (isset($item["extension"])) {
+						$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
+					} else {
+						$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
+					}
+				}
+			}
 
 			$this->load->view('ftp-websites', $data);
 		}else {
@@ -82,12 +102,12 @@ class Ftp_websites extends CI_Controller {
 			foreach ($data['list'] as $row) {
 				$item = pathinfo($row);
 				if (isset($item["extension"])) {
-					$tree_data[] = array('text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
+					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
 				} else {
-					$tree_data[] = array('text' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
+					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
 				}
 			}
-					
+
 			echo json_encode($tree_data);
 		}else {
 			$this->load->view('index');

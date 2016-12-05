@@ -22,6 +22,29 @@
                         </header>
                         <div class="panel-body">
 
+                        <div class="adv-table editable-table ">
+                            <div class="clearfix">
+                                <div class="btn-group"></div>
+                            </div>
+                            <div class="space15"></div>
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-dashboard">
+                                <thead>
+                                  <tr>
+                                    <th class="desktop"><?php echo lang('name'); ?></th>
+                                    <th class="all"><?php echo lang('website'); ?></th>
+                                    <th>FTP</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="portlet red-pink box">
@@ -68,42 +91,9 @@
                                     <div class="col-md-6">
                                         <!-- TREEVIEW CODE -->
                                         <ul class="treeview">
-                                            <li><a href="#">Tree</a>
-                                                <ul>
-                                                    <li><a href="#">Branch</a></li>
-                                                    <li><a href="#">Branch</a>
-                                                        <ul>
-                                                            <li><a href="#">Stick</a></li>
-                                                            <li><a href="#">Stick</a></li>
-                                                            <li><a href="#">Stick</a>
-                                                                <ul>
-                                                                    <li><a href="#">Twig</a></li>
-                                                                    <li><a href="#">Twig</a></li>
-                                                                    <li><a href="#">Twig</a></li>
-                                                                    <li><a href="#">Twig</a>
-                                                                        <ul>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                            <li><a href="#">Leaf</a></li>
-                                                                        </ul>
-                                                                    </li>
-                                                                    <li><a href="#">Twig</a></li>
-                                                                    <li><a href="#">Twig</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li><a href="#">Stick</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="#">Branch</a></li>
-                                                    <li><a href="#">Branch</a></li>
-                                                </ul>
-                                            </li>
+                                            <?php foreach ($all_folder_first_level as $row) {  ?>
+                                            <li class="tree-branch"><a href="javascript:void(0)" class="<?php echo $row["title"]; ?>"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
+                                            <?php } ?>
                                         </ul>
                                         <!-- TREEVIEW CODE -->
                                     </div>
@@ -122,7 +112,4 @@
     </section>
     <!--main content end-->
 </section>
-<script type="text/javascript">
-  var tree_data = JSON.parse('<?php echo $tree_data; ?>');
-</script>
 <?php $this->load->view('include/footer.php'); ?>

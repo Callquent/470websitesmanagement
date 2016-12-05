@@ -15,15 +15,15 @@
     <a href="<?php echo site_url('add-website'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_website'); ?></a>
     <a href="<?php echo site_url('add-category'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_category'); ?></a>
     <a href="<?php echo site_url('add-language'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_language'); ?></a>
+
+</div>
+
+<div class="top-nav clearfix pull-right">
     <?php if ($user_role[0]->name == "Developper") { ?>
         <a href="<?php echo site_url('export'); ?>" class="btn btn-warning"><i class="fa fa-share"></i><?php echo lang('export'); ?></a>
         <a href="<?php echo site_url('import'); ?>" class="btn btn-warning"><i class="fa fa-reply"></i><?php echo lang('import'); ?></a>
     <?php } ?>
-</div>
-
-<div class="top-nav clearfix">
     <ul class="nav pull-right top-menu">
-
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>">

@@ -6,14 +6,14 @@
  */
 class Googlescraper
 {
-	private $keyword				=	"";
-	private $metaurlList			=	"";
+	private $keyword				=	"testing";
+	private $metaList			=	"";
 	private $cookie					=	"";
 	private $header					=	"";
 	private $ei						=	"";
 
 	
-	public function __construct() {
+	function __construct() {
 		$this->cookie = tempnam ("/tmp", "cookie");
 		$this->headers[] = "Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"; 
 		$this->headers[] = "Connection: keep-alive"; 
@@ -52,7 +52,7 @@ class Googlescraper
 
 	function fetchUrlList()
 	{
-		$data=$this->getpagedata('https://www.google.com/search?q='.urlencode($this->keyword).'&num=100');
+		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num=100');
 		preg_match('/;ei=(.*?)&amp;/siU', $data, $matches);
 		$this->ei=urlencode($matches[1]);
 		if ($data) {
@@ -60,10 +60,18 @@ class Googlescraper
 				echo "You are blocked";
 				exit;
 			} else {
-				preg_match_all('/<div\s*class="g">.*<h3\s*class="r"><a\s[^>]*href\s*=\s*\"([^\"]*)\"[^>]*>.*<\/a><\/h3>.*<\/div>/siU', $data, $meta_url);
+				preg_match_all('/<div\s*class="g".*>.*<cite.*>([^\"]*)<\/cite>.*<\/div>/siU', $data, $meta_url);
+				preg_match_all('/<div\s*class="g".*>.*<h3.*><a\s[^>]*href\s*=\s*\"[^>]*>(.*)<\/a><\/h3>.*<\/div>/siU', $data, $meta_title);
+				preg_match_all('/<span\s*class="st">((<span\s*class="f">(.*)<\/span>(.*))<\/span>|(.*)<\/span>)/siU', $data, $meta_description);
 				for ($j = 0; $j <= 100; $j++) {
 					if (isset($meta_url[1][$j]) && !is_null($meta_url[1][$j])) {
-						$this->metaurlList[] =  html_entity_decode($meta_url[1][$j],ENT_QUOTES);
+						$this->metaList[$j]['url'] =  html_entity_decode($meta_url[1][$j],ENT_QUOTES);
+					}
+					if (isset($meta_title[1][$j]) && !is_null($meta_title[1][$j])) {
+						$this->metaList[$j]['title'] =  html_entity_decode($meta_title[1][$j],ENT_QUOTES);
+					}
+					if (isset($meta_description[3][$j]) && isset($meta_description[4][$j]) && isset($meta_description[5][$j])) {
+						$this->metaList[$j]['description'] = ($meta_description[3][$j].$meta_description[4][$j].$meta_description[5][$j]);
 					}
 				}
 			}
@@ -81,7 +89,7 @@ class Googlescraper
 		sleep(2);
 		$this->fetchUrlList();
 		sleep(2);
-		return $this->metaurlList;
+		return $this->metaList;
 	}
 }	
 ?>

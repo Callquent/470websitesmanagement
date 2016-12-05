@@ -615,18 +615,21 @@ $(document).ready(function(){
 					var jsdata = JSON.parse(data);
 					$('#table-search-scrapper-google').DataTable().rows.add(jsdata).draw();
 				},
-				error: function(){
+				error: function(msg){
 					console.log(msg);
 				}
 			});
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
-		for (var i = 0; i < tree_data.length; i++) {
-			$('ul.treeview').append('<li class="tree-branch"><a href="#" class="'+tree_data[i].text+'"><i class="'+tree_data[i].icon+'"></i> '+tree_data[i].text+'</li>');
-		};
-		$('.tree-branch a').click(function(e) {
+		/*for (var i = 0; i < tree_data.length; i++) {
+			$('ul.treeview').append('<li class="tree-branch"><a href="javascript:void(0)" class="'+tree_data[i].text+'"><i class="'+tree_data[i].icon+'"></i> '+tree_data[i].text+'</a></li>');
+		};*/
+			
+
+		$('ul.treeview').on('click', 'a', function() {
 			var pathfolder = $(this).attr('class');
+			console.log($(this).parent().attr('class'));
 			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
 			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 
@@ -636,56 +639,18 @@ $(document).ready(function(){
 				data: 'pathfolder='+pathfolder,
 				success: function(msg){
 					results = JSON.parse(msg);
-					$('ul.treeview .'+pathfolder).after('<ul>');
+					$('ul.treeview .'+pathfolder).after('<ul></ul>');
 					for(var key in results) {
-						$('ul.treeview .'+pathfolder).next().append('<li class="tree-branch"><a href="#" class="'+results[key].text+'"><i class="'+results[key].icon+'"></i> '+results[key].text+'</li>');
+						$('ul.treeview .'+pathfolder).next().append('<li class="tree-branch"><a href="javascript:void(0)" class="'+results[key].title+'"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
 					}
-					console.log(JSON.parse(msg));
 				},
 				error: function(msg){
 					console.log(msg);
 				}
 			});
+			e.preventDefault();
 		});
-$.fn.extend({
-	treeview:	function() {
-		return this.each(function() {
-			// Initialize the top levels;
-			var tree = $(this);
-			
-			tree.addClass('treeview-tree');
-			tree.find('li').each(function() {
-				var stick = $(this);
-			});
-			tree.find('li').has("ul").each(function () {
-				var branch = $(this); //li with children ul
-				
-				branch.prepend("<i class='tree-indicator glyphicon glyphicon-chevron-right'></i>");
-				branch.addClass('tree-branch');
-				branch.on('click', function (e) {
-					if (this == e.target) {
-						var icon = $(this).children('i:first');
-						
-						icon.toggleClass("glyphicon-chevron-down glyphicon-chevron-right");
-						$(this).children().children().toggle();
-					}
-				})
-				branch.children().children().toggle();
-				branch.children('.tree-indicator, button, a').click(function(e) {
-					branch.click();
-					
-					e.preventDefault();
-				});
-			});
-		});
-	}
-});
-$(window).on('load', function () {
-	$('.treeview').each(function () {
-		var tree = $(this);
-		tree.treeview();
-	})
-})
+
 	/*$("#tree_3").bind("open_node.jstree", function (event, data) {
 		var glue = '/';
 		var pathftp = $('#tree_3').jstree().get_path(data.node, glue, true );

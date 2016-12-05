@@ -32,10 +32,8 @@
                                 <div class="col-lg-10">
                                     <input type="keyword-google" class="form-control" name="keyword-google" id="keyword-google" placeholder="Search">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="submit" class="btn btn-danger">Sign in</button>
+                                <div class="col-lg-2">
+                                    <button type="submit" class="btn btn-danger">Search</button>
                                 </div>
                             </div>
                         </form>
@@ -50,10 +48,10 @@
                             <div class="space15"></div>
                             <table class="table table-striped table-hover table-bordered table-dashboard" id="table-search-scrapper-google">
                               <thead>
+                                <th>Position</th>
                                 <th>Site Web</th>
                                 <th>Meta Title</th>
                                 <th>Meta Description</th>
-                                <th>Meta Robots</th>
                               </thead>
                             </table>
                         </div>
