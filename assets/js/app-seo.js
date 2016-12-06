@@ -1,42 +1,4 @@
 $( document ).ready(function() {
-/*	var init = 0;
-	do {
-		if (!isNaN(window.location.href.split("/").pop())) {
-			var urlorigin = window.location.href.split("/");
-			urlorigin.pop();
-			var url = urlorigin.join("/")+'/metawebsite/'+window.location.href.split("/").pop()+'/'+init;
-		} else{
-			var url = window.location.href+'/metawebsite/'+init;
-		};
-		$.ajax({
-			type: "POST",
-			url: url,
-			success: function(msg){
-				var jsdata = JSON.parse(msg);
-				var newRow = $('#table-seo').dataTable().fnAddData(jsdata);
-
-				var oSettings = $('#table-seo').dataTable().fnSettings();
-				var nTr = oSettings.aoData[ newRow[0] ].nTr;
-				console.log(titleFunction($('td', nTr)[2].innerHTML));
-
-				if (titleFunction($('td', nTr)[2].innerHTML)) {
-					$('td', nTr)[2].setAttribute( 'class', 'success' );
-				}else{
-					$('td', nTr)[2].setAttribute( 'class', 'danger' );
-				}
-				if (descriptionFunction($('td', nTr)[3].innerHTML)) {
-					$('td', nTr)[3].setAttribute( 'class', 'success' );
-				}else{
-					$('td', nTr)[3].setAttribute( 'class', 'danger' );
-				}
-			},
-			error: function(msg){
-				console.log(msg);
-			}
-		});
-		init++;
-	} while (init < end);*/
-
 
 
 /************************/

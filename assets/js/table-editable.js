@@ -58,28 +58,40 @@ var EditableTable = function () {
             });
             $(".dt-button").append("<i class='fa fa-angle-down'></i>");
             var ftpTable = $('#table-ftp-dashboard').dataTable({
-                "columnDefs": [
-                { 
-                    "targets": [ 0 ], //last column
-                    "orderable": false, //set not orderable
+                responsive: {
+                    details: {
+                       
+                    }
                 },
-                ],
+                columnDefs: [ {
+                    className: 'control',
+                    orderable: false,
+                    targets:   0
+                } ],
             });
             var dbTable = $('#table-database-dashboard').dataTable({
-                "columnDefs": [
-                { 
-                    "targets": [ 0 ], //last column
-                    "orderable": false, //set not orderable
+                responsive: {
+                    details: {
+                       
+                    }
                 },
-                ],
+                columnDefs: [ {
+                    className: 'control',
+                    orderable: false,
+                    targets:   0
+                } ],
             });
             var boTable = $('#table-backoffice-dashboard').dataTable({
-                "columnDefs": [
-                { 
-                    "targets": [ 0 ], //last column
-                    "orderable": false, //set not orderable
+                responsive: {
+                    details: {
+                       
+                    }
                 },
-                ],
+                columnDefs: [ {
+                    className: 'control',
+                    orderable: false,
+                    targets:   0
+                } ],
             });
 
             function editRowWebsiteInfo(dashboardTable, nRow, nUrl) {

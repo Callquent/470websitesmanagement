@@ -36,7 +36,6 @@
                               <table class="table table-striped table-hover table-bordered table-dashboard" id="table-dashboard">
                                 <thead>
                                   <tr>
-                                      <th>Code</th>
                                       <th>Nom</th>
                                       <th>Site Web</th>
                                       <th>Adresse IP</th>
@@ -55,7 +54,6 @@
                                 <tbody>
                                   <?php foreach ($all_websites->result() as $row) { ?>
                                     <tr>
-                                      <td data-checkbox="true"></td>
                                       <td ><?php echo $row->w_title; ?></td>
                                       <td><a href="<?php echo prep_url($row->w_url_rw); ?>" target="_blank"><?php echo $row->w_url_rw; ?></a></td>
                                       <td><?php echo ($this->input->valid_ip(gethostbyname($row->w_url_rw))?gethostbyname($row->w_url_rw):"ADRESSE IP NON VALIDE"); ?></td>

@@ -23,15 +23,15 @@
 
                             </div>
                             <div class="space15"></div>
-                            <table class="table table-striped table-hover table-bordered table-dashboard" id="table-whois">
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-whois">
                                 <thead>
                                   <tr>
-                                      <th>Nom</th>
-                                      <th>Site Web</th>
-                                      <th>Hebergeur</th>
-                                      <th>Date de mise en ligne</th>
-                                      <th>Date d'expiration</th>
-                                      <th>Whois</th>
+                                      <th class="all">Nom</th>
+                                      <th class="desktop">Site Web</th>
+                                      <th class="desktop">Hebergeur</th>
+                                      <th class="desktop">Date de mise en ligne</th>
+                                      <th class="desktop">Date d'expiration</th>
+                                      <th class="desktop">Whois</th>
                                   </tr>
                                 </thead>
                                 <tbody>

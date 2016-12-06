@@ -32,7 +32,7 @@
                                 <thead>
                                   <tr>
                                       <th class="all"><?php echo lang('name'); ?></th>
-                                      <th class="all"><?php echo lang('website'); ?></th>
+                                      <th class="desktop"><?php echo lang('website'); ?></th>
                                       <th class="desktop"><?php echo lang('address_ip'); ?></th>
                                       <th class="desktop"><?php echo lang('categories'); ?></th>
                                       <th class="desktop"><?php echo lang('languages'); ?></th>
@@ -71,15 +71,15 @@
             <div class="modal-body">
               <form id="acces-ftp" class="form-horizontal" role="form" action="#">
                 <fieldset>
-                 <table class="table table-striped table-hover table-bordered table-dashboard" id="table-ftp-dashboard">
+                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftp-dashboard">
                       <thead>
                         <tr>
-                            <th>Hote FTP</th>
-                            <th>Login FTP</th>
-                            <th>Password FTP</th>
+                            <th class="all">Hote FTP</th>
+                            <th class="all">Login FTP</th>
+                            <th class="all">Password FTP</th>
                             <?php if ($user_role[0]->name == "Developper") { ?>
-                              <th>Modifier</th>
-                              <th>Supprimer</th>
+                              <th class="desktop">Modifier</th>
+                              <th class="desktop">Supprimer</th>
                             <?php } ?>
                         </tr>
                       </thead>
@@ -103,16 +103,16 @@
             <div class="modal-body">
               <form id="acces-sql" class="form-horizontal" role="form" action="#">
                 <fieldset>
-                 <table class="table table-striped table-hover table-bordered table-dashboard" id="table-database-dashboard">
+                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-database-dashboard">
                       <thead>
                         <tr>
-                            <th>Serveur SQL</th>
-                            <th>Nom de la base</th>
-                            <th>Login SQL</th>
-                            <th>Mot de Passe SQL</th>
+                            <th class="all">Serveur SQL</th>
+                            <th class="all">Nom de la base</th>
+                            <th class="all">Login SQL</th>
+                            <th class="all">Mot de Passe SQL</th>
                             <?php if ($user_role[0]->name == "Developper") { ?>
-                              <th>Modifier</th>
-                              <th>Supprimer</th>
+                              <th class="desktop">Modifier</th>
+                              <th class="desktop">Supprimer</th>
                             <?php } ?>
                         </tr>
                       </thead>
@@ -136,14 +136,14 @@
             <div class="modal-body">
               <form id="acces-backoffice" class="form-horizontal" role="form" action="#">
                 <fieldset>
-                 <table class="table table-striped table-hover table-bordered table-dashboard" id="table-backoffice-dashboard">
+                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-backoffice-dashboard">
                       <thead>
                         <tr>
-                            <th>Admin Login</th>
-                            <th>Admin Mot de passe</th>
+                            <th class="all">Admin Login</th>
+                            <th class="all">Admin Mot de passe</th>
                             <?php if ($user_role[0]->name == "Developper") { ?>
-                              <th>Modifier</th>
-                              <th>Supprimer</th>
+                              <th class="desktop">Modifier</th>
+                              <th class="desktop">Supprimer</th>
                             <?php } ?>
                         </tr>
                       </thead>

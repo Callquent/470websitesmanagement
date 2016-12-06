@@ -127,9 +127,24 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data:$(this).serialize(),
 				success: function(msg){
+					console.log(msg);
+					$("#form-add-category").fadeOut('slow');
+					$('#results .alert-success').fadeIn('fast');
+					setTimeout(function() {
+						$('#results .alert-success').fadeOut('slow');
+						$("#form-add-category").find("input[type=text], textarea").val("");
+						$("#form-add-category").fadeIn('slow');
+					}, 3000 );
 				},
 				error: function(msg){
 					console.log(msg);
+					$("#form-add-category").fadeOut('slow');
+					$('#results .alert-danger').fadeIn('fast');
+					setTimeout(function() {
+						$('#results .alert-danger').fadeOut('slow');
+						$("#form-add-category").find("input[type=text], textarea").val("");
+						$("#form-add-category").fadeIn('slow');
+					}, 3000 );
 				}
 			});
 			e.preventDefault();
@@ -140,9 +155,24 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data:$(this).serialize(),
 				success: function(msg){
+					console.log(msg);
+					$("#form-add-language").fadeOut('slow');
+					$('#results .alert-success').fadeIn('fast');
+					setTimeout(function() {
+						$('#results .alert-success').fadeOut('slow');
+						$("#form-add-language").find("input[type=text], textarea").val("");
+						$("#form-add-language").fadeIn('slow');
+					}, 3000 );
 				},
 				error: function(msg){
 					console.log(msg);
+					$("#form-add-language").fadeOut('slow');
+					$('#results .alert-danger').fadeIn('fast');
+					setTimeout(function() {
+						$('#results .alert-danger').fadeOut('slow');
+						$("#form-add-language").find("input[type=text], textarea").val("");
+						$("#form-add-language").fadeIn('slow');
+					}, 3000 );
 				}
 			});
 			e.preventDefault();
@@ -437,7 +467,7 @@ $(document).ready(function(){
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
-            "dom": 'lBfrtip',
+			"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             "buttons": [
                 {
                     extend: 'collection',
@@ -455,59 +485,17 @@ $(document).ready(function(){
                 "url":  window.location.href+'/ajaxWhois/',
                 "type": "POST"
             },
-            "columnDefs": [
-            { 
-                "targets": [ 0 ], //last column
-                "orderable": false, //set not orderable
+            responsive: {
+                details: {
+                   
+                }
             },
-            ],
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
         });
-		$('a#load-whois').click(function(e) {
-			if (confirm('Voulez vous télécharger les whois des sites dans la base de donnée')) {
-				$.ajax({
-					/*xhr: function () {
-					    var xhr = new window.XMLHttpRequest();
-					    xhr.upload.addEventListener("progress", function (evt) {
-					        if (evt.lengthComputable) {
-					            var percentComplete = evt.loaded / evt.total;
-					            console.log(percentComplete);
-					            $('.progress-bar').css({
-					                width: percentComplete * 100 + '%'
-					            });
-					            if (percentComplete === 1) {
-					                $('.progress-bar').addClass('hide');
-					            }
-					        }
-					    }, false);
-					    xhr.addEventListener("load", function (evt) {
-					        if (evt.lengthComputable) {
-					            var percentComplete = evt.loaded / evt.total;
-					            console.log(percentComplete);
-					            $('.progress-bar').css({
-					                width: percentComplete * 100 + '%'
-					            });
-					        }
-					    }, false);
-					    return xhr;
-					},*/
-					type: "POST",
-					url: window.location.href+'/downloadWhois/',
-					beforeSend: function() {
-						$("a#load-whois").html('Chargement ...');
-						$("a#load-whois").addClass('disabled');
-					},
-					success: function(msg){
-						$("a#load-whois").html('Télécharger Whois');
-						$("a#load-whois").removeClass('disabled');
-						alert("L'intégralité de vos sites ont été télécharger");
-					},
-					error: function(msg){
-						console.log(msg);
-					}
-				});
-			}
-			e.preventDefault();
-		});
 		$(document).on('click', '.access-whois', function(e) {
 
 			var id = $(this).data('id');

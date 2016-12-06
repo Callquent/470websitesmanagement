@@ -7,7 +7,7 @@
 class Googlescraper
 {
 	private $keyword				=	"testing";
-	private $metaList			=	"";
+	private $metaList				=	"";
 	private $cookie					=	"";
 	private $header					=	"";
 	private $ei						=	"";
@@ -86,7 +86,6 @@ class Googlescraper
 	function getUrlList($keyword,$proxy='') {
 		$this->keyword=$keyword;
 		$this->initGoogle();
-		sleep(2);
 		$this->fetchUrlList();
 		sleep(2);
 		return $this->metaList;
