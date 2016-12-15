@@ -33,42 +33,26 @@
                                 </div>
                             </div>
                             <div class="space15"></div>
-                            <table class="table table-striped table-hover table-bordered table-dashboard" id="table-dashboard">
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-website-per-language">
                               <thead>
                                 <tr>
-                                    <th>Nom</th>
-                                    <th>Site Web</th>
-                                    <th>Adresse IP</th>
-                                    <th>Catégorie</th>
-                                    <th>Langages</th>
-                                    <th>Access FTP</th>
-                                    <th>Access SQL</th>
-                                    <th>Access Back office</th>
-                                    <th>Envoyer</th>
-                                    <?php if ($user_role[0]->name == "Developper") { ?>
-                                      <th>Modifier</th>
-                                      <th>Supprimer</th>
-                                    <?php } ?>
-                                </tr>
+                                  <th class="all"><?php echo lang('name'); ?></th>
+                                  <th class="desktop"><?php echo lang('website'); ?></th>
+                                  <th class="desktop"><?php echo lang('address_ip'); ?></th>
+                                  <th class="desktop"><?php echo lang('categories'); ?></th>
+                                  <th class="desktop"><?php echo lang('languages'); ?></th>
+                                  <th class="desktop"><?php echo lang('access_ftp'); ?></th>
+                                  <th class="desktop"><?php echo lang('access_sql'); ?></th>
+                                  <th class="desktop"><?php echo lang('access_backoffice'); ?></th>
+                                  <th class="desktop"><?php echo lang('send'); ?></th>
+                                  <?php if ($user_role[0]->name == "Developper") { ?>
+                                    <th class="desktop"><?php echo lang('edit'); ?></th>
+                                    <th class="desktop"><?php echo lang('delete'); ?></th>
+                                  <?php } ?>
+                                  </tr>
                                 </thead>
                               <tbody>
-                                <?php foreach ($all_websites->result() as $row) { ?>
-                                  <tr>
-                                    <td ><?php echo $row->w_title; ?></td>
-                                    <td><a href="<?php echo prep_url($row->w_url_rw); ?>" target="_blank"><?php echo $row->w_url_rw; ?></a></td>
-                                    <td><?php echo ($this->input->valid_ip(gethostbyname($row->w_url_rw))?gethostbyname($row->w_url_rw):"ADRESSE IP NON VALIDE"); ?></td>
-                                    <td><?php echo $row->c_title; ?></td>
-                                    <td><?php echo $row->l_title; ?></td>
-                                    <td><a class="access-ftp" href="javascript:;" data-toggle="modal" data-target="#view-ftp">Access FTP</a></td>
-                                    <td><a class="access-sql" href="javascript:;" data-toggle="modal" data-target="#view-database">Access SQL</a></td>
-                                    <td><a class="access-back-office" href="javascript:;" data-toggle="modal" data-target="#view-backoffice">Access Back office</a></td>
-                                    <?php if ($user_role[0]->name == "Developper") { ?>
-                                      <td><a class="email" href="javascript:;" data-toggle="modal" data-target="#email">Email</a></td>
-                                      <td><a class="edit" href="javascript:;">Edit</a></td>
-                                      <td><a class="delete" href="javascript:;">Delete</a></td>
-                                    <?php } ?>
-                                  </tr>
-                                <?php } ?>
+
                               </tbody>
                             </table>
                         </div>
@@ -90,17 +74,17 @@
               <h4 class="modal-title custom_align" id="Heading">Afficher FTP</h4>
             </div>
             <div class="modal-body">
-              <form id="acces-ftp" class="form-horizontal" role="form">
+              <form id="acces-ftp" class="form-horizontal" role="form" action="#">
                 <fieldset>
-                 <table class="table table-striped table-hover table-bordered table-dashboard" id="table-ftp-dashboard">
+                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftp-dashboard">
                       <thead>
                         <tr>
-                            <th>Hote FTP</th>
-                            <th>Login FTP</th>
-                            <th>Password FTP</th>
+                            <th class="all">Hote FTP</th>
+                            <th class="all">Login FTP</th>
+                            <th class="all">Password FTP</th>
                             <?php if ($user_role[0]->name == "Developper") { ?>
-                              <th>Modifier</th>
-                              <th>Supprimer</th>
+                              <th class="desktop">Modifier</th>
+                              <th class="desktop">Supprimer</th>
                             <?php } ?>
                         </tr>
                       </thead>
@@ -122,18 +106,18 @@
               <h4 class="modal-title custom_align" id="Heading">Afficher SQL</h4>
             </div>
             <div class="modal-body">
-              <form id="acces-sql" class="form-horizontal" role="form">
+              <form id="acces-sql" class="form-horizontal" role="form" action="#">
                 <fieldset>
-                 <table class="table table-striped table-hover table-bordered table-dashboard" id="table-database-dashboard">
+                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-database-dashboard">
                       <thead>
                         <tr>
-                            <th>Serveur SQL</th>
-                            <th>Nom de la base</th>
-                            <th>Login SQL</th>
-                            <th>Mot de Passe SQL</th>
+                            <th class="all">Serveur SQL</th>
+                            <th class="all">Nom de la base</th>
+                            <th class="all">Login SQL</th>
+                            <th class="all">Mot de Passe SQL</th>
                             <?php if ($user_role[0]->name == "Developper") { ?>
-                              <th>Modifier</th>
-                              <th>Supprimer</th>
+                              <th class="desktop">Modifier</th>
+                              <th class="desktop">Supprimer</th>
                             <?php } ?>
                         </tr>
                       </thead>
@@ -155,16 +139,16 @@
               <h4 class="modal-title custom_align" id="Heading">Afficher le site web</h4>
             </div>
             <div class="modal-body">
-              <form id="acces-backoffice" class="form-horizontal" role="form">
+              <form id="acces-backoffice" class="form-horizontal" role="form" action="#">
                 <fieldset>
-                 <table class="table table-striped table-hover table-bordered table-dashboard" id="table-backoffice-dashboard">
+                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-backoffice-dashboard">
                       <thead>
                         <tr>
-                            <th>Admin Login</th>
-                            <th>Admin Mot de passe</th>
+                            <th class="all">Admin Login</th>
+                            <th class="all">Admin Mot de passe</th>
                             <?php if ($user_role[0]->name == "Developper") { ?>
-                              <th>Modifier</th>
-                              <th>Supprimer</th>
+                              <th class="desktop">Modifier</th>
+                              <th class="desktop">Supprimer</th>
                             <?php } ?>
                         </tr>
                       </thead>
@@ -186,21 +170,22 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
               <h4 class="modal-title custom_align" id="Heading">Envoyer un email à un client</h4>
             </div>
-            <form id="form-email" method="post" action="<?php echo site_url('/dashboard/contact'); ?>">
+            <form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact/'); ?>">
               <div class="modal-body">
                 <div class="input-group">
+                  <input type="hidden" value="" name="id">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                   <input type="email" class="form-control" name="email" placeholder="Email">
                 </div>
                 <div class="checkbox">
                   <label>
+                    <input name="check_bo" type="checkbox"> Acces Backoffice
+                  </label>
+                  <label>
                     <input name="check_ftp" type="checkbox"> Acces FTP
                   </label>
                   <label>
-                    <input name="check_sql" type="checkbox"> Acces Base de Donnée
-                  </label>
-                  <label>
-                    <input name="check_backoffice" type="checkbox"> Acces Backoffice
+                    <input name="check_db" type="checkbox"> Acces Base de Donnée
                   </label>
                 </div>
               </div>

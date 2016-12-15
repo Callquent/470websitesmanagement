@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	if (window.location.href.split('/').pop() == "all-websites" || window.location.href.split('/').pop() == "website-category" || window.location.href.split('/').pop() == "website-language") {
+	if (window.location.href.split('/').pop() == "all-websites" || window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites") {	
 		$(document).on('click', '.access-ftp', function(e) {
 			var id = $(this).data('id');
 			$.ajax({
@@ -80,6 +80,76 @@ $(document).ready(function(){
 		});
 
 		EditableTable.init();
+	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "website-category") {
+        var websitecategoryTable = $('#table-website-per-category').dataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+			"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "buttons": [
+                {
+                    extend: 'collection',
+                    text: 'Export',
+                    buttons: [
+                        'copy',
+                        'excel',
+                        'csv',
+                        'pdf',
+                        'print'
+                    ]
+                }
+            ],
+            "ajax": {
+                "url": window.location.href.substring(0, window.location.href.lastIndexOf("/"))+'/ajaxDashboard/'+window.location.href.substr(window.location.href.lastIndexOf('/') + 1),
+                "type": "POST"
+            },
+            responsive: {
+                details: {
+                   
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
+        });
+	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "website-language") {
+        var websitelanguageTable = $('#table-website-per-language').dataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+			"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "buttons": [
+                {
+                    extend: 'collection',
+                    text: 'Export',
+                    buttons: [
+                        'copy',
+                        'excel',
+                        'csv',
+                        'pdf',
+                        'print'
+                    ]
+                }
+            ],
+            "ajax": {
+                "url": window.location.href.substring(0, window.location.href.lastIndexOf("/"))+'/ajaxDashboard/'+window.location.href.substr(window.location.href.lastIndexOf('/') + 1),
+                "type": "POST"
+            },
+            responsive: {
+                details: {
+                   
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
+        });
 	} else if (window.location.href.split('/').pop() == "add-website" || window.location.href.split('/').pop() == "add-category" || window.location.href.split('/').pop() == "add-language") {
 		$("#results .alert-success").hide();
 		$("#results .alert-danger").hide();

@@ -30,10 +30,9 @@
                             <table class="table table-striped table-hover table-bordered table-dashboard" id="table-seo">
                               <thead>
                                 <th>Nom</th>
-                                <th>SERP</th>
+                                <th>Site Web</th>
                                 <th>Meta Title</th>
                                 <th>Meta Description</th>
-                                <th>Meta Robots</th>
                                 <?php if($this->uri->total_segments() != 2){ ?>
                                   <th>Analyse Site</th>
                                 <?php } ?>

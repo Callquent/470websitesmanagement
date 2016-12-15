@@ -8,7 +8,10 @@
 		<?php echo js_url('js/fullcalendar/fullcalendar.min.js'); ?>
 		<?php echo js_url('js/external-dragging-calendar.js'); ?>
 	<?php } ?>
-	<?php if ($this->uri->segment(1)=='all-websites' || $this->uri->segment(1)=='category' || $this->uri->segment(1)=='language' || $this->uri->segment(1)=='whois-domain') { ?>
+	<?php if ($this->uri->segment(1)=='all-websites' ||
+	$this->uri->segment(1)=='category' ||
+	$this->uri->segment(1)=='language' ||
+	$this->uri->segment(1)=='whois-domain') { ?>
 		<?php echo js_url('js/jquery-ui-1.9.2.custom.min.js'); ?>
 		<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 		<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>

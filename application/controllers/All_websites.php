@@ -45,13 +45,20 @@ class All_websites extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
-	public function ajaxDashboard()
+	public function ajaxDashboard($website_group = '', $website_group_name = '')
 	{
 		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
-			$all_websites = $this->model_front->get_all_websites();
+			if ($website_group == "category") {
+				$all_websites = $this->model_front->get_all_websites_per_category($website_group_name);
+			} elseif ($website_group == "language") {
+				$all_websites = $this->model_front->get_all_websites_per_language($website_group_name);
+			} else {
+				$all_websites = $this->model_front->get_all_websites();
+			}
+			
 			$count_websites = $this->model_front->count_all_websites_per_page();
 			$data = array();
 			foreach ($all_websites->result() as $row)

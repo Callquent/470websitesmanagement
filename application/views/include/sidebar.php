@@ -20,7 +20,7 @@
                             <a href="javascript:;"><i class="fa fa-plus"></i><?php echo lang('website_languages'); ?></a>
                             <ul class="sub">
                                 <?php foreach ($all_count_websites_per_language->result() as $row) {  ?>
-                                <li><a href="<?php echo site_url('website-language/'.$row->l_title_url); ?>"><?php echo $row->l_title; ?> <span class="badge"><?php echo $row->count_websites_per_language; ?></span></a></li>
+                                <li><a href="<?php echo site_url('all-websites/language/'.$row->l_title_url); ?>"><?php echo $row->l_title; ?> <span class="badge"><?php echo $row->count_websites_per_language; ?></span></a></li>
                                 <?php } ?>
                             </ul>
                         </li>
@@ -28,7 +28,7 @@
                             <a href="javascript:;"><i class="fa fa-plus"></i><?php echo lang('website_categories'); ?></a>
                             <ul class="sub">
                                 <?php foreach ($all_count_websites_per_category->result() as $row) {  ?>
-                                <li><a href="<?php echo site_url('website-category/'.$row->c_title_url); ?>"><?php echo $row->c_title; ?> <span class="badge"><?php echo $row->count_websites_per_category; ?></span></a></li>
+                                <li><a href="<?php echo site_url('all-websites/category/'.$row->c_title_url); ?>"><?php echo $row->c_title; ?> <span class="badge"><?php echo $row->count_websites_per_category; ?></span></a></li>
                                 <?php } ?>
                             </ul>
                         </li>
@@ -55,7 +55,7 @@
                 <li>
                     <a href="javascript:;">
                         <i class="fa fa-list-ul"></i>
-                        <span>Meta SEO</span>
+                        <span>Scrapper SEO</span>
                     </a>
                     <ul class="sub">
                         <li><a href="<?php echo site_url('search-scrapper-google'); ?>">Search Scrapper Google</a></li>

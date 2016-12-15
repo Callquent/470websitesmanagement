@@ -14,6 +14,12 @@ var EditableTable = function () {
 
                 pTable.fnDraw();
             }
+            if (window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites") {
+                var url = window.location.href.replace(/(\/[^\/]+){2}\/?$/, '')+'/ajaxDashboard/'+window.location.href.split('/')[window.location.href.split('/').length-2]+'/'+window.location.href.split('/')[window.location.href.split('/').length-1];
+            } 
+            else{
+                var url = window.location.href+'/ajaxDashboard/';
+            }
             var dashboardTable = $('#table-dashboard').dataTable({
                 "processing": true, //Feature control the processing indicator.
                 "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -32,7 +38,7 @@ var EditableTable = function () {
                     }
                 ],
                 "ajax": {
-                    "url":  window.location.href+'/ajaxDashboard/',
+                    "url":  url,
                     "type": "POST"
                 },
                 responsive: {
