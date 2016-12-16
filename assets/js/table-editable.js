@@ -106,7 +106,7 @@ var EditableTable = function () {
                 var languageList;
                 jqTds[0].innerHTML = '<input type="text" class="form-control small" id="titlewebsite" value="' + aData[0] + '">';
                 jqTds[1].innerHTML = '<input type="text" class="form-control small" id="website" value="' + $(aData[1]).text() + '">';
-                $.getJSON( window.location.href+'/loadCategories/', function( data ) {
+                $.getJSON( (window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites"?window.location.href.replace(/(\/[^\/]+){2}\/?$/, ''):window.location.href)+'/loadCategories/', function( data ) {
                     languageList = '<select id="category" class="form-control">';
                     $.each( data, function( key, val ) {
                         if ( val.c_title == aData[3] ) {
@@ -118,7 +118,7 @@ var EditableTable = function () {
                     languageList += '</select>';
                     jqTds[3].innerHTML = languageList;
                 });
-                $.getJSON( window.location.href+'/loadLanguages/', function( data ) {
+                $.getJSON( (window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites"?window.location.href.replace(/(\/[^\/]+){2}\/?$/, ''):window.location.href)+'/loadLanguages/', function( data ) {
                     languageList = '<select id="language" class="form-control">';
                     $.each( data, function( key, val ) {
                         if ( val.l_title == aData[4] ) {

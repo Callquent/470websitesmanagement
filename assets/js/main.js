@@ -1,11 +1,17 @@
 $(document).ready(function(){
 
-	if (window.location.href.split('/').pop() == "all-websites" || window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites") {	
+	if (window.location.href.split('/').pop() == "all-websites" || window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites") {
+        if (window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites") {
+            var url = window.location.href.replace(/(\/[^\/]+){2}\/?$/, '');
+        } 
+        else{
+            var url = window.location.href;
+        }
 		$(document).on('click', '.access-ftp', function(e) {
 			var id = $(this).data('id');
 			$.ajax({
 				type: "POST",
-				url: window.location.href+'/modal-ftp-website/'+id,
+				url: url+'/modal-ftp-website/'+id,
 				success: function(data){
 					var jsdata = JSON.parse(data);
 					$('#table-ftp-dashboard').dataTable().fnAddData(jsdata);
@@ -25,7 +31,7 @@ $(document).ready(function(){
 			var id = $(this).data('id');
 			$.ajax({
 				type: "POST",
-				url: window.location.href+'/modal-database-website/'+id,
+				url: url+'/modal-database-website/'+id,
 				success: function(data){
 					var jsdata = JSON.parse(data);
 					$('#table-database-dashboard').dataTable().fnAddData(jsdata);
@@ -44,7 +50,7 @@ $(document).ready(function(){
 			var id = $(this).data('id');
 			$.ajax({
 				type: "POST",
-				url: window.location.href+'/modal-backoffice-website/'+id,
+				url: url+'/modal-backoffice-website/'+id,
 				success: function(data){
 					var jsdata = JSON.parse(data);
 					$('#table-backoffice-dashboard').dataTable().fnAddData(jsdata);
