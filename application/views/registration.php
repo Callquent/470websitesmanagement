@@ -29,9 +29,14 @@
         <div class="login-wrap">
             <p>Enter your personal details below</p>
             <input type="text" class="form-control" name="name" placeholder="User name" autofocus>
-            <input type="text" class="form-control" name="email" placeholder="Email" autofocus>
+            <input type="text" class="form-control" name="email" placeholder="Email">
             <input type="password" class="form-control" name="password" placeholder="Password">
-            <input type="password" class="form-control" name="password_confirm" placeholder="Re-type Password">
+            <input type="password" class="form-control" name="password_confirm" placeholder="Re-type Password">                        
+            <div class="form-group">
+                <input type="text" name="captcha" placeholder="Code">
+                <img src="<?php echo site_url('registration/captcha'); ?>"/>
+            </div>
+
             <label class="checkbox">
                 <input type="checkbox" value="agree this condition"> I agree to the Terms of Service and Privacy Policy
             </label>

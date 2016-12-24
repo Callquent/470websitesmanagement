@@ -51,4 +51,18 @@ class Registration extends CI_Controller {
 			$this->load->view('registration');
 		}
 	}
+	public function captcha()
+	{
+		$ranStr = md5(microtime());
+		$ranStr = substr($ranStr, 0, 6);
+		$sesscaptcha = array(
+			'captcha'  => $ranStr
+		);
+		$this->session->set_userdata($sesscaptcha);
+		$newImage = imagecreatefromjpeg(base_url("assets\img\captcha\cap_bg.jpg"));
+		$txtColor = imagecolorallocate($newImage, 0, 0, 0);
+		imagestring($newImage, 5, 5, 5, $ranStr, $txtColor);
+		header("Content-type: image/jpeg");
+		imagejpeg($newImage);
+	}
 }
