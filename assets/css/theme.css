@@ -116,7 +116,7 @@ a,a:hover,a:focus {
     font-weight:300;
 }
 .form-signin a,.form-signin a:hover {
-    color:#1fb5ac;
+    color:#aec785;
 }
 .form-signin a:hover {
     text-decoration:underline;
@@ -137,7 +137,7 @@ a,a:hover,a:focus {
     position:absolute;
     right:0;
     bottom:-35px;
-    color: #b8bab9;
+    color: #ffffff;
 }
 /*sidebar navigation*/
 #sidebar {

@@ -152,6 +152,9 @@ h1 {
   color: #333333;
   text-decoration: none;
 }
+.form-group input {
+  padding: 10px;
+}
 /*********************/
 /*      NAVBAR       */
 /*********************/

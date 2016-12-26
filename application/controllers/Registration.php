@@ -15,6 +15,7 @@ class Registration extends CI_Controller {
 		$this->load->helper('language');
 		$this->load->helper('captcha');
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
+		$this->session->userdata('imagecaptcha');
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
 		);
@@ -30,13 +31,22 @@ class Registration extends CI_Controller {
 		$password = $this->input->post('password');
 		$password_confirm = $this->input->post('password_confirm');
 		$email = $this->input->post('email');
+		$captcha = $this->input->post('captcha');
 
 		$this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[4]');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[8]|max_length[32]');
+		$this->form_validation->set_rules('captcha', 'Captcha', 'trim|required');
 
-		if($password == $password_confirm) {
+
+		if($password != $password_confirm) {
+			$this->session->set_flashdata('danger', 'Mots de passe non identiques');
+			$this->load->view('registration');
+		} elseif ($this->session->userdata('imagecaptcha') != $captcha) {
+			$this->session->set_flashdata('danger', 'Votre captcha n\'est pas valide');
+			$this->load->view('registration');
+		} else {
 			if ($this->form_validation->run() == FALSE) {
 				$this->load->view('registration');
 			}
@@ -46,20 +56,14 @@ class Registration extends CI_Controller {
 				$this->session->set_flashdata('success', 'Votre profil a bien été creée.');
 				$this->load->view('index');
 			}
-		} else {
-			$this->session->set_flashdata('danger', 'Mots de passe non identiques');
-			$this->load->view('registration');
 		}
 	}
 	public function captcha()
 	{
 		$ranStr = md5(microtime());
-		$ranStr = substr($ranStr, 0, 6);
-		$sesscaptcha = array(
-			'captcha'  => $ranStr
-		);
-		$this->session->set_userdata($sesscaptcha);
-		$newImage = imagecreatefromjpeg(base_url("assets\img\captcha\cap_bg.jpg"));
+		$ranStr = substr($ranStr, 0, 8);
+		$this->session->set_userdata('imagecaptcha', $ranStr);
+		$newImage = imagecreatefromjpeg(base_url("assets\img\captcha\captcha.jpg"));
 		$txtColor = imagecolorallocate($newImage, 0, 0, 0);
 		imagestring($newImage, 5, 5, 5, $ranStr, $txtColor);
 		header("Content-type: image/jpeg");

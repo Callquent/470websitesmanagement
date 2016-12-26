@@ -86,7 +86,7 @@ $config_aauth["default"] = array(
  'no_permission'                  => FALSE,
 
  'admin_group'                    => 'admin',
- 'default_group'                  => 'default',
+ 'default_group'                  => 'unknown',
  'public_group'                   => 'public',
 
  'db_profile'                     => 'default',
