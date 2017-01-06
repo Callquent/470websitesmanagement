@@ -52,9 +52,10 @@ var EditableTable = function () {
                     targets:   0
                 } ],
 
-                order: [ 1, 'asc' ],
+                "order": [
+                    [0, 'asc']
+                ],
                 
-                // pagination control
                 "lengthMenu": [
                     [5, 10, 15, 20, -1],
                     [5, 10, 15, 20, "All"] // change per page values here

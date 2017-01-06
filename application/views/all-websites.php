@@ -21,7 +21,7 @@
                          </span>
                     </header>
                     <div class="panel-body">
-                        <div class="adv-table editable-table ">
+                        <div class="adv-table editable-table">
                             <div class="clearfix">
                                 <div class="btn-group">
                                     <h4><?php echo lang('number_websites_management'); ?><?php echo $all_domains; ?> <?php echo lang('domains'); ?> <?php echo $all_subdomains; ?> <?php echo lang('sub_domains'); ?></h4>

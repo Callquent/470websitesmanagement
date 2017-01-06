@@ -68,8 +68,8 @@
                         <span>Position Tracking</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="<?php echo site_url('position-tracking'); ?>">Position Tracking Google</a></li>
-                        <li><a href="<?php echo site_url('position-tracking'); ?>">Edit Keyword Google</a></li>
+                        <li><a href="<?php echo site_url('position-tracking-google'); ?>">Position Tracking Google</a></li>
+                        <li><a href="<?php echo site_url('edit-keyword-google'); ?>">Edit Keyword Google</a></li>
                     </ul>
                 </li>
                 <?php if ($user_role[0]->name == "Developper") { ?>

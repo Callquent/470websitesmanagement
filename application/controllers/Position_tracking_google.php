@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Position_tracking extends CI_Controller {
+class Position_tracking_google extends CI_Controller {
 
 	public function __construct()
 	{
@@ -80,7 +80,7 @@ class Position_tracking extends CI_Controller {
 			
 			$data['language'] = unserialize($this->model_settings->view_settings_lang()->value_s)['language'];
 			
-			$this->load->view('position-tracking', $data);
+			$this->load->view('position-tracking-google', $data);
 		}else {
 			$this->load->view('index');
 		}
