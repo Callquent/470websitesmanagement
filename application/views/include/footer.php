@@ -11,6 +11,7 @@
 	<?php if ($this->uri->segment(1)=='all-websites' ||
 	$this->uri->segment(1)=='category' ||
 	$this->uri->segment(1)=='language' ||
+	$this->uri->segment(1)=='ftp-websites' ||
 	$this->uri->segment(1)=='whois-domain') { ?>
 		<?php echo js_url('js/jquery-ui-1.9.2.custom.min.js'); ?>
 		<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>

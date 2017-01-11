@@ -1,4 +1,10 @@
-<?php 
+<?php
+/***********************/
+/*        General        */
+/***********************/
+$lang['modified'] = "Modification";
+$lang['save'] = "Enregistrer";
+$lang['cancel'] = "Annuler";
 /***********************/
 /*        navbar        */
 /***********************/
@@ -41,18 +47,22 @@ $lang['password_sql'] = "Mot de passe SQL";
 
 $lang['login_backoffice'] = "Login Back Office";
 $lang['password_backoffice'] = "Mot de passe Back Office";
-
-$lang['save'] = "Enregistrer";
-$lang['cancel'] = "Annuler";
 /*************************/
 /*     add categorie     */
 /*************************/
 $lang['name_add_categorie'] = "Nom de la catégorie *";
 
 /*************************/
-/*     add categorie     */
+/*     add language     */
 /*************************/
 $lang['name_add_language'] = "Nom du langage *";
+/**********************************/
+/*		Profile 	  */
+/**********************************/
+$lang['date_create_profile'] = "Date de Creation : ";
+$lang['email'] = "Email";
+$lang['permission'] = "Permission";
+$lang['enter_new_password'] = "Saissisez votre mot de passe";
 /***********************/
 /*     Dashboard     */
 /***********************/
@@ -89,3 +99,7 @@ $lang['select_websites_export'] = "Selectionnez vos sites web";
 /***********************/
 $lang['save_key_secrete'] = "Saissisez votre clé secrète :";
 $lang['charge_file_470'] = "Charger votre fichier .470 :";
+/**********************************/
+/*		Search Scrapper Google 	  */
+/**********************************/
+$lang['search_scrapper_google'] = "Search Scrapper Google";

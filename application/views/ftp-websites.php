@@ -22,24 +22,24 @@
                         </header>
                         <div class="panel-body">
 
-                        <div class="adv-table editable-table ">
-                            <div class="clearfix">
-                                <div class="btn-group"></div>
-                            </div>
-                            <div class="space15"></div>
-                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-dashboard">
-                                <thead>
-                                  <tr>
-                                    <th class="desktop"><?php echo lang('name'); ?></th>
-                                    <th class="all"><?php echo lang('website'); ?></th>
-                                    <th>FTP</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
+                            <div class="adv-table editable-table ">
+                                <div class="clearfix">
+                                    <div class="btn-group"></div>
+                                </div>
+                                <div class="space15"></div>
+                                <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftpwebsites">
+                                    <thead>
+                                      <tr>
+                                        <th class="all"><?php echo lang('name'); ?></th>
+                                        <th class="desktop"><?php echo lang('website'); ?></th>
+                                        <th class="desktop">FTP</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
 
 
 
@@ -87,20 +87,15 @@
 
 
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <!-- TREEVIEW CODE -->
-                                        <ul class="treeview">
-                                            <?php foreach ($all_folder_first_level as $row) {  ?>
-                                            <li class="tree-branch"><a href="javascript:void(0)" class="<?php echo $row["title"]; ?>"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
-                                            <?php } ?>
-                                        </ul>
-                                        <!-- TREEVIEW CODE -->
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="treeview">
+                                        <?php foreach ($all_folder_first_level as $row) {  ?>
+                                        <li class="tree-branch"><a href="javascript:void(0)" class="<?php echo $row["title"]; ?>"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
+                                        <?php } ?>
+                                    </ul>
                                 </div>
-
-
-
+                            </div>
 
 
                         </div>

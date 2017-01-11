@@ -38,26 +38,7 @@ class Ftp_websites extends CI_Controller {
 			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
-			if (empty($w_id)) {
-				$all_websites = $this->model_front->get_all_websites();
-				$count_websites = $this->model_front->count_all_websites_per_page();
-				$data = array();
-				foreach ($all_websites->result() as $row)
-				{
-					$list = array();
-					$list[] = $row->w_title;
-					$list[] = '<a href="'.prep_url($row->w_url_rw).'" target="_blank">'.$row->w_url_rw.'</a>';
-					$list[] = '<a href="'.site_url('ftp-websites/'.$row->w_id).'">Connect FTP</a>';
-
-					$data[] = $list;
-				}
-
-				$output = array("draw" => $_POST['draw'],
-								"recordsTotal" => $all_websites->num_rows(),
-								"recordsFiltered" => $count_websites->num_rows(),
-								"data" => $data);
-				echo json_encode($output);
-			} else {
+			if (!empty($w_id)) {
 				$row =  $this->model_front->get_website($w_id)->row();
 
 				$config['hostname'] = $row->w_host_ftp;
@@ -80,6 +61,32 @@ class Ftp_websites extends CI_Controller {
 			$this->load->view('ftp-websites', $data);
 		}else {
 			$this->load->view('index');
+		}
+	}
+	public function ajaxListftp()
+	{
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+				$all_websites = $this->model_front->get_all_websites();
+				$count_websites = $this->model_front->count_all_websites_per_page();
+				$data = array();
+				foreach ($all_websites->result() as $row)
+				{
+					$list = array();
+					$list[] = $row->w_title;
+					$list[] = '<a href="'.prep_url($row->w_url_rw).'" target="_blank">'.$row->w_url_rw.'</a>';
+					$list[] = '<a href="'.site_url('ftp-websites/'.$row->w_id).'">Connect FTP</a>';
+
+					$data[] = $list;
+				}
+
+				$output = array("draw" => $_POST['draw'],
+								"recordsTotal" => $all_websites->num_rows(),
+								"recordsFiltered" => $count_websites->num_rows(),
+								"data" => $data);
+				echo json_encode($output);
 		}
 	}
 	public function refreshfolder($w_id = '')

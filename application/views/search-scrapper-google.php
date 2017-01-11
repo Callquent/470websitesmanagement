@@ -12,7 +12,7 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Editable Table
+                        <?php echo lang('search_scrapper_google'); ?>
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
                             <a href="javascript:;" class="fa fa-cog"></a>
@@ -23,23 +23,16 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-
-
-
-
-                        <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
-                            <div class="form-group">
-                                <div class="col-lg-10">
-                                    <input type="keyword-google" class="form-control" name="keyword-google" id="keyword-google" placeholder="Search">
-                                </div>
-                                <div class="col-lg-2">
-                                    <button type="submit" class="btn btn-danger">Search</button>
-                                </div>
-                            </div>
-                        </form>
-
-
-
+                                    <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
+                                        <div class="form-group">
+                                            <div class="col-lg-10">
+                                                <input type="keyword-google" class="form-control" name="keyword-google" id="keyword-google" placeholder="Search">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <button type="submit" class="btn btn-danger">Search</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="btn-group pull-right">
                                   <button class="btn btn-success btn-ls" data-title="Ajouter" data-toggle="modal" data-target="#serptools" >Simulateur de SERP</button>

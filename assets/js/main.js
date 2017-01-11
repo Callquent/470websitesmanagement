@@ -691,7 +691,7 @@ $(document).ready(function(){
 		};*/
 			
 
-		$('ul.treeview').on('click', 'a', function() {
+/*		$('ul.treeview').on('click', 'a', function() {
 			var pathfolder = $(this).attr('class');
 			console.log($(this).parent().attr('class'));
 			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
@@ -713,7 +713,7 @@ $(document).ready(function(){
 				}
 			});
 			e.preventDefault();
-		});
+		});*/
 
 	/*$("#tree_3").bind("open_node.jstree", function (event, data) {
 		var glue = '/';
@@ -738,6 +738,41 @@ $(document).ready(function(){
 		});
 		return false;
 	});*/
+	} else if (window.location.href.split('/').pop() == "ftp-websites") {
+        var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+			"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "buttons": [
+                {
+                    extend: 'collection',
+                    text: 'Export',
+                    buttons: [
+                        'copy',
+                        'excel',
+                        'csv',
+                        'pdf',
+                        'print'
+                    ]
+                }
+            ],
+            "ajax": {
+                "url":  window.location.href+'/ajaxListftp/',
+                "type": "POST"
+            },
+            responsive: {
+                details: {
+                   
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
+        });
 	} else if (window.location.href.split('/').pop() == "members") {
 		$('a#delete-user').click(function(e) {
 			if (confirm('Voulez vous supprimer cette enregistrement')) {
