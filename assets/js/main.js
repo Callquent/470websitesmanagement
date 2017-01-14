@@ -321,15 +321,20 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	} else if (window.location.href.split('/').pop() == "category") {
+		var nEditingCategory = null;
+		var ElementDelete = null;
         var categoryTable = $('#table-category').dataTable({
-            "columnDefs": [
-            { 
-                "targets": [ 0 ], //last column
-                "orderable": false, //set not orderable
-            },
-            ],
+			"columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
         });
-        var nEditingCategory = null;
         function restoreRow(pTable, nRow) {
             var aData = pTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
@@ -357,7 +362,7 @@ $(document).ready(function(){
         }
 
 
-		$('#delete-category').on('show.bs.modal',function(event) {
+		$('#modal-delete-category').on('show.bs.modal',function(event) {
 			if (confirm('Voulez vous supprimer cette enregistrement')) {
 				var modal = $(this);
 				var id = $(event.relatedTarget).data('id');
@@ -366,12 +371,17 @@ $(document).ready(function(){
 				$.getJSON( window.location.href+'/loadCategories/', function( data ) {
 					categoryList = '<select id="category" name="category" class="form-control">';
 					$.each( data, function( key, val ) {
-						categoryList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
+						if ( id != val.c_id ) {
+							categoryList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
+						}
 					});
 					categoryList += '</select>';
-					$( "#delete-category .modal-body" ).append( categoryList );
+					$( "#modal-delete-category .modal-body" ).append( categoryList );
 				});
             }
+		});
+		$('#modal-delete-category').on('hidden.bs.modal',function(event) {
+			$('#category').remove();
 		});
 		$('#form-category').submit(function(e) {
             $.ajax({
@@ -379,8 +389,8 @@ $(document).ready(function(){
                 url:  $(this).attr('action'),
                 data: $(this).serialize(),
                 success: function(msg){
-                	$('#delete-category').modal('hide');
-                    var nRow = $('#table-category #delete-dashboard').parents('tr')[0];
+                	$('#modal-delete-category').modal('hide');
+                    var nRow = $(ElementDelete).parents('tr')[0];
                     categoryTable.fnDeleteRow(nRow);
                 },
                 error: function(msg){
@@ -429,17 +439,24 @@ $(document).ready(function(){
                 nEditingCategory = nRow;
             }
         });
-		EditableTable.init();
-	} else if (window.location.href.split('/').pop() == "language") {
-        var languageTable = $('#table-language').dataTable({
-            "columnDefs": [
-            { 
-                "targets": [ 0 ], //last column
-                "orderable": false, //set not orderable
-            },
-            ],
+        $(document).on('click', '#table-category #delete-dashboard', function (e) {
+            ElementDelete = this;
         });
+	} else if (window.location.href.split('/').pop() == "language") {
         var nEditingLanguage = null;
+        var ElementDelete = null;
+        var languageTable = $('#table-language').dataTable({
+			"columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
+        });
 		function editRowLanguage(languageTable, nRow, nUrl) {
             var aData = languageTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
@@ -466,7 +483,7 @@ $(document).ready(function(){
             pTable.fnDraw();
         }
         
-		$('#delete-language').on('show.bs.modal',function(event) {
+		$('#modal-delete-language').on('show.bs.modal',function(event) {
 			var modal = $(this);
 			var id = $(event.relatedTarget).data('id');
 
@@ -474,11 +491,16 @@ $(document).ready(function(){
 			$.getJSON( window.location.href+'/loadLanguages/', function( data ) {
 				languageList = '<select id="language" name="language" class="form-control">';
 				$.each( data, function( key, val ) {
-					languageList += '<option value="'+val.l_id+'">'+ val.l_title + '</option>';
+					if ( id != val.l_id ) {
+						languageList += '<option value="'+val.l_id+'">'+ val.l_title + '</option>';
+					}
 				});
 				languageList += '</select>';
-				$( "#delete-language .modal-body" ).append( languageList );
+				$( "#modal-delete-language .modal-body" ).append( languageList );
 			});
+		});
+		$('#modal-delete-language').on('hidden.bs.modal',function(event) {
+			$('#language').remove();
 		});
 		$('#form-language').submit(function(e) {
             $.ajax({
@@ -486,8 +508,8 @@ $(document).ready(function(){
                 url:  $(this).attr('action'),
                 data: $(this).serialize(),
                 success: function(msg){
-                	$('#delete-language').modal('hide');
-                    var nRow = $('#table-language #delete-dashboard').parents('tr')[0];
+                	$('#modal-delete-language').modal('hide');
+                    var nRow = $(ElementDelete).parents('tr')[0];
 					languageTable.fnDeleteRow(nRow);
                 },
                 error: function(msg){
@@ -536,7 +558,9 @@ $(document).ready(function(){
                 nEditingLanguage = nRow;
             }
         });
-		EditableTable.init();
+        $(document).on('click', '#table-language #delete-dashboard', function (e) {
+            ElementDelete = this;
+        });
 	} else if (window.location.href.split('/').pop() == "whois-domain") {
         var registarTable = $('#table-whois').dataTable({
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
@@ -740,7 +764,7 @@ $(document).ready(function(){
 	});*/
 	} else if (window.location.href.split('/').pop() == "ftp-websites") {
         var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+           /* "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
@@ -771,7 +795,23 @@ $(document).ready(function(){
                 className: 'control',
                 orderable: false,
                 targets:   0
-            } ],
+            } ]*/
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+            "responsive": {
+                'details': {
+                   
+                }
+            },
+			"columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
         });
 	} else if (window.location.href.split('/').pop() == "members") {
 		$('a#delete-user').click(function(e) {

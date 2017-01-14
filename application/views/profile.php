@@ -19,11 +19,11 @@
                        <div class="col-md-6">
                            <div class="profile-desk">
                                <h1><?php echo $user->username; ?></h1>
-                               <span class="text-muted">Date de Creation : <?php echo $user->date_created; ?></span>
+                               <span class="text-muted"<?php echo lang('date_create_profile'); ?><?php echo $user->date_created; ?></span>
                               <div class="change-password">
                                 <form action="<?php echo site_url('profile/change-password'); ?>" method="post" id="changepassword-form" class="form-horizontal" role="form">
-                                  <input class="form-control input-lg" name="newpassword" placeholder="Entre ton mot de passe actuel" type="password">
-                                  <button class="btn btn-primary" type="submit">Modifier mon mot de passe</button>
+                                  <input class="form-control input-lg" name="newpassword" placeholder="<?php echo lang('enter_new_password'); ?>" type="password">
+                                  <button class="btn btn-primary" type="submit"><?php echo lang('modify'); ?></button>
                                   <?php if($this->session->flashdata('success')){ ?>
                                   <div class="alert alert-success">
                                     <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
@@ -35,9 +35,9 @@
                        </div>
                        <div class="col-md-3">
                            <div class="profile-statistics">
-                               <h1>Email</h1>
+                               <h1><?php echo lang('email'); ?></h1>
                                <p><a href="mailto:<?php echo $user->email; ?>"><?php echo $user->email; ?></a></p>
-                               <h1>Permission</h1>
+                               <h1><?php echo lang('permission'); ?></h1>
                                <p><?php echo $user_role[0]->name; ?></p>
                            </div>
                        </div>

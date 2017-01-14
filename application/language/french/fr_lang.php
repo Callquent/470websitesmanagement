@@ -2,9 +2,9 @@
 /***********************/
 /*        General        */
 /***********************/
-$lang['modified'] = "Modification";
 $lang['save'] = "Enregistrer";
 $lang['cancel'] = "Annuler";
+$lang['modify'] = "Modification";
 /***********************/
 /*        navbar        */
 /***********************/
@@ -18,7 +18,7 @@ $lang['profile'] = " Mon profil";
 $lang['settings'] = " Paramètres";
 $lang['log_out'] = " Déconnexion";
 /***********************/
-/*        sidebr        */
+/*        sidebar        */
 /***********************/
 $lang['dashboard'] = "Tableau de bord";
 $lang['all_websites'] = "Tous les Sites";

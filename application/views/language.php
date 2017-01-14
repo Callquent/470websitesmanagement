@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                             <div class="space15"></div>
-                              <table class="table table-striped table-hover table-bordered table-dashboard" id="table-language">
+                              <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-language">
                                 <thead>
                                   <tr>
                                       <th>Langage</th>
@@ -49,7 +49,7 @@
                                       <td><?php echo $row->l_title; ?></td>
                                       <?php if ($user_role[0]->name == "Developper") { ?>
                                         <td><a id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->l_id); ?>">Edit</a></td>
-                                        <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#delete-language" data-id="<?php echo $row->l_id; ?>">Delete</a></td>
+                                        <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-language" data-id="<?php echo $row->l_id; ?>">Delete</a></td>
                                       <?php } ?>
                                     </tr>
                                   <?php } ?>
@@ -66,7 +66,7 @@
     <!--main content end-->
 </section>
 
-<div class="modal fade" id="delete-language" tabindex="-1" role="dialog" aria-labelledby="delete-language" aria-hidden="true">
+<div class="modal fade" id="modal-delete-language" tabindex="-1" role="dialog" aria-labelledby="modal-delete-language" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header modal-header-success">

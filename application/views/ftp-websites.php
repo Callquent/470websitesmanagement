@@ -36,7 +36,13 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-
+                                      <?php foreach ($all_websites->result() as $row) { ?>
+                                        <tr>
+                                            <td><?php echo $row->w_title ?></td>
+                                            <td><a href="<?php echo prep_url($row->w_url_rw); ?>" target="_blank"><?php echo $row->w_url_rw; ?></a></td>
+                                            <td><a href="<?php echo site_url('ftp-websites/'.$row->w_id); ?>">Connect FTP</a></td>
+                                        </tr>
+                                      <?php } ?>
                                     </tbody>
                                 </table>
                             </div>

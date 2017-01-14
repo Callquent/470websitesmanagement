@@ -75,7 +75,6 @@ class All_websites extends CI_Controller {
 				$list[] = '<a class="email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'">Email</a>';
 				$list[] = '<a id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'">Edit</a>';
 				$list[] = '<a id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'">Delete</a>';
-				$list[] = '<a href="'.site_url('ftp-websites/'.$row->w_id).'">Connect FTP</a>';
 
 				$data[] = $list;
 			}

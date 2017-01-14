@@ -18,7 +18,7 @@ $lang['profile'] = " Profile";
 $lang['settings'] = " Settings";
 $lang['log_out'] = " Log Out";
 /***********************/
-/*        sidebr        */
+/*        sidebar        */
 /***********************/
 $lang['dashboard'] = "Dashboard";
 $lang['all_websites'] = "All Websites";
