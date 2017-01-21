@@ -709,35 +709,10 @@ $(document).ready(function(){
 			});
 			e.preventDefault();
 		});
-	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
+	/*} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {*/
 		/*for (var i = 0; i < tree_data.length; i++) {
 			$('ul.treeview').append('<li class="tree-branch"><a href="javascript:void(0)" class="'+tree_data[i].text+'"><i class="'+tree_data[i].icon+'"></i> '+tree_data[i].text+'</a></li>');
 		};*/
-			
-
-/*		$('ul.treeview').on('click', 'a', function() {
-			var pathfolder = $(this).attr('class');
-			console.log($(this).parent().attr('class'));
-			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
-			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-
-			$.ajax({
-				type: "POST",
-				url: url+'/refreshfolder/'+id,
-				data: 'pathfolder='+pathfolder,
-				success: function(msg){
-					results = JSON.parse(msg);
-					$('ul.treeview .'+pathfolder).after('<ul></ul>');
-					for(var key in results) {
-						$('ul.treeview .'+pathfolder).next().append('<li class="tree-branch"><a href="javascript:void(0)" class="'+results[key].title+'"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
-					}
-				},
-				error: function(msg){
-					console.log(msg);
-				}
-			});
-			e.preventDefault();
-		});*/
 
 	/*$("#tree_3").bind("open_node.jstree", function (event, data) {
 		var glue = '/';
@@ -762,7 +737,33 @@ $(document).ready(function(){
 		});
 		return false;
 	});*/
-	} else if (window.location.href.split('/').pop() == "ftp-websites") {
+	} else if (window.location.href.split('/').pop() == "ftp-websites" || window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
+
+		$('ul.treeview').on('click', 'a', function() {
+			var elementfolder = $(this).attr('class');
+			var path = $("#path").val();
+			console.log($(this).parent().attr('class'));
+			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+			$.ajax({
+				type: "POST",
+				url: url+'/refreshfolder/'+id,
+				data: 'path='+path+elementfolder,
+				success: function(msg){
+					results = JSON.parse(msg);
+					var path = $("#path").val(path+elementfolder);
+					$('ul.treeview .'+elementfolder).after('<ul></ul>');
+					for(var key in results) {
+						$('ul.treeview .'+elementfolder).next().append('<li class="tree-branch"><a href="javascript:void(0)" class="'+results[key].title+'"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
+					}
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+		});
+
         var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
            /* "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
             "processing": true, //Feature control the processing indicator.

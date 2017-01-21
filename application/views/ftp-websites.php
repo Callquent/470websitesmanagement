@@ -27,72 +27,38 @@
                                     <div class="btn-group"></div>
                                 </div>
                                 <div class="space15"></div>
-                                <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftpwebsites">
-                                    <thead>
-                                      <tr>
-                                        <th class="all"><?php echo lang('name'); ?></th>
-                                        <th class="desktop"><?php echo lang('website'); ?></th>
-                                        <th class="desktop">FTP</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <?php foreach ($all_websites->result() as $row) { ?>
-                                        <tr>
-                                            <td><?php echo $row->w_title ?></td>
-                                            <td><a href="<?php echo prep_url($row->w_url_rw); ?>" target="_blank"><?php echo $row->w_url_rw; ?></a></td>
-                                            <td><a href="<?php echo site_url('ftp-websites/'.$row->w_id); ?>">Connect FTP</a></td>
-                                        </tr>
-                                      <?php } ?>
-                                    </tbody>
-                                </table>
+                                <?php var_dump(empty($all_folder_first_level)); ?>
+                                <?php if(empty($all_folder_first_level)){ ?>
+                                    <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftpwebsites">
+                                        <thead>
+                                          <tr>
+                                            <th class="all"><?php echo lang('name'); ?></th>
+                                            <th class="desktop"><?php echo lang('website'); ?></th>
+                                            <th class="desktop">FTP</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <?php foreach ($all_websites->result() as $row) { ?>
+                                            <tr>
+                                                <td><?php echo $row->w_title ?></td>
+                                                <td><a href="<?php echo prep_url($row->w_url_rw); ?>" target="_blank"><?php echo $row->w_url_rw; ?></a></td>
+                                                <td><a href="<?php echo site_url('ftp-websites/'.$row->w_id); ?>">Connect FTP</a></td>
+                                            </tr>
+                                          <?php } ?>
+                                        </tbody>
+                                    </table>
+                                <?php } ?>
                             </div>
 
 
 
 
-
+                            <?php if(!empty($all_folder_first_level)){ ?>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="portlet red-pink box">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="fa fa-cogs"></i>Ajax Tree with Drag & Drop </div>
-                                            <div class="tools">
-                                                <a href="javascript:;" class="collapse"> </a>
-                                                <a href="#portlet-config" data-toggle="modal" class="config"> </a>
-                                                <a href="javascript:;" class="reload"> </a>
-                                                <a href="javascript:;" class="remove"> </a>
-                                            </div>
-                                        </div>
-                                        <div class="portlet-body">
-                                            <div id="tree_4" class="tree-demo"> </div>
-                                            <div class="alert alert-info no-margin margin-top-10"> Note! The tree nodes are loaded from ../demo/jstree_ajax_data.php via ajax. </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="portlet yellow-lemon box">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="fa fa-cogs"></i>Contextual Menu with Drag & Drop </div>
-                                            <div class="tools">
-                                                <a href="javascript:;" class="collapse"> </a>
-                                                <a href="#portlet-config" data-toggle="modal" class="config"> </a>
-                                                <a href="javascript:;" class="reload"> </a>
-                                                <a href="javascript:;" class="remove"> </a>
-                                            </div>
-                                        </div>
-                                        <div class="portlet-body">
-                                            <div id="tree_3" class="tree-demo"> </div>
-                                            <div class="alert alert-success no-margin margin-top-10"> Note! Opened and selected nodes will be saved in the user's browser, so when returning to the same tree the previous state will be restored. </div>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control" id="path" value="<?php echo $path; ?>">
                                 </div>
                             </div>
-
-
-
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <ul class="treeview">
@@ -101,8 +67,8 @@
                                         <?php } ?>
                                     </ul>
                                 </div>
-                            </div>
-
+                            
+                            <?php } ?>
 
                         </div>
                     </section>

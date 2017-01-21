@@ -39,7 +39,7 @@ var Script = function () {
             center: 'title',
             right: 'month,basicWeek,basicDay'
         },
-        editable: true,
+        editable: false,
         droppable: true, // this allows things to be dropped onto the calendar !!!
         drop: function(date, allDay) { // this function is called when something is dropped
 

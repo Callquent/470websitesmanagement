@@ -40,21 +40,24 @@ class Ftp_websites extends CI_Controller {
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
 			if (!empty($w_id)) {
-				$row =  $this->model_front->get_website($w_id)->row();
+				$row = $this->model_front->get_website($w_id)->row();
+				if (!empty($row->w_host_ftp) && !empty($row->w_login_ftp) && !empty($row->w_password_ftp)) {
+					$config['hostname'] = $row->w_host_ftp;
+					$config['username'] = $row->w_login_ftp;
+					$config['password'] = $row->w_password_ftp;
 
-				$config['hostname'] = $row->w_host_ftp;
-				$config['username'] = $row->w_login_ftp;
-				$config['password'] = $row->w_password_ftp;
+					$this->ftp->connect($config);
 
-				$this->ftp->connect($config);
+					$data['path'] = '/';
 
-				$data['list'] = $this->ftp->list_files('/');
-				foreach ($data['list'] as $row) {
-					$item = pathinfo($row);
-					if (isset($item["extension"])) {
-						$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
-					} else {
-						$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
+					$data['list'] = $this->ftp->list_files('/');
+					foreach ($data['list'] as $row) {
+						$item = pathinfo($row);
+						if (isset($item["extension"])) {
+							$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
+						} else {
+							$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
+						}
 					}
 				}
 			}
@@ -70,7 +73,7 @@ class Ftp_websites extends CI_Controller {
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
 			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
 		{
-			$pathfolder = $this->input->post('pathfolder');
+			$pathfolder = $this->input->post('path');
 
 			$row =  $this->model_front->get_website($w_id)->row();
 
@@ -80,7 +83,7 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			$data['list'] = $this->ftp->list_files('/'.$pathfolder);
+			$data['list'] = $this->ftp->list_files($pathfolder);
 			foreach ($data['list'] as $row) {
 				$item = pathinfo($row);
 				if (isset($item["extension"])) {
