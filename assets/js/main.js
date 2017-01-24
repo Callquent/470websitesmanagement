@@ -749,10 +749,10 @@ $(document).ready(function(){
 			$.ajax({
 				type: "POST",
 				url: url+'/refreshfolder/'+id,
-				data: 'path='+path+elementfolder,
+				data: 'path='+($('#path').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
 				success: function(msg){
 					results = JSON.parse(msg);
-					var path = $("#path").val(path+elementfolder);
+					$("#path").val($("#path").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
 					$('ul.treeview .'+elementfolder).after('<ul></ul>');
 					for(var key in results) {
 						$('ul.treeview .'+elementfolder).next().append('<li class="tree-branch"><a href="javascript:void(0)" class="'+results[key].title+'"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
