@@ -12,7 +12,7 @@ class Model_back extends CI_Model {
 			'w_url_rw'			=> $w_url_rw,
 		);
 
-		$this->db->insert('470websitesmanagement_info', $data);
+		$this->db->insert('470websitesmanagement_website', $data);
 		return $this->db->insert_id();
 	}
 
@@ -74,7 +74,7 @@ class Model_back extends CI_Model {
 		);
 
 		$this->db->where('w_id', $w_id)
-				 ->update('470websitesmanagement_info', $data);
+				 ->update('470websitesmanagement_website', $data);
 	}
 	function update_ftp_websites($w_id_ftp, $w_id_info, $w_host_ftp, $w_login_ftp, $w_password_ftp)
 	{
@@ -119,20 +119,20 @@ class Model_back extends CI_Model {
 		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_backoffice');
 		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_database');
 		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_ftp');
-		$this->db->where('w_id', $id)->delete('470websitesmanagement_info');
+		$this->db->where('w_id', $id)->delete('470websitesmanagement_website');
 	}
 	function export_website($websites = "")
 	{
 		$sql = "";
 
 		$this->db->select('*')
-					->from('470websitesmanagement_info')
-					->join('470websitesmanagement_whois', '470websitesmanagement_whois.whois_id = 470websitesmanagement_info.w_id')
-					->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.w_id_info = 470websitesmanagement_info.w_id')
-					->join('470websitesmanagement_database', '470websitesmanagement_database.w_id_info = 470websitesmanagement_info.w_id')
-					->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.w_id_info = 470websitesmanagement_info.w_id');
+					->from('470websitesmanagement_website')
+					->join('470websitesmanagement_whois', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.w_id')
+					->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.w_id_info = 470websitesmanagement_website.w_id')
+					->join('470websitesmanagement_database', '470websitesmanagement_database.w_id_info = 470websitesmanagement_website.w_id')
+					->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.w_id_info = 470websitesmanagement_website.w_id');
 		if (!empty ($websites)) {
-			$this->db->where_in('470websitesmanagement_info.w_id', $websites);
+			$this->db->where_in('470websitesmanagement_website.w_id', $websites);
 		}
 
 		$query = $this->db->get();
@@ -144,7 +144,7 @@ class Model_back extends CI_Model {
 				'w_title' => $row->w_title,
 				'w_url_rw'  => $row->w_url_rw
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_info').";";
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website').";";
 
 			$data = array(
 				'w_id_info'  => $row->w_id_info,
@@ -192,10 +192,10 @@ class Model_back extends CI_Model {
 		foreach ($insert_sql as $row) {
 			$this->db->select_max('w_id');
 
-			if (strpos($row,'470websitesmanagement_info') !== false) {
-				$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id+1;
+			if (strpos($row,'470websitesmanagement_website') !== false) {
+				$max_id_website = $this->db->get('470websitesmanagement_website')->row()->w_id+1;
 			} else {
-				$max_id_website = $this->db->get('470websitesmanagement_info')->row()->w_id;
+				$max_id_website = $this->db->get('470websitesmanagement_website')->row()->w_id;
 			}
 			$patterns = array('/VALUES \(\'(.*)\'/siU');
 			$replacements = array('VALUES (\''.$max_id_website.'\'');

@@ -66,11 +66,11 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_ftp` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `470websitesmanagement_info`
+-- Structure de la table `470websitesmanagement_website`
 --
 
-DROP TABLE IF EXISTS `470websitesmanagement_info`;
-CREATE TABLE IF NOT EXISTS `470websitesmanagement_info` (
+DROP TABLE IF EXISTS `470websitesmanagement_website`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_website` (
   `w_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `c_id` int(11) NOT NULL,
   `l_id` int(11) NOT NULL,
@@ -357,24 +357,24 @@ CREATE TABLE IF NOT EXISTS `aauth_user_variables` (
 -- Contraintes pour la table `470websitesmanagement_backoffice`
 --
 ALTER TABLE `470websitesmanagement_backoffice`
-  ADD CONSTRAINT `fk_id_bo` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_info` (`w_id`);
+  ADD CONSTRAINT `fk_id_bo` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_database`
 --
 ALTER TABLE `470websitesmanagement_database`
-  ADD CONSTRAINT `fk_id_db` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_info` (`w_id`);
+  ADD CONSTRAINT `fk_id_db` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_ftp`
 --
 ALTER TABLE `470websitesmanagement_ftp`
-  ADD CONSTRAINT `fk_id_ftp` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_info` (`w_id`);
+  ADD CONSTRAINT `fk_id_ftp` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
--- Contraintes pour la table `470websitesmanagement_info`
+-- Contraintes pour la table `470websitesmanagement_website`
 --
-ALTER TABLE `470websitesmanagement_info`
+ALTER TABLE `470websitesmanagement_website`
   ADD CONSTRAINT `fk_c_id` FOREIGN KEY (`c_id`) REFERENCES `470websitesmanagement_category` (`c_id`),
   ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`l_id`) REFERENCES `470websitesmanagement_language` (`l_id`);
 
@@ -382,7 +382,7 @@ ALTER TABLE `470websitesmanagement_info`
 -- Contraintes pour la table `470websitesmanagement_positiontracking`
 --
 ALTER TABLE `470websitesmanagement_positiontracking`
-  ADD CONSTRAINT `fk_id_positiontracking` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_info` (`w_id`);
+  ADD CONSTRAINT `fk_id_positiontracking` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_positiontracking_scheduled`
@@ -394,4 +394,4 @@ ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
 -- Contraintes pour la table `470websitesmanagement_whois`
 --
 ALTER TABLE `470websitesmanagement_whois`
-  ADD CONSTRAINT `fk_whois_id` FOREIGN KEY (`whois_id`) REFERENCES `470websitesmanagement_info` (`w_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_whois_id` FOREIGN KEY (`whois_id`) REFERENCES `470websitesmanagement_website` (`w_id`) ON DELETE CASCADE;

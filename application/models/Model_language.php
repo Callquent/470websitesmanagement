@@ -28,7 +28,7 @@ class Model_language extends CI_Model {
 		);
 
 		$this->db->where('l_id', $l_id_old)
-				 ->update('470websitesmanagement_info', $data);
+				 ->update('470websitesmanagement_website', $data);
 	}
 	function delete_language($l_id)
 	{

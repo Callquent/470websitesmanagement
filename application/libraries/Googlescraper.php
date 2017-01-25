@@ -46,7 +46,6 @@ class Googlescraper
 
 	function initGoogle() {
 		$data=$this->getpagedata('https://www.google.com');
-		sleep(2);
 		$this->getpagedata('https://www.google.com/ncr');
 	}
 

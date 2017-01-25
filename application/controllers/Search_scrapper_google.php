@@ -59,21 +59,6 @@ class Search_scrapper_google extends CI_Controller {
 			$i=1;
 			foreach ($all_websites as $row)
 			{
-			/*	$parser = new WebsiteParser($row);
-				$meta_tags = $parser->getMetaTags(true);
-				$meta_title = $parser->getTitle(true);
-				$meta_description = "";
-				$meta_robots = "";
-
-				foreach ($meta_tags as $meta_tag){
-					if ($meta_tag[0] == 'description') {
-						$meta_description = $meta_tag[1];
-					}
-					if ($meta_tag[0] == 'robots') {
-						$meta_robots = $meta_tag[1];
-					}
-				}*/
-
 				$list = array();
 				$list[] = $i++;
 				$list[] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';

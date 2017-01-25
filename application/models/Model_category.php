@@ -28,7 +28,7 @@ class Model_category extends CI_Model {
 		);
 
 		$this->db->where('c_id', $c_id_old)
-				 ->update('470websitesmanagement_info', $data);
+				 ->update('470websitesmanagement_website', $data);
 	}
 	function delete_category($c_id)
 	{

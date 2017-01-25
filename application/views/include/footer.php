@@ -42,8 +42,7 @@
 	<?php if ($this->uri->segment(1)=='tasks') { ?>
 		<?php echo js_url('js/jquery-ui/jquery-ui-1.10.1.custom.min.js'); ?>
 		<?php echo js_url('js/draggable-portlet.js'); ?>
-		<?php echo js_url('js/morris-chart/morris.js'); ?>
-		<?php echo js_url('js/morris-chart/raphael-min.js'); ?>
+		<?php echo js_url('js/skycons.js'); ?>
 		<?php echo js_url('js/dashboard.js'); ?>
 		<?php echo js_url('js/jquery.customSelect.min.js'); ?>
 	<?php } ?>
