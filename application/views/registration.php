@@ -42,22 +42,22 @@
             <button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
             <?php if($this->session->flashdata('success')){ ?>
             <div class="alert alert-success">
-                <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
+                <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert">×</a>
             </div>
             <?php } ?>
             <?php if($this->session->flashdata('disconnect')){ ?>
             <div class="alert alert-danger">
-                <?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
+                <?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert">×</a>
             </div>
             <?php } ?>
             <?php if($this->session->flashdata('danger')){ ?>
             <div class="alert alert-danger">
-                <?php echo $this->session->flashdata('danger'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
+                <?php echo $this->session->flashdata('danger'); ?> <a class="close" data-dismiss="alert">×</a>
             </div>
             <?php } ?>
 
             <?php if(validation_errors()){
-                echo validation_errors('<div class="alert alert-danger">', ' <a class="close" data-dismiss="alert" href="#">×</a></div>');
+                echo validation_errors('<div class="alert alert-danger">', ' <a class="close" data-dismiss="alert">×</a></div>');
             } ?>
                 
             <div class="registration">

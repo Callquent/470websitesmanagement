@@ -9,6 +9,7 @@ class Calendar extends CI_Controller {
 		// Chargement des ressources pour ce controller
 		$this->load->database();
 		$this->load->model('model_front');
+		$this->load->model('model_whois');
 		$this->load->model('model_settings');
 		$this->load->library("Aauth");
 		$this->load->library(array('form_validation', 'session'));
@@ -38,6 +39,14 @@ class Calendar extends CI_Controller {
 			$data['user'] = $this->aauth->get_user();
 			$data['user_role'] = $this->aauth->get_user_groups();
 
+			$all_whois = $this->model_whois->view_all_whois();
+			$count_websites =  $this->model_front->count_all_websites();
+			foreach ($all_whois->result() as $row)
+			{
+				$calendar_whois[] = array('title' => $row->w_url_rw, 'start' => $row->expiration_date );
+			}
+
+			$data['calendar_whois'] = json_encode($calendar_whois);
 			$this->load->view('calendar', $data);
 		}else {
 			$this->load->view('index');

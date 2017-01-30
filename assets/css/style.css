@@ -173,6 +173,17 @@ ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:fo
   border-left: 5px solid #1fb5ac;
 }
 /***********************/
+/*      CALENDAR       */
+/***********************/
+.fc-today {
+  background: #b3b0c5;
+}
+.fc-event-skin {
+    background-color: #d9534f !important;
+    border-color: #d9534f !important;
+    color: #FFFFFF !important;
+}
+/***********************/
 /*      META SEO       */
 /***********************/
 .fixed-table-header-columns,

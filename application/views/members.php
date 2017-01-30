@@ -43,7 +43,7 @@
                                             <div class="twt-feed white-bg">
                                         <?php } ?>
                                             <div class="fa fa-user wtt-mark"></div>
-                                            <a href="#">
+                                            <a>
                                                 <img alt="" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>">
                                             </a>
                                             <h1><?php echo $row->name_user; ?></h1>

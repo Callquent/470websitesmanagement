@@ -25,7 +25,7 @@
     <?php } ?>
     <ul class="nav pull-right top-menu">
         <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <a data-toggle="dropdown" class="dropdown-toggle">
                 <img alt="" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>">
                 <span class="username"><?php echo $login; ?></span>
                 <b class="caret"></b>

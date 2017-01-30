@@ -13,6 +13,15 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
+                      <span class="tools pull-right">
+                            <div class="btn-group">
+                              <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">Type <span class="caret"></span></button>
+                              <ul role="menu" class="dropdown-menu">
+                                  <li><a id="button-whois-calendar">Calendar</a></li>
+                                  <li><a id="button-whois-list">List</a></li>
+                              </ul>
+                            </div>
+                         </span>
                     </header>
                     <div class="panel-body">
                         <div class="adv-table editable-table ">
@@ -39,6 +48,13 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="row whois-calendar">
+                            <aside class="col-lg-12">
+                                  <div id="calendar" class="has-toolbar"></div>
+                            </aside>
+                        </div>
+
                     </div>
                 </section>
             </div>

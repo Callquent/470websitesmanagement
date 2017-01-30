@@ -90,6 +90,23 @@ class Whois_domain extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
+	public function ajaxCalendarWhois()
+	{
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+			$all_whois = $this->model_whois->view_all_whois();
+			$count_websites =  $this->model_front->count_all_websites();
+			foreach ($all_whois->result() as $row)
+			{
+				$calendar_whois[] = array('title' => $row->w_url_rw, 'start' => $row->expiration_date );
+			}			
+			echo json_encode($calendar_whois);
+		} else {
+			$this->load->view('index');
+		}
+	}
 	public function modal_whois($whois_id = '')
 	{
 		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 

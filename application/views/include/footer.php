@@ -35,6 +35,9 @@
 		<?php echo js_url('js/data-tables/dataTables.tableTools.js'); ?>
 		<?php echo js_url('js/table-editable.js'); ?>
 	<?php } ?>
+	<?php if ($this->uri->segment(1)=='whois-domain') { ?>
+		<?php echo js_url('js/fullcalendar/fullcalendar.min.js'); ?>
+	<?php } ?>
 	<?php if ($this->uri->segment(1)=='dashboard' || $this->uri->segment(1)=='position-tracking') { ?>
 		<?php echo js_url('js/chart-js/Chart.min.js'); ?>
 		<?php echo js_url('js/chartjs.init.js'); ?>
