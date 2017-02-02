@@ -49,9 +49,9 @@ class Googlescraper
 		$this->getpagedata('https://www.google.com/ncr');
 	}
 
-	function fetchUrlList()
+	function fetchUrlList($number_page)
 	{
-		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num=100');
+		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num='.$number_page);
 		preg_match('/;ei=(.*?)&amp;/siU', $data, $matches);
 		$this->ei=urlencode($matches[1]);
 		if ($data) {
@@ -62,7 +62,7 @@ class Googlescraper
 				preg_match_all('/<div\s*class="g".*>.*<cite.*>([^\"]*)<\/cite>.*<\/div>/siU', $data, $meta_url);
 				preg_match_all('/<div\s*class="g".*>.*<h3.*><a\s[^>]*href\s*=\s*\"[^>]*>(.*)<\/a><\/h3>.*<\/div>/siU', $data, $meta_title);
 				preg_match_all('/<span\s*class="st">((<span\s*class="f">(.*)<\/span>(.*))<\/span>|(.*)<\/span>)/siU', $data, $meta_description);
-				for ($j = 0; $j <= 100; $j++) {
+				for ($j = 0; $j <= $number_page; $j++) {
 					if (isset($meta_url[1][$j]) && !is_null($meta_url[1][$j])) {
 						$this->metaList[$j]['url'] =  html_entity_decode($meta_url[1][$j],ENT_QUOTES);
 					}
@@ -82,10 +82,10 @@ class Googlescraper
 		}
 	}
 
-	function getUrlList($keyword,$proxy='') {
+	function getUrlList($keyword,$number_page,$proxy='') {
 		$this->keyword=$keyword;
 		$this->initGoogle();
-		$this->fetchUrlList();
+		$this->fetchUrlList($number_page);
 		sleep(2);
 		return $this->metaList;
 	}

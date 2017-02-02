@@ -169,6 +169,12 @@ ul.sidebar-menu li > span {
   text-transform: uppercase;
   font-weight: 600;
 }
+ul.sidebar-menu .active a {
+  background: #28282e;
+  border-left: 5px solid #1fb5ac;
+  padding-left: 15px;
+  color: #1fb5ac;
+}
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
   border-left: 5px solid #1fb5ac;
 }

@@ -54,7 +54,7 @@ class Search_scrapper_google extends CI_Controller {
 			$keyword_google = $this->input->post('keyword-google');
 
 			$googlescraper = new Googlescraper();
-			$all_websites = $googlescraper->getUrlList(urlencode($keyword_google));
+			$all_websites = $googlescraper->getUrlList(urlencode($keyword_google),100);
 
 			$i=1;
 			foreach ($all_websites as $row)

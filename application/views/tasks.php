@@ -10,13 +10,13 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="row-fluid" id="draggable_portlets">
-                    <div class="col-md-4 column sortable ui-sortable">
+                    <div class="col-md-3 column sortable ui-sortable">
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-default">
+                                <div class="panel panel-danger">
                                     <div class="panel-heading">
-                                        Portlet 1
+                                        Important
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
                                     <a class="fa fa-cog" href="javascript:;"></a>
@@ -169,7 +169,7 @@
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        Portlet 2
+                                        À faire
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
                                     <a class="fa fa-cog" href="javascript:;"></a>
@@ -191,10 +191,9 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-success">
+                                <div class="panel panel-warning">
                                     <div class="panel-heading">
-                                        Portlet 3
-
+                                        En cours
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
                                     <a class="fa fa-cog" href="javascript:;"></a>
@@ -214,13 +213,13 @@
                         </div>
                         <!-- END Portlet PORTLET-->
                     </div>
-                    <div class="col-md-4 column sortable ui-sortable">
+                    <div class="col-md-3 column sortable ui-sortable">
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-warning">
+                                <div class="panel panel-success">
                                     <div class="panel-heading">
-                                        Portlet 4
+                                        Réaliser
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
                                     <a class="fa fa-cog" href="javascript:;"></a>
@@ -285,7 +284,7 @@
                         </div>
                         <!-- END Portlet PORTLET-->
                     </div>
-                    <div class="col-md-4 column sortable ui-sortable">
+                    <div class="col-md-3 column sortable ui-sortable">
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
