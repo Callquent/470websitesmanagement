@@ -57,7 +57,7 @@ class Website_scrapper_google extends CI_Controller {
 				$all_websites = $this->model_front->get_all_websites();
 				$count_websites =  $this->model_front->count_all_websites_per_page();
 
-				foreach ($all_websites->result() as $row)
+				/*foreach ($all_websites->result() as $row)
 				{
 					$parser = new WebsiteParser($row->w_url_rw);
 					$meta_tags = $parser->getMetaTags(true);
@@ -88,10 +88,29 @@ class Website_scrapper_google extends CI_Controller {
 								"recordsTotal" => $all_websites->num_rows(),
 								"recordsFiltered" => $count_websites->num_rows(),
 								"data" => $data);
+				echo json_encode($output);*/
+
+
+				foreach ($all_websites->result() as $row)
+				{
+					$googlescraper = new Googlescraper();
+					$website = $googlescraper->getUrlList('info:'.$row->w_url_rw,1);
+
+					var_dump($website[0]['w_title']);
+					$list = array();
+					$list[] = $website[0]['w_title'];
+					$list[] = '<a href="https://www.google.com/search?q=info:'.strip_tags($website[0][]url).'" target="_blank">'.strip_tags($website[0]['url']).'</a>';
+					$list[] = strip_tags($website[0]['title']);
+					$list[] = strip_tags($website[0]['description']);
+					$list[] = "";
+
+					$data[] = $list;
+				}
+				$output = array("draw" => $_POST['draw'],
+								"recordsTotal" => $all_websites->num_rows(),
+								"recordsFiltered" => $count_websites->num_rows(),
+								"data" => $data);
 				echo json_encode($output);
-
-
-
 
 
 			/*$obj = new Googlescraper();

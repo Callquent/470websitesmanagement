@@ -76,6 +76,7 @@ class Add_website extends CI_Controller {
 			$website_id = $this->model_back->create_websites($c_id, $l_id, $w_title, $w_url_rw);
 			$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 			$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
+			var_dump($domain);
 			$this->model_whois->create_all_whois($website_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
 			$pos = strrpos($w_url_rw, ".fr");
 			if (!$pos === false) {

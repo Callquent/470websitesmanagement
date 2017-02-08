@@ -193,11 +193,11 @@ class Whois
                 break;
 
                 case 'pl':
-                    preg_match_all('/created:\s(.*\...\...).*renewal\sdate:\s(.*\...\...).*REGISTRAR:/siU', $string_utf8, $data);
+                    preg_match_all('/created:(.*\...\...).*renewal\sdate:(.*\...\...).*REGISTRAR:\r\n(.*)\r\n.*/siU', $string_utf8, $data);
                     if (isset($data[1][0]) && isset($data[2][0])) {
                         $result[]=trim($data[1][0]);
                         $result[]=trim($data[2][0]);
-                        $result[]=null;
+                        $result[]=trim($data[3][0]);
                         
                     } else {
                         $result="";
