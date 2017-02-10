@@ -27,7 +27,7 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-                                    <h4>Nom de Domaine inclus : .com, .net, .org, .uk, .ie, .paris, .ovh, .fr, .it, .se, .fi, .ru, .cn, .jp, .dk, .pl</h4>
+                                    <h4>Nom de Domaine inclus : .com, .net, .ca, .org, .uk, .ie, .paris, .ovh, .fr, .it, .se, .fi, .ru, .cn, .jp, .dk, .pl, .cz</h4>
                                 </div>
 
                             </div>

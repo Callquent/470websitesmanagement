@@ -80,6 +80,17 @@ class Whois
                     }
                 break;
 
+                case 'ca':
+                preg_match_all('/Creation\sdate:(.*)Expiry\sdate:(.*)Updated date:.*Name:(.*)Number/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+
                 case 'org':
                 case 'paris':
                 case 'ovh':
@@ -138,11 +149,11 @@ class Whois
                 break;
                 
                 case 'pt':
-                    preg_match_all('/Creation\sDate\s\(dd\/mm\/yyyy\):\s(.*)Data.*Expiration\sDate\s\(dd\/mm\/yyyy\):\s(.*)Estado/siU', $string_utf8, $data);
-                    if (isset($data[3][0]) && isset($data[2][0])) {
-                        $result[]=trim($data[3][0]);
-                        $result[]=trim($data[2][0]);
+                    preg_match_all('/Creation\sDate\s\(dd\/mm\/yyyy\):(.*)Data.*Expiration\sDate\s\(dd\/mm\/yyyy\):(.*)Estado.*Billing Contact(.*)Email:/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
                         $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
                     } else {
                         $result="";
                     }
@@ -198,7 +209,17 @@ class Whois
                         $result[]=trim($data[1][0]);
                         $result[]=trim($data[2][0]);
                         $result[]=trim($data[3][0]);
-                        
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'cz':
+                    preg_match_all('/registrar:(.*)status:.*registered:(.*\...\.....).*expire:(.*\...\.....).*contact:/siU', $string_utf8, $data);
+                    if (isset($data[2][0]) && isset($data[3][0])) {
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                        $result[]=trim($data[1][0]);
                     } else {
                         $result="";
                     }
@@ -225,7 +246,7 @@ class Whois
                         $result="";
                     }
                 break;
-                
+
                 default:
                     $result="";
             }
