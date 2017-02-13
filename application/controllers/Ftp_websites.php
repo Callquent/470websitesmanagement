@@ -54,9 +54,9 @@ class Ftp_websites extends CI_Controller {
 					foreach ($data['list'] as $row) {
 						$item = pathinfo($row);
 						if (isset($item["extension"])) {
-							$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
+							$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
 						} else {
-							$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
+							$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
 						}
 					}
 				}
@@ -87,9 +87,9 @@ class Ftp_websites extends CI_Controller {
 			foreach ($data['list'] as $row) {
 				$item = pathinfo($row);
 				if (isset($item["extension"])) {
-					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-file');
+					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
 				} else {
-					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-folder');
+					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
 				}
 			}
 

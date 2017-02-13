@@ -27,7 +27,6 @@
                                     <div class="btn-group"></div>
                                 </div>
                                 <div class="space15"></div>
-                                <?php var_dump(empty($all_folder_first_level)); ?>
                                 <?php if(empty($all_folder_first_level)){ ?>
                                     <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftpwebsites">
                                         <thead>
@@ -54,20 +53,38 @@
 
 
                             <?php if(!empty($all_folder_first_level)){ ?>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="path" value="<?php echo $path; ?>">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="path-local">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="path-server" value="<?php echo $path; ?>">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <ul class="treeview">
-                                        <?php foreach ($all_folder_first_level as $row) {  ?>
-                                        <li class="tree-branch"><a href="javascript:void(0)" class="<?php echo $row["title"]; ?>"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
-                                        <?php } ?>
-                                    </ul>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <ul class="treeview">
+                                        <?php
+                                            foreach (range('A', 'Z') as $char) {
+                                                if (is_dir("file:///".$char.":")) { ?>
+                                                        <li class="tree-branch"><a href="javascript:void(0)" class="<?php echo $char; ?>"><i class="fa fa-2x fa-hdd-o"></i> <?php echo $char; ?></a></li>
+                                                   <?php
+                                                    /*$yoyo = @scandir("file:///".$char.":");
+                                                    var_dump($yoyo);*/
+                                                }
+                                            }
+                                        ?>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="treeview">
+                                            <?php foreach ($all_folder_first_level as $row) {  ?>
+                                            <li class="tree-branch"><a href="javascript:void(0)" class="<?php echo $row["title"]; ?>"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
                                 </div>
-                            
                             <?php } ?>
 
                         </div>
