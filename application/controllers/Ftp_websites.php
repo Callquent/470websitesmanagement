@@ -10,6 +10,7 @@ class Ftp_websites extends CI_Controller {
 		$this->load->model('model_front');
 		$this->load->model('model_users');
 		$this->load->model('model_settings');
+		$this->load->library('user_agent');
 		$this->load->library("Aauth");
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->library(array('encrypt','session'));
@@ -39,7 +40,40 @@ class Ftp_websites extends CI_Controller {
 			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
+
+			
 			if (!empty($w_id)) {
+
+				$data['path_local'] = '/';
+
+				if(strpos($this->agent->platform(), "Windows") !== FALSE) {
+				    foreach (range('A', 'Z') as $char) {
+				        if (is_dir("file:///".$char.":")) { 
+				        	$data['all_storage_local'][] = array('title' => $char, 'icon' => 'fa fa-2x fa-hdd-o');
+				        }
+				    }
+				}
+				else if(strpos($this->agent->platform(), "Mac") !== FALSE) { 
+					foreach (@scandir("file:///") as $value) { 
+						$item = pathinfo($value);
+						if (isset($item["extension"])) {
+							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
+						} else {
+							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
+						}
+					}
+				}
+				elseif(strpos($this->agent->platform(), "Linux") !== FALSE) {
+					foreach (@scandir("file:///") as $value) { 
+						$item = pathinfo($value);
+						if (isset($item["extension"])) {
+							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
+						} else {
+							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
+						}
+					}
+				}
+
 				$row = $this->model_front->get_website($w_id)->row();
 				if (!empty($row->w_host_ftp) && !empty($row->w_login_ftp) && !empty($row->w_password_ftp)) {
 					$config['hostname'] = $row->w_host_ftp;
@@ -48,15 +82,15 @@ class Ftp_websites extends CI_Controller {
 
 					$this->ftp->connect($config);
 
-					$data['path'] = '/';
+					$data['path_server'] = '/';
 
 					$data['list'] = $this->ftp->list_files('/');
 					foreach ($data['list'] as $row) {
 						$item = pathinfo($row);
 						if (isset($item["extension"])) {
-							$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
+							$data['all_storage_server'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
 						} else {
-							$data['all_folder_first_level'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
+							$data['all_storage_server'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
 						}
 					}
 				}
