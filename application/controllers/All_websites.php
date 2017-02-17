@@ -141,10 +141,11 @@ class All_websites extends CI_Controller {
 			$row = $all_websites->row($w_id_bo);
 
 
-			$datatable = array(0 => $row->w_login_bo,
-								1 => $row->w_password_bo,
-								2 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->w_id.'/'.$row->w_id_bo).'">Edit</a>',
-								3 => '<a id="delete-dashboard" href="javascript:void(0);">Cancel</a>');
+			$datatable = array(0 => $row->w_host_bo,
+								1 => $row->w_login_bo,
+								2 => $row->w_password_bo,
+								3 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->w_id.'/'.$row->w_id_bo).'">Edit</a>',
+								4 => '<a id="delete-dashboard" href="javascript:void(0);">Cancel</a>');
 
 			echo json_encode($datatable, JSON_FORCE_OBJECT);
 		}else {
@@ -252,10 +253,11 @@ class All_websites extends CI_Controller {
 	}
 	public function edit_backoffice_website($w_id = '',$w_id_bo = '')
 	{
+		$w_host_bo		= $this->input->post('hotebackoffice');
 		$w_login_bo		= $this->input->post('loginbackoffice');
 		$w_password_bo	= $this->input->post('passwordbackoffice');
 
-		$this->model_back->update_backoffice_websites($w_id_bo, $w_id, $w_login_bo, $w_password_bo);
+		$this->model_back->update_backoffice_websites($w_id_bo, $w_id, $w_host_bo, $w_login_bo, $w_password_bo);
 	}
 	public function delete_website($w_id = '')
 	{

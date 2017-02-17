@@ -138,6 +138,7 @@
                  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-backoffice-dashboard">
                       <thead>
                         <tr>
+                            <th class="all">Admin Host</th>
                             <th class="all">Admin Login</th>
                             <th class="all">Admin Mot de passe</th>
                             <?php if ($user_role[0]->name == "Developper") { ?>

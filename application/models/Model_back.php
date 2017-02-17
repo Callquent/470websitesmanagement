@@ -49,7 +49,7 @@ class Model_back extends CI_Model {
 		$this->db->insert('470websitesmanagement_ftp', $data);
 		return $this->db->insert_id();
 	}
-	function create_backoffice_websites($w_id_info, $w_login_bo, $w_password_bo)
+	function create_backoffice_websites($w_id_info, $w_host_bo, $w_login_bo, $w_password_bo)
 	{
 		$this->db->select_max('w_id_bo');
 		$this->db->where('w_id_info', $w_id_info); 
@@ -57,6 +57,7 @@ class Model_back extends CI_Model {
 		$data = array(
 			'w_id_bo'			=> $query->row()->w_id_bo+1,
 			'w_id_info'			=> $w_id_info,
+			'w_host_bo'			=> $w_host_bo,
 			'w_login_bo'		=> $w_login_bo,
 			'w_password_bo'		=> $w_password_bo,
 		);
@@ -101,9 +102,10 @@ class Model_back extends CI_Model {
 				 ->where('w_id_db', $w_id_db)
 				 ->update('470websitesmanagement_database', $data);
 	}
-	function update_backoffice_websites($w_id_bo, $w_id_info, $w_login_bo, $w_password_bo)
+	function update_backoffice_websites($w_id_bo, $w_id_info, $w_host_bo, $w_login_bo, $w_password_bo)
 	{
 		$data = array(
+			'w_host_bo'				=> $w_host_bo,
 			'w_login_bo'			=> $w_login_bo,
 			'w_password_bo'			=> $w_password_bo,
 		);
@@ -168,6 +170,7 @@ class Model_back extends CI_Model {
 			$data = array(
 				'w_id_info'  => $row->w_id_info,
 				'w_id_bo'  => $row->w_id_bo,
+				'w_host_bo'			=> $w_host_bo,
 				'w_login_bo'  => $row->w_login_bo,
 				'w_password_bo' => $row->w_password_bo
 			);
@@ -200,7 +203,6 @@ class Model_back extends CI_Model {
 			$patterns = array('/VALUES \(\'(.*)\'/siU');
 			$replacements = array('VALUES (\''.$max_id_website.'\'');
 			$result = preg_replace($patterns,$replacements, $row);
-			/*var_dump($decrypt);*/
 			$this->db->query($result);
 		}
 	}

@@ -63,19 +63,19 @@
                                     <h4 class=""><i class="fa fa-plus-square"></i> FTP</h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('host_ftp'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_ftp'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="hostftp" placeholder="Host FTP">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('login_ftp'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_ftp'); ?></label>
                                         <div class="col-lg-6">
                                           <input class="form-control" type="text" name="loginftp" placeholder="Login FTP">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('password_ftp'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_ftp'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="passwordftp" placeholder="Mot de Passe FTP">
                                         </div>
@@ -85,25 +85,25 @@
                                     <h4 class=""><i class="fa fa-plus-square"></i> SQL</h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('host_sql'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_sql'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="hostsql" placeholder="Host SQL">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('name_sql'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('name_sql'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="namedatabase" placeholder="Nom de la base">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('login_sql'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_sql'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="loginsql" placeholder="Login SQL">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('password_sql'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_sql'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="passwordsql" placeholder="Mot de Passe SQL">
                                         </div>
@@ -113,13 +113,19 @@
                                     <h4 class=""><i class="fa fa-plus-square"></i> Back Office</h4>
                                     <hr>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('login_backoffice'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_backoffice'); ?></label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" type="text" name="adminhost" placeholder="Admin Host">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_backoffice'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="adminlogin" placeholder="Admin Login">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3"><?php echo lang('password_backoffice'); ?></label>
+                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_backoffice'); ?></label>
                                         <div class="col-lg-6">
                                             <input class="form-control" type="text" name="adminpassword" placeholder="Admin Mot de Passe">
                                         </div>

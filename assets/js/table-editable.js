@@ -156,12 +156,12 @@ var EditableTable = function () {
                 jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
                 jqTds[4].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
             }
-            function saveRowWebsiteFtp(ftpTable, nRow) {
+            function saveRowWebsiteFtp(ftpTable, nRow, nUrl) {
                 var jqInputs = $('input', nRow);
                 ftpTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
                 ftpTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
                 ftpTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-                ftpTable.fnUpdate('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>', nRow, 3, false);
+                ftpTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 3, false);
                 ftpTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 4, false);
                 ftpTable.fnDraw();
             }
@@ -176,13 +176,13 @@ var EditableTable = function () {
                 jqTds[4].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
                 jqTds[5].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
             }
-            function saveRowWebsiteDatabase(dbTable, nRow) {
+            function saveRowWebsiteDatabase(dbTable, nRow, nUrl) {
                 var jqInputs = $('input', nRow);
                 dbTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
                 dbTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
                 dbTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
                 dbTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-                dbTable.fnUpdate('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>', nRow, 4, false);
+                dbTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 4, false);
                 dbTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 5, false);
                 dbTable.fnDraw();
             }
@@ -190,17 +190,19 @@ var EditableTable = function () {
                 var aData = boTable.fnGetData(nRow);
                 var jqTds = $('>td', nRow);
                 var languageList;
-                jqTds[0].innerHTML = '<input type="text" class="form-control small" id="loginbackoffice" value="' + aData[0] + '">';
-                jqTds[1].innerHTML = '<input type="text" class="form-control small" id="passwordbackoffice" value="' + aData[1] + '">';
-                jqTds[2].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
-                jqTds[3].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
+                jqTds[0].innerHTML = '<input type="text" class="form-control small" id="hotebackoffice" value="' + aData[0] + '">';
+                jqTds[1].innerHTML = '<input type="text" class="form-control small" id="loginbackoffice" value="' + aData[1] + '">';
+                jqTds[2].innerHTML = '<input type="text" class="form-control small" id="passwordbackoffice" value="' + aData[2] + '">';
+                jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
+                jqTds[4].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
             }
-            function saveRowWebsiteBackoffice(boTable, nRow) {
+            function saveRowWebsiteBackoffice(boTable, nRow, nUrl) {
                 var jqInputs = $('input', nRow);
                 boTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
                 boTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-                boTable.fnUpdate('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>', nRow, 2, false);
-                boTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 3, false);
+                boTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
+                boTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 3, false);
+                boTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 4, false);
                 boTable.fnDraw();
             }
 
@@ -306,7 +308,7 @@ var EditableTable = function () {
                         data: {'hoteftp':hoteftp,'loginftp':loginftp,'passwordftp':passwordftp},
                         success: function(msg){
                             console.log(msg);
-                            saveRowWebsiteFtp(ftpTable, nEditingFtp);
+                            saveRowWebsiteFtp(ftpTable, nEditingFtp, nUrl);
                             nEditingFtp = null;
                         },
                         error: function(msg){
@@ -350,7 +352,7 @@ var EditableTable = function () {
                         data: {'hotedatabase':hotedatabase,'namedatabase':namedatabase,'logindatabase':logindatabase,'passworddatabase':passworddatabase},
                         success: function(msg){
                             console.log(msg);
-                            saveRowWebsiteDatabase(dbTable, nEditingDatabase);
+                            saveRowWebsiteDatabase(dbTable, nEditingDatabase, nUrl);
                             nEditingDatabase = null;
                         },
                         error: function(msg){
@@ -385,14 +387,15 @@ var EditableTable = function () {
                     editRowWebsiteBackoffice(boTable, nRow, nUrl);
                     nEditingBackoffice = nRow;
                 } else if (nEditingBackoffice == nRow && this.innerHTML == "Save") {
+                    var hotebackoffice = $('#hotebackoffice').val();
                     var loginbackoffice = $('#loginbackoffice').val();
                     var passwordbackoffice = $('#passwordbackoffice').val();
                     $.ajax({
                         type: "POST",
                         url: $(this).attr('href'),
-                        data: {'loginbackoffice':loginbackoffice,'passwordbackoffice':passwordbackoffice},
+                        data: {'hotebackoffice':hotebackoffice ,'loginbackoffice':loginbackoffice,'passwordbackoffice':passwordbackoffice},
                         success: function(msg){
-                            saveRowWebsiteBackoffice(boTable, nEditingBackoffice);
+                            saveRowWebsiteBackoffice(boTable, nEditingBackoffice, nUrl);
                             nEditingBackoffice = null;
                         },
                         error: function(msg){

@@ -101,7 +101,7 @@ class Ftp_websites extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
-	public function refreshfolder($w_id = '')
+	public function refreshfolderserver($w_id = '')
 	{
 		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
 			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
@@ -124,6 +124,47 @@ class Ftp_websites extends CI_Controller {
 					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
 				} else {
 					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
+				}
+			}
+
+			echo json_encode($tree_data);
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function refreshfolderlocal($w_id = '')
+	{
+		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
+			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
+			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		{
+			$pathfolder = $this->input->post('path');
+
+			if(strpos($this->agent->platform(), "Windows") !== FALSE) {
+			    foreach (range('A', 'Z') as $char) {
+			        if (is_dir("file:///".$char.":")) { 
+			        	$tree_data[] = array('title' => $char, 'icon' => 'fa fa-2x fa-hdd-o');
+			        }
+			    }
+			}
+			else if(strpos($this->agent->platform(), "Mac") !== FALSE) { 
+				foreach (@scandir("file:///") as $value) { 
+					$item = pathinfo($value);
+					if (isset($item["extension"])) {
+						$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
+					} else {
+						$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
+					}
+				}
+			}
+			elseif(strpos($this->agent->platform(), "Linux") !== FALSE) {
+				foreach (@scandir("file:///") as $value) { 
+					$item = pathinfo($value);
+					if (isset($item["extension"])) {
+						$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-file');
+					} else {
+						$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'fa fa-2x fa-folder');
+					}
 				}
 			}
 

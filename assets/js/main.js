@@ -804,7 +804,7 @@ $(document).ready(function(){
 
 			$.ajax({
 				type: "POST",
-				url: url+'/refreshfolder/'+id,
+				url: url+'/refreshfolderserver/'+id,
 				data: 'path='+($('#path-server').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
 				success: function(msg){
 					results = JSON.parse(msg);
@@ -820,6 +820,30 @@ $(document).ready(function(){
 			});
 		});
 
+		$('ul.treeviewlocal').on('click', 'a', function() {
+			var elementfolder = $(this).attr('class');
+			var path = $("#path-server").val();
+			console.log($(this).parent().attr('class'));
+			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+			$.ajax({
+				type: "POST",
+				url: url+'/refreshfolderlocal/'+id,
+				data: 'path='+($('#path-server').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
+				success: function(msg){
+					results = JSON.parse(msg);
+					$("#path-server").val($("#path-server").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
+					$('ul.treeviewlocal .'+elementfolder).after('<ul></ul>');
+					for(var key in results) {
+						$('ul.treeviewlocal .'+elementfolder).next().append('<li class="tree-branch"><a href="javascript:void(0)" class="'+results[key].title+'"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
+					}
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+		});
         var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
            /* "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
             "processing": true, //Feature control the processing indicator.
