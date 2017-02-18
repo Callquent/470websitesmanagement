@@ -353,10 +353,10 @@ $(document).ready(function(){
             jqTds[1].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
             jqTds[2].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
         }
-        function saveRowCategory(categoryTable, nRow) {
+        function saveRowCategory(categoryTable, nRow, nUrl) {
             var jqInputs = $('input', nRow);
             categoryTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-            categoryTable.fnUpdate('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>', nRow, 1, false);
+            categoryTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
             categoryTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
             categoryTable.fnDraw();
         }
@@ -427,7 +427,7 @@ $(document).ready(function(){
                     data: 'titlecategory='+titlecategory,
                     success: function(msg){
                         console.log(msg);
-                        saveRowCategory(categoryTable, nEditingCategory);
+                        saveRowCategory(categoryTable, nEditingCategory, nUrl);
                         nEditingCategory = null;
                     },
                     error: function(msg){
@@ -465,10 +465,10 @@ $(document).ready(function(){
             jqTds[1].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
             jqTds[2].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
         }
-        function saveRowLanguage(languageTable, nRow) {
+        function saveRowLanguage(languageTable, nRow, nUrl) {
             var jqInputs = $('input', nRow);
             languageTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-            languageTable.fnUpdate('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>', nRow, 1, false);
+            languageTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
             languageTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
             languageTable.fnDraw();
         }
@@ -546,7 +546,7 @@ $(document).ready(function(){
                     data: 'titlelanguage='+titlelanguage,
                     success: function(msg){
                         console.log(msg);
-                        saveRowLanguage(languageTable, nEditingLanguage);
+                        saveRowLanguage(languageTable, nEditingLanguage, nUrl);
                         nEditingLanguage = null;
                     },
                     error: function(msg){

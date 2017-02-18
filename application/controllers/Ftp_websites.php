@@ -44,12 +44,11 @@ class Ftp_websites extends CI_Controller {
 			
 			if (!empty($w_id)) {
 
-				$data['path_local'] = '/';
-
 				if(strpos($this->agent->platform(), "Windows") !== FALSE) {
 				    foreach (range('A', 'Z') as $char) {
 				        if (is_dir("file:///".$char.":")) { 
-				        	$data['all_storage_local'][] = array('title' => $char, 'icon' => 'fa fa-2x fa-hdd-o');
+							$data['all_storage_local'][] = array('title' => $char, 'icon' => 'fa fa-2x fa-hdd-o');
+							$data['path_local'] = "C:\\";
 				        }
 				    }
 				}
@@ -141,9 +140,9 @@ class Ftp_websites extends CI_Controller {
 			$pathfolder = $this->input->post('path');
 
 			if(strpos($this->agent->platform(), "Windows") !== FALSE) {
-			    foreach (range('A', 'Z') as $char) {
-			        if (is_dir("file:///".$char.":")) { 
-			        	$tree_data[] = array('title' => $char, 'icon' => 'fa fa-2x fa-hdd-o');
+			    foreach ($pathfolder as $row) {
+			        if (is_dir("file:///".$row)) { 
+			        	$tree_data[] = array('title' => $row, 'icon' => 'fa fa-2x fa-hdd-o');
 			        }
 			    }
 			}
