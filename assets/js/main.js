@@ -794,11 +794,26 @@ $(document).ready(function(){
 		return false;
 	});*/
 	} else if (window.location.href.split('/').pop() == "ftp-websites" || window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
-
-		$('ul.treeview').on('click', 'a', function() {
-			var elementfolder = $(this).attr('class');
+		$('ul.treeviewserver').on('click', 'li', function() {
+			var elementfolder = $(this).attr('id');
 			var path = $("#path-server").val();
-			console.log($(this).parent().attr('class'));
+			/*console.log(elementfolder);*/
+
+		var arr = $(this).parentsUntil( $( "ul.treeviewserver" ));
+		var arrfilter = []
+
+		/*for(var key in arr) {
+			arrfilter.push($(this).parentsUntil( $( "ul.treeviewserver" ))[key].id);
+		}*/
+		$.each( arr, function( key, data ) {
+						arrfilter.push(data.id );
+					});
+
+		/*arr = jQuery.grep(arr, function( a ) {
+			return a !== "ul";
+		});*/
+		console.log('tag : '+arrfilter);
+
 			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
 			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 
@@ -809,9 +824,9 @@ $(document).ready(function(){
 				success: function(msg){
 					results = JSON.parse(msg);
 					$("#path-server").val($("#path-server").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
-					$('ul.treeview .'+elementfolder).after('<ul></ul>');
+					$('ul.treeviewserver #'+elementfolder+' a').after('<ul></ul>');
 					for(var key in results) {
-						$('ul.treeview .'+elementfolder).next().append('<li class="tree-branch"><a href="javascript:void(0)" class="'+results[key].title+'"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
+						$('ul.treeviewserver #'+elementfolder+' > ul').append('<li class="tree-branch" id="'+results[key].title+'"><a href="#"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
 					}
 				},
 				error: function(msg){
@@ -820,23 +835,26 @@ $(document).ready(function(){
 			});
 		});
 
-		$('ul.treeviewlocal').on('click', 'a', function() {
-			var elementfolder = $(this).attr('class');
-			var path = $("#path-server").val();
-			console.log($(this).parent().attr('class'));
+	
+
+		$('ul.treeviewlocal li').on('click', 'li', function() {
+			var elementfolder = $(this).attr('id');
+			var path = $("#path-local").val();
+
+
 			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
 			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 
 			$.ajax({
 				type: "POST",
 				url: url+'/refreshfolderlocal/'+id,
-				data: 'path='+($('#path-server').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
+				data: 'path='+(elementfolder+':'),
 				success: function(msg){
 					results = JSON.parse(msg);
-					$("#path-server").val($("#path-server").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
-					$('ul.treeviewlocal .'+elementfolder).after('<ul></ul>');
+					$("#path-local").val($("#path-local").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
+					$('ul.treeviewlocal #'+elementfolder+' a').after('<ul></ul>');
 					for(var key in results) {
-						$('ul.treeviewlocal .'+elementfolder).next().append('<li class="tree-branch"><a href="javascript:void(0)" class="'+results[key].title+'"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
+						$('ul.treeviewlocal #'+elementfolder+' a').next().append('<li class="tree-branch" id="'+results[key].title+'"><a href="javascript:void(0)"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
 					}
 				},
 				error: function(msg){

@@ -66,14 +66,14 @@
                                     <div class="col-md-6">
                                         <ul class="treeviewlocal">
                                             <?php foreach ($all_storage_local as $row) {  ?>
-                                                <li class="tree-branch"><a href="javascript:void(0)" class="<?php echo $row["title"]; ?>"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
+                                                <li class="tree-branch" id="<?php echo $row["title"]; ?>" ><a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
                                             <?php } ?>
                                         </ul>
                                     </div>
                                     <div class="col-md-6">
-                                        <ul class="treeview">
+                                        <ul class="treeviewserver">
                                             <?php foreach ($all_storage_server as $row) {  ?>
-                                            <li class="tree-branch"><a href="javascript:void(0)" class="<?php echo $row["title"]; ?>"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
+                                            <li class="tree-branch" id="<?php echo $row["title"]; ?>" ><a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
                                             <?php } ?>
                                         </ul>
                                     </div>

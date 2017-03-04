@@ -61,7 +61,7 @@ class Whois_domain extends CI_Controller {
 			{
 				if (strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) <= strtotime(date('Y-m-d')) && strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) != 0 ) {
 					$domain = new Whois($row->w_url_rw);
-					$whois = $domain->lookup();
+					$whois = $domain->whoisdomain();
 					$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 					$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
 					$this->model_whois->update_whois($row->whois_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));

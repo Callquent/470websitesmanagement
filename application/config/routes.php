@@ -51,7 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'index';
 $route['ftp-websites/(:num)'] = 'ftp-websites/index/$1';
-$route['ftp-websites/refreshpath/(:num)'] = 'ftp-websites/refreshpath/$1';
 $route['all-websites/language/(:any)'] = 'all-websites/index/language/$1';
 $route['all-websites/category/(:any)'] = 'all-websites/index/category/$1';
 $route['website-scapper-google/(:num)'] = 'website-scapper-google/index/$1';

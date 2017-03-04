@@ -59,7 +59,7 @@ class Whois
      * 
      * @return string Content of whois lookup.
      */
-    public function lookup()
+    public function whoisdomain()
     {
         if ($this->domain) {
             $string_utf8 = $this->lookupDomain($this->domain);
@@ -91,10 +91,21 @@ class Whois
                     }
                 break;
 
-                case 'org':
                 case 'paris':
                 case 'ovh':
-                    preg_match_all('/Creation\sDate:\s(.*)T.*Registry\sExpiry\sDate:\s(.*)T.*Sponsoring\sRegistrar:(.*)Sponsoring\sRegistrar/siU', $string_utf8, $data);
+                case 'org':
+                    preg_match_all('/Creation\sDate:\s(.*)T.*Registry\sExpiry\sDate:\s(.*)T.*Registrar:(.*)Registrar/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'za':
+                    preg_match_all('/Creation\sDate:\s(.*)T.*Registry\sExpiry\sDate:\s(.*)T.*Sponsoring\sRegistrar:\s(.*)Domain/siU', $string_utf8, $data);
                     if (isset($data[1][0]) && isset($data[2][0])) {
                         $result[]=trim($data[1][0]);
                         $result[]=trim($data[2][0]);
@@ -138,11 +149,34 @@ class Whois
                 break;
                 
                 case 'fr':
+                case 're':
                     preg_match_all('/registrar:\s(.*)\sExpiry\sDate:\s(.*)\screated:\s(.*)\slast-update/siU', $string_utf8, $data);
                     if (isset($data[3][0]) && isset($data[2][0])) {
                         $result[]=trim($data[3][0]);
                         $result[]=trim($data[2][0]);
                         $result[]=trim($data[1][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'nc':
+                    preg_match_all('/Created\son.*:\s(.*-..-..).*Expires\son.*:\s(.*)Last.*Registrar.*:\s(.*)more/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
+                    } else {
+                        $result="";
+                    }
+                break;
+
+                case 'pf':
+                    preg_match_all('/Created.*:\s(.*)Last.*Expire.*:\s(.*)Name.*Registrar\sCompany\sName\s:\s(.*)Registrar/siU', $string_utf8, $data);
+                    if (isset($data[1][0]) && isset($data[2][0])) {
+                        $result[]=trim($data[1][0]);
+                        $result[]=trim($data[2][0]);
+                        $result[]=trim($data[3][0]);
                     } else {
                         $result="";
                     }

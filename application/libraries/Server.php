@@ -287,6 +287,7 @@ class Server
         // ye - Yemen - no whois server assigned
         "yt" => "whois.nic.yt", // Mayotte
         "yu" => "whois.ripe.net",
+        "za" => "whois.registry.net.za", // South Africa
     );
     
     /**
