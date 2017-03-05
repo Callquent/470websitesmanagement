@@ -11,14 +11,8 @@ class Whois_domain extends CI_Controller {
 		$this->load->model('model_back');
 		$this->load->model('model_whois');
 		$this->load->model('model_settings');
-		$this->load->library("Aauth");
-		$this->load->library("Whois");
-		$this->load->library(array('form_validation', 'session'));
-		$this->load->library(array('encrypt','session'));
-		$this->load->library('email');
-		$this->load->helper(array('functions', 'text', 'url'));
-		$this->load->helper('date');
-		$this->load->helper('language');
+		$this->load->library(array('Aauth','Whois','form_validation','encrypt','session','email'));
+		$this->load->helper(array('functions', 'text', 'url','date','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
@@ -27,9 +21,7 @@ class Whois_domain extends CI_Controller {
 	}
 	public function index()
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$data['all_websites'] = $this->model_front->get_all_websites();
 			$data['all_languages'] = $this->model_front->get_all_languages();
@@ -50,9 +42,7 @@ class Whois_domain extends CI_Controller {
 	}
 	public function ajaxWhois()
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$all_whois = $this->model_whois->view_all_whois();
 			$count_websites =  $this->model_front->count_all_websites();
@@ -92,9 +82,7 @@ class Whois_domain extends CI_Controller {
 	}
 	public function ajaxCalendarWhois()
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$all_whois = $this->model_whois->view_all_whois();
 			$count_websites =  $this->model_front->count_all_websites();
@@ -109,9 +97,7 @@ class Whois_domain extends CI_Controller {
 	}
 	public function modal_whois($whois_id = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$whois = $this->model_whois->check_whois($whois_id)->whois;
 

@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_category` (
   `c_title` varchar(255) CHARACTER SET latin1 NOT NULL,
   `c_title_url` varchar(255) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_settings` (
   `name_s` varchar(255) NOT NULL,
   `value_s` text NOT NULL,
   PRIMARY KEY (`id_s`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `470websitesmanagement_settings`
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_website` (
   UNIQUE KEY `w_url_rw` (`w_url_rw`),
   KEY `fk_c_id` (`c_id`),
   KEY `fk_l_id` (`l_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
   `registrar` varchar(255) DEFAULT NULL,
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`whois_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `aauth_groups` (
   `name` varchar(100) DEFAULT NULL,
   `definition` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `aauth_groups`
@@ -216,10 +216,10 @@ CREATE TABLE IF NOT EXISTS `aauth_groups` (
 INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
 (1, 'Admin', 'Super Admin Group'),
 (2, 'Public', 'Public Access Group'),
-(3, 'Unknown', 'Unknown Access Group'),
-(4, 'Developper', 'Developper Access Group'),
-(5, 'Marketing', 'Marketing Access Group'),
-(6, 'Visitor', 'Visitor Access Group');
+(3, 'Developper', 'Developper Access Group'),
+(4, 'Marketing', 'Marketing Access Group'),
+(5, 'Visitor', 'Visitor Access Group'),
+(6, 'Unknown', 'Unknown Access Group');
 
 -- --------------------------------------------------------
 
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `aauth_login_attempts` (
   `timestamp` datetime DEFAULT NULL,
   `login_attempts` tinyint(2) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
   `totp_secret` varchar(16) DEFAULT NULL,
   `ip_address` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

@@ -9,13 +9,8 @@ class Website_scrapper_google extends CI_Controller {
 		$this->load->database();
 		$this->load->model('model_front');
 		$this->load->model('model_settings');
-		$this->load->library("Aauth");
-		$this->load->library(array('form_validation', 'session'));
-		$this->load->library(array('encrypt','session'));
-		$this->load->library('websiteparser');
-		$this->load->library('googlescraper');
-		$this->load->helper(array('functions', 'text', 'url'));
-		$this->load->helper('language');
+		$this->load->library(array('Aauth','form_validation','encrypt','session','websiteparser','googlescraper'));
+		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
@@ -24,9 +19,7 @@ class Website_scrapper_google extends CI_Controller {
 	}
 	public function index($w_id = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			if($this->uri->total_segments() == 1){
 				$data['all_websites'] = $this->model_front->get_all_websites();
@@ -50,9 +43,7 @@ class Website_scrapper_google extends CI_Controller {
 	}
 	public function ajaxWebsiteScrapperGoogle()
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 				$all_websites = $this->model_front->get_all_websites();
 				$count_websites =  $this->model_front->count_all_websites_per_page();
@@ -137,9 +128,7 @@ class Website_scrapper_google extends CI_Controller {
 	}
 	public function ajaxSeoPagePerwebsite()
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$googlescraper = new Googlescraper();
 

@@ -6,8 +6,7 @@ class Install extends CI_Controller {
 	{
 		parent::__construct();
 		// Chargement des ressources pour ce controller
-		$this->load->library(array('form_validation', 'session'));
-		$this->load->library(array('encrypt','session'));
+		$this->load->library(array('form_validation','encrypt','session'));
 		$this->load->helper(array('functions','url'));
 	}
 	public function index()
@@ -61,6 +60,8 @@ class Install extends CI_Controller {
 			$this->load->library("Aauth");
 		}
 		$this->aauth->create_user($email, $password, $username);
+		$this->aauth->add_member($this->aauth->get_user_id($email),"Admin");
+		$this->aauth->remove_member($this->aauth->get_user_id($email),"Unknown");
 	}
 	public function step3()
 	{

@@ -10,13 +10,8 @@ class All_websites extends CI_Controller {
 		$this->load->model('model_front');
 		$this->load->model('model_back');
 		$this->load->model('model_settings');
-		$this->load->library("Aauth");
-		$this->load->library(array('form_validation', 'session'));
-		$this->load->library(array('encrypt','session'));
-		$this->load->library('email');
-		$this->load->helper(array('functions', 'text', 'url'));
-		$this->load->helper('date');
-		$this->load->helper('language');
+		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session','email'));
+		$this->load->helper(array('functions', 'text', 'url','date','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
@@ -25,9 +20,7 @@ class All_websites extends CI_Controller {
 	}
 	public function index()
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$data['all_languages'] = $this->model_front->get_all_languages();
 			$data['all_categories'] = $this->model_front->get_all_categories();
@@ -47,9 +40,7 @@ class All_websites extends CI_Controller {
 	}
 	public function ajaxDashboard($website_group = '', $website_group_name = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			if ($website_group == "category") {
 				$all_websites = $this->model_front->get_all_websites_per_category($website_group_name);
@@ -90,9 +81,7 @@ class All_websites extends CI_Controller {
 	}
 	public function modal_ftp_website($w_id_ftp = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$all_websites = $this->model_front->get_website_per_ftp($w_id_ftp);
 			$row = $all_websites->row($w_id_ftp);
@@ -111,9 +100,7 @@ class All_websites extends CI_Controller {
 	}
 	public function modal_database_website($w_id_db = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$all_websites = $this->model_front->get_website_per_database($w_id_db);
 			$row = $all_websites->row($w_id_db);
@@ -133,9 +120,7 @@ class All_websites extends CI_Controller {
 	}
 	public function modal_backoffice_website($w_id_bo = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$all_websites = $this->model_front->get_website_per_backoffice($w_id_bo);
 			$row = $all_websites->row($w_id_bo);
@@ -262,7 +247,6 @@ class All_websites extends CI_Controller {
 	public function delete_website($w_id = '')
 	{
 		// Si le site existe, on peut le supprimer
-		var_dump($this->model_front->get_website($w_id)->result());
 		if ($this->model_front->get_website($w_id)->num_rows() == 1){
 			$this->model_back->delete_website($w_id);
 		}

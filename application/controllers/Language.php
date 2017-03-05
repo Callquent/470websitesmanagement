@@ -10,12 +10,8 @@ class Language extends CI_Controller {
 		$this->load->model('model_front');
 		$this->load->model('model_language');
 		$this->load->model('model_settings');
-		$this->load->library("Aauth");
-		$this->load->library(array('form_validation', 'session'));
-		$this->load->library(array('encrypt','session'));
-		$this->load->library('email');
-		$this->load->helper(array('functions', 'text', 'url'));
-		$this->load->helper('language');
+		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session','email'));
+		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
@@ -24,9 +20,7 @@ class Language extends CI_Controller {
 	}
 	public function index($l_title_url = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_member("Developper",$this->session->userdata['id']) || 
-			$this->aauth->is_member("Marketing",$this->session->userdata['id']) ||
-			$this->aauth->is_member("Visitor",$this->session->userdata['id'])))
+		if(check_access()==true)
 		{
 			$data['all_websites'] = $this->model_front->get_all_websites_per_language($l_title_url);
 			$data['all_languages'] = $this->model_front->get_all_languages();

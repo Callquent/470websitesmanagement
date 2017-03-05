@@ -9,9 +9,7 @@
 		<?php echo css_url('js/fullcalendar/bootstrap-fullcalendar.css'); ?>
 		<?php echo css_url('js/bootstrap-fileupload/bootstrap-fileupload.css'); ?>
 		<?php echo css_url('js/bootstrap-colorpicker/css/colorpicker.css'); ?>
-		<?php echo css_url('js/data-tables/DT_bootstrap.css'); ?>
 		<?php echo css_url('js/data-tables/Buttons/css/buttons.dataTables.css'); ?>
-		<?php echo css_url('js/fuelux/css/tree-style.css'); ?>
 		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/theme-responsive.css'); ?>
 		<?php echo css_url('css/style.css'); ?>

@@ -7,12 +7,9 @@ class Index extends CI_Controller {
 		parent::__construct();
 		// Chargement des ressources pour ce controller
 		$this->load->database();
-		$this->load->library("Aauth");
 		$this->load->model('model_settings');
-		$this->load->library(array('form_validation', 'session'));
-		$this->load->library(array('encrypt','session'));
-		$this->load->helper(array('functions','url'));
-		$this->load->helper('language');
+		$this->load->library(array('Aauth','form_validation','encrypt','session'));
+		$this->load->helper(array('functions','url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
