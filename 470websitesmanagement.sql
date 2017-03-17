@@ -215,11 +215,10 @@ CREATE TABLE IF NOT EXISTS `aauth_groups` (
 
 INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
 (1, 'Admin', 'Super Admin Group'),
-(2, 'Public', 'Public Access Group'),
-(3, 'Developper', 'Developper Access Group'),
-(4, 'Marketing', 'Marketing Access Group'),
-(5, 'Visitor', 'Visitor Access Group'),
-(6, 'Unknown', 'Unknown Access Group');
+(2, 'Developper', 'Developper Access Group'),
+(3, 'Marketing', 'Marketing Access Group'),
+(4, 'Public', 'Public Access Group'),
+(5, 'Unknown', 'Unknown Access Group');
 
 -- --------------------------------------------------------
 

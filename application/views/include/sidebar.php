@@ -72,7 +72,7 @@
                         <li><a href="<?php echo site_url('edit-keyword-google'); ?>">Edit Keyword Google</a></li>
                     </ul>
                 </li>
-                <?php if ($user_role[0]->name == "Developper") { ?>
+                <?php if ($user_role[0]->name == "Admin") { ?>
                 <li>
                     <span><?php echo lang('groups'); ?></span>
                 </li>

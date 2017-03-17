@@ -13,7 +13,6 @@
 	$this->uri->segment(1)=='language' ||
 	$this->uri->segment(1)=='ftp-websites' ||
 	$this->uri->segment(1)=='whois-domain') { ?>
-		<?php echo js_url('js/jquery-ui-1.9.2.custom.min.js'); ?>
 		<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 		<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
 		<?php echo js_url('js/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>
@@ -52,7 +51,7 @@
 	<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 		<?php echo js_url('js/jstree/jstree.min.js'); ?>
 		<?php echo js_url('js/ui-tree.js'); ?>
-		
+		<?php echo js_url('js/bootstrap-contentmenu.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='add-website' || $this->uri->segment(1)=='add-category' || $this->uri->segment(1)=='add-language' || $this->uri->segment(1)=='export') { ?>
 		<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
@@ -82,8 +81,6 @@
 	<?php if ($this->uri->segment(1)=='settings') { ?>
 		<?php echo js_url('js/bootstrap-fileupload/bootstrap-fileupload.js'); ?>
 	<?php } ?>
-		<?php echo js_url('js/jquery-steps/jquery.steps.js'); ?>
-
 	<?php echo js_url('js/scripts.js'); ?>
 	<?php echo js_url('js/main.js'); ?>
 	</body>

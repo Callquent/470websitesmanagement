@@ -19,7 +19,7 @@
 </div>
 
 <div class="top-nav clearfix pull-right">
-    <?php if ($user_role[0]->name == "Developper") { ?>
+    <?php if ($user_role[0]->name == "Admin") { ?>
         <a href="<?php echo site_url('export'); ?>" class="btn btn-warning"><i class="fa fa-share"></i><?php echo lang('export'); ?></a>
         <a href="<?php echo site_url('import'); ?>" class="btn btn-warning"><i class="fa fa-reply"></i><?php echo lang('import'); ?></a>
     <?php } ?>

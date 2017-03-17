@@ -34,34 +34,37 @@ class Ftp_websites extends CI_Controller {
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
 
-			
 			if (!empty($w_id)) {
-
-				if(strpos($this->agent->platform(), "Windows") !== FALSE) {
-				    foreach (range('A', 'Z') as $char) {
-				        if (is_dir("file:///".$char.":")) { 
-							$data['all_storage_local'][] = array('title' => $char, 'icon' => 'fa fa-2x fa-hdd-o');
-							$data['path_local'] = "C:\\";
-				        }
-				    }
-				}
-				else if(strpos($this->agent->platform(), "Mac") !== FALSE) { 
-					foreach (@scandir("file:///") as $value) { 
-						$item = pathinfo($value);
-						if (isset($item["extension"])) {
-							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
-						} else {
-							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
+				if($this->agent->is_mobile()) {
+							$data['all_storage_local'] = null;
+							$data['path_local'] = null;
+				} else {
+					if(strpos($this->agent->platform(), "Windows") !== FALSE) {
+					    foreach (range('A', 'Z') as $char) {
+					        if (is_dir("file:///".$char.":")) { 
+								$data['all_storage_local'][] = array('title' => $char, 'icon' => 'fa fa-2x fa-hdd-o');
+								$data['path_local'] = "C:\\";
+					        }
+					    }
+					}
+					else if(strpos($this->agent->platform(), "Mac") !== FALSE) { 
+						foreach (@scandir("file:///") as $value) { 
+							$item = pathinfo($value);
+							if (isset($item["extension"])) {
+								$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
+							} else {
+								$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
+							}
 						}
 					}
-				}
-				elseif(strpos($this->agent->platform(), "Linux") !== FALSE) {
-					foreach (@scandir("file:///") as $value) { 
-						$item = pathinfo($value);
-						if (isset($item["extension"])) {
-							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
-						} else {
-							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
+					elseif(strpos($this->agent->platform(), "Linux") !== FALSE) {
+						foreach (@scandir("file:///") as $value) { 
+							$item = pathinfo($value);
+							if (isset($item["extension"])) {
+								$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
+							} else {
+								$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
+							}
 						}
 					}
 				}
@@ -164,7 +167,7 @@ class Ftp_websites extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
-	public function uploadftp($w_id = '')
+	public function mkdirftp($w_id = '')
 	{
 		if(check_access()==true)
 		{
@@ -177,7 +180,29 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			$this->ftp->upload('file:///C:/DelFix.txt', '/public_html/DelFix.txt', 'ascii', 0775);
+			$this->ftp->mkdir('file:///C:/DelFix.txt', '/public_html/DelFix.txt', 'ascii', 0775);
+
+			$this->ftp->close();
+
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function uploadftp($w_id = '')
+	{
+		if(check_access()==true)
+		{
+			$elementupload = $this->input->post('elementupload');
+
+			$row =  $this->model_front->get_website($w_id)->row();
+
+			$config['hostname'] = $row->w_host_ftp;
+			$config['username'] = $row->w_login_ftp;
+			$config['password'] = $row->w_password_ftp;
+
+			$this->ftp->connect($config);
+
+			$this->ftp->upload('file:///C:/DelFix.txt', $elementupload, 'ascii', 0775);
 
 			$this->ftp->close();
 
@@ -189,6 +214,12 @@ class Ftp_websites extends CI_Controller {
 	{
 		if(check_access()==true)
 		{
+			header("Cache-Control: ");
+			header("Content-type: text/plain");
+			header('Content-Disposition: attachment;');
+
+			/*$elementdownload = $this->input->post('elementdownload');
+
 			$row =  $this->model_front->get_website($w_id)->row();
 
 			$config['hostname'] = $row->w_host_ftp;
@@ -197,9 +228,9 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			$this->ftp->download('file:///C:/Install.log', '/public_html/Install.log', 'ascii', 0775);
+			$this->ftp->download($elementdownload, 'file:///C:/DelFix.txt', 'ascii', 0775);
 
-			$this->ftp->close();
+			$this->ftp->close();*/
 		}else {
 			$this->load->view('index');
 		}
@@ -256,9 +287,9 @@ class Ftp_websites extends CI_Controller {
 			foreach ($data['list'] as $row) {
 				$item = pathinfo($row);
 				if (isset($item["extension"])) {
-					$this->ftp->delete_file('/public_html/joe/blog.html');
+					$this->ftp->delete_file($row);
 				} else {
-					$this->ftp->delete_dir('/public_html/path/to/folder/');
+					$this->ftp->delete_dir($row);
 				}
 				
 			}

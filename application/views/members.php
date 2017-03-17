@@ -37,7 +37,7 @@
                                             <div class="twt-feed blue-bg">
                                         <?php } elseif($row->name_group=="Marketing") { ?>
                                             <div class="twt-feed gray-bg">
-                                        <?php } elseif($row->name_group=="Visitor") { ?>
+                                        <?php } elseif($row->name_group=="Public") { ?>
                                             <div class="twt-feed green-bg">
                                        <?php } elseif($row->name_group=="Unknown") { ?>
                                             <div class="twt-feed white-bg">

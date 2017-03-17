@@ -161,4 +161,10 @@
     });
 </script>
 
-<?php $this->load->view('include/footer.php'); ?>
+    <?php echo js_url('js/jquery-1.11.3.min.js'); ?>
+    <?php echo js_url('js/bootstrap.min.js'); ?>
+    <?php echo js_url('js/jquery.dcjqaccordion.2.7.js'); ?>
+    <?php echo js_url('js/jquery.nicescroll.js'); ?>
+    <?php echo js_url('js/jquery-steps/jquery.steps.js'); ?>
+    <?php echo js_url('js/scripts.js'); ?>
+    <?php echo js_url('js/main.js'); ?>

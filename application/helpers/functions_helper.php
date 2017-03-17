@@ -33,51 +33,20 @@ if ( ! function_exists('img_url'))
 }
 if ( ! function_exists('check_access'))
 {
-
     function check_access()
     {
-$CI =& get_instance();
-     $CI->load->library("Aauth");
-   $CI->load->library('session');
+        $CI =& get_instance();
+        $CI->load->library("Aauth");
+        $CI->load->library('session');
+
         if($CI->aauth->is_loggedin() && ($CI->aauth->is_member("Admin",$CI->session->userdata['id']) ||
             $CI->aauth->is_member("Developper",$CI->session->userdata['id']) ||
             $CI->aauth->is_member("Marketing",$CI->session->userdata['id']) ||
-            $CI->aauth->is_member("Visitor",$CI->session->userdata['id'])))
+            $CI->aauth->is_member("Public",$CI->session->userdata['id'])))
         {
             return true;
         } else {
             return false;
         }
-    }
-}
-if ( ! function_exists('file_get_contents_curl'))
-{
-    function file_get_contents_curl($url)
-    {
-        $options = array(
-            CURLOPT_RETURNTRANSFER => true,     // return web page
-            CURLOPT_HEADER         => false,    // don't return headers
-            CURLOPT_FOLLOWLOCATION => true,     // follow redirects
-            CURLOPT_ENCODING       => "",       // handle all encodings
-            CURLOPT_USERAGENT      => "spider", // who am i
-            CURLOPT_AUTOREFERER    => true,     // set referer on redirect
-            CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
-            CURLOPT_TIMEOUT        => 120,      // timeout on response
-            CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
-            CURLOPT_SSL_VERIFYPEER => false,     // Disabled SSL Cert checks
-        );
-
-        $ch = curl_init();
-
-        curl_setopt_array($ch, $options);
-        curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-
-        $data = curl_exec($ch);
-        curl_close($ch);
-
-        return $data;            
     }
 }

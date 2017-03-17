@@ -60,8 +60,8 @@ class Install extends CI_Controller {
 			$this->load->library("Aauth");
 		}
 		$this->aauth->create_user($email, $password, $username);
-		$this->aauth->add_member($this->aauth->get_user_id($email),"Admin");
 		$this->aauth->remove_member($this->aauth->get_user_id($email),"Unknown");
+		$this->aauth->add_member($this->aauth->get_user_id($email),"Admin");
 	}
 	public function step3()
 	{

@@ -53,6 +53,8 @@
 
 
                             <?php if(!empty($all_storage_server)){ ?>
+
+                                <?php if(!empty($all_storage_local)){ ?>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="path-local" value="<?php echo $path_local; ?>">
@@ -66,18 +68,55 @@
                                     <div class="col-md-6">
                                         <ul class="treeviewlocal">
                                             <?php foreach ($all_storage_local as $row) {  ?>
-                                                <li class="tree-branch" id="<?php echo $row["title"]; ?>" ><a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
+                                                <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
+                                                    <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
+                                                        <span class="name"><?php echo $row["title"]; ?></span>
+                                                    </a>
+                                                </li>
                                             <?php } ?>
                                         </ul>
                                     </div>
                                     <div class="col-md-6">
                                         <ul class="treeviewserver">
                                             <?php foreach ($all_storage_server as $row) {  ?>
-                                            <li class="tree-branch" id="<?php echo $row["title"]; ?>" ><a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i> <?php echo $row["title"]; ?></a></li>
+                                            <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
+                                                <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
+                                                    <span class="name"><?php echo $row["title"]; ?></span>
+                                                </a>
+                                            </li>
                                             <?php } ?>
                                         </ul>
                                     </div>
                                 </div>
+                                <?php } else { ?>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="hidden" class="form-control" id="path-server" value="<?php echo $path_server; ?>">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="treeviewserver">
+                                            <?php foreach ($all_storage_server as $row) {  ?>
+                                            <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
+                                                <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
+                                                    <span class="name"><?php echo $row["title"]; ?></span>
+                                                </a>
+                                            </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                                <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
+                                    <li><a tabindex="-1" href="#">Creer</a></li>
+                                    <li><a tabindex="-1" href="#">Telecharger</a></li>
+                                    <li><a tabindex="-1" href="#">Couper</a></li>
+                                    <li><a tabindex="-1" href="#">Copier</a></li>
+                                    <li><a tabindex="-1" href="#">Renommer</a></li>
+                                    <li class="divider"></li>
+                                    <li><a tabindex="-1" href="#">Supprimer</a></li>
+                                </ul>
                             <?php } ?>
 
                         </div>
