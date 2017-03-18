@@ -41,28 +41,43 @@ class Category extends CI_Controller {
 	}
 	public function edit_category($c_id = '')
 	{
-		$this->form_validation->set_rules('titlecategory', 'TitleCategory', 'trim|required');
+		if(check_access()==true)
+		{
+			$this->form_validation->set_rules('titlecategory', 'TitleCategory', 'trim|required');
 
-		$c_title = $this->input->post('titlecategory');
+			$c_title = $this->input->post('titlecategory');
 
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_category->update_category($c_id, $c_title);
+			if ($this->form_validation->run() !== FALSE){
+				$this->model_category->update_category($c_id, $c_title);
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 	public function loadCategories(){
-		$data['all_categories'] = $this->model_front->get_all_categories();
+		if(check_access()==true)
+		{
+			$data['all_categories'] = $this->model_front->get_all_categories();
 
-		$this->output
-			->set_content_type('application/json')
-			->set_output( json_encode($data['all_categories']->result()));
+			$this->output
+				->set_content_type('application/json')
+				->set_output( json_encode($data['all_categories']->result()));
+		}else {
+			$this->load->view('index');
+		}
 	}
 	public function delete_category($c_id_old = '')
 	{
-		$c_id_new = $this->input->post('category');
+		if(check_access()==true)
+		{
+			$c_id_new = $this->input->post('category');
 
-		if ($this->model_front->get_category($c_id_old)->num_rows() == 1){
-			$this->model_category->transfert_website_category($c_id_old, $c_id_new);
-			$this->model_category->delete_category($c_id_old);
+			if ($this->model_front->get_category($c_id_old)->num_rows() == 1){
+				$this->model_category->transfert_website_category($c_id_old, $c_id_new);
+				$this->model_category->delete_category($c_id_old);
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 }

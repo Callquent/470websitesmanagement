@@ -42,45 +42,49 @@ class Add_website extends CI_Controller {
 		}
 	}
 	public function submit()
-	{		
-		$c_id				= $this->input->post('categories');
-		$l_id				= $this->input->post('languages');
-		$w_title			= $this->input->post('nom');
-		$w_url_rw			= $this->input->post('url');
+	{
+		if(check_access()==true)
+		{
+			$c_id				= $this->input->post('categories');
+			$l_id				= $this->input->post('languages');
+			$w_title			= $this->input->post('nom');
+			$w_url_rw			= $this->input->post('url');
 
-		$w_host_ftp			= $this->input->post('hostftp');
-		$w_login_ftp		= $this->input->post('loginftp');
-		$w_password_ftp		= $this->input->post('passwordftp');
+			$w_host_ftp			= $this->input->post('hostftp');
+			$w_login_ftp		= $this->input->post('loginftp');
+			$w_password_ftp		= $this->input->post('passwordftp');
 
-		$w_host_db			= $this->input->post('hostsql');
-		$w_name_db			= $this->input->post('namedatabase');
-		$w_login_db			= $this->input->post('loginsql');
-		$w_password_db		= $this->input->post('passwordsql');
+			$w_host_db			= $this->input->post('hostsql');
+			$w_name_db			= $this->input->post('namedatabase');
+			$w_login_db			= $this->input->post('loginsql');
+			$w_password_db		= $this->input->post('passwordsql');
 
-		$w_host_bo			= $this->input->post('adminhost');
-		$w_login_bo			= $this->input->post('adminlogin');
-		$w_password_bo		= $this->input->post('adminpassword');
+			$w_host_bo			= $this->input->post('adminhost');
+			$w_login_bo			= $this->input->post('adminlogin');
+			$w_password_bo		= $this->input->post('adminpassword');
 
-		/*$this->form_validation->set_rules('nom', 'Nom', 'required');
-		$this->form_validation->set_rules('url', 'Url', 'required');
+			/*$this->form_validation->set_rules('nom', 'Nom', 'required');
+			$this->form_validation->set_rules('url', 'Url', 'required');
 
-		if ($this->form_validation->run() == TRUE){*/
-			$domain = new Whois($w_url_rw);
-			$whois = $domain->whoisdomain();
+			if ($this->form_validation->run() == TRUE){*/
+				$domain = new Whois($w_url_rw);
+				$whois = $domain->whoisdomain();
 
-			$website_id = $this->model_back->create_websites($c_id, $l_id, $w_title, $w_url_rw);
-			$date_create = str_replace(array('/', '.'), '-', $whois[1]);
-			$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
-			var_dump($domain);
-			$this->model_whois->create_all_whois($website_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
-			$pos = strrpos($w_url_rw, ".fr");
-			if (!$pos === false) {
-				sleep(10);
-			}
-			$this->model_back->create_ftp_websites($website_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
-			$this->model_back->create_database_websites($website_id, $w_host_db, $w_name_db, $w_login_db, $w_password_db);
-			$this->model_back->create_backoffice_websites($website_id, $w_host_bo, $w_login_bo, $w_password_bo);
-		/*}*/
-
+				$website_id = $this->model_back->create_websites($c_id, $l_id, $w_title, $w_url_rw);
+				$date_create = str_replace(array('/', '.'), '-', $whois[1]);
+				$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
+				var_dump($domain);
+				$this->model_whois->create_all_whois($website_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
+				$pos = strrpos($w_url_rw, ".fr");
+				if (!$pos === false) {
+					sleep(10);
+				}
+				$this->model_back->create_ftp_websites($website_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
+				$this->model_back->create_database_websites($website_id, $w_host_db, $w_name_db, $w_login_db, $w_password_db);
+				$this->model_back->create_backoffice_websites($website_id, $w_host_bo, $w_login_bo, $w_password_bo);
+			/*}*/
+		}else {
+			$this->load->view('index');
+		}
 	}
 }

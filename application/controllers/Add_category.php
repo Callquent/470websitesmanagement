@@ -42,12 +42,17 @@ class Add_category extends CI_Controller {
 	}
 	public function submit()
 	{
-		$this->form_validation->set_rules('category', 'Category', 'trim|required');
+		if(check_access()==true)
+		{
+			$this->form_validation->set_rules('category', 'Category', 'trim|required');
 
-		$c_title = $this->input->post('category');
+			$c_title = $this->input->post('category');
 
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_category->create_category($c_title);
+			if ($this->form_validation->run() !== FALSE){
+				$this->model_category->create_category($c_title);
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 }

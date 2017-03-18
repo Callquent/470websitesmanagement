@@ -139,116 +139,156 @@ class All_websites extends CI_Controller {
 	}
 	public function contact()
 	{
-		$id = $this->input->post('id');
-		$email = $this->input->post('email');
-		$data['check_ftp'] = $this->input->post('check_ftp');
-		$data['check_db'] = $this->input->post('check_db');
-		$data['check_bo'] = $this->input->post('check_bo');
-
-		$row = $this->model_front->get_website($id)->row();
-
-		$this->form_validation->set_rules('email', 'email', 'required|valid_email');
-
-		if ($this->form_validation->run() == false)
+		if(check_access()==true)
 		{
-			$errors = validation_errors();
-			echo $errors;
-		} else {
-			$config['mailtype'] = "html";
-			$config['charset']  = "utf-8";
-			$config['newline'] = "\r\n";
-			$this->email->initialize($config);
+			$id = $this->input->post('id');
+			$email = $this->input->post('email');
+			$data['check_ftp'] = $this->input->post('check_ftp');
+			$data['check_db'] = $this->input->post('check_db');
+			$data['check_bo'] = $this->input->post('check_bo');
 
-			$this->email->from('noreply@user.com', "noreply");
-			$this->email->to($email); 
-			$this->email->subject('Information Site Web - '.$row->w_title);
-			$data['email'] = $email;
+			$row = $this->model_front->get_website($id)->row();
 
-			$filename = img_url('company/logo-company.png');
-			$this->email->attach($filename);
-			$data['cid'] = $this->email->attachment_cid($filename);
-			$data['w_title'] = $row->w_title;
-			$data['w_url_rw'] = $row->w_url_rw;
-			$data['l_title'] = $row->l_title;
-			
-			$data['w_host_ftp'] = $row->w_host_ftp;
-			$data['w_login_ftp'] = $row->w_login_ftp;
-			$data['w_password_ftp'] = $row->w_password_ftp;
+			$this->form_validation->set_rules('email', 'email', 'required|valid_email');
 
-			$data['w_host_db'] = $row->w_host_db;
-			$data['w_name_db'] = $row->w_name_db;
-			$data['w_login_db'] = $row->w_login_db;
-			$data['w_password_db'] = $row->w_password_db;
+			if ($this->form_validation->run() == false)
+			{
+				$errors = validation_errors();
+				echo $errors;
+			} else {
+				$config['mailtype'] = "html";
+				$config['charset']  = "utf-8";
+				$config['newline'] = "\r\n";
+				$this->email->initialize($config);
 
-			$data['w_admin_login'] = $row->w_login_bo;
-			$data['w_admin_password'] = $row->w_password_bo;
+				$this->email->from('noreply@user.com', "noreply");
+				$this->email->to($email); 
+				$this->email->subject('Information Site Web - '.$row->w_title);
+				$data['email'] = $email;
 
-			$data['w_email'] = $this->session->userdata['email'];
+				$filename = img_url('company/logo-company.png');
+				$this->email->attach($filename);
+				$data['cid'] = $this->email->attachment_cid($filename);
+				$data['w_title'] = $row->w_title;
+				$data['w_url_rw'] = $row->w_url_rw;
+				$data['l_title'] = $row->l_title;
+				
+				$data['w_host_ftp'] = $row->w_host_ftp;
+				$data['w_login_ftp'] = $row->w_login_ftp;
+				$data['w_password_ftp'] = $row->w_password_ftp;
 
-			$this->email->message($this->load->view('mail/template', $data, true));
-			$this->email->send();
-			
-			echo ("Merci ! Votre message a bien été envoyé");
+				$data['w_host_db'] = $row->w_host_db;
+				$data['w_name_db'] = $row->w_name_db;
+				$data['w_login_db'] = $row->w_login_db;
+				$data['w_password_db'] = $row->w_password_db;
+
+				$data['w_admin_login'] = $row->w_login_bo;
+				$data['w_admin_password'] = $row->w_password_bo;
+
+				$data['w_email'] = $this->session->userdata['email'];
+
+				$this->email->message($this->load->view('mail/template', $data, true));
+				$this->email->send();
+				
+				echo ("Merci ! Votre message a bien été envoyé");
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 	public function loadCategories(){
-		$data['all_categories'] = $this->model_front->get_all_categories();
+		if(check_access()==true)
+		{
+			$data['all_categories'] = $this->model_front->get_all_categories();
 
-		$this->output
-			->set_content_type('application/json')
-			->set_output( json_encode($data['all_categories']->result()));
+			$this->output
+				->set_content_type('application/json')
+				->set_output( json_encode($data['all_categories']->result()));
+		}else {
+			$this->load->view('index');
+		}
 	}
 	public function loadLanguages(){
-		$data['all_languages'] = $this->model_front->get_all_languages();
+		if(check_access()==true)
+		{
+			$data['all_languages'] = $this->model_front->get_all_languages();
 
-		$this->output
-			->set_content_type('application/json')
-			->set_output( json_encode($data['all_languages']->result()));
+			$this->output
+				->set_content_type('application/json')
+				->set_output( json_encode($data['all_languages']->result()));
+		}else {
+			$this->load->view('index');
+		}
 	}
 	public function edit_website($w_id = '')
 	{
-		$this->form_validation->set_rules('titlewebsite', 'TitleWebsite', 'trim|required');
-		$this->form_validation->set_rules('website', 'Website', 'trim|required');
+		if(check_access()==true)
+		{
+			$this->form_validation->set_rules('titlewebsite', 'TitleWebsite', 'trim|required');
+			$this->form_validation->set_rules('website', 'Website', 'trim|required');
 
-		$w_title			= $this->input->post('titlewebsite');
-		$w_url_rw			= $this->input->post('website');
-		$l_id				= $this->input->post('language');
-		$c_id				= $this->input->post('category');
+			$w_title			= $this->input->post('titlewebsite');
+			$w_url_rw			= $this->input->post('website');
+			$l_id				= $this->input->post('language');
+			$c_id				= $this->input->post('category');
 
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_back->update_website($w_id, $c_id, $l_id, $w_title, $w_url_rw);
+			if ($this->form_validation->run() !== FALSE){
+				$this->model_back->update_website($w_id, $c_id, $l_id, $w_title, $w_url_rw);
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 	public function edit_ftp_website($w_id = '',$w_id_ftp = '')
 	{
-		$w_host_ftp		= $this->input->post('hoteftp');
-		$w_login_ftp	= $this->input->post('loginftp');
-		$w_password_ftp	= $this->input->post('passwordftp');
+		if(check_access()==true)
+		{
+			$w_host_ftp		= $this->input->post('hoteftp');
+			$w_login_ftp	= $this->input->post('loginftp');
+			$w_password_ftp	= $this->input->post('passwordftp');
 
-		$this->model_back->update_ftp_websites($w_id_ftp, $w_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
+			$this->model_back->update_ftp_websites($w_id_ftp, $w_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
+		}else {
+			$this->load->view('index');
+		}
 	}
 	public function edit_database_website($w_id = '',$w_id_db = '')
 	{
-		$w_host_db		= $this->input->post('hotedatabase');
-		$w_name_db		= $this->input->post('namedatabase');
-		$w_login_db		= $this->input->post('logindatabase');
-		$w_password_db	= $this->input->post('passworddatabase');
+		if(check_access()==true)
+		{
+			$w_host_db		= $this->input->post('hotedatabase');
+			$w_name_db		= $this->input->post('namedatabase');
+			$w_login_db		= $this->input->post('logindatabase');
+			$w_password_db	= $this->input->post('passworddatabase');
 
-		$this->model_back->update_database_websites($w_id_db, $w_id, $w_host_db, $w_name_db, $w_login_db, $w_password_db);
+			$this->model_back->update_database_websites($w_id_db, $w_id, $w_host_db, $w_name_db, $w_login_db, $w_password_db);
+		}else {
+			$this->load->view('index');
+		}
 	}
 	public function edit_backoffice_website($w_id = '',$w_id_bo = '')
 	{
-		$w_host_bo		= $this->input->post('hotebackoffice');
-		$w_login_bo		= $this->input->post('loginbackoffice');
-		$w_password_bo	= $this->input->post('passwordbackoffice');
+		if(check_access()==true)
+		{
+			$w_host_bo		= $this->input->post('hotebackoffice');
+			$w_login_bo		= $this->input->post('loginbackoffice');
+			$w_password_bo	= $this->input->post('passwordbackoffice');
 
-		$this->model_back->update_backoffice_websites($w_id_bo, $w_id, $w_host_bo, $w_login_bo, $w_password_bo);
+			$this->model_back->update_backoffice_websites($w_id_bo, $w_id, $w_host_bo, $w_login_bo, $w_password_bo);
+		}else {
+			$this->load->view('index');
+		}
 	}
 	public function delete_website($w_id = '')
 	{
-		// Si le site existe, on peut le supprimer
-		if ($this->model_front->get_website($w_id)->num_rows() == 1){
-			$this->model_back->delete_website($w_id);
+		if(check_access()==true)
+		{
+			// Si le site existe, on peut le supprimer
+			if ($this->model_front->get_website($w_id)->num_rows() == 1){
+				$this->model_back->delete_website($w_id);
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 }

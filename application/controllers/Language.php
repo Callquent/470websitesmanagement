@@ -41,28 +41,43 @@ class Language extends CI_Controller {
 	}
 	public function edit_language($l_id = '')
 	{
-		$this->form_validation->set_rules('titlelanguage', 'TitleLanguage', 'trim|required');
+		if(check_access()==true)
+		{
+			$this->form_validation->set_rules('titlelanguage', 'TitleLanguage', 'trim|required');
 
-		$l_title = $this->input->post('titlelanguage');
+			$l_title = $this->input->post('titlelanguage');
 
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_language->update_language($l_id, $l_title);
+			if ($this->form_validation->run() !== FALSE){
+				$this->model_language->update_language($l_id, $l_title);
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 	public function loadLanguages(){
-		$data['all_languages'] = $this->model_front->get_all_languages();
+		if(check_access()==true)
+		{
+			$data['all_languages'] = $this->model_front->get_all_languages();
 
-		$this->output
-			->set_content_type('application/json')
-			->set_output( json_encode($data['all_languages']->result()));
+			$this->output
+				->set_content_type('application/json')
+				->set_output( json_encode($data['all_languages']->result()));
+		}else {
+			$this->load->view('index');
+		}
 	}
 	public function delete_language($l_id_old = '')
 	{
-		$c_id_new = $this->input->post('language');
+		if(check_access()==true)
+		{
+			$c_id_new = $this->input->post('language');
 
-		if ($this->model_front->get_language($l_id_old)->num_rows() == 1){
-			$this->model_language->transfert_website_language($l_id_old, $l_id_new);
-			$this->model_language->delete_language($l_id_old);
+			if ($this->model_front->get_language($l_id_old)->num_rows() == 1){
+				$this->model_language->transfert_website_language($l_id_old, $l_id_new);
+				$this->model_language->delete_language($l_id_old);
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 }

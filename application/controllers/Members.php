@@ -39,31 +39,46 @@ class Members extends CI_Controller {
 	}
 	public function edit($w_id = '',$w_groupid = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
-			$w_groupid_new = $this->input->post('members');
+		if(check_access()==true)
+		{
+			if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
+				$w_groupid_new = $this->input->post('members');
 
-			$this->aauth->remove_member($w_id, $w_groupid);
-			$this->aauth->add_member($w_id, $w_groupid_new);
-			echo $w_groupid_new;
+				$this->aauth->remove_member($w_id, $w_groupid);
+				$this->aauth->add_member($w_id, $w_groupid_new);
+				echo $w_groupid_new;
+			}else {
+				$this->load->view('index');
+			}
 		}else {
 			$this->load->view('index');
 		}
 	}
 	public function userGroup($user_id = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
-			$this->output
-				->set_content_type('application/json')
-				->set_output($this->aauth->get_user_groups($user_id)[0]->group_id);
+		if(check_access()==true)
+		{
+			if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
+				$this->output
+					->set_content_type('application/json')
+					->set_output($this->aauth->get_user_groups($user_id)[0]->group_id);
+			}else {
+				$this->load->view('index');
+			}
 		}else {
 			$this->load->view('index');
 		}
 	}
 	public function delete($w_id = '')
 	{
-		if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
-			$this->aauth->delete_user($w_id);
-		}else {
+		if(check_access()==true)
+		{
+			if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
+				$this->aauth->delete_user($w_id);
+			}else {
+				$this->load->view('index');
+			}
+		} else {
 			$this->load->view('index');
 		}
 	}

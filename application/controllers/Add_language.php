@@ -42,12 +42,17 @@ class Add_language extends CI_Controller {
 	}
 	public function submit()
 	{
-		$this->form_validation->set_rules('language', 'Category', 'trim|required');
+		if(check_access()==true)
+		{
+			$this->form_validation->set_rules('language', 'Category', 'trim|required');
 
-		$l_title = $this->input->post('language');
+			$l_title = $this->input->post('language');
 
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_language->create_language($l_title);
+			if ($this->form_validation->run() !== FALSE){
+				$this->model_language->create_language($l_title);
+			}
+		}else {
+			$this->load->view('index');
 		}
 	}
 }
