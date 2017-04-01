@@ -171,6 +171,7 @@ class Ftp_websites extends CI_Controller {
 	{
 		if(check_access()==true)
 		{
+			$elementcreate = $this->input->post('elementcreate');
 
 			$row =  $this->model_front->get_website($w_id)->row();
 
@@ -180,7 +181,7 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			$this->ftp->mkdir('file:///C:/DelFix.txt', '/public_html/DelFix.txt', 'ascii', 0775);
+			$this->ftp->mkdir($elementcreate, 0755);
 
 			$this->ftp->close();
 
@@ -216,7 +217,7 @@ class Ftp_websites extends CI_Controller {
 		{
 			header("Cache-Control: ");
 			header("Content-type: text/plain");
-			header('Content-Disposition: attachment;');
+			header("Content-Disposition: attachment;");
 
 			/*$elementdownload = $this->input->post('elementdownload');
 
@@ -262,7 +263,7 @@ class Ftp_websites extends CI_Controller {
 
 			$this->ftp->connect($config);
 
-			$this->ftp->rename('/public_html/foo/green.html', '/public_html/foo/blue.html');
+			$this->ftp->rename($oldrename, $newrename);
 
 			$this->ftp->close();
 		}else {

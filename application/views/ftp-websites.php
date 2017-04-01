@@ -109,13 +109,14 @@
                                 </div>
                                 <?php } ?>
                                 <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
-                                    <li><a tabindex="-1" href="#">Creer</a></li>
-                                    <li><a tabindex="-1" href="#">Telecharger</a></li>
-                                    <li><a tabindex="-1" href="#">Couper</a></li>
-                                    <li><a tabindex="-1" href="#">Copier</a></li>
-                                    <li><a tabindex="-1" href="#">Renommer</a></li>
+                                    <li><a tabindex="-1" href="javascript:void(0)">Creer</a></li>
                                     <li class="divider"></li>
-                                    <li><a tabindex="-1" href="#">Supprimer</a></li>
+                                    <li><a tabindex="-1" href="javascript:void(0)">Telecharger</a></li>
+                                    <li><a tabindex="-1" href="javascript:void(0)">Couper</a></li>
+                                    <li><a tabindex="-1" href="javascript:void(0)">Copier</a></li>
+                                    <li class="divider"></li>
+                                    <li><a tabindex="-1" href="javascript:void(0)">Renommer</a></li>
+                                    <li><a tabindex="-1" href="javascript:void(0)">Supprimer</a></li>
                                 </ul>
                             <?php } ?>
 

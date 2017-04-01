@@ -794,50 +794,59 @@ $(document).ready(function(){
 		return false;
 	});*/
 	} else if (window.location.href.split('/').pop() == "ftp-websites" || window.location.href.split('/')[window.location.href.split('/').length-2] == "ftp-websites") {
-		$('ul.treeviewserver').on('click', 'li', function() {
-			var elementfolder = $(this).attr('id');
-			var path = $("#path-server").val();
-			/*console.log(elementfolder);*/
-
-		var arr = $(this).parentsUntil( $( "ul.treeviewserver" ));
-		var arrfilter = []
-
-		/*for(var key in arr) {
-			arrfilter.push($(this).parentsUntil( $( "ul.treeviewserver" ))[key].id);
-		}*/
-		$.each( arr, function( key, data ) {
-						arrfilter.push(data.id );
-					});
-
-		/*arr = jQuery.grep(arr, function( a ) {
-			return a !== "ul";
+		/*$(this).find('ul.treeviewserver').click(function() {
+			console.log("toto");
 		});*/
-		console.log('tag : '+arrfilter);
+		$('.treeviewserver').on('click', 'li',function(e) {
+			
+			if ($(this).find('ul').length === 0){
+				var elementfolder = $(this).attr('id');
+				var path = $("#path-server").val();
+				/*console.log(elementfolder);*/
 
-			var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
-			var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+				var arr = $(this).parentsUntil( $( "ul.treeviewserver" ));
+				var arrfilter = []
 
-			$.ajax({
-				type: "POST",
-				url: url+'/refreshfolderserver/'+id,
-				data: 'path='+($('#path-server').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
-				success: function(msg){
-					results = JSON.parse(msg);
-					$("#path-server").val($("#path-server").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
-					$('ul.treeviewserver #'+elementfolder+' a').after('<ul></ul>');
-					for(var key in results) {
-						$('ul.treeviewserver #'+elementfolder+' > ul').append('<li class="tree-branch" id="'+results[key].title+'"><a href="#"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
+				/*for(var key in arr) {
+					arrfilter.push($(this).parentsUntil( $( "ul.treeviewserver" ))[key].id);
+				}*/
+				$.each( arr, function( key, data ) {
+								arrfilter.push(data.id );
+							});
+
+				/*arr = jQuery.grep(arr, function( a ) {
+					return a !== "ul";
+				});*/
+				console.log('tag : '+arrfilter);
+
+				var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+				var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+				$.ajax({
+					type: "POST",
+					url: url+'/refreshfolderserver/'+id,
+					data: 'path='+($('#path-server').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
+					success: function(msg){
+						results = JSON.parse(msg);
+						$("#path-server").val($("#path-server").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
+						$('ul.treeviewserver #'+elementfolder+' a').after('<ul></ul>');
+						for(var key in results) {
+							$('ul.treeviewserver #'+elementfolder+' > ul').append('<li class="tree-branch" id="'+results[key].title+'"><a href="javascript:void(0);"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
+						}
+					},
+					error: function(msg){
+						console.log(msg);
 					}
-				},
-				error: function(msg){
-					console.log(msg);
-				}
-			});
+				});
+			} else {
+				$(this).find('ul').toggle();
+			}
+			e.stopPropagation();
 		});
 
 	
 
-		$('ul.treeviewlocal li').on('click', 'li', function() {
+		$('ul.treeviewlocal').on('click', 'li', function() {
 			var elementfolder = $(this).attr('id');
 			var path = $("#path-local").val();
 
@@ -863,38 +872,6 @@ $(document).ready(function(){
 			});
 		});
         var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
-           /* "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
-			"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-            "buttons": [
-                {
-                    extend: 'collection',
-                    text: 'Export',
-                    buttons: [
-                        'copy',
-                        'excel',
-                        'csv',
-                        'pdf',
-                        'print'
-                    ]
-                }
-            ],
-            "ajax": {
-                "url":  window.location.href+'/ajaxListftp/',
-                "type": "POST"
-            },
-            responsive: {
-                details: {
-                   
-                }
-            },
-            columnDefs: [ {
-                className: 'control',
-                orderable: false,
-                targets:   0
-            } ]*/
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
             "responsive": {
                 'details': {

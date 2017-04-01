@@ -26,15 +26,13 @@ class Install extends CI_Controller {
 		$this->form_validation->set_rules('databasehost', 'Databasehost', 'trim|required|min_length[4]');
 
 		$fichier = APPPATH."./config/database.php";
-		$text=fopen($fichier,'r') or die("Fichier manquant"); 
+		$text=fopen($fichier,'r+') or die("Fichier manquant"); 
 		$contenu=file_get_contents($fichier); 
 		$patterns = array('/\'username\' => \'(.*)\'/','/\'password\' => \'(.*)\'/','/\'database\' => \'(.*)\'/');
 		$replacements = array('\'username\' => \''.$username.'\'', '\'password\' => \''.$password.'\'', '\'database\' => \''.$databasename.'\'');
 		$contenuMod=preg_replace($patterns,$replacements, $contenu);
-		fclose($text); 
-		$text2=fopen($fichier,'w+') or die("Fichier manquant"); 
-		fwrite($text2,$contenuMod);
-		fclose($text2);
+		fwrite($text,$contenuMod);
+		fclose($text);
 
 		$this->load->database();
 		if ( $this->load->database() === FALSE )
@@ -69,10 +67,7 @@ class Install extends CI_Controller {
 		$text=fopen($fichier,'r+') or die("Fichier manquant");
 		$contenu=file_get_contents($fichier); 
 		$contenuMod=str_replace( "install", "index", $contenu);
-		fclose($text); 
-
-		$text2=fopen($fichier,'w+') or die("Fichier manquant");
-		fwrite($text2,$contenuMod);
-		fclose($text2);
+		fwrite($text,$contenuMod);
+		fclose($text);
 	}
 }

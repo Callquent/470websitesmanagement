@@ -1,5 +1,5 @@
 
-	<?php echo js_url('js/jquery-1.11.3.min.js'); ?>
+	<?php echo js_url('js/jquery-2.2.4.min.js'); ?>
 	<?php echo js_url('js/bootstrap.min.js'); ?>
 	<?php echo js_url('js/jquery.dcjqaccordion.2.7.js'); ?>
 	<?php echo js_url('js/jquery.nicescroll.js'); ?>
@@ -49,7 +49,6 @@
 		<?php echo js_url('js/jquery.customSelect.min.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
-		<?php echo js_url('js/jstree/jstree.min.js'); ?>
 		<?php echo js_url('js/ui-tree.js'); ?>
 		<?php echo js_url('js/bootstrap-contentmenu.js'); ?>
 	<?php } ?>
