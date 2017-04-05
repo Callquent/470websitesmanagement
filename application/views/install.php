@@ -7,7 +7,6 @@
     <?php echo css_url('css/bootstrap.min.css'); ?>
     <?php echo css_url('css/bootstrap-table.min.css'); ?>
     <?php echo css_url('css/theme.css'); ?>
-    <?php echo css_url('css/blue-theme.css'); ?>
     <?php echo css_url('css/theme-responsive.css'); ?>
     <?php echo css_url('css/jquery.steps.css'); ?>
     <?php echo css_url('css/style.css'); ?>
@@ -96,72 +95,70 @@
         </section>
     </section>
 
-<?php echo js_url('js/jquery-1.11.3.min.js'); ?>
+<?php echo js_url('js/jquery-2.2.4.min.js'); ?>
 <?php echo js_url('js/bootstrap.min.js'); ?>
 <script>
     $(function ()
     {
-        $("#wizard").steps({
-            headerTag: "h2",
-            bodyTag: "section",
-            transitionEffect: "slideLeft"
-        });
-
-        $("#wizard-vertical").steps({
-            headerTag: "h2",
-            bodyTag: "section",
-            transitionEffect: "slideLeft",
-            stepsOrientation: "vertical",
-            onStepChanging: function (event, currentIndex, newIndex) {
-                var move = true;
-                if (currentIndex == 0) {
-                    $.ajax({
-                        type: "POST",
-                        url: window.location.href+'index.php/install/step1/',
-                        async: false,
-                        data: $('.form-step1').serialize(),
-                        success: function(data){
-                            move = true;
-                        },
-                        error: function(msg){
-                            move = false;
-                        }
-                    });
-                }else if (currentIndex == 1) {
-                    $.ajax({
-                        type: "POST",
-                        url: window.location.href+'index.php/install/step2/',
-                        async: false,
-                        data: $('.form-step2').serialize(),
-                        success: function(data){
-                            move = true;
-                        },
-                        error: function(msg){
-                            move = false;
-                        }
-                    });
-                }
-                return move;
-            },
-            onFinished: function (event, currentIndex) {
-                    $.ajax({
-                        type: "POST",
-                        url: window.location.href+'index.php/install/step3/',
-                        async: false,
-                        success: function(data){
-                            location.reload();
-                        },
-                        error: function(msg){
-                            move = false;
-                        }
-                    });
-            },
-            saveState: true
-        });
+        
+            $("#wizard-vertical").steps({
+                headerTag: "h2",
+                bodyTag: "section",
+                transitionEffect: "slideLeft",
+                stepsOrientation: "vertical",
+                <?php if($install_database == true) { ?>
+                    startIndex: 1,
+                <?php } ?>
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    var move = true;
+                    if (currentIndex == 0) {
+                        $.ajax({
+                            type: "POST",
+                            url: window.location.href+'index.php/install/step1/',
+                            async: false,
+                            data: $('.form-step1').serialize(),
+                            success: function(data){
+                                move = true;
+                            },
+                            error: function(msg){
+                                move = false;
+                            }
+                        });
+                    }else if (currentIndex == 1) {
+                        $.ajax({
+                            type: "POST",
+                            url: window.location.href+'index.php/install/step2/',
+                            async: false,
+                            data: $('.form-step2').serialize(),
+                            success: function(data){
+                                move = true;
+                            },
+                            error: function(msg){
+                                move = false;
+                            }
+                        });
+                    }
+                    return move;
+                },
+                onFinished: function (event, currentIndex) {
+                        $.ajax({
+                            type: "POST",
+                            url: window.location.href+'index.php/install/step3/',
+                            async: false,
+                            success: function(data){
+                                location.reload();
+                            },
+                            error: function(msg){
+                                move = false;
+                            }
+                        });
+                },
+                saveState: true
+            });
+        
     });
 </script>
 
-    <?php echo js_url('js/jquery-1.11.3.min.js'); ?>
     <?php echo js_url('js/bootstrap.min.js'); ?>
     <?php echo js_url('js/jquery.dcjqaccordion.2.7.js'); ?>
     <?php echo js_url('js/jquery.nicescroll.js'); ?>

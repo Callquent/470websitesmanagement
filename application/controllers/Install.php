@@ -11,7 +11,25 @@ class Install extends CI_Controller {
 	}
 	public function index()
 	{
-		$this->load->view('install');
+		$fichier = APPPATH."./config/database.php";
+		$text=fopen($fichier,'r+') or die("Fichier manquant");
+		$contenu=file_get_contents($fichier);
+		$patterns = array('/\'username\' => \'(.*)\'/','/\'password\' => \'(.*)\'/','/\'database\' => \'(.*)\'/');
+		preg_match('/\'username\' => \'(.*)\'.*\'password\' => \'(.*)\'.*\'database\' => \'(.*)\'.*\'dbdriver/s', $contenu, $matches);
+		if (empty($matches[1]) && empty($matches[2]) && empty($matches[3])) {
+			$data['install_database'] = false;
+			$this->load->view('install', $data);
+		} else {
+			$this->load->library('Aauth');
+			$this->aauth->list_users();
+			if (empty($this->aauth->list_users())) {
+				$data['install_database'] = true;
+				$this->load->view('install', $data);
+			} else {
+				$this->load->view('index');
+			}
+		}
+		
 	}
 	public function step1()
 	{
