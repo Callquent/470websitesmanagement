@@ -56,8 +56,8 @@ class Registration extends CI_Controller {
 	}
 	public function captcha()
 	{
-		$ranStr = md5(microtime());
-		$ranStr = substr($ranStr, 0, 8);
+		$ranStr = sha1(microtime().rand(5, 15));
+		$ranStr = substr($ranStr, 0, 10);
 		$this->session->set_userdata('imagecaptcha', $ranStr);
 		$newImage = imagecreatefromjpeg(base_url("assets\img\captcha\captcha.jpg"));
 		$txtColor = imagecolorallocate($newImage, 0, 0, 0);

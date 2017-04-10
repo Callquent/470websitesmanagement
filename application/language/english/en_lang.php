@@ -45,6 +45,7 @@ $lang['name_sql'] = "Name SQL";
 $lang['login_sql'] = "Login SQL";
 $lang['password_sql'] = "Password SQL";
 
+$lang['host_backofficel'] = "Host Back Office";
 $lang['login_backoffice'] = "Login Back Office";
 $lang['password_backoffice'] = "Password Back Office";
 /*************************/
@@ -103,3 +104,10 @@ $lang['charge_file_470'] = "Load your file .470 :";
 /*		Search Scrapper Google 	  */
 /**********************************/
 $lang['search_scrapper_google'] = "Search Scrapper Google";
+/***********************/
+/*        Whois        */
+/***********************/
+$lang['type'] = "Type";
+$lang['calendar'] = "Calendar";
+$lang['list'] = "List";
+$lang['domain_name_included'] = "Domain Name Included";

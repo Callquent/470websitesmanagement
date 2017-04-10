@@ -52,8 +52,24 @@
 		<?php echo js_url('js/ui-tree.js'); ?>
 		<?php echo js_url('js/bootstrap-contentmenu.js'); ?>
 	<?php } ?>
-	<?php if ($this->uri->segment(1)=='add-website' || $this->uri->segment(1)=='add-category' || $this->uri->segment(1)=='add-language' || $this->uri->segment(1)=='export') { ?>
+	<?php if ($this->uri->segment(1)=='export') { ?>
 		<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
+		<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
+		<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
+		<?php echo js_url('js/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>
+		<?php echo js_url('js/bootstrap-colorpicker/js/bootstrap-colorpicker.js'); ?>
+		<?php echo js_url('js/jquery-multi-select/js/jquery.multi-select.js'); ?>
+		<?php echo js_url('js/jquery-multi-select/js/jquery.quicksearch.js'); ?>
+		<?php echo js_url('js/bootstrap-wysihtml5/wysihtml5-0.3.0.js'); ?>
+		<?php echo js_url('js/bootstrap-wysihtml5/bootstrap-wysihtml5.js'); ?>
+		<?php echo js_url('js/jquery-tags-input/jquery.tagsinput.min.js'); ?>
+		<?php echo js_url('js/advanced-form.js'); ?>
+
+		<?php echo js_url('js/jquery.validate.min.js'); ?>
+	<?php } ?>
+	<?php if ($this->uri->segment(1)=='add-website'
+	|| $this->uri->segment(1)=='add-category'
+	|| $this->uri->segment(1)=='add-language') { ?>
 		<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 		<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
 		<?php echo js_url('js/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>

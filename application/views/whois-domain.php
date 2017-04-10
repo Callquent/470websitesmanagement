@@ -15,19 +15,22 @@
                     <header class="panel-heading">
                       <span class="tools pull-right">
                             <div class="btn-group">
-                              <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">Type <span class="caret"></span></button>
+                              <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><?php echo lang('type'); ?> <span class="caret"></span></button>
                               <ul role="menu" class="dropdown-menu">
-                                  <li><a id="button-whois-calendar">Calendar</a></li>
-                                  <li><a id="button-whois-list">List</a></li>
+                                  <li><a id="button-whois-calendar"><?php echo lang('calendar'); ?></a></li>
+                                  <li><a id="button-whois-list"><?php echo lang('list'); ?></a></li>
                               </ul>
                             </div>
+                          <div class="btn-group pull-right">
+                            <a href="#" id="load-refresh-whois" class="btn btn-primary" role="button">Refresh</a>
+                          </div>
                          </span>
                     </header>
                     <div class="panel-body">
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-                                    <h4>Nom de Domaine inclus : .com, .net, .ca, .org, .za, .uk, .ie, .paris, .ovh, .fr, .re, .pf, .nc, .it, .pt, .se, .fi, .ru, .cn, .jp, .dk, .pl, .cz</h4>
+                                    <h4><?php echo lang('domain_name_included'); ?> : .com, .net, .ca, .org, .za, .uk, .ie, .paris, .ovh, .fr, .re, .pf, .nc, .it, .pt, .se, .fi, .ru, .cn, .jp, .dk, .pl, .cz</h4>
                                 </div>
 
                             </div>

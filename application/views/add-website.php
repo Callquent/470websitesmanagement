@@ -22,7 +22,7 @@
                         </header>
                         <div class="panel-body">
                             <div class=" form">
-                                <form class="form-horizontal " id="form-add-website" method="post" action="<?php echo site_url('/add-website/submit'); ?>">
+                                <form class="form-horizontal" id="form-add-website" method="post" action="<?php echo site_url('/add-website/submit'); ?>">
                                   <div class="row-fluid">
                                     <h4 class=""><?php echo lang('general_information'); ?></h4>
                                     <hr>
@@ -133,7 +133,7 @@
                                   </div>
                                   <div class="form-group">
                                       <div class="col-lg-offset-3 col-lg-6">
-                                          <button class="btn btn-primary" type="submit"><?php echo lang('save'); ?></button>
+                                          <button class="btn btn-primary" type="submit" id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('save'); ?></button>
                                           <button class="btn btn-default" type="button"><?php echo lang('cancel'); ?></button>
                                       </div>
                                   </div>

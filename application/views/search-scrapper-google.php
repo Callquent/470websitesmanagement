@@ -29,7 +29,7 @@
                                                 <input type="keyword-google" class="form-control" name="keyword-google" id="keyword-google" placeholder="Search">
                                             </div>
                                             <div class="col-lg-2">
-                                                <button type="submit" class="btn btn-danger">Search</button>
+                                                <button type="submit" class="btn btn-danger" id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Search</button>
                                             </div>
                                         </div>
                                     </form>

@@ -16,7 +16,7 @@ class Install extends CI_Controller {
 		$contenu=file_get_contents($fichier);
 		$patterns = array('/\'username\' => \'(.*)\'/','/\'password\' => \'(.*)\'/','/\'database\' => \'(.*)\'/');
 		preg_match('/\'username\' => \'(.*)\'.*\'password\' => \'(.*)\'.*\'database\' => \'(.*)\'.*\'dbdriver/s', $contenu, $matches);
-		if (empty($matches[1]) && empty($matches[2]) && empty($matches[3])) {
+		if (empty($matches[1]) || empty($matches[3])) {
 			$data['install_database'] = false;
 			$this->load->view('install', $data);
 		} else {

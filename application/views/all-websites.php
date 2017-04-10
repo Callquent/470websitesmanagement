@@ -40,7 +40,7 @@
                                       <th class="desktop"><?php echo lang('access_sql'); ?></th>
                                       <th class="desktop"><?php echo lang('access_backoffice'); ?></th>
                                       <th class="desktop"><?php echo lang('send'); ?></th>
-                                      <?php if ($user_role[0]->name == "Developper") { ?>
+                                      <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                                         <th class="desktop"><?php echo lang('edit'); ?></th>
                                         <th class="desktop"><?php echo lang('delete'); ?></th>
                                       <?php } ?>

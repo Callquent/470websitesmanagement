@@ -159,7 +159,7 @@ $(document).ready(function(){
 	} else if (window.location.href.split('/').pop() == "add-website" || window.location.href.split('/').pop() == "add-category" || window.location.href.split('/').pop() == "add-language") {
 		$("#results .alert-success").hide();
 		$("#results .alert-danger").hide();
-		$("#form-add-website").validate({
+		/*$("#form-add-website").validate({
 			rules: {
 				nom: "required",
 				url: "required",
@@ -168,14 +168,15 @@ $(document).ready(function(){
 				nom: "Veuillez saisir le nom de votre site web",
 				url: "Veuillez saisir l'URL' de votre site web",
 			}
-		});
+		});*/
 		$("#form-add-website").submit(function(e){
+			$("#form-add-website button[type='submit']").button('loading');
 			$.ajax({
 				type: "POST",
 				url: $(this).attr('action'),
 				data:$(this).serialize(),
 				success: function(msg){
-					console.log(msg);
+					$("#form-add-website button[type='submit']").button('reset');
 					$("#form-add-website").fadeOut('slow');
 					$('#results .alert-success').fadeIn('fast');
 					setTimeout(function() {
@@ -185,7 +186,7 @@ $(document).ready(function(){
 					}, 3000 );
 				},
 				error: function(msg){
-					console.log(msg);
+					$("#form-add-website button[type='submit']").button('reset');
 					$("#form-add-website").fadeOut('slow');
 					$('#results .alert-danger').fadeIn('fast');
 					setTimeout(function() {
@@ -596,6 +597,20 @@ $(document).ready(function(){
                 targets:   0
             } ],
         });
+
+		$( "#load-refresh-whois" ).click(function() {
+			$.ajax({
+				type: "POST",
+				url: window.location.href+'/ajaxRefresh/',
+				success: function(data){
+					
+				},
+				error: function(){
+					alert("failure");
+				}
+			});
+		});
+
 		$(document).on('click', '.access-whois', function(e) {
 
 			var id = $(this).data('id');
@@ -614,7 +629,6 @@ $(document).ready(function(){
 		$('#view-whois').on('hide.bs.modal',function(event){
 			$( "#view-whois .modal-body pre" ).remove();
 		});
-
 		$( "#button-whois-calendar" ).click(function() {
 			$( ".editable-table" ).addClass( "hidden" );
 			$( "#calendar" ).removeClass( "hidden" );
@@ -663,8 +677,6 @@ $(document).ready(function(){
 					alert("failure");
 				}
 			});
-			
-
 		});
 		$( "#button-whois-list" ).click(function() {
 			$( "#calendar" ).addClass( "hidden" );
@@ -750,11 +762,13 @@ $(document).ready(function(){
 		    ],
 		});
 		$('#form-search-scrapper-google').submit(function(e) {
+			$("#form-search-scrapper-google button").button('loading');
 			$.ajax({
 				type: "POST",
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(data){
+					$("#form-search-scrapper-google button").button('reset');
 					$('#table-search-scrapper-google').DataTable().rows().remove().draw();
 					var jsdata = JSON.parse(data);
 					$('#table-search-scrapper-google').DataTable().rows.add(jsdata).draw();
