@@ -22,7 +22,7 @@
                               </ul>
                             </div>
                           <div class="btn-group pull-right">
-                            <a href="#" id="load-refresh-whois" class="btn btn-primary" role="button">Refresh</a>
+                            <a href="javascript:;" id="load-refresh-whois" class="btn btn-primary" role="button" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Refresh</a>
                           </div>
                          </span>
                     </header>

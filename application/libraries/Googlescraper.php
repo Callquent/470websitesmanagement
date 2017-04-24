@@ -59,8 +59,9 @@ class Googlescraper
 				echo "You are blocked";
 				exit;
 			} else {
-				preg_match_all('/<div\s*class="g".*>.*<cite.*>([^\"]*)<\/cite>.*<\/div>/siU', $data, $meta_url);
-				preg_match_all('/<div\s*class="g".*>.*<h3.*><a\s[^>]*href\s*=\s*\"[^>]*>(.*)<\/a><\/h3>.*<\/div>/siU', $data, $meta_title);
+				preg_match_all('/<div\s*class="g".*>.*<cite.*>([^\"]*)<\/cite>.*<\/div>/siU', $data, $meta_cite);
+				preg_match_all('/<div\s*class="g".*>.*<h3\s*class="r".*><a\s[^>]*href=\"(.*)\".*>.*<\/a><\/h3>.*<\/div>/siU', $data, $meta_url);
+				preg_match_all('/<div\s*class="g".*>.*<h3\s*class="r".*><a\s[^>]*href\s*=\s*\"[^>]*>(.*)<\/a><\/h3>.*<\/div>/siU', $data, $meta_title);
 				preg_match_all('/<span\s*class="st">((<span\s*class="f">(.*)<\/span>(.*))<\/span>|(.*)<\/span>)/siU', $data, $meta_description);
 				for ($j = 0; $j <= $number_page; $j++) {
 					if (isset($meta_url[1][$j]) && !is_null($meta_url[1][$j])) {

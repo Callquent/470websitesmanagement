@@ -26,25 +26,31 @@
                                     <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
                                         <div class="form-group">
                                             <div class="col-lg-10">
-                                                <input type="keyword-google" class="form-control" name="keyword-google" id="keyword-google" placeholder="Search">
+                                                <input type="keyword-google" class="form-control" name="keyword-google" id="keyword-google" placeholder="Keyword">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-10">
+                                              <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Url Website" >
                                             </div>
                                             <div class="col-lg-2">
-                                                <button type="submit" class="btn btn-danger" id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Search</button>
+                                                <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Search</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="btn-group pull-right">
-                                  <button class="btn btn-success btn-ls" data-title="Ajouter" data-toggle="modal" data-target="#serptools" >Simulateur de SERP</button>
+                                  <button class="btn btn-success btn-ls" data-title="Ajouter" data-toggle="modal" data-target="#serptools">Simulateur de SERP</button>
                                 </div>
                             </div>
                             <div class="space15"></div>
-                            <table class="table table-striped table-hover table-bordered table-dashboard" id="table-search-scrapper-google">
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-search-scrapper-google">
                               <thead>
-                                <th>Position</th>
-                                <th>Site Web</th>
-                                <th>Meta Title</th>
-                                <th>Meta Description</th>
+                                <th class="all">Position</th>
+                                <th class="desktop">Site Web</th>
+                                <th class="desktop">Meta Title</th>
+                                <th class="desktop">Meta Description</th>
                               </thead>
                             </table>
                         </div>
@@ -98,3 +104,12 @@
   </div>
 </div>
 <?php $this->load->view('include/footer.php'); ?>
+<script>
+var countries = JSON.parse('<?php echo json_encode($website); ?>');
+
+$('#autocomplete').autocomplete({
+    lookup: countries,
+    onSelect: function (suggestion) {
+    }
+});
+</script>

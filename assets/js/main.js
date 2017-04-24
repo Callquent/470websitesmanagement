@@ -599,14 +599,21 @@ $(document).ready(function(){
         });
 
 		$( "#load-refresh-whois" ).click(function() {
+			$(this).button('loading');
 			$.ajax({
 				type: "POST",
 				url: window.location.href+'/ajaxRefresh/',
 				success: function(data){
-					
+					$( "#load-refresh-whois" ).button('reset');
+					$('#table-whois').DataTable().rows().remove().draw();
+					var jsdata = JSON.parse(data);
+					$('#table-whois').DataTable().rows.add(jsdata).draw();
 				},
-				error: function(){
-					alert("failure");
+				error: function(data){
+					$( "#load-refresh-whois" ).button('reset');
+					$('#table-whois').DataTable().rows().remove().draw();
+					var jsdata = JSON.parse(data);
+					$('#table-whois').DataTable().rows.add(jsdata).draw();
 				}
 			});
 		});
@@ -754,12 +761,16 @@ $(document).ready(function(){
 		            ]
 		        }
 		    ],
-		    "columnDefs": [
-			    {
-			        "targets": [ 0 ],
-			        "orderable": false,
-			    },
-		    ],
+		    responsive: {
+                details: {
+                   
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
 		});
 		$('#form-search-scrapper-google').submit(function(e) {
 			$("#form-search-scrapper-google button").button('loading');

@@ -33,6 +33,14 @@ class Search_scrapper_google extends CI_Controller {
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
 
+			foreach ($data['all_websites']->result() as $row)
+			{
+				$list = array();
+				$list['value'] = strip_tags($row->w_url_rw);
+				$list['data'] = strip_tags($row->w_id);
+
+				$data['website'][] = $list;
+			}
 			$this->load->view('search-scrapper-google', $data);
 		} else {
 			$this->load->view('index');
@@ -43,19 +51,21 @@ class Search_scrapper_google extends CI_Controller {
 		if(check_access()==true)
 		{
 			$keyword_google = $this->input->post('keyword-google');
+			$website = ( empty($this->input->post('website')) ? " " :$this->input->post('website'));
 
 			$googlescraper = new Googlescraper();
 			$all_websites = $googlescraper->getUrlList(urlencode($keyword_google),100);
 
-			$i=1;
-			foreach ($all_websites as $row)
+			foreach ($all_websites as $key => $row)
 			{
 				$list = array();
-				$list[] = $i++;
+				$list[] = ++$key;
 				$list[] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
 				$list[] = strip_tags($row['title']);
 				$list[] = strip_tags($row['description']);
-
+				if ($website == removeurl_createdomain($row['url']) ) {
+					$list['DT_RowClass'] = 'dt-position-website-true';
+				}	
 				$data[] = $list;
 			}
 			echo json_encode($data);

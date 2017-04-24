@@ -218,6 +218,22 @@ ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:fo
 .bootstrap-table .table-hover > tbody > tr.hover > td{
     background-color: #f5f5f5;
 }
+/*******************************/
+/*      SEARCH SCRAPPER        */
+/*******************************/
+.dt-position-website-true {
+    background-color: #5cb85c !important;
+    color: white;
+}
+/***************************/
+/*      AUTOCOMPLETE       */
+/***************************/
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 /*********************/
 /*  SIMULATEUR SEO   */
 /*********************/

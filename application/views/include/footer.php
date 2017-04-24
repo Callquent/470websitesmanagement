@@ -92,6 +92,7 @@
 		<?php echo js_url('js/data-tables/datatables.bootstrap.js'); ?>
 		<?php echo js_url('js/data-tables/dataTables.tableTools.js'); ?>
 		<?php echo js_url('js/app-seo.js'); ?>
+		<?php echo js_url('js/jquery.autocomplete.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='settings') { ?>
 		<?php echo js_url('js/bootstrap-fileupload/bootstrap-fileupload.js'); ?>

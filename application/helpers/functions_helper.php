@@ -50,3 +50,13 @@ if ( ! function_exists('check_access'))
         }
     }
 }
+if ( ! function_exists('removeurl_createdomain'))
+{
+    function removeurl_createdomain($url)
+    {
+        $urlParts = parse_url(trim($url, '/'));
+        $domain = preg_replace('/^www\./', '', $urlParts['host']);
+
+        return $domain;
+    }
+}

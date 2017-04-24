@@ -304,9 +304,7 @@ class Whois
             throw new Exception("Error: No appropriate Whois server found for $domain domain!");
         }
         $result = $this->queryServer($server, $domain);
-        if (!$result) {
-            /*throw new Exception("Error: No results retrieved from $server server for $domain domain!");*/
-        } else {
+        if ($result) {
             while (strpos($result, "Whois Server:") !== false) {
                 preg_match("/Whois Server: (.*)/", $result, $matches);
                 $secondary = $matches[1];
@@ -326,7 +324,7 @@ class Whois
         if ( !$fp ) {
             throw new Exception("Socket Error " . $errno . " - " . $errstr);
         }
-        // if($server == "whois.verisign-grs.com") $domain = "=".$domain; // whois.verisign-grs.com requires the equals sign ("=") or it returns any result containing the searched string.
+
         fwrite($fp, $domain ."\r\n");
         $out = "";
         while (!feof($fp)) {
