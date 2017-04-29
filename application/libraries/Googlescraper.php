@@ -59,19 +59,29 @@ class Googlescraper
 				echo "You are blocked";
 				exit;
 			} else {
-				preg_match_all('/<div\s*class="g".*>.*<cite.*>([^\"]*)<\/cite>.*<\/div>/siU', $data, $meta_cite);
-				preg_match_all('/<div\s*class="g".*>.*<h3\s*class="r".*><a\s[^>]*href=\"(.*)\".*>.*<\/a><\/h3>.*<\/div>/siU', $data, $meta_url);
-				preg_match_all('/<div\s*class="g".*>.*<h3\s*class="r".*><a\s[^>]*href\s*=\s*\"[^>]*>(.*)<\/a><\/h3>.*<\/div>/siU', $data, $meta_title);
-				preg_match_all('/<span\s*class="st">((<span\s*class="f">(.*)<\/span>(.*))<\/span>|(.*)<\/span>)/siU', $data, $meta_description);
-				for ($j = 0; $j <= $number_page; $j++) {
-					if (isset($meta_url[1][$j]) && !is_null($meta_url[1][$j])) {
-						$this->metaList[$j]['url'] =  html_entity_decode($meta_url[1][$j],ENT_QUOTES);
-					}
-					if (isset($meta_title[1][$j]) && !is_null($meta_title[1][$j])) {
-						$this->metaList[$j]['title'] =  html_entity_decode($meta_title[1][$j],ENT_QUOTES);
-					}
-					if (isset($meta_description[3][$j]) && isset($meta_description[4][$j]) && isset($meta_description[5][$j])) {
-						$this->metaList[$j]['description'] = ($meta_description[3][$j].$meta_description[4][$j].$meta_description[5][$j]);
+				preg_match_all('/<div\sclass="rc">.*<span.*class="st">.*<\/span>.*<\/div>/siU', $data, $meta_google_search);
+
+				for ($j = 0; $j < $number_page-1; $j++) {
+
+					preg_match_all('/<cite.*>([^\"]*)<\/cite>/siU', $meta_google_search[0][$j], $meta_cite);
+					preg_match_all('/<h3\s*class="r".*><a\s[^>]*href=\"(.*)\".*>.*<\/a><\/h3>/siU', $meta_google_search[0][$j], $meta_url);
+					preg_match_all('/<h3\s*class="r".*><a\s[^>]*href\s*=\s*\"[^>]*>(.*)<\/a><\/h3>/siU', $meta_google_search[0][$j], $meta_title);
+					preg_match_all('/<span\s*class="st">(<span\s*class="f">.*<\/span>(.*)<\/span>|(.*)<\/span>)/siU', $meta_google_search[0][$j], $meta_description);
+
+					if ($meta_title[1][0] && $meta_url[1][0] && $meta_description[1][0]) {
+						if (isset($meta_url[1][0]) && !is_null($meta_url[1][0])) {
+							$this->metaList[$j]['url'] =  html_entity_decode($meta_url[1][0],ENT_QUOTES);
+						}
+						if (isset($meta_title[1][0]) && !is_null($meta_title[1][0])) {
+							$this->metaList[$j]['title'] =  html_entity_decode($meta_title[1][0],ENT_QUOTES);
+						}
+						if ($meta_description) {
+							if (!empty($meta_description[2][0]) ) {
+								$this->metaList[$j]['description'] = ($meta_description[2][0]);
+							} else if (!empty($meta_description[3][0]) ) {
+								$this->metaList[$j]['description'] = ($meta_description[3][0]);
+							}
+						}
 					}
 				}
 			}
