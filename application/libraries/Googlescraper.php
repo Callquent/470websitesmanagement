@@ -61,7 +61,7 @@ class Googlescraper
 			} else {
 				preg_match_all('/<div\sclass="rc">.*<span.*class="st">.*<\/span>.*<\/div>/siU', $data, $meta_google_search);
 
-				for ($j = 0; $j < $number_page-1; $j++) {
+				for ($j = 0; $j < count($meta_google_search[0])-1; $j++) {
 
 					preg_match_all('/<cite.*>([^\"]*)<\/cite>/siU', $meta_google_search[0][$j], $meta_cite);
 					preg_match_all('/<h3\s*class="r".*><a\s[^>]*href=\"(.*)\".*>.*<\/a><\/h3>/siU', $meta_google_search[0][$j], $meta_url);

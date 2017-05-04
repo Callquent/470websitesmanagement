@@ -65,8 +65,13 @@ class Search_scrapper_google extends CI_Controller {
 				$list[] = strip_tags($row['description']);
 				if ($website == removeurl_createdomain($row['url']) ) {
 					$list['DT_RowClass'] = 'dt-position-website-true';
+					$show_position[] = $key;
 				}	
-				$data[] = $list;
+				$website_search_preview[] = $list;
+			}
+			$data['result_websites'] = $website_search_preview;
+			if (isset($show_position)) {
+				$data['result_position_website'] = $show_position;
 			}
 			echo json_encode($data);
 		}else {

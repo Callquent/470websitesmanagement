@@ -23,6 +23,10 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
+                                    <div id="results">
+                                        <div class="alert alert-success alert-block fade in"><h4><i class="icon-ok-sign"></i>Votre site web est indexer sur ce mot clé à la position</h4></div>
+                                        <div class="alert alert-danger alert-block fade in"><h4><i class="icon-ok-sign"></i>Votre site web n'est pas indexer sur ce mot clé.</h4></div>
+                                    </div>
                                     <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
                                         <div class="form-group">
                                             <div class="col-lg-10">

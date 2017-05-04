@@ -779,10 +779,20 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(data){
-					$("#form-search-scrapper-google button").button('reset');
-					$('#table-search-scrapper-google').DataTable().rows().remove().draw();
-					var jsdata = JSON.parse(data);
-					$('#table-search-scrapper-google').DataTable().rows.add(jsdata).draw();
+					$("#form-search-scrapper-google button").button("reset");
+					$("#table-search-scrapper-google").DataTable().rows().remove().draw();
+					$("#results .alert-success span").remove();
+					var jsdata = JSON.parse(data).result_websites;
+					var message_website_position = JSON.parse(data).result_position_website;
+					if ( typeof message_website_position !== 'undefined') {
+						$('#results .alert-danger').fadeOut('fast');
+						$('#results .alert-success').fadeIn('fast');
+					} else {
+						$('#results .alert-success').fadeOut('fast');
+						$('#results .alert-danger').fadeIn('fast');
+					}
+					$("#table-search-scrapper-google").DataTable().rows.add(jsdata).draw();
+					$("#results .alert-success").append("<span>"+message_website_position+"</span>");
 				},
 				error: function(msg){
 					console.log(msg);

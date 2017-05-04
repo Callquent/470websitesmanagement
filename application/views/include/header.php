@@ -20,4 +20,4 @@
 		<?php echo css_url('css/theme-responsive.css'); ?>
 		<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 	</head>
-	<body>
+	<body id="<?php echo $this->uri->segment('1'); ?>">
