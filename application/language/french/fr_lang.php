@@ -48,15 +48,23 @@ $lang['password_sql'] = "Mot de passe SQL";
 $lang['host_backoffice'] = "Hôte Back Office";
 $lang['login_backoffice'] = "Login Back Office";
 $lang['password_backoffice'] = "Mot de passe Back Office";
+
+$lang['website_registered'] = "Votre site web a bien été enregistré !";
+$lang['website_not_registered'] = "Votre nom de domaine n'est pas valide.";
 /*************************/
 /*     add categorie     */
 /*************************/
 $lang['name_add_categorie'] = "Nom de la catégorie *";
 
+$lang['category_registered'] = "La catégorie de votre site web a bien été enregistré !";
+$lang['category_not_registered'] = "La catégorie de votre site web n'est pas valide.";
 /*************************/
 /*     add language     */
 /*************************/
 $lang['name_add_language'] = "Nom du langage *";
+
+$lang['language_registered'] = "Le type de langage de votre site web a bien été enregistré !";
+$lang['language_not_registered'] = "Le type de langage de votre site web n'est pas valide.";
 /**********************************/
 /*		Profile 	  */
 /**********************************/

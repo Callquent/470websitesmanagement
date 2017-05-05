@@ -41,8 +41,8 @@
                                   </div>
                                 </form>
                                 <div id="results">
-                                    <div class="alert alert-success alert-block fade in"><h4><i class="icon-ok-sign"></i>Le type de langage de votre site web a bien été enregistré !</h4></div>
-                                    <div class="alert alert-danger alert-block fade in"><h4><i class="icon-ok-sign"></i>>Le type de langage de votre site web n'est pas valide.</h4></div>
+                                    <div class="alert alert-success alert-block fade in"><h4><i class="icon-ok-sign"></i><?php echo lang('language_registered'); ?></h4></div>
+                                    <div class="alert alert-danger alert-block fade in"><h4><i class="icon-ok-sign"></i><?php echo lang('language_not_registered'); ?></h4></div>
                                 </div>
                             </div>
 

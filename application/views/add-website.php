@@ -139,8 +139,8 @@
                                   </div>
                                 </form>
                                 <div id="results">
-                                    <div class="alert alert-success alert-block fade in"><h4><i class="icon-ok-sign"></i>Votre site web a bien été enregistré !</h4></div>
-                                    <div class="alert alert-danger alert-block fade in"><h4><i class="icon-ok-sign"></i>Votre nom de domaine n'est pas valide.</h4></div>
+                                    <div class="alert alert-success alert-block fade in"><h4><i class="icon-ok-sign"></i><?php echo lang('website_registered'); ?></h4></div>
+                                    <div class="alert alert-danger alert-block fade in"><h4><i class="icon-ok-sign"></i><?php echo lang('website_not_registered'); ?></h4></div>
                                 </div>
                             </div>
 

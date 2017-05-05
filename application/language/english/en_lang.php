@@ -48,15 +48,23 @@ $lang['password_sql'] = "Password SQL";
 $lang['host_backofficel'] = "Host Back Office";
 $lang['login_backoffice'] = "Login Back Office";
 $lang['password_backoffice'] = "Password Back Office";
+
+$lang['website_registered'] = "Your website has been registered !";
+$lang['website_not_registered'] = "Your domain name is invalid.";
 /*************************/
 /*     add categorie     */
 /*************************/
 $lang['name_add_categorie'] = "Name categorie *";
 
+$lang['category_registered'] = "Category of your website has been registered!";
+$lang['category_not_registered'] = "Category of your website is not valid.";
 /*************************/
 /*     add language     */
 /*************************/
 $lang['name_add_language'] = "Name language *";
+
+$lang['language_registered'] = "Type of language of your website has been registered!";
+$lang['language_not_registered'] = "Type of language of your website is invalid.";
 /**********************************/
 /*		Profile 	  */
 /**********************************/

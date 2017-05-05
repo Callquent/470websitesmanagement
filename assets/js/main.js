@@ -781,7 +781,7 @@ $(document).ready(function(){
 				success: function(data){
 					$("#form-search-scrapper-google button").button("reset");
 					$("#table-search-scrapper-google").DataTable().rows().remove().draw();
-					$("#results .alert-success span").remove();
+					$("#results .alert-success h4 span").remove();
 					var jsdata = JSON.parse(data).result_websites;
 					var message_website_position = JSON.parse(data).result_position_website;
 					if ( typeof message_website_position !== 'undefined') {
@@ -792,7 +792,7 @@ $(document).ready(function(){
 						$('#results .alert-danger').fadeIn('fast');
 					}
 					$("#table-search-scrapper-google").DataTable().rows.add(jsdata).draw();
-					$("#results .alert-success").append("<span>"+message_website_position+"</span>");
+					$("#results .alert-success h4").append(" <span>"+message_website_position+"</span>");
 				},
 				error: function(msg){
 					console.log(msg);
