@@ -712,8 +712,8 @@ $(document).ready(function(){
         $("#sortable-todo").sortable();
         
 		DraggablePortlet.init();
-	} else if (window.location.href.split('/').pop() == "website-scrapper-google") {
-		var seoTable = $('#table-seo').dataTable({
+	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "website-scrapper-google" || window.location.href.split('/').pop() == "website-scrapper-google") {
+/*		var seoTable = $('#table-seo').dataTable({
 		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
 		    "processing": true,
 		    "serverSide": true,
@@ -742,6 +742,34 @@ $(document).ready(function(){
 			        "orderable": false,
 			    },
 		    ],
+		});*/
+		var websitegoogleTable = $('#table-website-scrapper-google').DataTable({
+		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+		    "order": [],
+		    "dom": 'lBfrtip',
+		    "buttons": [
+		        {
+		            extend: 'collection',
+		            text: 'Export',
+		            buttons: [
+		                'copy',
+		                'excel',
+		                'csv',
+		                'pdf',
+		                'print'
+		            ]
+		        }
+		    ],
+		    responsive: {
+                details: {
+                   
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
 		});
 	} else if (window.location.href.split('/').pop() == "search-scrapper-google") {
 		var searchgoogleTable = $('#table-search-scrapper-google').DataTable({

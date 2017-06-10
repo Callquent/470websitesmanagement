@@ -12,7 +12,7 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Editable Table
+                        <?php echo lang('website_scrapper_google'); ?>
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
                             <a href="javascript:;" class="fa fa-cog"></a>
@@ -27,16 +27,24 @@
                                 </div>
                             </div>
                             <div class="space15"></div>
-                            <table class="table table-striped table-hover table-bordered table-dashboard" id="table-seo">
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-website-scrapper-google">
                               <thead>
-                                <th>Nom</th>
-                                <th>Site Web</th>
-                                <th>Meta Title</th>
-                                <th>Meta Description</th>
+                                <th class="all">Site Web</th>
+                                <th class="desktop">Meta Title</th>
+                                <th class="desktop">Meta Description</th>
                                 <?php if($this->uri->total_segments() != 2){ ?>
-                                  <th>Analyse Site</th>
+                                  <th class="desktop">Analyse Site</th>
                                 <?php } ?>
                               </thead>
+                              <tbody>
+                                <?php foreach ($result_websites as $key => $row) { ?>
+                                  <tr>
+                                    <td><?php echo '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>'; ?></td>
+                                    <td><?php echo $row['title']; ?></td>
+                                    <td><?php echo $row['description']; ?></td>
+                                  </tr>
+                                <?php } ?>
+                              </tbody>
                             </table>
                         </div>
                     </div>
