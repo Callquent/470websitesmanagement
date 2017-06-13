@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller {
 		$this->load->database();
 		$this->load->model('model_front');
 		$this->load->model('model_users');
+		$this->load->model('model_whois');
 		$this->load->model('model_settings');
 		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
@@ -22,6 +23,7 @@ class Dashboard extends CI_Controller {
 	{
 		if(check_access()==true)
 		{
+			$data['all_websites'] = $this->model_front->get_all_websites();
 			$data['all_languages'] = $this->model_front->get_all_languages();
 			$data['all_categories'] = $this->model_front->get_all_categories();
 
@@ -32,6 +34,10 @@ class Dashboard extends CI_Controller {
 			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
+			
+			$data['language'] = unserialize($this->model_settings->view_settings_lang()->value_s)['language'];
+			$data['all_whois_renew_tomonth'] = $this->model_whois->get_all_whois_renew_tomonth(date('Y'),date('m'));
+
 
 				$rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
 			if (!empty($data['all_count_websites_per_language']->result())) {
@@ -79,9 +85,7 @@ class Dashboard extends CI_Controller {
 
 			$chart_category = array('labels' => $chart_c_title, 'datasets' => [array('data' => $chart_c_percent, 'backgroundColor' => $chart_c_color )]);
 			$data['chart_category'] = json_encode($chart_category);*/
-			
-			$data['language'] = unserialize($this->model_settings->view_settings_lang()->value_s)['language'];
-			
+					
 			$this->load->view('dashboard', $data);
 		}else {
 			$this->load->view('index');

@@ -67,7 +67,7 @@ class Whois_domain extends CI_Controller {
 				$list[] = $row->registrar;
 				$list[] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
 				$list[] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
-				$list[] = '<a  class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->whois_id.'">Whois</a>';
+				$list[] = '<a class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->whois_id.'">Whois</a>';
 
 				$data[] = $list;
 			}

@@ -77,6 +77,7 @@ $lang['enter_new_password'] = "Saissisez votre mot de passe";
 /***********************/
 $lang['website_per_languages'] = "Site Web par langues";
 $lang['website_per_categories'] = "Site Web par catégories";
+$lang['website_a_renew'] = "Site web à renouveler";
 /***********************/
 /* Website Management */
 /***********************/

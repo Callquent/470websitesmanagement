@@ -13,6 +13,18 @@ class Model_whois extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	function get_all_whois_renew_tomonth($year,$month)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_whois')
+				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.w_id')
+				 ->where('YEAR(470websitesmanagement_whois.expiration_date)',$year)
+				 ->where('MONTH(470websitesmanagement_whois.expiration_date)',$month)
+				 ->order_by('470websitesmanagement_whois.expiration_date', 'ASC');
+
+		$query = $this->db->get();
+		return $query;
+	}
 	function check_whois($whois_id)
 	{
 		$this->db->select('*')

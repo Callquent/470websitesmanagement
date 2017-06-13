@@ -77,6 +77,7 @@ $lang['enter_new_password'] = "Enter your new password";
 /***********************/
 $lang['website_per_languages'] = "Websites per languages";
 $lang['website_per_categories'] = "Websites per categories";
+$lang['website_a_renew'] = "Website to be renewed";
 /***********************/
 /* Website Management */
 /***********************/
