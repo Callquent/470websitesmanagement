@@ -91,4 +91,17 @@ class Dashboard extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
+	public function modal_whois($whois_id = '')
+	{
+		if(check_access()==true)
+		{
+			$whois = $this->model_whois->check_whois($whois_id)->whois;
+
+			$datatable = array(0 => $whois);
+
+			echo $whois;
+		}else {
+			$this->load->view('index');
+		}
+	}
 }

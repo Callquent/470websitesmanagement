@@ -85,7 +85,7 @@
                                         <td><?php echo $row->registrar; ?></td>
                                         <td><?php echo $row->creation_date; ?></td>
                                         <td><?php echo $row->expiration_date; ?></td>
-                                        <td><a class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->whois_id.'">Whois</a></td>
+                                        <td><?php echo '<a class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->whois_id.'">Whois</a>'; ?></td>
                                       </tr>
                                     <?php } ?>
                                   </tbody>

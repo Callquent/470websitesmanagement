@@ -1,6 +1,24 @@
 $(document).ready(function(){
 
-	if (window.location.href.split('/').pop() == "all-websites" || window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites") {
+	if (window.location.href.split('/').pop() == "dashboard") {
+		$(document).on('click', '.access-whois', function(e) {
+			var id = $(this).data('id');
+			$.ajax({
+				type: "POST",
+				url: window.location.href+'/modal-whois/'+id,
+				success: function(data){		
+					$( "#view-whois .modal-body" ).append("<pre>"+data+"</pre>");
+				},
+				error: function(){
+					alert("failure");
+				}
+			});
+			e.preventDefault();
+		});
+		$('#view-whois').on('hide.bs.modal',function(event){
+			$( "#view-whois .modal-body pre" ).remove();
+		});
+	} else if (window.location.href.split('/').pop() == "all-websites" || window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites") {
         if (window.location.href.split('/')[window.location.href.split('/').length-3] == "all-websites") {
             var url = window.location.href.replace(/(\/[^\/]+){2}\/?$/, '');
         } 
