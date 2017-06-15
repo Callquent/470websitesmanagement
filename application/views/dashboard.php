@@ -66,7 +66,7 @@
 
                               </div>
                               <div class="space15"></div>
-                              <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-whois">
+                              <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-dashboard">
                                   <thead>
                                     <tr>
                                         <th class="all">Nom</th>

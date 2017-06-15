@@ -1,6 +1,34 @@
 $(document).ready(function(){
 
 	if (window.location.href.split('/').pop() == "dashboard") {
+		var dashboardTable = $('#table-dashboard').DataTable({
+		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+		    "order": [],
+		    "dom": 'lBfrtip',
+		    "buttons": [
+		        {
+		            extend: 'collection',
+		            text: 'Export',
+		            buttons: [
+		                'copy',
+		                'excel',
+		                'csv',
+		                'pdf',
+		                'print'
+		            ]
+		        }
+		    ],
+		    responsive: {
+                details: {
+                   
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
+		});
 		$(document).on('click', '.access-whois', function(e) {
 			var id = $(this).data('id');
 			$.ajax({

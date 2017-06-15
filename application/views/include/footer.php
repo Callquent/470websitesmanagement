@@ -8,7 +8,8 @@
 		<?php echo js_url('js/fullcalendar/fullcalendar.min.js'); ?>
 		<?php echo js_url('js/external-dragging-calendar.js'); ?>
 	<?php } ?>
-	<?php if ($this->uri->segment(1)=='all-websites' ||
+	<?php if ($this->uri->segment(1)=='dashboard' ||
+	$this->uri->segment(1)=='all-websites' ||
 	$this->uri->segment(1)=='category' ||
 	$this->uri->segment(1)=='language' ||
 	$this->uri->segment(1)=='ftp-websites' ||
