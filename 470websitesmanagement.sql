@@ -1,3 +1,7 @@
+--
+-- Base de données :  `470websitesmanagement`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -6,13 +10,13 @@
 
 DROP TABLE IF EXISTS `470websitesmanagement_backoffice`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_backoffice` (
-  `w_id_bo` int(11) UNSIGNED NOT NULL,
-  `w_id_info` int(11) UNSIGNED NOT NULL,
-  `w_host_bo` varchar(255) NOT NULL,
-  `w_login_bo` varchar(255) NOT NULL,
-  `w_password_bo` varchar(255) NOT NULL,
-  PRIMARY KEY (`w_id_bo`,`w_id_info`),
-  KEY `fk_id_bo` (`w_id_info`)
+  `id_backoffice` int(11) UNSIGNED NOT NULL,
+  `id_website` int(11) UNSIGNED NOT NULL,
+  `host_backoffice` varchar(255) NOT NULL,
+  `login_backoffice` varchar(255) NOT NULL,
+  `password_backoffice` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_backoffice`,`id_website`),
+  KEY `fk_id_bo` (`id_website`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -27,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_category` (
   `c_title` varchar(255) CHARACTER SET latin1 NOT NULL,
   `c_title_url` varchar(255) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -37,14 +41,14 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_category` (
 
 DROP TABLE IF EXISTS `470websitesmanagement_database`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_database` (
-  `w_id_db` int(11) UNSIGNED NOT NULL,
-  `w_id_info` int(10) UNSIGNED NOT NULL,
-  `w_host_db` varchar(255) NOT NULL,
-  `w_name_db` varchar(255) NOT NULL,
-  `w_login_db` varchar(255) NOT NULL,
-  `w_password_db` varchar(255) NOT NULL,
-  PRIMARY KEY (`w_id_db`,`w_id_info`),
-  KEY `fk_id_db` (`w_id_info`)
+  `id_database` int(11) UNSIGNED NOT NULL,
+  `id_website` int(10) UNSIGNED NOT NULL,
+  `host_database` varchar(255) NOT NULL,
+  `name_database` varchar(255) NOT NULL,
+  `login_database` varchar(255) NOT NULL,
+  `password_database` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_database`,`id_website`),
+  KEY `fk_id_db` (`id_website`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -55,14 +59,30 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_database` (
 
 DROP TABLE IF EXISTS `470websitesmanagement_ftp`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_ftp` (
-  `w_id_ftp` int(11) UNSIGNED NOT NULL,
-  `w_id_info` int(11) UNSIGNED NOT NULL,
-  `w_host_ftp` varchar(255) NOT NULL,
-  `w_login_ftp` varchar(255) NOT NULL,
-  `w_password_ftp` varchar(255) NOT NULL,
-  PRIMARY KEY (`w_id_ftp`,`w_id_info`),
-  KEY `fk_id_ftp` (`w_id_info`)
+  `id_ftp` int(11) UNSIGNED NOT NULL,
+  `id_website` int(11) UNSIGNED NOT NULL,
+  `host_ftp` varchar(255) NOT NULL,
+  `login_ftp` varchar(255) NOT NULL,
+  `password_ftp` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_ftp`,`id_website`),
+  KEY `fk_id_ftp` (`id_website`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_htaccess`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_htaccess`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_htaccess` (
+  `id_htaccess` int(10) UNSIGNED NOT NULL,
+  `id_website` int(10) UNSIGNED NOT NULL,
+  `login_htaccess` varchar(255) NOT NULL,
+  `password_htaccess` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_htaccess`,`id_website`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -76,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_language` (
   `l_title` varchar(255) NOT NULL,
   `l_title_url` varchar(255) NOT NULL,
   PRIMARY KEY (`l_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `470websitesmanagement_language`
@@ -91,6 +111,22 @@ INSERT INTO `470websitesmanagement_language` (`l_id`, `l_title`, `l_title_url`) 
 (6, 'Joomla', 'joomla'),
 (8, 'Drupal', 'drupal'),
 (9, 'OpenCart', 'opencart');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_list_tasks`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_list_tasks`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_list_tasks` (
+  `id_list_task` int(11) UNSIGNED NOT NULL,
+  `id_website` int(11) UNSIGNED NOT NULL,
+  `title_list_task` varchar(255) NOT NULL,
+  `id_tasks_priority` int(11) NOT NULL,
+  UNIQUE KEY `id_list_task` (`id_list_task`,`id_website`),
+  KEY `fk_id_list_tasks` (`id_website`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -153,11 +189,27 @@ INSERT INTO `470websitesmanagement_settings` (`id_s`, `name_s`, `value_s`) VALUE
 
 DROP TABLE IF EXISTS `470websitesmanagement_tasks`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks` (
-  `id_website` int(11) NOT NULL,
-  `id_task` int(11) NOT NULL,
-  `id_task_color` int(11) NOT NULL,
-  `description` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id_website` int(11) UNSIGNED NOT NULL,
+  `id_task` int(11) UNSIGNED NOT NULL,
+  `id_list_task` int(11) UNSIGNED NOT NULL,
+  `description_task` varchar(255) NOT NULL,
+  `date_task_todo` date NOT NULL,
+  `id_tasks_priority` int(11) NOT NULL,
+  PRIMARY KEY (`id_website`,`id_task`,`id_list_task`),
+  KEY `fk_id_list_task` (`id_list_task`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_tasks_priority`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_tasks_priority`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks_priority` (
+  `id_tasks_priority` int(11) NOT NULL,
+  `name_tasks_priority` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -215,10 +267,11 @@ CREATE TABLE IF NOT EXISTS `aauth_groups` (
 
 INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
 (1, 'Admin', 'Super Admin Group'),
-(2, 'Developper', 'Developper Access Group'),
-(3, 'Marketing', 'Marketing Access Group'),
-(4, 'Public', 'Public Access Group'),
-(5, 'Unknown', 'Unknown Access Group');
+(2, 'Public', 'Public Access Group'),
+(3, 'Unknown', 'Unknown Access Group'),
+(4, 'Developper', 'Developper Access Group'),
+(5, 'Marketing', 'Marketing Access Group'),
+(6, 'Visitor', 'Visitor Access Group');
 
 -- --------------------------------------------------------
 
@@ -371,19 +424,31 @@ CREATE TABLE IF NOT EXISTS `aauth_user_variables` (
 -- Contraintes pour la table `470websitesmanagement_backoffice`
 --
 ALTER TABLE `470websitesmanagement_backoffice`
-  ADD CONSTRAINT `fk_id_bo` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_website` (`w_id`);
+  ADD CONSTRAINT `fk_id_bo` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_database`
 --
 ALTER TABLE `470websitesmanagement_database`
-  ADD CONSTRAINT `fk_id_db` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_website` (`w_id`);
+  ADD CONSTRAINT `fk_id_db` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_ftp`
 --
 ALTER TABLE `470websitesmanagement_ftp`
-  ADD CONSTRAINT `fk_id_ftp` FOREIGN KEY (`w_id_info`) REFERENCES `470websitesmanagement_website` (`w_id`);
+  ADD CONSTRAINT `fk_id_ftp` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_htaccess`
+--
+ALTER TABLE `470websitesmanagement_htaccess`
+  ADD CONSTRAINT `fk_id_ht` FOREIGN KEY (`id_htaccess`) REFERENCES `470websitesmanagement_website` (`w_id`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_list_tasks`
+--
+ALTER TABLE `470websitesmanagement_list_tasks`
+  ADD CONSTRAINT `fk_id_list_tasks` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_positiontracking`
@@ -396,6 +461,13 @@ ALTER TABLE `470websitesmanagement_positiontracking`
 --
 ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
   ADD CONSTRAINT `fk_id_positiontracking_sc` FOREIGN KEY (`w_id_pt`) REFERENCES `470websitesmanagement_positiontracking` (`w_id_pt`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_tasks`
+--
+ALTER TABLE `470websitesmanagement_tasks`
+  ADD CONSTRAINT `fk_id_list_task` FOREIGN KEY (`id_list_task`) REFERENCES `470websitesmanagement_list_tasks` (`id_list_task`),
+  ADD CONSTRAINT `fk_id_website` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_list_tasks` (`id_website`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_website`

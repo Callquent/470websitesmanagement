@@ -23,7 +23,11 @@
                         <div class="panel-body">
                             <div class=" form">
                                 <form class="form-horizontal" id="form-add-website" method="post" action="<?php echo site_url('/add-website/submit'); ?>">
-                                  <div class="row-fluid">
+
+
+
+
+                                <div class="row-fluid">
                                     <h4 class=""><?php echo lang('general_information'); ?></h4>
                                     <hr>
                                     <div class="form-group ">
@@ -59,78 +63,162 @@
                                         </div>
                                     </div>
                                   </div>
-                                  <div class="row-fluid">
-                                    <h4 class=""><i class="fa fa-plus-square"></i> FTP</h4>
-                                    <hr>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_ftp'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="hostftp" placeholder="Host FTP">
+
+                                <div>
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                <div class="row-fluid">
+                                                    <h4 class=""><i class="fa fa-plus-square"></i> FTP</h4>
+                                                    <hr>
+                                                </div>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse">
+                                        <div class="panel-body">
+
+                                            <div class="row-fluid">
+                                                <div class="form-group ">
+                                                    <label for="comment" class="control-label col-lg-3"><?php echo lang('host_ftp'); ?></label>
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="hostftp" placeholder="Host FTP">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label for="comment" class="control-label col-lg-3"><?php echo lang('login_ftp'); ?></label>
+                                                    <div class="col-lg-6">
+                                                      <input class="form-control" type="text" name="loginftp" placeholder="Login FTP">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label for="comment" class="control-label col-lg-3"><?php echo lang('password_ftp'); ?></label>
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="passwordftp" placeholder="Mot de Passe FTP">
+                                                    </div>
+                                                </div>
+                                              </div>
+
+
                                         </div>
                                     </div>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_ftp'); ?></label>
-                                        <div class="col-lg-6">
-                                          <input class="form-control" type="text" name="loginftp" placeholder="Login FTP">
+                                </div>
+                                <div>
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                <div class="row-fluid">
+                                                    <h4 class=""><i class="fa fa-plus-square"></i> SQL</h4>
+                                                    <hr>
+                                                </div>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+
+                                          <div class="row-fluid">
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('host_sql'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="hostsql" placeholder="Host SQL">
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('name_sql'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="namedatabase" placeholder="Nom de la base">
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('login_sql'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="loginsql" placeholder="Login SQL">
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('password_sql'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="passwordsql" placeholder="Mot de Passe SQL">
+                                                </div>
+                                            </div>
+                                          </div>
+
                                         </div>
                                     </div>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_ftp'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="passwordftp" placeholder="Mot de Passe FTP">
+                                </div>
+                                <div>
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                <div class="row-fluid">
+                                                    <h4 class=""><i class="fa fa-plus-square"></i> Back Office</h4>
+                                                    <hr>
+                                                </div>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                        
+                                          <div class="row-fluid">
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('host_backoffice'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="adminhost" placeholder="Admin Host">
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('login_backoffice'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="adminlogin" placeholder="Admin Login">
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('password_backoffice'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="adminpassword" placeholder="Admin Mot de Passe">
+                                                </div>
+                                            </div>
+                                          </div>
+
                                         </div>
                                     </div>
-                                  </div>
-                                  <div class="row-fluid">
-                                    <h4 class=""><i class="fa fa-plus-square"></i> SQL</h4>
-                                    <hr>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_sql'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="hostsql" placeholder="Host SQL">
+                                </div>
+
+                                <div>
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                                <div class="row-fluid">
+                                                    <h4 class=""><i class="fa fa-plus-square"></i> Htaccess</h4>
+                                                    <hr>
+                                                </div>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFour" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                        
+                                          <div class="row-fluid">
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('login_htaccess'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="loginhtaccess" placeholder="Login Htaccess">
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="comment" class="control-label col-lg-3"><?php echo lang('password_htaccess'); ?></label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control" type="text" name="passwordhtaccess" placeholder="Mot de Passe Htaccess">
+                                                </div>
+                                            </div>
+                                          </div>
                                         </div>
                                     </div>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('name_sql'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="namedatabase" placeholder="Nom de la base">
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_sql'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="loginsql" placeholder="Login SQL">
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_sql'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="passwordsql" placeholder="Mot de Passe SQL">
-                                        </div>
-                                    </div>
-                                  </div>
-                                  <div class="row-fluid">
-                                    <h4 class=""><i class="fa fa-plus-square"></i> Back Office</h4>
-                                    <hr>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_backoffice'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="adminhost" placeholder="Admin Host">
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_backoffice'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="adminlogin" placeholder="Admin Login">
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_backoffice'); ?></label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" type="text" name="adminpassword" placeholder="Admin Mot de Passe">
-                                        </div>
-                                    </div>
-                                  </div>
+                                </div>
+
+
                                   <div class="form-group">
                                       <div class="col-lg-offset-3 col-lg-6">
                                           <button class="btn btn-primary" type="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('save'); ?></button>

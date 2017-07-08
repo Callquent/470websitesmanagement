@@ -22,12 +22,12 @@ class Model_back extends CI_Model {
 		$this->db->where('w_id_info', $w_id_info); 
 		$query = $this->db->get('470websitesmanagement_database');
 		$data = array(
-			'w_id_db'			=> $query->row()->w_id_db+1,
-			'w_id_info'			=> $w_id_info,
-			'w_host_db'			=> $w_host_db,
-			'w_name_db'			=> $w_name_db,
-			'w_login_db'		=> $w_login_db,
-			'w_password_db'		=> $w_password_db,
+			'id_database'			=> $query->row()->w_id_db+1,
+			'id_website'			=> $w_id_info,
+			'host_database'			=> $w_host_db,
+			'name_database'			=> $w_name_db,
+			'login_database'		=> $w_login_db,
+			'password_database'		=> $w_password_db,
 		);
 
 		$this->db->insert('470websitesmanagement_database', $data);
@@ -39,11 +39,11 @@ class Model_back extends CI_Model {
 		$this->db->where('w_id_info', $w_id_info); 
 		$query = $this->db->get('470websitesmanagement_ftp');
 		$data = array(
-			'w_id_ftp'				=> $query->row()->w_id_ftp+1,
-			'w_id_info'				=> $w_id_info,
-			'w_host_ftp'			=> $w_host_ftp,
-			'w_login_ftp'			=> $w_login_ftp,
-			'w_password_ftp'		=> $w_password_ftp,
+			'id_ftp'				=> $query->row()->w_id_ftp+1,
+			'id_website'				=> $w_id_info,
+			'host_ftp'			=> $w_host_ftp,
+			'login_ftp'			=> $w_login_ftp,
+			'password_ftp'		=> $w_password_ftp,
 		);
 
 		$this->db->insert('470websitesmanagement_ftp', $data);
@@ -55,11 +55,11 @@ class Model_back extends CI_Model {
 		$this->db->where('w_id_info', $w_id_info); 
 		$query = $this->db->get('470websitesmanagement_backoffice');
 		$data = array(
-			'w_id_bo'			=> $query->row()->w_id_bo+1,
-			'w_id_info'			=> $w_id_info,
-			'w_host_bo'			=> $w_host_bo,
-			'w_login_bo'		=> $w_login_bo,
-			'w_password_bo'		=> $w_password_bo,
+			'id_backoffice'			=> $query->row()->w_id_bo+1,
+			'id_website'			=> $w_id_info,
+			'host_backoffice'		=> $w_host_bo,
+			'login_backoffice'		=> $w_login_bo,
+			'password_backoffice'	=> $w_password_bo,
 		);
 		$this->db->insert('470websitesmanagement_backoffice', $data);
 		return $this->db->insert_id();
@@ -80,47 +80,47 @@ class Model_back extends CI_Model {
 	function update_ftp_websites($w_id_ftp, $w_id_info, $w_host_ftp, $w_login_ftp, $w_password_ftp)
 	{
 		$data = array(
-			'w_host_ftp'			=> $w_host_ftp,
-			'w_login_ftp'			=> $w_login_ftp,
-			'w_password_ftp'		=> $w_password_ftp
+			'host_ftp'			=> $w_host_ftp,
+			'login_ftp'			=> $w_login_ftp,
+			'password_ftp'		=> $w_password_ftp
 		);
 
-		$this->db->where('w_id_info', $w_id_info)
-				 ->where('w_id_ftp', $w_id_ftp)
+		$this->db->where('id_website', $w_id_info)
+				 ->where('id_ftp', $w_id_ftp)
 				 ->update('470websitesmanagement_ftp', $data);
 	}
 	function update_database_websites($w_id_db, $w_id_info, $w_host_db, $w_name_db, $w_login_db, $w_password_db)
 	{
 		$data = array(
-			'w_host_db'				=> $w_host_db,
-			'w_name_db'				=> $w_name_db,
-			'w_login_db'			=> $w_login_db,
-			'w_password_db'			=> $w_password_db
+			'host_database'				=> $w_host_db,
+			'name_database'				=> $w_name_db,
+			'login_database'			=> $w_login_db,
+			'password_database'			=> $w_password_db
 		);
 
-		$this->db->where('w_id_info', $w_id_info)
-				 ->where('w_id_db', $w_id_db)
+		$this->db->where('id_website', $w_id_info)
+				 ->where('id_database', $w_id_db)
 				 ->update('470websitesmanagement_database', $data);
 	}
 	function update_backoffice_websites($w_id_bo, $w_id_info, $w_host_bo, $w_login_bo, $w_password_bo)
 	{
 		$data = array(
-			'w_host_bo'				=> $w_host_bo,
-			'w_login_bo'			=> $w_login_bo,
-			'w_password_bo'			=> $w_password_bo,
+			'host_backoffice'				=> $w_host_bo,
+			'login_backoffice'				=> $w_login_bo,
+			'password_backoffice'			=> $w_password_bo,
 		);
 
-		$this->db->where('w_id_info', $w_id_info)
-				 ->where('w_id_bo', $w_id_bo)
+		$this->db->where('id_website', $w_id_info)
+				 ->where('id_backoffice', $w_id_bo)
 				 ->update('470websitesmanagement_backoffice', $data);
 	}
 	function delete_website($id)
 	{
 		/*$tables = array('470websitesmanagement_backoffice', '470websitesmanagement_database', '470websitesmanagement_ftp');
-		$this->db->where('w_id_info', $id)->delete($tables);*/
-		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_backoffice');
-		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_database');
-		$this->db->where('w_id_info', $id)->delete('470websitesmanagement_ftp');
+		$this->db->where('id_website', $id)->delete($tables);*/
+		$this->db->where('id_website', $id)->delete('470websitesmanagement_backoffice');
+		$this->db->where('id_website', $id)->delete('470websitesmanagement_database');
+		$this->db->where('id_website', $id)->delete('470websitesmanagement_ftp');
 		$this->db->where('w_id', $id)->delete('470websitesmanagement_website');
 	}
 	function export_website($websites = "")
@@ -130,9 +130,9 @@ class Model_back extends CI_Model {
 		$this->db->select('*')
 					->from('470websitesmanagement_website')
 					->join('470websitesmanagement_whois', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.w_id')
-					->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.w_id_info = 470websitesmanagement_website.w_id')
-					->join('470websitesmanagement_database', '470websitesmanagement_database.w_id_info = 470websitesmanagement_website.w_id')
-					->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.w_id_info = 470websitesmanagement_website.w_id');
+					->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.id_website = 470websitesmanagement_website.w_id')
+					->join('470websitesmanagement_database', '470websitesmanagement_database.id_website = 470websitesmanagement_website.w_id')
+					->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.id_website = 470websitesmanagement_website.w_id');
 		if (!empty ($websites)) {
 			$this->db->where_in('470websitesmanagement_website.w_id', $websites);
 		}
@@ -149,30 +149,30 @@ class Model_back extends CI_Model {
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website').";";
 
 			$data = array(
-				'w_id_info'  => $row->w_id_info,
-				'w_id_ftp'  => $row->w_id_ftp,
-				'w_host_ftp'  => $row->w_host_ftp,
-				'w_login_ftp'  => $row->w_login_ftp,
-				'w_password_ftp' => $row->w_password_ftp
+				'id_website'  => $row->w_id_info,
+				'id_ftp'  => $row->w_id_ftp,
+				'host_ftp'  => $row->w_host_ftp,
+				'login_ftp'  => $row->w_login_ftp,
+				'password_ftp' => $row->w_password_ftp
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_ftp').";";
 
 			$data = array(
-				'w_id_info'  => $row->w_id_info,
-				'w_id_db'  => $row->w_id_db,
-				'w_host_db'  => $row->w_host_db,
-				'w_name_db' => $row->w_name_db,
-				'w_login_db' => $row->w_login_db,
-				'w_password_db'  => $row->w_password_db
+				'id_website'  => $row->w_id_info,
+				'id_database'  => $row->w_id_db,
+				'host_database'  => $row->w_host_db,
+				'name_database' => $row->w_name_db,
+				'login_database' => $row->w_login_db,
+				'password_database'  => $row->w_password_db
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_database').";";
 
 			$data = array(
-				'w_id_info'  => $row->w_id_info,
-				'w_id_bo'  => $row->w_id_bo,
-				'w_host_bo'			=> $w_host_bo,
-				'w_login_bo'  => $row->w_login_bo,
-				'w_password_bo' => $row->w_password_bo
+				'id_website'  => $row->w_id_info,
+				'id_backoffice'  => $row->w_id_bo,
+				'host_backoffice'	=> $w_host_bo,
+				'login_backoffice'  => $row->w_login_bo,
+				'password_backoffice'	=> $row->w_password_bo
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_backoffice').";";
 

@@ -144,9 +144,9 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.w_id_info = 470websitesmanagement_website.w_id')
-				->join('470websitesmanagement_database', '470websitesmanagement_database.w_id_info = 470websitesmanagement_website.w_id')
-				->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.w_id_info = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_database', '470websitesmanagement_database.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.id_website = 470websitesmanagement_website.w_id')
 				->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
 				->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id')
 				->where('w_id', $id)
@@ -179,7 +179,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.w_id_info = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.id_website = 470websitesmanagement_website.w_id')
 				->where('w_id', $id)
 				->limit(1);
 
@@ -190,7 +190,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_database', '470websitesmanagement_database.w_id_info = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_database', '470websitesmanagement_database.id_website = 470websitesmanagement_website.w_id')
 				->where('w_id', $id)
 				->limit(1);
 
@@ -201,7 +201,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.w_id_info = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.id_website = 470websitesmanagement_website.w_id')
 				->where('w_id', $id)
 				->limit(1);
 
