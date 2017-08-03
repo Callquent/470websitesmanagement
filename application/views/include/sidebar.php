@@ -47,10 +47,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo site_url('tasks'); ?>">
+                    <a href="javascript:;">
                         <i class="fa fa-tasks"></i>
                         <span>Tasks</span>
                     </a>
+                    <ul class="sub">
+                        <li><a href="<?php echo site_url('all-tasks'); ?>">All Tasks</a></li>
+                        <li><a href="<?php echo site_url('my-tasks'); ?>">My Tasks <span class="badge"><?php echo $all_count_websites->count_all_websites; ?></span></a></li>
+                    </ul>
+                </li>
                 </li>
                 <li>
                     <a href="javascript:;">

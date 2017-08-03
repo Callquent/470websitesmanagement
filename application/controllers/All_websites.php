@@ -63,9 +63,17 @@ class All_websites extends CI_Controller {
 				$list[] = '<a class="access-ftp" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="'.$row->w_id.'">Access FTP</a>';
 				$list[] = '<a class="access-sql" href="javascript:void(0);" data-toggle="modal" data-target="#view-database" data-id="'.$row->w_id.'">Access SQL</a>';
 				$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->w_id.'">Access Back office</a>';
-				$list[] = '<a class="email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'">Email</a>';
-				$list[] = '<a id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'">Edit</a>';
-				$list[] = '<a id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'">Delete</a>';
+				$list[] = '<a class="access-htaccess" href="javascript:void(0);" data-toggle="modal" data-target="#view-htaccess" data-id="'.$row->w_id.'">Access Htaccess</a>';
+				$list[] = '<div class="btn-group dropright">
+                            <button class="btn btn-white" type="button">Dropup</button>
+                            <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button"><span class="caret"></span></button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a class="email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'">Email</a></li>
+                                <li class="divider"></li>
+                                <li><a id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'">Edit</a></li>
+                                <li><a id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'">Delete</a></li>
+                            </ul>
+                        </div>';
 
 				$data[] = $list;
 			}
@@ -87,10 +95,10 @@ class All_websites extends CI_Controller {
 			$row = $all_websites->row($w_id_ftp);
 
 
-			$datatable = array(0 => $row->w_host_ftp,
-								1 => $row->w_login_ftp,
-								2 => $row->w_password_ftp,
-								3 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-ftp-website/'.$row->w_id.'/'.$row->w_id_ftp).'">Edit</a>',
+			$datatable = array(0 => $row->host_ftp,
+								1 => $row->login_ftp,
+								2 => $row->password_ftp,
+								3 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-ftp-website/'.$row->id_website.'/'.$row->id_ftp).'">Edit</a>',
 								4 => '<a id="delete-dashboard" href="javascript:void(0);">Cancel</a>');
 
 			echo json_encode($datatable, JSON_FORCE_OBJECT);
@@ -106,11 +114,11 @@ class All_websites extends CI_Controller {
 			$row = $all_websites->row($w_id_db);
 
 
-			$datatable = array(0 => $row->w_host_db,
-								1 => $row->w_name_db,
-								2 => $row->w_login_db,
-								3 => $row->w_password_db,
-								4 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-database-website/'.$row->w_id.'/'.$row->w_id_db).'">Edit</a>',
+			$datatable = array(0 => $row->host_database,
+								1 => $row->name_database,
+								2 => $row->login_database,
+								3 => $row->password_database,
+								4 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-database-website/'.$row->id_website.'/'.$row->id_database).'">Edit</a>',
 								5 => '<a id="delete-dashboard" href="javascript:void(0);">Cancel</a>');
 
 			echo json_encode($datatable, JSON_FORCE_OBJECT);
@@ -126,11 +134,29 @@ class All_websites extends CI_Controller {
 			$row = $all_websites->row($w_id_bo);
 
 
-			$datatable = array(0 => $row->w_host_bo,
-								1 => $row->w_login_bo,
-								2 => $row->w_password_bo,
-								3 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->w_id.'/'.$row->w_id_bo).'">Edit</a>',
+			$datatable = array(0 => $row->host_backoffice,
+								1 => $row->login_backoffice,
+								2 => $row->password_backoffice,
+								3 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->id_website.'/'.$row->id_backoffice).'">Edit</a>',
 								4 => '<a id="delete-dashboard" href="javascript:void(0);">Cancel</a>');
+
+			echo json_encode($datatable, JSON_FORCE_OBJECT);
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function modal_htaccess_website($w_id_ht = '')
+	{
+		if(check_access()==true)
+		{
+			$all_websites = $this->model_front->get_website_per_htaccess($w_id_ht);
+			$row = $all_websites->row($w_id_ht);
+
+
+			$datatable = array(0 => $row->login_htaccess,
+								1 => $row->password_htaccess,
+								2 => '<a id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->id_website.'/'.$row->id_htaccess).'">Edit</a>',
+								3 => '<a id="delete-dashboard" href="javascript:void(0);">Cancel</a>');
 
 			echo json_encode($datatable, JSON_FORCE_OBJECT);
 		}else {
@@ -275,6 +301,18 @@ class All_websites extends CI_Controller {
 			$w_password_bo	= $this->input->post('passwordbackoffice');
 
 			$this->model_back->update_backoffice_websites($w_id_bo, $w_id, $w_host_bo, $w_login_bo, $w_password_bo);
+		}else {
+			$this->load->view('index');
+		}
+	}
+	public function edit_htaccess_website($w_id = '',$w_id_htaccess = '')
+	{
+		if(check_access()==true)
+		{
+			$w_login_htaccess		= $this->input->post('loginhtaccess');
+			$w_password_htaccess	= $this->input->post('passwordhtaccess');
+
+			$this->model_back->update_htaccess_websites($w_id_htaccess, $w_id, $w_login_htaccess, $w_password_htaccess);
 		}else {
 			$this->load->view('index');
 		}

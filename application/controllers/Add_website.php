@@ -63,6 +63,9 @@ class Add_website extends CI_Controller {
 			$w_login_bo			= $this->input->post('adminlogin');
 			$w_password_bo		= $this->input->post('adminpassword');
 
+			$w_login_htaccess			= $this->input->post('loginhtaccess');
+			$w_password_htaccess		= $this->input->post('passwordhtaccess');
+
 			/*$this->form_validation->set_rules('nom', 'Nom', 'required');
 			$this->form_validation->set_rules('url', 'Url', 'required');
 
@@ -82,6 +85,7 @@ class Add_website extends CI_Controller {
 				$this->model_back->create_ftp_websites($website_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
 				$this->model_back->create_database_websites($website_id, $w_host_db, $w_name_db, $w_login_db, $w_password_db);
 				$this->model_back->create_backoffice_websites($website_id, $w_host_bo, $w_login_bo, $w_password_bo);
+				$this->model_back->create_backoffice_websites($website_id, $w_login_htaccess, $w_password_htaccess);
 			/*}*/
 		}else {
 			$this->load->view('index');

@@ -39,10 +39,9 @@
                                       <th class="desktop"><?php echo lang('access_ftp'); ?></th>
                                       <th class="desktop"><?php echo lang('access_sql'); ?></th>
                                       <th class="desktop"><?php echo lang('access_backoffice'); ?></th>
-                                      <th class="desktop"><?php echo lang('send'); ?></th>
+                                      <th class="desktop"><?php echo lang('access_htaccess'); ?></th>
                                       <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                                        <th class="desktop"><?php echo lang('edit'); ?></th>
-                                        <th class="desktop"><?php echo lang('delete'); ?></th>
+                                        <th class="desktop"><?php echo lang('actions'); ?></th>
                                       <?php } ?>
                                   </tr>
                                 </thead>
@@ -141,6 +140,37 @@
                             <th class="all">Admin Host</th>
                             <th class="all">Admin Login</th>
                             <th class="all">Admin Mot de passe</th>
+                            <?php if ($user_role[0]->name == "Developper") { ?>
+                              <th class="desktop">Modifier</th>
+                              <th class="desktop">Supprimer</th>
+                            <?php } ?>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                  </table>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="view-htaccess" tabindex="-1" role="dialog" aria-labelledby="view" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header modal-header-success">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+              <h4 class="modal-title custom_align" id="Heading">Afficher le site web</h4>
+            </div>
+            <div class="modal-body">
+              <form id="acces-htaccess" class="form-horizontal" role="form" action="#">
+                <fieldset>
+                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-htaccess-dashboard">
+                      <thead>
+                        <tr>
+                            <th class="all">Login Htaccess</th>
+                            <th class="all">Mot de passe Htaccess</th>
                             <?php if ($user_role[0]->name == "Developper") { ?>
                               <th class="desktop">Modifier</th>
                               <th class="desktop">Supprimer</th>

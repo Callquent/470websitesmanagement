@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tasks extends CI_Controller {
+class My_tasks extends CI_Controller {
 
 	public function __construct()
 	{
@@ -33,7 +33,7 @@ class Tasks extends CI_Controller {
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
 
-			$this->load->view('tasks', $data);
+			$this->load->view('my-tasks', $data);
 		}else {
 			$this->load->view('index');
 		}

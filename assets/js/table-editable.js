@@ -131,8 +131,7 @@ var EditableTable = function () {
                     languageList += '</select>';
                     jqTds[4].innerHTML = languageList;
                 });
-                jqTds[9].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
-                jqTds[10].innerHTML = '<a id="cancel-dashboard" href="">Cancel</a>';
+                jqTds[9].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
             }
             function saveRowWebsiteInfo(dashboardTable, nRow) {
                 var jqInputs = $('input', nRow);
@@ -142,7 +141,6 @@ var EditableTable = function () {
                 dashboardTable.fnUpdate(jqSelects[0].options[jqSelects[0].selectedIndex].text, nRow, 3, false);
                 dashboardTable.fnUpdate(jqSelects[1].options[jqSelects[1].selectedIndex].text, nRow, 4, false);
                 dashboardTable.fnUpdate($.parseHTML('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>'), nRow, 9, false);
-                dashboardTable.fnUpdate($.parseHTML('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>'), nRow, 10, false);
                 dashboardTable.fnDraw();
             }
 
@@ -252,7 +250,7 @@ var EditableTable = function () {
                     restoreRow(dashboardTable, nEditingDashboard);
                     editRowWebsiteInfo(dashboardTable, nRow, nUrl);
                     nEditingDashboard = nRow;
-                } else if (nEditingDashboard == nRow && this.innerHTML == "Save") {
+                } else if (nEditingDashboard == nRow && $(this).find("i").attr("value") == "check") {
                     var id = $('#id').val();
                     var titlewebsite = $('#titlewebsite').val();
                     var website = $('#website').val();

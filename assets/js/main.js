@@ -110,6 +110,25 @@ $(document).ready(function(){
 		$('#view-backoffice').on('hide.bs.modal',function(event){
 			$('#table-backoffice-dashboard').dataTable().fnClearTable();
 		});
+		$(document).on('click', '.access-htaccess', function(e) {
+
+			var id = $(this).data('id');
+			$.ajax({
+				type: "POST",
+				url: url+'/modal-htaccess-website/'+id,
+				success: function(data){
+					var jsdata = JSON.parse(data);
+					$('#table-htaccess-dashboard').dataTable().fnAddData(jsdata);
+				},
+				error: function(){
+					alert("failure");
+				}
+			});
+			e.preventDefault();
+		});
+		$('#view-htaccess').on('hide.bs.modal',function(event){
+			$('#table-htaccess-dashboard').dataTable().fnClearTable();
+		});
 		$('#email').on('show.bs.modal',function(event){
 			var modal = $(this);
 			var id = $(event.relatedTarget).data('id');

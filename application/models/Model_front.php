@@ -208,6 +208,17 @@ class Model_front extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	function get_website_per_htaccess($id)
+	{
+		$this->db->select('*')
+				->from('470websitesmanagement_website')
+				->join('470websitesmanagement_htaccess', '470websitesmanagement_htaccess.id_website = 470websitesmanagement_website.w_id')
+				->where('w_id', $id)
+				->limit(1);
+
+		$query = $this->db->get();
+		return $query;
+	}
 	function count_all_websites()
 	{
 		$this->db->select('count(*) as count_all_websites')
