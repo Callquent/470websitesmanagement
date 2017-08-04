@@ -158,7 +158,8 @@ class Model_back extends CI_Model {
 					->join('470websitesmanagement_whois', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.w_id')
 					->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.id_website = 470websitesmanagement_website.w_id')
 					->join('470websitesmanagement_database', '470websitesmanagement_database.id_website = 470websitesmanagement_website.w_id')
-					->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.id_website = 470websitesmanagement_website.w_id');
+					->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.id_website = 470websitesmanagement_website.w_id')
+					->join('470websitesmanagement_htaccess', '470websitesmanagement_htaccess.id_website = 470websitesmanagement_website.w_id');
 		if (!empty ($websites)) {
 			$this->db->where_in('470websitesmanagement_website.w_id', $websites);
 		}
@@ -175,35 +176,43 @@ class Model_back extends CI_Model {
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website').";";
 
 			$data = array(
-				'id_website'  => $row->w_id_info,
-				'id_ftp'  => $row->w_id_ftp,
-				'host_ftp'  => $row->w_host_ftp,
-				'login_ftp'  => $row->w_login_ftp,
-				'password_ftp' => $row->w_password_ftp
+				'id_website'  => $row->id_website,
+				'id_ftp'  => $row->id_ftp,
+				'host_ftp'  => $row->host_ftp,
+				'login_ftp'  => $row->login_ftp,
+				'password_ftp' => $row->password_ftp
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_ftp').";";
 
 			$data = array(
-				'id_website'  => $row->w_id_info,
-				'id_database'  => $row->w_id_db,
-				'host_database'  => $row->w_host_db,
-				'name_database' => $row->w_name_db,
-				'login_database' => $row->w_login_db,
-				'password_database'  => $row->w_password_db
+				'id_website'  => $row->id_website,
+				'id_database'  => $row->id_database,
+				'host_database'  => $row->host_database,
+				'name_database' => $row->name_database,
+				'login_database' => $row->login_database,
+				'password_database'  => $row->password_database
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_database').";";
 
 			$data = array(
-				'id_website'  => $row->w_id_info,
-				'id_backoffice'  => $row->w_id_bo,
-				'host_backoffice'	=> $w_host_bo,
-				'login_backoffice'  => $row->w_login_bo,
-				'password_backoffice'	=> $row->w_password_bo
+				'id_website'  => $row->id_website,
+				'id_backoffice'  => $row->id_backoffice,
+				'host_backoffice'	=> $row->host_backoffice,
+				'login_backoffice'  => $row->login_backoffice,
+				'password_backoffice'	=> $row->password_backoffice
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_backoffice').";";
 
 			$data = array(
-				'whois_id'  => $row->w_id_info,
+				'id_website'  => $row->id_website,
+				'id_backoffice'  => $row->id_backoffice,
+				'login_htaccess'  => $row->login_htaccess,
+				'password_htaccess'	=> $row->password_htaccess
+			);
+			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_htaccess').";";
+
+			$data = array(
+				'whois_id'  => $row->id_website,
 				'creation_date' => $row->creation_date,
 				'expiration_date'  => $row->expiration_date,
 				'registrar'  => $row->registrar,

@@ -73,13 +73,8 @@
                     </header>
                     <div class="panel-body">
                         <div class="adv-table editable-table">
-                            <div class="clearfix">
-                                <div class="btn-group">
-                                    <h4><?php echo lang('number_websites_management'); ?><?php echo $all_domains; ?> <?php echo lang('domains'); ?> <?php echo $all_subdomains; ?> <?php echo lang('sub_domains'); ?></h4>
-                                </div>
-                            </div>
                             <div class="space15"></div>
-                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-dashboard">
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
                                 <thead>
                                   <tr>
                                       <th class="all"><?php echo lang('name'); ?></th>
@@ -89,13 +84,20 @@
                                       <th class="desktop">Progress</th>
                                       <th class="desktop">Member</th>
                                       <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                                        <th class="desktop"><?php echo lang('edit'); ?></th>
-                                        <th class="desktop"><?php echo lang('delete'); ?></th>
+                                        <th class="desktop"><?php echo lang('actions'); ?></th>
                                       <?php } ?>
                                   </tr>
                                 </thead>
                                 <tbody>
-
+                                  <?php foreach ($all_tasks->result() as $row) { ?>
+                                    <tr>
+                                      <td><?php echo $row->c_title; ?></td>
+                                      <?php if ($user_role[0]->name == "Developper") { ?>
+                                        <td><a id="edit-dashboard" href="<?php echo site_url('category/edit-category/'.$row->c_id); ?>">Edit</a></td>
+                                        <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-category" data-id="<?php echo $row->c_id; ?>">Delete</a></td>
+                                      <?php } ?>
+                                    </tr>
+                                  <?php } ?>
                                 </tbody>
                             </table>
                         </div>

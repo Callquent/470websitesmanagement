@@ -8,6 +8,7 @@ class All_tasks extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('model_front');
+		$this->load->model('model_tasks');
 		$this->load->model('model_users');
 		$this->load->model('model_settings');
 		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session'));
@@ -27,6 +28,8 @@ class All_tasks extends CI_Controller {
 
 			$data['all_languages'] = $this->model_front->get_all_languages();
 			$data['all_categories'] = $this->model_front->get_all_categories();
+
+			$data['all_tasks'] = $this->model_tasks->get_all_tasks();
 
 			$data['all_domains'] = $this->model_front->get_all_domains();
 			$data['all_subdomains'] = $this->model_front->get_all_subdomains();

@@ -65,7 +65,7 @@ class All_websites extends CI_Controller {
 				$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->w_id.'">Access Back office</a>';
 				$list[] = '<a class="access-htaccess" href="javascript:void(0);" data-toggle="modal" data-target="#view-htaccess" data-id="'.$row->w_id.'">Access Htaccess</a>';
 				$list[] = '<div class="btn-group dropright">
-                            <button class="btn btn-white" type="button">Dropup</button>
+                            <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button"><i class="fa fa-bars" aria-hidden="true"></i></button>
                             <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button"><span class="caret"></span></button>
                             <ul role="menu" class="dropdown-menu">
                                 <li><a class="email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'">Email</a></li>
