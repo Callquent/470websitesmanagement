@@ -11,8 +11,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <section class="panel">
-                        <header class="panel-heading">
+                    <section class="card">
+                        <header class="card-heading">
                             <?php echo lang('add_website'); ?>
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -20,7 +20,7 @@
                                 <a class="fa fa-times" href="javascript:;"></a>
                              </span>
                         </header>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class=" form">
                                 <form class="form-horizontal" id="form-add-website" method="post" action="<?php echo site_url('/add-website/submit'); ?>">
                                     <div class="row-fluid">
@@ -61,8 +61,8 @@
                                       </div>
 
                                     <div>
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
+                                        <div class="card-heading">
+                                            <h4 class="card-title">
                                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                                     <div class="row-fluid">
                                                         <h4 class=""><i class="fa fa-plus-square"></i> FTP</h4>
@@ -71,8 +71,8 @@
                                                 </a>
                                             </h4>
                                         </div>
-                                        <div id="collapseOne" class="panel-collapse collapse">
-                                            <div class="panel-body">
+                                        <div id="collapseOne" class="card-collapse collapse">
+                                            <div class="card-body">
 
                                                 <div class="row-fluid">
                                                     <div class="form-group ">
@@ -100,8 +100,8 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
+                                        <div class="card-heading">
+                                            <h4 class="card-title">
                                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                                                     <div class="row-fluid">
                                                         <h4 class=""><i class="fa fa-plus-square"></i> SQL</h4>
@@ -110,8 +110,8 @@
                                                 </a>
                                             </h4>
                                         </div>
-                                        <div id="collapseTwo" class="panel-collapse collapse">
-                                            <div class="panel-body">
+                                        <div id="collapseTwo" class="card-collapse collapse">
+                                            <div class="card-body">
 
                                               <div class="row-fluid">
                                                 <div class="form-group ">
@@ -144,8 +144,8 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
+                                        <div class="card-heading">
+                                            <h4 class="card-title">
                                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                                     <div class="row-fluid">
                                                         <h4 class=""><i class="fa fa-plus-square"></i> Back Office</h4>
@@ -154,8 +154,8 @@
                                                 </a>
                                             </h4>
                                         </div>
-                                        <div id="collapseThree" class="panel-collapse collapse">
-                                            <div class="panel-body">
+                                        <div id="collapseThree" class="card-collapse collapse">
+                                            <div class="card-body">
                                             
                                               <div class="row-fluid">
                                                 <div class="form-group ">
@@ -183,8 +183,8 @@
                                     </div>
 
                                     <div>
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
+                                        <div class="card-heading">
+                                            <h4 class="card-title">
                                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                                                     <div class="row-fluid">
                                                         <h4 class=""><i class="fa fa-plus-square"></i> Htaccess</h4>
@@ -193,8 +193,8 @@
                                                 </a>
                                             </h4>
                                         </div>
-                                        <div id="collapseFour" class="panel-collapse collapse">
-                                            <div class="panel-body">
+                                        <div id="collapseFour" class="card-collapse collapse">
+                                            <div class="card-body">
                                             
                                               <div class="row-fluid">
                                                 <div class="form-group ">

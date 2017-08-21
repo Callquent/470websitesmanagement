@@ -8,8 +8,8 @@
     <section id="main-content">
         <section class="wrapper">
         <!-- page start-->
-            <section class="panel">
-                    <header class="panel-heading">
+            <section class="card">
+                    <header class="card-heading">
                         Draggable Calendar
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -17,7 +17,7 @@
                             <a href="javascript:;" class="fa fa-times"></a>
                          </span>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <!-- page start-->
                         <div class="row">
                             <aside class="col-lg-9">

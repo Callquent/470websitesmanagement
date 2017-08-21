@@ -11,8 +11,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <section class="panel">
-                        <header class="panel-heading">
+                    <section class="card">
+                        <header class="card-heading">
                             Ajouter une catégorie
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -20,7 +20,7 @@
                                 <a class="fa fa-times" href="javascript:;"></a>
                              </span>
                         </header>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class=" form">
                                 <form class="form-horizontal " id="form-add-category" method="post" action="<?php echo site_url('/add-category/submit'); ?>">
                                   <div class="row-fluid">

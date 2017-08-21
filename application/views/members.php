@@ -8,8 +8,8 @@
         <!-- BEGIN MAIN CONTENT -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="panel">
-                        <header class="panel-heading">
+                    <div class="card">
+                        <header class="card-heading">
                             Editable Table
                             <span class="tools pull-right">
                                 <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -17,7 +17,7 @@
                                 <a href="javascript:;" class="fa fa-times"></a>
                              </span>
                         </header>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
                                     <input type="text" id="member-finder" class="form-control" placeholder="Search a member...">
@@ -30,7 +30,7 @@
 
                             <?php foreach($list_users->result() as $row){ ?>
                                 <div class="col-md-4 member-entry member-entry-<?php echo $row->id; ?>">
-                                    <section class="panel">
+                                    <section class="card">
                                         <?php if($row->name_group=="Admin"){ ?>
                                             <div class="twt-feed red-bg">
                                         <?php } elseif($row->name_group=="Developper"){ ?>

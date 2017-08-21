@@ -1,5 +1,6 @@
 
 	<?php echo js_url('js/jquery-2.2.4.min.js'); ?>
+	<?php echo js_url('js/popper.min.js'); ?>
 	<?php echo js_url('js/bootstrap.min.js'); ?>
 	<?php echo js_url('js/jquery.dcjqaccordion.2.7.js'); ?>
 	<?php echo js_url('js/jquery.nicescroll.js'); ?>

@@ -9,8 +9,8 @@
 
         <div class="row">
             <div class="col-md-12">
-                <section class="panel">
-                    <div class="panel-body profile-information">
+                <section class="card">
+                    <div class="card-body profile-information">
                        <div class="col-md-3">
                            <div class="profile-pic text-center">
                                <img src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>" alt="">

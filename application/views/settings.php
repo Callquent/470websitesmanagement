@@ -9,8 +9,8 @@
 
         <div class="row">
             <div class="col-md-12">
-                <section class="panel">
-                    <header class="panel-heading">
+                <section class="card">
+                    <header class="card-heading">
                         Advanced File Input
                           <span class="tools pull-right">
                             <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -18,7 +18,7 @@
                             <a class="fa fa-times" href="javascript:;"></a>
                          </span>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
         <li class="dropdown language">
             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                 <?php 

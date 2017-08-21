@@ -11,8 +11,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <section class="panel">
-                        <header class="panel-heading">
+                    <section class="card">
+                        <header class="card-heading">
                             Ajouter un site web
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -20,7 +20,7 @@
                                 <a class="fa fa-times" href="javascript:;"></a>
                              </span>
                         </header>
-                        <div class="panel-body">
+                        <div class="card-body">
 
                             <div class="adv-table editable-table ">
                                 <div class="clearfix">

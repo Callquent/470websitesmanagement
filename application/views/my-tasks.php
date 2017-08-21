@@ -14,8 +14,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">
+                                <div class="card card-danger">
+                                    <div class="card-heading">
                                         A faire
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -23,7 +23,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         <ul class="to-do-list" id="sortable-todo">
                                             <li class="clearfix">
                                                 <span class="drag-marker">
@@ -167,8 +167,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel panel-warning">
-                                    <div class="panel-heading">
+                                <div class="card card card-warning">
+                                    <div class="card-heading">
                                         En cours
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -176,7 +176,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         <ul class="to-do-list" id="sortable-todo">
                                             <li class="clearfix">
                                                 <span class="drag-marker">
@@ -320,8 +320,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-warning">
-                                    <div class="panel-heading">
+                                <div class="card card-warning">
+                                    <div class="card-heading">
                                         En cours
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -329,7 +329,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                                         Cras mattis consectetur purus sit amet fermentum. Duis mollis.
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
@@ -346,8 +346,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-success">
-                                    <div class="panel-heading">
+                                <div class="card card-success">
+                                    <div class="card-heading">
                                         Tache réaliser
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -355,7 +355,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                                         Cras mattis consectetur purus sit amet fermentum. Duis mollis.
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
@@ -369,8 +369,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">
+                                <div class="card card-danger">
+                                    <div class="card-heading">
                                         Portlet 5
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -378,7 +378,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                                         Cras mattis consectetur purus sit amet fermentum. Duis mollis.
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
@@ -392,8 +392,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
+                                <div class="card card-info">
+                                    <div class="card-heading">
                                         Portlet 6
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -401,7 +401,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                                         Cras mattis consectetur purus sit amet fermentum. Duis mollis.
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
@@ -417,8 +417,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
+                                <div class="card card-default">
+                                    <div class="card-heading">
                                         Portlet 7
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -426,7 +426,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                                         Cras mattis consectetur purus sit amet fermentum. Duis mollis.
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
@@ -440,8 +440,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-success">
-                                    <div class="panel-heading">
+                                <div class="card card-success">
+                                    <div class="card-heading">
                                         Portlet 8
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -449,7 +449,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                                         Cras mattis consectetur purus sit amet fermentum. Duis mollis.
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
@@ -463,8 +463,8 @@
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
+                                <div class="card card-primary">
+                                    <div class="card-heading">
                                         Portlet 9
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -472,7 +472,7 @@
                                     <a class="fa fa-times" href="javascript:;"></a>
                                 </span>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="card-body">
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                                         Cras mattis consectetur purus sit amet fermentum. Duis mollis.
                                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.

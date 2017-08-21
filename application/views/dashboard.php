@@ -10,8 +10,8 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="panel">
-                    <header class="panel-heading">
+                <section class="card">
+                    <header class="card-heading">
                         <?php echo lang('dashboard'); ?>
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -19,11 +19,11 @@
                             <a href="javascript:;" class="fa fa-times"></a>
                          </span>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
                       <div class="row">
                           <div class="col-sm-6">
-                              <section class="panel">
-                                  <header class="panel-heading">
+                              <section class="card">
+                                  <header class="card-heading">
                                     <h4><?php echo lang('website_per_languages'); ?></h4>
                                   <span class="tools pull-right">
                                       <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -31,7 +31,7 @@
                                       <a href="javascript:;" class="fa fa-times"></a>
                                    </span>
                                   </header>
-                                  <div class="panel-body">
+                                  <div class="card-body">
                                       <div class="chartJS">
                                           <canvas id="pie-chart-language" height="250" width="800" ></canvas>
                                       </div>
@@ -39,8 +39,8 @@
                               </section>
                           </div>
                           <div class="col-sm-6">
-                              <section class="panel">
-                                  <header class="panel-heading">
+                              <section class="card">
+                                  <header class="card-heading">
                                     <h4><?php echo lang('website_per_categories'); ?></h4>
                                   <span class="tools pull-right">
                                       <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -48,7 +48,7 @@
                                       <a href="javascript:;" class="fa fa-times"></a>
                                    </span>
                                   </header>
-                                  <div class="panel-body">
+                                  <div class="card-body">
                                       <div class="chartJS">
                                           <canvas id="pie-chart-category" height="250" width="800" ></canvas>
                                       </div>

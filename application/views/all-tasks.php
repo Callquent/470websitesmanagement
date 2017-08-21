@@ -10,9 +10,9 @@
 
         <div class="row">
             <div class="col-sm-2">
-                <a href="http://localhost:8080/470websitesmanagement/index.php/add-website" class="btn btn-success"><i class="fa fa-plus-circle"></i> Ajouter une tache</a>
-                <section class="panel">
-                    <header class="panel-heading">
+                <a class="access-ftp btn btn-success" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="335"><i class="fa fa-plus-circle"></i> Ajouter un Projet</a>
+                <section class="card">
+                    <header class="card-heading">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -20,13 +20,14 @@
                             <a href="javascript:;" class="fa fa-times"></a>
                          </span>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <h4 class="">Projects</h4>
                         <hr>
+                        <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Search Member" >
                     </div>
                 </section>
-                <section class="panel">
-                    <header class="panel-heading">
+                <section class="card">
+                    <header class="card-heading">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -34,20 +35,14 @@
                             <a href="javascript:;" class="fa fa-times"></a>
                          </span>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <h4 class="">Membres</h4>
                         <hr>
-                          <?php foreach($list_users->result() as $row){ ?>
-                          <div>
-                            <img alt="" src="http://localhost:8080/470websitesmanagement/assets/img/users/Sauron_eye_barad_dur.jpg" width="32px" height="32px">
-                            <span class="username"><?php echo $row->name_user; ?></span>
-                          </div>
-                          <?php } ?>
-                          
+                        <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Search Member" >
                     </div>
                 </section>
-                <section class="panel">
-                    <header class="panel-heading">
+                <section class="card">
+                    <header class="card-heading">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -55,15 +50,15 @@
                             <a href="javascript:;" class="fa fa-times"></a>
                          </span>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <h4 class="">Status</h4>
                         <hr>
                     </div>
                 </section>
             </div>
             <div class="col-sm-10">
-                <section class="panel">
-                    <header class="panel-heading">
+                <section class="card">
+                    <header class="card-heading">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -71,7 +66,7 @@
                             <a href="javascript:;" class="fa fa-times"></a>
                          </span>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="adv-table editable-table">
                             <div class="space15"></div>
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">

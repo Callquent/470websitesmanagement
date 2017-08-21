@@ -64,16 +64,18 @@ class All_websites extends CI_Controller {
 				$list[] = '<a class="access-sql" href="javascript:void(0);" data-toggle="modal" data-target="#view-database" data-id="'.$row->w_id.'">Access SQL</a>';
 				$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->w_id.'">Access Back office</a>';
 				$list[] = '<a class="access-htaccess" href="javascript:void(0);" data-toggle="modal" data-target="#view-htaccess" data-id="'.$row->w_id.'">Access Htaccess</a>';
-				$list[] = '<div class="btn-group dropright">
-                            <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button"><i class="fa fa-bars" aria-hidden="true"></i></button>
-                            <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button"><span class="caret"></span></button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li><a class="email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'">Email</a></li>
-                                <li class="divider"></li>
-                                <li><a id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'">Edit</a></li>
-                                <li><a id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'">Delete</a></li>
-                            </ul>
-                        </div>';
+				$list[] = '<div class="dropdown show">
+							  <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							  	<i class="fa fa-bars"></i>
+							  </a>
+
+							  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							    <a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'"><i class="fa fa-envelope"></i> Email</a>
+							    <div class="dropdown-divider"></div>
+							    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'"><i class="fa fa-pencil"></i> Edit</a>
+							    <a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
+							  </div>
+							</div>';
 
 				$data[] = $list;
 			}

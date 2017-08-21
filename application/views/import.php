@@ -10,11 +10,11 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="panel">
-                    <header class="panel-heading">
+                <section class="card">
+                    <header class="card-heading">
                         <?php echo lang('import'); ?>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="position-center">
 
 			                        <form class="form-horizontal" id="form-import" method="post" action="<?php echo site_url('/import/import-470websitesmanagement/'); ?>" enctype="multipart/form-data">

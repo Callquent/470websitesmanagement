@@ -10,15 +10,15 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="panel">
-                    <header class="panel-heading">
+                <section class="card">
+                    <header class="card-heading">
                         <?php echo lang('export'); ?>
                     </header>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="position-center">
 
 			                        <form class="form-horizontal" id="form-export" method="post" action="<?php echo site_url('/export/export-470websitesmanagement/'); ?>">
-                                        <div class="form-group">
+                                        <div class="form-group row">
                                             <label class="col-sm-3 control-label col-lg-3"><?php echo lang('key_secrete'); ?></label>
                                             <div class="col-lg-6">
                                                 <div class="input-group m-bot15">
@@ -29,7 +29,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group row">
                                             <label class="col-sm-3 control-label"><?php echo lang('choose_type_export'); ?></label>
 
                                             <div class="col-sm-9 icheck minimal">
@@ -44,7 +44,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group export-search-table last">
+                                        <div class="form-group row export-search-table last">
                                             <label class="control-label col-md-3">Listes Sites Web :</label>
                                             <div class="col-md-9">
                                                 <select name="websites[]" class="multi-select" multiple="" id="my_multi_select3" >
@@ -54,7 +54,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group row">
 			                                <div class="col-lg-offset-2 col-lg-10">
 			                                    <button type="submit" class="btn btn-info"><?php echo lang('export'); ?></button>
 			                                </div>
