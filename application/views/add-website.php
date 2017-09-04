@@ -11,8 +11,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <section class="card">
-                        <header class="card-heading">
+                    <section class="card mb-3">
+                        <header class="card-header">
                             <?php echo lang('add_website'); ?>
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -61,7 +61,7 @@
                                       </div>
 
                                     <div>
-                                        <div class="card-heading">
+                                        <div class="card-header">
                                             <h4 class="card-title">
                                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                                     <div class="row-fluid">
@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="card-heading">
+                                        <div class="card-header">
                                             <h4 class="card-title">
                                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                                                     <div class="row-fluid">
@@ -144,7 +144,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="card-heading">
+                                        <div class="card-header">
                                             <h4 class="card-title">
                                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                                     <div class="row-fluid">
@@ -183,7 +183,7 @@
                                     </div>
 
                                     <div>
-                                        <div class="card-heading">
+                                        <div class="card-header">
                                             <h4 class="card-title">
                                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                                                     <div class="row-fluid">

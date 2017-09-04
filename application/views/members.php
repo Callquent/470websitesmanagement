@@ -8,8 +8,8 @@
         <!-- BEGIN MAIN CONTENT -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
-                        <header class="card-heading">
+                    <div class="card mb-3">
+                        <header class="card-header">
                             Editable Table
                             <span class="tools pull-right">
                                 <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -30,7 +30,7 @@
 
                             <?php foreach($list_users->result() as $row){ ?>
                                 <div class="col-md-4 member-entry member-entry-<?php echo $row->id; ?>">
-                                    <section class="card">
+                                    <section class="card mb-3">
                                         <?php if($row->name_group=="Admin"){ ?>
                                             <div class="twt-feed red-bg">
                                         <?php } elseif($row->name_group=="Developper"){ ?>

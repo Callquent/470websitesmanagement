@@ -9,8 +9,8 @@
 
         <div class="row">
             <div class="col-md-12">
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                         Advanced File Input
                           <span class="tools pull-right">
                             <a class="fa fa-chevron-down" href="javascript:;"></a>

@@ -11,8 +11,8 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                         <?php echo lang('websites_management'); ?>
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -27,7 +27,6 @@
                                     <h4><?php echo lang('number_websites_management'); ?><?php echo $all_domains; ?> <?php echo lang('domains'); ?> <?php echo $all_subdomains; ?> <?php echo lang('sub_domains'); ?></h4>
                                 </div>
                             </div>
-                            <div class="space15"></div>
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-dashboard">
                                 <thead>
                                   <tr>

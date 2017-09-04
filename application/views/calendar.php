@@ -8,8 +8,8 @@
     <section id="main-content">
         <section class="wrapper">
         <!-- page start-->
-            <section class="card">
-                    <header class="card-heading">
+            <section class="card mb-3">
+                    <header class="card-header">
                         Draggable Calendar
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>

@@ -10,9 +10,9 @@
 
         <div class="row">
             <div class="col-sm-2">
-                <a class="access-ftp btn btn-success" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="335"><i class="fa fa-plus-circle"></i> Ajouter un Projet</a>
-                <section class="card">
-                    <header class="card-heading">
+                <a class="access-project btn btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-project" data-id="335"><i class="fa fa-plus-circle"></i> Ajouter un Projet</a>
+                <section class="card mb-3">
+                    <header class="card-header">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -26,8 +26,8 @@
                         <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Search Member" >
                     </div>
                 </section>
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -41,8 +41,8 @@
                         <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Search Member" >
                     </div>
                 </section>
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -57,8 +57,8 @@
                 </section>
             </div>
             <div class="col-sm-10">
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -68,7 +68,6 @@
                     </header>
                     <div class="card-body">
                         <div class="adv-table editable-table">
-                            <div class="space15"></div>
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
                                 <thead>
                                   <tr>
@@ -106,21 +105,32 @@
     <!--main content end-->
 </section>
 
-<div class="modal fade" id="modal-delete-category" tabindex="-1" role="dialog" aria-labelledby="modal-delete-category" aria-hidden="true">
+<div class="modal fade" id="view-project" tabindex="-1" role="dialog" aria-labelledby="view-project" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header modal-header-success">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-        <h4 class="modal-title custom_align" id="Heading">Delete Category</h4>
+        <h4 class="modal-title custom_align" id="Heading">Ajouter un projet</h4>
       </div>
-      <form id="form-category" method="post" action="#">
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer ">
-          <button type="submit" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-share"></span> Envoyer</button>
-          <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Annuler</button>
-        </div>
-      </form>
+            <form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact/'); ?>">
+              <div class="modal-body">
+                <div class="input-group">
+                  <input type="email" class="form-control" name="email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                      <label class="control-label">Date Range</label>
+                      <div class="input-group input-large" data-date="13/07/2013" data-date-format="mm/dd/yyyy">
+                          <input type="text" class="form-control dpd1" name="from">
+                          <span class="input-group-addon">To</span>
+                          <input type="text" class="form-control dpd2" name="to">
+                      </div>
+                </div>
+              </div>
+              <div class="modal-footer ">
+                <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span><?php echo lang('cancel'); ?></button>
+              </div>
+            </form>
     </div>
   </div>
 </div>

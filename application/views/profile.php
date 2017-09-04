@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <section class="card">
+                <section class="card mb-3">
                     <div class="card-body profile-information">
                        <div class="col-md-3">
                            <div class="profile-pic text-center">

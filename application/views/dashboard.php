@@ -10,8 +10,8 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                         <?php echo lang('dashboard'); ?>
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -22,8 +22,8 @@
                     <div class="card-body">
                       <div class="row">
                           <div class="col-sm-6">
-                              <section class="card">
-                                  <header class="card-heading">
+                              <section class="card mb-3">
+                                  <header class="card-header">
                                     <h4><?php echo lang('website_per_languages'); ?></h4>
                                   <span class="tools pull-right">
                                       <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -39,8 +39,8 @@
                               </section>
                           </div>
                           <div class="col-sm-6">
-                              <section class="card">
-                                  <header class="card-heading">
+                              <section class="card mb-3">
+                                  <header class="card-header">
                                     <h4><?php echo lang('website_per_categories'); ?></h4>
                                   <span class="tools pull-right">
                                       <a href="javascript:;" class="fa fa-chevron-down"></a>

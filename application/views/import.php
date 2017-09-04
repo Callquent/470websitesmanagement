@@ -10,8 +10,8 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                         <?php echo lang('import'); ?>
                     </header>
                     <div class="card-body">

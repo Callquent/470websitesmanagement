@@ -10,8 +10,8 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                         Editable Table
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
@@ -32,7 +32,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="space15"></div>
                               <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-category">
                                 <thead>
                                   <tr>

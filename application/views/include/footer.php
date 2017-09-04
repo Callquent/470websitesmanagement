@@ -32,7 +32,9 @@
 		<?php echo js_url('js/data-tables/Buttons/js/buttons.flash.js'); ?>
 		<?php echo js_url('js/data-tables/Buttons/js/buttons.html5.js'); ?>
 		<?php echo js_url('js/data-tables/Buttons/js/buttons.print.js'); ?>
-		<?php echo js_url('js/data-tables/datatables.bootstrap.js'); ?>
+		<?php echo js_url('js/data-tables/datatables.bootstrap.min.js'); ?>
+		<?php echo js_url('js/data-tables/datatables.responsive.min.js'); ?>
+		<?php echo js_url('js/data-tables/responsive.bootstrap4.min.js'); ?>
 		<?php echo js_url('js/data-tables/dataTables.tableTools.js'); ?>
 		<?php echo js_url('js/table-editable.js'); ?>
 	<?php } ?>
@@ -91,7 +93,9 @@
 		<?php echo js_url('js/data-tables/Buttons/js/buttons.flash.js'); ?>
 		<?php echo js_url('js/data-tables/Buttons/js/buttons.html5.js'); ?>
 		<?php echo js_url('js/data-tables/Buttons/js/buttons.print.js'); ?>
-		<?php echo js_url('js/data-tables/datatables.bootstrap.js'); ?>
+		<?php echo js_url('js/data-tables/datatables.bootstrap.min.js'); ?>
+		<?php echo js_url('js/data-tables/datatables.responsive.min.js'); ?>
+		<?php echo js_url('js/data-tables/responsive.bootstrap4.min.js'); ?>
 		<?php echo js_url('js/data-tables/dataTables.tableTools.js'); ?>
 		<?php echo js_url('js/app-seo.js'); ?>
 		<?php echo js_url('js/jquery.autocomplete.js'); ?>

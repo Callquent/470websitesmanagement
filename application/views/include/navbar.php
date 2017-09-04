@@ -11,7 +11,7 @@
 </div>
 <!--logo end-->
 
-<div class="nav notify-row" id="top_menu">
+<div class="notify-row" id="top_menu">
     <a href="<?php echo site_url('add-website'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_website'); ?></a>
     <a href="<?php echo site_url('add-category'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_category'); ?></a>
     <a href="<?php echo site_url('add-language'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_language'); ?></a>

@@ -11,8 +11,8 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="card">
-                    <header class="card-heading">
+                <section class="card mb-3">
+                    <header class="card-header">
                       <span class="tools pull-right">
                             <div class="btn-group">
                               <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><?php echo lang('type'); ?> <span class="caret"></span></button>

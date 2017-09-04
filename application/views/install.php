@@ -26,8 +26,8 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <section class="card">
-                    <header class="card-heading"></header>
+                <section class="card mb-3">
+                    <header class="card-header"></header>
                     <div class="card-body">
                         <div id="wizard-vertical">
                             <h2>First Step</h2>

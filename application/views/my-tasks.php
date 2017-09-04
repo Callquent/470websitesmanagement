@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-danger">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         A faire
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -168,7 +168,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card card-warning">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         En cours
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -321,7 +321,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-warning">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         En cours
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -347,7 +347,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-success">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         Tache réaliser
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -370,7 +370,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-danger">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         Portlet 5
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -393,7 +393,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-info">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         Portlet 6
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -418,7 +418,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-default">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         Portlet 7
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -441,7 +441,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-success">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         Portlet 8
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>
@@ -464,7 +464,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-primary">
-                                    <div class="card-heading">
+                                    <div class="card-header">
                                         Portlet 9
                                 <span class="tools pull-right">
                                     <a class="fa fa-chevron-down" href="javascript:;"></a>

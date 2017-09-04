@@ -11,8 +11,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <section class="card">
-                        <header class="card-heading">
+                    <section class="card mb-3">
+                        <header class="card-header">
                             Ajouter un langage
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
