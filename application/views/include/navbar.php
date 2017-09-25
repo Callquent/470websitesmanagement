@@ -12,16 +12,16 @@
 <!--logo end-->
 
 <div class="notify-row" id="top_menu">
-    <a href="<?php echo site_url('add-website'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_website'); ?></a>
-    <a href="<?php echo site_url('add-category'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_category'); ?></a>
-    <a href="<?php echo site_url('add-language'); ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i><?php echo lang('create_language'); ?></a>
+    <a href="<?php echo site_url('add-website'); ?>" class="btn btn-sm btn-success"><span><i class="fa fa-plus"></span></i><?php echo lang('create_website'); ?></a>
+    <a href="<?php echo site_url('add-category'); ?>" class="btn btn-sm btn-success"><span><i class="fa fa-plus"></span></i><?php echo lang('create_category'); ?></a>
+    <a href="<?php echo site_url('add-language'); ?>" class="btn btn-sm btn-success"><span><i class="fa fa-plus"></span></i><?php echo lang('create_language'); ?></a>
 
 </div>
 
 <div class="top-nav clearfix pull-right">
     <?php if ($user_role[0]->name == "Admin") { ?>
-        <a href="<?php echo site_url('export'); ?>" class="btn btn-warning"><i class="fa fa-share"></i><?php echo lang('export'); ?></a>
-        <a href="<?php echo site_url('import'); ?>" class="btn btn-warning"><i class="fa fa-reply"></i><?php echo lang('import'); ?></a>
+        <a href="<?php echo site_url('export'); ?>" class="btn btn-sm btn-warning"><span><i class="fa fa-upload"></i></span><?php echo lang('export'); ?></a>
+        <a href="<?php echo site_url('import'); ?>" class="btn btn-sm btn-warning"><span><i class="fa fa-download"></i></span><?php echo lang('import'); ?></a>
     <?php } ?>
     <ul class="nav pull-right top-menu">
         <li class="dropdown">

@@ -13,6 +13,26 @@ h1 {
   z-index: 2000;
 }
 /***********************/
+/*        BUTTON        */
+/***********************/
+.btn-warning, .btn-success {
+  padding: 5px 8px 6px 42px;
+  position: relative;
+  border-radius: 0;
+}
+.btn-success span, .btn-warning span  {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  background-color: rgba(0,0,0,.15);
+  display: block;
+  padding: 7px 12px;
+  font-size: 13px;
+  line-height: 1.5384616;
+  border-radius: 0;
+}
+
+/***********************/
 /*        LOGIN        */
 /***********************/
 /* Pen Title */
@@ -88,10 +108,6 @@ h1 {
   display: none;
   padding: 40px;
 }
-/*.form-module .form {
-  display: none;
-  padding: 40px;
-}*/
 .form-module .forgot-your-password {
   display: none;
   padding: 40px;
@@ -158,16 +174,53 @@ h1 {
 /*********************/
 /*      NAVBAR       */
 /*********************/
+.user-profile-container .user-profile {
+    display: table;
+    width: 100%;
+}
+.user-profile-container .user-profile .admin-user-thumb img {
+    width: 48px;
+    height: 48px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+.user-profile-container .user-profile .admin-user-thumb {
+  display: table-cell;
+  vertical-align: middle;
+  width: 48px;
+  height: 48px;
+  padding: 15px 0px 15px 15px;
+}
+.user-profile-container .user-profile .admin-user-info {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 15px;
+  color: #aaaaaa;
+}
+.user-profile-container .user-profile .admin-user-info .user-info {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  float: left;
+}
+.user-profile-container .user-profile .admin-user-info .user-info li span {
+  color: #ffffff;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+.user-profile-container .user-profile .admin-user-info .logout-icon {
+  float: right;
+  margin-top: 14px;
+  margin-right: 10px;
+}
+.user-profile-container .user-profile .admin-user-info .logout-icon a i {
+  color: #ffffff;
+  font-size: 25px;
+}
 .badge { background: #1fb5ac !important }
 ul.sidebar-menu li a span {
   font-size: 14px;
-}
-ul.sidebar-menu li > span {
-  color: #1fb5ac;
-  display: block;
-  padding: 18px 0 18px 25px;
-  text-transform: uppercase;
-  font-weight: 600;
 }
 ul.sidebar-menu .active a {
   background: #28282e;
@@ -177,6 +230,21 @@ ul.sidebar-menu .active a {
 }
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
   border-left: 5px solid #1fb5ac;
+}
+ul.sidebar-menu .list-title-sidebar {
+  background: #22636a;
+}
+ul.sidebar-menu .list-title-sidebar span {
+  color: #FFFFFF;
+  display: block;
+  padding: 18px 0 18px 25px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.user-profile-container {
+  background: url(../img/app/bg-menu-user.png) no-repeat bottom right;
+  background-size: 100%;
+  height: 120px;
 }
 /***********************/
 /*      CALENDAR       */
@@ -491,7 +559,12 @@ div.dt-button-collection a.dt-button:hover {
 /*********************/
 /*      CUSTOM       */
 /*********************/
-
+#draggable_portlets > div {
+  float: left;
+}
+.actions {
+  display: inline-block;
+}
 .navbar-left > li > a, .navbar-right > li > a {
     font-size: 18px;
 }

@@ -109,10 +109,10 @@
 </div>
 <?php $this->load->view('include/footer.php'); ?>
 <script>
-var countries = JSON.parse('<?php echo json_encode($website); ?>');
+var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
 
 $('#autocomplete').autocomplete({
-    lookup: countries,
+    lookup: autocomplete_website,
     onSelect: function (suggestion) {
     }
 });

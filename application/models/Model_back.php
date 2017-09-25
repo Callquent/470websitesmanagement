@@ -39,8 +39,8 @@ class Model_back extends CI_Model {
 		$this->db->where('id_website', $w_id_info); 
 		$query = $this->db->get('470websitesmanagement_ftp');
 		$data = array(
-			'id_ftp'				=> $query->row()->id_ftp+1,
-			'id_website'				=> $w_id_info,
+			'id_ftp'			=> $query->row()->id_ftp+1,
+			'id_website'		=> $w_id_info,
 			'host_ftp'			=> $w_host_ftp,
 			'login_ftp'			=> $w_login_ftp,
 			'password_ftp'		=> $w_password_ftp,

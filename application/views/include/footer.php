@@ -4,10 +4,17 @@
 	<?php echo js_url('js/bootstrap.min.js'); ?>
 	<?php echo js_url('js/jquery.dcjqaccordion.2.7.js'); ?>
 	<?php echo js_url('js/jquery.nicescroll.js'); ?>
-	<?php if ($this->uri->segment(1)=='calendar') { ?>
-		<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
-		<?php echo js_url('js/fullcalendar/fullcalendar.min.js'); ?>
-		<?php echo js_url('js/external-dragging-calendar.js'); ?>
+	<?php if ($this->uri->segment(1)=='all-projects') { ?>
+		<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
+		<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
+		<?php echo js_url('js/advanced-form.js'); ?>
+	<?php } ?>
+	<?php if ($this->uri->segment(1)=='all-tasks') { ?>
+		<?php echo js_url('js/jquery-ui/jquery-ui-1.10.1.custom.min.js'); ?>
+		<?php echo js_url('js/draggable-portlet.js'); ?>
+		<?php echo js_url('js/skycons.js'); ?>
+		<?php echo js_url('js/dashboard.js'); ?>
+		<?php echo js_url('js/jquery.customSelect.min.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='dashboard' ||
 	$this->uri->segment(1)=='all-websites' ||
@@ -44,13 +51,6 @@
 	<?php if ($this->uri->segment(1)=='dashboard' || $this->uri->segment(1)=='position-tracking') { ?>
 		<?php echo js_url('js/chart-js/Chart.min.js'); ?>
 		<?php echo js_url('js/chartjs.init.js'); ?>
-	<?php } ?>
-	<?php if ($this->uri->segment(1)=='tasks') { ?>
-		<?php echo js_url('js/jquery-ui/jquery-ui-1.10.1.custom.min.js'); ?>
-		<?php echo js_url('js/draggable-portlet.js'); ?>
-		<?php echo js_url('js/skycons.js'); ?>
-		<?php echo js_url('js/dashboard.js'); ?>
-		<?php echo js_url('js/jquery.customSelect.min.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 		<?php echo js_url('js/ui-tree.js'); ?>
@@ -101,6 +101,15 @@
 		<?php echo js_url('js/jquery.autocomplete.js'); ?>
 	<?php } ?>
 	<?php if ($this->uri->segment(1)=='settings') { ?>
+		<?php echo js_url('js/data-tables/datatables.min.js'); ?>
+		<?php echo js_url('js/data-tables/Buttons/js/dataTables.buttons.js'); ?>
+		<?php echo js_url('js/data-tables/Buttons/js/buttons.flash.js'); ?>
+		<?php echo js_url('js/data-tables/Buttons/js/buttons.html5.js'); ?>
+		<?php echo js_url('js/data-tables/Buttons/js/buttons.print.js'); ?>
+		<?php echo js_url('js/data-tables/datatables.bootstrap.min.js'); ?>
+		<?php echo js_url('js/data-tables/datatables.responsive.min.js'); ?>
+		<?php echo js_url('js/data-tables/responsive.bootstrap4.min.js'); ?>
+		<?php echo js_url('js/data-tables/dataTables.tableTools.js'); ?>
 		<?php echo js_url('js/bootstrap-fileupload/bootstrap-fileupload.js'); ?>
 	<?php } ?>
 	<?php echo js_url('js/scripts.js'); ?>

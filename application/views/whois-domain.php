@@ -14,13 +14,18 @@
                 <section class="card mb-3">
                     <header class="card-header">
                       <span class="tools pull-right">
-                            <div class="btn-group">
-                              <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><?php echo lang('type'); ?> <span class="caret"></span></button>
-                              <ul role="menu" class="dropdown-menu">
-                                  <li><a id="button-whois-calendar"><?php echo lang('calendar'); ?></a></li>
-                                  <li><a id="button-whois-list"><?php echo lang('list'); ?></a></li>
-                              </ul>
+
+
+                            <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php echo lang('type'); ?>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" id="button-whois-calendar" href="javascript:;"><?php echo lang('calendar'); ?></a>
+                                <a class="dropdown-item" id="button-whois-list" href="javascript:;"><?php echo lang('list'); ?></a>
+                              </div>
                             </div>
+
                           <div class="btn-group pull-right">
                             <a href="javascript:;" id="load-refresh-whois" class="btn btn-primary" role="button" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Refresh</a>
                           </div>

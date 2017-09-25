@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col-sm-2">
-                <a class="access-project btn btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-project" data-id="335"><i class="fa fa-plus-circle"></i> Ajouter un Projet</a>
+                <a class="access-project btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-project"><span><i class="fa fa-plus"></i></span> Ajouter un Projet</a>
                 <section class="card mb-3">
                     <header class="card-header">
                         Editable Table
@@ -71,7 +71,8 @@
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
                                 <thead>
                                   <tr>
-                                      <th class="all"><?php echo lang('name'); ?></th>
+                                      <th class="all"><?php echo lang('website'); ?></th>
+                                      <th class="desktop"><?php echo lang('name'); ?></th>
                                       <th class="desktop">Started on</th>
                                       <th class="desktop">Deadline</th>
                                       <th class="desktop">Status</th>
@@ -83,13 +84,33 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <?php foreach ($all_tasks->result() as $row) { ?>
+                                  <?php foreach ($all_projects->result() as $row) { ?>
                                     <tr>
-                                      <td><?php echo $row->c_title; ?></td>
-                                      <?php if ($user_role[0]->name == "Developper") { ?>
-                                        <td><a id="edit-dashboard" href="<?php echo site_url('category/edit-category/'.$row->c_id); ?>">Edit</a></td>
-                                        <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-category" data-id="<?php echo $row->c_id; ?>">Delete</a></td>
-                                      <?php } ?>
+                                      <td><?php echo $row->w_title; ?></td>
+                                      <td><?php echo $row->title_project_tasks; ?></td>
+                                      <td><?php echo $row->started_project_tasks; ?></td>
+                                      <td><?php echo $row->deadline_project_tasks; ?></td>
+                                      <td><span class="label label-danger">Canceled</span></td>
+                                      <td>
+                                        <div class="progress progress-striped active progress-sm">70%
+                                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                          <span class="sr-only">45% Complete</span>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td><img alt="" src="http://localhost:8080/470websitesmanagement/assets/img/users/Sauron_eye_barad_dur.jpg"></td>
+                                      <td>
+                                        <a href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i></a>
+                                        <div class="dropdown show actions">
+                                          <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-bars"></i>
+                                          </a>
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-projects/'.$row->id_project_tasks).'"><i class="fa fa-pencil"></i> Edit</a>
+                                            <a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-projects/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
+                                          </div>
+                                        </div>
+                                      </td>
                                     </tr>
                                   <?php } ?>
                                 </tbody>
@@ -112,17 +133,30 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Ajouter un projet</h4>
       </div>
-            <form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact/'); ?>">
+            <form id="form-projects" method="post" action="<?php echo site_url('/all-tasks/create-projects/'); ?>">
               <div class="modal-body">
-                <div class="input-group">
-                  <input type="email" class="form-control" name="email" placeholder="Email">
+                <div class="form-group">
+                    <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
+                    <div class="col-lg-12">
+                      <select name="websites" class="form-control">
+                      <?php foreach ($all_websites->result() as $row){  ?>
+                          <option value="<?php echo $row->w_id; ?>"><?php echo $row->w_title; ?></option>
+                      <?php } ?>
+                      </select>
+                    </div>
                 </div>
-                <div class="input-group">
+                <div class="form-group">
+                    <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
+                    <div class="col-lg-12">
+                      <input class="form-control" type="text" name="titleproject" placeholder="Titre Projet" required />
+                    </div>
+                </div>
+                <div class="form-group">
                       <label class="control-label">Date Range</label>
                       <div class="input-group input-large" data-date="13/07/2013" data-date-format="mm/dd/yyyy">
-                          <input type="text" class="form-control dpd1" name="from">
+                          <input type="text" class="form-control dpd1" name="datestarted">
                           <span class="input-group-addon">To</span>
-                          <input type="text" class="form-control dpd2" name="to">
+                          <input type="text" class="form-control dpd2" name="datedeadline">
                       </div>
                 </div>
               </div>

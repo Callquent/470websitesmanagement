@@ -2,6 +2,24 @@
     <div id="sidebar" class="nav-collapse">
         <!-- sidebar menu start-->
         <div class="leftside-navigation">
+
+            <div class="user-profile-container">
+                <div class="user-profile clearfix">
+                    <div class="admin-user-thumb">
+                        <img alt="" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>" class="img-circle">
+                    </div>
+                    <div class="admin-user-info">
+                        <ul class="user-info">
+                            <li><span class="text-semibold text-size-large"><?php echo $login; ?></span></li>
+                            <li><span><small><?php echo $user_role[0]->name; ?></small></span></li>
+                        </ul>
+                        <div class="logout-icon"><a href="<?php echo site_url('index/logout'); ?>"><i class="fa fa-sign-out"></i></a></div>
+                    </div>
+                    
+                </div>              
+            </div>
+
+
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
                     <a href="<?php echo site_url('dashboard'); ?>">
@@ -49,10 +67,10 @@
                 <li>
                     <a href="javascript:;">
                         <i class="fa fa-tasks"></i>
-                        <span>Tasks</span>
+                        <span>Projects</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="<?php echo site_url('all-tasks'); ?>">All Tasks</a></li>
+                        <li><a href="<?php echo site_url('all-projects'); ?>">All Projects</a></li>
                         <li><a href="<?php echo site_url('my-tasks'); ?>">My Tasks <span class="badge"><?php echo $all_count_websites->count_all_websites; ?></span></a></li>
                     </ul>
                 </li>
@@ -78,7 +96,7 @@
                     </ul>
                 </li>
                 <?php if ($user_role[0]->name == "Admin") { ?>
-                <li>
+                <li class="list-title-sidebar">
                     <span><?php echo lang('groups'); ?></span>
                 </li>
                 <li class="sub-menu">
@@ -93,7 +111,7 @@
                         <span><?php echo lang('categories'); ?></span>
                     </a>
                 </li>
-                <li>
+                <li class="list-title-sidebar">
                     <span><?php echo lang('management'); ?></span>
                 </li>
                 <li>

@@ -151,6 +151,38 @@ $(document).ready(function(){
 		});
 
 		EditableTable.init();
+	} else if (window.location.href.split('/').pop() == "all-projects") {
+		$("#form-projects").submit(function(e){
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data: $(this).serialize(),
+				success: function(msg){
+					alert(msg.responseText);
+				},
+				error: function(msg){
+					alert(msg.responseText);
+				}
+			});
+			e.preventDefault();
+		});
+
+	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "all-projects") {
+		$("#form-list-tasks").submit(function(e){
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data: $(this).serialize(),
+				success: function(msg){
+					alert(msg.responseText);
+				},
+				error: function(msg){
+					alert(msg.responseText);
+				}
+			});
+			e.preventDefault();
+		});
+
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "website-category") {
         var websitecategoryTable = $('#table-website-per-category').dataTable({
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
@@ -702,8 +734,8 @@ $(document).ready(function(){
 			$( "#view-whois .modal-body pre" ).remove();
 		});
 		$( "#button-whois-calendar" ).click(function() {
-			$( ".editable-table" ).addClass( "hidden" );
-			$( "#calendar" ).removeClass( "hidden" );
+			$( ".editable-table" ).hide(  );
+			$( "#calendar" ).show(  );
 			$.ajax({
 				type: "POST",
 				url: window.location.href+'/ajaxCalendarWhois/',
@@ -751,8 +783,8 @@ $(document).ready(function(){
 			});
 		});
 		$( "#button-whois-list" ).click(function() {
-			$( "#calendar" ).addClass( "hidden" );
-			$( ".editable-table" ).removeClass( "hidden" );
+			$( ".editable-table" ).show(  );
+			$( "#calendar" ).hide(  );
 		});
 	} else if (window.location.href.split('/').pop() == "tasks") {
         $('.todo-check label').click(function () {

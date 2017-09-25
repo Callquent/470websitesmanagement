@@ -141,6 +141,7 @@ a,a:hover,a:focus {
 }
 /*sidebar navigation*/
 #sidebar {
+    top: 80px;
     width:240px;
     height:100%;
     position:fixed;
@@ -208,10 +209,6 @@ a,a:hover,a:focus {
 ul.sidebar-menu,ul.sidebar-menu li ul.sub {
     margin:-2px 0 0;
     padding:0;
-}
-ul.sidebar-menu {
-    padding-top:80px;
-
 }
 #sidebar>ul>li>ul.sub {
     display:none;
@@ -575,6 +572,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     color:#555555;
 }
 .top-nav ul.top-menu>li>a {
+    display: block;
     border-radius:100px;
     -webkit-border-radius:100px;
     padding:0px;

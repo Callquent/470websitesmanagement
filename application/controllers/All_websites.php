@@ -64,11 +64,10 @@ class All_websites extends CI_Controller {
 				$list[] = '<a class="access-sql" href="javascript:void(0);" data-toggle="modal" data-target="#view-database" data-id="'.$row->w_id.'">Access SQL</a>';
 				$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->w_id.'">Access Back office</a>';
 				$list[] = '<a class="access-htaccess" href="javascript:void(0);" data-toggle="modal" data-target="#view-htaccess" data-id="'.$row->w_id.'">Access Htaccess</a>';
-				$list[] = '<div class="dropdown show">
+				$list[] = '<div class="dropdown show actions">
 							  <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							  	<i class="fa fa-bars"></i>
 							  </a>
-
 							  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							    <a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'"><i class="fa fa-envelope"></i> Email</a>
 							    <div class="dropdown-divider"></div>
