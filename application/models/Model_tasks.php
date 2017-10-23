@@ -12,6 +12,16 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	function get_project($id)
+	{
+		$this->db->select('*')
+				->from('470websitesmanagement_project_tasks')
+				->where('id_project_tasks', $id)
+				->limit(1);
+
+		$query = $this->db->get();
+		return $query->row();
+	}
 	function get_all_list_tasks()
 	{
 		$this->db->select('*')

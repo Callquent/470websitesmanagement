@@ -80,8 +80,8 @@
                                   <tbody>
                                     <?php foreach ($all_whois_renew_tomonth->result() as $row) { ?>
                                       <tr>
-                                        <td><?php echo $row->w_title; ?></td>
-                                        <td><?php echo '<a href="https://www.google.com/search?q=info:'.strip_tags($row->w_url_rw).'" target="_blank">'.strip_tags($row->w_url_rw).'</a>'; ?></td>
+                                        <td><?php echo $row->name_website; ?></td>
+                                        <td><?php echo '<a href="https://www.google.com/search?q=info:'.strip_tags($row->url_website).'" target="_blank">'.strip_tags($row->url_website).'</a>'; ?></td>
                                         <td><?php echo $row->registrar; ?></td>
                                         <td><?php echo $row->creation_date; ?></td>
                                         <td><?php echo $row->expiration_date; ?></td>

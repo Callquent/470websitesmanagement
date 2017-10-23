@@ -13,7 +13,7 @@ class Model_front extends CI_Model {
 		$count_domain=0;
 		foreach ($query->result() as $row)
 		{
-			$host = explode('.',parse_url('http://'.$row->w_url_rw, PHP_URL_HOST));
+			$host = explode('.',parse_url('http://'.$row->url_website, PHP_URL_HOST));
 			$host_without_www=($host[0] == 'www' ? array_splice($host,1) : $host );
 			if (count($host_without_www)==2) {
 				$count_domain++;
@@ -32,7 +32,7 @@ class Model_front extends CI_Model {
 		$count_subdomain=0;
 		foreach ($query->result() as $row)
 		{
-			$host = explode('.',parse_url('http://'.$row->w_url_rw, PHP_URL_HOST));
+			$host = explode('.',parse_url('http://'.$row->url_website, PHP_URL_HOST));
 			$host_without_www=($host[0] == 'www' ? array_splice($host,1) : $host );
 			if (count($host_without_www)==3) {
 				$count_subdomain++;
@@ -41,8 +41,8 @@ class Model_front extends CI_Model {
 
 		return $count_subdomain;
 	}
-	var $column = array('w_id', 'c_title', 'l_title', 'w_title', 'w_url_rw');
-	var $order = array('w_title' => 'desc');
+	var $column = array('w_id', 'c_title', 'l_title', 'name_website', 'url_website');
+	var $order = array('name_website' => 'desc');
 
 	private function _get_datatables_query()
 	{

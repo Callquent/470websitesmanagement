@@ -107,7 +107,7 @@
         <div style="line-height: 44px;">
           <font face="Arial, Helvetica, sans-serif" size="5" color="#57697e" style="font-size: 34px;">
           <span style="font-family: Arial, Helvetica, sans-serif; font-size: 34px; color: #57697e; text-transform: uppercase;">
-            <?php echo $w_title; ?>
+            <?php echo $name_website; ?>
           </span></font>
         </div>
         <!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"></div>
@@ -117,7 +117,7 @@
           <div style="line-height: 24px;">
             <font face="Arial, Helvetica, sans-serif" size="4" color="#57697e" style="font-size: 15px;">
             <span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
-              Site web : <a href="<?php echo $w_url_rw; ?>"><?php echo $w_url_rw; ?></a>
+              Site web : <a href="<?php echo $url_website; ?>"><?php echo $url_website; ?></a>
             </span></font>
           </div>
           <div style="line-height: 24px;">

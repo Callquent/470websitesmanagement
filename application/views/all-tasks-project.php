@@ -18,7 +18,154 @@
             <div class="col-sm-12">
                 <div class="row-fluid" id="draggable_portlets">
                     <div class="col-md-3 column sortable ui-sortable">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-default">
+                                    <div class="card-header">
+                                        Portlet 7
+                                <span class="tools pull-right">
+                                    <a class="fa fa-chevron-down" href="javascript:;"></a>
+                                    <a class="fa fa-cog" href="javascript:;"></a>
+                                    <a class="fa fa-times" href="javascript:;"></a>
+                                </span>
+                                    </div>
+                                    <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h5 class="no-margin">Temps passé:</h5>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-6 text-right">
+                                                            <h5 class="no-margin"><?php echo $datetimestart; ?></h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h5 class="no-margin m-t-5">Temps restant:</h5>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-6 text-right">
+                                                            <h5 class="no-margin m-t-5"><?php echo $datetimedeadline; ?></h5>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12 m-t-5">
+                                                            <h6 class="no-margin m-b-10">Current status</h6>
+                                                            <div class="progress m-t-5 m-b-10">
+                                                                <div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 55%">
+                                                                    <span class="sr-only">55% Complete (success)</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h6 class="no-margin m-b-10">Assigned to</h6>
+                                                            <img src="assets/images/faces/face5.png" class="img-rounded img-responsive img-sm" alt="">
+                                                            <img src="assets/images/faces/face6.png" class="img-rounded img-responsive img-sm" alt="">
+                                                            <img src="assets/images/faces/face7.png" class="img-rounded img-responsive img-sm" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h6 class="no-margin">Project details</h6>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-xs-6">
+                                                                    <h5>Company</h5>
+                                                                    <h5>Client name</h5>
+                                                                    <h5>Assignee</h5>
+                                                                    <h5>Reported to</h5>
+                                                                </div>
+                                                                
+                                                                <div class="col-md-6 col-xs-6 text-right">
+                                                                    <h5>ABC Ltd.</h5>
+                                                                    <h5>Client name</h5>
+                                                                    <h5>Ann Porter</h5>
+                                                                    <h5>John Deo</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h6 class="no-margin m-b-10">Labels</h6>
+                                                            <span class="label label-info">HTML</span>
+                                                            <span class="label label-info">Admin</span>
+                                                            <span class="label label-info">Web app</span>
+                                                            <span class="label label-info">Developer application</span>
+                                                            <span class="label label-info">Responsive</span>
+                                                            <span class="label label-info">Envato</span>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h6 class="no-margin m-b-10">Options</h6>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <div class="checker border-info text-info"><span class="checked"><input type="checkbox" class="control-info" checked="checked"></span></div>
+                                                                    Make this project a priority
+                                                                </label>
+                                                            </div>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <div class="checker border-info text-info"><span class="checked"><input type="checkbox" class="control-info" checked="checked"></span></div>
+                                                                    Send project report by email
+                                                                </label>
+                                                            </div>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <div class="checker border-info text-info"><span><input type="checkbox" class="control-info"></span></div>
+                                                                    Send all notifications by email
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 column sortable ui-sortable">
                         <!-- BEGIN Portlet PORTLET-->
+                <section class="card mb-3">
+                    <header class="card-header">
+                        Editable Table
+                        <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-cog"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                         </span>
+                    </header>
+                    <div class="card-body">
+                        <div class="adv-table editable-table">
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
+                                <thead>
+                                  <tr>
+                                      <th class="all"><?php echo lang('name'); ?></th>
+                                      <th class="desktop">Status</th>
+                                      <th class="desktop">Member</th>
+                                      <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
+                                        <th class="desktop"><?php echo lang('actions'); ?></th>
+                                      <?php } ?>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <?php foreach ($all_list_tasks->result() as $row) { ?>
+                                    <tr>
+                                      <td colspan="4"><?php echo $row->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row->id_list_task; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
+                                    </tr>
+                                  <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
 
                                 <div class="card card-danger">
                                     <div class="card-header">
@@ -52,6 +199,11 @@
                                                   <h5 class="mb-0">
                                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $row->id_list_task; ?>" aria-expanded="false" aria-controls="collapse<?php echo $row->id_list_task; ?>">
                                                        <?php echo $row->title_list_task; ?>
+                                                       <div class="float-right">
+                                                           <a class="btn btn-success btn-primary mb-3" href="http://localhost:8080/470websitesmanagement/index.php/all-projects/"><i class="fa fa-plus"></i></a>
+                                                           <a class="btn btn-default btn-primary mb-3" href="http://localhost:8080/470websitesmanagement/index.php/all-projects/"><i class="fa fa-pencil"></i></a>
+                                                           <a class="btn btn-danger btn-primary mb-3" href="http://localhost:8080/470websitesmanagement/index.php/all-projects/"><i class="fa fa-times"></i></a>
+                                                       </div>
                                                     </a>
                                                   </h5>
                                                 </div>
@@ -119,53 +271,6 @@
 
 
                     </div>
-                    <div class="col-md-3 column sortable ui-sortable">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card card-success">
-                                    <div class="card-header">
-                                        Tache réaliser
-                                <span class="tools pull-right">
-                                    <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="fa fa-cog" href="javascript:;"></a>
-                                    <a class="fa fa-times" href="javascript:;"></a>
-                                </span>
-                                    </div>
-                                    <div class="card-body">
-                                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                                        Cras mattis consectetur purus sit amet fermentum. Duis mollis.
-                                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                                        Cras mattis consectetur purus sit amet fermentum. Duis mollis. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                                        Cras mattis consectetur purus sit amet fermentum. Duis mollis.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 column sortable ui-sortable">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card card-default">
-                                    <div class="card-header">
-                                        Portlet 7
-                                <span class="tools pull-right">
-                                    <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="fa fa-cog" href="javascript:;"></a>
-                                    <a class="fa fa-times" href="javascript:;"></a>
-                                </span>
-                                    </div>
-                                    <div class="card-body">
-                                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                                        Cras mattis consectetur purus sit amet fermentum. Duis mollis.
-                                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                                        Cras mattis consectetur purus sit amet fermentum. Duis mollis. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                                        Cras mattis consectetur purus sit amet fermentum. Duis mollis.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -174,27 +279,66 @@
     </section>
 </section>
 
-<div class="modal fade" id="view-list-tasks" tabindex="-1" role="dialog" aria-labelledby="view-project" aria-hidden="true">
+<div class="modal fade" id="view-list-tasks" tabindex="-1" role="dialog" aria-labelledby="view-list-tasks" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header modal-header-success">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Ajouter une liste de tâches</h4>
       </div>
-            <form id="form-list-tasks" method="post" action="<?php echo site_url('/all-projects/create-list-tasks/'.$id_project_tasks); ?>">
-              <div class="modal-body">
-                <div class="form-group">
-                    <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
-                    <div class="col-lg-12">
-                      <input class="form-control" type="text" name="titlelisttasks" placeholder="Titre Liste Tasks" required />
-                    </div>
+        <form id="form-list-tasks" method="post" action="<?php echo site_url('/all-projects/create-list-tasks/'.$id_project_tasks); ?>">
+          <div class="modal-body">
+            <div class="form-group">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
+                <div class="col-lg-12">
+                  <input class="form-control" type="text" name="titlelisttasks" placeholder="Titre Liste Tasks" required />
                 </div>
-              </div>
-              <div class="modal-footer ">
-                <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
-                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span><?php echo lang('cancel'); ?></button>
-              </div>
-            </form>
+            </div>
+          </div>
+          <div class="modal-footer ">
+            <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span><?php echo lang('cancel'); ?></button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="view-task" tabindex="-1" role="dialog" aria-labelledby="view-task" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-success">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Ajouter une tâche</h4>
+      </div>
+        <form id="form-list-tasks" method="post" action="<?php echo site_url('/all-projects/create-task/'.$id_project_tasks); ?>">
+          <div class="modal-body">
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="idlisttask" name="idlisttasks">
+            </div>
+            <div class="form-group">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
+                <div class="col-lg-12">
+                  <textarea class="titlelisttasks form-control" type="text" name="titletask" placeholder="Titre Task" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
+                <div class="col-lg-12">
+                  <textarea class="titlelisttasks form-control" type="text" name="descriptiontask" placeholder="Description Task" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
+                <div class="col-lg-12">
+                  <input class="form-control" type="text" name="prioritytask" placeholder="Priority" required />
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer ">
+            <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span><?php echo lang('cancel'); ?></button>
+          </div>
+        </form>
     </div>
   </div>
 </div>

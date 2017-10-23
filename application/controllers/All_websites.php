@@ -55,9 +55,9 @@ class All_websites extends CI_Controller {
 			foreach ($all_websites->result() as $row)
 			{
 				$list = array();
-				$list[] = $row->w_title;
-				$list[] = '<a href="'.prep_url($row->w_url_rw).'" target="_blank">'.$row->w_url_rw.'</a>';
-				$list[] = ($this->input->valid_ip(gethostbyname($row->w_url_rw))?gethostbyname($row->w_url_rw):"ADRESSE IP NON VALIDE");
+				$list[] = $row->name_website;
+				$list[] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
+				$list[] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
 				$list[] = $row->c_title;
 				$list[] = $row->l_title;
 				$list[] = '<a class="access-ftp" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="'.$row->w_id.'">Access FTP</a>';
@@ -190,14 +190,14 @@ class All_websites extends CI_Controller {
 
 				$this->email->from('noreply@user.com', "noreply");
 				$this->email->to($email); 
-				$this->email->subject('Information Site Web - '.$row->w_title);
+				$this->email->subject('Information Site Web - '.$row->name_website);
 				$data['email'] = $email;
 
 				$filename = img_url('company/logo-company.png');
 				$this->email->attach($filename);
 				$data['cid'] = $this->email->attachment_cid($filename);
-				$data['w_title'] = $row->w_title;
-				$data['w_url_rw'] = $row->w_url_rw;
+				$data['name_website'] = $row->name_website;
+				$data['url_website'] = $row->url_website;
 				$data['l_title'] = $row->l_title;
 				
 				$data['w_host_ftp'] = $row->w_host_ftp;
@@ -254,13 +254,13 @@ class All_websites extends CI_Controller {
 			$this->form_validation->set_rules('titlewebsite', 'TitleWebsite', 'trim|required');
 			$this->form_validation->set_rules('website', 'Website', 'trim|required');
 
-			$w_title			= $this->input->post('titlewebsite');
-			$w_url_rw			= $this->input->post('website');
+			$name_website			= $this->input->post('titlewebsite');
+			$url_website			= $this->input->post('website');
 			$l_id				= $this->input->post('language');
 			$c_id				= $this->input->post('category');
 
 			if ($this->form_validation->run() !== FALSE){
-				$this->model_back->update_website($w_id, $c_id, $l_id, $w_title, $w_url_rw);
+				$this->model_back->update_website($w_id, $c_id, $l_id, $name_website, $url_website);
 			}
 		}else {
 			$this->load->view('index');

@@ -50,6 +50,40 @@ if ( ! function_exists('check_access'))
         }
     }
 }
+if ( ! function_exists('past_time_project'))
+{
+    function past_time_project($id_project_tasks)
+    {
+        $CI =& get_instance();
+        $CI->load->model('model_tasks');
+
+        $now = time();
+        $your_date = strtotime($CI->model_tasks->get_project($id_project_tasks)->started_project_tasks);
+        $datediff = floor(($now - $your_date) / (60 * 60 * 24));
+
+        return $datediff;
+    }
+}
+if ( ! function_exists('remaining_time_project'))
+{
+    function remaining_time_project($id_project_tasks)
+    {
+        $CI =& get_instance();
+        $CI->load->model('model_tasks');
+
+        $now = time();
+        $your_date = strtotime($CI->model_tasks->get_project($id_project_tasks)->deadline_project_tasks);
+        $datediff = floor(($your_date - $now) / (60 * 60 * 24));
+
+        if ($datediff > 0) {
+            $result = $datediff;
+        } else {
+            $result = "temps dépassé";
+        }
+
+        return $result;
+    }
+}
 if ( ! function_exists('removeurl_createdomain'))
 {
     function removeurl_createdomain($url)

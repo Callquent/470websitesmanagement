@@ -3,13 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_back extends CI_Model {
 	
-	function create_websites($c_id, $l_id, $w_title, $w_url_rw)
+	function create_websites($c_id, $l_id, $name_website, $url_website)
 	{
 		$data = array(
 			'c_id'				=> $c_id,
 			'l_id'				=> $l_id,
-			'w_title'			=> $w_title,
-			'w_url_rw'			=> $w_url_rw,
+			'name_website'			=> $name_website,
+			'url_website'			=> $url_website,
 		);
 
 		$this->db->insert('470websitesmanagement_website', $data);
@@ -79,13 +79,13 @@ class Model_back extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function update_website($w_id, $c_id, $l_id, $w_title, $w_url_rw)
+	function update_website($w_id, $c_id, $l_id, $name_website, $url_website)
 	{
 		$data = array(
 			'c_id'				=> $c_id,
 			'l_id'				=> $l_id,
-			'w_title'			=> $w_title,
-			'w_url_rw'			=> $w_url_rw,
+			'name_website'			=> $name_website,
+			'url_website'			=> $url_website,
 		);
 
 		$this->db->where('w_id', $w_id)
@@ -170,8 +170,8 @@ class Model_back extends CI_Model {
 				'w_id' => $row->w_id,
 				'c_id'  => $row->c_id,
 				'l_id'  => $row->l_id,
-				'w_title' => $row->w_title,
-				'w_url_rw'  => $row->w_url_rw
+				'name_website' => $row->name_website,
+				'url_website'  => $row->url_website
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website').";";
 

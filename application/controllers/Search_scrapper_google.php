@@ -36,7 +36,7 @@ class Search_scrapper_google extends CI_Controller {
 			foreach ($data['all_websites']->result() as $row)
 			{
 				$list = array();
-				$list['value'] = strip_tags($row->w_url_rw);
+				$list['value'] = strip_tags($row->url_website);
 				$list['data'] = strip_tags($row->w_id);
 
 				$data['website'][] = $list;

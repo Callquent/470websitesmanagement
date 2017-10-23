@@ -47,8 +47,8 @@ class Add_website extends CI_Controller {
 		{
 			$c_id				= $this->input->post('categories');
 			$l_id				= $this->input->post('languages');
-			$w_title			= $this->input->post('nom');
-			$w_url_rw			= $this->input->post('url');
+			$name_website			= $this->input->post('nom');
+			$url_website			= $this->input->post('url');
 
 			$w_host_ftp			= $this->input->post('hostftp');
 			$w_login_ftp		= $this->input->post('loginftp');
@@ -70,15 +70,15 @@ class Add_website extends CI_Controller {
 			$this->form_validation->set_rules('url', 'Url', 'required');
 
 			if ($this->form_validation->run() == TRUE){*/
-				$domain = new Whois($w_url_rw);
+				$domain = new Whois($url_website);
 				$whois = $domain->whoisdomain();
 
-				$website_id = $this->model_back->create_websites($c_id, $l_id, $w_title, $w_url_rw);
+				$website_id = $this->model_back->create_websites($c_id, $l_id, $name_website, $url_website);
 				$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 				$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
 				
 				$this->model_whois->create_all_whois($website_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
-				$pos = strrpos($w_url_rw, ".fr");
+				$pos = strrpos($url_website, ".fr");
 				if (!$pos === false) {
 					sleep(10);
 				}

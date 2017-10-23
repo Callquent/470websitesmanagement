@@ -6,10 +6,10 @@
  */
 class Googlescraper
 {
-	private $keyword				=	"testing";
+	private $keyword				=	"";
+	private $number_page			=	"";
 	private $metaList				=	"";
 	private $cookie					=	"";
-	private $header					=	"";
 	private $ei						=	"";
 
 	
@@ -49,9 +49,9 @@ class Googlescraper
 		$this->getpagedata('https://www.google.com/ncr');
 	}
 
-	function fetchUrlList($number_page)
+	function fetchUrlList()
 	{
-		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num='.$number_page);
+		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num='.$this->number_page);
 		preg_match('/;ei=(.*?)&amp;/siU', $data, $matches);
 		$this->ei=urlencode($matches[1]);
 		if ($data) {
@@ -95,8 +95,9 @@ class Googlescraper
 
 	function getUrlList($keyword,$number_page,$proxy='') {
 		$this->keyword=$keyword;
+		$this->number_page=$number_page;
 		$this->initGoogle();
-		$this->fetchUrlList($number_page);
+		$this->fetchUrlList();
 		sleep(2);
 		return $this->metaList;
 	}

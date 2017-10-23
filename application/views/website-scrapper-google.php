@@ -12,7 +12,7 @@
             <div class="col-sm-12">
                 <section class="card mb-3">
                     <header class="card-header">
-                        <?php echo lang('website_scrapper_google'); ?>
+                        <?php echo lang('search_scrapper_google'); ?>
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
                             <a href="javascript:;" class="fa fa-cog"></a>
@@ -21,30 +21,38 @@
                     </header>
                     <div class="card-body">
                         <div class="adv-table editable-table ">
-                            <div class="clearfix">
-                                <div class="btn-group pull-right">
-                                  <button class="btn btn-success btn-ls" data-title="Ajouter" data-toggle="modal" data-target="#serptools" >Simulateur de SERP</button>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div id="results">
+                                        <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i>Votre site web <span class="message-website"></span> est indexé.</h4></div>
+                                        <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i>Votre site web n'est pas indexer sur ce mot clé.</h4></div>
+                                    </div>
+                                    <form class="form-horizontal" id="form-website-scrapper-google" role="form"  action="<?php echo site_url('/website-scrapper-google/ajaxWebsiteScrapperGoogle/'); ?>">
+                                        <div class="form-group">
+                                            <div class="col-lg-10">
+                                              <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Url Website" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-2">
+                                                <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Search</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                  <button class="btn btn-success btn-ls float-right" data-title="Ajouter" data-toggle="modal" data-target="#serptools">Simulateur de SERP</button>
                                 </div>
                             </div>
                             <div class="space15"></div>
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-website-scrapper-google">
                               <thead>
-                                <th class="all">Site Web</th>
+                                <th class="all">Position</th>
+                                <th class="desktop">Site Web</th>
                                 <th class="desktop">Meta Title</th>
                                 <th class="desktop">Meta Description</th>
-                                <?php if($this->uri->total_segments() != 2){ ?>
-                                  <th class="desktop">Analyse Site</th>
-                                <?php } ?>
                               </thead>
-                              <tbody>
-                                <?php foreach ($result_websites as $key => $row) { ?>
-                                  <tr>
-                                    <td><?php echo '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>'; ?></td>
-                                    <td><?php echo $row['title']; ?></td>
-                                    <td><?php echo $row['description']; ?></td>
-                                  </tr>
-                                <?php } ?>
-                              </tbody>
                             </table>
                         </div>
                     </div>
@@ -97,3 +105,12 @@
   </div>
 </div>
 <?php $this->load->view('include/footer.php'); ?>
+<script>
+var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
+
+$('#autocomplete').autocomplete({
+    lookup: autocomplete_website,
+    onSelect: function (suggestion) {
+    }
+});
+</script>

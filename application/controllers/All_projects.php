@@ -12,7 +12,7 @@ class All_projects extends CI_Controller {
 		$this->load->model('model_users');
 		$this->load->model('model_settings');
 		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session'));
-		$this->load->helper(array('functions', 'text', 'url','language'));
+		$this->load->helper(array('functions', 'text', 'url','language','date'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
@@ -43,6 +43,11 @@ class All_projects extends CI_Controller {
 				$data['all_projects'] = $this->model_tasks->get_all_projects();
 				$this->load->view('all-projects', $data);
 			} elseif($this->uri->total_segments() == 2) {
+				$data['project'] = $this->model_tasks->get_project($id_project_tasks);
+
+				$data['datetimestart'] = past_time_project($id_project_tasks);
+				$data['datetimedeadline'] = remaining_time_project($id_project_tasks);
+
 				$data['all_list_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
 				$data['id_project_tasks'] = $id_project_tasks;
 				$this->load->view('all-tasks-project', $data);
@@ -91,20 +96,19 @@ class All_projects extends CI_Controller {
 			$this->load->view('index');
 		}
 	}
-	public function create_tasks()
+	public function create_task($id_project_tasks = '')
 	{
 		if(check_access()==true)
 		{
-			$website_id				= $this->input->post('websites');
-			$titleproject			= $this->input->post('titleproject');
-			$date_started			= $this->input->post('datestarted');
-			$date_deadline			= $this->input->post('datedeadline');
+			$idlisttasks			= $this->input->post('idlisttasks');
+			$titletask				= $this->input->post('titletask');
+			$prioritytask			= $this->input->post('prioritytask');
 
 			/*$this->form_validation->set_rules('nom', 'Nom', 'required');
 			$this->form_validation->set_rules('url', 'Url', 'required');
 
 			if ($this->form_validation->run() == TRUE){*/
-				$this->model_tasks->create_tasks_websites($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
+				$this->model_tasks->create_task($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
 			/*}*/
 
 		}else {

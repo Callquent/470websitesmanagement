@@ -50,20 +50,20 @@ class Whois_domain extends CI_Controller {
 			foreach ($all_whois->result() as $row)
 			{
 				if (strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) <= strtotime(date('Y-m-d')) && strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) != 0 ) {
-					$domain = new Whois($row->w_url_rw);
+					$domain = new Whois($row->url_website);
 					$whois = $domain->whoisdomain();
 					$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 					$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
 					$this->model_whois->update_whois($row->whois_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
-					$pos = strrpos($row->w_url_rw, ".fr");
+					$pos = strrpos($row->url_website, ".fr");
 					if (!$pos === false) {
 						sleep(10);
 					}
 				}
 
 				$list = array();
-				$list[] = $row->w_title;
-				$list[] = '<a href="'.prep_url($row->w_url_rw).'" target="_blank">'.$row->w_url_rw.'</a>';
+				$list[] = $row->name_website;
+				$list[] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
 				$list[] = $row->registrar;
 				$list[] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
 				$list[] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
@@ -88,7 +88,7 @@ class Whois_domain extends CI_Controller {
 			$count_websites =  $this->model_front->count_all_websites();
 			foreach ($all_whois->result() as $row)
 			{
-				$calendar_whois[] = array('title' => $row->w_url_rw, 'start' => $row->expiration_date );
+				$calendar_whois[] = array('title' => $row->url_website, 'start' => $row->expiration_date );
 			}			
 			echo json_encode($calendar_whois);
 		} else {
@@ -105,20 +105,20 @@ class Whois_domain extends CI_Controller {
 			foreach ($all_whois->result() as $row)
 			{
 				if (strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) == false ) {
-					$domain = new Whois($row->w_url_rw);
+					$domain = new Whois($row->url_website);
 					$whois = $domain->whoisdomain();
 					$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 					$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
 					$this->model_whois->update_whois($row->whois_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
-					$pos = strrpos($row->w_url_rw, ".fr");
+					$pos = strrpos($row->url_website, ".fr");
 					if (!$pos === false) {
 						sleep(10);
 					}
 				}
 
 				$list = array();
-				$list[] = $row->w_title;
-				$list[] = '<a href="'.prep_url($row->w_url_rw).'" target="_blank">'.$row->w_url_rw.'</a>';
+				$list[] = $row->name_website;
+				$list[] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
 				$list[] = $row->registrar;
 				$list[] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
 				$list[] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");

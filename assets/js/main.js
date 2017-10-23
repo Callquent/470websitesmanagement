@@ -182,6 +182,11 @@ $(document).ready(function(){
 			});
 			e.preventDefault();
 		});
+		$('#view-task').on('show.bs.modal', function (event) {
+			var idlisttasks = $(event.relatedTarget).data('id');
+
+			$(this).find('.modal-body input#idlisttasks').val(idlisttasks);
+		});	
 
 	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "website-category") {
         var websitecategoryTable = $('#table-website-per-category').dataTable({
@@ -809,37 +814,7 @@ $(document).ready(function(){
         $("#sortable-todo").sortable();
         
 		DraggablePortlet.init();
-	} else if (window.location.href.split('/')[window.location.href.split('/').length-2] == "website-scrapper-google" || window.location.href.split('/').pop() == "website-scrapper-google") {
-/*		var seoTable = $('#table-seo').dataTable({
-		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
-		    "processing": true,
-		    "serverSide": true,
-		    "order": [],
-		    "dom": 'lBfrtip',
-		    "buttons": [
-		        {
-		            extend: 'collection',
-		            text: 'Export',
-		            buttons: [
-		                'copy',
-		                'excel',
-		                'csv',
-		                'pdf',
-		                'print'
-		            ]
-		        }
-		    ],
-		    "ajax": {
-		        "url":  window.location.href+'/ajaxWebsiteScrapperGoogle/',
-		        "type": "POST"
-		    },
-		    "columnDefs": [
-			    {
-			        "targets": [ 0 ],
-			        "orderable": false,
-			    },
-		    ],
-		});*/
+	} else if (window.location.href.split('/').pop() == "website-scrapper-google") {
 		var websitegoogleTable = $('#table-website-scrapper-google').DataTable({
 		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
 		    "order": [],
@@ -867,6 +842,34 @@ $(document).ready(function(){
                 orderable: false,
                 targets:   0
             } ],
+		});
+		$('#form-website-scrapper-google').submit(function(e) {
+			$("#form-website-scrapper-google button").button('loading');
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data: $(this).serialize(),
+				success: function(data){
+					$("#form-website-scrapper-google button").button("reset");
+					$("#table-website-scrapper-google").DataTable().rows().remove().draw();
+					var jsdata = JSON.parse(data).result_websites;
+					var message_website_position = JSON.parse(data).result_position_website;
+					if ( typeof message_website_position !== 'undefined') {
+						$('#results .alert-danger').fadeOut('fast');
+						$('#results .alert-success').fadeIn('fast');
+						$("#results .alert-success h4 .message-website").text($('#form-website-scrapper-google').find('input[name="website"]').val());
+					} else {
+						$('#results .alert-success').fadeOut('fast');
+						$('#results .alert-danger').fadeIn('fast');
+
+					}
+					$("#table-website-scrapper-google").DataTable().rows.add(jsdata).draw();
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			});
+			e.preventDefault();
 		});
 	} else if (window.location.href.split('/').pop() == "search-scrapper-google") {
 		var searchgoogleTable = $('#table-search-scrapper-google').DataTable({
@@ -906,18 +909,21 @@ $(document).ready(function(){
 				success: function(data){
 					$("#form-search-scrapper-google button").button("reset");
 					$("#table-search-scrapper-google").DataTable().rows().remove().draw();
-					$("#results .alert-success h4 span").remove();
+					$("#results .alert-success h4 span.message-position").remove();
 					var jsdata = JSON.parse(data).result_websites;
 					var message_website_position = JSON.parse(data).result_position_website;
 					if ( typeof message_website_position !== 'undefined') {
 						$('#results .alert-danger').fadeOut('fast');
 						$('#results .alert-success').fadeIn('fast');
+						$("#results .alert-success h4 .message-website").text($('#form-search-scrapper-google').find('input[name="website"]').val());
+						$("#results .alert-success h4 .message-keyword").text($('#form-search-scrapper-google').find('input[name="keyword-google"]').val());
+						$("#results .alert-success h4").append(" <span class='message-position'>"+message_website_position+"</span>");
 					} else {
 						$('#results .alert-success').fadeOut('fast');
 						$('#results .alert-danger').fadeIn('fast');
+
 					}
 					$("#table-search-scrapper-google").DataTable().rows.add(jsdata).draw();
-					$("#results .alert-success h4").append(" <span>"+message_website_position+"</span>");
 				},
 				error: function(msg){
 					console.log(msg);

@@ -293,7 +293,10 @@ ul.sidebar-menu .list-title-sidebar span {
     background-color: #5cb85c !important;
     color: white;
 }
-#search-scrapper-google .alert-success, #search-scrapper-google .alert-danger {
+#search-scrapper-google .alert-success,
+#search-scrapper-google .alert-danger,
+#website-scrapper-google .alert-success,
+#website-scrapper-google .alert-danger {
     display: none;
 }
 /***************************/

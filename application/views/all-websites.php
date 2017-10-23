@@ -197,7 +197,6 @@
             <form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact/'); ?>">
               <div class="modal-body">
                 <div class="input-group">
-                  <input type="hidden" value="" name="id">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                   <input type="email" class="form-control" name="email" placeholder="Email">
                 </div>

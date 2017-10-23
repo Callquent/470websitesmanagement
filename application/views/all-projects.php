@@ -86,7 +86,7 @@
                                 <tbody>
                                   <?php foreach ($all_projects->result() as $row) { ?>
                                     <tr>
-                                      <td><?php echo $row->w_title; ?></td>
+                                      <td><?php echo $row->name_website; ?></td>
                                       <td><?php echo $row->title_project_tasks; ?></td>
                                       <td><?php echo $row->started_project_tasks; ?></td>
                                       <td><?php echo $row->deadline_project_tasks; ?></td>
@@ -140,7 +140,7 @@
                     <div class="col-lg-12">
                       <select name="websites" class="form-control">
                       <?php foreach ($all_websites->result() as $row){  ?>
-                          <option value="<?php echo $row->w_id; ?>"><?php echo $row->w_title; ?></option>
+                          <option value="<?php echo $row->w_id; ?>"><?php echo $row->name_website; ?></option>
                       <?php } ?>
                       </select>
                     </div>

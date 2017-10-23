@@ -48,7 +48,7 @@
                                             </a>
                                             <h1><?php echo $row->name_user; ?></h1>
                                             <h2><?php echo $row->name_group; ?></h2>
-                                            <p><?php echo $row->email; ?></p>
+                                            <a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a>
                                         </div>
                                         <div class="weather-category twt-category">
                                             <!-- <ul>
