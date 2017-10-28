@@ -50,6 +50,16 @@ class All_projects extends CI_Controller {
 
 				$data['all_list_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
 				$data['id_project_tasks'] = $id_project_tasks;
+				
+				foreach ($data['list_users']->result() as $row)
+				{
+					$list = array();
+					$list['value'] = strip_tags($row->name_user);
+					$list['data'] = strip_tags($row->id);
+
+					$data['users'][] = $list;
+				}
+
 				$this->load->view('all-tasks-project', $data);
 			}
 
@@ -102,13 +112,15 @@ class All_projects extends CI_Controller {
 		{
 			$idlisttasks			= $this->input->post('idlisttasks');
 			$titletask				= $this->input->post('titletask');
-			$prioritytask			= $this->input->post('prioritytask');
+			$descriptiontask				= $this->input->post('descriptiontask');
+			$idtaskpriority			= $this->input->post('prioritytask');
+			$iduser			= $this->input->post('user');
 
 			/*$this->form_validation->set_rules('nom', 'Nom', 'required');
 			$this->form_validation->set_rules('url', 'Url', 'required');
 
 			if ($this->form_validation->run() == TRUE){*/
-				$this->model_tasks->create_task($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
+				$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $titletask, $descriptiontask, $idtaskpriority, $iduser);
 			/*}*/
 
 		}else {

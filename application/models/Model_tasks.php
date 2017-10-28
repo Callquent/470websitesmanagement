@@ -66,16 +66,20 @@ class Model_tasks extends CI_Model {
 		$this->db->insert('470websitesmanagement_list_tasks', $data);
 		return $this->db->insert_id();
 	}
-	function update_whois($whois_id, $whois, $creation_date, $expiration_date, $registrar)
+	function create_task($id_project_tasks, $id_list_tasks, $titletask, $descriptiontask, $idtaskpriority, $iduser)
 	{
+		$this->db->select_max('id_task');
+		$this->db->where('id_project_tasks', $id_project_tasks); 
+		$this->db->where('id_list_tasks', $id_list_tasks);
+		$query = $this->db->get('470websitesmanagement_tasks');
 		$data = array(
-			'whois'					=> $whois,
-			'expiration_date'		=> $expiration_date,
-			'creation_date'			=> $creation_date,
-			'registrar'				=> $registrar,
+			'id_task'				=> $query->row()->id_task+1,
+			'id_project_tasks'		=> $id_project_tasks,
+			'id_list_task'			=> $id_list_tasks,
+			'title_list_task'		=> $title_list_task
 		);
 
-		$this->db->where('whois_id', $whois_id)
-				 ->update('470websitesmanagement_whois', $data);
+		$this->db->insert('470websitesmanagement_tasks', $data);
+		return $this->db->insert_id();
 	}
 }

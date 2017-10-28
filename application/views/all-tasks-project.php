@@ -310,7 +310,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Ajouter une tâche</h4>
       </div>
-        <form id="form-list-tasks" method="post" action="<?php echo site_url('/all-projects/create-task/'.$id_project_tasks); ?>">
+        <form id="form-task" method="post" action="<?php echo site_url('/all-projects/create-task/'.$id_project_tasks); ?>">
           <div class="modal-body">
             <div class="form-group">
                 <input type="hidden" class="form-control" id="idlisttask" name="idlisttasks">
@@ -318,7 +318,7 @@
             <div class="form-group">
                 <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
                 <div class="col-lg-12">
-                  <textarea class="titlelisttasks form-control" type="text" name="titletask" placeholder="Titre Task" required></textarea>
+                  <input class="titlelisttasks form-control" type="text" name="titletask" placeholder="Titre Task" required />
                 </div>
             </div>
             <div class="form-group">
@@ -330,7 +330,7 @@
             <div class="form-group">
                 <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
                 <div class="col-lg-12">
-                  <input class="form-control" type="text" name="prioritytask" placeholder="Priority" required />
+                  <input id="autocomplete" class="form-control" type="text" name="user" placeholder="User" required />
                 </div>
             </div>
           </div>
@@ -343,3 +343,13 @@
   </div>
 </div>
 <?php $this->load->view('include/footer.php'); ?>
+<?php var_dump($users); ?>
+<script>
+var autocomplete_website = JSON.parse('<?php echo json_encode($users); ?>');
+
+$('#autocomplete').autocomplete({
+    lookup: autocomplete_website,
+    onSelect: function (suggestion) {
+    }
+});
+</script>

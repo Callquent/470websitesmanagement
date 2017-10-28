@@ -8,8 +8,9 @@
 		<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 		<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
 		<?php echo js_url('js/advanced-form.js'); ?>
+		<?php echo js_url('js/jquery.autocomplete.js'); ?>
 	<?php } ?>
-	<?php if ($this->uri->segment(1)=='all-tasks') { ?>
+	<?php if ($this->uri->segment(1)=='all-') { ?>
 		<?php echo js_url('js/jquery-ui/jquery-ui-1.10.1.custom.min.js'); ?>
 		<?php echo js_url('js/draggable-portlet.js'); ?>
 		<?php echo js_url('js/skycons.js'); ?>
