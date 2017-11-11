@@ -10,7 +10,6 @@
 
         <div class="row">
             <div class="col-sm-2">
-                <a class="access-project btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-project"><span><i class="fa fa-plus"></i></span> Ajouter un Projet</a>
                 <section class="card mb-3">
                     <header class="card-header">
                         Editable Table
@@ -67,6 +66,13 @@
                          </span>
                     </header>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 float-right">
+                                <div class="float-right">
+                                    <a class="access-project btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-project"><span><i class="fa fa-plus"></i></span> Ajouter un Projet</a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="adv-table editable-table">
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
                                 <thead>
@@ -92,10 +98,8 @@
                                       <td><?php echo $row->deadline_project_tasks; ?></td>
                                       <td><span class="label label-danger">Canceled</span></td>
                                       <td>
-                                        <div class="progress progress-striped active progress-sm">70%
-                                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                          <span class="sr-only">45% Complete</span>
-                                          </div>
+                                        <div class="progress progress-striped active progress-sm"><?php echo $row->percentage_tasks; ?>%
+                                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentage_tasks; ?>%"></div>
                                         </div>
                                       </td>
                                       <td><img alt="" src="http://localhost:8080/470websitesmanagement/assets/img/users/Sauron_eye_barad_dur.jpg"></td>

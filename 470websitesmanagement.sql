@@ -138,11 +138,11 @@ INSERT INTO `470websitesmanagement_language` (`l_id`, `l_title`, `l_title_url`) 
 
 DROP TABLE IF EXISTS `470websitesmanagement_list_tasks`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_list_tasks` (
-  `id_list_task` int(11) UNSIGNED NOT NULL,
+  `id_list_tasks` int(11) UNSIGNED NOT NULL,
   `id_project_tasks` int(11) UNSIGNED NOT NULL,
   `title_list_task` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_list_task`,`id_project_tasks`),
-  KEY `fk_id_list_tasks` (`id_project_tasks`)
+  PRIMARY KEY (`id_list_tasks`,`id_project_tasks`),
+  KEY `fk_id_list_taskss` (`id_project_tasks`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -225,13 +225,13 @@ DROP TABLE IF EXISTS `470websitesmanagement_tasks`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks` (
   `id_project_tasks` int(11) UNSIGNED NOT NULL,
   `id_task` int(11) UNSIGNED NOT NULL,
-  `id_list_task` int(11) UNSIGNED NOT NULL,
+  `id_list_tasks` int(11) UNSIGNED NOT NULL,
   `name_task` varchar(255) NOT NULL,
   `description_task` varchar(255) NOT NULL,
   `id_task_priority` int(11) NOT NULL,
   `id_user` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id_project_tasks`,`id_task`,`id_list_task`),
-  KEY `fk_id_list_task` (`id_list_task`),
+  PRIMARY KEY (`id_project_tasks`,`id_task`,`id_list_tasks`),
+  KEY `fk_id_list_tasks` (`id_list_tasks`),
   KEY `id_tasks_priority` (`id_task_priority`),
   KEY `id_users` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -486,7 +486,7 @@ ALTER TABLE `470websitesmanagement_htaccess`
 -- Contraintes pour la table `470websitesmanagement_list_tasks`
 --
 ALTER TABLE `470websitesmanagement_list_tasks`
-  ADD CONSTRAINT `fk_id_list_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_project_tasks` (`id_project_tasks`);
+  ADD CONSTRAINT `fk_id_list_taskss` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_project_tasks` (`id_project_tasks`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_positiontracking`
@@ -510,7 +510,7 @@ ALTER TABLE `470websitesmanagement_project_tasks`
 -- Contraintes pour la table `470websitesmanagement_tasks`
 --
 ALTER TABLE `470websitesmanagement_tasks`
-  ADD CONSTRAINT `fk_id_list_task` FOREIGN KEY (`id_list_task`) REFERENCES `470websitesmanagement_list_tasks` (`id_list_task`),
+  ADD CONSTRAINT `fk_id_list_tasks` FOREIGN KEY (`id_list_tasks`) REFERENCES `470websitesmanagement_list_tasks` (`id_list_tasks`),
   ADD CONSTRAINT `fk_id_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_list_tasks` (`id_project_tasks`),
   ADD CONSTRAINT `fk_id_task_priority` FOREIGN KEY (`id_task_priority`) REFERENCES `470websitesmanagement_tasks_priority` (`id_tasks_priority`),
   ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `aauth_users` (`id`);

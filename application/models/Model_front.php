@@ -104,7 +104,6 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
-				 ->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
 				 ->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id')
 				 ->where('c_title_url', $url)
 				 ->order_by('470websitesmanagement_website.c_id', 'ASC');
@@ -117,7 +116,6 @@ class Model_front extends CI_Model {
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
 				 ->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
-				 ->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id')
 				 ->where('l_title_url', $url)
 				 ->order_by('470websitesmanagement_website.l_id', 'ASC');
 

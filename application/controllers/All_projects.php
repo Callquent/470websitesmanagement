@@ -31,8 +31,6 @@ class All_projects extends CI_Controller {
 			$data['all_languages'] = $this->model_front->get_all_languages();
 			$data['all_categories'] = $this->model_front->get_all_categories();
 
-			$data['all_domains'] = $this->model_front->get_all_domains();
-			$data['all_subdomains'] = $this->model_front->get_all_subdomains();
 			$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
 			$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
 			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
@@ -47,18 +45,24 @@ class All_projects extends CI_Controller {
 
 				$data['datetimestart'] = past_time_project($id_project_tasks);
 				$data['datetimedeadline'] = remaining_time_project($id_project_tasks);
+				$data['percentage'] = $this->model_tasks->get_percentage($id_project_tasks);
 
+				$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
+				$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
+
+				$data['all_tasks'] = $this->model_tasks->get_all_tasks($id_project_tasks);
 				$data['all_list_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
 				$data['id_project_tasks'] = $id_project_tasks;
-				
-				foreach ($data['list_users']->result() as $row)
-				{
-					$list = array();
-					$list['value'] = strip_tags($row->name_user);
-					$list['data'] = strip_tags($row->id);
 
-					$data['users'][] = $list;
+				if ( $data['percentage']->num_rows() == 0) {
+					$data['percentage_all_tasks'] = 0;
+				} else {
+					$data['percentage_all_tasks'] = (($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());
 				}
+
+				/*$data['percentage'] = $this->model_tasks->get_percentage($id_project_tasks, $id_project_tasks);
+				$data['all_tasks'] = $this->model_tasks->get_all_tasks($id_project_tasks, $id_project_tasks);*/
+				/*$data['percentage_all_tasks_per_list'] = (($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());*/
 
 				$this->load->view('all-tasks-project', $data);
 			}
@@ -112,15 +116,16 @@ class All_projects extends CI_Controller {
 		{
 			$idlisttasks			= $this->input->post('idlisttasks');
 			$titletask				= $this->input->post('titletask');
-			$descriptiontask				= $this->input->post('descriptiontask');
-			$idtaskpriority			= $this->input->post('prioritytask');
-			$iduser			= $this->input->post('user');
+			$descriptiontask		= $this->input->post('descriptiontask');
+			$idtaskpriority			= $this->input->post('taskspriority');
+			$idtaskstatus			= $this->input->post('tasksstatus');
+			$iduser					= $this->input->post('user');
 
 			/*$this->form_validation->set_rules('nom', 'Nom', 'required');
 			$this->form_validation->set_rules('url', 'Url', 'required');
 
 			if ($this->form_validation->run() == TRUE){*/
-				$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $titletask, $descriptiontask, $idtaskpriority, $iduser);
+				$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $titletask, $descriptiontask, $idtaskpriority, $idtaskstatus, $iduser);
 			/*}*/
 
 		}else {

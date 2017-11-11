@@ -18,12 +18,13 @@
 
 </div>
 
-<div class="top-nav clearfix pull-right">
+<div class="top-nav clearfix float-right">
     <?php if ($user_role[0]->name == "Admin") { ?>
         <a href="<?php echo site_url('export'); ?>" class="btn btn-sm btn-warning"><span><i class="fa fa-upload"></i></span><?php echo lang('export'); ?></a>
         <a href="<?php echo site_url('import'); ?>" class="btn btn-sm btn-warning"><span><i class="fa fa-download"></i></span><?php echo lang('import'); ?></a>
     <?php } ?>
-    <ul class="nav pull-right top-menu">
+    <a href="<?php echo site_url('export'); ?>" class="btn btn-sm btn-info"><span><i class="fa fa-refresh"></i></span><?php echo lang('update'); ?></a>
+    <ul class="nav float-right top-menu">
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle">
                 <img alt="" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>">

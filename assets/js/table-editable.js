@@ -133,6 +133,11 @@ var EditableTable = function () {
                 });
                 jqTds[9].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
             }
+            function deleteRowWebsiteInfo(dashboardTable, nRow, nUrl) {
+                var aData = dashboardTable.fnGetData(nRow);
+                var jqTds = $('>td', nRow);
+                jqTds[9].innerHTML = '<a id="delete-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+            }
             function saveRowWebsiteInfo(dashboardTable, nRow) {
                 var jqInputs = $('input', nRow);
                 dashboardTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
@@ -213,8 +218,14 @@ var EditableTable = function () {
             var nEditingBackoffice = null;
 
             $(document).on('click', '#table-dashboard #delete-dashboard', function (e) {
-                if (confirm('Voulez vous supprimer cette enregistrement')) {
-                    $.ajax({
+
+                var nRow = $(this).parents('tr')[0];
+                var nUrl = $(this).attr('href');
+                if (nEditingDashboard != nRow) {
+                    deleteRowWebsiteInfo(dashboardTable, nRow, nUrl);
+                    nEditingDashboard = nRow;
+                } else if (nEditingDashboard == nRow && $(this).find("i").attr("value") == "check") {
+                  /*  $.ajax({
                         type: "POST",
                         url: $(this).attr('href'),
                         success: function(msg){
@@ -224,7 +235,7 @@ var EditableTable = function () {
                         error: function(msg){
                             console.log(msg);
                         }
-                    });
+                    });*/
                 }
                 e.preventDefault();
             });

@@ -7,12 +7,7 @@
 <section class="wrapper">
         <!-- page start-->
 
-        <div class="row">
-            <div class="col-sm-12">
-                <a class="btn btn-default btn-primary mb-3" href="<?php echo site_url('/all-projects/'); ?>"><i class="fa fa-angle-double-left"></i> Retour</a>
-                <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-list-tasks"><span><i class="fa fa-plus"></i></span> Ajouter une Liste</a>
-            </div>
-        </div>
+
 
         <div class="row">
             <div class="col-sm-12">
@@ -51,10 +46,9 @@
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-md-12 m-t-5">
-                                                            <h6 class="no-margin m-b-10">Current status</h6>
+                                                            <h6 class="no-margin m-b-10">Taches réalisées : <?php echo $percentage_all_tasks; ?>%</h6>
                                                             <div class="progress m-t-5 m-b-10">
-                                                                <div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 55%">
-                                                                    <span class="sr-only">55% Complete (success)</span>
+                                                                <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:<?php echo $percentage_all_tasks; ?>%">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -87,18 +81,6 @@
                                                                     <h5>John Deo</h5>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <h6 class="no-margin m-b-10">Labels</h6>
-                                                            <span class="label label-info">HTML</span>
-                                                            <span class="label label-info">Admin</span>
-                                                            <span class="label label-info">Web app</span>
-                                                            <span class="label label-info">Developer application</span>
-                                                            <span class="label label-info">Responsive</span>
-                                                            <span class="label label-info">Envato</span>
                                                         </div>
                                                     </div>
                                                     <hr>
@@ -142,11 +124,21 @@
                          </span>
                     </header>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 float-right">
+                                <div class="float-right">
+                                    <a class="btn btn-default btn-primary mb-3" href="<?php echo site_url('/all-projects/'); ?>"><i class="fa fa-angle-double-left"></i> Retour</a>
+                                    <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-list-tasks"><span><i class="fa fa-plus"></i></span> Ajouter une Liste</a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="adv-table editable-table">
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
                                 <thead>
                                   <tr>
                                       <th class="all"><?php echo lang('name'); ?></th>
+                                      <th class="desktop">Description</th>
+                                      <th class="desktop">Priority</th>
                                       <th class="desktop">Status</th>
                                       <th class="desktop">Member</th>
                                       <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
@@ -155,10 +147,31 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <?php foreach ($all_list_tasks->result() as $row) { ?>
-                                    <tr>
-                                      <td colspan="4"><?php echo $row->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row->id_list_task; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
-                                    </tr>
+                                  <?php foreach ($all_list_tasks->result() as $row_list_tasks) { ?>
+                                    <td colspan="6"><?php echo $row_list_tasks->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
+                                   <?php var_dump($all_tasks->result());  ?>
+                                    <?php foreach ($all_tasks->result() as $row) { ?>
+                                        <tr>
+                                            <?php if ($row->id_list_tasks==$row_list_tasks->id_list_tasks) { ?>
+                                                <td><?php echo $row->name_task; ?></td>
+                                                <td><?php echo $row->description_task; ?></td>
+                                                <td><?php echo $row->name_tasks_priority; ?></td>
+                                                <td><?php echo $row->name_tasks_status; ?></td>
+                                                <td><?php echo $row->username; ?></td>
+                                                <td>
+                                                    <div class="dropdown show actions">
+                                                      <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-bars"></i>
+                                                      </a>
+                                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                        <a class="dropdown-item" id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_task); ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                                        <a class="dropdown-item" id="delete-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_task); ?>"><i class="fa fa-trash"></i> Delete</a>
+                                                      </div>
+                                                    </div>
+                                                </td>
+                                            <?php } ?>
+                                        </tr>
+                                    <?php } ?>
                                   <?php } ?>
                                 </tbody>
                             </table>
@@ -197,7 +210,7 @@
                                             <div class="card">
                                                 <div class="card-header" role="tab" id="headingOne">
                                                   <h5 class="mb-0">
-                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $row->id_list_task; ?>" aria-expanded="false" aria-controls="collapse<?php echo $row->id_list_task; ?>">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $row->id_list_tasks; ?>" aria-expanded="false" aria-controls="collapse<?php echo $row->id_list_tasks; ?>">
                                                        <?php echo $row->title_list_task; ?>
                                                        <div class="float-right">
                                                            <a class="btn btn-success btn-primary mb-3" href="http://localhost:8080/470websitesmanagement/index.php/all-projects/"><i class="fa fa-plus"></i></a>
@@ -208,7 +221,7 @@
                                                   </h5>
                                                 </div>
 
-                                                <div id="collapse<?php echo $row->id_list_task; ?>" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                <div id="collapse<?php echo $row->id_list_tasks; ?>" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                                                   <div class="card-block">
                                         <ul class="to-do-list" id="sortable-todo">
                                             <li class="clearfix">
@@ -313,7 +326,7 @@
         <form id="form-task" method="post" action="<?php echo site_url('/all-projects/create-task/'.$id_project_tasks); ?>">
           <div class="modal-body">
             <div class="form-group">
-                <input type="hidden" class="form-control" id="idlisttask" name="idlisttasks">
+                <input type="hidden" class="form-control" id="idlisttasks" name="idlisttasks">
             </div>
             <div class="form-group">
                 <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
@@ -327,10 +340,34 @@
                   <textarea class="titlelisttasks form-control" type="text" name="descriptiontask" placeholder="Description Task" required></textarea>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
-                <div class="col-lg-12">
-                  <input id="autocomplete" class="form-control" type="text" name="user" placeholder="User" required />
+            <div class="form-group ">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('languages'); ?></label>
+                <div class="col-lg-6">
+                  <select name="tasksstatus" class="form-control">
+                  <?php foreach ($all_tasks_status->result() as $row){  ?>
+                      <option value="<?php echo $row->id_tasks_status; ?>"><?php echo $row->name_tasks_status; ?></option>
+                  <?php } ?>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group ">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('languages'); ?></label>
+                <div class="col-lg-6">
+                  <select name="taskspriority" class="form-control">
+                  <?php foreach ($all_tasks_priority->result() as $row){  ?>
+                      <option value="<?php echo $row->id_tasks_priority; ?>"><?php echo $row->name_tasks_priority; ?></option>
+                  <?php } ?>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group ">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('languages'); ?></label>
+                <div class="col-lg-6">
+                  <select name="user" class="form-control">
+                  <?php foreach ($list_users->result() as $row){  ?>
+                      <option value="<?php echo $row->id; ?>"><?php echo $row->name_user; ?></option>
+                  <?php } ?>
+                  </select>
                 </div>
             </div>
           </div>
@@ -343,13 +380,3 @@
   </div>
 </div>
 <?php $this->load->view('include/footer.php'); ?>
-<?php var_dump($users); ?>
-<script>
-var autocomplete_website = JSON.parse('<?php echo json_encode($users); ?>');
-
-$('#autocomplete').autocomplete({
-    lookup: autocomplete_website,
-    onSelect: function (suggestion) {
-    }
-});
-</script>

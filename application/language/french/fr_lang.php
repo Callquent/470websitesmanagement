@@ -13,6 +13,7 @@ $lang['create_category'] = " Ajouter Categorie";
 $lang['create_language'] = " Ajouter Langage";
 $lang['export'] = " Export";
 $lang['import'] = " Import";
+$lang['update'] = "Mise à jour";
 
 $lang['profile'] = " Mon profil";
 $lang['settings'] = " Paramètres";
