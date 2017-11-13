@@ -225,7 +225,7 @@ var EditableTable = function () {
                     deleteRowWebsiteInfo(dashboardTable, nRow, nUrl);
                     nEditingDashboard = nRow;
                 } else if (nEditingDashboard == nRow && $(this).find("i").attr("value") == "check") {
-                  /*  $.ajax({
+                    $.ajax({
                         type: "POST",
                         url: $(this).attr('href'),
                         success: function(msg){
@@ -235,7 +235,7 @@ var EditableTable = function () {
                         error: function(msg){
                             console.log(msg);
                         }
-                    });*/
+                    });
                 }
                 e.preventDefault();
             });
