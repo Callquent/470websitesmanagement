@@ -70,10 +70,10 @@ class Ftp_websites extends CI_Controller {
 				}
 
 				$row = $this->model_front->get_website($w_id)->row();
-				if (!empty($row->w_host_ftp) && !empty($row->w_login_ftp) && !empty($row->w_password_ftp)) {
-					$config['hostname'] = $row->w_host_ftp;
-					$config['username'] = $row->w_login_ftp;
-					$config['password'] = $row->w_password_ftp;
+				if (!empty($row->host_ftp) && !empty($row->login_ftp) && !empty($row->password_ftp)) {
+					$config['hostname'] = $row->host_ftp;
+					$config['username'] = $row->login_ftp;
+					$config['password'] = $row->password_ftp;
 
 					$this->ftp->connect($config);
 
@@ -104,9 +104,9 @@ class Ftp_websites extends CI_Controller {
 
 			$row =  $this->model_front->get_website($w_id)->row();
 
-			$config['hostname'] = $row->w_host_ftp;
-			$config['username'] = $row->w_login_ftp;
-			$config['password'] = $row->w_password_ftp;
+			$config['hostname'] = $row->host_ftp;
+			$config['username'] = $row->login_ftp;
+			$config['password'] = $row->password_ftp;
 
 			$this->ftp->connect($config);
 
@@ -175,9 +175,9 @@ class Ftp_websites extends CI_Controller {
 
 			$row =  $this->model_front->get_website($w_id)->row();
 
-			$config['hostname'] = $row->w_host_ftp;
-			$config['username'] = $row->w_login_ftp;
-			$config['password'] = $row->w_password_ftp;
+			$config['hostname'] = $row->host_ftp;
+			$config['username'] = $row->login_ftp;
+			$config['password'] = $row->password_ftp;
 
 			$this->ftp->connect($config);
 
@@ -197,9 +197,9 @@ class Ftp_websites extends CI_Controller {
 
 			$row =  $this->model_front->get_website($w_id)->row();
 
-			$config['hostname'] = $row->w_host_ftp;
-			$config['username'] = $row->w_login_ftp;
-			$config['password'] = $row->w_password_ftp;
+			$config['hostname'] = $row->host_ftp;
+			$config['username'] = $row->login_ftp;
+			$config['password'] = $row->password_ftp;
 
 			$this->ftp->connect($config);
 
@@ -223,9 +223,9 @@ class Ftp_websites extends CI_Controller {
 
 			$row =  $this->model_front->get_website($w_id)->row();
 
-			$config['hostname'] = $row->w_host_ftp;
-			$config['username'] = $row->w_login_ftp;
-			$config['password'] = $row->w_password_ftp;
+			$config['hostname'] = $row->host_ftp;
+			$config['username'] = $row->login_ftp;
+			$config['password'] = $row->password_ftp;
 
 			$this->ftp->connect($config);
 
@@ -257,9 +257,9 @@ class Ftp_websites extends CI_Controller {
 
 			$row =  $this->model_front->get_website($w_id)->row();
 
-			$config['hostname'] = $row->w_host_ftp;
-			$config['username'] = $row->w_login_ftp;
-			$config['password'] = $row->w_password_ftp;
+			$config['hostname'] = $row->host_ftp;
+			$config['username'] = $row->login_ftp;
+			$config['password'] = $row->password_ftp;
 
 			$this->ftp->connect($config);
 
@@ -278,9 +278,9 @@ class Ftp_websites extends CI_Controller {
 
 			$row =  $this->model_front->get_website($w_id)->row();
 
-			$config['hostname'] = $row->w_host_ftp;
-			$config['username'] = $row->w_login_ftp;
-			$config['password'] = $row->w_password_ftp;
+			$config['hostname'] = $row->host_ftp;
+			$config['username'] = $row->login_ftp;
+			$config['password'] = $row->password_ftp;
 
 			$this->ftp->connect($config);
 

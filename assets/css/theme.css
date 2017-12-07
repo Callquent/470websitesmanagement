@@ -141,7 +141,7 @@ a,a:hover,a:focus {
 }
 /*sidebar navigation*/
 #sidebar {
-    top: 80px;
+    padding-top: 80px;
     width:240px;
     height:100%;
     position:fixed;

@@ -5,6 +5,7 @@
 $lang['save'] = "Save";
 $lang['cancel'] = "Cancel";
 $lang['modify'] = "Modify";
+$lang['search'] = "Search";
 /***********************/
 /*        navbar        */
 /***********************/
@@ -28,6 +29,7 @@ $lang['website_categories'] = "Website Categories";
 $lang['groups'] = "Groups : ";
 $lang['management'] = "Management : ";
 $lang['members'] = "Members";
+$lang['documentation'] = "Documentation";
 /***********************/
 /*     add website     */
 /***********************/

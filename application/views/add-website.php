@@ -223,8 +223,8 @@
                                   </div>
                                 </form>
                                 <div id="results">
-                                    <div class="alert alert-success alert-block fade in"><h4><i class="icon-ok-sign"></i><?php echo lang('website_registered'); ?></h4></div>
-                                    <div class="alert alert-danger alert-block fade in"><h4><i class="icon-ok-sign"></i><?php echo lang('website_not_registered'); ?></h4></div>
+                                    <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('website_registered'); ?></h4></div>
+                                    <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('website_not_registered'); ?></h4></div>
                                 </div>
                             </div>
 

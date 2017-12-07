@@ -5,6 +5,7 @@
 $lang['save'] = "Enregistrer";
 $lang['cancel'] = "Annuler";
 $lang['modify'] = "Modification";
+$lang['search'] = "Rechercher";
 /***********************/
 /*        navbar        */
 /***********************/
@@ -28,6 +29,7 @@ $lang['website_categories'] = "Site Web par Catégories";
 $lang['groups'] = "Groupes : ";
 $lang['management'] = "Administration : ";
 $lang['members'] = "Membres";
+$lang['documentation'] = "Documentation";
 /***********************/
 /*     add website     */
 /***********************/
@@ -116,6 +118,13 @@ $lang['charge_file_470'] = "Charger votre fichier .470 :";
 /*		Search Scrapper Google 	  */
 /**********************************/
 $lang['search_scrapper_google'] = "Search Scrapper Google";
+$lang['position'] = "Position";
+$lang['meta_title'] = "Meta Title";
+$lang['meta_description'] = "Meta Description";
+
+$lang['your_website'] = "Votre site web ";
+$lang['is_index'] = "est indexé.";
+$lang['websites_no_index_keyword'] = "Votre site web n'est pas indexer sur ce mot clé.";
 /***********************/
 /*        Whois        */
 /***********************/

@@ -77,7 +77,7 @@
                 </li>
                 <li>
                     <a href="javascript:;">
-                        <i class="fa fa-list-ul"></i>
+                        <i class="fa fa-search"></i>
                         <span>Scrapper SEO</span>
                     </a>
                     <ul class="sub">
@@ -118,6 +118,12 @@
                     <a href="<?php echo site_url('members'); ?>">
                         <i class="fa fa-users"></i>
                         <span><?php echo lang('members'); ?></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo site_url('documentation'); ?>">
+                        <i class="fa fa-info-circle"></i>
+                        <span><?php echo lang('documentation'); ?></span>
                     </a>
                 </li>
                 <?php } ?>

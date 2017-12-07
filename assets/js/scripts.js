@@ -14,6 +14,16 @@
                 classExpand: 'dcjq-current-parent'
             });
         }
+        $(function() {
+
+            var toc = $("#toc").tocify({
+              selectors: "h2,h3,h4,h5"
+            }).data("toc-tocify");
+
+            prettyPrint();
+            $(".optionName").popover({ trigger: "hover" });
+
+        });
         /*==Slim Scroll ==*/
         if ($.fn.slimScroll) {
             $('.event-list').slimscroll({
@@ -36,8 +46,9 @@
             $(".leftside-navigation").niceScroll({
                 cursorcolor: "#1FB5AD",
                 cursorborder: "0px solid #fff",
-                cursorborderradius: "0px",
-                cursorwidth: "3px"
+                cursorborderradius: "5px",
+                background:"rgba(255, 255, 255, 0.1)",
+                cursorwidth: "9px"
             });
 
             $(".leftside-navigation").getNiceScroll().resize();
@@ -49,8 +60,9 @@
             $(".right-stat-bar").niceScroll({
                 cursorcolor: "#1FB5AD",
                 cursorborder: "0px solid #fff",
-                cursorborderradius: "0px",
-                cursorwidth: "3px"
+                cursorborderradius: "5px",
+                background:"rgba(255, 255, 255, 0.1)",
+                cursorwidth: "9px"
             });
 
         }

@@ -1,16 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Website_scrapper_google extends CI_Controller {
+class Documentation extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
+		// Chargement des ressources pour ce controller
 		$this->load->database();
 		$this->load->model('model_front');
+		$this->load->model('model_back');
+		$this->load->model('model_whois');
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth','form_validation','encrypt','session','websiteparser','googlescraper'));
-		$this->load->helper(array('functions','text','url','language'));
+		$this->load->library(array('Aauth','Whois','form_validation', 'encrypt', 'session','email'));
+		$this->load->helper(array('functions','url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
@@ -33,38 +36,7 @@ class Website_scrapper_google extends CI_Controller {
 			$data['login'] = $this->session->userdata['username'];
 			$data['user_role'] = $this->aauth->get_user_groups();
 
-			foreach ($data['all_websites']->result() as $row)
-			{
-				$list = array();
-				$list['value'] = strip_tags($row->url_website);
-				$list['data'] = strip_tags($row->w_id);
-
-				$data['website'][] = $list;
-			}
-			$this->load->view('website-scrapper-google', $data);
-		} else {
-			$this->load->view('index');
-		}
-	}
-	public function ajaxWebsiteScrapperGoogle()
-	{
-		if(check_access()==true)
-		{
-			$website = ( empty($this->input->post('website')) ? " " : $this->input->post('website') );
-
-			$googlescraper = new Googlescraper();
-			$all_websites = $googlescraper->getUrlList(urlencode('site:'.$website),100);
-
-			foreach ($all_websites as $key => $row)
-			{
-				$list = array();
-				$list[] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
-				$list[] = strip_tags($row['title']);
-				$list[] = strip_tags($row['description']);
-				$website_search_preview[] = $list;
-			}
-			$data['result_websites'] = $website_search_preview;
-			echo json_encode($data);
+			$this->load->view('documentation',$data);
 		}else {
 			$this->load->view('index');
 		}

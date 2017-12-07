@@ -13,6 +13,7 @@
 		<?php echo css_url('js/data-tables/datatables.bootstrap.min.css'); ?>
 		<?php echo css_url('css/responsive.bootstrap4.min.css'); ?>
 		<?php echo css_url('js/data-tables/Buttons/css/buttons.dataTables.css'); ?>
+		<?php echo css_url('js/tocify/stylesheets/jquery.tocify.css'); ?>
 		<?php echo css_url('js/jstree/themes/default/style.min.css'); ?>
 		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/style.css'); ?>

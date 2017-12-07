@@ -53,10 +53,10 @@
                             <div class="space15"></div>
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-search-scrapper-google">
                               <thead>
-                                <th class="all">Position</th>
-                                <th class="desktop">Site Web</th>
-                                <th class="desktop">Meta Title</th>
-                                <th class="desktop">Meta Description</th>
+                                <th class="all"><?php echo lang('position'); ?></th>
+                                <th class="desktop"><?php echo lang('website'); ?></th>
+                                <th class="desktop"><?php echo lang('meta_title'); ?></th>
+                                <th class="desktop"><?php echo lang('meta_description'); ?></th>
                               </thead>
                             </table>
                         </div>

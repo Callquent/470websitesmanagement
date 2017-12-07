@@ -24,8 +24,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div id="results">
-                                        <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i>Votre site web <span class="message-website"></span> est indexé.</h4></div>
-                                        <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i>Votre site web n'est pas indexer sur ce mot clé.</h4></div>
+                                        <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span><?php echo lang('is_index'); ?></h4></div>
+                                        <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
                                     </div>
                                     <form class="form-horizontal" id="form-website-scrapper-google" role="form"  action="<?php echo site_url('/website-scrapper-google/ajaxWebsiteScrapperGoogle/'); ?>">
                                         <div class="form-group">
@@ -35,7 +35,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-lg-2">
-                                                <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Search</button>
+                                                <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
                                             </div>
                                         </div>
                                     </form>
@@ -48,10 +48,9 @@
                             <div class="space15"></div>
                             <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-website-scrapper-google">
                               <thead>
-                                <th class="all">Position</th>
-                                <th class="desktop">Site Web</th>
-                                <th class="desktop">Meta Title</th>
-                                <th class="desktop">Meta Description</th>
+                                <th class="all"><?php echo lang('website'); ?></th>
+                                <th class="desktop"><?php echo lang('meta_title'); ?></th>
+                                <th class="desktop"><?php echo lang('meta_description'); ?></th>
                               </thead>
                             </table>
                         </div>

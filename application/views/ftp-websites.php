@@ -56,6 +56,13 @@
 
                                 <?php if(!empty($all_storage_local)){ ?>
                                 <div class="row">
+                                    <div class="col-sm-12 float-right">
+                                        <div class="float-right">
+                                            <a class="btn btn-default btn-primary mb-3" href="<?php echo site_url('/ftp-websites/'); ?>"><span><i class="fa fa-angle-double-left"></i></span> Retour</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="path-local" value="<?php echo $path_local; ?>">
                                     </div>

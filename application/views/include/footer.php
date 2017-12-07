@@ -113,6 +113,10 @@
 		<?php echo js_url('js/data-tables/dataTables.tableTools.js'); ?>
 		<?php echo js_url('js/bootstrap-fileupload/bootstrap-fileupload.js'); ?>
 	<?php } ?>
+	<?php if ($this->uri->segment(1)=='documentation') { ?>
+		<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
+		<?php echo js_url('js/tocify/javascripts/jquery.tocify.js'); ?>
+	<?php } ?>
 	<?php echo js_url('js/scripts.js'); ?>
 	<?php echo js_url('js/main.js'); ?>
 	</body>
