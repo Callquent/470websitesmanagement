@@ -62,8 +62,8 @@ $(document).ready(function(){
 					var jsdata = JSON.parse(data);
 					$('#table-ftp-dashboard').dataTable().fnAddData(jsdata);
 				},
-				error: function(){
-					alert("failure");
+				error: function(msg){
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();
@@ -82,8 +82,8 @@ $(document).ready(function(){
 					var jsdata = JSON.parse(data);
 					$('#table-database-dashboard').dataTable().fnAddData(jsdata);
 				},
-				error: function(){
-					alert("failure");
+				error: function(msg){
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();
@@ -101,8 +101,8 @@ $(document).ready(function(){
 					var jsdata = JSON.parse(data);
 					$('#table-backoffice-dashboard').dataTable().fnAddData(jsdata);
 				},
-				error: function(){
-					alert("failure");
+				error: function(msg){
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();
@@ -120,8 +120,8 @@ $(document).ready(function(){
 					var jsdata = JSON.parse(data);
 					$('#table-htaccess-dashboard').dataTable().fnAddData(jsdata);
 				},
-				error: function(){
-					alert("failure");
+				error: function(msg){
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();
@@ -144,7 +144,7 @@ $(document).ready(function(){
 					$("#email").modal('hide');
 				},
 				error: function(msg){
-					alert(msg.responseText);
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();
@@ -158,10 +158,10 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(msg){
-					alert(msg.responseText);
+					console.log(msg.responseText);
 				},
 				error: function(msg){
-					alert(msg.responseText);
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();
@@ -174,10 +174,10 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(msg){
-					alert(msg.responseText);
+					console.log(msg.responseText);
 				},
 				error: function(msg){
-					alert(msg.responseText);
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();
@@ -188,10 +188,10 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(msg){
-					alert(msg.responseText);
+					console.log(msg.responseText);
 				},
 				error: function(msg){
-					alert(msg.responseText);
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();
@@ -1122,14 +1122,14 @@ $(document).ready(function(){
 					data:$(this).serialize(),
 					success: function(msg){
 					},
-					error: function(){
-						alert("failure");
+					error: function(msg){
+						console.log(msg.responseText);
 					}
 				});
 				e.preventDefault();
 			});
 	} else if (window.location.href.split('/').pop() == "index") {
-		$("#forgotpasswordform").submit(function(e){
+		$("#remindpasswordform").submit(function(e){
 
 			console.log($(this).attr('action'));
 			console.log($(this).serialize());
@@ -1138,10 +1138,28 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(msg){
-
+					$('#remindpassword').modal('hide');
+					$('#resetpassword').modal('show');
 				},
 				error: function(msg){
-					alert(msg.responseText);
+					console.log(msg.responseText);
+				}
+			});
+			e.preventDefault();
+		});
+		$("#resetpasswordform").submit(function(e){
+
+			console.log($(this).attr('action'));
+			console.log($(this).serialize());
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data: $(this).serialize(),
+				success: function(msg){
+					$('#resetpassword').modal('hide');
+				},
+				error: function(msg){
+					console.log(msg.responseText);
 				}
 			});
 			e.preventDefault();

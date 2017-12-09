@@ -504,6 +504,10 @@ div.dt-button-collection a.dt-button:hover {
   left: initial;
   right: 0;
 }
+.img-datatable {
+  width: 32px;
+  height: 32px;
+}
 /*********************/
 /*      FTP       */
 /*********************/
@@ -575,13 +579,22 @@ div.dt-button-collection a.dt-button:hover {
       padding-left: 10px;
       transition: 200ms;
     }*/
-
+.tocify ul {
+    width: 100%;
+}
 .tocify li.tocify-item {
     background-color: #fafafa;
     margin-bottom: 1px;
     display: block;
     color: #555555;
     padding-left: 0px;
+    width: 100%;
+}
+.tocify li.tocify-item.active {
+    background-color: #565090 !important;
+}
+.tocify ul.tocify-subheader li.tocify-item  {
+    background-color: #c8c6e1;
 }
 .tocify li.tocify-item a {
     color: #555555;

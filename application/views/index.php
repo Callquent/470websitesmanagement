@@ -32,9 +32,8 @@
 			    </div>
 			    <label class="checkbox">
 			        <input type="checkbox" value="remember-me"> Remember me
-			        <span class="pull-right">
-			            <a data-toggle="modal" href="#remindpassword"> Forgot Password?</a>
-
+			        <span>
+			            <a data-toggle="modal" href="#remindpassword"> Forgot Password ?</a>
 			        </span>
 			    </label>
 			    <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
@@ -69,7 +68,7 @@
 		              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		              <h4 class="modal-title">Forgot Password ?</h4>
 		          </div>
-					<form action="<?php echo site_url('index/remind_password'); ?>" method="post" id="forgotpasswordform" class="form-horizontal" role="form">
+					<form action="<?php echo site_url('index/remind_password'); ?>" method="post" id="remindpasswordform" class="form-horizontal" role="form">
 			          <div class="modal-body">
 			              <p>Enter your e-mail address below to reset your password.</p>
 			              <input type="text" name="emailreset" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
@@ -89,7 +88,7 @@
 		              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		              <h4 class="modal-title">Forgot Password Verification ?</h4>
 		          </div>
-					<form action="<?php echo site_url('index/reset_password'); ?>" method="post" id="forgotpasswordform" class="form-horizontal" role="form">
+					<form action="<?php echo site_url('index/reset_password'); ?>" method="post" id="resetpasswordform" class="form-horizontal" role="form">
 			          <div class="modal-body">
 			              <p>Enter your code verification below to reset your password.</p>
 			              <input type="text" name="codereset" placeholder="Code verification" autocomplete="off" class="form-control placeholder-no-fix">

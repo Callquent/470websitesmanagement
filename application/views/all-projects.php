@@ -96,13 +96,13 @@
                                       <td><?php echo $row->title_project_tasks; ?></td>
                                       <td><?php echo $row->started_project_tasks; ?></td>
                                       <td><?php echo $row->deadline_project_tasks; ?></td>
-                                      <td><span class="label label-danger">Canceled</span></td>
+                                      <td><span class="badge badge-danger">Canceled</span></td>
                                       <td>
                                         <div class="progress progress-striped active progress-sm"><?php echo $row->percentage_tasks; ?>%
                                           <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentage_tasks; ?>%"></div>
                                         </div>
                                       </td>
-                                      <td><img alt="" src="http://localhost:8080/470websitesmanagement/assets/img/users/Sauron_eye_barad_dur.jpg"></td>
+                                      <td><img alt="" src="http://localhost:8080/470websitesmanagement/assets/img/users/Sauron_eye_barad_dur.jpg" class="img-datatable"></td>
                                       <td>
                                         <a href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i></a>
                                         <div class="dropdown show actions">

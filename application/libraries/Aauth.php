@@ -482,7 +482,7 @@ class Aauth {
 			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
 			$this->CI->email->to($row->email);
 			$this->CI->email->subject($this->CI->lang->line('aauth_email_reset_subject'));
-			$this->CI->email->message($this->CI->lang->line('aauth_email_reset_text') . site_url() . $this->config_vars['reset_password_link'] . $ver_code );
+			$this->CI->email->message($this->CI->lang->line('aauth_email_reset_text') . $ver_code );
 			$this->CI->email->send();
 			
 			return TRUE;

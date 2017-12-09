@@ -8,7 +8,7 @@ class Index extends CI_Controller {
 		// Chargement des ressources pour ce controller
 		$this->load->database();
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth','form_validation','encrypt','session'));
+		$this->load->library(array('Aauth','form_validation','encrypt','session','email'));
 		$this->load->helper(array('functions','url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
@@ -52,7 +52,12 @@ class Index extends CI_Controller {
 	}
 	public function reset_password($codereset = "")
 	{
+		$config['mailtype'] = "html";
+		$config['charset']  = "utf-8";
+		$config['newline'] = "\r\n";
+		$this->email->initialize($config);
 		$codereset = $this->input->post('codereset');
+		
 		$this->aauth->reset_password($codereset);
 	}
 	public function logout()
