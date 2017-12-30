@@ -18,11 +18,11 @@ class Category extends CI_Controller {
 		);
 		$this->session->set_userdata($sesslanguage);
 	}
-	public function index($c_title_url = '')
+	public function index($title_url_category = '')
 	{
 		if(check_access()==true)
 		{
-			$data['all_websites'] = $this->model_front->get_all_websites_per_category($c_title_url);
+			$data['all_websites'] = $this->model_front->get_all_websites_per_category($title_url_category);
 			$data['all_languages'] = $this->model_front->get_all_languages();
 			$data['all_categories'] = $this->model_front->get_all_categories();
 
@@ -45,10 +45,10 @@ class Category extends CI_Controller {
 		{
 			$this->form_validation->set_rules('titlecategory', 'TitleCategory', 'trim|required');
 
-			$c_title = $this->input->post('titlecategory');
+			$title_category = $this->input->post('titlecategory');
 
 			if ($this->form_validation->run() !== FALSE){
-				$this->model_category->update_category($c_id, $c_title);
+				$this->model_category->update_category($c_id, $title_category);
 			}
 		}else {
 			$this->load->view('index');

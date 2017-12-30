@@ -295,6 +295,9 @@ $(document).ready(function(){
 					$("#form-add-website button[type='submit']").button('reset');
 					$("#form-add-website").fadeOut('slow');
 					$('#results .alert-success').fadeIn('fast');
+					$('.badge-all-websites').text(parseInt($(".badge-all-websites").text())+1);
+
+					$("badge-language-"+$('#form-add-website .add-website-languages option:selected').text()).text(parseInt($("badge-language-"+$('#form-add-website .add-website-languages option:selected').text()).text())+1);
 					setTimeout(function() {
 						$('#results .alert-success').fadeOut('slow');
 						$("#form-add-website").find("input[type=text], textarea").val("");
@@ -765,7 +768,7 @@ $(document).ready(function(){
 					    header: {
 					        left: 'prev,next today',
 					        center: 'title',
-					        right: 'month,basicWeek,basicDay'
+					        right: 'year,month,basicWeek,basicDay'
 					    },
 					    height: 610,
 					    editable: false,

@@ -74,8 +74,8 @@
 			              <input type="text" name="emailreset" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
 			          </div>
 			          <div class="modal-footer">
-			              <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-			              <button class="btn btn-success" type="submit">Submit</button>
+			              <button data-dismiss="modal" class="btn btn-default" type="button"><?php echo lang('cancel'); ?></button>
+			              <button class="btn btn-success" type="submit"><?php echo lang('send'); ?></button>
 			          </div>
 			        </form>
 		      </div>
@@ -94,8 +94,8 @@
 			              <input type="text" name="codereset" placeholder="Code verification" autocomplete="off" class="form-control placeholder-no-fix">
 			          </div>
 			          <div class="modal-footer">
-			              <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-			              <button class="btn btn-success" type="submit">Submit</button>
+			              <button data-dismiss="modal" class="btn btn-default" type="button"><?php echo lang('cancel'); ?></button>
+			              <button class="btn btn-success" type="submit"><?php echo lang('send'); ?></button>
 			          </div>
 			        </form>
 		      </div>

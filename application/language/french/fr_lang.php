@@ -6,6 +6,7 @@ $lang['save'] = "Enregistrer";
 $lang['cancel'] = "Annuler";
 $lang['modify'] = "Modification";
 $lang['search'] = "Rechercher";
+$lang['send'] = "Envoyer";
 /***********************/
 /*        navbar        */
 /***********************/
@@ -99,7 +100,6 @@ $lang['access_sql'] = "Acces SQL";
 $lang['access_htaccess'] = "Acces Htaccess";
 $lang['access_backoffice'] = "Acces Backoffice";
 $lang['actions'] = "Actions";
-$lang['send'] = "Envoyer";
 $lang['edit'] = "Modifier";
 $lang['delete'] = "Supprimer";
 /***********************/

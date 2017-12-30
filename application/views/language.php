@@ -45,7 +45,7 @@
                                 <tbody>
                                   <?php foreach ($all_languages->result() as $row) { ?>
                                     <tr>
-                                      <td><?php echo $row->l_title; ?></td>
+                                      <td><?php echo $row->title_language; ?></td>
                                       <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                                         <td><a id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->l_id); ?>">Edit</a></td>
                                         <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-language" data-id="<?php echo $row->l_id; ?>">Delete</a></td>

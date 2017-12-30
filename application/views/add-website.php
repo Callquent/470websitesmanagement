@@ -41,9 +41,9 @@
                                         <div class="form-group ">
                                             <label for="curl" class="control-label col-lg-3"><?php echo lang('languages'); ?></label>
                                             <div class="col-lg-6">
-                                              <select name="languages" class="form-control">
+                                              <select name="languages" class="add-website-languages" class="form-control">
                                               <?php foreach ($all_languages->result() as $row){  ?>
-                                                  <option value="<?php echo $row->l_id; ?>"><?php echo $row->l_title; ?></option>
+                                                  <option value="<?php echo $row->l_id; ?>"><?php echo $row->title_language; ?></option>
                                               <?php } ?>
                                               </select>
                                             </div>
@@ -51,9 +51,9 @@
                                         <div class="form-group ">
                                             <label for="curl" class="control-label col-lg-3"><?php echo lang('categories'); ?></label>
                                             <div class="col-lg-6">
-                                              <select name="categories" class="form-control">
+                                              <select name="categories" class="add-website-categories" class="form-control">
                                               <?php foreach ($all_categories->result() as $row){  ?>
-                                                  <option value="<?php echo $row->c_id; ?>"><?php echo $row->c_title; ?></option>
+                                                  <option value="<?php echo $row->c_id; ?>"><?php echo $row->title_category; ?></option>
                                               <?php } ?>
                                               </select>
                                             </div>

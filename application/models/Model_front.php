@@ -41,7 +41,7 @@ class Model_front extends CI_Model {
 
 		return $count_subdomain;
 	}
-	var $column = array('w_id', 'c_title', 'l_title', 'name_website', 'url_website');
+	var $column = array('w_id', 'title_category', 'title_language', 'name_website', 'url_website');
 	var $order = array('name_website' => 'desc');
 
 	private function _get_datatables_query()
@@ -106,7 +106,7 @@ class Model_front extends CI_Model {
 				 ->from('470websitesmanagement_website')
 				 ->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id')
 				 ->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
-				 ->where('c_title_url', $url)
+				 ->where('title_url_category', $url)
 				 ->order_by('470websitesmanagement_website.c_id', 'ASC');
 
 		$query = $this->db->get();
@@ -118,7 +118,7 @@ class Model_front extends CI_Model {
 				 ->from('470websitesmanagement_website')
 				 ->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
 				 ->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id')
-				 ->where('l_title_url', $url)
+				 ->where('title_url_language', $url)
 				 ->order_by('470websitesmanagement_website.l_id', 'ASC');
 
 		$query = $this->db->get();

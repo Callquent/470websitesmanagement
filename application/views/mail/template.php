@@ -123,7 +123,7 @@
           <div style="line-height: 24px;">
             <font face="Arial, Helvetica, sans-serif" size="4" color="#57697e" style="font-size: 15px;">
             <span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
-              Langages site web : <?php echo $l_title; ?>
+              Langages site web : <?php echo $title_language; ?>
             </span></font>
           </div>
           <div style="height: 40px; line-height: 40px; font-size: 10px;"></div>

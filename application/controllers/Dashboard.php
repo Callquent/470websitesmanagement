@@ -42,12 +42,12 @@ class Dashboard extends CI_Controller {
 				$rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
 			if (!empty($data['all_count_websites_per_language']->result())) {
 				foreach ($data['all_count_websites_per_language']->result() as $row) {
-					$chart_l_title[] = $row->l_title;
+					$chart_title_language[] = $row->title_language;
 					$chart_l_percent[] = ($row->count_websites_per_language!='0'?number_format((float)($row->count_websites_per_language*100)/$data['all_count_websites']->count_all_websites,0):'0');
 					$chart_l_color[] = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
 				}
 
-				$chart_language = array('labels' => $chart_l_title, 'datasets' => [array('data' => $chart_l_percent, 'backgroundColor' => $chart_l_color )]);
+				$chart_language = array('labels' => $chart_title_language, 'datasets' => [array('data' => $chart_l_percent, 'backgroundColor' => $chart_l_color )]);
 				$data['chart_language'] = json_encode($chart_language);
 			} else {
 				$data['chart_category'] = json_encode(0);
@@ -55,12 +55,12 @@ class Dashboard extends CI_Controller {
 
 			if (!empty($data['all_count_websites_per_category']->result())) {
 				foreach ($data['all_count_websites_per_category']->result() as $row) {
-					$chart_c_title[] = $row->c_title;
+					$chart_title_category[] = $row->title_category;
 					$chart_c_percent[] = ($row->count_websites_per_category!='0'?number_format((float)($row->count_websites_per_category*100)/$data['all_count_websites']->count_all_websites,0):'0');
 					$chart_c_color[] = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
 				}
 
-				$chart_category = array('labels' => $chart_c_title, 'datasets' => [array('data' => $chart_c_percent, 'backgroundColor' => $chart_c_color )]);
+				$chart_category = array('labels' => $chart_title_category, 'datasets' => [array('data' => $chart_c_percent, 'backgroundColor' => $chart_c_color )]);
 				$data['chart_category'] = json_encode($chart_category);
 			} else {
 				$data['chart_category'] = json_encode(0);
@@ -68,22 +68,22 @@ class Dashboard extends CI_Controller {
 /*
 			$rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
 			foreach ($data['all_count_websites_per_language']->result() as $row) {
-				$chart_l_title[] = $row->l_title;
+				$chart_title_language[] = $row->title_language;
 				$chart_l_percent[] = number_format((float)($row->count_websites_per_language*100)/$data['all_count_websites']->count_all_websites,0);
 				$chart_l_color[] = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
 			}
 
-			$chart_language = array('labels' => $chart_l_title, 'datasets' => [array('data' => $chart_l_percent, 'backgroundColor' => $chart_l_color )]);
+			$chart_language = array('labels' => $chart_title_language, 'datasets' => [array('data' => $chart_l_percent, 'backgroundColor' => $chart_l_color )]);
 			$data['chart_language'] = json_encode($chart_language);
 
 			
 			foreach ($data['all_count_websites_per_category']->result() as $row) {
-				$chart_c_title[] = $row->c_title;
+				$chart_title_category[] = $row->title_category;
 				$chart_c_percent[] = number_format((float)($row->count_websites_per_category*100)/$data['all_count_websites']->count_all_websites,0);
 				$chart_c_color[] = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
 			}
 
-			$chart_category = array('labels' => $chart_c_title, 'datasets' => [array('data' => $chart_c_percent, 'backgroundColor' => $chart_c_color )]);
+			$chart_category = array('labels' => $chart_title_category, 'datasets' => [array('data' => $chart_c_percent, 'backgroundColor' => $chart_c_color )]);
 			$data['chart_category'] = json_encode($chart_category);*/
 					
 			$this->load->view('dashboard', $data);

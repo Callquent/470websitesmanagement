@@ -3,19 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_category extends CI_Model {
 
-	function create_category($c_title)
+	function create_category($title_category)
 	{
 		$data = array(
-			'c_title' => $c_title,
-			'c_title_url' => str_replace( " ", "-", strtolower($c_title))
+			'title_category' => $title_category,
+			'title_url_category' => str_replace( " ", "-", strtolower($title_category))
 		);
 
 		$this->db->insert('470websitesmanagement_category', $data);
 	}
-	function update_category($c_id, $c_title)
+	function update_category($c_id, $title_category)
 	{
 		$data = array(
-			'c_title' => $c_title,
+			'title_category' => $title_category,
 		);
 
 		$this->db->where('c_id', $c_id)

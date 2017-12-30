@@ -18,11 +18,11 @@ class Language extends CI_Controller {
 		);
 		$this->session->set_userdata($sesslanguage);
 	}
-	public function index($l_title_url = '')
+	public function index($title_url_language = '')
 	{
 		if(check_access()==true)
 		{
-			$data['all_websites'] = $this->model_front->get_all_websites_per_language($l_title_url);
+			$data['all_websites'] = $this->model_front->get_all_websites_per_language($title_url_language);
 			$data['all_languages'] = $this->model_front->get_all_languages();
 			$data['all_categories'] = $this->model_front->get_all_categories();
 
@@ -45,10 +45,10 @@ class Language extends CI_Controller {
 		{
 			$this->form_validation->set_rules('titlelanguage', 'TitleLanguage', 'trim|required');
 
-			$l_title = $this->input->post('titlelanguage');
+			$title_language = $this->input->post('titlelanguage');
 
 			if ($this->form_validation->run() !== FALSE){
-				$this->model_language->update_language($l_id, $l_title);
+				$this->model_language->update_language($l_id, $title_language);
 			}
 		}else {
 			$this->load->view('index');

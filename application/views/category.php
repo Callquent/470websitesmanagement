@@ -45,7 +45,7 @@
                                 <tbody>
                                   <?php foreach ($all_categories->result() as $row) { ?>
                                     <tr>
-                                      <td><?php echo $row->c_title; ?></td>
+                                      <td><?php echo $row->title_category; ?></td>
                                       <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                                         <td><a id="edit-dashboard" href="<?php echo site_url('category/edit-category/'.$row->c_id); ?>">Edit</a></td>
                                         <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-category" data-id="<?php echo $row->c_id; ?>">Delete</a></td>
