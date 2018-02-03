@@ -17,68 +17,48 @@ class Members extends CI_Controller {
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
 		);
 		$this->session->set_userdata($sesslanguage);
+		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
 	public function index()
 	{
-		if(check_access()==true)
-		{
-			$data['list_users'] = $this->model_users->get_all_users();
-			$data['list_groups'] = $this->model_users->get_all_groups();
+		$data['list_users'] = $this->model_users->get_all_users();
+		$data['list_groups'] = $this->model_users->get_all_groups();
 
-			$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
-			$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
-			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
-			$data['login'] = $this->session->userdata['username'];
-			$data['user_role'] = $this->aauth->get_user_groups();
+		$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
+		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
+		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
+		$data['login'] = $this->session->userdata['username'];
+		$data['user_role'] = $this->aauth->get_user_groups();
 
-
-			$this->load->view('members', $data);
-		}else {
-			$this->load->view('index');
-		}
+		$this->load->view('members', $data);
 	}
 	public function edit($w_id = '',$w_groupid = '')
 	{
-		if(check_access()==true)
-		{
-			if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
-				$w_groupid_new = $this->input->post('members');
+		if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
+			$w_groupid_new = $this->input->post('members');
 
-				$this->aauth->remove_member($w_id, $w_groupid);
-				$this->aauth->add_member($w_id, $w_groupid_new);
-				echo $w_groupid_new;
-			}else {
-				$this->load->view('index');
-			}
+			$this->aauth->remove_member($w_id, $w_groupid);
+			$this->aauth->add_member($w_id, $w_groupid_new);
+			echo $w_groupid_new;
 		}else {
 			$this->load->view('index');
 		}
 	}
 	public function userGroup($user_id = '')
 	{
-		if(check_access()==true)
-		{
-			if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
-				$this->output
-					->set_content_type('application/json')
-					->set_output($this->aauth->get_user_groups($user_id)[0]->group_id);
-			}else {
-				$this->load->view('index');
-			}
+		if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
+			$this->output
+				->set_content_type('application/json')
+				->set_output($this->aauth->get_user_groups($user_id)[0]->group_id);
 		}else {
 			$this->load->view('index');
 		}
 	}
 	public function delete($w_id = '')
 	{
-		if(check_access()==true)
-		{
-			if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
-				$this->aauth->delete_user($w_id);
-			}else {
-				$this->load->view('index');
-			}
-		} else {
+		if($this->aauth->is_loggedin() && ($this->aauth->is_admin($this->session->userdata['id'])) ){
+			$this->aauth->delete_user($w_id);
+		}else {
 			$this->load->view('index');
 		}
 	}

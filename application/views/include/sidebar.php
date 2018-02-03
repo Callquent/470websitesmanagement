@@ -121,6 +121,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?php echo site_url('export'); ?>">
+                        <i class="fa fa-download"></i>
+                        <span><?php echo lang('export'); ?></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo site_url('import'); ?>">
+                        <i class="fa fa-upload"></i>
+                        <span><?php echo lang('import'); ?></span>
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo site_url('documentation'); ?>">
                         <i class="fa fa-info-circle"></i>
                         <span><?php echo lang('documentation'); ?></span>

@@ -57,3 +57,4 @@ $route['website-scrapper-google/(:num)'] = 'website-scrapper-google/index/$1';
 $route['all-projects/(:num)'] = 'all-projects/index/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
+

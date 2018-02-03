@@ -1110,6 +1110,23 @@ $(document).ready(function(){
 					/*$(event.relatedTarget).data('idgroup', msg);*/
 					/*$(event.relatedTarget).attr('data-idgroup',msg);*/
 					$('#members-edit').modal('hide');
+					switch (msg) {
+						case "1":
+							$('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("red-bg");
+							break;
+						case "2":
+							$('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("green-bg");
+							break;
+						case "3":
+							$('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("white-bg");
+							break;
+						case "4":
+							$('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("blue-bg");
+							break;
+						case "5":
+							$('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("gray-bg");
+							break;
+					}
 				},
 				error: function(msg){
 					console.log(msg);

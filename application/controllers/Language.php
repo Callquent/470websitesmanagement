@@ -17,67 +17,49 @@ class Language extends CI_Controller {
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
 		);
 		$this->session->set_userdata($sesslanguage);
+		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
 	public function index($title_url_language = '')
 	{
-		if(check_access()==true)
-		{
-			$data['all_websites'] = $this->model_front->get_all_websites_per_language($title_url_language);
-			$data['all_languages'] = $this->model_front->get_all_languages();
-			$data['all_categories'] = $this->model_front->get_all_categories();
+		$data['all_websites'] = $this->model_front->get_all_websites_per_language($title_url_language);
+		$data['all_languages'] = $this->model_front->get_all_languages();
+		$data['all_categories'] = $this->model_front->get_all_categories();
 
-			$data['all_domains'] = $this->model_front->get_all_domains();
-			$data['all_subdomains'] = $this->model_front->get_all_subdomains();
-			$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
-			$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
-			$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
-			$data['login'] = $this->session->userdata['username'];
-			$data['user_role'] = $this->aauth->get_user_groups();
+		$data['all_domains'] = $this->model_front->get_all_domains();
+		$data['all_subdomains'] = $this->model_front->get_all_subdomains();
+		$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
+		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
+		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
+		$data['login'] = $this->session->userdata['username'];
+		$data['user_role'] = $this->aauth->get_user_groups();
 
-			$this->load->view('language', $data);
-		}else {
-			$this->load->view('index');
-		}
+		$this->load->view('language', $data);
 	}
 	public function edit_language($l_id = '')
 	{
-		if(check_access()==true)
-		{
-			$this->form_validation->set_rules('titlelanguage', 'TitleLanguage', 'trim|required');
+		$this->form_validation->set_rules('titlelanguage', 'TitleLanguage', 'trim|required');
 
-			$title_language = $this->input->post('titlelanguage');
+		$title_language = $this->input->post('titlelanguage');
 
-			if ($this->form_validation->run() !== FALSE){
-				$this->model_language->update_language($l_id, $title_language);
-			}
-		}else {
-			$this->load->view('index');
+		if ($this->form_validation->run() !== FALSE){
+			$this->model_language->update_language($l_id, $title_language);
 		}
 	}
-	public function loadLanguages(){
-		if(check_access()==true)
-		{
-			$data['all_languages'] = $this->model_front->get_all_languages();
+	public function loadLanguages()
+	{
+		$data['all_languages'] = $this->model_front->get_all_languages();
 
-			$this->output
-				->set_content_type('application/json')
-				->set_output( json_encode($data['all_languages']->result()));
-		}else {
-			$this->load->view('index');
-		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output( json_encode($data['all_languages']->result()));
 	}
 	public function delete_language($l_id_old = '')
 	{
-		if(check_access()==true)
-		{
-			$c_id_new = $this->input->post('language');
+		$c_id_new = $this->input->post('language');
 
-			if ($this->model_front->get_language($l_id_old)->num_rows() == 1){
-				$this->model_language->transfert_website_language($l_id_old, $l_id_new);
-				$this->model_language->delete_language($l_id_old);
-			}
-		}else {
-			$this->load->view('index');
+		if ($this->model_front->get_language($l_id_old)->num_rows() == 1){
+			$this->model_language->transfert_website_language($l_id_old, $l_id_new);
+			$this->model_language->delete_language($l_id_old);
 		}
 	}
 }

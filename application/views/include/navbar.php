@@ -19,10 +19,6 @@
 </div>
 
 <div class="top-nav clearfix float-right">
-    <?php if ($user_role[0]->name == "Admin") { ?>
-        <a href="<?php echo site_url('export'); ?>" class="btn btn-sm btn-warning"><span><i class="fa fa-upload"></i></span><?php echo lang('export'); ?></a>
-        <a href="<?php echo site_url('import'); ?>" class="btn btn-sm btn-warning"><span><i class="fa fa-download"></i></span><?php echo lang('import'); ?></a>
-    <?php } ?>
     <a href="<?php echo site_url('export'); ?>" class="btn btn-sm btn-info"><span><i class="fa fa-refresh"></i></span><?php echo lang('update'); ?></a>
     <ul class="nav float-right top-menu">
         <li class="dropdown">
