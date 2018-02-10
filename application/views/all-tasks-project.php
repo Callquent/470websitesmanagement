@@ -149,7 +149,7 @@
                                 <tbody>
                                   <?php foreach ($all_list_tasks->result() as $row_list_tasks) { ?>
                                     <td colspan="6"><?php echo $row_list_tasks->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
-                                   <?php var_dump($all_tasks->result());  ?>
+                                   <?php var_dump($all_list_tasks);  ?>
                                     <?php foreach ($all_tasks->result() as $row) { ?>
                                         <tr>
                                             <?php if ($row->id_list_tasks==$row_list_tasks->id_list_tasks) { ?>

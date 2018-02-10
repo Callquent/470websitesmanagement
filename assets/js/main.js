@@ -158,7 +158,7 @@ $(document).ready(function(){
 				url: $(this).attr('action'),
 				data: $(this).serialize(),
 				success: function(msg){
-					console.log(msg.responseText);
+					$('#create-project').modal('hide');
 				},
 				error: function(msg){
 					console.log(msg.responseText);

@@ -43,8 +43,18 @@ class Model_tasks extends CI_Model {
 	function get_list_tasks_per_project($id)
 	{
 		$this->db->select('*')
-				->from('470websitesmanagement_list_tasks')
-				->where('id_project_tasks', $id);
+				->from('470websitesmanagement_project_tasks')
+				->join('470websitesmanagement_list_tasks', '470websitesmanagement_project_tasks.id_project_tasks = 470websitesmanagement_list_tasks.id_project_tasks')
+				->where('470websitesmanagement_list_tasks.id_project_tasks', $id);
+				if (!$id) {
+
+					$this->db->select('*')
+						->from('470websitesmanagement_project_tasks')
+						->join('470websitesmanagement_list_tasks', '470websitesmanagement_project_tasks.id_project_tasks = 470websitesmanagement_list_tasks.id_project_tasks')
+						->join('470websitesmanagement_tasks', '470websitesmanagement_list_tasks.id_list_tasks = 470websitesmanagement_tasks.id_list_tasks')
+						->where('470websitesmanagement_list_tasks.id_project_tasks', $id)
+						->order_by("470websitesmanagement_tasks.id_list_tasks", "asc");
+				}
 
 		$query = $this->db->get();
 		return $query;

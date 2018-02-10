@@ -23,6 +23,7 @@ $lang['log_out'] = " Déconnexion";
 /***********************/
 /*        sidebar        */
 /***********************/
+$lang['general'] = "Général : ";
 $lang['dashboard'] = "Tableau de bord";
 $lang['all_websites'] = "Tous les Sites";
 $lang['website_languages'] = "Site Web par Langages";
@@ -35,7 +36,7 @@ $lang['documentation'] = "Documentation";
 /*     add website     */
 /***********************/
 $lang['add_website'] = "Ajouter un site web";
-$lang['general_information'] = "Information Général";
+$lang['general_information'] = "Information Générale";
 
 $lang['name_add_website'] = "Nom *";
 $lang['url_add_website'] = "URL *";

@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="col-sm-12 float-right">
                                 <div class="float-right">
-                                    <a class="access-project btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-project"><span><i class="fa fa-plus"></i></span> Ajouter un Projet</a>
+                                    <a class="access-project btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#create-project"><span><i class="fa fa-plus"></i></span> Ajouter un Projet</a>
                                 </div>
                             </div>
                         </div>
@@ -130,14 +130,14 @@
     <!--main content end-->
 </section>
 
-<div class="modal fade" id="view-project" tabindex="-1" role="dialog" aria-labelledby="view-project" aria-hidden="true">
+<div class="modal fade" id="create-project" tabindex="-1" role="dialog" aria-labelledby="create-project" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header modal-header-success">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Ajouter un projet</h4>
       </div>
-            <form id="form-projects" method="post" action="<?php echo site_url('/all-tasks/create-projects/'); ?>">
+            <form id="form-projects" method="post" action="<?php echo site_url('/all-projects/create-projects/'); ?>">
               <div class="modal-body">
                 <div class="form-group">
                     <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
