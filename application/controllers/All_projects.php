@@ -22,6 +22,9 @@ class All_projects extends CI_Controller {
 	}
 	public function index($id_project_tasks = '')
 	{
+		$data['login'] = $this->session->userdata['username'];
+		$data['user_role'] = $this->aauth->get_user_groups();
+		
 		$data['all_websites'] = $this->model_front->get_all_websites();
 		
 		$data['list_users'] = $this->model_users->get_all_users();
@@ -33,11 +36,12 @@ class All_projects extends CI_Controller {
 		$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
 		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
-		$data['login'] = $this->session->userdata['username'];
-		$data['user_role'] = $this->aauth->get_user_groups();
+		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
+
 
 		if($this->uri->total_segments() == 1){
 			$data['all_projects'] = $this->model_tasks->get_all_projects();
+
 			$this->load->view('all-projects', $data);
 		} elseif($this->uri->total_segments() == 2) {
 			$data['project'] = $this->model_tasks->get_project($id_project_tasks);
@@ -56,7 +60,7 @@ class All_projects extends CI_Controller {
 			if ( $data['percentage']->num_rows() == 0) {
 				$data['percentage_all_tasks'] = 0;
 			} else {
-				$data['percentage_all_tasks'] = (($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());
+				$data['percentage_all_tasks'] = round(($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());
 			}
 
 			/*$data['percentage'] = $this->model_tasks->get_percentage($id_project_tasks, $id_project_tasks);

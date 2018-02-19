@@ -24,8 +24,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div id="results">
-                                        <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i>Votre site web <span class="message-website"></span> est indexer sur ce mot clé "<span class="message-keyword"></span>" à la position</h4></div>
-                                        <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i>Votre site web n'est pas indexé.</h4></div>
+                                        <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span> est indexer sur ce mot clé "<span class="message-keyword"></span>" à la position</h4></div>
+                                        <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
                                     </div>
                                     <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
                                         <div class="form-group">

@@ -18,29 +18,24 @@
                                 <div class="card card-default">
                                     <div class="card-header">
                                         Portlet 7
-                                <span class="tools pull-right">
-                                    <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="fa fa-cog" href="javascript:;"></a>
-                                    <a class="fa fa-times" href="javascript:;"></a>
-                                </span>
                                     </div>
                                     <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <h5 class="no-margin">Temps passé:</h5>
+                                                            <h5 class="no-margin"><?php echo lang('time_spent'); ?></h5>
                                                         </div>
                                                         
                                                         <div class="col-md-6 text-right">
-                                                            <h5 class="no-margin"><?php echo $datetimestart; ?></h5>
+                                                            <h5 class="no-margin"><?php echo $datetimestart; ?> <?php echo lang('days'); ?></h5>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <h5 class="no-margin m-t-5">Temps restant:</h5>
+                                                            <h5 class="no-margin m-t-5"><?php echo lang('remaining_time'); ?></h5>
                                                         </div>
                                                         
                                                         <div class="col-md-6 text-right">
-                                                            <h5 class="no-margin m-t-5"><?php echo $datetimedeadline; ?></h5>
+                                                            <h5 class="no-margin m-t-5"><?php echo $datetimedeadline; ?> <?php echo lang('days'); ?></h5>
                                                         </div>
                                                     </div>
                                                     <hr>
@@ -148,9 +143,10 @@
                                 </thead>
                                 <tbody>
                                   <?php foreach ($all_list_tasks->result() as $row_list_tasks) { ?>
-                                    <td colspan="6"><?php echo $row_list_tasks->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
-                                   <?php var_dump($all_list_tasks);  ?>
-                                    <?php foreach ($all_tasks->result() as $row) { ?>
+                                    <tr>
+                                        <td colspan="6"><?php echo $row_list_tasks->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
+                                    </tr>
+                                     <?php foreach ($row_list_tasks->tasks as $row) { ?>
                                         <tr>
                                             <?php if ($row->id_list_tasks==$row_list_tasks->id_list_tasks) { ?>
                                                 <td><?php echo $row->name_task; ?></td>

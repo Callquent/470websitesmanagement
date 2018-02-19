@@ -7,6 +7,7 @@ class Language extends CI_Controller {
 		parent::__construct();
 		// Chargement des ressources pour ce controller
 		$this->load->database();
+		$this->load->model('model_tasks');
 		$this->load->model('model_front');
 		$this->load->model('model_language');
 		$this->load->model('model_settings');
@@ -21,6 +22,9 @@ class Language extends CI_Controller {
 	}
 	public function index($title_url_language = '')
 	{
+		$data['login'] = $this->session->userdata['username'];
+		$data['user_role'] = $this->aauth->get_user_groups();
+
 		$data['all_websites'] = $this->model_front->get_all_websites_per_language($title_url_language);
 		$data['all_languages'] = $this->model_front->get_all_languages();
 		$data['all_categories'] = $this->model_front->get_all_categories();
@@ -30,8 +34,7 @@ class Language extends CI_Controller {
 		$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
 		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
-		$data['login'] = $this->session->userdata['username'];
-		$data['user_role'] = $this->aauth->get_user_groups();
+		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
 		$this->load->view('language', $data);
 	}

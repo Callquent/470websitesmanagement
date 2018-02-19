@@ -88,7 +88,7 @@
                                 </a>
                                 <ul class="sub">
                                     <li><a href="<?php echo site_url('all-projects'); ?>">All Projects</a></li>
-                                    <li><a href="<?php echo site_url('my-tasks'); ?>">My Tasks <span class="badge"><?php echo $all_count_websites->count_all_websites; ?></span></a></li>
+                                    <li><a href="<?php echo site_url('my-tasks'); ?>">My Tasks <span class="badge"><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span></a></li>
                                 </ul>
                             </li>
                             </li>
@@ -102,7 +102,7 @@
                                     <li><a href="<?php echo site_url('website-scrapper-google'); ?>">Website Scrapper Google</a></li>
                                 </ul>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="javascript:;">
                                     <i class="fa fa-bar-chart"></i>
                                     <span>Position Tracking</span>
@@ -111,7 +111,7 @@
                                     <li><a href="<?php echo site_url('position-tracking-google'); ?>">Position Tracking Google</a></li>
                                     <li><a href="<?php echo site_url('edit-keyword-google'); ?>">Edit Keyword Google</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <?php if ($user_role[0]->name == "Admin") { ?>

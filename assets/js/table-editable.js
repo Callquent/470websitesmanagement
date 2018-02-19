@@ -111,9 +111,9 @@ var EditableTable = function () {
                     languageList = '<select id="category" class="form-control">';
                     $.each( data, function( key, val ) {
                         if ( val.c_title == aData[3] ) {
-                            languageList += '<option value="'+val.c_id+'" selected>'+ val.c_title + '</option>';
+                            languageList += '<option value="'+val.c_id+'" selected>'+ val.title_category + '</option>';
                         } else{
-                            languageList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
+                            languageList += '<option value="'+val.c_id+'">'+ val.title_category + '</option>';
                         }
                     });
                     languageList += '</select>';
@@ -123,9 +123,9 @@ var EditableTable = function () {
                     languageList = '<select id="language" class="form-control">';
                     $.each( data, function( key, val ) {
                         if ( val.l_title == aData[4] ) {
-                            languageList += '<option value="'+val.l_id+'" selected>'+ val.l_title + '</option>';
+                            languageList += '<option value="'+val.l_id+'" selected>'+ val.title_language + '</option>';
                         } else{
-                            languageList += '<option value="'+val.l_id+'">'+ val.l_title + '</option>';
+                            languageList += '<option value="'+val.l_id+'">'+ val.title_language + '</option>';
                         }
                     });
                     languageList += '</select>';

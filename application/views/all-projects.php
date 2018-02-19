@@ -104,14 +104,15 @@
                                       </td>
                                       <td><img alt="" src="http://localhost:8080/470websitesmanagement/assets/img/users/Sauron_eye_barad_dur.jpg" class="img-datatable"></td>
                                       <td>
-                                        <a href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i></a>
                                         <div class="dropdown show actions">
                                           <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-bars"></i>
                                           </a>
                                           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-projects/'.$row->id_project_tasks).'"><i class="fa fa-pencil"></i> Edit</a>
-                                            <a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-projects/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
+                                            <a class="dropdown-item" id="view-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" id="edit-project" href="'.site_url('all-projects/'.$row->id_project_tasks).'"><i class="fa fa-pencil"></i> Edit</a>
+                                            <a class="dropdown-item" id="delete-project" href="'.site_url('all-projects/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
                                           </div>
                                         </div>
                                       </td>

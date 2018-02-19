@@ -63,7 +63,7 @@
           <div class="modal-content">
             <div class="modal-header modal-header-success">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-              <h4 class="modal-title custom_align" id="Heading">Afficher FTP</h4>
+              <h4 class="modal-title custom_align" id="Heading"><?php echo lang('access_ftp'); ?></h4>
             </div>
             <div class="modal-body">
               <form id="acces-ftp" class="form-horizontal" role="form" action="#">
@@ -95,7 +95,7 @@
           <div class="modal-content">
             <div class="modal-header modal-header-success">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-              <h4 class="modal-title custom_align" id="Heading">Afficher SQL</h4>
+              <h4 class="modal-title custom_align" id="Heading"><?php echo lang('access_sql'); ?></h4>
             </div>
             <div class="modal-body">
               <form id="acces-sql" class="form-horizontal" role="form" action="#">
@@ -128,7 +128,7 @@
           <div class="modal-content">
             <div class="modal-header modal-header-success">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-              <h4 class="modal-title custom_align" id="Heading">Afficher le site web</h4>
+              <h4 class="modal-title custom_align" id="Heading"><?php echo lang('access_backoffice'); ?></h4>
             </div>
             <div class="modal-body">
               <form id="acces-backoffice" class="form-horizontal" role="form" action="#">
@@ -160,7 +160,7 @@
           <div class="modal-content">
             <div class="modal-header modal-header-success">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-              <h4 class="modal-title custom_align" id="Heading">Afficher le site web</h4>
+              <h4 class="modal-title custom_align" id="Heading"><?php echo lang('access_htaccess'); ?></h4>
             </div>
             <div class="modal-body">
               <form id="acces-htaccess" class="form-horizontal" role="form" action="#">

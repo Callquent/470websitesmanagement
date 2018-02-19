@@ -125,3 +125,9 @@ $lang['type'] = "Type";
 $lang['calendar'] = "Calendar";
 $lang['list'] = "List";
 $lang['domain_name_included'] = "Domain Name Included";
+/***********************/
+/*        All Tasks        */
+/***********************/
+$lang['days'] = "Days";
+$lang['time_spent'] = "Time spent :";
+$lang['remaining_time'] = "Remaining time :";
