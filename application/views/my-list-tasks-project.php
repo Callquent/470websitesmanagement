@@ -109,174 +109,71 @@
                     </div>
                     <div class="col-md-9 column sortable ui-sortable">
                         <!-- BEGIN Portlet PORTLET-->
-                <section class="card mb-3">
-                    <header class="card-header">
-                        Editable Table
-                        <span class="tools pull-right">
-                            <a href="javascript:;" class="fa fa-chevron-down"></a>
-                            <a href="javascript:;" class="fa fa-cog"></a>
-                            <a href="javascript:;" class="fa fa-times"></a>
-                         </span>
-                    </header>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12 float-right">
-                                <div class="float-right">
-                                    <a class="btn btn-default btn-primary mb-3" href="<?php echo site_url('/all-projects/'); ?>"><span><i class="fa fa-angle-double-left"></i></span> Retour</a>
-                                    <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-list-tasks"><span><i class="fa fa-plus"></i></span> Ajouter une Liste</a>
+                        <section class="card mb-3">
+                            <header class="card-header">
+                                Editable Table
+                                <span class="tools pull-right">
+                                    <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                    <a href="javascript:;" class="fa fa-cog"></a>
+                                    <a href="javascript:;" class="fa fa-times"></a>
+                                 </span>
+                            </header>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 float-right">
+                                        <div class="float-right">
+                                            <a class="btn btn-default btn-primary mb-3" href="<?php echo site_url('/my-tasks/'); ?>"><span><i class="fa fa-angle-double-left"></i></span> Retour</a>
+                                            <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-list-tasks"><span><i class="fa fa-plus"></i></span> Ajouter une Liste</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="adv-table editable-table">
+                                    <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
+                                        <thead>
+                                          <tr>
+                                              <th class="all"><?php echo lang('name'); ?></th>
+                                              <th class="desktop">Description</th>
+                                              <th class="desktop">Priority</th>
+                                              <th class="desktop">Status</th>
+                                              <th class="desktop">Member</th>
+                                              <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
+                                                <th class="desktop"><?php echo lang('actions'); ?></th>
+                                              <?php } ?>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <?php foreach ($all_list_tasks->result() as $row_list_tasks) { ?>
+                                            <tr>
+                                                <td colspan="6"><?php echo $row_list_tasks->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
+                                            </tr>
+                                             <?php foreach ($row_list_tasks->tasks as $row) { ?>
+                                                <tr>
+                                                    <?php if ($row->id_list_tasks==$row_list_tasks->id_list_tasks) { ?>
+                                                        <td><?php echo $row->name_task; ?></td>
+                                                        <td><?php echo $row->description_task; ?></td>
+                                                        <td><?php echo $row->name_tasks_priority; ?></td>
+                                                        <td><?php echo $row->name_tasks_status; ?></td>
+                                                        <td><?php echo $row->username; ?></td>
+                                                        <td>
+                                                            <div class="dropdown show actions">
+                                                              <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-bars"></i>
+                                                              </a>
+                                                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                                <a class="dropdown-item" id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_task); ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                                                <a class="dropdown-item" id="delete-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_task); ?>"><i class="fa fa-trash"></i> Delete</a>
+                                                              </div>
+                                                            </div>
+                                                        </td>
+                                                    <?php } ?>
+                                                </tr>
+                                            <?php } ?>
+                                          <?php } ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div>
-                        <div class="adv-table editable-table">
-                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
-                                <thead>
-                                  <tr>
-                                      <th class="all"><?php echo lang('name'); ?></th>
-                                      <th class="desktop">Description</th>
-                                      <th class="desktop">Priority</th>
-                                      <th class="desktop">Status</th>
-                                      <th class="desktop">Member</th>
-                                      <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                                        <th class="desktop"><?php echo lang('actions'); ?></th>
-                                      <?php } ?>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <?php foreach ($all_list_tasks->result() as $row_list_tasks) { ?>
-                                    <tr>
-                                        <td colspan="6"><?php echo $row_list_tasks->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
-                                    </tr>
-                                     <?php foreach ($row_list_tasks->tasks as $row) { ?>
-                                        <tr>
-                                            <?php if ($row->id_list_tasks==$row_list_tasks->id_list_tasks) { ?>
-                                                <td><?php echo $row->name_task; ?></td>
-                                                <td><?php echo $row->description_task; ?></td>
-                                                <td><?php echo $row->name_tasks_priority; ?></td>
-                                                <td><?php echo $row->name_tasks_status; ?></td>
-                                                <td><?php echo $row->username; ?></td>
-                                                <td>
-                                                    <div class="dropdown show actions">
-                                                      <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-bars"></i>
-                                                      </a>
-                                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                        <a class="dropdown-item" id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_task); ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                                        <a class="dropdown-item" id="delete-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_task); ?>"><i class="fa fa-trash"></i> Delete</a>
-                                                      </div>
-                                                    </div>
-                                                </td>
-                                            <?php } ?>
-                                        </tr>
-                                    <?php } ?>
-                                  <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-
-
-                                <div class="card card-danger">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                A faire
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="elements">
-                                                    <form class="header-form" action="#">
-                                                        <div class="form-group has-feedback has-feedback-left">
-                                                            <input type="search" class="form-control" placeholder="Enter keyword here...">
-                                                            <div class="form-control-feedback">
-                                                                <i class="icon-search4 text-size-base text-muted"></i>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-
-                                  
-                                    
-
-                                        <div id="accordion" role="tablist" aria-multiselectable="true">
-                                            <?php foreach ($all_list_tasks->result() as $row) { ?>
-                                            <div class="card">
-                                                <div class="card-header" role="tab" id="headingOne">
-                                                  <h5 class="mb-0">
-                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $row->id_list_tasks; ?>" aria-expanded="false" aria-controls="collapse<?php echo $row->id_list_tasks; ?>">
-                                                       <?php echo $row->title_list_task; ?>
-                                                       <div class="float-right">
-                                                           <a class="btn btn-success btn-primary mb-3" href="http://localhost:8080/470websitesmanagement/index.php/all-projects/"><i class="fa fa-plus"></i></a>
-                                                           <a class="btn btn-default btn-primary mb-3" href="http://localhost:8080/470websitesmanagement/index.php/all-projects/"><i class="fa fa-pencil"></i></a>
-                                                           <a class="btn btn-danger btn-primary mb-3" href="http://localhost:8080/470websitesmanagement/index.php/all-projects/"><i class="fa fa-times"></i></a>
-                                                       </div>
-                                                    </a>
-                                                  </h5>
-                                                </div>
-
-                                                <div id="collapse<?php echo $row->id_list_tasks; ?>" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                                                  <div class="card-block">
-                                        <ul class="to-do-list" id="sortable-todo">
-                                            <li class="clearfix">
-                                                <span class="drag-marker">
-                                                <i></i>
-                                                </span>
-                                                <div class="todo-check pull-left">
-                                                    <input type="checkbox" value="None" id="todo-check"/>
-                                                    <label for="todo-check"></label>
-                                                </div>
-                                                <p class="todo-title">
-                                                    sdhfhsd gsdf shjbfhsdb fhdbhjsdb h
-                                                </p>
-                                                <div class="todo-actionlist pull-right clearfix">
-                                                    <a href="#" class="todo-done"><i class="fa fa-check"></i></a>
-                                                    <a href="#" class="todo-edit"><i class="fa fa-pencil"></i></a>
-                                                    <a href="#" class="todo-remove"><i class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix">
-                                                <span class="drag-marker">
-                                                <i></i>
-                                                </span>
-                                                <div class="todo-check pull-left">
-                                                    <input type="checkbox" value="None" id="todo-check1"/>
-                                                    <label for="todo-check1"></label>
-                                                </div>
-                                                <p class="todo-title">
-                                                    Donec quam libero, rutrum non gravida
-                                                </p>
-                                                <div class="todo-actionlist pull-right clearfix">
-                                                    <a href="#" class="todo-done"><i class="fa fa-check"></i></a>
-                                                    <a href="#" class="todo-edit"><i class="fa fa-pencil"></i></a>
-                                                    <a href="#" class="todo-remove"><i class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                                  </div>
-                                                </div>
-                                            </div>
-                                            <?php } ?>
-                                        </div>
-
-
-                                        <div class="todo-action-bar">
-                                            <div class="row">
-                                                <div class="col-xs-4 btn-todo-select">
-                                                    <button type="submit" class="btn btn-default"><i class="fa fa-check"></i> Select All</button>
-                                                </div>
-                                                <div class="col-xs-4 todo-search-wrap">
-                                                    <input type="text" class="form-control search todo-search pull-right" placeholder=" Search">
-                                                </div>
-                                                <div class="col-xs-4 btn-add-task">
-                                                    <button type="submit" class="btn btn-default btn-primary"><i class="fa fa-plus"></i> Add Task</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        </section>
 
 
                     </div>

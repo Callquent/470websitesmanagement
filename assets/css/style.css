@@ -9,8 +9,19 @@ h1 {
     font-weight: 600;
     font-size: 48px;
 }
-.datepicker{
-  z-index: 2000;
+.datepicker{ z-index: 2000;}
+#main-content .badge { font-size: 18px !important; color: #ffffff;}
+.card {
+  border-radius: 0px !important;
+}
+.card-header {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 14px;
+    background: #1b222c;
+    text-transform: uppercase;
+    border-radius: 0px !important;
 }
 /***********************/
 /*        BUTTON        */
@@ -218,10 +229,6 @@ h1 {
   color: #ffffff;
   font-size: 25px;
 }
-.badge {
-  background: #1fb5ac !important;
-  color: #ffffff;
-}
 ul.sidebar-menu li a span {
   font-size: 14px;
 }
@@ -249,10 +256,11 @@ ul.sidebar-menu .list-title-sidebar span {
   background-size: 100%;
   height: 120px;
 }
-/******************************
-Sidebar
-******************************/
+/***********************/
+/*      SIDEBAR       */
+/***********************/
 #sidebar {background-color: #1b222c;position: fixed;height: 100%;color:#fff;}
+#sidebar .badge { background: #1fb5ac !important; color: #ffffff;}
 #sidebar .nav.nav-tabs {padding-left: 10px;border-bottom: 1px solid #1b222c;margin: 0;position: relative;top: -40px;}
 #sidebar .nav > li > a {position: relative;display: block;padding:9px 15px 9px;}
 #sidebar .nav.nav-tabs li{margin-right:1px;}
@@ -511,15 +519,18 @@ h3.r{
 table.dataTable {
   border-collapse: collapse !important;
 }
-table th {
+table.dataTable th {
   background: #1b222c !important;
   color: #FFF;
   vertical-align: middle !important;
   text-align: center;
   text-transform: uppercase;
 }
-table tr {
+table.dataTable tr {
   vertical-align: middle !important;
+}
+table.dataTable td {
+  text-align: center;
 }
 .adv-table .dataTables_length, .adv-table .dataTables_filter {
   padding: 0;

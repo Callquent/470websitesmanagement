@@ -29,7 +29,6 @@
             </a>
             <ul class="dropdown-menu extended logout">
                 <li><a href="<?php echo site_url('profile'); ?>"><i class=" fa fa-user"></i><?php echo lang('profile'); ?></a></li>
-                <li><a href="<?php echo site_url('settings'); ?>"><i class="fa fa-cog"></i><?php echo lang('settings'); ?></a></li>
                 <li><a href="<?php echo site_url('index/logout'); ?>"><i class="fa fa-key"></i><?php echo lang('log_out'); ?></a></li>
             </ul>
         </li>

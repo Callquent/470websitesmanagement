@@ -9,13 +9,52 @@ class Model_tasks extends CI_Model {
 				 ->from('470websitesmanagement_project_tasks')
 				 ->join('470websitesmanagement_website', '470websitesmanagement_project_tasks.id_website = 470websitesmanagement_website.w_id');
 
-			/*$data['percentage'] = $this->model_tasks->get_percentage($id_project_tasks);
-			if ( $data['percentage']->num_rows() == 0) {
-				$data['percentage_all_tasks'] = 0;
-			} else {
-				$data['percentage_all_tasks'] = round(($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());
-			}
-			$value->percentage = */
+		$query = $this->db->get();
+		foreach ($query->result() as $value) {
+			$value->percentage_tasks = $this->get_percentage($value->id_project_tasks)->row()->percentage;
+		}
+
+		return $query;
+	}
+	function get_percentage($id_project_tasks)
+	{
+		$this->db->select('ROUND(SUM(CASE WHEN id_tasks_status = "2" OR id_tasks_status = "3" THEN 1 ELSE 0 END)/count(*)*100,0) as percentage')
+				->from('470websitesmanagement_tasks')
+				->where('id_project_tasks', $id_project_tasks);
+
+		$query = $this->db->get();
+		return $query;
+	}
+	function get_all_projects_to_user($id_user)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_project_tasks')
+				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_project_tasks = 470websitesmanagement_project_tasks.id_project_tasks')
+				 ->join('470websitesmanagement_website', '470websitesmanagement_project_tasks.id_website = 470websitesmanagement_website.w_id')
+				 ->where('470websitesmanagement_tasks.id_user', $id_user)
+				 ->group_by(array('470websitesmanagement_project_tasks.id_project_tasks', '470websitesmanagement_project_tasks.title_project_tasks'));
+
+		$query = $this->db->get();
+		return $query;
+	}
+	function get_all_tasks_per_users()
+	{
+		$this->db->select('count(*) as all_tasks_user, aauth_users.username, aauth_users.email, SUM(IF(id_tasks_status = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_tasks_status = "2", 1,0)) as all_tasks_completed_user')
+				 ->from('470websitesmanagement_tasks')
+				 ->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
+				 ->group_by(array('470websitesmanagement_tasks.id_user','aauth_users.username'));
+
+		$query = $this->db->get();
+		return $query;
+	}
+	private function get_tasks_inprogress_to_user($id_user)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_project_tasks')
+				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_project_tasks = 470websitesmanagement_project_tasks.id_project_tasks')
+				 ->join('470websitesmanagement_website', '470websitesmanagement_project_tasks.id_website = 470websitesmanagement_website.w_id')
+				 ->where('470websitesmanagement_tasks.id_user', $id_user)
+				 ->group_by(array('470websitesmanagement_project_tasks.id_project_tasks', '470websitesmanagement_project_tasks.title_project_tasks'));
 
 		$query = $this->db->get();
 		return $query;
@@ -30,16 +69,6 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query->row();
 	}
-	function get_percentage($id_project_tasks)
-	{
-		$this->db->select('*')
-				->from('470websitesmanagement_tasks')
-				->where('id_project_tasks', $id_project_tasks)
-				->where_in('id_tasks_status', array(2,3));
-
-		$query = $this->db->get();
-		return $query;
-	}
 	function get_all_list_tasks()
 	{
 		$this->db->select('*')
@@ -48,15 +77,21 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_list_tasks_per_project($id_project_tasks)
+	function get_list_tasks_per_project($id_project_tasks,$id_user = "")
 	{
 	    	$this->db->select('*')
 					->from('470websitesmanagement_project_tasks')
 					->join('470websitesmanagement_list_tasks', '470websitesmanagement_project_tasks.id_project_tasks = 470websitesmanagement_list_tasks.id_project_tasks')
 					->where('470websitesmanagement_list_tasks.id_project_tasks', $id_project_tasks);
 			$query = $this->db->get();
-			foreach ($query->result() as $value) {
-				$value->tasks = $this->get_tasks_per_list_task($id_project_tasks,$value->id_list_tasks)->result();
+			if (empty($id_user)) {
+				foreach ($query->result() as $value) {
+					$value->tasks = $this->get_tasks_per_list_task($id_project_tasks,$value->id_list_tasks)->result();
+				}
+			} else {
+				foreach ($query->result() as $value) {
+					$value->tasks = $this->get_tasks_user_per_list_task($id_project_tasks,$value->id_list_tasks, $id_user)->result();
+				}
 			}
 
 			return $query;
@@ -70,6 +105,21 @@ class Model_tasks extends CI_Model {
 				->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
 				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				->where('470websitesmanagement_tasks.id_list_tasks', $id_list_task)
+				->order_by("470websitesmanagement_tasks.id_list_tasks", "asc");
+
+		$query = $this->db->get();
+		return $query;
+	}
+	private function get_tasks_user_per_list_task($id_project_tasks,$id_list_task,$id_user)
+	{
+		$this->db->select('*')
+				->from('470websitesmanagement_tasks')
+				->join('470websitesmanagement_tasks_priority', '470websitesmanagement_tasks_priority.id_tasks_priority = 470websitesmanagement_tasks.id_tasks_priority')
+				->join('470websitesmanagement_tasks_status', '470websitesmanagement_tasks_status.id_tasks_status = 470websitesmanagement_tasks.id_tasks_status')
+				->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
+				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
+				->where('470websitesmanagement_tasks.id_list_tasks', $id_list_task)
+				->where('470websitesmanagement_tasks.id_user', $id_user)
 				->order_by("470websitesmanagement_tasks.id_list_tasks", "asc");
 
 		$query = $this->db->get();

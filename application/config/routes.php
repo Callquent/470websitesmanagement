@@ -55,6 +55,7 @@ $route['all-websites/language/(:any)'] = 'all-websites/index/language/$1';
 $route['all-websites/category/(:any)'] = 'all-websites/index/category/$1';
 $route['website-scrapper-google/(:num)'] = 'website-scrapper-google/index/$1';
 $route['all-projects/(:num)'] = 'all-projects/index/$1';
+$route['my-tasks/(:num)'] = 'my-tasks/index/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 

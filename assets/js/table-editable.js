@@ -100,6 +100,18 @@ var EditableTable = function () {
                     targets:   0
                 } ],
             });
+            var htTable = $('#table-htaccess-dashboard').dataTable({
+                responsive: {
+                    details: {
+                       
+                    }
+                },
+                columnDefs: [ {
+                    className: 'control',
+                    orderable: false,
+                    targets:   0
+                } ],
+            });
 
             function editRowWebsiteInfo(dashboardTable, nRow, nUrl) {
                 var aData = dashboardTable.fnGetData(nRow);
@@ -152,32 +164,27 @@ var EditableTable = function () {
             function editRowWebsiteFtp(ftpTable, nRow, nUrl) {
                 var aData = ftpTable.fnGetData(nRow);
                 var jqTds = $('>td', nRow);
-                var languageList;
                 jqTds[0].innerHTML = '<input type="text" class="form-control small" id="hoteftp" value="' + aData[0] + '">';
                 jqTds[1].innerHTML = '<input type="text" class="form-control small" id="loginftp" value="' + aData[1] + '">';
                 jqTds[2].innerHTML = '<input type="text" class="form-control small" id="passwordftp" value="' + aData[2] + '">';
-                jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
-                jqTds[4].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
+                jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
             }
             function saveRowWebsiteFtp(ftpTable, nRow, nUrl) {
                 var jqInputs = $('input', nRow);
                 ftpTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
                 ftpTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
                 ftpTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-                ftpTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 3, false);
-                ftpTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 4, false);
+                ftpTable.fnUpdate($.parseHTML('<a id="edit-dashboard" href="javascript:void(0);">Edit</a>'), nRow, 3, false);
                 ftpTable.fnDraw();
             }
             function editRowWebsiteDatabase(dbTable, nRow, nUrl) {
                 var aData = dbTable.fnGetData(nRow);
                 var jqTds = $('>td', nRow);
-                var languageList;
                 jqTds[0].innerHTML = '<input type="text" class="form-control small" id="hotedatabase" value="' + aData[0] + '">';
                 jqTds[1].innerHTML = '<input type="text" class="form-control small" id="namedatabase" value="' + aData[1] + '">';
                 jqTds[2].innerHTML = '<input type="text" class="form-control small" id="logindatabase" value="' + aData[2] + '">';
                 jqTds[3].innerHTML = '<input type="text" class="form-control small" id="passworddatabase" value="' + aData[3] + '">';
-                jqTds[4].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
-                jqTds[5].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
+                jqTds[4].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
             }
             function saveRowWebsiteDatabase(dbTable, nRow, nUrl) {
                 var jqInputs = $('input', nRow);
@@ -192,12 +199,10 @@ var EditableTable = function () {
             function editRowWebsiteBackoffice(boTable, nRow, nUrl) {
                 var aData = boTable.fnGetData(nRow);
                 var jqTds = $('>td', nRow);
-                var languageList;
                 jqTds[0].innerHTML = '<input type="text" class="form-control small" id="hotebackoffice" value="' + aData[0] + '">';
                 jqTds[1].innerHTML = '<input type="text" class="form-control small" id="loginbackoffice" value="' + aData[1] + '">';
                 jqTds[2].innerHTML = '<input type="text" class="form-control small" id="passwordbackoffice" value="' + aData[2] + '">';
-                jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
-                jqTds[4].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
+                jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
             }
             function saveRowWebsiteBackoffice(boTable, nRow, nUrl) {
                 var jqInputs = $('input', nRow);
@@ -208,6 +213,21 @@ var EditableTable = function () {
                 boTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 4, false);
                 boTable.fnDraw();
             }
+            function editRowWebsiteHtaccess(htTable, nRow, nUrl) {
+                var aData = htTable.fnGetData(nRow);
+                var jqTds = $('>td', nRow);
+                jqTds[0].innerHTML = '<input type="text" class="form-control small" id="loginhtaccess" value="' + aData[0] + '">';
+                jqTds[1].innerHTML = '<input type="text" class="form-control small" id="passwordhtaccess" value="' + aData[1] + '">';
+                jqTds[2].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+            }
+            function saveRowWebsiteHtaccess(htTable, nRow, nUrl) {
+                var jqInputs = $('input', nRow);
+                htTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+                htTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
+                htTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 2, false);
+                htTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 3, false);
+                htTable.fnDraw();
+            }
 
             jQuery('#editable-sample_wrapper .dataTables_filter input').addClass("form-control medium");
             jQuery('#editable-sample_wrapper .dataTables_length select').addClass("form-control xsmall");
@@ -216,6 +236,7 @@ var EditableTable = function () {
             var nEditingDatabase = null;
             var nEditingFtp = null;
             var nEditingBackoffice = null;
+            var nEditingHtaccess = null;
 
             $(document).on('click', '#table-dashboard #delete-dashboard', function (e) {
 
@@ -307,7 +328,7 @@ var EditableTable = function () {
                     restoreRow(ftpTable, nEditingFtp);
                     editRowWebsiteFtp(ftpTable, nRow, nUrl);
                     nEditingFtp = nRow;
-                } else if (nEditingFtp == nRow && this.innerHTML == "Save") {
+                } else if (nEditingFtp == nRow && $(this).find("i").attr("value") == "check") {
                     var hoteftp = $('#hoteftp').val();
                     var loginftp = $('#loginftp').val();
                     var passwordftp = $('#passwordftp').val();
@@ -350,7 +371,7 @@ var EditableTable = function () {
                     restoreRow(dbTable, nEditingDatabase);
                     editRowWebsiteDatabase(dbTable, nRow, nUrl);
                     nEditingDatabase = nRow;
-                } else if (nEditingDatabase == nRow && this.innerHTML == "Save") {
+                } else if (nEditingDatabase == nRow && $(this).find("i").attr("value") == "check") {
                     var hotedatabase = $('#hotedatabase').val();
                     var namedatabase = $('#namedatabase').val();
                     var logindatabase = $('#logindatabase').val();
@@ -395,7 +416,7 @@ var EditableTable = function () {
                     restoreRow(boTable, nEditingBackoffice);
                     editRowWebsiteBackoffice(boTable, nRow, nUrl);
                     nEditingBackoffice = nRow;
-                } else if (nEditingBackoffice == nRow && this.innerHTML == "Save") {
+                } else if (nEditingBackoffice == nRow && $(this).find("i").attr("value") == "check") {
                     var hotebackoffice = $('#hotebackoffice').val();
                     var loginbackoffice = $('#loginbackoffice').val();
                     var passwordbackoffice = $('#passwordbackoffice').val();
@@ -414,6 +435,48 @@ var EditableTable = function () {
                 } else {
                     editRowWebsiteBackoffice(boTable, nRow, nUrl);
                     nEditingBackoffice = nRow;
+                }
+            });
+
+
+            $(document).on('click', '#table-htaccess-dashboard #cancel-dashboard', function (e) {
+                e.preventDefault();
+                if ($(this).attr("data-mode") == "new") {
+                    var nRow = $(this).parents('tr')[0];
+                    htTable.fnDeleteRow(nRow);
+                } else {
+                    restoreRow(htTable, nEditingHtaccess);
+                    nEditingHtaccess = null;
+                }
+            });
+            $(document).on('click', '#table-htaccess-dashboard #edit-dashboard', function (e) {
+                e.preventDefault();
+
+                var nRow = $(this).parents('tr')[0];
+                var nUrl = $(this).attr('href');
+                
+                if (nEditingHtaccess !== null && nEditingHtaccess != nRow) {
+                    restoreRow(htTable, nEditingHtaccess);
+                    editRowWebsiteHtaccess(htTable, nRow, nUrl);
+                    nEditingHtaccess = nRow;
+                } else if (nEditingHtaccess == nRow && $(this).find("i").attr("value") == "check") {
+                    var loginhtaccess = $('#loginhtaccess').val();
+                    var passwordhtaccess = $('#passwordhtaccess').val();
+                    $.ajax({
+                        type: "POST",
+                        url: $(this).attr('href'),
+                        data: {'loginhtaccess':loginhtaccess,'passwordhtaccess':passwordhtaccess},
+                        success: function(msg){
+                            saveRowWebsiteHtaccess(htTable, nEditingHtaccess, nUrl);
+                            nEditingHtaccess = null;
+                        },
+                        error: function(msg){
+                            console.log(msg);
+                        }
+                    });
+                } else {
+                    editRowWebsiteHtaccess(htTable, nRow, nUrl);
+                    nEditingHtaccess = nRow;
                 }
             });
         }

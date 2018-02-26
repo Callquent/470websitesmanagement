@@ -808,29 +808,19 @@ $(document).ready(function(){
 			$( ".editable-table" ).show(  );
 			$( "#calendar" ).hide(  );
 		});
-	} else if (window.location.href.split('/').pop() == "tasks") {
-        $('.todo-check label').click(function () {
-            $(this).parents('li').children('.todo-title').toggleClass('line-through');
+	} else if (window.location.href.split('/').pop() == "users-tasks") {
+        var users_tasksTable = $('#table-users-tasks').dataTable({
+			"columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
         });
-
-
-        $(document).on('click', '.todo-remove', function () {
-            $(this).closest("li").remove();
-            return false;
-        });
-
-
-        $('.stat-tab .stat-btn').click(function () {
-
-            $(this).addClass('active');
-            $(this).siblings('.btn').removeClass('active');
-
-        });
-
-        $('select.styled').customSelect();
-        $("#sortable-todo").sortable();
-        
-		DraggablePortlet.init();
 	} else if (window.location.href.split('/').pop() == "website-scrapper-google") {
 		var websitegoogleTable = $('#table-website-scrapper-google').DataTable({
 		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],

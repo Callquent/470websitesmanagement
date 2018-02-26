@@ -22,12 +22,13 @@ $lang['log_out'] = " Log Out";
 /***********************/
 /*        sidebar        */
 /***********************/
+$lang['general'] = "General";
 $lang['dashboard'] = "Dashboard";
 $lang['all_websites'] = "All Websites";
 $lang['website_languages'] = "Website Languages";
 $lang['website_categories'] = "Website Categories";
-$lang['groups'] = "Groups : ";
-$lang['management'] = "Management : ";
+$lang['groups'] = "Groups";
+$lang['management'] = "Management";
 $lang['members'] = "Members";
 $lang['documentation'] = "Documentation";
 /***********************/
@@ -118,6 +119,14 @@ $lang['charge_file_470'] = "Load your file .470 :";
 /*		Search Scrapper Google 	  */
 /**********************************/
 $lang['search_scrapper_google'] = "Search Scrapper Google";
+$lang['serp_simulator'] = "SERP Simulator";
+$lang['position'] = "Position";
+$lang['meta_title'] = "Meta Title";
+$lang['meta_description'] = "Meta Description";
+
+$lang['your_website'] = "Your website ";
+$lang['is_index'] = "is indexed.";
+$lang['websites_no_index_keyword'] = "Your website is not indexing on this keyword.";
 /***********************/
 /*        Whois        */
 /***********************/
@@ -126,8 +135,12 @@ $lang['calendar'] = "Calendar";
 $lang['list'] = "List";
 $lang['domain_name_included'] = "Domain Name Included";
 /***********************/
-/*        All Tasks        */
+/*        All Tasks     */
 /***********************/
 $lang['days'] = "Days";
 $lang['time_spent'] = "Time spent :";
 $lang['remaining_time'] = "Remaining time :";
+/***********************/
+/*    Documentation    */
+/***********************/
+$lang['notice'] = "Notice";

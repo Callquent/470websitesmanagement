@@ -48,26 +48,22 @@ class All_projects extends CI_Controller {
 
 			$data['datetimestart'] = past_time_project($id_project_tasks);
 			$data['datetimedeadline'] = remaining_time_project($id_project_tasks);
-			$data['percentage'] = $this->model_tasks->get_percentage($id_project_tasks);
+			$data['percentage_project'] = $this->model_tasks->get_percentage($id_project_tasks)->row();
 
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
-			$data['all_tasks'] = $this->model_tasks->get_all_tasks($id_project_tasks);
+			/*$data['all_tasks'] = $this->model_tasks->get_all_tasks($id_project_tasks);*/
 			$data['all_list_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
 			$data['id_project_tasks'] = $id_project_tasks;
 
-			if ( $data['percentage']->num_rows() == 0) {
+			/*if ( $data['percentage']->num_rows() == 0) {
 				$data['percentage_all_tasks'] = 0;
 			} else {
 				$data['percentage_all_tasks'] = round(($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());
-			}
+			}*/
 
-			/*$data['percentage'] = $this->model_tasks->get_percentage($id_project_tasks, $id_project_tasks);
-			$data['all_tasks'] = $this->model_tasks->get_all_tasks($id_project_tasks, $id_project_tasks);*/
-			/*$data['percentage_all_tasks_per_list'] = (($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());*/
-
-			$this->load->view('all-tasks-project', $data);
+			$this->load->view('list-tasks-project', $data);
 		}
 	}
 	public function create_projects()

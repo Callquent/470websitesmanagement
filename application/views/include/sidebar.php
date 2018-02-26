@@ -88,7 +88,8 @@
                                 </a>
                                 <ul class="sub">
                                     <li><a href="<?php echo site_url('all-projects'); ?>">All Projects</a></li>
-                                    <li><a href="<?php echo site_url('my-tasks'); ?>">My Tasks <span class="badge"><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span></a></li>
+                                    <li><a href="<?php echo site_url('my-tasks'); ?>">My Tasks <span class="badge badge-my-tasks"><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span></a></li>
+                                    <li><a href="<?php echo site_url('users-tasks'); ?>">Users Tasks</a></li>
                                 </ul>
                             </li>
                             </li>
@@ -151,6 +152,12 @@
                         <ul class="sidebar-menu" id="nav-accordion">
                             <li class="list-title-sidebar">
                                 <span><?php echo lang('management'); ?></span>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('settings'); ?>">
+                                    <i class="fa fa-cog"></i>
+                                    <span><?php echo lang('settings'); ?></span>
+                                </a>
                             </li>
                             <li>
                                 <a href="<?php echo site_url('export'); ?>">

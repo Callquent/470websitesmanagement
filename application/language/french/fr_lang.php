@@ -23,13 +23,13 @@ $lang['log_out'] = " Déconnexion";
 /***********************/
 /*        sidebar        */
 /***********************/
-$lang['general'] = "Général : ";
+$lang['general'] = "Général";
 $lang['dashboard'] = "Tableau de bord";
 $lang['all_websites'] = "Tous les Sites";
 $lang['website_languages'] = "Site Web par Langages";
 $lang['website_categories'] = "Site Web par Catégories";
-$lang['groups'] = "Groupes : ";
-$lang['management'] = "Administration : ";
+$lang['groups'] = "Groupes";
+$lang['management'] = "Administration";
 $lang['members'] = "Membres";
 $lang['documentation'] = "Documentation";
 /***********************/
@@ -119,6 +119,7 @@ $lang['charge_file_470'] = "Charger votre fichier .470 :";
 /*		Search Scrapper Google 	  */
 /**********************************/
 $lang['search_scrapper_google'] = "Search Scrapper Google";
+$lang['serp_simulator'] = "Simulateur de SERP";
 $lang['position'] = "Position";
 $lang['meta_title'] = "Meta Title";
 $lang['meta_description'] = "Meta Description";
@@ -139,3 +140,7 @@ $lang['domain_name_included'] = "Nom de Domaine inclus";
 $lang['days'] = "Jours";
 $lang['time_spent'] = "Temps passé :";
 $lang['remaining_time'] = "Temps restant :";
+/***********************/
+/*    Documentation    */
+/***********************/
+$lang['notice'] = "Documentation";

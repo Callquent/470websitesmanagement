@@ -75,8 +75,7 @@
                             <th class="all">Login FTP</th>
                             <th class="all">Password FTP</th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                              <th class="desktop">Modifier</th>
-                              <th class="desktop">Supprimer</th>
+                              <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
                         </tr>
                       </thead>
@@ -108,8 +107,7 @@
                             <th class="all">Login SQL</th>
                             <th class="all">Mot de Passe SQL</th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                              <th class="desktop">Modifier</th>
-                              <th class="desktop">Supprimer</th>
+                              <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
                         </tr>
                       </thead>
@@ -140,8 +138,7 @@
                             <th class="all">Admin Login</th>
                             <th class="all">Admin Mot de passe</th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                              <th class="desktop">Modifier</th>
-                              <th class="desktop">Supprimer</th>
+                              <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
                         </tr>
                       </thead>
@@ -171,8 +168,7 @@
                             <th class="all">Login Htaccess</th>
                             <th class="all">Mot de passe Htaccess</th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                              <th class="desktop">Modifier</th>
-                              <th class="desktop">Supprimer</th>
+                              <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
                         </tr>
                       </thead>

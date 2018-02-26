@@ -40,14 +40,14 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-lg-2">
-                                                <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Search</button>
+                                                <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
-                                  <button class="btn btn-success btn-ls float-right" data-title="Ajouter" data-toggle="modal" data-target="#serptools">Simulateur de SERP</button>
+                                  <button class="btn btn-success btn-ls float-right" data-title="Ajouter" data-toggle="modal" data-target="#serptools"><?php echo lang('serp_simulator'); ?></button>
                                 </div>
                             </div>
                             <div class="space15"></div>
