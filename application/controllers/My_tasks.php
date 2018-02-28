@@ -37,6 +37,7 @@ class My_tasks extends CI_Controller {
 
 		if($this->uri->total_segments() == 1){
 			$data['all_projects_per_users'] = $this->model_tasks->get_all_projects_to_user($this->session->userdata['id']);
+			$data['test'] =$this->model_tasks->get_all_tasks_priority_per_users();
 			
 			$this->load->view('my-projects', $data);
 		} elseif($this->uri->total_segments() == 2) {
@@ -44,7 +45,7 @@ class My_tasks extends CI_Controller {
 
 			$data['datetimestart'] = past_time_project($id_project_tasks);
 			$data['datetimedeadline'] = remaining_time_project($id_project_tasks);
-			$data['percentage'] = $this->model_tasks->get_percentage($id_project_tasks);
+			$data['percentage_project'] = $this->model_tasks->get_percentage_user($id_project_tasks,$this->session->userdata['id'])->row();
 
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
@@ -53,7 +54,7 @@ class My_tasks extends CI_Controller {
 			$data['all_list_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,$this->session->userdata['id']);
 			$data['id_project_tasks'] = $id_project_tasks;
 
-			$this->load->view('my-list-tasks-project', $data);
+			$this->load->view('view-my-project', $data);
 		}
 
 	}

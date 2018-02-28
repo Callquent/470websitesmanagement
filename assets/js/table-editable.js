@@ -193,7 +193,6 @@ var EditableTable = function () {
                 dbTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
                 dbTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
                 dbTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 4, false);
-                dbTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 5, false);
                 dbTable.fnDraw();
             }
             function editRowWebsiteBackoffice(boTable, nRow, nUrl) {
@@ -210,7 +209,6 @@ var EditableTable = function () {
                 boTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
                 boTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
                 boTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 3, false);
-                boTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 4, false);
                 boTable.fnDraw();
             }
             function editRowWebsiteHtaccess(htTable, nRow, nUrl) {
@@ -225,7 +223,6 @@ var EditableTable = function () {
                 htTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
                 htTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
                 htTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 2, false);
-                htTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 3, false);
                 htTable.fnDraw();
             }
 

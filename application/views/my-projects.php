@@ -84,7 +84,7 @@
                                           <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentage_tasks; ?>%"></div>
                                         </div>
                                       </td>
-                                      <td><span class="badge badge-danger">Canceled</span></td>
+                                      <td><span class="badge badge-danger">Critical</span><span class="badge badge-warning">Hight</span><span class="badge badge-primary">Medium</span><span class="badge badge-success">Low</span></td>
                                       <td>
                                         <div class="dropdown show actions">
                                           <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

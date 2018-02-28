@@ -9,6 +9,7 @@ class Add_website extends CI_Controller {
 		// Chargement des ressources pour ce controller
 		$this->load->database();
 		$this->load->model('model_front');
+		$this->load->model('model_tasks');
 		$this->load->model('model_back');
 		$this->load->model('model_whois');
 		$this->load->model('model_settings');

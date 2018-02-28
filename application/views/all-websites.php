@@ -71,9 +71,9 @@
                  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftp-dashboard">
                       <thead>
                         <tr>
-                            <th class="all">Hote FTP</th>
-                            <th class="all">Login FTP</th>
-                            <th class="all">Password FTP</th>
+                            <th class="all"><?php echo lang('host_ftp'); ?></th>
+                            <th class="all"><?php echo lang('login_ftp'); ?></th>
+                            <th class="all"><?php echo lang('password_ftp'); ?></th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                               <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
@@ -102,10 +102,10 @@
                  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-database-dashboard">
                       <thead>
                         <tr>
-                            <th class="all">Serveur SQL</th>
-                            <th class="all">Nom de la base</th>
-                            <th class="all">Login SQL</th>
-                            <th class="all">Mot de Passe SQL</th>
+                            <th class="all"><?php echo lang('host_sql'); ?></th>
+                            <th class="all"><?php echo lang('name_sql'); ?></th>
+                            <th class="all"><?php echo lang('login_sql'); ?></th>
+                            <th class="all"><?php echo lang('password_sql'); ?></th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                               <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
@@ -134,9 +134,9 @@
                  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-backoffice-dashboard">
                       <thead>
                         <tr>
-                            <th class="all">Admin Host</th>
-                            <th class="all">Admin Login</th>
-                            <th class="all">Admin Mot de passe</th>
+                            <th class="all"><?php echo lang('host_backoffice'); ?></th>
+                            <th class="all"><?php echo lang('login_backoffice'); ?></th>
+                            <th class="all"><?php echo lang('password_backoffice'); ?></th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                               <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
@@ -165,8 +165,8 @@
                  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-htaccess-dashboard">
                       <thead>
                         <tr>
-                            <th class="all">Login Htaccess</th>
-                            <th class="all">Mot de passe Htaccess</th>
+                            <th class="all"><?php echo lang('login_htaccess'); ?></th>
+                            <th class="all"><?php echo lang('password_htaccess'); ?></th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                               <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>

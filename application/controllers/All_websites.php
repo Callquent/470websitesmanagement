@@ -66,10 +66,10 @@ class All_websites extends CI_Controller {
 						  	<i class="fa fa-bars"></i>
 						  </a>
 						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						    <a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'"><i class="fa fa-envelope"></i> Email</a>
+						    <a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
 						    <div class="dropdown-divider"></div>
-						    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'"><i class="fa fa-pencil"></i> Edit</a>
-						    <a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
+						    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+						    <a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
 						  </div>
 						</div>';
 
@@ -96,8 +96,8 @@ class All_websites extends CI_Controller {
 										  	<i class="fa fa-bars"></i>
 										  </a>
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-ftp-website/'.$row->id_website.'/'.$row->id_ftp).'"><i class="fa fa-pencil"></i> Edit</a>
-										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> Delete</a>
+										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-ftp-website/'.$row->id_website.'/'.$row->id_ftp).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
 										  </div>
 										</div>');
 
@@ -118,8 +118,8 @@ class All_websites extends CI_Controller {
 										  	<i class="fa fa-bars"></i>
 										  </a>
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-database-website/'.$row->id_website.'/'.$row->id_database).'"><i class="fa fa-pencil"></i> Edit</a>
-										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> Delete</a>
+										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-database-website/'.$row->id_website.'/'.$row->id_database).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
 										  </div>
 										</div>');
 
@@ -139,8 +139,8 @@ class All_websites extends CI_Controller {
 										  	<i class="fa fa-bars"></i>
 										  </a>
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->id_website.'/'.$row->id_backoffice).'"><i class="fa fa-pencil"></i> Edit</a>
-										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> Delete</a>
+										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->id_website.'/'.$row->id_backoffice).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
 										  </div>
 										</div>');
 
@@ -159,8 +159,8 @@ class All_websites extends CI_Controller {
 										  	<i class="fa fa-bars"></i>
 										  </a>
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-htaccess-website/'.$row->id_website.'/'.$row->id_htaccess).'"><i class="fa fa-pencil"></i> Edit</a>
-										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> Delete</a>
+										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-htaccess-website/'.$row->id_website.'/'.$row->id_htaccess).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
 										  </div>
 										</div>');
 

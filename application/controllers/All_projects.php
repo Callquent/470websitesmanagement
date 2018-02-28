@@ -63,7 +63,7 @@ class All_projects extends CI_Controller {
 				$data['percentage_all_tasks'] = round(($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());
 			}*/
 
-			$this->load->view('list-tasks-project', $data);
+			$this->load->view('view-project', $data);
 		}
 	}
 	public function create_projects()

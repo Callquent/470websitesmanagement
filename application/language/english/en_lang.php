@@ -6,6 +6,8 @@ $lang['save'] = "Save";
 $lang['cancel'] = "Cancel";
 $lang['modify'] = "Modify";
 $lang['search'] = "Search";
+$lang['send'] = "Send";
+$lang['email'] = "Email";
 /***********************/
 /*        navbar        */
 /***********************/
@@ -53,6 +55,9 @@ $lang['host_backofficel'] = "Host Back Office";
 $lang['login_backoffice'] = "Login Back Office";
 $lang['password_backoffice'] = "Password Back Office";
 
+$lang['login_htaccess'] = "Login Htaccess";
+$lang['password_htaccess'] = "Password Htaccess";
+
 $lang['website_registered'] = "Your website has been registered !";
 $lang['website_not_registered'] = "Your domain name is invalid.";
 /*************************/
@@ -73,7 +78,6 @@ $lang['language_not_registered'] = "Type of language of your website is invalid.
 /*		Profile 	  */
 /**********************************/
 $lang['date_create_profile'] = "Creation date : ";
-$lang['email'] = "Email";
 $lang['permission'] = "Permission";
 $lang['enter_new_password'] = "Enter your new password";
 /***********************/
@@ -127,6 +131,10 @@ $lang['meta_description'] = "Meta Description";
 $lang['your_website'] = "Your website ";
 $lang['is_index'] = "is indexed.";
 $lang['websites_no_index_keyword'] = "Your website is not indexing on this keyword.";
+/**********************************/
+/*	  Website Scrapper Google     */
+/**********************************/
+$lang['website_scrapper_google'] = "Website Scrapper Google";
 /***********************/
 /*        Whois        */
 /***********************/
