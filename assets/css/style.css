@@ -261,7 +261,7 @@ ul.sidebar-menu .list-title-sidebar span {
 /***********************/
 #sidebar {background-color: #1b222c;position: fixed;height: 100%;color:#fff;}
 #sidebar .badge { background: #1fb5ac !important; color: #ffffff;}
-#sidebar .nav.nav-tabs {padding-left: 10px;border-bottom: 1px solid #1b222c;margin: 0;position: relative;top: -40px;}
+#sidebar .nav.nav-tabs {border-bottom: 1px solid #1b222c;margin: 0;position: relative;top: -40px;}
 #sidebar .nav > li > a {position: relative;display: block;padding:9px 15px 9px;}
 #sidebar .nav.nav-tabs li{margin-right:1px;}
 #sidebar .nav.nav-tabs li i{font-size:16px;color:#fff;}
@@ -455,6 +455,20 @@ h3.r{
   font-weight: 300;
   margin-bottom: 5px;
   color: #FFF;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #4caf50;
+  color: rgba(255,255,255,.85);
+  display: flex;
+  border-radius: 50%;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 @media (max-width:1760px){
   .col-md-4.member-entry{width:50%}
@@ -667,11 +681,6 @@ div.dt-button-collection a.dt-button:hover {
     margin-left: 0px;
     margin-right: 0px;
 }
-/*.tocify li.tocify-item.active, 
-    .tocify .nav li.tocify-item:hover{
-      padding-left: 10px;
-      transition: 200ms;
-    }*/
 .tocify ul {
     width: 100%;
 }

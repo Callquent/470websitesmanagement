@@ -37,7 +37,7 @@ class My_tasks extends CI_Controller {
 
 		if($this->uri->total_segments() == 1){
 			$data['all_projects_per_users'] = $this->model_tasks->get_all_projects_to_user($this->session->userdata['id']);
-			$data['test'] =$this->model_tasks->get_all_tasks_priority_per_users();
+			$data['all_tasks_priority_to_user'] =$this->model_tasks->get_all_tasks_priority_to_user($this->session->userdata['id'])->row();
 			
 			$this->load->view('my-projects', $data);
 		} elseif($this->uri->total_segments() == 2) {

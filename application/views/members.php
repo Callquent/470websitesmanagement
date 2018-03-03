@@ -7,7 +7,9 @@
         <section class="wrapper">
         <!-- BEGIN MAIN CONTENT -->
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
                     <div class="card mb-3">
                         <header class="card-header">
                             Editable Table
@@ -31,6 +33,25 @@
                             <?php foreach($list_users->result() as $row){ ?>
                                 <div class="col-md-4 member-entry member-entry-<?php echo $row->id; ?>">
                                     <section class="card mb-3">
+
+                                        <div class="list-item" data-id="item-3">
+                                            <span class="w-40 avatar circle green"><i class="away b-white avatar-right"></i> <?php echo substr($row->name_user, 0, 2); ?></span>
+                                            <div class="list-body">
+                                                <a href="app.user.detail.html#item-3" class="item-title _500"><?php echo $row->name_user; ?></a>
+                                                <div class="item-except text-sm text-muted h-1x"><?php echo $row->email; ?></div>
+                                                <div class="item-tag tag hide"><?php echo $row->name_group; ?></div>
+                                            </div>
+                                            <div>
+                                                <div class="item-action dropdown">
+                                                    <a href="#" data-toggle="dropdown" class="text-muted"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                                                        <a href="#members-edit" data-toggle="modal" data-id="<?php echo $row->id; ?>" class="dropdown-item"><i class="fa fa-pencil"></i> Modifier </a>
+                                                        <a class="dropdown-item"><i class="fa fa-reply"></i> Supprimer</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <?php if($row->name_group=="Admin"){ ?>
                                             <div class="twt-feed red-bg">
                                         <?php } elseif($row->name_group=="Developper"){ ?>

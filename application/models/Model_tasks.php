@@ -36,7 +36,20 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
 			$value->percentage_tasks = $this->get_percentage_user($value->id_project_tasks, $id_user)->row()->percentage;
+			$value->priority_project_tasks = $this->get_all_tasks_priority_to_user($id_user, $value->id_project_tasks)->row();
 		}
+		return $query;
+	}
+	function get_all_tasks_priority_to_user($id_user,$id_project_tasks="")
+	{
+		$this->db->select('SUM(CASE WHEN id_tasks_priority = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_tasks_priority = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_tasks_priority = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_tasks_priority = "4", 1,0)) as all_tasks_critical_user')
+				 ->from('470websitesmanagement_tasks');
+				 if (!empty($id_project_tasks)) {
+				 	$this->db->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks);
+				 }
+				 $this->db->where('470websitesmanagement_tasks.id_user', $id_user);
+
+		$query = $this->db->get();
 		return $query;
 	}
 	function get_percentage_user($id_project_tasks,$id_user)
@@ -61,25 +74,12 @@ class Model_tasks extends CI_Model {
 	}
 	function get_all_tasks_priority_per_users($id_project_tasks,$id_user=1)
 	{
-		$this->db->select('SUM(IF(id_tasks_priority = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_tasks_priority = "2", 1,0)) as all_tasks_completed_user')
-				 ->from('470websitesmanagement_tasks')
+		$this->db->select('SUM(CASE WHEN id_tasks_priority = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_tasks_priority = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_tasks_priority = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_tasks_priority = "4", 1,0)) as all_tasks_critical_user')
 				 ->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				 ->where('470websitesmanagement_tasks.id_user', $id_user);
 
 		$query = $this->db->get();
 		var_dump($query->result());
-		return $query;
-	}
-	private function get_tasks_inprogress_to_user($id_user)
-	{
-		$this->db->select('*')
-				 ->from('470websitesmanagement_project_tasks')
-				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_project_tasks = 470websitesmanagement_project_tasks.id_project_tasks')
-				 ->join('470websitesmanagement_website', '470websitesmanagement_project_tasks.id_website = 470websitesmanagement_website.w_id')
-				 ->where('470websitesmanagement_tasks.id_user', $id_user)
-				 ->group_by(array('470websitesmanagement_project_tasks.id_project_tasks', '470websitesmanagement_project_tasks.title_project_tasks'));
-
-		$query = $this->db->get();
 		return $query;
 	}
 	function get_project($id_project_tasks)
@@ -207,36 +207,6 @@ class Model_tasks extends CI_Model {
 
 		$query = $this->db->get();
 		return $query;
-
-/*				$results = array();
-		var_dump($query->result());
-		foreach($query->result() as $row) {
-
-			$object_id_list_tasks = new stdClass();
-			$object_id_list_tasks->id_list_tasks = $row->id_list_tasks;
-			$object_id_list_tasks->title_list_task = $row->title_list_task;
-
-
-			$object = new stdClass();
-			$object->id_task = $row->id_task;
-			$object->id_project_tasks = $row->id_project_tasks;
-			$object->id_list_tasks = $row->id_list_tasks;
-			$object->name_task = $row->name_task;
-			$object->description_task = $row->description_task;
-			$object->id_tasks_priority =$row->id_tasks_priority;
-			$object->id_tasks_status = $row->id_tasks_status;
-			$object->id_user = $row->id_user;
-
-
-			
-			$toto[$row->id_list_tasks]['id'] = $object_id_list_tasks;
-			$toto[$row->id_list_tasks][] = $object;
-
-		
-
-
-			$results = $toto;
-		}*/
 	}
 	function count_tasks_per_user($id_user)
 	{

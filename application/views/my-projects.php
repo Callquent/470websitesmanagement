@@ -7,7 +7,84 @@
     <section id="main-content">
         <section class="wrapper">
         <!-- page start-->
-
+        <div class="row">
+          <div class="col-sm-3">
+                <section class="card mb-3">
+                    <header class="card-header">
+                        Critical
+                        <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-cog"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                        </span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                              <span class="badge badge-danger"><?php echo $all_tasks_priority_to_user->all_tasks_critical_user; ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+          </div>
+          <div class="col-sm-3">
+                <section class="card mb-3">
+                    <header class="card-header">
+                        Hight
+                        <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-cog"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                         </span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                              <span class="badge badge-warning"><?php echo $all_tasks_priority_to_user->all_tasks_hight_user; ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+          </div>
+          <div class="col-sm-3">
+                <section class="card mb-3">
+                    <header class="card-header">
+                        Medium
+                        <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-cog"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                         </span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 float-right">
+                              <span class="badge badge-primary"><?php echo $all_tasks_priority_to_user->all_tasks_medium_user; ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+          </div>
+          <div class="col-sm-3">
+                <section class="card mb-3">
+                    <header class="card-header">
+                        Low
+                        <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-cog"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                         </span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 float-right">
+                              <span class="badge badge-success"><?php echo $all_tasks_priority_to_user->all_tasks_low_user; ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+          </div>
+        </div>
         <div class="row">
             <div class="col-sm-2">
                 <section class="card mb-3">
@@ -84,7 +161,7 @@
                                           <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentage_tasks; ?>%"></div>
                                         </div>
                                       </td>
-                                      <td><span class="badge badge-danger">Critical</span><span class="badge badge-warning">Hight</span><span class="badge badge-primary">Medium</span><span class="badge badge-success">Low</span></td>
+                                      <td><span class="badge badge-danger"><?php echo $row->priority_project_tasks->all_tasks_critical_user; ?> Critical</span><span class="badge badge-warning"><?php echo $row->priority_project_tasks->all_tasks_hight_user; ?> Hight</span><span class="badge badge-primary"><?php echo $row->priority_project_tasks->all_tasks_medium_user; ?> Medium</span><span class="badge badge-success"><?php echo $row->priority_project_tasks->all_tasks_low_user; ?> Low</span></td>
                                       <td>
                                         <div class="dropdown show actions">
                                           <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -30,6 +30,9 @@
                 <li class="">
                     <a data-toggle="tab" href="#admin"><i class="fa fa-cogs"></i></a>
                 </li>
+                <li class="">
+                    <a data-toggle="tab" href="#add-element"><i class="fa fa-plus"></i></a>
+                </li>
             </ul>
             <div class="panel-body">
                 <div class="tab-content">
@@ -180,6 +183,31 @@
                         </ul>
                     </div>
                     <?php } ?>
+                    <div id="add-element" class="tab-pane">
+                        <ul class="sidebar-menu" id="nav-accordion">
+                            <li class="list-title-sidebar">
+                                <span><?php echo lang('management'); ?></span>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('add-website'); ?>">
+                                    <i class="fa fa-plus"></i>
+                                    <span><?php echo lang('create_website'); ?></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('add-category'); ?>">
+                                    <i class="fa fa-plus"></i>
+                                    <span><?php echo lang('create_category'); ?></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('add-language'); ?>">
+                                    <i class="fa fa-plus"></i>
+                                    <span><?php echo lang('create_language'); ?></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

@@ -12,10 +12,6 @@
 <!--logo end-->
 
 <div class="notify-row" id="top_menu">
-    <a href="<?php echo site_url('add-website'); ?>" class="btn btn-sm btn-success"><span><i class="fa fa-plus"></span></i><?php echo lang('create_website'); ?></a>
-    <a href="<?php echo site_url('add-category'); ?>" class="btn btn-sm btn-success"><span><i class="fa fa-plus"></span></i><?php echo lang('create_category'); ?></a>
-    <a href="<?php echo site_url('add-language'); ?>" class="btn btn-sm btn-success"><span><i class="fa fa-plus"></span></i><?php echo lang('create_language'); ?></a>
-
 </div>
 
 <div class="top-nav clearfix float-right">
