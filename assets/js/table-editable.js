@@ -143,7 +143,7 @@ var EditableTable = function () {
                     languageList += '</select>';
                     jqTds[4].innerHTML = languageList;
                 });
-                jqTds[9].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+                jqTds[9].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-secondary fuse-ripple-ready"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
             }
             function deleteRowWebsiteInfo(dashboardTable, nRow, nUrl) {
                 var aData = dashboardTable.fnGetData(nRow);

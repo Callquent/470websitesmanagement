@@ -62,8 +62,8 @@ class All_websites extends CI_Controller {
 			$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->w_id.'">Access Back office</a>';
 			$list[] = '<a class="access-htaccess" href="javascript:void(0);" data-toggle="modal" data-target="#view-htaccess" data-id="'.$row->w_id.'">Access Htaccess</a>';
 			$list[] = '<div class="dropdown show actions">
-						  <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						  	<i class="fa fa-bars"></i>
+						  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+						  	<i class="fa fa-ellipsis-v"></i>
 						  </a>
 						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 						    <a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
@@ -92,14 +92,14 @@ class All_websites extends CI_Controller {
 							1 => $row->login_ftp,
 							2 => $row->password_ftp,
 							3 => '<div class="dropdown show actions">
-										  <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										  	<i class="fa fa-bars"></i>
-										  </a>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-ftp-website/'.$row->id_website.'/'.$row->id_ftp).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-										  </div>
-										</div>');
+									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+									  	<i class="fa fa-ellipsis-v"></i>
+									  </a>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-ftp-website/'.$row->id_website.'/'.$row->id_ftp).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+									    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+									  </div>
+									</div>');
 
 		echo json_encode($datatable, JSON_FORCE_OBJECT);
 	}
@@ -114,14 +114,14 @@ class All_websites extends CI_Controller {
 							2 => $row->login_database,
 							3 => $row->password_database,
 							4 => '<div class="dropdown show actions">
-										  <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										  	<i class="fa fa-bars"></i>
-										  </a>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-database-website/'.$row->id_website.'/'.$row->id_database).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-										  </div>
-										</div>');
+									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+									  	<i class="fa fa-ellipsis-v"></i>
+									  </a>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-database-website/'.$row->id_website.'/'.$row->id_database).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+									    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+									  </div>
+									</div>');
 
 		echo json_encode($datatable, JSON_FORCE_OBJECT);
 	}
@@ -135,14 +135,14 @@ class All_websites extends CI_Controller {
 							1 => $row->login_backoffice,
 							2 => $row->password_backoffice,
 							3 => '<div class="dropdown show actions">
-										  <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										  	<i class="fa fa-bars"></i>
-										  </a>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->id_website.'/'.$row->id_backoffice).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-										  </div>
-										</div>');
+									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+									  	<i class="fa fa-ellipsis-v"></i>
+									  </a>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->id_website.'/'.$row->id_backoffice).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+									    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+									  </div>
+									</div>');
 
 		echo json_encode($datatable, JSON_FORCE_OBJECT);
 	}
@@ -155,14 +155,14 @@ class All_websites extends CI_Controller {
 		$datatable = array(0 => $row->login_htaccess,
 							1 => $row->password_htaccess,
 							2 => '<div class="dropdown show actions">
-										  <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										  	<i class="fa fa-bars"></i>
-										  </a>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-htaccess-website/'.$row->id_website.'/'.$row->id_htaccess).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-										    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-										  </div>
-										</div>');
+									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+									  	<i class="fa fa-ellipsis-v"></i>
+									  </a>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-htaccess-website/'.$row->id_website.'/'.$row->id_htaccess).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+									    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+									  </div>
+									</div>');
 
 		echo json_encode($datatable, JSON_FORCE_OBJECT);
 	}

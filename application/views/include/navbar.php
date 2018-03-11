@@ -1,33 +1,154 @@
-<header class="header fixed-top clearfix">
-<!--logo start-->
-<div class="brand">
+            <div class="content-wrapper">
+                <nav id="toolbar" class="bg-white">
 
-    <a href="<?php echo site_url('dashboard'); ?>" class="logo">
-        <img src="<?php echo img_url('app/logo-470websitesmanagement.png'); ?>" alt="">
-    </a>
-    <div class="sidebar-toggle-box">
-        <div class="fa fa-bars"></div>
-    </div>
-</div>
-<!--logo end-->
+                    <div class="row no-gutters align-items-center flex-nowrap">
 
-<div class="notify-row" id="top_menu">
-</div>
+                        <div class="col">
 
-<div class="top-nav clearfix float-right">
-    <a href="<?php echo site_url('export'); ?>" class="btn btn-sm btn-info"><span><i class="fa fa-refresh"></i></span><?php echo lang('update'); ?></a>
-    <ul class="nav float-right top-menu">
-        <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle">
-                <img alt="" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>">
-                <span class="username"><?php echo $login; ?></span>
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu extended logout">
-                <li><a href="<?php echo site_url('profile'); ?>"><i class=" fa fa-user"></i><?php echo lang('profile'); ?></a></li>
-                <li><a href="<?php echo site_url('index/logout'); ?>"><i class="fa fa-key"></i><?php echo lang('log_out'); ?></a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
-</header>
+                            <div class="row no-gutters align-items-center flex-nowrap">
+
+                                <button type="button" class="toggle-aside-button btn btn-icon d-block d-lg-none fuse-ripple-ready" data-fuse-bar-toggle="aside">
+                                    <i class="fa fa-2x fa-bars"></i>
+                                </button>
+
+                                <div class="toolbar-separator d-block d-lg-none"></div>
+
+                                <div class="shortcuts-wrapper row no-gutters align-items-center px-0 px-sm-2">
+
+                                    <div class="shortcuts row no-gutters align-items-center d-none d-md-flex">
+
+                                        <a href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/apps-chat.html" class="shortcut-button btn btn-icon mx-1 fuse-ripple-ready">
+                                            <i class="icon icon-hangouts"></i>
+                                        </a>
+
+                                        <a href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/apps-contacts.html" class="shortcut-button btn btn-icon mx-1 fuse-ripple-ready">
+                                            <i class="icon icon-account-box"></i>
+                                        </a>
+
+                                        <a href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/apps-mail.html" class="shortcut-button btn btn-icon mx-1 fuse-ripple-ready">
+                                            <i class="icon icon-email"></i>
+                                        </a>
+
+                                    </div>
+
+                                    <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
+
+                                        <div class="dropdown-toggle btn btn-icon fuse-ripple-ready" role="button" id="dropdownShortcutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon icon-star text-amber-600"></i>
+                                        </div>
+
+                                        <div class="dropdown-menu" aria-labelledby="dropdownShortcutMenu">
+
+                                            <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                                <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
+                                                    <div class="row no-gutters align-items-center flex-nowrap">
+                                                        <i class="icon icon-calendar-today"></i>
+                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Calendrier</font></font></span>
+                                                    </div>
+                                                    <i class="icon icon-pin s-5 ml-2"></i>
+                                                </div>
+                                            </a>
+
+                                            <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                                <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
+                                                    <div class="row no-gutters align-items-center flex-nowrap">
+                                                        <i class="icon icon-folder"></i>
+                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Gestionnaire de fichiers</font></font></span>
+                                                    </div>
+                                                    <i class="icon icon-pin s-5 ml-2"></i>
+                                                </div>
+                                            </a>
+
+                                            <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                                <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
+                                                    <div class="row no-gutters align-items-center flex-nowrap">
+                                                        <i class="icon icon-checkbox-marked"></i>
+                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Faire</font></font></span>
+                                                    </div>
+                                                    <i class="icon icon-pin s-5 ml-2"></i>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="toolbar-separator"></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+
+                            <div class="row no-gutters align-items-center justify-content-end">
+
+                                <div class="user-menu-button dropdown">
+
+                                    <div class="dropdown-toggle ripple row align-items-center no-gutters px-2 px-sm-4 fuse-ripple-ready" role="button" id="dropdownUserMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="avatar-wrapper">
+                                            <img class="avatar" src="./Tableau de bord du projet_files/profile.jpg">
+                                            <i class="status text-green icon-checkbox-marked-circle s-4"></i>
+                                        </div>
+                                        <span class="username mx-3 d-none d-md-block"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo $login; ?></font></font></span>
+                                    </div>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">
+
+                                        <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('profile'); ?>">
+                                            <div class="row no-gutters align-items-center flex-nowrap">
+                                                <i class="fa fa-2x fa-user"></i>
+                                                <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('profile'); ?></font></font></span>
+                                            </div>
+                                        </a>
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('index/logout'); ?>">
+                                            <div class="row no-gutters align-items-center flex-nowrap">
+                                                <i class="fa fa-2x fa-sign-out"></i>
+                                                <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('log_out'); ?></font></font></span>
+                                            </div>
+                                        </a>
+
+                                    </div>
+                                </div>
+
+                                <div class="toolbar-separator"></div>
+
+                                <div class="language-button dropdown">
+
+                                    <div class="dropdown-toggle ripple row align-items-center justify-content-center no-gutters px-0 px-sm-4 fuse-ripple-ready" role="button" id="dropdownLanguageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="row no-gutters align-items-center">
+                                            <img class="flag mr-2" src="./Tableau de bord du projet_files/us.png">
+                                            <span class="d-none d-md-block"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">EN</font></font></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownLanguageMenu">
+
+                                        <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                            <div class="row no-gutters align-items-center flex-nowrap">
+                                                <img class="flag" src="./Tableau de bord du projet_files/us.png">
+                                                <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Anglais</font></font></span>
+                                            </div>
+                                        </a>
+
+                                        <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                            <div class="row no-gutters align-items-center flex-nowrap">
+                                                <img class="flag" src="./Tableau de bord du projet_files/es.png">
+                                                <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Espanol</font></font></span>
+                                            </div>
+                                        </a>
+
+                                        <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                            <div class="row no-gutters align-items-center flex-nowrap">
+                                                <img class="flag" src="./Tableau de bord du projet_files/tr.png">
+                                                <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">turc</font></font></span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>

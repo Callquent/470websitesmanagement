@@ -1,63 +1,64 @@
 <?php $this->load->view('include/header.php'); ?>
 
-<section id="container" >
-<?php $this->load->view('include/navbar.php'); ?>
 <?php $this->load->view('include/sidebar.php'); ?>
-<!--sidebar end-->
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-        <!-- page start-->
+<?php $this->load->view('include/navbar.php'); ?>
+<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+  <div class="page-layout simple full-width">
+    <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
+        <h2 class="doc-title" id="content"><?php echo lang('websites_management'); ?></h2>
+    </div>
+    <div class="page-content">
 
-        <div class="row">
-            <div class="col-sm-12">
-                <section class="card mb-3">
-                    <header class="card-header">
-                        <?php echo lang('websites_management'); ?>
-                        <span class="tools pull-right">
-                            <a href="javascript:;" class="fa fa-chevron-down"></a>
-                            <a href="javascript:;" class="fa fa-cog"></a>
-                            <a href="javascript:;" class="fa fa-times"></a>
-                         </span>
-                    </header>
-                    <div class="card-body">
-                        <div class="adv-table editable-table">
-                            <div class="clearfix">
-                                <div class="btn-group">
+      <section id="main-content">
+          <section class="wrapper">
+
+          <div class="row">
+              <div class="col-sm-12">
+                  <section class="card mb-3">
+                      <header class="card-header">
+                          <?php echo lang('websites_management'); ?>
+                          <span class="tools float-right">
+                              <a href="javascript:;" class="fa fa-chevron-down"></a>
+                              <a href="javascript:;" class="fa fa-cog"></a>
+                              <a href="javascript:;" class="fa fa-times"></a>
+                           </span>
+                      </header>
+                      <div class="card-body">
+                          <div class="row">
+                              <div class="col-sm-12">
                                     <h4><?php echo lang('number_websites_management'); ?><?php echo $all_domains; ?> <?php echo lang('domains'); ?> <?php echo $all_subdomains; ?> <?php echo lang('sub_domains'); ?></h4>
-                                </div>
-                            </div>
-                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-dashboard">
-                                <thead>
-                                  <tr>
-                                      <th class="all"><?php echo lang('name'); ?></th>
-                                      <th class="desktop"><?php echo lang('website'); ?></th>
-                                      <th class="desktop"><?php echo lang('address_ip'); ?></th>
-                                      <th class="desktop"><?php echo lang('categories'); ?></th>
-                                      <th class="desktop"><?php echo lang('languages'); ?></th>
-                                      <th class="desktop"><?php echo lang('access_ftp'); ?></th>
-                                      <th class="desktop"><?php echo lang('access_sql'); ?></th>
-                                      <th class="desktop"><?php echo lang('access_backoffice'); ?></th>
-                                      <th class="desktop"><?php echo lang('access_htaccess'); ?></th>
-                                      <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                                        <th class="desktop"><?php echo lang('actions'); ?></th>
-                                      <?php } ?>
-                                  </tr>
-                                </thead>
-                                <tbody>
+                              </div>
+                          </div>
+                          <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-dashboard">
+                              <thead>
+                                <tr>
+                                    <th class="all"><?php echo lang('name'); ?></th>
+                                    <th class="desktop"><?php echo lang('website'); ?></th>
+                                    <th class="desktop"><?php echo lang('address_ip'); ?></th>
+                                    <th class="desktop"><?php echo lang('categories'); ?></th>
+                                    <th class="desktop"><?php echo lang('languages'); ?></th>
+                                    <th class="desktop"><?php echo lang('access_ftp'); ?></th>
+                                    <th class="desktop"><?php echo lang('access_sql'); ?></th>
+                                    <th class="desktop"><?php echo lang('access_backoffice'); ?></th>
+                                    <th class="desktop"><?php echo lang('access_htaccess'); ?></th>
+                                    <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
+                                      <th class="desktop"><?php echo lang('actions'); ?></th>
+                                    <?php } ?>
+                                </tr>
+                              </thead>
+                              <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <!-- page end-->
-        </section>
-    </section>
-    <!--main content end-->
-</section>
+                              </tbody>
+                          </table>
+                      </div>
+                  </section>
+              </div>
+          </div>
+          </section>
+      </section>
+    </div>
+  </div>
+</div>
       <div class="modal fade" id="view-ftp" tabindex="-1" role="dialog" aria-labelledby="view" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -72,8 +73,8 @@
                       <thead>
                         <tr>
                             <th class="all"><?php echo lang('host_ftp'); ?></th>
-                            <th class="all"><?php echo lang('login_ftp'); ?></th>
-                            <th class="all"><?php echo lang('password_ftp'); ?></th>
+                            <th class="desktop"><?php echo lang('login_ftp'); ?></th>
+                            <th class="desktop"><?php echo lang('password_ftp'); ?></th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                               <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
@@ -103,9 +104,9 @@
                       <thead>
                         <tr>
                             <th class="all"><?php echo lang('host_sql'); ?></th>
-                            <th class="all"><?php echo lang('name_sql'); ?></th>
-                            <th class="all"><?php echo lang('login_sql'); ?></th>
-                            <th class="all"><?php echo lang('password_sql'); ?></th>
+                            <th class="desktop"><?php echo lang('name_sql'); ?></th>
+                            <th class="desktop"><?php echo lang('login_sql'); ?></th>
+                            <th class="desktop"><?php echo lang('password_sql'); ?></th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                               <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
@@ -135,8 +136,8 @@
                       <thead>
                         <tr>
                             <th class="all"><?php echo lang('host_backoffice'); ?></th>
-                            <th class="all"><?php echo lang('login_backoffice'); ?></th>
-                            <th class="all"><?php echo lang('password_backoffice'); ?></th>
+                            <th class="desktop"><?php echo lang('login_backoffice'); ?></th>
+                            <th class="desktop"><?php echo lang('password_backoffice'); ?></th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                               <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>
@@ -166,7 +167,7 @@
                       <thead>
                         <tr>
                             <th class="all"><?php echo lang('login_htaccess'); ?></th>
-                            <th class="all"><?php echo lang('password_htaccess'); ?></th>
+                            <th class="desktop"><?php echo lang('password_htaccess'); ?></th>
                             <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                               <th class="desktop"><?php echo lang('actions'); ?></th>
                             <?php } ?>

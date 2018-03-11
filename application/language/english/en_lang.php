@@ -138,6 +138,7 @@ $lang['website_scrapper_google'] = "Website Scrapper Google";
 /***********************/
 /*        Whois        */
 /***********************/
+$lang['whois_domain'] = "Whois Domain";
 $lang['type'] = "Type";
 $lang['calendar'] = "Calendar";
 $lang['list'] = "List";
