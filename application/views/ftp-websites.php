@@ -136,4 +136,99 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+            "responsive": {
+                'details': {
+                   
+                }
+            },
+            "columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
+        });
+        $('.treeviewserver').on('click', 'li',function(e) {
+            
+            if ($(this).find('ul').length === 0){
+                var elementfolder = $(this).attr('id');
+                var path = $("#path-server").val();
+                /*console.log(elementfolder);*/
+
+                var arr = $(this).parentsUntil( $( "ul.treeviewserver" ));
+                var arrfilter = []
+
+                /*for(var key in arr) {
+                    arrfilter.push($(this).parentsUntil( $( "ul.treeviewserver" ))[key].id);
+                }*/
+                $.each( arr, function( key, data ) {
+                                arrfilter.push(data.id );
+                            });
+
+                /*arr = jQuery.grep(arr, function( a ) {
+                    return a !== "ul";
+                });*/
+                console.log('tag : '+arrfilter);
+
+                var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+                var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+                $.ajax({
+                    type: "POST",
+                    url: url+'/refreshfolderserver/'+id,
+                    data: 'path='+($('#path-server').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
+                    success: function(msg){
+                        results = JSON.parse(msg);
+                        $("#path-server").val($("#path-server").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
+                        $('ul.treeviewserver #'+elementfolder+' a').after('<ul></ul>');
+                        for(var key in results) {
+                            $('ul.treeviewserver #'+elementfolder+' > ul').append('<li class="tree-branch" id="'+results[key].title+'"><a href="javascript:void(0);"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
+                        }
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+            } else {
+                $(this).find('ul').toggle();
+            }
+            e.stopPropagation();
+        });
+
+        $('ul.treeviewlocal').on('click', 'li', function() {
+            var elementfolder = $(this).attr('id');
+            var path = $("#path-local").val();
+
+
+            var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+            var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+            $.ajax({
+                type: "POST",
+                url: url+'/refreshfolderlocal/'+id,
+                data: 'path='+(elementfolder+':'),
+                success: function(msg){
+                    results = JSON.parse(msg);
+                    $("#path-local").val($("#path-local").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
+                    $('ul.treeviewlocal #'+elementfolder+' a').after('<ul></ul>');
+                    for(var key in results) {
+                        $('ul.treeviewlocal #'+elementfolder+' a').next().append('<li class="tree-branch" id="'+results[key].title+'"><a href="javascript:void(0)"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
+                    }
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
+        });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

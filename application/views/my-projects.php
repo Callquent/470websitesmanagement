@@ -205,4 +205,10 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

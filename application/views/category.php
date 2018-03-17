@@ -85,4 +85,129 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var nEditingCategory = null;
+    var ElementDelete = null;
+        var categoryTable = $('#table-category').dataTable({
+      "columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
+        });
+        function restoreRow(pTable, nRow) {
+            var aData = pTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+
+            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                pTable.fnUpdate(aData[i], nRow, i, false);
+            }
+
+            pTable.fnDraw();
+        }
+    function editRowCategory(categoryTable, nRow, nUrl) {
+            var aData = categoryTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+            var categoryList;
+            jqTds[0].innerHTML = '<input type="text" class="form-control small" id="titlecategory" value="' + aData[0] + '">';
+            jqTds[1].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
+            jqTds[2].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
+        }
+        function saveRowCategory(categoryTable, nRow, nUrl) {
+            var jqInputs = $('input', nRow);
+            categoryTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            categoryTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
+            categoryTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
+            categoryTable.fnDraw();
+        }
+
+    $('#modal-delete-category').on('show.bs.modal',function(event) {
+      if (confirm('Voulez vous supprimer cette enregistrement')) {
+        var modal = $(this);
+        var id = $(event.relatedTarget).data('id');
+
+        $('#form-category').attr("action",window.location.href+'/delete-category/'+id);
+        $.getJSON( window.location.href+'/loadCategories/', function( data ) {
+          categoryList = '<select id="category" name="category" class="form-control">';
+          $.each( data, function( key, val ) {
+            if ( id != val.c_id ) {
+              categoryList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
+            }
+          });
+          categoryList += '</select>';
+          $( "#modal-delete-category .modal-body" ).append( categoryList );
+        });
+            }
+    });
+    $('#modal-delete-category').on('hidden.bs.modal',function(event) {
+      $('#category').remove();
+    });
+    $('#form-category').submit(function(e) {
+            $.ajax({
+                type: "POST",
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                  $('#modal-delete-category').modal('hide');
+                    var nRow = $(ElementDelete).parents('tr')[0];
+                    categoryTable.fnDeleteRow(nRow);
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
+            e.preventDefault();
+    });
+        $(document).on('click', '#table-category #cancel-dashboard', function (e) {
+            e.preventDefault();
+            if ($(this).attr("data-mode") == "new") {
+                var nRow = $(this).parents('tr')[0];
+                categoryTable.fnDeleteRow(nRow);
+            } else {
+                restoreRow(categoryTable, nEditingCategory);
+                nEditingCategory = null;
+            }
+        });
+        $(document).on('click', '#table-category #edit-dashboard', function (e) {
+            e.preventDefault();
+
+            var nRow = $(this).parents('tr')[0];
+            var nUrl = $(this).attr('href');
+            
+            if (nEditingCategory !== null && nEditingCategory != nRow) {
+                restoreRow(categoryTable, nEditingCategory);
+                editRowCategory(categoryTable, nRow, nUrl);
+                nEditingCategory = nRow;
+            } else if (nEditingCategory == nRow && this.innerHTML == "Save") {
+                var titlecategory = $('#titlecategory').val();
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('href'),
+                    data: 'titlecategory='+titlecategory,
+                    success: function(msg){
+                        console.log(msg);
+                        saveRowCategory(categoryTable, nEditingCategory, nUrl);
+                        nEditingCategory = null;
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+            } else {
+                editRowCategory(categoryTable, nRow, nUrl);
+                nEditingCategory = nRow;
+            }
+        });
+        $(document).on('click', '#table-category #delete-dashboard', function (e) {
+            ElementDelete = this;
+        });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

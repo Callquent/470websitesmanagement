@@ -85,4 +85,127 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+        var nEditingLanguage = null;
+        var ElementDelete = null;
+        var languageTable = $('#table-language').dataTable({
+      "columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
+        });
+    function editRowLanguage(languageTable, nRow, nUrl) {
+            var aData = languageTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+            var languageList;
+            jqTds[0].innerHTML = '<input type="text" class="form-control small" id="titlelanguage" value="' + aData[0] + '">';
+            jqTds[1].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
+            jqTds[2].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
+        }
+        function saveRowLanguage(languageTable, nRow, nUrl) {
+            var jqInputs = $('input', nRow);
+            languageTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            languageTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
+            languageTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
+            languageTable.fnDraw();
+        }
+        function restoreRow(pTable, nRow) {
+            var aData = pTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+
+            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                pTable.fnUpdate(aData[i], nRow, i, false);
+            }
+
+            pTable.fnDraw();
+        }
+        
+    $('#modal-delete-language').on('show.bs.modal',function(event) {
+      var modal = $(this);
+      var id = $(event.relatedTarget).data('id');
+
+      $('#form-language').attr("action",window.location.href+'/delete-language/'+id);
+      $.getJSON( window.location.href+'/loadLanguages/', function( data ) {
+        languageList = '<select id="language" name="language" class="form-control">';
+        $.each( data, function( key, val ) {
+          if ( id != val.l_id ) {
+            languageList += '<option value="'+val.l_id+'">'+ val.l_title + '</option>';
+          }
+        });
+        languageList += '</select>';
+        $( "#modal-delete-language .modal-body" ).append( languageList );
+      });
+    });
+    $('#modal-delete-language').on('hidden.bs.modal',function(event) {
+      $('#language').remove();
+    });
+    $('#form-language').submit(function(e) {
+            $.ajax({
+                type: "POST",
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                  $('#modal-delete-language').modal('hide');
+                    var nRow = $(ElementDelete).parents('tr')[0];
+          languageTable.fnDeleteRow(nRow);
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
+            e.preventDefault();
+    });
+        $(document).on('click', '#table-language #cancel-dashboard', function (e) {
+            e.preventDefault();
+            if ($(this).attr("data-mode") == "new") {
+                var nRow = $(this).parents('tr')[0];
+                languageTable.fnDeleteRow(nRow);
+            } else {
+                restoreRow(languageTable, nEditingLanguage);
+                nEditingLanguage = null;
+            }
+        });
+        $(document).on('click', '#table-language #edit-dashboard', function (e) {
+            e.preventDefault();
+
+            var nRow = $(this).parents('tr')[0];
+            var nUrl = $(this).attr('href');
+            
+            if (nEditingLanguage !== null && nEditingLanguage != nRow) {
+                restoreRow(languageTable, nEditingLanguage);
+                editRowLanguage(languageTable, nRow, nUrl);
+                nEditingLanguage = nRow;
+            } else if (nEditingLanguage == nRow && this.innerHTML == "Save") {
+                var titlelanguage = $('#titlelanguage').val();
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('href'),
+                    data: 'titlelanguage='+titlelanguage,
+                    success: function(msg){
+                        console.log(msg);
+                        saveRowLanguage(languageTable, nEditingLanguage, nUrl);
+                        nEditingLanguage = null;
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+            } else {
+                editRowLanguage(languageTable, nRow, nUrl);
+                nEditingLanguage = nRow;
+            }
+        });
+        $(document).on('click', '#table-language #delete-dashboard', function (e) {
+            ElementDelete = this;
+        });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

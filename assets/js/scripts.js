@@ -391,3 +391,28 @@
 
 
 })(jQuery);
+
+$(document).ready(function(){
+    $('li.language a').click(function(e) {
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('href'),
+            success: function(msg){
+                window.location.reload();
+            },
+            error: function(msg){
+                console.log(msg);
+            }
+        });
+        e.preventDefault();
+    });
+    var url = window.location.pathname;  
+    var activePage = url.substring(url.lastIndexOf('/')+1);
+    $('ul.sidebar-menu li a').each(function(){  
+        var currentPage = this.href.substring(this.href.lastIndexOf('/')+1);
+
+        if (activePage == currentPage) {
+            $(this).parent().addClass('active'); 
+        } 
+    });
+});

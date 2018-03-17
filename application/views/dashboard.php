@@ -128,8 +128,58 @@
           </div>
         </div>
       </div>
+
+<?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   var pieDataLanguage = JSON.parse('<?php echo $chart_language; ?>');
   var pieDataCategory = JSON.parse('<?php echo $chart_category; ?>');
+
+  $(document).ready(function(){
+      var dashboardTable = $('#table-dashboard').DataTable({
+          "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+          "order": [],
+          "dom": 'lBfrtip',
+          "buttons": [
+              {
+                  extend: 'collection',
+                  text: 'Export',
+                  buttons: [
+                      'copy',
+                      'excel',
+                      'csv',
+                      'pdf',
+                      'print'
+                  ]
+              }
+          ],
+          responsive: {
+                  details: {
+                     
+                  }
+              },
+              columnDefs: [ {
+                  className: 'control',
+                  orderable: false,
+                  targets:   0
+              } ],
+      });
+      $(document).on('click', '.access-whois', function(e) {
+        var id = $(this).data('id');
+        $.ajax({
+          type: "POST",
+          url: window.location.href+'/modal-whois/'+id,
+          success: function(data){    
+            $( "#view-whois .modal-body" ).append("<pre>"+data+"</pre>");
+          },
+          error: function(){
+            alert("failure");
+          }
+        });
+        e.preventDefault();
+      });
+      $('#view-whois').on('hide.bs.modal',function(event){
+        $( "#view-whois .modal-body pre" ).remove();
+      });
+  });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

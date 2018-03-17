@@ -55,4 +55,39 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#results .alert-success").hide();
+    $("#results .alert-danger").hide();
+    $("#form-add-language").submit(function(e){
+      $.ajax({
+        type: "POST",
+        url: $(this).attr('action'),
+        data:$(this).serialize(),
+        success: function(msg){
+          console.log(msg);
+          $("#form-add-language").fadeOut('slow');
+          $('#results .alert-success').fadeIn('fast');
+          setTimeout(function() {
+            $('#results .alert-success').fadeOut('slow');
+            $("#form-add-language").find("input[type=text], textarea").val("");
+            $("#form-add-language").fadeIn('slow');
+          }, 3000 );
+        },
+        error: function(msg){
+          console.log(msg);
+          $("#form-add-language").fadeOut('slow');
+          $('#results .alert-danger').fadeIn('fast');
+          setTimeout(function() {
+            $('#results .alert-danger').fadeOut('slow');
+            $("#form-add-language").find("input[type=text], textarea").val("");
+            $("#form-add-language").fadeIn('slow');
+          }, 3000 );
+        }
+      });
+      e.preventDefault();
+    });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

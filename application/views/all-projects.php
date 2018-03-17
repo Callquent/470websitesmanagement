@@ -75,7 +75,7 @@
                               </div>
                           </div>
                           <div class="adv-table editable-table">
-                              <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
+                              <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-projects">
                                   <thead>
                                     <tr>
                                         <th class="all"><?php echo lang('website'); ?></th>
@@ -173,4 +173,37 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    var projectsTable = $('#table-projects').dataTable({
+              'columnDefs': [{ // set default column settings
+              'orderable': true,
+              'targets': [0]
+          }, {
+              "searchable": true,
+              "targets": [0]
+          }],
+          "order": [
+              [0, "asc"]
+          ]
+      });
+
+    $("#form-projects").submit(function(e){
+      $.ajax({
+        type: "POST",
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        success: function(msg){
+          $('#create-project').modal('hide');
+        },
+        error: function(msg){
+          console.log(msg.responseText);
+        }
+      });
+      e.preventDefault();
+    });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

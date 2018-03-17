@@ -37,7 +37,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" name="website" id="autocomplete">
-                                                <label for="urlWebsite">Url Website</label>
+                                                <label for="url-website">Url Website</label>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-lg-2">
@@ -109,13 +109,77 @@
     </div>
   </div>
 </div>
-<?php $this->load->view('include/footer.php'); ?>
-<script>
-var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+    var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
 
-$('#autocomplete').autocomplete({
-    lookup: autocomplete_website,
-    onSelect: function (suggestion) {
-    }
-});
+    $('#autocomplete').autocomplete({
+        lookup: autocomplete_website,
+        onSelect: function (suggestion) {
+        }
+    });
+
+
+    $(document).ready(function(){
+        var searchgoogleTable = $('#table-search-scrapper-google').DataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+            "order": [],
+            "dom": 'lBfrtip',
+            "buttons": [
+                {
+                    extend: 'collection',
+                    text: 'Export',
+                    buttons: [
+                        'copy',
+                        'excel',
+                        'csv',
+                        'pdf',
+                        'print'
+                    ]
+                }
+            ],
+            responsive: {
+                details: {
+                   
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
+        });
+        $('#form-search-scrapper-google').submit(function(e) {
+            $("#form-search-scrapper-google button").button('loading');
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(data){
+                    $("#form-search-scrapper-google button").button("reset");
+                    $("#table-search-scrapper-google").DataTable().rows().remove().draw();
+                    $("#results .alert-success h4 span.message-position").remove();
+                    var jsdata = JSON.parse(data).result_websites;
+                    var message_website_position = JSON.parse(data).result_position_website;
+                    if ( typeof message_website_position !== 'undefined') {
+                        $('#results .alert-danger').fadeOut('fast');
+                        $('#results .alert-success').fadeIn('fast');
+                        $("#results .alert-success h4 .message-website").text($('#form-search-scrapper-google').find('input[name="website"]').val());
+                        $("#results .alert-success h4 .message-keyword").text($('#form-search-scrapper-google').find('input[name="keyword-google"]').val());
+                        $("#results .alert-success h4").append(" <span class='message-position'>"+message_website_position+"</span>");
+                    } else {
+                        $('#results .alert-success').fadeOut('fast');
+                        $('#results .alert-danger').fadeIn('fast');
+
+                    }
+                    $("#table-search-scrapper-google").DataTable().rows.add(jsdata).draw();
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
+            e.preventDefault();
+        });
+    });
 </script>
+<?php $this->load->view('include/footer.php'); ?>

@@ -34,8 +34,6 @@
 </div>
 
 
-
-
       <section id="main-content">
           <section class="wrapper">
           <div class="row">
@@ -80,4 +78,22 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#changepassword-form").submit(function(e){
+        $.ajax({
+          type: "POST",
+          url: $(this).attr('action'),
+          data:$(this).serialize(),
+          success: function(msg){
+          },
+          error: function(msg){
+            console.log(msg.responseText);
+          }
+        });
+        e.preventDefault();
+      });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

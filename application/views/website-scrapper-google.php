@@ -32,9 +32,8 @@
                                         </div>
                                         <form class="form-horizontal" id="form-website-scrapper-google" role="form"  action="<?php echo site_url('/website-scrapper-google/ajaxWebsiteScrapperGoogle/'); ?>">
                                             <div class="form-group">
-                                                <div class="col-lg-10">
-                                                  <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Url Website" >
-                                                </div>
+                                              <input type="text" class="form-control" name="website" id="autocomplete" >
+                                              <label for="url-website">Url Website</label>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-lg-2">
@@ -105,13 +104,72 @@
     </div>
   </div>
 </div>
-<?php $this->load->view('include/footer.php'); ?>
-<script>
-var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+    var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
 
-$('#autocomplete').autocomplete({
-    lookup: autocomplete_website,
-    onSelect: function (suggestion) {
-    }
-});
+    $('#autocomplete').autocomplete({
+        lookup: autocomplete_website,
+        onSelect: function (suggestion) {
+        }
+    });
+
+
+    $(document).ready(function(){
+      var websitegoogleTable = $('#table-website-scrapper-google').DataTable({
+          "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+          "order": [],
+          "dom": 'lBfrtip',
+          "buttons": [
+              {
+                  extend: 'collection',
+                  text: 'Export',
+                  buttons: [
+                      'copy',
+                      'excel',
+                      'csv',
+                      'pdf',
+                      'print'
+                  ]
+              }
+          ],
+          responsive: {
+                  details: {
+                     
+                  }
+              },
+              columnDefs: [ {
+                  className: 'control',
+                  orderable: false,
+                  targets:   0
+              } ],
+      });
+      $('#form-website-scrapper-google').submit(function(e) {
+        $("#form-website-scrapper-google button").button('loading');
+        $.ajax({
+          type: "POST",
+          url: $(this).attr('action'),
+          data: $(this).serialize(),
+          success: function(data){
+            $("#form-website-scrapper-google button").button("reset");
+            $("#table-website-scrapper-google").DataTable().rows().remove().draw();
+            var jsdata = JSON.parse(data).result_websites;
+            if ( typeof message_website_position !== 'undefined') {
+              $('#results .alert-danger').fadeOut('fast');
+              $('#results .alert-success').fadeIn('fast');
+              $("#results .alert-success h4 .message-website").text($('#form-website-scrapper-google').find('input[name="website"]').val());
+            } else {
+              $('#results .alert-success').fadeOut('fast');
+              $('#results .alert-danger').fadeIn('fast');
+            }
+            $("#table-website-scrapper-google").DataTable().rows.add(jsdata).draw();
+          },
+          error: function(msg){
+            console.log(msg);
+          }
+        });
+        e.preventDefault();
+      });
+    });
 </script>
+<?php $this->load->view('include/footer.php'); ?>

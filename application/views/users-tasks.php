@@ -55,7 +55,7 @@
                                                 <i class="fa fa-ellipsis-v"></i>
                                               </a>
                                               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" id="email"><i class="fa fa-envelope"></i> Email</a>
+                                                <a class="dropdown-item" id="email" href="mailto:<?php echo $row->email; ?>" ><i class="fa fa-envelope"></i> Email</a>
                                               </div>
                                             </div>
                                         </td>
@@ -73,4 +73,21 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+      var users_tasksTable = $('#table-users-tasks').dataTable({
+      "columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
+        });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

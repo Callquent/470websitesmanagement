@@ -61,4 +61,53 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+        $("#results .alert-success").hide();
+        $("#results .alert-danger").hide();
+        $('#form-import').submit(function(e) {
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: formData,
+                dataType: 'json',
+                cache : false,
+                contentType : false,
+                processData : false,
+                success: function(response){
+                    if(response.type != 'error'){
+                        $("#form-import").fadeOut('slow');
+                        $('#results .alert-success').fadeIn('fast');
+                        setTimeout(function() {
+                            $('#results .alert-success').fadeOut('slow');
+                            $("#form-import").find("input[type=text], textarea").val("");
+                            $("#form-import").fadeIn('slow');
+                        }, 3000 );
+                    } else {
+                        $("#form-import").fadeOut('slow');
+                        $('#results .alert-danger').fadeIn('fast');
+                        setTimeout(function() {
+                            $('#results .alert-danger').fadeOut('slow');
+                            $("#form-import").find("input[type=text], textarea").val("");
+                            $("#form-import").fadeIn('slow');
+                        }, 3000 );
+                    }
+                },
+                error: function(response){
+                    $("#form-import").fadeOut('slow');
+                    $('#results .alert-danger').fadeIn('fast');
+                    setTimeout(function() {
+                        $('#results .alert-danger').fadeOut('slow');
+                        $("#form-import").find("input[type=text], textarea").val("");
+                        $("#form-import").fadeIn('slow');
+                    }, 3000 );
+                }
+            });
+            e.preventDefault();
+        });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

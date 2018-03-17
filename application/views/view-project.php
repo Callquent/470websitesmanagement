@@ -278,4 +278,57 @@
     </div>
   </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+
+    var projectsTable = $('#table-projects').dataTable({
+              'columnDefs': [{ // set default column settings
+              'orderable': true,
+              'targets': [0]
+          }, {
+              "searchable": true,
+              "targets": [0]
+          }],
+          "order": [
+              [0, "asc"]
+          ]
+      });
+
+        $("#form-list-tasks").submit(function(e){
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                    console.log(msg.responseText);
+                },
+                error: function(msg){
+                    console.log(msg.responseText);
+                }
+            });
+            e.preventDefault();
+        });
+        $("#form-task").submit(function(e){
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                    console.log(msg.responseText);
+                },
+                error: function(msg){
+                    console.log(msg.responseText);
+                }
+            });
+            e.preventDefault();
+        });
+        $('#view-task').on('show.bs.modal', function (event) {
+            var idlisttasks = $(event.relatedTarget).data('id');
+
+            $(this).find('.modal-body input#idlisttasks').val(idlisttasks);
+        }); 
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

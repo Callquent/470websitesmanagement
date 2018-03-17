@@ -97,4 +97,135 @@
           </div>
         </div>
       </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+        var registarTable = $('#table-whois').dataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+      "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "buttons": [
+                {
+                    extend: 'collection',
+                    text: 'Export',
+                    buttons: [
+                        'copy',
+                        'excel',
+                        'csv',
+                        'pdf',
+                        'print'
+                    ]
+                }
+            ],
+            "ajax": {
+                "url":  window.location.href+'/ajaxWhois/',
+                "type": "POST"
+            },
+            responsive: {
+                details: {
+                   
+                }
+            },
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            } ],
+        });
+
+    $( "#load-refresh-whois" ).click(function() {
+      $(this).button('loading');
+      $.ajax({
+        type: "POST",
+        url: window.location.href+'/ajaxRefresh/',
+        success: function(data){
+          $( "#load-refresh-whois" ).button('reset');
+          $('#table-whois').DataTable().rows().remove().draw();
+          var jsdata = JSON.parse(data);
+          $('#table-whois').DataTable().rows.add(jsdata).draw();
+        },
+        error: function(data){
+          $( "#load-refresh-whois" ).button('reset');
+          $('#table-whois').DataTable().rows().remove().draw();
+          var jsdata = JSON.parse(data);
+          $('#table-whois').DataTable().rows.add(jsdata).draw();
+        }
+      });
+    });
+
+    $(document).on('click', '.access-whois', function(e) {
+
+      var id = $(this).data('id');
+      $.ajax({
+        type: "POST",
+        url: window.location.href+'/modal-whois/'+id,
+        success: function(data){    
+          $( "#view-whois .modal-body" ).append("<pre>"+data+"</pre>");
+        },
+        error: function(){
+          alert("failure");
+        }
+      });
+      e.preventDefault();
+    });
+    $('#view-whois').on('hide.bs.modal',function(event){
+      $( "#view-whois .modal-body pre" ).remove();
+    });
+    $( "#button-whois-calendar" ).click(function() {
+      $( ".editable-table" ).hide(  );
+      $( "#calendar" ).show(  );
+      $.ajax({
+        type: "POST",
+        url: window.location.href+'/ajaxCalendarWhois/',
+        success: function(data){
+          $( "#calendar" ).empty();
+          var dataWhoisWebsite = JSON.parse(data);
+          $('#calendar').fullCalendar({
+              header: {
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'year,month,basicWeek,basicDay'
+              },
+              height: 610,
+              editable: false,
+              droppable: true, // this allows things to be dropped onto the calendar !!!
+              drop: function(date, allDay) { // this function is called when something is dropped
+
+                  // retrieve the dropped element's stored Event Object
+                  var originalEventObject = $(this).data('eventObject');
+
+                  // we need to copy it, so that multiple events don't have a reference to the same object
+                  var copiedEventObject = $.extend({}, originalEventObject);
+
+                  // assign it the date that was reported
+                  copiedEventObject.start = date;
+                  copiedEventObject.allDay = allDay;
+
+                  // render the event on the calendar
+                  // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                  $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                  // is the "remove after drop" checkbox checked?
+                  if ($('#drop-remove').is(':checked')) {
+                      // if so, remove the element from the "Draggable Events" list
+                      $(this).remove();
+                  }
+
+              },
+              events: dataWhoisWebsite
+          });
+        },
+        error: function(){
+          alert("failure");
+        }
+      });
+    });
+    $( "#button-whois-list" ).click(function() {
+      $( ".editable-table" ).show(  );
+      $( "#calendar" ).hide(  );
+    });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

@@ -133,4 +133,72 @@
         </div>
     </div>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+        $('a#delete-user').click(function(e) {
+            if (confirm('Voulez vous supprimer cette enregistrement')) {
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('href'),
+                    success: function(msg){
+                        $('.member-entry-'+$(this).attr('url').split("/").pop()).remove();
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+            }
+            e.preventDefault();
+        });
+        $('#members-edit').on('show.bs.modal', function (event) {
+            var id = $(event.relatedTarget).data('id');
+            var idgroup;
+            $.getJSON( window.location.href+'/userGroup/'+id, function( data ) {
+                idgroup = data;
+                var modal = $(this);
+                $('#form-edit-user').attr('action', window.location.href+'/edit/'+id+'/'+idgroup)
+                $('#members-edit select[name="members"] option').each(function() {
+                    if ($(this).val() == idgroup) {
+                        $(this).prop('selected', true);
+                    }
+                });         
+            });
+        }); 
+        $('#form-edit-user').submit(function(e) {
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                    /*event.relatedTarget.dataset.idgroup = msg;*/
+                    /*$(event.relatedTarget).data('idgroup', msg);*/
+                    /*$(event.relatedTarget).attr('data-idgroup',msg);*/
+                    $('#members-edit').modal('hide');
+                    switch (msg) {
+                        case "1":
+                            $('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("red-bg");
+                            break;
+                        case "2":
+                            $('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("green-bg");
+                            break;
+                        case "3":
+                            $('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("white-bg");
+                            break;
+                        case "4":
+                            $('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("blue-bg");
+                            break;
+                        case "5":
+                            $('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])).removeClass($('.member-entry-'+($(this)[0].url.split('/')[window.location.href.split('/').length+1])+' .twt-feed').attr('class').split(' ')[1]).addClass("gray-bg");
+                            break;
+                    }
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
+            e.preventDefault();
+        });
+  });
+</script>
 <?php $this->load->view('include/footer.php'); ?>
