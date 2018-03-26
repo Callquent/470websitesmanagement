@@ -59,60 +59,51 @@
                                                 </div>
                                             </div>
                                           </div>
-
-                                        <div>
-                                            <div class="card-header">
-                                                <h4 class="card-title">
-                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                                        <div class="row-fluid">
-                                                            <h4 class=""><i class="fa fa-plus-square"></i> FTP</h4>
-                                                            <hr>
-                                                        </div>
-                                                    </a>
-                                                </h4>
+                                        <div id="accordion">
+                                          <div class="card">
+                                            <div class="card-header" id="headingOne">
+                                              <h5 class="mb-0">
+                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                  <?php echo lang('ftp'); ?>
+                                                </button>
+                                              </h5>
                                             </div>
-                                            <div id="collapseOne" class="card-collapse collapse">
-                                                <div class="card-body">
 
-                                                    <div class="row-fluid">
-                                                        <div class="form-group ">
-                                                            <label for="comment" class="control-label col-lg-3"><?php echo lang('host_ftp'); ?></label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="text" name="hostftp" placeholder="Host FTP">
-                                                            </div>
+                                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                              <div class="card-body">
+                                                <div class="row-fluid">
+                                                    <div class="form-group ">
+                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_ftp'); ?></label>
+                                                        <div class="col-lg-6">
+                                                            <input class="form-control" type="text" name="hostftp" placeholder="Host FTP">
                                                         </div>
-                                                        <div class="form-group ">
-                                                            <label for="comment" class="control-label col-lg-3"><?php echo lang('login_ftp'); ?></label>
-                                                            <div class="col-lg-6">
-                                                              <input class="form-control" type="text" name="loginftp" placeholder="Login FTP">
-                                                            </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_ftp'); ?></label>
+                                                        <div class="col-lg-6">
+                                                          <input class="form-control" type="text" name="loginftp" placeholder="Login FTP">
                                                         </div>
-                                                        <div class="form-group ">
-                                                            <label for="comment" class="control-label col-lg-3"><?php echo lang('password_ftp'); ?></label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="text" name="passwordftp" placeholder="Mot de Passe FTP">
-                                                            </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_ftp'); ?></label>
+                                                        <div class="col-lg-6">
+                                                            <input class="form-control" type="text" name="passwordftp" placeholder="Mot de Passe FTP">
                                                         </div>
-                                                      </div>
-
-
+                                                    </div>
                                                 </div>
+                                              </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <div class="card-header">
-                                                <h4 class="card-title">
-                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                                        <div class="row-fluid">
-                                                            <h4 class=""><i class="fa fa-plus-square"></i> SQL</h4>
-                                                            <hr>
-                                                        </div>
-                                                    </a>
-                                                </h4>
+                                          </div>
+                                          <div class="card">
+                                            <div class="card-header" id="headingTwo">
+                                              <h5 class="mb-0">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                  <?php echo lang('sql'); ?>
+                                                </button>
+                                              </h5>
                                             </div>
-                                            <div id="collapseTwo" class="card-collapse collapse">
-                                                <div class="card-body">
-
+                                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                              <div class="card-body">
                                                   <div class="row-fluid">
                                                     <div class="form-group ">
                                                         <label for="comment" class="control-label col-lg-3"><?php echo lang('host_sql'); ?></label>
@@ -139,24 +130,19 @@
                                                         </div>
                                                     </div>
                                                   </div>
-
-                                                </div>
+                                              </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <div class="card-header">
-                                                <h4 class="card-title">
-                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                                        <div class="row-fluid">
-                                                            <h4 class=""><i class="fa fa-plus-square"></i> Back Office</h4>
-                                                            <hr>
-                                                        </div>
-                                                    </a>
-                                                </h4>
+                                          </div>
+                                          <div class="card">
+                                            <div class="card-header" id="headingThree">
+                                              <h5 class="mb-0">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                  <?php echo lang('backoffice'); ?>
+                                                </button>
+                                              </h5>
                                             </div>
-                                            <div id="collapseThree" class="card-collapse collapse">
-                                                <div class="card-body">
-                                                
+                                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                              <div class="card-body">
                                                   <div class="row-fluid">
                                                     <div class="form-group ">
                                                         <label for="comment" class="control-label col-lg-3"><?php echo lang('host_backoffice'); ?></label>
@@ -177,25 +163,19 @@
                                                         </div>
                                                     </div>
                                                   </div>
-
-                                                </div>
+                                              </div>
                                             </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="card-header">
-                                                <h4 class="card-title">
-                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-                                                        <div class="row-fluid">
-                                                            <h4 class=""><i class="fa fa-plus-square"></i> Htaccess</h4>
-                                                            <hr>
-                                                        </div>
-                                                    </a>
-                                                </h4>
+                                          </div>
+                                          <div class="card">
+                                            <div class="card-header" id="headingFour">
+                                              <h5 class="mb-0">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                  <?php echo lang('htaccess'); ?>
+                                                </button>
+                                              </h5>
                                             </div>
-                                            <div id="collapseFour" class="card-collapse collapse">
-                                                <div class="card-body">
-                                                
+                                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                                              <div class="card-body">
                                                   <div class="row-fluid">
                                                     <div class="form-group ">
                                                         <label for="comment" class="control-label col-lg-3"><?php echo lang('login_htaccess'); ?></label>
@@ -210,10 +190,10 @@
                                                         </div>
                                                     </div>
                                                   </div>
-                                                </div>
+                                              </div>
                                             </div>
+                                          </div>
                                         </div>
-
 
                                       <div class="form-group">
                                           <div class="col-lg-offset-3 col-lg-6">

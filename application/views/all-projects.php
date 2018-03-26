@@ -23,7 +23,7 @@
                       <div class="card-body">
                           <h4 class="">Projects</h4>
                           <hr>
-                          <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Search Member" >
+                          <input type="text" class="form-control" name="searchproject" id="searchProjects" >
                       </div>
                   </section>
                   <section class="card mb-3">
@@ -38,7 +38,7 @@
                       <div class="card-body">
                           <h4 class="">Membres</h4>
                           <hr>
-                          <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Search Member" >
+                          <input type="text" class="form-control" name="search" id="searchMembers" >
                       </div>
                   </section>
                   <section class="card mb-3">
@@ -94,7 +94,7 @@
                                     <?php foreach ($all_projects->result() as $row) { ?>
                                       <tr>
                                         <td><?php echo $row->name_website; ?></td>
-                                        <td><?php echo $row->title_project_tasks; ?></td>
+                                        <td><?php echo $row->name_project_tasks; ?></td>
                                         <td><?php echo $row->started_project_tasks; ?></td>
                                         <td><?php echo $row->deadline_project_tasks; ?></td>
                                         <td><span class="badge badge-danger">Canceled</span></td>
@@ -103,7 +103,11 @@
                                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentage_tasks; ?>%"></div>
                                           </div>
                                         </td>
-                                        <td><img alt="" src="http://localhost:8080/470websitesmanagement/assets/img/users/Sauron_eye_barad_dur.jpg" class="img-datatable"></td>
+                                        <td>
+                                          <?php foreach ($row->users_to_project as $row_user) { ?>
+                                            <span class="w-40 avatar circle green" value="<?php echo $row_user->username; ?>"><?php echo substr($row_user->username, 0, 2); ?></span>
+                                          <?php } ?>
+                                        </td>
                                         <td>
                                           <div class="dropdown show actions">
                                             <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
@@ -159,9 +163,9 @@
                 <div class="form-group">
                       <label class="control-label">Date Range</label>
                       <div class="input-group input-large" data-date="13/07/2013" data-date-format="mm/dd/yyyy">
-                          <input type="text" class="form-control dpd1" name="datestarted">
+                          <input type="text" class="form-control dpd1" type="date" name="datestarted">
                           <span class="input-group-addon">To</span>
-                          <input type="text" class="form-control dpd2" name="datedeadline">
+                          <input type="text" class="form-control dpd2" type="date" name="datedeadline">
                       </div>
                 </div>
               </div>
@@ -176,8 +180,9 @@
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
-
-    var projectsTable = $('#table-projects').dataTable({
+    var nEditingProject = null;
+    var ElementDelete = null;
+    var projectsTable = $('#table-projects').DataTable({
               'columnDefs': [{ // set default column settings
               'orderable': true,
               'targets': [0]
@@ -204,6 +209,82 @@
       });
       e.preventDefault();
     });
+        function editRowProjects(projectsTable, nRow, nUrl) {
+          var aData = projectsTable.fnGetData(nRow);
+          var jqTds = $('>td', nRow);
+          var languageList;
+          jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameviewproject" value="' + aData[1] + '">';
+          jqTds[2].innerHTML = '<input type="text" class="form-control small" id="descriptionviewproject" value="' + aData[2] + '">';
+          jqTds[3].innerHTML = '<input type="text" class="form-control small" id="priorityviewproject" value="' + aData[3] + '">';
+          jqTds[7].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+        }
+        function saveRowLanguage(projectsTable, nRow, nUrl) {
+          var jqInputs = $('input', nRow);
+          projectsTable.fnUpdate(jqInputs[7].value, nRow, 7, false);
+          projectsTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
+          projectsTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
+          projectsTable.fnDraw();
+        }
+        function restoreRow(pTable, nRow) {
+          var aData = pTable.fnGetData(nRow);
+          var jqTds = $('>td', nRow);
+
+          for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+              pTable.fnUpdate(aData[i], nRow, i, false);
+          }
+
+          pTable.fnDraw();
+        }
+        $(document).on('click', '#table-projects #cancel-project', function (e) {
+            e.preventDefault();
+            if ($(this).attr("data-mode") == "new") {
+                var nRow = $(this).parents('tr')[0];
+                projectsTable.fnDeleteRow(nRow);
+            } else {
+                restoreRow(projectsTable, nEditingProject);
+                nEditingProject = null;
+            }
+        });
+        $(document).on('click', '#table-projects #edit-project', function (e) {
+            e.preventDefault();
+
+            var nRow = $(this).parents('tr')[0];
+            var nUrl = $(this).attr('href');
+            
+            if (nEditingProject !== null && nEditingProject != nRow) {
+                restoreRow(projectsTable, nEditingProject);
+                editRowProjects(projectsTable, nRow, nUrl);
+                nEditingProject = nRow;
+            } else if (nEditingProject == nRow && this.innerHTML == "Save") {
+                var titlelanguage = $('#titlelanguage').val();
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('href'),
+                    data: 'titlelanguage='+titlelanguage,
+                    success: function(msg){
+                        console.log(msg);
+                        saveRowLanguage(projectsTable, nEditingProject, nUrl);
+                        nEditingProject = null;
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+            } else {
+                editRowProjects(projectsTable, nRow, nUrl);
+                nEditingProject = nRow;
+            }
+        });
+        $(document).on('click', '#table-projects #delete-project', function (e) {
+            ElementDelete = this;
+        });
+
+        $('#searchProjects').on( 'keyup', function () {
+            projectsTable.columns(1).search( this.value ).draw();
+        });
+        $('#searchMembers').on( 'keyup', function () {
+            projectsTable.columns(6).search( this.value ).draw();
+        });
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

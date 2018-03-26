@@ -10,7 +10,7 @@ class Search_scrapper_google extends CI_Controller {
 		$this->load->model('model_front');
 		$this->load->model('model_tasks');
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth','form_validation','encrypt','session','websiteparser','googlescraper'));
+		$this->load->library(array('Aauth','form_validation','encrypt','session','googlescraper'));
 		$this->load->helper(array('functions','text','url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
@@ -60,7 +60,7 @@ class Search_scrapper_google extends CI_Controller {
 			$list[] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
 			$list[] = strip_tags($row['title']);
 			$list[] = strip_tags($row['description']);
-			if ($website == removeurl_createdomain($row['url']) ) {
+			if (removeurl_createdomain($website) == removeurl_createdomain($row['url']) ) {
 				$list['DT_RowClass'] = 'dt-position-website-true';
 				$show_position[] = $key;
 			}	

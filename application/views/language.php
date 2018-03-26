@@ -102,31 +102,31 @@
                 [0, "asc"]
             ]
         });
-    function editRowLanguage(languageTable, nRow, nUrl) {
-            var aData = languageTable.fnGetData(nRow);
-            var jqTds = $('>td', nRow);
-            var languageList;
-            jqTds[0].innerHTML = '<input type="text" class="form-control small" id="titlelanguage" value="' + aData[0] + '">';
-            jqTds[1].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
-            jqTds[2].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
-        }
-        function saveRowLanguage(languageTable, nRow, nUrl) {
-            var jqInputs = $('input', nRow);
-            languageTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-            languageTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
-            languageTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
-            languageTable.fnDraw();
-        }
-        function restoreRow(pTable, nRow) {
-            var aData = pTable.fnGetData(nRow);
-            var jqTds = $('>td', nRow);
+      function editRowLanguage(languageTable, nRow, nUrl) {
+          var aData = languageTable.fnGetData(nRow);
+          var jqTds = $('>td', nRow);
+          var languageList;
+          jqTds[0].innerHTML = '<input type="text" class="form-control small" id="titlelanguage" value="' + aData[0] + '">';
+          jqTds[1].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'">Save</a>';
+          jqTds[2].innerHTML = '<a id="cancel-dashboard" href="javascript:void(0);">Cancel</a>';
+      }
+      function saveRowLanguage(languageTable, nRow, nUrl) {
+          var jqInputs = $('input', nRow);
+          languageTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+          languageTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
+          languageTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
+          languageTable.fnDraw();
+      }
+      function restoreRow(pTable, nRow) {
+          var aData = pTable.fnGetData(nRow);
+          var jqTds = $('>td', nRow);
 
-            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-                pTable.fnUpdate(aData[i], nRow, i, false);
-            }
+          for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+              pTable.fnUpdate(aData[i], nRow, i, false);
+          }
 
-            pTable.fnDraw();
-        }
+          pTable.fnDraw();
+      }
         
     $('#modal-delete-language').on('show.bs.modal',function(event) {
       var modal = $(this);
@@ -155,7 +155,7 @@
                 success: function(msg){
                   $('#modal-delete-language').modal('hide');
                     var nRow = $(ElementDelete).parents('tr')[0];
-          languageTable.fnDeleteRow(nRow);
+                    languageTable.fnDeleteRow(nRow);
                 },
                 error: function(msg){
                     console.log(msg);

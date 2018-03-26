@@ -40,9 +40,7 @@
                                                 <label for="url-website">Url Website</label>
                                             </div>
                                             <div class="form-group">
-                                                <div class="col-lg-2">
-                                                    <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
-                                                </div>
+                                                <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
                                             </div>
                                         </form>
                                     </div>
@@ -51,7 +49,6 @@
                                       <button class="btn btn-success btn-ls float-right" data-title="Ajouter" data-toggle="modal" data-target="#serptools"><?php echo lang('serp_simulator'); ?></button>
                                     </div>
                                 </div>
-                                <div class="space15"></div>
                                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-search-scrapper-google">
                                   <thead>
                                     <th class="all"><?php echo lang('position'); ?></th>

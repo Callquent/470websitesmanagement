@@ -12,6 +12,7 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
 			$value->percentage_tasks = $this->get_percentage($value->id_project_tasks)->row()->percentage;
+			$value->users_to_project = $this->get_users_to_project($value->id_project_tasks)->result();
 		}
 		return $query;
 	}
@@ -24,6 +25,17 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	function get_users_to_project($id_project_tasks)
+	{
+		$this->db->select('aauth_users.username')
+				->from('470websitesmanagement_tasks')
+				->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
+				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
+				->group_by('470websitesmanagement_tasks.id_user');
+
+		$query = $this->db->get();
+		return $query;
+	}
 	function get_all_projects_to_user($id_user)
 	{
 		$this->db->select('*')
@@ -31,7 +43,7 @@ class Model_tasks extends CI_Model {
 				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_project_tasks = 470websitesmanagement_project_tasks.id_project_tasks')
 				 ->join('470websitesmanagement_website', '470websitesmanagement_project_tasks.id_website = 470websitesmanagement_website.w_id')
 				 ->where('470websitesmanagement_tasks.id_user', $id_user)
-				 ->group_by(array('470websitesmanagement_project_tasks.id_project_tasks', '470websitesmanagement_project_tasks.title_project_tasks'));
+				 ->group_by(array('470websitesmanagement_project_tasks.id_project_tasks', '470websitesmanagement_project_tasks.name_project_tasks'));
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
@@ -79,7 +91,6 @@ class Model_tasks extends CI_Model {
 				 ->where('470websitesmanagement_tasks.id_user', $id_user);
 
 		$query = $this->db->get();
-		var_dump($query->result());
 		return $query;
 	}
 	function get_project($id_project_tasks)
@@ -148,12 +159,12 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function create_projects_websites($w_id_info, $title_project_tasks, $date_started, $date_deadline)
+	function create_projects_websites($w_id_info, $name_project_tasks, $date_started, $date_deadline)
 	{
 		$query = $this->db->get('470websitesmanagement_project_tasks');
 		$data = array(
 			'id_website'				=> $w_id_info,
-			'title_project_tasks'		=> $title_project_tasks,
+			'name_project_tasks'		=> $name_project_tasks,
 			'started_project_tasks	'	=> $date_started,
 			'deadline_project_tasks'	=> $date_deadline
 		);

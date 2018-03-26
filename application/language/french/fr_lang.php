@@ -42,19 +42,23 @@ $lang['general_information'] = "Information Générale";
 $lang['name_add_website'] = "Nom *";
 $lang['url_add_website'] = "URL *";
 
+$lang['ftp'] = "FTP";
 $lang['host_ftp'] = "Hôte FTP";
 $lang['login_ftp'] = "Login FTP";
 $lang['password_ftp'] = "Mot de passe FTP";
 
+$lang['sql'] = "SQL";
 $lang['host_sql'] = "Hôte SQL";
 $lang['name_sql'] = "Nom base de donnée";
 $lang['login_sql'] = "Login SQL";
 $lang['password_sql'] = "Mot de passe SQL";
 
+$lang['backoffice'] = "Back Office";
 $lang['host_backoffice'] = "Hôte Back Office";
 $lang['login_backoffice'] = "Login Back Office";
 $lang['password_backoffice'] = "Mot de passe Back Office";
 
+$lang['htaccess'] = "Htaccess";
 $lang['login_htaccess'] = "Login Htaccess";
 $lang['password_htaccess'] = "Mot de passe Htaccess";
 

@@ -43,12 +43,6 @@ class Googlescraper
 		curl_close($ch);
 		return $data;
 	}
-
-	function initGoogle() {
-		$data=$this->getpagedata('https://www.google.com');
-		$this->getpagedata('https://www.google.com/ncr');
-	}
-
 	function fetchUrlList()
 	{
 		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num='.$this->number_page);
@@ -96,7 +90,6 @@ class Googlescraper
 	function getUrlList($keyword,$number_page,$proxy='') {
 		$this->keyword=$keyword;
 		$this->number_page=$number_page;
-		$this->initGoogle();
 		$this->fetchUrlList();
 		sleep(2);
 		return $this->metaList;

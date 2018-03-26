@@ -35,7 +35,7 @@
                                         <section class="card mb-3">
 
                                             <div class="list-item" data-id="item-3">
-                                                <span class="w-40 avatar circle green"><i class="away b-white avatar-right"></i> <?php echo substr($row->name_user, 0, 2); ?></span>
+                                                <span class="w-40 avatar circle green"><?php echo substr($row->name_user, 0, 2); ?></span>
                                                 <div class="list-body">
                                                     <a href="app.user.detail.html#item-3" class="item-title _500"><?php echo $row->name_user; ?></a>
                                                     <div class="item-except text-sm text-muted h-1x"><?php echo $row->email; ?></div>

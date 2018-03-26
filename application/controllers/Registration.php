@@ -29,17 +29,18 @@ class Registration extends CI_Controller {
 		$email = $this->input->post('email');
 		$captcha = $this->input->post('captcha');
 
-		$this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[4]');
+		$this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[5]');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');
-		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[8]|max_length[32]');
+		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|matches[password]');
 		$this->form_validation->set_rules('captcha', 'Captcha', 'trim|required');
 
 
-		if($password != $password_confirm) {
+		/*if($password != $password_confirm) {
 			$this->session->set_flashdata('danger', 'Mots de passe non identiques');
 			$this->load->view('registration');
-		} elseif ($this->session->userdata('imagecaptcha') != $captcha) {
+		} else*/
+		if ($this->session->userdata('imagecaptcha') != $captcha) {
 			$this->session->set_flashdata('danger', 'Votre captcha n\'est pas valide');
 			$this->load->view('registration');
 		} else {

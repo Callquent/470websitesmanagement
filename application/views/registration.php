@@ -4,70 +4,91 @@
 		<meta charset="utf-8">
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<?php echo css_url('css/bootstrap.min.css'); ?>
-		<?php echo css_url('css/bootstrap-table.min.css'); ?>
-		<?php echo css_url('js/fullcalendar/bootstrap-fullcalendar.css'); ?>
-		<?php echo css_url('js/bootstrap-fileupload/bootstrap-fileupload.css'); ?>
-		<?php echo css_url('js/bootstrap-colorpicker/css/colorpicker.css'); ?>
-		<?php echo css_url('js/data-tables/DT_bootstrap.css'); ?>
-		<?php echo css_url('js/data-tables/Buttons/css/buttons.dataTables.css'); ?>
-		<?php echo css_url('js/fuelux/css/tree-style.css'); ?>
-		<?php echo css_url('css/theme.css'); ?>
-		<?php echo css_url('css/theme-responsive.css'); ?>
-		<?php echo css_url('css/style.css'); ?>
+        <?php echo css_url('css/bootstrap.min.css'); ?>
+        <?php echo css_url('css/theme.css'); ?>
+        <?php echo css_url('css/theme-responsive.css'); ?>
+        <?php echo css_url('css/style.css'); ?>
 		<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 	</head>
-	<body class="lock-screen">
+	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
+        <main>
+            <div id="wrapper">
+                <div class="content-wrapper">
+                    <div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+                        <div id="register" class="p-8">
+                            <div class="form-wrapper md-elevation-8 p-8">
+                                <div class="logo bg-secondary">
+                                    <span>F</span>
+                                </div>
+                                <div class="title mt-4 mb-8">Create an account</div>
+                                <form action="<?php echo site_url('registration/create'); ?>" method="post" id="loginform">
+                                    <div class="form-group mb-4">
+                                        <input type="text" class="form-control" id="registerFormInputName" name="name">
+                                        <label for="registerFormInputName">Name</label>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input type="email" class="form-control" id="registerFormInputEmail" name="email">
+                                        <label for="registerFormInputEmail">Email address</label>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input type="password" class="form-control" id="registerFormInputPassword" name="password">
+                                        <label for="registerFormInputPassword">Password</label>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input type="password" class="form-control" id="registerFormInputPasswordConfirm" name="password_confirm">
+                                        <label for="registerFormInputPasswordConfirm">Password (Confirm)</label>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input type="text" name="captcha" placeholder="Code">
+                                        <img src="<?php echo site_url('registration/captcha'); ?>"/>
+                                    </div>
+                                    <div class="terms-conditions row align-items-center justify-content-center pt-4 mb-8">
+                                        <div class="form-check mr-1 mb-1">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" aria-label="Remember Me">
+                                                <span class="checkbox-icon fuse-ripple-ready"></span>
+                                                <span>I read and accept</span>
+                                            </label>
+                                        </div>
+                                        <a href="#" class="text-secondary mb-1">terms and conditions</a>
+                                    </div>
+                                    <button type="submit" class="submit-button btn btn-block btn-secondary my-4 mx-auto fuse-ripple-ready" aria-label="LOG IN">
+                                        CREATE MY ACCOUNT
+                                    </button>
+                                    <?php if($this->session->flashdata('success')){ ?>
+                                    <div class="alert alert-success">
+                                        <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert">×</a>
+                                    </div>
+                                    <?php } ?>
+                                    <?php if($this->session->flashdata('disconnect')){ ?>
+                                    <div class="alert alert-danger">
+                                        <?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert">×</a>
+                                    </div>
+                                    <?php } ?>
+                                    <?php if($this->session->flashdata('danger')){ ?>
+                                    <div class="alert alert-danger">
+                                        <?php echo $this->session->flashdata('danger'); ?> <a class="close" data-dismiss="alert">×</a>
+                                    </div>
+                                    <?php } ?>
 
-<div class="pen-title">
-	<h1>470 WEBSITES MANAGEMENT</h1>
-</div>
-    <div class="container">
-      <form action="<?php echo site_url('registration/create'); ?>" method="post" id="loginform" class="form-signin">
-        <h2 class="form-signin-heading">registration now</h2>
-        <div class="login-wrap">
-            <p>Enter your personal details below</p>
-            <input type="text" class="form-control" name="name" placeholder="User name" autofocus>
-            <input type="text" class="form-control" name="email" placeholder="Email">
-            <input type="password" class="form-control" name="password" placeholder="Password">
-            <input type="password" class="form-control" name="password_confirm" placeholder="Re-type Password">                        
-            <div class="form-group">
-                <input type="text" name="captcha" placeholder="Code">
-                <img src="<?php echo site_url('registration/captcha'); ?>"/>
+                                    <?php if(validation_errors()){
+                                        echo validation_errors('<div class="alert alert-danger">', ' <a class="close" data-dismiss="alert">×</a></div>');
+                                    } ?>
+                                </form>
+                                <div class="login d-flex flex-column flex-sm-row align-items-center justify-content-center mt-8 mb-6 mx-auto">
+                                    <span class="text mr-sm-2">Already have an account?</span>
+                                    <a class="link text-secondary" href=""<?php echo site_url('index'); ?>">Log in</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </main>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+    $(document).ready(function(){
 
-            <label class="checkbox">
-                <input type="checkbox" value="agree this condition"> I agree to the Terms of Service and Privacy Policy
-            </label>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
-            <?php if($this->session->flashdata('success')){ ?>
-            <div class="alert alert-success">
-                <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert">×</a>
-            </div>
-            <?php } ?>
-            <?php if($this->session->flashdata('disconnect')){ ?>
-            <div class="alert alert-danger">
-                <?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert">×</a>
-            </div>
-            <?php } ?>
-            <?php if($this->session->flashdata('danger')){ ?>
-            <div class="alert alert-danger">
-                <?php echo $this->session->flashdata('danger'); ?> <a class="close" data-dismiss="alert">×</a>
-            </div>
-            <?php } ?>
-
-            <?php if(validation_errors()){
-                echo validation_errors('<div class="alert alert-danger">', ' <a class="close" data-dismiss="alert">×</a></div>');
-            } ?>
-                
-            <div class="registration">
-                Already Registered.
-                <a class="" href="<?php echo site_url('index'); ?>">
-                    Login
-                </a>
-            </div>
-
-        </div>
-      </form>
-    </div>
+    });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

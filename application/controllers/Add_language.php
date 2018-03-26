@@ -9,6 +9,7 @@ class Add_language extends CI_Controller {
 		// Chargement des ressources pour ce controller
 		$this->load->database();
 		$this->load->model('model_front');
+		$this->load->model('model_tasks');
 		$this->load->model('model_language');
 		$this->load->model('model_settings');
 		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session','email'));

@@ -69,7 +69,7 @@ class All_projects extends CI_Controller {
 	public function create_projects()
 	{
 		$website_id				= $this->input->post('websites');
-		$titleproject			= $this->input->post('titleproject');
+		$nameproject			= $this->input->post('nameproject');
 		$date_started			= $this->input->post('datestarted');
 		$date_deadline			= $this->input->post('datedeadline');
 
@@ -79,6 +79,16 @@ class All_projects extends CI_Controller {
 		if ($this->form_validation->run() == TRUE){*/
 			$this->model_tasks->create_projects_websites($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
 		/*}*/
+	}
+	public function edit_projects($w_id = '')
+	{
+		$name_project_tasks			= $this->input->post('nameprojecttasks');
+		$started_project_tasks			= $this->input->post('startedprojecttaskstasks');
+		$deadline_project_tasks				= $this->input->post('deadlineprojecttasks');
+
+		if ($this->form_validation->run() !== FALSE){
+			$this->model_back->update_projects($w_id, $started_project_tasks, $started_project_tasks, $deadline_project_tasks);
+		}
 	}
 	public function create_list_tasks($id_project_tasks = '')
 	{
