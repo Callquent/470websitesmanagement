@@ -106,26 +106,16 @@
                   <section class="card mb-3">
                       <header class="card-header">
                           Editable Table
-                          <span class="tools pull-right">
-                              <a href="javascript:;" class="fa fa-chevron-down"></a>
-                              <a href="javascript:;" class="fa fa-cog"></a>
-                              <a href="javascript:;" class="fa fa-times"></a>
-                           </span>
                       </header>
                       <div class="card-body">
                           <h4 class="">Projects</h4>
                           <hr>
-                          <input type="text" class="form-control" name="website" id="autocomplete" placeholder="Search Member" >
+                          <input type="text" class="form-control" name="searchproject" id="searchProjects" >
                       </div>
                   </section>
                   <section class="card mb-3">
                       <header class="card-header">
                           Editable Table
-                          <span class="tools pull-right">
-                              <a href="javascript:;" class="fa fa-chevron-down"></a>
-                              <a href="javascript:;" class="fa fa-cog"></a>
-                              <a href="javascript:;" class="fa fa-times"></a>
-                           </span>
                       </header>
                       <div class="card-body">
                           <h4 class="">Status</h4>
@@ -151,7 +141,7 @@
                               </div>
                           </div>
                           <div class="adv-table editable-table">
-                              <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
+                              <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-my-projects">
                                   <thead>
                                     <tr>
                                         <th class="all"><?php echo lang('website'); ?></th>
@@ -169,7 +159,7 @@
                                     <?php foreach ($all_projects_per_users->result() as $row) { ?>
                                       <tr>
                                         <td><?php echo $row->name_website; ?></td>
-                                        <td><?php echo $row->title_project_tasks; ?></td>
+                                        <td><?php echo $row->name_project_tasks; ?></td>
                                         <td><?php echo $row->started_project_tasks; ?></td>
                                         <td><?php echo $row->deadline_project_tasks; ?></td>
                                         <td>
@@ -177,7 +167,9 @@
                                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentage_tasks; ?>%"></div>
                                           </div>
                                         </td>
-                                        <td><span class="badge badge-danger"><?php echo $row->priority_project_tasks->all_tasks_critical_user; ?> Critical</span><span class="badge badge-warning"><?php echo $row->priority_project_tasks->all_tasks_hight_user; ?> Hight</span><span class="badge badge-primary"><?php echo $row->priority_project_tasks->all_tasks_medium_user; ?> Medium</span><span class="badge badge-success"><?php echo $row->priority_project_tasks->all_tasks_low_user; ?> Low</span></td>
+                                        <td>
+                                          <span class="badge badge-danger"><?php echo $row->priority_project_tasks->all_tasks_critical_user; ?> Critical</span><span class="badge badge-warning"><?php echo $row->priority_project_tasks->all_tasks_hight_user; ?> Hight</span><span class="badge badge-primary"><?php echo $row->priority_project_tasks->all_tasks_medium_user; ?> Medium</span><span class="badge badge-success"><?php echo $row->priority_project_tasks->all_tasks_low_user; ?> Low</span>
+                                        </td>
                                         <td>
                                           <div class="dropdown show actions">
                                             <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
@@ -208,7 +200,22 @@
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
+    var myprojectsTable = $('#table-my-projects').DataTable({
+              'columnDefs': [{ // set default column settings
+              'orderable': true,
+              'targets': [0]
+          }, {
+              "searchable": true,
+              "targets": [0]
+          }],
+          "order": [
+              [0, "asc"]
+          ]
+      });
 
+        $('#searchProjects').on( 'keyup', function () {
+            myprojectsTable.columns(1).search( this.value ).draw();
+        });
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

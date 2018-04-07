@@ -35,6 +35,7 @@
                                         <th class="desktop">Tasks Progress</th>
                                         <th class="desktop">Tasks Completed</th>
                                         <th class="desktop">All Tasks</th>
+                                        <th class="desktop">Tasks Priority</th>
                                         <th class="desktop">Email</th>
                                         <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                                           <th class="desktop"><?php echo lang('actions'); ?></th>
@@ -48,6 +49,9 @@
                                         <td><span class="badge badge-warning"><?php echo $row->all_tasks_progress_user; ?></span></td>
                                         <td><span class="badge badge-success"><?php echo $row->all_tasks_completed_user; ?></span></td>
                                         <td><span class="badge badge-info"><?php echo $row->all_tasks_user; ?></span></td>
+                                        <td>
+                                          <span class="badge badge-danger"><?php echo $row->priority_project_tasks->all_tasks_critical_user; ?> Critical</span><span class="badge badge-warning"><?php echo $row->priority_project_tasks->all_tasks_hight_user; ?> Hight</span><span class="badge badge-primary"><?php echo $row->priority_project_tasks->all_tasks_medium_user; ?> Medium</span><span class="badge badge-success"><?php echo $row->priority_project_tasks->all_tasks_low_user; ?> Low</span>
+                                        </td>
                                         <td><?php echo $row->email; ?></td>
                                         <td>
                                           <div class="dropdown show actions">

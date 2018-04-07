@@ -116,7 +116,7 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                               <a class="dropdown-item" id="view-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
                                               <div class="dropdown-divider"></div>
-                                              <a class="dropdown-item" id="edit-project" href="'.site_url('all-projects/'.$row->id_project_tasks).'"><i class="fa fa-pencil"></i> Edit</a>
+                                              <a class="dropdown-item" id="edit-project" href="<?php echo site_url('all-projects/edit_projects/'.$row->id_project_tasks); ?>"><i class="fa fa-pencil"></i>  <?php echo lang('edit') ?></a>
                                               <a class="dropdown-item" id="delete-project" href="'.site_url('all-projects/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
                                             </div>
                                           </div>
@@ -180,21 +180,6 @@
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
-    var nEditingProject = null;
-    var ElementDelete = null;
-    var projectsTable = $('#table-projects').DataTable({
-              'columnDefs': [{ // set default column settings
-              'orderable': true,
-              'targets': [0]
-          }, {
-              "searchable": true,
-              "targets": [0]
-          }],
-          "order": [
-              [0, "asc"]
-          ]
-      });
-
     $("#form-projects").submit(function(e){
       $.ajax({
         type: "POST",
@@ -209,20 +194,36 @@
       });
       e.preventDefault();
     });
+
+    var nEditingProject = null;
+    var ElementDelete = null;
+    var projectsTable = $('#table-projects').dataTable({
+      "columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
+        });
         function editRowProjects(projectsTable, nRow, nUrl) {
           var aData = projectsTable.fnGetData(nRow);
           var jqTds = $('>td', nRow);
           var languageList;
-          jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameviewproject" value="' + aData[1] + '">';
-          jqTds[2].innerHTML = '<input type="text" class="form-control small" id="descriptionviewproject" value="' + aData[2] + '">';
-          jqTds[3].innerHTML = '<input type="text" class="form-control small" id="priorityviewproject" value="' + aData[3] + '">';
-          jqTds[7].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+          jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameproject" value="' + aData[1] + '">';
+          jqTds[2].innerHTML = '<input type="text" class="form-control small" id="startedproject" value="' + aData[2] + '">';
+          jqTds[3].innerHTML = '<input type="text" class="form-control small" id="deadlineproject" value="' + aData[3] + '">';
+          jqTds[7].innerHTML = '<a id="edit-project" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-project" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
         }
-        function saveRowLanguage(projectsTable, nRow, nUrl) {
+        function saveRowProjects(projectsTable, nRow, nUrl) {
           var jqInputs = $('input', nRow);
-          projectsTable.fnUpdate(jqInputs[7].value, nRow, 7, false);
-          projectsTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
-          projectsTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
+          projectsTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
+          projectsTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
+          projectsTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
+          projectsTable.fnUpdate('<div class="dropdown show actions"><a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" ><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a class="dropdown-item" id="edit-project" href="'+nUrl+'"><i class="fa fa-pencil"></i><?php echo lang('edit'); ?></a>', nRow, 7, false);
           projectsTable.fnDraw();
         }
         function restoreRow(pTable, nRow) {
@@ -255,15 +256,17 @@
                 restoreRow(projectsTable, nEditingProject);
                 editRowProjects(projectsTable, nRow, nUrl);
                 nEditingProject = nRow;
-            } else if (nEditingProject == nRow && this.innerHTML == "Save") {
-                var titlelanguage = $('#titlelanguage').val();
+            } else if (nEditingProject == nRow && $(this).find("i").attr("value") == "check") {
+                var nameproject = $('#nameproject').val();
+                var startedproject = $('#startedproject').val();
+                var deadlineproject = $('#deadlineproject').val();
                 $.ajax({
                     type: "POST",
                     url: $(this).attr('href'),
-                    data: 'titlelanguage='+titlelanguage,
+                    data: {'nameproject':nameproject,'startedproject':startedproject,'deadlineproject':deadlineproject},
                     success: function(msg){
                         console.log(msg);
-                        saveRowLanguage(projectsTable, nEditingProject, nUrl);
+                        saveRowProjects(projectsTable, nEditingProject, nUrl);
                         nEditingProject = null;
                     },
                     error: function(msg){

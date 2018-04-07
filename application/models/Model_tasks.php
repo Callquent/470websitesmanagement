@@ -55,7 +55,8 @@ class Model_tasks extends CI_Model {
 	function get_all_tasks_priority_to_user($id_user,$id_project_tasks="")
 	{
 		$this->db->select('SUM(CASE WHEN id_tasks_priority = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_tasks_priority = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_tasks_priority = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_tasks_priority = "4", 1,0)) as all_tasks_critical_user')
-				 ->from('470websitesmanagement_tasks');
+				 ->from('470websitesmanagement_tasks')
+				 ->where('470websitesmanagement_tasks.id_tasks_status', "1");
 				 if (!empty($id_project_tasks)) {
 				 	$this->db->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks);
 				 }
@@ -76,12 +77,15 @@ class Model_tasks extends CI_Model {
 	}
 	function get_all_tasks_per_users()
 	{
-		$this->db->select('count(*) as all_tasks_user, aauth_users.username, aauth_users.email, SUM(IF(id_tasks_status = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_tasks_status = "2", 1,0)) as all_tasks_completed_user')
+		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, aauth_users.username, aauth_users.email, SUM(IF(id_tasks_status = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_tasks_status = "2", 1,0)) as all_tasks_completed_user')
 				 ->from('470websitesmanagement_tasks')
 				 ->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
 				 ->group_by(array('470websitesmanagement_tasks.id_user','aauth_users.username'));
 
 		$query = $this->db->get();
+		foreach ($query->result() as $value) {
+			$value->priority_project_tasks = $this->get_all_tasks_priority_to_user($value->id_user)->row();
+		}
 		return $query;
 	}
 	function get_all_tasks_priority_per_users($id_project_tasks,$id_user=1)
@@ -159,7 +163,7 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function create_projects_websites($w_id_info, $name_project_tasks, $date_started, $date_deadline)
+	function create_project($w_id_info, $name_project_tasks, $date_started, $date_deadline)
 	{
 		$query = $this->db->get('470websitesmanagement_project_tasks');
 		$data = array(
@@ -171,6 +175,18 @@ class Model_tasks extends CI_Model {
 
 		$this->db->insert('470websitesmanagement_project_tasks', $data);
 		return $this->db->insert_id();
+	}
+	function update_project($w_id_info, $name_project_tasks, $date_started, $date_deadline)
+	{
+		$data = array(
+			'id_website'				=> $w_id_info,
+			'name_project_tasks'		=> $name_project_tasks,
+			'started_project_tasks	'	=> $date_started,
+			'deadline_project_tasks'	=> $date_deadline
+		);
+
+		$this->db->where('id_website', $w_id_info)
+				 ->update('470websitesmanagement_project_tasks', $data);
 	}
 	function create_list_tasks($id_project_tasks, $title_list_task)
 	{
@@ -186,7 +202,7 @@ class Model_tasks extends CI_Model {
 		$this->db->insert('470websitesmanagement_list_tasks', $data);
 		return $this->db->insert_id();
 	}
-	function create_task($id_project_tasks, $idlisttasks, $titletask, $descriptiontask, $idtaskpriority, $idtaskstatus, $iduser)
+	function create_task($id_project_tasks, $idlisttasks, $nametask, $descriptiontask, $idtaskpriority, $idtaskstatus, $iduser)
 	{
 		$this->db->select_max('id_task');
 		$this->db->where('id_project_tasks', $id_project_tasks); 
@@ -196,7 +212,7 @@ class Model_tasks extends CI_Model {
 			'id_task'				=> $query->row()->id_task+1,
 			'id_project_tasks'		=> $id_project_tasks,
 			'id_list_tasks'			=> $idlisttasks,
-			'name_task'				=> $titletask,
+			'name_task'				=> $nametask,
 			'description_task'		=> $descriptiontask,
 			'id_tasks_priority'		=> $idtaskpriority,
 			'id_tasks_status'		=> $idtaskstatus,

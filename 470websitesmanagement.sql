@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 28 fév. 2018 à 05:59
+-- Généré le :  sam. 07 avr. 2018 à 06:40
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.0.23
 
@@ -189,7 +189,7 @@ DROP TABLE IF EXISTS `470websitesmanagement_project_tasks`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_project_tasks` (
   `id_project_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_website` int(11) UNSIGNED NOT NULL,
-  `title_project_tasks` varchar(255) NOT NULL,
+  `name_project_tasks` varchar(255) NOT NULL,
   `started_project_tasks` date NOT NULL,
   `deadline_project_tasks` date NOT NULL,
   PRIMARY KEY (`id_project_tasks`),
@@ -372,7 +372,14 @@ CREATE TABLE IF NOT EXISTS `aauth_login_attempts` (
   `timestamp` datetime DEFAULT NULL,
   `login_attempts` tinyint(2) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `aauth_login_attempts`
+--
+
+INSERT INTO `aauth_login_attempts` (`id`, `ip_address`, `timestamp`, `login_attempts`) VALUES
+(1, '::1', '2018-03-15 17:51:19', 1);
 
 -- --------------------------------------------------------
 
@@ -458,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
   `totp_secret` varchar(16) DEFAULT NULL,
   `ip_address` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

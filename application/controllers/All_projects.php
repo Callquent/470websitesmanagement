@@ -73,48 +73,46 @@ class All_projects extends CI_Controller {
 		$date_started			= $this->input->post('datestarted');
 		$date_deadline			= $this->input->post('datedeadline');
 
-		/*$this->form_validation->set_rules('nom', 'Nom', 'required');
-		$this->form_validation->set_rules('url', 'Url', 'required');
-
-		if ($this->form_validation->run() == TRUE){*/
-			$this->model_tasks->create_projects_websites($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
-		/*}*/
+		$this->model_tasks->create_project($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
 	}
 	public function edit_projects($w_id = '')
 	{
-		$name_project_tasks			= $this->input->post('nameprojecttasks');
-		$started_project_tasks			= $this->input->post('startedprojecttaskstasks');
-		$deadline_project_tasks				= $this->input->post('deadlineprojecttasks');
+		$name_project			= $this->input->post('nameproject');
+		$started_project			= $this->input->post('startedproject');
+		$deadline_project				= $this->input->post('deadlineproject');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_back->update_projects($w_id, $started_project_tasks, $started_project_tasks, $deadline_project_tasks);
+			$this->model_back->update_projects($w_id, $name_project, date("Y-m-d", strtotime($started_project)), date("Y-m-d", strtotime($deadline_project)));
 		}
 	}
 	public function create_list_tasks($id_project_tasks = '')
 	{
 		$title_list_task			= $this->input->post('titlelisttasks');
 
-		/*$this->form_validation->set_rules('nom', 'Nom', 'required');
-		$this->form_validation->set_rules('url', 'Url', 'required');
-
-		if ($this->form_validation->run() == TRUE){*/
-			$this->model_tasks->create_list_tasks($id_project_tasks, $title_list_task);
-		/*}*/
+		$this->model_tasks->create_list_tasks($id_project_tasks, $title_list_task);
 	}
 	public function create_task($id_project_tasks = '')
 	{
 		$idlisttasks			= $this->input->post('idlisttasks');
-		$titletask				= $this->input->post('titletask');
+		$nametask				= $this->input->post('titletask');
 		$descriptiontask		= $this->input->post('descriptiontask');
 		$idtaskpriority			= $this->input->post('taskspriority');
 		$idtaskstatus			= $this->input->post('tasksstatus');
 		$iduser					= $this->input->post('user');
 
-		/*$this->form_validation->set_rules('nom', 'Nom', 'required');
-		$this->form_validation->set_rules('url', 'Url', 'required');
+		$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $nametask, $descriptiontask, $idtaskpriority, $idtaskstatus, $iduser);
+	}
+	public function edit_tasks($w_id = '')
+	{
+		$idlisttasks			= $this->input->post('idlisttasks');
+		$nametask				= $this->input->post('titletask');
+		$descriptiontask		= $this->input->post('descriptiontask');
+		$idtaskpriority			= $this->input->post('taskspriority');
+		$idtaskstatus			= $this->input->post('tasksstatus');
+		$iduser					= $this->input->post('user');
 
-		if ($this->form_validation->run() == TRUE){*/
-			$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $titletask, $descriptiontask, $idtaskpriority, $idtaskstatus, $iduser);
-		/*}*/
+		if ($this->form_validation->run() !== FALSE){
+			$this->model_back->update_projects($w_id, $started_project_tasks, $started_project_tasks, $deadline_project_tasks);
+		}
 	}
 }

@@ -168,8 +168,8 @@
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                           <a class="dropdown-item" id="view-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
                                                           <div class="dropdown-divider"></div>
-                                                          <a class="dropdown-item" id="edit-project" href="'.site_url('all-projects/'.$row->id_project_tasks).'"><i class="fa fa-pencil"></i> Edit</a>
-                                                          <a class="dropdown-item" id="delete-project" href="'.site_url('all-projects/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
+                                                          <a class="dropdown-item" id="edit-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                                          <a class="dropdown-item" id="delete-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-trash"></i> Delete</a>
                                                         </div>
                                                       </div>
                                                     </td>
@@ -282,56 +282,55 @@
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-  $(document).ready(function(){
+$(document).ready(function(){
+    $("#form-list-tasks").submit(function(e){
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(msg){
+                console.log(msg.responseText);
+            },
+            error: function(msg){
+                console.log(msg.responseText);
+            }
+        });
+        e.preventDefault();
+    });
+    $("#form-task").submit(function(e){
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(msg){
+                console.log(msg.responseText);
+            },
+            error: function(msg){
+                console.log(msg.responseText);
+            }
+        });
+        e.preventDefault();
+    });
+    $('#view-task').on('show.bs.modal', function (event) {
+        var idlisttasks = $(event.relatedTarget).data('id');
+
+        $(this).find('.modal-body input#idlisttasks').val(idlisttasks);
+    });
 
     var nEditingViewProject = null;
     var ElementDelete = null;
     var viewprojectTable = $('#table-view-project').dataTable({
-              'columnDefs': [{ // set default column settings
-              'orderable': true,
-              'targets': [0]
-          }, {
-              "searchable": true,
-              "targets": [0]
-          }],
-          "order": [
-              [0, "asc"]
-          ]
+            'columnDefs': [{
+                  'orderable': true,
+                  'targets': [0]
+                }, {
+                  "searchable": true,
+                  "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ]
       });
-
-        $("#form-list-tasks").submit(function(e){
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(msg){
-                    console.log(msg.responseText);
-                },
-                error: function(msg){
-                    console.log(msg.responseText);
-                }
-            });
-            e.preventDefault();
-        });
-        $("#form-task").submit(function(e){
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(msg){
-                    console.log(msg.responseText);
-                },
-                error: function(msg){
-                    console.log(msg.responseText);
-                }
-            });
-            e.preventDefault();
-        });
-        $('#view-task').on('show.bs.modal', function (event) {
-            var idlisttasks = $(event.relatedTarget).data('id');
-
-            $(this).find('.modal-body input#idlisttasks').val(idlisttasks);
-        });
 
         function editRowProject(viewprojectTable, nRow, nUrl) {
           var aData = viewprojectTable.fnGetData(nRow);
@@ -402,6 +401,6 @@
         $(document).on('click', '#table-view-project #delete-project', function (e) {
             ElementDelete = this;
         });
-  });
+});
 </script>
 <?php $this->load->view('include/footer.php'); ?>

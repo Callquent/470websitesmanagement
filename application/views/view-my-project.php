@@ -5,13 +5,13 @@
 <div class="content custom-scrollbar ps ps--theme_default ps--active-y">
   <div class="page-layout simple full-width">
     <div class="page-content">
-        
+
         <section id="main-content">
             <section class="wrapper">
 
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="row-fluid" id="draggable_portlets">
+                    <div class="row">
                         <div class="col-md-3 column sortable ui-sortable">
                             <div class="row">
                                 <div class="col-md-12">
@@ -22,7 +22,7 @@
                                         <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <h1 class="no-margin"><?php echo $project->title_project_tasks; ?></h5>
+                                                                <h1 class="title-view-project"><?php echo $project->name_project_tasks; ?></h5>
                                                             </div>
                                                         </div>
                                                         <hr>
@@ -114,7 +114,6 @@
                             </div>
                         </div>
                         <div class="col-md-9 column sortable ui-sortable">
-                            <!-- BEGIN Portlet PORTLET-->
                             <section class="card mb-3">
                                 <header class="card-header">
                                     Editable Table
@@ -134,14 +133,13 @@
                                         </div>
                                     </div>
                                     <div class="adv-table editable-table">
-                                        <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-tasks">
+                                        <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-view-my-project">
                                             <thead>
                                               <tr>
                                                   <th class="all"><?php echo lang('name'); ?></th>
                                                   <th class="desktop">Description</th>
                                                   <th class="desktop">Priority</th>
                                                   <th class="desktop">Status</th>
-                                                  <th class="desktop">Member</th>
                                                   <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
                                                     <th class="desktop"><?php echo lang('actions'); ?></th>
                                                   <?php } ?>
@@ -159,27 +157,28 @@
                                                             <td><?php echo $row->description_task; ?></td>
                                                             <td><?php echo $row->name_tasks_priority; ?></td>
                                                             <td><?php echo $row->name_tasks_status; ?></td>
-                                                            <td><?php echo $row->username; ?></td>
                                                             <td>
-                                                                <div class="dropdown show actions">
-                                                                  <a class="btn btn-secondary dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <i class="fa fa-bars"></i>
-                                                                  </a>
-                                                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                    <a class="dropdown-item" id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_task); ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                                                    <a class="dropdown-item" id="delete-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_task); ?>"><i class="fa fa-trash"></i> Delete</a>
-                                                                  </div>
+                                                              <div class="dropdown show actions">
+                                                                <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+                                                                  <i class="fa fa-ellipsis-v"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                                  <a class="dropdown-item" id="view-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
+                                                                  <div class="dropdown-divider"></div>
+                                                                  <a class="dropdown-item" id="edit-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                                                  <a class="dropdown-item" id="delete-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-trash"></i> Delete</a>
                                                                 </div>
+                                                              </div>
                                                             </td>
                                                         <?php } ?>
                                                     </tr>
                                                 <?php } ?>
                                               <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </section>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
 
 
                         </div>
@@ -259,16 +258,6 @@
                   </select>
                 </div>
             </div>
-            <div class="form-group ">
-                <label for="curl" class="control-label col-lg-3"><?php echo lang('languages'); ?></label>
-                <div class="col-lg-6">
-                  <select name="user" class="form-control">
-                  <?php foreach ($list_users->result() as $row){  ?>
-                      <option value="<?php echo $row->id; ?>"><?php echo $row->name_user; ?></option>
-                  <?php } ?>
-                  </select>
-                </div>
-            </div>
           </div>
           <div class="modal-footer ">
             <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
@@ -282,6 +271,124 @@
 <script type="text/javascript">
   $(document).ready(function(){
 
+    var nEditingViewProject = null;
+    var ElementDelete = null;
+    var viewprojectTable = $('#table-view-my-project').dataTable({
+              'columnDefs': [{ // set default column settings
+              'orderable': true,
+              'targets': [0]
+          }, {
+              "searchable": true,
+              "targets": [0]
+          }],
+          "order": [
+              [0, "asc"]
+          ]
+      });
+
+        $("#form-list-tasks").submit(function(e){
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                    console.log(msg.responseText);
+                },
+                error: function(msg){
+                    console.log(msg.responseText);
+                }
+            });
+            e.preventDefault();
+        });
+        $("#form-task").submit(function(e){
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(msg){
+                    console.log(msg.responseText);
+                },
+                error: function(msg){
+                    console.log(msg.responseText);
+                }
+            });
+            e.preventDefault();
+        });
+        $('#view-task').on('show.bs.modal', function (event) {
+            var idlisttasks = $(event.relatedTarget).data('id');
+
+            $(this).find('.modal-body input#idlisttasks').val(idlisttasks);
+        });
+
+        function editRowProject(viewprojectTable, nRow, nUrl) {
+          var aData = viewprojectTable.fnGetData(nRow);
+          var jqTds = $('>td', nRow);
+          var languageList;
+          jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameviewproject" value="' + aData[1] + '">';
+          jqTds[2].innerHTML = '<input type="text" class="form-control small" id="descriptionviewproject" value="' + aData[2] + '">';
+          jqTds[3].innerHTML = '<input type="text" class="form-control small" id="priorityviewproject" value="' + aData[3] + '">';
+          jqTds[7].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+        }
+        function saveRowLanguage(viewprojectTable, nRow, nUrl) {
+          var jqInputs = $('input', nRow);
+          viewprojectTable.fnUpdate(jqInputs[7].value, nRow, 7, false);
+          viewprojectTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
+          viewprojectTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
+          viewprojectTable.fnDraw();
+        }
+        function restoreRow(pTable, nRow) {
+          var aData = pTable.fnGetData(nRow);
+          var jqTds = $('>td', nRow);
+
+          for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+              pTable.fnUpdate(aData[i], nRow, i, false);
+          }
+
+          pTable.fnDraw();
+        }
+        $(document).on('click', '#table-view-my-project #cancel-project', function (e) {
+            e.preventDefault();
+            if ($(this).attr("data-mode") == "new") {
+                var nRow = $(this).parents('tr')[0];
+                viewprojectTable.fnDeleteRow(nRow);
+            } else {
+                restoreRow(viewprojectTable, nEditingViewProject);
+                nEditingViewProject = null;
+            }
+        });
+        $(document).on('click', '#table-view-my-project #edit-project', function (e) {
+            e.preventDefault();
+
+            var nRow = $(this).parents('tr')[0];
+            var nUrl = $(this).attr('href');
+            
+            if (nEditingViewProject !== null && nEditingViewProject != nRow) {
+                restoreRow(viewprojectTable, nEditingViewProject);
+                editRowProject(viewprojectTable, nRow, nUrl);
+                nEditingViewProject = nRow;
+            } else if (nEditingViewProject == nRow && this.innerHTML == "Save") {
+                var titlelanguage = $('#titlelanguage').val();
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('href'),
+                    data: 'titlelanguage='+titlelanguage,
+                    success: function(msg){
+                        console.log(msg);
+                        saveRowLanguage(viewprojectTable, nEditingViewProject, nUrl);
+                        nEditingViewProject = null;
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+            } else {
+                editRowProject(viewprojectTable, nRow, nUrl);
+                nEditingViewProject = nRow;
+            }
+        });
+        $(document).on('click', '#table-view-my-project #delete-project', function (e) {
+            ElementDelete = this;
+        });
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

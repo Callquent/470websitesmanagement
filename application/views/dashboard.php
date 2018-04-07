@@ -128,14 +128,13 @@
           </div>
         </div>
       </div>
-
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   var pieDataLanguage = JSON.parse('<?php echo $chart_language; ?>');
   var pieDataCategory = JSON.parse('<?php echo $chart_category; ?>');
 
   $(document).ready(function(){
-      var dashboardTable = $('#table-dashboard').DataTable({
+      var dashboardTable = $('#table-dashboard').dataTable({
           "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
           "order": [],
           "dom": 'lBfrtip',

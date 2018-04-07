@@ -20,7 +20,8 @@
 		$this->uri->segment(1)=='ftp-websites' ||
 		$this->uri->segment(1)=='whois-domain' ||
 		$this->uri->segment(1)=='users-tasks' ||
-		$this->uri->segment(1)=='all-projects') { ?>
+		$this->uri->segment(1)=='all-projects' ||
+		$this->uri->segment(1)=='my-tasks') { ?>
 			<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 			<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
 			<?php echo js_url('js/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>

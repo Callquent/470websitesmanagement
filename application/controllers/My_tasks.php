@@ -56,6 +56,56 @@ class My_tasks extends CI_Controller {
 
 			$this->load->view('view-my-project', $data);
 		}
+	}
+	public function create_projects()
+	{
+		$website_id				= $this->input->post('websites');
+		$nameproject			= $this->input->post('nameproject');
+		$date_started			= $this->input->post('datestarted');
+		$date_deadline			= $this->input->post('datedeadline');
 
+		/*$this->form_validation->set_rules('nom', 'Nom', 'required');
+		$this->form_validation->set_rules('url', 'Url', 'required');
+
+		if ($this->form_validation->run() == TRUE){*/
+			$this->model_tasks->create_project($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
+		/*}*/
+	}
+	public function edit_projects($w_id = '')
+	{
+		$name_project_tasks			= $this->input->post('nameprojecttasks');
+		$started_project_tasks			= $this->input->post('startedprojecttaskstasks');
+		$deadline_project_tasks				= $this->input->post('deadlineprojecttasks');
+
+		if ($this->form_validation->run() !== FALSE){
+			$this->model_back->update_projects($w_id, $started_project_tasks, $started_project_tasks, $deadline_project_tasks);
+		}
+	}
+	public function create_list_tasks($id_project_tasks = '')
+	{
+		$title_list_task			= $this->input->post('titlelisttasks');
+
+		/*$this->form_validation->set_rules('nom', 'Nom', 'required');
+		$this->form_validation->set_rules('url', 'Url', 'required');
+
+		if ($this->form_validation->run() == TRUE){*/
+			$this->model_tasks->create_list_tasks($id_project_tasks, $title_list_task);
+		/*}*/
+	}
+	public function create_task($id_project_tasks = '')
+	{
+		$idlisttasks			= $this->input->post('idlisttasks');
+		$titletask				= $this->input->post('titletask');
+		$descriptiontask		= $this->input->post('descriptiontask');
+		$idtaskpriority			= $this->input->post('taskspriority');
+		$idtaskstatus			= $this->input->post('tasksstatus');
+		$iduser					= $this->input->post('user');
+
+		/*$this->form_validation->set_rules('nom', 'Nom', 'required');
+		$this->form_validation->set_rules('url', 'Url', 'required');
+
+		if ($this->form_validation->run() == TRUE){*/
+			$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $titletask, $descriptiontask, $idtaskpriority, $idtaskstatus, $iduser);
+		/*}*/
 	}
 }
