@@ -5,10 +5,10 @@ class Model_users extends CI_Model {
 
 	function get_all_users()
 	{
-		$this->db->select('aauth_users.id, aauth_users.username as name_user, aauth_users.email, aauth_users.last_login, aauth_groups.name as name_group')
-				 ->from('aauth_users')
-				 ->join('aauth_user_to_group', 'aauth_users.id = aauth_user_to_group.user_id')
-				 ->join('aauth_groups', 'aauth_groups.id = aauth_user_to_group.group_id');
+		$this->db->select('470websitesmanagement_users.id, 470websitesmanagement_users.username as name_user, 470websitesmanagement_users.email, 470websitesmanagement_users.last_login, 470websitesmanagement_groups.name as name_group')
+				 ->from('470websitesmanagement_users')
+				 ->join('470websitesmanagement_user_to_group', '470websitesmanagement_users.id = 470websitesmanagement_user_to_group.user_id')
+				 ->join('470websitesmanagement_groups', '470websitesmanagement_groups.id = 470websitesmanagement_user_to_group.group_id');
 
 		$query = $this->db->get();
 		return $query;
@@ -16,7 +16,7 @@ class Model_users extends CI_Model {
 	function get_all_groups()
 	{
 		$this->db->select('*')
-				 ->from('aauth_groups');
+				 ->from('470websitesmanagement_groups');
 
 		$query = $this->db->get();
 		return $query;

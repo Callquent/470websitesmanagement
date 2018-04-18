@@ -57,15 +57,6 @@
                                                         <hr>
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <h6 class="no-margin m-b-10">Assigned to</h6>
-                                                                <img src="assets/images/faces/face5.png" class="img-rounded img-responsive img-sm" alt="">
-                                                                <img src="assets/images/faces/face6.png" class="img-rounded img-responsive img-sm" alt="">
-                                                                <img src="assets/images/faces/face7.png" class="img-rounded img-responsive img-sm" alt="">
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
                                                                 <h6 class="no-margin">Project details</h6>
                                                                 <div class="row">
                                                                     <div class="col-md-6 col-xs-6">
@@ -130,6 +121,25 @@
                                                 <a class="btn btn-default btn-primary mb-3" href="<?php echo site_url('/my-tasks/'); ?>"><span><i class="fa fa-angle-double-left"></i></span> Retour</a>
                                                 <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-list-tasks"><span><i class="fa fa-plus"></i></span> Ajouter une Liste</a>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <select class="form-control m-bootstrap-select m-bootstrap-select--solid" id="m_form_status" tabindex="-98">
+                                                <option value="">All</option>
+                                                <option value="In Progress">In Progress</option>
+                                                <option value="Completed">Completed</option>
+                                                <option value="Canceled">Canceled</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control m-bootstrap-select m-bootstrap-select--solid" id="m_form_priority" tabindex="-98">
+                                                <option value="">All</option>
+                                                <option value="Low">Low</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="Hight">Hight</option>
+                                                <option value="Critical">Critical</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="adv-table editable-table">

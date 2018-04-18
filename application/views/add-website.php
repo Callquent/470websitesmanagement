@@ -26,18 +26,17 @@
                                         <div class="row-fluid">
                                             <h4 class=""><?php echo lang('general_information'); ?></h4>
                                             <hr>
-                                            <div class="form-group ">
-                                                <label for="cname" class="control-label col-lg-3"><?php echo lang('name_add_website'); ?></label>
-                                                <div class="col-lg-6">
-                                                  <input class="form-control" type="text" name="nom" placeholder="Nom" required />
-                                                </div>
+                                            <div class="col-lg-6">
+                                              <div class="form-group ">
+                                                <input type="text" name="nom" class="form-control">
+                                                <label for="cname"><?php echo lang('name_add_website'); ?></label>
+                                              </div>
+                                              <div class="form-group ">
+                                                  <input type="text" name="url" class="form-control">
+                                                  <label for="curl"><?php echo lang('url_add_website'); ?></label>
+                                              </div>
                                             </div>
-                                            <div class="form-group ">
-                                                <label for="cemail" class="control-label col-lg-3"><?php echo lang('url_add_website'); ?></label>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="url" placeholder="Site Web" required />
-                                                </div>
-                                            </div>
+
                                             <div class="form-group ">
                                                 <label for="curl" class="control-label col-lg-3"><?php echo lang('languages'); ?></label>
                                                 <div class="col-lg-6">
@@ -63,7 +62,7 @@
                                           <div class="card">
                                             <div class="card-header" id="headingOne">
                                               <h5 class="mb-0">
-                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                   <?php echo lang('ftp'); ?>
                                                 </button>
                                               </h5>
@@ -72,23 +71,19 @@
                                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                               <div class="card-body">
                                                 <div class="row-fluid">
-                                                    <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_ftp'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="hostftp" placeholder="Host FTP">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_ftp'); ?></label>
-                                                        <div class="col-lg-6">
-                                                          <input class="form-control" type="text" name="loginftp" placeholder="Login FTP">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_ftp'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="passwordftp" placeholder="Mot de Passe FTP">
-                                                        </div>
+                                                    <div class="col-lg-6">
+                                                      <div class="form-group ">
+                                                        <input type="text" name="hostftp" class="form-control">
+                                                        <label for="hostftp"><?php echo lang('host_ftp'); ?></label>
+                                                      </div>
+                                                      <div class="form-group ">
+                                                          <input type="text" name="loginftp" class="form-control">
+                                                          <label for="loginftp"><?php echo lang('login_ftp'); ?></label>
+                                                      </div>
+                                                      <div class="form-group ">
+                                                          <input type="text" name="passwordftp" class="form-control">
+                                                          <label for="passwordftp"><?php echo lang('password_ftp'); ?></label>
+                                                      </div>
                                                     </div>
                                                 </div>
                                               </div>
@@ -97,7 +92,7 @@
                                           <div class="card">
                                             <div class="card-header" id="headingTwo">
                                               <h5 class="mb-0">
-                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                   <?php echo lang('sql'); ?>
                                                 </button>
                                               </h5>
@@ -136,7 +131,7 @@
                                           <div class="card">
                                             <div class="card-header" id="headingThree">
                                               <h5 class="mb-0">
-                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                   <?php echo lang('backoffice'); ?>
                                                 </button>
                                               </h5>
@@ -169,7 +164,7 @@
                                           <div class="card">
                                             <div class="card-header" id="headingFour">
                                               <h5 class="mb-0">
-                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                   <?php echo lang('htaccess'); ?>
                                                 </button>
                                               </h5>

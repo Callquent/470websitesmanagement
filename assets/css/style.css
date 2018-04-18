@@ -460,9 +460,9 @@ h3.r{
 .avatar {
   width: 40px;
   height: 40px;
+  display: inline-flex;
   background-color: #4caf50;
   color: rgba(255,255,255,.85);
-  display: flex;
   border-radius: 50%;
   -ms-flex-pack: center;
   justify-content: center;
@@ -529,6 +529,15 @@ table.dataTable tr {
 }
 table.dataTable td {
   text-align: center;
+}
+table.dataTable tr.group td {
+  text-align: left;
+}
+table.dataTable tr.group {
+  background: #f2f2f2;
+}
+table.dataTable tr:not(.group) {
+  background: #ffffff;
 }
 .adv-table .dataTables_length, .adv-table .dataTables_filter {
   padding: 0;
@@ -705,6 +714,15 @@ div.dt-button-collection a.dt-button:hover {
 /*********************/
 h1.title-view-project {
     color: #1b222c;
+}
+table.dataTable tbody tr.canceled {
+  background: #f4cccc;
+}
+table.dataTable tbody tr.in-progress {
+  background: #fff2cc;
+}
+table.dataTable tbody tr.completed {
+  background: #d9ead3;
 }
 /*********************/
 /*      CUSTOM       */

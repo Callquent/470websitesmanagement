@@ -91,16 +91,16 @@ $config_aauth["default"] = array(
 
  'db_profile'                     => 'default',
 
- 'users'                          => 'aauth_users',
- 'groups'                         => 'aauth_groups',
- 'group_to_group'                 => 'aauth_group_to_group',
- 'user_to_group'                  => 'aauth_user_to_group',
- 'perms'                          => 'aauth_perms',
- 'perm_to_group'                  => 'aauth_perm_to_group',
- 'perm_to_user'                   => 'aauth_perm_to_user',
- 'pms'                            => 'aauth_pms',
- 'user_variables'                 => 'aauth_user_variables',
- 'login_attempts'                 => 'aauth_login_attempts',
+ 'users'                          => '470websitesmanagement_users',
+ 'groups'                         => '470websitesmanagement_groups',
+ 'group_to_group'                 => '470websitesmanagement_group_to_group',
+ 'user_to_group'                  => '470websitesmanagement_user_to_group',
+ 'perms'                          => '470websitesmanagement_perms',
+ 'perm_to_group'                  => '470websitesmanagement_perm_to_group',
+ 'perm_to_user'                   => '470websitesmanagement_perm_to_user',
+ 'pms'                            => '470websitesmanagement_pms',
+ 'user_variables'                 => '470websitesmanagement_user_variables',
+ 'login_attempts'                 => '470websitesmanagement_login_attempts',
 
  'remember'                       => ' +3 days',
 

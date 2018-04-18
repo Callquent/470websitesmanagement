@@ -27,9 +27,9 @@ class Model_tasks extends CI_Model {
 	}
 	function get_users_to_project($id_project_tasks)
 	{
-		$this->db->select('aauth_users.username')
+		$this->db->select('470websitesmanagement_users.username')
 				->from('470websitesmanagement_tasks')
-				->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
+				->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
 				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				->group_by('470websitesmanagement_tasks.id_user');
 
@@ -77,10 +77,10 @@ class Model_tasks extends CI_Model {
 	}
 	function get_all_tasks_per_users()
 	{
-		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, aauth_users.username, aauth_users.email, SUM(IF(id_tasks_status = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_tasks_status = "2", 1,0)) as all_tasks_completed_user')
+		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, 470websitesmanagement_users.username, 470websitesmanagement_users.email, SUM(IF(id_tasks_status = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_tasks_status = "2", 1,0)) as all_tasks_completed_user')
 				 ->from('470websitesmanagement_tasks')
-				 ->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
-				 ->group_by(array('470websitesmanagement_tasks.id_user','aauth_users.username'));
+				 ->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
+				 ->group_by(array('470websitesmanagement_tasks.id_user','470websitesmanagement_users.username'));
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
@@ -101,6 +101,7 @@ class Model_tasks extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_project_tasks')
+				->join('470websitesmanagement_website', '470websitesmanagement_project_tasks.id_website = 470websitesmanagement_website.w_id')
 				->where('id_project_tasks', $id_project_tasks)
 				->limit(1);
 
@@ -140,7 +141,7 @@ class Model_tasks extends CI_Model {
 				->from('470websitesmanagement_tasks')
 				->join('470websitesmanagement_tasks_priority', '470websitesmanagement_tasks_priority.id_tasks_priority = 470websitesmanagement_tasks.id_tasks_priority')
 				->join('470websitesmanagement_tasks_status', '470websitesmanagement_tasks_status.id_tasks_status = 470websitesmanagement_tasks.id_tasks_status')
-				->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
+				->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
 				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				->where('470websitesmanagement_tasks.id_list_tasks', $id_list_task)
 				->order_by("470websitesmanagement_tasks.id_list_tasks", "asc");
@@ -154,7 +155,7 @@ class Model_tasks extends CI_Model {
 				->from('470websitesmanagement_tasks')
 				->join('470websitesmanagement_tasks_priority', '470websitesmanagement_tasks_priority.id_tasks_priority = 470websitesmanagement_tasks.id_tasks_priority')
 				->join('470websitesmanagement_tasks_status', '470websitesmanagement_tasks_status.id_tasks_status = 470websitesmanagement_tasks.id_tasks_status')
-				->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
+				->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
 				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				->where('470websitesmanagement_tasks.id_list_tasks', $id_list_task)
 				->where('470websitesmanagement_tasks.id_user', $id_user)
@@ -176,16 +177,16 @@ class Model_tasks extends CI_Model {
 		$this->db->insert('470websitesmanagement_project_tasks', $data);
 		return $this->db->insert_id();
 	}
-	function update_project($w_id_info, $name_project_tasks, $date_started, $date_deadline)
+	function update_project($id_project_tasks, $name_project_tasks, $date_started, $date_deadline)
 	{
 		$data = array(
-			'id_website'				=> $w_id_info,
+			'id_project_tasks'			=> $id_project_tasks,
 			'name_project_tasks'		=> $name_project_tasks,
 			'started_project_tasks	'	=> $date_started,
 			'deadline_project_tasks'	=> $date_deadline
 		);
 
-		$this->db->where('id_website', $w_id_info)
+		$this->db->where('id_project_tasks', $id_project_tasks)
 				 ->update('470websitesmanagement_project_tasks', $data);
 	}
 	function create_list_tasks($id_project_tasks, $title_list_task)
@@ -229,7 +230,7 @@ class Model_tasks extends CI_Model {
 				 ->join('470websitesmanagement_list_tasks', '470websitesmanagement_list_tasks.id_list_tasks = 470websitesmanagement_tasks.id_list_tasks')
 				 ->join('470websitesmanagement_tasks_priority', '470websitesmanagement_tasks_priority.id_tasks_priority = 470websitesmanagement_tasks.id_tasks_priority')
 				 ->join('470websitesmanagement_tasks_status', '470websitesmanagement_tasks_status.id_tasks_status = 470websitesmanagement_tasks.id_tasks_status')
-				 ->join('aauth_users', 'aauth_users.id = 470websitesmanagement_tasks.id_user')
+				 ->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
 				 ->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks); 
 
 		$query = $this->db->get();

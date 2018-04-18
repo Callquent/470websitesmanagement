@@ -178,8 +178,6 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                               <a class="dropdown-item" id="view-project" href="<?php echo site_url('my-tasks/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
                                               <div class="dropdown-divider"></div>
-                                              <a class="dropdown-item" id="edit-project" href="'.site_url('my-tasks/'.$row->id_project_tasks).'"><i class="fa fa-pencil"></i> Edit</a>
-                                              <a class="dropdown-item" id="delete-project" href="'.site_url('my-tasks/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
                                             </div>
                                           </div>
                                         </td>

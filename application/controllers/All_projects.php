@@ -53,8 +53,8 @@ class All_projects extends CI_Controller {
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
-			/*$data['all_tasks'] = $this->model_tasks->get_all_tasks($id_project_tasks);*/
 			$data['all_list_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
+			$data['all_users_to_project'] = $this->model_tasks->get_users_to_project($id_project_tasks);
 			$data['id_project_tasks'] = $id_project_tasks;
 
 			/*if ( $data['percentage']->num_rows() == 0) {
@@ -75,15 +75,15 @@ class All_projects extends CI_Controller {
 
 		$this->model_tasks->create_project($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
 	}
-	public function edit_projects($w_id = '')
+	public function edit_projects($id_project = '')
 	{
 		$name_project			= $this->input->post('nameproject');
 		$started_project			= $this->input->post('startedproject');
 		$deadline_project				= $this->input->post('deadlineproject');
 
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_back->update_projects($w_id, $name_project, date("Y-m-d", strtotime($started_project)), date("Y-m-d", strtotime($deadline_project)));
-		}
+		/*if ($this->form_validation->run() !== FALSE){*/
+			$this->model_tasks->update_project($id_project, $name_project, date("Y-m-d", strtotime($started_project)), date("Y-m-d", strtotime($deadline_project)));
+		/*}*/
 	}
 	public function create_list_tasks($id_project_tasks = '')
 	{

@@ -197,97 +197,97 @@
 
     var nEditingProject = null;
     var ElementDelete = null;
-    var projectsTable = $('#table-projects').dataTable({
-      "columnDefs": [{ // set default column settings
-                'orderable': true,
-                'targets': [0]
-            }, {
-                "searchable": true,
-                "targets": [0]
-            }],
-            "order": [
-                [0, "asc"]
-            ]
-        });
-        function editRowProjects(projectsTable, nRow, nUrl) {
-          var aData = projectsTable.fnGetData(nRow);
-          var jqTds = $('>td', nRow);
-          var languageList;
-          jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameproject" value="' + aData[1] + '">';
-          jqTds[2].innerHTML = '<input type="text" class="form-control small" id="startedproject" value="' + aData[2] + '">';
-          jqTds[3].innerHTML = '<input type="text" class="form-control small" id="deadlineproject" value="' + aData[3] + '">';
-          jqTds[7].innerHTML = '<a id="edit-project" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-project" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
-        }
-        function saveRowProjects(projectsTable, nRow, nUrl) {
-          var jqInputs = $('input', nRow);
-          projectsTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-          projectsTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
-          projectsTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
-          projectsTable.fnUpdate('<div class="dropdown show actions"><a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" ><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a class="dropdown-item" id="edit-project" href="'+nUrl+'"><i class="fa fa-pencil"></i><?php echo lang('edit'); ?></a>', nRow, 7, false);
-          projectsTable.fnDraw();
-        }
-        function restoreRow(pTable, nRow) {
-          var aData = pTable.fnGetData(nRow);
-          var jqTds = $('>td', nRow);
+    var projectsTable = $('#table-projects').DataTable({
+      "columnDefs": [{
+        'orderable': true,
+        'targets': [0]
+      }, {
+          "searchable": true,
+          "targets": [0]
+      }],
+      "order": [
+          [0, "asc"]
+      ]
+    });
+    function editRowProjects(projectsTable, nRow, nUrl) {
+      var aData = projectsTable.fnGetData(nRow);
+      var jqTds = $('>td', nRow);
+      var languageList;
+      jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameproject" value="' + aData[1] + '">';
+      jqTds[2].innerHTML = '<input type="text" class="form-control small" id="startedproject" value="' + aData[2] + '">';
+      jqTds[3].innerHTML = '<input type="text" class="form-control small" id="deadlineproject" value="' + aData[3] + '">';
+      jqTds[7].innerHTML = '<a id="edit-project" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-project" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+    }
+    function saveRowProjects(projectsTable, nRow, nUrl) {
+      var jqInputs = $('input', nRow);
+      projectsTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
+      projectsTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
+      projectsTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
+      projectsTable.fnUpdate('<div class="dropdown show actions"><a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" ><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a class="dropdown-item" id="edit-project" href="'+nUrl+'"><i class="fa fa-pencil"></i><?php echo lang('edit'); ?></a>', nRow, 7, false);
+      projectsTable.fnDraw();
+    }
+    function restoreRow(pTable, nRow) {
+      var aData = pTable.fnGetData(nRow);
+      var jqTds = $('>td', nRow);
 
-          for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-              pTable.fnUpdate(aData[i], nRow, i, false);
-          }
+      for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+          pTable.fnUpdate(aData[i], nRow, i, false);
+      }
 
-          pTable.fnDraw();
-        }
-        $(document).on('click', '#table-projects #cancel-project', function (e) {
-            e.preventDefault();
-            if ($(this).attr("data-mode") == "new") {
-                var nRow = $(this).parents('tr')[0];
-                projectsTable.fnDeleteRow(nRow);
-            } else {
-                restoreRow(projectsTable, nEditingProject);
-                nEditingProject = null;
-            }
-        });
-        $(document).on('click', '#table-projects #edit-project', function (e) {
-            e.preventDefault();
-
+      pTable.fnDraw();
+    }
+    $(document).on('click', '#table-projects #cancel-project', function (e) {
+        e.preventDefault();
+        if ($(this).attr("data-mode") == "new") {
             var nRow = $(this).parents('tr')[0];
-            var nUrl = $(this).attr('href');
-            
-            if (nEditingProject !== null && nEditingProject != nRow) {
-                restoreRow(projectsTable, nEditingProject);
-                editRowProjects(projectsTable, nRow, nUrl);
-                nEditingProject = nRow;
-            } else if (nEditingProject == nRow && $(this).find("i").attr("value") == "check") {
-                var nameproject = $('#nameproject').val();
-                var startedproject = $('#startedproject').val();
-                var deadlineproject = $('#deadlineproject').val();
-                $.ajax({
-                    type: "POST",
-                    url: $(this).attr('href'),
-                    data: {'nameproject':nameproject,'startedproject':startedproject,'deadlineproject':deadlineproject},
-                    success: function(msg){
-                        console.log(msg);
-                        saveRowProjects(projectsTable, nEditingProject, nUrl);
-                        nEditingProject = null;
-                    },
-                    error: function(msg){
-                        console.log(msg);
-                    }
-                });
-            } else {
-                editRowProjects(projectsTable, nRow, nUrl);
-                nEditingProject = nRow;
-            }
-        });
-        $(document).on('click', '#table-projects #delete-project', function (e) {
-            ElementDelete = this;
-        });
+            projectsTable.fnDeleteRow(nRow);
+        } else {
+            restoreRow(projectsTable, nEditingProject);
+            nEditingProject = null;
+        }
+    });
+    $(document).on('click', '#table-projects #edit-project', function (e) {
+        e.preventDefault();
 
-        $('#searchProjects').on( 'keyup', function () {
-            projectsTable.columns(1).search( this.value ).draw();
-        });
-        $('#searchMembers').on( 'keyup', function () {
-            projectsTable.columns(6).search( this.value ).draw();
-        });
+        var nRow = $(this).parents('tr')[0];
+        var nUrl = $(this).attr('href');
+        
+        if (nEditingProject !== null && nEditingProject != nRow) {
+            restoreRow(projectsTable, nEditingProject);
+            editRowProjects(projectsTable, nRow, nUrl);
+            nEditingProject = nRow;
+        } else if (nEditingProject == nRow && $(this).find("i").attr("value") == "check") {
+            var nameproject = $('#nameproject').val();
+            var startedproject = $('#startedproject').val();
+            var deadlineproject = $('#deadlineproject').val();
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('href'),
+                data: {'nameproject':nameproject,'startedproject':startedproject,'deadlineproject':deadlineproject},
+                success: function(msg){
+                    console.log(msg);
+                    saveRowProjects(projectsTable, nEditingProject, nUrl);
+                    nEditingProject = null;
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
+        } else {
+            editRowProjects(projectsTable, nRow, nUrl);
+            nEditingProject = nRow;
+        }
+    });
+    $(document).on('click', '#table-projects #delete-project', function (e) {
+        ElementDelete = this;
+    });
+
+    $('#searchProjects').on( 'keyup', function () {
+        projectsTable.columns(1).search( this.value ).draw();
+    });
+    $('#searchMembers').on( 'keyup', function () {
+        projectsTable.columns(6).search( this.value ).draw();
+    });
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

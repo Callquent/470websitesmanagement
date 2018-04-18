@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 07 avr. 2018 à 06:40
+-- Généré le :  mer. 18 avr. 2018 à 06:34
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.0.23
 
@@ -91,6 +91,44 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_ftp` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `470websitesmanagement_groups`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_groups`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_groups` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `definition` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `470websitesmanagement_groups`
+--
+
+INSERT INTO `470websitesmanagement_groups` (`id`, `name`, `definition`) VALUES
+(1, 'Admin', 'Super Admin Group'),
+(2, 'Public', 'Public Access Group'),
+(3, 'Unknown', 'Unknown Access Group'),
+(4, 'Developper', 'Developper Access Group'),
+(5, 'Marketing', 'Marketing Access Group');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_group_to_group`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_group_to_group`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_group_to_group` (
+  `group_id` int(11) UNSIGNED NOT NULL,
+  `subgroup_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`group_id`,`subgroup_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `470websitesmanagement_htaccess`
 --
 
@@ -146,6 +184,89 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_list_tasks` (
   PRIMARY KEY (`id_list_tasks`,`id_project_tasks`),
   KEY `fk_id_list_tasks` (`id_project_tasks`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_login_attempts`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_login_attempts`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_login_attempts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(39) DEFAULT '0',
+  `timestamp` datetime DEFAULT NULL,
+  `login_attempts` tinyint(2) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `470websitesmanagement_login_attempts`
+--
+
+INSERT INTO `470websitesmanagement_login_attempts` (`id`, `ip_address`, `timestamp`, `login_attempts`) VALUES
+(1, '::1', '2018-03-15 17:51:19', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_perms`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_perms`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_perms` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `definition` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_perm_to_group`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_perm_to_group`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_perm_to_group` (
+  `perm_id` int(11) UNSIGNED NOT NULL,
+  `group_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`perm_id`,`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_perm_to_user`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_perm_to_user`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_perm_to_user` (
+  `perm_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`perm_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_pms`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_pms`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_pms` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `sender_id` int(11) UNSIGNED NOT NULL,
+  `receiver_id` int(11) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `message` text,
+  `date_sent` datetime DEFAULT NULL,
+  `date_read` datetime DEFAULT NULL,
+  `pm_deleted_sender` int(1) DEFAULT NULL,
+  `pm_deleted_receiver` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `full_index` (`id`,`sender_id`,`receiver_id`,`date_read`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -288,6 +409,60 @@ INSERT INTO `470websitesmanagement_tasks_status` (`id_tasks_status`, `name_tasks
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `470websitesmanagement_users`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_users`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_users` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `pass` varchar(64) NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `banned` tinyint(1) DEFAULT '0',
+  `last_login` datetime DEFAULT NULL,
+  `last_activity` datetime DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `forgot_exp` text,
+  `remember_time` datetime DEFAULT NULL,
+  `remember_exp` text,
+  `verification_code` text,
+  `totp_secret` varchar(16) DEFAULT NULL,
+  `ip_address` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_user_to_group`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_user_to_group`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_user_to_group` (
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `group_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`user_id`,`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_user_variables`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_user_variables`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_user_variables` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `data_key` varchar(100) NOT NULL,
+  `value` text,
+  PRIMARY KEY (`id`),
+  KEY `user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `470websitesmanagement_website`
 --
 
@@ -320,181 +495,6 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`whois_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_groups`
---
-
-DROP TABLE IF EXISTS `aauth_groups`;
-CREATE TABLE IF NOT EXISTS `aauth_groups` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `definition` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `aauth_groups`
---
-
-INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
-(1, 'Admin', 'Super Admin Group'),
-(2, 'Public', 'Public Access Group'),
-(3, 'Unknown', 'Unknown Access Group'),
-(4, 'Developper', 'Developper Access Group'),
-(5, 'Marketing', 'Marketing Access Group');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_group_to_group`
---
-
-DROP TABLE IF EXISTS `aauth_group_to_group`;
-CREATE TABLE IF NOT EXISTS `aauth_group_to_group` (
-  `group_id` int(11) UNSIGNED NOT NULL,
-  `subgroup_id` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`group_id`,`subgroup_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_login_attempts`
---
-
-DROP TABLE IF EXISTS `aauth_login_attempts`;
-CREATE TABLE IF NOT EXISTS `aauth_login_attempts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ip_address` varchar(39) DEFAULT '0',
-  `timestamp` datetime DEFAULT NULL,
-  `login_attempts` tinyint(2) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `aauth_login_attempts`
---
-
-INSERT INTO `aauth_login_attempts` (`id`, `ip_address`, `timestamp`, `login_attempts`) VALUES
-(1, '::1', '2018-03-15 17:51:19', 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_perms`
---
-
-DROP TABLE IF EXISTS `aauth_perms`;
-CREATE TABLE IF NOT EXISTS `aauth_perms` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `definition` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_perm_to_group`
---
-
-DROP TABLE IF EXISTS `aauth_perm_to_group`;
-CREATE TABLE IF NOT EXISTS `aauth_perm_to_group` (
-  `perm_id` int(11) UNSIGNED NOT NULL,
-  `group_id` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`perm_id`,`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_perm_to_user`
---
-
-DROP TABLE IF EXISTS `aauth_perm_to_user`;
-CREATE TABLE IF NOT EXISTS `aauth_perm_to_user` (
-  `perm_id` int(11) UNSIGNED NOT NULL,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`perm_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_pms`
---
-
-DROP TABLE IF EXISTS `aauth_pms`;
-CREATE TABLE IF NOT EXISTS `aauth_pms` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `sender_id` int(11) UNSIGNED NOT NULL,
-  `receiver_id` int(11) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `message` text,
-  `date_sent` datetime DEFAULT NULL,
-  `date_read` datetime DEFAULT NULL,
-  `pm_deleted_sender` int(1) DEFAULT NULL,
-  `pm_deleted_receiver` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `full_index` (`id`,`sender_id`,`receiver_id`,`date_read`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_users`
---
-
-DROP TABLE IF EXISTS `aauth_users`;
-CREATE TABLE IF NOT EXISTS `aauth_users` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) NOT NULL,
-  `pass` varchar(64) NOT NULL,
-  `username` varchar(100) DEFAULT NULL,
-  `banned` tinyint(1) DEFAULT '0',
-  `last_login` datetime DEFAULT NULL,
-  `last_activity` datetime DEFAULT NULL,
-  `date_created` datetime DEFAULT NULL,
-  `forgot_exp` text,
-  `remember_time` datetime DEFAULT NULL,
-  `remember_exp` text,
-  `verification_code` text,
-  `totp_secret` varchar(16) DEFAULT NULL,
-  `ip_address` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_user_to_group`
---
-
-DROP TABLE IF EXISTS `aauth_user_to_group`;
-CREATE TABLE IF NOT EXISTS `aauth_user_to_group` (
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `group_id` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`user_id`,`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `aauth_user_variables`
---
-
-DROP TABLE IF EXISTS `aauth_user_variables`;
-CREATE TABLE IF NOT EXISTS `aauth_user_variables` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `data_key` varchar(100) NOT NULL,
-  `value` text,
-  PRIMARY KEY (`id`),
-  KEY `user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contraintes pour les tables déchargées
@@ -554,7 +554,7 @@ ALTER TABLE `470websitesmanagement_project_tasks`
 ALTER TABLE `470websitesmanagement_tasks`
   ADD CONSTRAINT `fk_id_task_priority` FOREIGN KEY (`id_tasks_priority`) REFERENCES `470websitesmanagement_tasks_priority` (`id_tasks_priority`),
   ADD CONSTRAINT `fk_id_task_status` FOREIGN KEY (`id_tasks_status`) REFERENCES `470websitesmanagement_tasks_status` (`id_tasks_status`),
-  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `aauth_users` (`id`),
+  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `470websitesmanagement_users` (`id`),
   ADD CONSTRAINT `fk_task_to_list_tasks` FOREIGN KEY (`id_list_tasks`) REFERENCES `470websitesmanagement_list_tasks` (`id_list_tasks`),
   ADD CONSTRAINT `fk_task_to_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_list_tasks` (`id_project_tasks`);
 
