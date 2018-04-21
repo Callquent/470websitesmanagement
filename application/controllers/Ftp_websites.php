@@ -85,15 +85,17 @@ class Ftp_websites extends CI_Controller {
 				foreach ($data['list'] as $row) {
 					$item = pathinfo($row);
 					if (isset($item["extension"])) {
-						$data['all_storage_server'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
+						$data['all_storage_server'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'file');
 					} else {
-						$data['all_storage_server'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
+						$data['all_storage_server'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'folder');
 					}
 				}
+				$this->load->view('view-ftp-websites', $data);
 			}
+		} else {
+			$this->load->view('all-ftp-websites', $data);
 		}
 
-		$this->load->view('ftp-websites', $data);
 	}
 	public function refreshfolderserver($w_id = '')
 	{
@@ -111,9 +113,9 @@ class Ftp_websites extends CI_Controller {
 		foreach ($data['list'] as $row) {
 			$item = pathinfo($row);
 			if (isset($item["extension"])) {
-				$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
+				$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'file');
 			} else {
-				$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
+				$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'folder');
 			}
 		}
 

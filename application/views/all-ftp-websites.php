@@ -49,84 +49,6 @@
                                     <?php } ?>
                                 </div>
 
-
-
-
-                                <?php if(!empty($all_storage_server)){ ?>
-
-                                    <?php if(!empty($all_storage_local)){ ?>
-                                    <div class="row">
-                                        <div class="col-sm-12 float-right">
-                                            <div class="float-right">
-                                                <a class="btn btn-default btn-primary mb-3" href="<?php echo site_url('/ftp-websites/'); ?>"><span><i class="fa fa-angle-double-left"></i></span> Retour</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" id="path-local" value="<?php echo $path_local; ?>">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" id="path-server" value="<?php echo $path_server; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <ul class="treeviewlocal">
-                                                <?php foreach ($all_storage_local as $row) {  ?>
-                                                    <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
-                                                        <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
-                                                            <span class="name"><?php echo $row["title"]; ?></span>
-                                                        </a>
-                                                    </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <ul class="treeviewserver">
-                                                <?php foreach ($all_storage_server as $row) {  ?>
-                                                <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
-                                                    <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
-                                                        <span class="name"><?php echo $row["title"]; ?></span>
-                                                    </a>
-                                                </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <?php } else { ?>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="hidden" class="form-control" id="path-server" value="<?php echo $path_server; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="treeviewserver">
-                                                <?php foreach ($all_storage_server as $row) {  ?>
-                                                <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
-                                                    <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
-                                                        <span class="name"><?php echo $row["title"]; ?></span>
-                                                    </a>
-                                                </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <?php } ?>
-                                    <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
-                                        <li><a tabindex="-1" href="javascript:void(0)">Creer</a></li>
-                                        <li class="divider"></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Telecharger</a></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Couper</a></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Copier</a></li>
-                                        <li class="divider"></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Renommer</a></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Supprimer</a></li>
-                                    </ul>
-                                <?php } ?>
-
                             </div>
                         </section>
                     </div>
@@ -139,7 +61,7 @@
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
-var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
+        var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
             "responsive": {
                 'details': {

@@ -51,9 +51,6 @@
 			<?php echo js_url('js/chart-js/Chart.min.js'); ?>
 			<?php echo js_url('js/chartjs.init.js'); ?>
 		<?php } ?>
-		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
-			<?php echo js_url('js/bootstrap-contentmenu.js'); ?>
-		<?php } ?>
 		<?php if ($this->uri->segment(1)=='export') { ?>
 			<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
 			<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>

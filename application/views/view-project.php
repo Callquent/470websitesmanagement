@@ -321,10 +321,10 @@ var DatatableColumnRenderingDemo = function() {
     });
 
     $('#m_form_status').on('change', function () {
-        viewprojectTable.columns(3).search(this.value, true, false).draw();
+        viewprojectTable.columns(4).search(this.value, true, false).draw();
     });
     $('#m_form_priority').on('change', function () {
-        viewprojectTable.columns(2).search(this.value, true, false).draw();
+        viewprojectTable.columns(3).search(this.value, true, false).draw();
     });
 
 /*    function editRowProject(viewprojectTable, nRow, nUrl) {
