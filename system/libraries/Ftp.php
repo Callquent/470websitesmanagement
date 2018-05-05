@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2016, British Columbia Institute of Technology
+ * Copyright (c) 2014 - 2018, British Columbia Institute of Technology
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2016, British Columbia Institute of Technology (http://bcit.ca/)
+ * @copyright	Copyright (c) 2014 - 2018, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
  * @since	Version 1.0.0
@@ -486,7 +486,7 @@ class CI_FTP {
 		{
 			for ($i = 0, $c = count($list); $i < $c; $i++)
 			{
-				// If we can't delete the item it's probaly a directory,
+				// If we can't delete the item it's probably a directory,
 				// so we'll recursively call delete_dir()
 				if ( ! preg_match('#/\.\.?$#', $list[$i]) && ! @ftp_delete($this->conn_id, $list[$i]))
 				{
@@ -547,9 +547,27 @@ class CI_FTP {
 	 */
 	public function list_files($path = '.')
 	{
-		return $this->_is_conn()
+		if ( $this->_is_conn())
+		{
+			$list_files = array();
+			foreach (ftp_nlist($this->conn_id, $path) as $key => $row)
+			{
+				$size = ftp_size($this->conn_id, ltrim($row,'/'));
+
+				$buff = ftp_mdtm ( $this->conn_id, ltrim($row,'/'));
+				if ($size != -1) {
+					$list_files[$key] = array('file' => $row, 'type' => "file" ,'size' => $size, 'last_modified' => date("F d Y H:i:s.", $buff) );
+				} else {
+					$list_files[$key] = array('file' => $row,'type' => "folder" ,'size' => '0', 'last_modified' => "" );
+				}
+			}
+			return $list_files;
+		} else {
+			return FALSE;
+		}
+/*		return $this->_is_conn()
 			? ftp_nlist($this->conn_id, $path)
-			: FALSE;
+			: FALSE;*/
 	}
 
 	// ------------------------------------------------------------------------

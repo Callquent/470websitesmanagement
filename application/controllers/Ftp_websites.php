@@ -20,7 +20,7 @@ class Ftp_websites extends CI_Controller {
 		$this->session->set_userdata($sesslanguage);
 		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
-	public function index($w_id = '')
+	public function index($id_ftp_websites = '')
 	{
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
@@ -36,60 +36,25 @@ class Ftp_websites extends CI_Controller {
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		if (!empty($w_id)) {
-			if($this->agent->is_mobile()) {
-						$data['all_storage_local'] = null;
-						$data['path_local'] = null;
-			} else {
-				if(strpos($this->agent->platform(), "Windows") !== FALSE) {
-				    foreach (range('A', 'Z') as $char) {
-				        if (is_dir("file:///".$char.":")) { 
-							$data['all_storage_local'][] = array('title' => $char, 'icon' => 'fa fa-2x fa-hdd-o');
-							$data['path_local'] = "C:\\";
-				        }
-				    }
-				}
-				else if(strpos($this->agent->platform(), "Mac") !== FALSE) { 
-					foreach (@scandir("file:///") as $value) { 
-						$item = pathinfo($value);
-						if (isset($item["extension"])) {
-							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
-						} else {
-							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
-						}
-					}
-				}
-				elseif(strpos($this->agent->platform(), "Linux") !== FALSE) {
-					foreach (@scandir("file:///") as $value) { 
-						$item = pathinfo($value);
-						if (isset($item["extension"])) {
-							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
-						} else {
-							$data['all_storage_local'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
-						}
-					}
-				}
-			}
-
-			$row = $this->model_front->get_website($w_id)->row();
+		if (!empty($id_ftp_websites)) {
+			$row = $this->model_front->get_website($id_ftp_websites)->row();
 			if (!empty($row->host_ftp) && !empty($row->login_ftp) && !empty($row->password_ftp)) {
 				$config['hostname'] = $row->host_ftp;
 				$config['username'] = $row->login_ftp;
 				$config['password'] = $row->password_ftp;
 
 				$this->ftp->connect($config);
-
 				$data['path_server'] = '/';
 
-				$data['list'] = $this->ftp->list_files('/');
+				$data['list'] = $this->ftp->list_files($data['path_server']);
 				foreach ($data['list'] as $row) {
-					$item = pathinfo($row);
-					if (isset($item["extension"])) {
-						$data['all_storage_server'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'file');
+					if ($row["type"]=="file") {
+						$data['all_storage_server'][] = array('title' => ltrim($row["file"],'/'), 'icon' => 'file', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
 					} else {
-						$data['all_storage_server'][] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'folder');
+						$data['all_storage_server'][] = array('title' => ltrim($row["file"],'/'), 'icon' => 'folder', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
 					}
 				}
+				$data['id_ftp_websites'] = $id_ftp_websites;
 				$this->load->view('view-ftp-websites', $data);
 			}
 		} else {
@@ -97,11 +62,11 @@ class Ftp_websites extends CI_Controller {
 		}
 
 	}
-	public function refreshfolderserver($w_id = '')
+	public function refreshfolderserver($id_ftp_websites = '')
 	{
 		$pathfolder = $this->input->post('path');
 
-		$row =  $this->model_front->get_website($w_id)->row();
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -111,58 +76,33 @@ class Ftp_websites extends CI_Controller {
 
 		$data['list'] = $this->ftp->list_files($pathfolder);
 		foreach ($data['list'] as $row) {
-			$item = pathinfo($row);
-			if (isset($item["extension"])) {
-				$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'file');
+			if ($row["type"]=="file") {
+				$tree_data[] = array('title' => pathinfo($row["file"])["basename"], 'icon' => 'file', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
 			} else {
-				$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'folder');
+				$tree_data[] = array('title' => pathinfo($row["file"])["basename"], 'icon' => 'folder', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
 			}
 		}
 
 		echo json_encode($tree_data);
 	}
-	public function refreshfolderlocal($w_id = '')
+	public function readfileftp($id_ftp_websites = '')
 	{
-		$pathfolder = $this->input->post('path');
+		/*$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
-		if(strpos($this->agent->platform(), "Windows") !== FALSE) {
-		    foreach (@scandir("file:///".$pathfolder) as $row) {
-				$item = pathinfo($row);
-				if (isset($item["extension"])) {
-					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
-				} else {
-					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
-				}
-		    }
-		}
-		else if(strpos($this->agent->platform(), "Mac") !== FALSE) { 
-			foreach (@scandir("file:///") as $value) { 
-				$item = pathinfo($value);
-				if (isset($item["extension"])) {
-					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
-				} else {
-					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
-				}
-			}
-		}
-		elseif(strpos($this->agent->platform(), "Linux") !== FALSE) {
-			foreach (@scandir("file:///") as $value) { 
-				$item = pathinfo($value);
-				if (isset($item["extension"])) {
-					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon file');
-				} else {
-					$tree_data[] = array('title' => ltrim($item["basename"],'/'), 'icon' => 'icon folder');
-				}
-			}
-		}
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;*/
 
-		echo json_encode($tree_data);
+		$filename = "ftp://serrurier-lyon69:YxyEcwYJbQQVKwevGrHdyeqD@176.31.21.136/public_html/index.php";
+		$handle = fopen($filename, "r");
+		$contents = fread($handle, filesize($filename));
+		echo json_encode($contents);
 	}
-	public function mkdirftp($w_id = '')
+	public function mkdirftp($id_ftp_websites = '')
 	{
-		$elementcreate = $this->input->post('elementcreate');
+		$createfolder = $this->input->post('createfolder');
 
-		$row =  $this->model_front->get_website($w_id)->row();
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -170,15 +110,15 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$this->ftp->mkdir($elementcreate, 0755);
+		$this->ftp->mkdir($createfolder, 0755);
 
 		$this->ftp->close();
 	}
-	public function uploadftp($w_id = '')
+	public function uploadftp($id_ftp_websites = '')
 	{
 		$elementupload = $this->input->post('elementupload');
 
-		$row =  $this->model_front->get_website($w_id)->row();
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -190,25 +130,24 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->close();
 	}
-	public function downloadftp($w_id = '')
+	public function downloadftp($id_ftp_websites = '')
 	{
+		/*$elementdownload = $this->input->post('elementdownload');*/
+
 		header("Cache-Control: ");
 		header("Content-type: text/plain");
-		header("Content-Disposition: attachment;");
+		header("Content-Disposition: attachment; filename='".$elementdownload."'");
 
-		/*$elementdownload = $this->input->post('elementdownload');
 
-		$row =  $this->model_front->get_website($w_id)->row();
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
 		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
-
-		$this->ftp->download($elementdownload, 'file:///C:/DelFix.txt', 'ascii', 0775);
-
-		$this->ftp->close();*/
+		/*$this->ftp->download("/add_vhost.php", 'C:/', 'ascii');*/
+		var_dump($this->ftp->download("/add_vhost.php", 'C:/add_vhost.php', 'ascii'));
 	}
 	public function moveftp()
 	{
@@ -222,7 +161,7 @@ class Ftp_websites extends CI_Controller {
 		$oldrename = $this->input->post('oldrename');
 		$newrename = $this->input->post('newrename');
 
-		$row =  $this->model_front->get_website($w_id)->row();
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -234,11 +173,11 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->close();
 	}
-	public function deleteftp($w_id = '')
+	public function deleteftp($id_ftp_websites = '')
 	{
-		$elementdelete = $this->input->post('elementdelete');
+		$folderdelete = $this->input->post('folderdelete');
 
-		$row =  $this->model_front->get_website($w_id)->row();
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -246,15 +185,11 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$data['list'] = $this->ftp->list_files($elementdelete);
-		foreach ($data['list'] as $row) {
-			$item = pathinfo($row);
-			if (isset($item["extension"])) {
-				$this->ftp->delete_file($row);
-			} else {
-				$this->ftp->delete_dir($row);
-			}
-			
+		$item = pathinfo($folderdelete);
+		if (isset($item["extension"])) {
+			$this->ftp->delete_file($folderdelete);
+		} else {
+			$this->ftp->delete_dir($folderdelete);
 		}
 	}
 

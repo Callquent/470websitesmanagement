@@ -611,57 +611,22 @@ div.dt-button-collection a.dt-button:hover {
 /*********************/
 /*      FTP       */
 /*********************/
-.icon {
-  font-size: 23px;
+#file-manager .list-view>tbody tr {
+  border-bottom-color: rgba(0,0,0,.12);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
-.icon.file {
-    width: 0.8em;
-    height: 0.85em;
-    line-height: 1em;
-    text-align: center;
-    border-radius: 0.15em;
-    color: #FFF;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 1.74em -2.1em 0 0 #a0d4e4 inset;
+#file-manager .list-view>tbody tr.select-ftp-blue {
+    background: rgb(180, 221, 228);
 }
-.icon.file:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    border-width: 0;
-    border-bottom: 2.6em solid #DADDE1;
-    border-right: 2.22em solid rgba(0, 0, 0, 0);
-    top: -34.5px;
-    right: -4px;
-    border-bottom-color: #7ba1ad;
+.custom-file-input{
+  position: absolute;
+  height: auto;
 }
-.icon.folder {
-  display: inline-block;
-  background-color: transparent;
-  overflow: hidden;
-}
-.icon.folder:before {
-    content: '';
-    float: left;
-    background-color: #7ba1ad;
-    width: 0.5em;
-    height: 0.2em;
-    margin-left: 0.02em;
-    margin-bottom: -0.07em;
-    border-top-left-radius: 0.1em;
-    border-top-right-radius: 0.1em;
-    box-shadow: 0.25em 0.06em 0 0em #7ba1ad;
-}
-.icon.folder:after {
-    content: '';
-    float: left;
-    clear: left;
-    background-color: #a0d4e4;
-    width: 0.8em;
-    height: 0.6em;
-    border-radius: 0.1em;
+#contextMenu {
+  position: absolute;
+  display: none;
+  z-index: 9999;
 }
 /****************************/
 /*      DOCUMENTATION       */

@@ -7,6 +7,7 @@
 		<?php echo js_url('js/mobile-detect.min.js'); ?>
 		<?php echo js_url('js/perfect-scrollbar.jquery.min.js'); ?>
 		<?php echo js_url('js/fuse-html.min.js'); ?>
+		 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 		<?php if ($this->uri->segment(1)=='all-projects') { ?>
 			<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 			<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>

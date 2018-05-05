@@ -2,22 +2,18 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
+<pre>
+    <code></code>
+</pre>
 <div class="content custom-scrollbar ps ps--theme_default ps--active-y">
-
-
-
-
-<div id="file-manager" class="page-layout simple right-sidebar">
+    <div id="file-manager" class="page-layout simple right-sidebar">
 
                         <div class="page-content-wrapper custom-scrollbar ps ps--theme_default ps--active-y">
 
-                            <!-- HEADER -->
                             <div class="page-header bg-secondary text-auto p-6">
 
-                                <!-- HEADER CONTENT-->
                                 <div class="header-content d-flex flex-column justify-content-between">
 
-                                    <!-- TOOLBAR -->
                                     <div class="toolbar row no-gutters justify-content-between">
 
                                         <button type="button" class="btn btn-icon fuse-ripple-ready">
@@ -26,13 +22,9 @@
 
                                         <div class="right-side row no-gutters">
 
-                                            <button type="button" class="btn btn-icon fuse-ripple-ready">
-                                                <i class="icon icon-magnify"></i>
-                                            </button>
-
-                                            <button type="button" class="btn btn-icon fuse-ripple-ready">
-                                                <i class="icon icon-view-module"></i>
-                                            </button>
+                                            <a href="<?php echo site_url('ftp-websites/uploadftp/'.$id_ftp_websites); ?>" class="btn btn-icon fuse-ripple-ready">
+                                                <i class="icon icon-arrow-left-thick"></i>
+                                            </a>
 
                                         </div>
 
@@ -56,6 +48,7 @@
 
                                 <!-- ADD FILE BUTTON -->
                                 <button id="add-file-button" type="button" class="btn btn-danger btn-fab fuse-ripple-ready" aria-label="Add file">
+                                    <input type="file" class="custom-file-input" id="customFile">
                                     <i class="icon icon-plus"></i>
                                 </button>
                                 <!-- / ADD FILE BUTTON -->
@@ -85,7 +78,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="file-icon">
-                                                <i class="icon-folder"></i>
+                                                <i class="icon-folder-move"></i>
                                             </td>
                                             <td class="name">..</td>
                                             <td class="type d-none d-md-table-cell"></td>
@@ -105,9 +98,9 @@
                                                 </td>
                                                 <td class="name"><?php echo $row["title"]; ?></td>
                                                 <td class="type d-none d-md-table-cell"><?php echo $row["icon"]; ?></td>
-                                                <td class="owner d-none d-sm-table-cell">me</td>
-                                                <td class="size d-none d-sm-table-cell"></td>
-                                                <td class="last-modified d-none d-lg-table-cell">July 8, 2015</td>
+                                                <td class="owner d-none d-sm-table-cell"></td>
+                                                <td class="size d-none d-sm-table-cell"><?php echo $row["size"]; ?></td>
+                                                <td class="last-modified d-none d-lg-table-cell"><?php echo $row["last_modified"]; ?></td>
                                                 <td class="d-table-cell d-xl-none">
                                                     <button type="button" class="btn btn-icon fuse-ripple-ready" data-fuse-bar-toggle="file-manager-info-sidebar">
                                                         <i class="icon icon-information-outline"></i>
@@ -221,123 +214,131 @@
                             </div>
                         </aside>
                     </div>
-
-
-
-
-
-
-
-
-
-  <div class="page-layout simple full-width">
-    <div class="page-content">
-
-        <section id="main-content">
-            <section class="wrapper">
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <section class="card mb-3">
-                            <header class="card-header">
-                                Ajouter un site web
-                                <span class="tools pull-right">
-                                    <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="fa fa-cog" href="javascript:;"></a>
-                                    <a class="fa fa-times" href="javascript:;"></a>
-                                 </span>
-                            </header>
-                            <div class="card-body">
-
-                                <?php if(!empty($all_storage_server)){ ?>
-
-                                    <?php if(!empty($all_storage_local)){ ?>
-                                    <div class="row">
-                                        <div class="col-sm-12 float-right">
-                                            <div class="float-right">
-                                                <a class="btn btn-default btn-primary mb-3" href="<?php echo site_url('/ftp-websites/'); ?>"><span><i class="fa fa-angle-double-left"></i></span> Retour</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" id="path-local" value="<?php echo $path_local; ?>">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" id="path-server" value="<?php echo $path_server; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <ul class="treeviewlocal">
-                                                <?php foreach ($all_storage_local as $row) {  ?>
-                                                    <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
-                                                        <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
-                                                            <span class="name"><?php echo $row["title"]; ?></span>
-                                                        </a>
-                                                    </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <ul class="treeviewserver">
-                                                <?php foreach ($all_storage_server as $row) {  ?>
-                                                <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
-                                                    <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
-                                                        <span class="name"><?php echo $row["title"]; ?></span>
-                                                    </a>
-                                                </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <?php } else { ?>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="hidden" class="form-control" id="path-server" value="<?php echo $path_server; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="treeviewserver">
-                                                <?php foreach ($all_storage_server as $row) {  ?>
-                                                <li class="tree-branch" id="<?php echo $row["title"]; ?>" >
-                                                    <a href="javascript:void(0)"><i class="<?php echo $row["icon"]; ?>"></i>
-                                                        <span class="name"><?php echo $row["title"]; ?></span>
-                                                    </a>
-                                                </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <?php } ?>
-                                    <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
-                                        <li><a tabindex="-1" href="javascript:void(0)">Creer</a></li>
-                                        <li class="divider"></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Telecharger</a></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Couper</a></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Copier</a></li>
-                                        <li class="divider"></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Renommer</a></li>
-                                        <li><a tabindex="-1" href="javascript:void(0)">Supprimer</a></li>
-                                    </ul>
-                                <?php } ?>
-
-                            </div>
-                        </section>
-                    </div>
+</div>
+<div class="modal fade" id="modal-create-folder" tabindex="-1" role="dialog" aria-labelledby="modal-create-folder" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-success">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Creation du dossier</h4>
+      </div>
+        <form id="form-create-folder" method="post" action="<?php echo site_url('ftp-websites/mkdirftp/'.$id_ftp_websites); ?>">
+          <div class="modal-body">
+            <div class="form-group">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
+                <div class="col-lg-12">
+                  <input class="form-control" type="text" name="namefolder" id="namefolder" required />
                 </div>
-            </section>
-        </section>
+            </div>
+          </div>
+          <div class="modal-footer ">
+            <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span><?php echo lang('cancel'); ?></button>
+          </div>
+        </form>
     </div>
   </div>
 </div>
+<div id="contextMenu" class="dropdown clearfix">
+    <div class="dropdown-menu" style="display:block;position:static;margin-bottom:5px;">
+        <a class="dropdown-item fuse-ripple-ready" id="editfile" href="<?php echo site_url('ftp-websites/readfileftp/'.$id_ftp_websites); ?>">Editer</a>
+        <a class="dropdown-item fuse-ripple-ready" href="#">Renommer</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item fuse-ripple-ready" id="createfolder" href="javascript:void(0);" data-toggle="modal" data-target="#modal-create-folder">Créer un dossier</a>
+        <a class="dropdown-item fuse-ripple-ready" id="downloadfolder" href="<?php echo site_url('ftp-websites/downloadftp/'.$id_ftp_websites); ?>">Télécharger</a>
+        <input type="file" name="download-ftp" id="download-ftp" style="display: none;">
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item fuse-ripple-ready" id="deleteftp" href="<?php echo site_url('ftp-websites/deleteftp/'.$id_ftp_websites); ?>">Supprimer</a>
+    </div>
+</div>
+<div class="context-menu-mobile"></div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
-        /*$('.list-view tr').click(function() {*/
-        $('.list-view').on('click', 'tr',function(e) {    
+
+        var folderselect_contextmenu;
+        $('.list-view').on('contextmenu', 'tr',function(e) {
+            /*$('<select id="monselect">').append('<option value="foo">foo</option>').append('<option value="bar">bar</option>').appendTo('.context-menu-mobile');
+            $('#monselect').click();*/
+            folderselect_contextmenu = $(this);
+            if (e.pageY+$("#contextMenu").height() >= $(window).height()) {
+                $("#contextMenu").css({
+                  display: "block",
+                  left: e.pageX,
+                  top: e.pageY-$("#contextMenu").height()+20
+                });
+            } else {
+                $("#contextMenu").css({
+                  display: "block",
+                  left: e.pageX,
+                  top: e.pageY
+                });
+            }
+            
+             return false;
+        });
+        /*$(".content").scroll(function() {
+            $("#contextMenu").hide();
+        });*/
+        $('html').click(function() {
+            $("#contextMenu").hide();
+        });
+        $('#form-create-folder').on('submit', function(e) {
+            $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: 'createfolder='+$("#path").text()+$("#namefolder").val(),
+                    success: function(msg){
+                        $('#modal-create-folder').modal('hide')
+                        $(folderselect_contextmenu).after($("#namefolder").val())
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+            });
+            e.preventDefault();
+        });
+        $('#editfile').on('click', function(e) {
+            $.ajax({
+                    type: "POST",
+                    url: $(this).attr("href"),
+                    data: 'folderdelete='+$("#path").text()+folderselect_contextmenu.find(".name").text(),
+                    success: function(msg){
+                        results = JSON.parse(msg);
+                        $('pre code').each(function(i, block) {
+                            hljs.highlightBlock(block);
+                        });
+                        $('pre code').append(results);
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+            });
+            e.preventDefault();
+        });
+        $('#downloadfolder').on('click', function(e) {
+            /*$('#download-ftp').click();
+            e.preventDefault();*/
+        });
+        $('#deleteftp').on('click', function(e) {
+            $.ajax({
+                    type: "POST",
+                    url: $(this).attr("href"),
+                    data: 'folderdelete='+$("#path").text()+folderselect_contextmenu.find(".name").text(),
+                    success: function(msg){
+                        $(folderselect_contextmenu).remove();
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+            });
+            e.preventDefault();
+        });
+        $('.list-view').on('click', 'tr',function(e) {
+            $('.list-view tr').removeClass();
+            $(this).addClass("select-ftp-blue");
+        });
+        $('.list-view').on('dblclick', 'tr',function(e) {    
             var elementfolder = $(this).find(".name").html();
             var path = $("#path").text();
             var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
@@ -348,38 +349,34 @@
                     data: 'path='+($('#path').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
                     success: function(msg){
                         $('.list-view tbody').empty();
-                        console.log(msg);
                         results = JSON.parse(msg);
                         $("#path").text($("#path").text() == '/' ?path+elementfolder:path+'/'+elementfolder);
                         $('<tr>').append(
                                 $('<td class="file-icon">').html('<i class="icon-folder"></i>'),
                                 $('<td class="name">').html(".."),
                                 $('<td class="type d-none d-md-table-cell">').html("folder"),
-                                $('<td>').html("test"),
-                                $('<td>').html("test"),
-                                $('<td>').html("test"),
-                                $('<td>').html("test"),
+                                $('<td>').html(""),
+                                $('<td>').html(""),
+                                $('<td>').html(""),
+                                $('<td>').html(""),
                             ).appendTo('.list-view');
                         $.each(results, function(i, item) {
                             var $tr = $('<tr>').append(
                                 $('<td class="file-icon">').html('<i class="icon-'+item.icon+'"></i>'),
                                 $('<td class="name">').html(item.title),
                                 $('<td class="type d-none d-md-table-cell">').html(item.icon),
-                                $('<td>').html("test"),
-                                $('<td>').html("test"),
-                                $('<td>').html("test"),
-                                $('<td>').html("test"),
+                                $('<td class="owner d-none d-sm-table-cell">').html(""),
+                                $('<td class="size d-none d-sm-table-cell">').html(item.size),
+                                $('<td class="last-modified d-none d-lg-table-cell">').html(item.last_modified),
+                                $('<td class="d-table-cell d-xl-none">').html(""),
                             ).appendTo('.list-view');
                         });
-
-                        /*for(var key in results) {
-                            $('ul.treeviewserver #'+elementfolder+' > ul').append('<li class="tree-branch" id="'+results[key].title+'"><a href="javascript:void(0);"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
-                        }*/
                     },
                     error: function(msg){
                         console.log(msg);
                     }
             });
+            e.preventDefault();
         });
         $('.treeviewserver').on('click', 'li',function(e) {
             
