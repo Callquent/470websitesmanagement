@@ -100,29 +100,21 @@
                                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                               <div class="card-body">
                                                   <div class="row-fluid">
-                                                    <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_sql'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="hostsql" placeholder="Host SQL">
-                                                        </div>
+                                                    <div class="form-group">
+                                                        <input type="text" name="hostsql" class="form-control">
+                                                        <label for="hostsql"><?php echo lang('host_sql'); ?></label>
                                                     </div>
                                                     <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('name_sql'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="namedatabase" placeholder="Nom de la base">
-                                                        </div>
+                                                        <input type="text" name="namedatabase" class="form-control">
+                                                        <label for="namedatabase"><?php echo lang('name_sql'); ?></label>
                                                     </div>
                                                     <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_sql'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="loginsql" placeholder="Login SQL">
-                                                        </div>
+                                                      <input type="text" name="loginsql" class="form-control">
+                                                      <label for="loginsql"><?php echo lang('login_sql'); ?></label>
                                                     </div>
                                                     <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_sql'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="passwordsql" placeholder="Mot de Passe SQL">
-                                                        </div>
+                                                        <input type="text" name="passwordsql" class="form-control">
+                                                        <label for="passwordsql"><?php echo lang('password_sql'); ?></label>
                                                     </div>
                                                   </div>
                                               </div>
@@ -140,22 +132,16 @@
                                               <div class="card-body">
                                                   <div class="row-fluid">
                                                     <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('host_backoffice'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="adminhost" placeholder="Admin Host">
-                                                        </div>
+                                                        <input type="text" name="adminhost" class="form-control">
+                                                        <label for="adminhost"><?php echo lang('host_backoffice'); ?></label>
                                                     </div>
                                                     <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_backoffice'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="adminlogin" placeholder="Admin Login">
-                                                        </div>
+                                                        <input type="text" name="adminlogin" class="form-control">
+                                                        <label for="adminlogin"><?php echo lang('login_backoffice'); ?></label>
                                                     </div>
                                                     <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_backoffice'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="adminpassword" placeholder="Admin Mot de Passe">
-                                                        </div>
+                                                        <input type="text" name="adminpassword" class="form-control">
+                                                        <label for="adminpassword"><?php echo lang('password_backoffice'); ?></label>
                                                     </div>
                                                   </div>
                                               </div>
@@ -164,7 +150,7 @@
                                           <div class="card">
                                             <div class="card-header" id="headingFour">
                                               <h5 class="mb-0">
-                                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                                   <?php echo lang('htaccess'); ?>
                                                 </button>
                                               </h5>
@@ -173,16 +159,12 @@
                                               <div class="card-body">
                                                   <div class="row-fluid">
                                                     <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('login_htaccess'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="loginhtaccess" placeholder="Login Htaccess">
-                                                        </div>
+                                                        <input type="text" name="loginhtaccess" class="form-control">
+                                                        <label for="loginhtaccess"><?php echo lang('login_htaccess'); ?></label>
                                                     </div>
                                                     <div class="form-group ">
-                                                        <label for="comment" class="control-label col-lg-3"><?php echo lang('password_htaccess'); ?></label>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="passwordhtaccess" placeholder="Mot de Passe Htaccess">
-                                                        </div>
+                                                        <input type="text" name="passwordhtaccess" class="form-control">
+                                                        <label for="passwordhtaccess"><?php echo lang('password_htaccess'); ?></label>
                                                     </div>
                                                   </div>
                                               </div>

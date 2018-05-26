@@ -172,13 +172,12 @@
                                         </td>
                                         <td>
                                           <div class="dropdown show actions">
-                                            <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-                                              <i class="fa fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                              <a class="dropdown-item" id="view-project" href="<?php echo site_url('my-tasks/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
-                                              <div class="dropdown-divider"></div>
-                                            </div>
+                                              <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+                                                <i class="icon icon-dots-vertical"></i>
+                                              </a>
+                                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" id="view-project" href="<?php echo site_url('my-tasks/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
+                                              </div>
                                           </div>
                                         </td>
                                       </tr>
@@ -211,9 +210,9 @@
           ]
       });
 
-        $('#searchProjects').on( 'keyup', function () {
-            myprojectsTable.columns(1).search( this.value ).draw();
-        });
+    $('#searchProjects').on( 'keyup', function () {
+        myprojectsTable.columns(1).search( this.value ).draw();
+    });
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

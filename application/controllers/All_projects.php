@@ -85,6 +85,10 @@ class All_projects extends CI_Controller {
 			$this->model_tasks->update_project($id_project, $name_project, date("Y-m-d", strtotime($started_project)), date("Y-m-d", strtotime($deadline_project)));
 		/*}*/
 	}
+	public function delete_project($id_project = '')
+	{
+		$this->model_tasks->delete_project($id_project);
+	}
 	public function create_list_tasks($id_project_tasks = '')
 	{
 		$title_list_task			= $this->input->post('titlelisttasks');

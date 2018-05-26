@@ -8,7 +8,7 @@
                                 </a>
                             </div>
                             <button id="toggle-fold-aside-button" type="button" class="btn btn-icon d-none d-lg-block fuse-ripple-ready" data-fuse-aside-toggle-fold="">
-                                <i class="fa fa-2x fa-bars"></i>
+                                <i class="icon icon-backburger"></i>
                             </button>
                         </div>
                         <ul class="nav flex-column custom-scrollbar ps ps--theme_default ps--active-y" id="sidenav" data-children=".nav-item" data-ps-id="e22c9d1b-78a1-dbad-8fc7-5aaeace92bb4">
@@ -40,9 +40,6 @@
                                     </li>
                                     <li class="">
                                         <a data-toggle="tab" href="#admin"><i class="fa fa-cogs"></i></a>
-                                    </li>
-                                    <li class="">
-                                        <a data-toggle="tab" href="#add-element"><i class="fa fa-plus"></i></a>
                                     </li>
                                 </ul>
                                 <div class="panel-body">
@@ -194,31 +191,6 @@
                                             </ul>
                                         </div>
                                         <?php } ?>
-                                        <div id="add-element" class="tab-pane">
-                                            <ul class="sidebar-menu" id="nav-accordion">
-                                                <li class="list-title-sidebar">
-                                                    <span><?php echo lang('management'); ?></span>
-                                                </li>
-                                                <li>
-                                                    <a href="<?php echo site_url('add-website'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                        <i class="fa fa-plus"></i>
-                                                        <span><?php echo lang('create_website'); ?></span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="<?php echo site_url('add-category'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                        <i class="fa fa-plus"></i>
-                                                        <span><?php echo lang('create_category'); ?></span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="<?php echo site_url('add-language'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                        <i class="fa fa-plus"></i>
-                                                        <span><?php echo lang('create_language'); ?></span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

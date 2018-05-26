@@ -338,40 +338,6 @@
                 htTable.fnUpdate('<div class="dropdown show actions"><a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" ><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a class="dropdown-item" id="edit-dashboard" href="'+nUrl+'"><i class="fa fa-pencil"></i><?php echo lang('edit'); ?></a>', nRow, 2, false);
                 htTable.fnDraw();
             }
-            $(document).on('click', '#table-dashboard #edit-dashboard', function (e) {
-                e.preventDefault();
-
-                var nRow = $(this).parents('tr')[0];
-                var nUrl = $(this).attr('href');
-                
-                if (nEditingDashboard !== null && nEditingDashboard != nRow) {
-                    restoreRow(dashboardTable, nEditingDashboard);
-                    editRowWebsiteInfo(dashboardTable, nRow, nUrl);
-                    nEditingDashboard = nRow;
-                } else if (nEditingDashboard == nRow && $(this).find("i").attr("value") == "check") {
-                    var id = $('#id').val();
-                    var titlewebsite = $('#titlewebsite').val();
-                    var website = $('#website').val();
-                    var category = $('#category').val();
-                    var language = $('#language').val();
-                    var datecreatewebsite = $('#datecreatewebsite').val();
-                    $.ajax({
-                        type: "POST",
-                        url: $(this).attr('href'),
-                        data: {'id':id,'titlewebsite':titlewebsite,'website':website,'category':category,'language':language},
-                        success: function(msg){
-                            saveRowWebsiteInfo(dashboardTable, nEditingDashboard);
-                            nEditingDashboard = null;
-                        },
-                        error: function(msg){
-                            console.log(msg);
-                        }
-                    });
-                } else {
-                    editRowWebsiteInfo(dashboardTable, nRow, nUrl);
-                    nEditingDashboard = nRow;
-                }
-            });
 
             $(document).on('click', '#table-ftp-dashboard #cancel-dashboard', function (e) {
                 e.preventDefault();

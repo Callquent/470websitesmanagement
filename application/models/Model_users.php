@@ -21,4 +21,8 @@ class Model_users extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	function delete_user($id_user)
+	{
+		$this->db->where('id_user', $id_user)->delete('470websitesmanagement_tasks');
+	}
 }

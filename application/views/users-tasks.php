@@ -56,12 +56,12 @@
                                         <td>
                                           <div class="dropdown show actions">
                                               <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-                                                <i class="fa fa-ellipsis-v"></i>
+                                                <i class="icon icon-dots-vertical"></i>
                                               </a>
                                               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <a class="dropdown-item" id="email" href="mailto:<?php echo $row->email; ?>" ><i class="fa fa-envelope"></i> Email</a>
                                               </div>
-                                            </div>
+                                          </div>
                                         </td>
                                       </tr>
                                     <?php } ?>

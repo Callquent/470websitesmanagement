@@ -9,46 +9,37 @@
                                 <div class="toolbar-separator d-block d-lg-none"></div>
                                 <div class="shortcuts-wrapper row no-gutters align-items-center px-0 px-sm-2">
                                     <div class="shortcuts row no-gutters align-items-center d-none d-md-flex">
-                                        <a href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/apps-chat.html" class="shortcut-button btn btn-icon mx-1 fuse-ripple-ready">
-                                            <i class="icon icon-hangouts"></i>
-                                        </a>
                                         <a href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/apps-contacts.html" class="shortcut-button btn btn-icon mx-1 fuse-ripple-ready">
                                             <i class="icon icon-account-box"></i>
-                                        </a>
-                                        <a href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/apps-mail.html" class="shortcut-button btn btn-icon mx-1 fuse-ripple-ready">
-                                            <i class="icon icon-email"></i>
                                         </a>
                                     </div>
                                     <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
                                         <div class="dropdown-toggle btn btn-icon fuse-ripple-ready" role="button" id="dropdownShortcutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="icon icon-star text-amber-600"></i>
+                                            <i class="icon icon-plus-circle"></i>
                                         </div>
                                         <div class="dropdown-menu" aria-labelledby="dropdownShortcutMenu">
-                                            <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                            <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-website'); ?>">
                                                 <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
                                                     <div class="row no-gutters align-items-center flex-nowrap">
                                                         <i class="icon icon-calendar-today"></i>
-                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Calendrier</font></font></span>
+                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_website'); ?></font></font></span>
                                                     </div>
-                                                    <i class="icon icon-pin s-5 ml-2"></i>
                                                 </div>
                                             </a>
-                                            <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                            <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-category'); ?>">
                                                 <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
                                                     <div class="row no-gutters align-items-center flex-nowrap">
                                                         <i class="icon icon-folder"></i>
-                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Gestionnaire de fichiers</font></font></span>
+                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_category'); ?></font></font></span>
                                                     </div>
-                                                    <i class="icon icon-pin s-5 ml-2"></i>
                                                 </div>
                                             </a>
-                                            <a class="dropdown-item fuse-ripple-ready" href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/index.html#">
+                                            <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-language'); ?>">
                                                 <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
                                                     <div class="row no-gutters align-items-center flex-nowrap">
                                                         <i class="icon icon-checkbox-marked"></i>
-                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Faire</font></font></span>
+                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_language'); ?></font></font></span>
                                                     </div>
-                                                    <i class="icon icon-pin s-5 ml-2"></i>
                                                 </div>
                                             </a>
 

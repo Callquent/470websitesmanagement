@@ -69,13 +69,12 @@
                                                                 <h6 class="no-margin">Project details</h6>
                                                                 <div class="row">
                                                                     <div class="col-md-6 col-xs-6">
-                                                                        <h5>Company</h5>
                                                                         <h5><?php echo lang('website'); ?></h5>
+                                                                        <h5>List Task</h5>
                                                                     </div>
-                                                                    
                                                                     <div class="col-md-6 col-xs-6 text-right">
-                                                                        <h5>ABC Ltd.</h5>
                                                                         <h5><?php echo $project->url_website; ?></h5>
+                                                                        <h5><?php echo $all_list_tasks->num_rows(); ?></h5>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -100,14 +99,6 @@
                         </div>
                         <div class="col-md-9 column">
                     <section class="card mb-3">
-                        <header class="card-header">
-                            Editable Table
-                            <span class="tools pull-right">
-                                <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                <a href="javascript:;" class="fa fa-cog"></a>
-                                <a href="javascript:;" class="fa fa-times"></a>
-                             </span>
-                        </header>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 float-right">
@@ -156,28 +147,43 @@
                                          <?php foreach ($row_list_tasks->tasks as $row) { ?>
                                             <tr>
                                             <?php if ($row->id_list_tasks==$row_list_tasks->id_list_tasks) { ?>
-                                                
-                                                    <td><?php echo $row_list_tasks->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a>
+                                                    <td>
+                                                        <?php var_dump(count($row_list_tasks->tasks)); ?>
+                                                        <?php echo $row_list_tasks->title_list_task; ?>
+                                                        <div class="progress">
+                                                            <div class="progress-bar" role="progressbar" style="width: <?php echo $row_list_tasks->percentage_tasks; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $row_list_tasks->percentage_tasks; ?>%
+                                                            </div>
+                                                        </div>
+                                                        <a class="access-list-tasks btn btn-sm btn-success mb-3 float-right" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?>"><i class="fa fa-plus"></i> Ajouter une tache</a>
                                                     </td>
                                                     <td><?php echo $row->name_task; ?></td>
                                                     <td><?php echo $row->description_task; ?></td>
-                                                    <td><?php echo $row->name_tasks_priority; ?></td>
-                                                    <td><span class="badge <?php echo str_replace(' ', '-',strtolower($row->name_tasks_status)); ?>"><?php echo $row->name_tasks_status; ?></span></td>
-                                                    <td><?php echo $row->username; ?></td>
                                                     <td>
-                                                      <div class="dropdown show actions">
-                                                        <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-                                                          <i class="fa fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                          <a class="dropdown-item" id="view-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
-                                                          <div class="dropdown-divider"></div>
-                                                          <a class="dropdown-item" id="edit-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                                          <a class="dropdown-item" id="delete-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-trash"></i> Delete</a>
-                                                        </div>
-                                                      </div>
+                                                        <?php if ($row->name_tasks_priority=="Critical") {  ?>
+                                                            <span class="badge badge-danger"><?php echo $row->name_tasks_priority; ?></span>
+                                                        <?php }elseif ($row->name_tasks_priority=="Hight") { ?>
+                                                            <span class="badge badge-warning"><?php echo $row->name_tasks_priority; ?></span>
+                                                        <?php }elseif ($row->name_tasks_priority=="Medium") { ?>
+                                                            <span class="badge badge-primary"><?php echo $row->name_tasks_priority; ?></span>
+                                                        <?php }elseif ($row->name_tasks_priority=="Low") { ?>
+                                                            <span class="badge badge-success"><?php echo $row->name_tasks_priority; ?></span>
+                                                        <?php  } ?>
                                                     </td>
-                                                
+                                                    <td>
+                                                        <span class="badge <?php echo str_replace(' ', '-',strtolower($row->name_tasks_status)); ?>"><?php echo $row->name_tasks_status; ?></span>
+                                                    </td>
+                                                    <td><span class="w-40 avatar circle green" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo $row->username; ?>" value="<?php echo $row->username; ?>"><?php echo substr($row->username, 0, 2); ?></span></td>
+                                                    <td>
+                                                        <div class="dropdown show actions">
+                                                            <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+                                                            <i class="icon icon-dots-vertical"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                                <a class="dropdown-item" id="edit-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                                                <a class="dropdown-item" id="delete-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-trash"></i> Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                             <?php } ?>
                                             </tr>
                                         <?php } ?>
@@ -287,15 +293,22 @@
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-var DatatableColumnRenderingDemo = function() {
-  //== Private functions
+var EditableTable = function () {
 
-  // basic demo
-  var demo = function() {
-    var nEditingViewProject = null;
-    var ElementDelete = null;
-    var viewprojectTable = $('#table-view-project').DataTable({
-    "columnDefs": [{
+    return {
+        init: function () {
+            function restoreRow(pTable, nRow) {
+                var aData = pTable.row(nRow).data();
+                var jqTds = $('>td', nRow);
+
+                for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                    pTable.cell(nRow, i).data(aData[i]).draw();
+                }
+            }
+            var nEditingViewProject = null;
+            var ElementDelete = null;
+            var viewprojectTable = $('#table-view-project').DataTable({
+                "columnDefs": [{
                     "visible": false,
                     "targets": 0
                 }],
@@ -318,91 +331,18 @@ var DatatableColumnRenderingDemo = function() {
                         }
                     });
                 }
-    });
-
-    $('#m_form_status').on('change', function () {
-        viewprojectTable.columns(4).search(this.value, true, false).draw();
-    });
-    $('#m_form_priority').on('change', function () {
-        viewprojectTable.columns(3).search(this.value, true, false).draw();
-    });
-
-/*    function editRowProject(viewprojectTable, nRow, nUrl) {
-      var aData = viewprojectTable.fnGetData(nRow);
-      var jqTds = $('>td', nRow);
-      var languageList;
-      jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameviewproject" value="' + aData[1] + '">';
-      jqTds[2].innerHTML = '<input type="text" class="form-control small" id="descriptionviewproject" value="' + aData[2] + '">';
-      jqTds[3].innerHTML = '<input type="text" class="form-control small" id="priorityviewproject" value="' + aData[3] + '">';
-      jqTds[7].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
-    }
-    function saveRowLanguage(viewprojectTable, nRow, nUrl) {
-      var jqInputs = $('input', nRow);
-      viewprojectTable.fnUpdate(jqInputs[7].value, nRow, 7, false);
-      viewprojectTable.fnUpdate('<a id="edit-dashboard" href="'+nUrl+'">Edit</a>', nRow, 1, false);
-      viewprojectTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
-      viewprojectTable.fnDraw();
-    }
-    function restoreRow(pTable, nRow) {
-      var aData = pTable.fnGetData(nRow);
-      var jqTds = $('>td', nRow);
-
-      for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-          pTable.fnUpdate(aData[i], nRow, i, false);
-      }
-
-      pTable.fnDraw();
-    }
-    $(document).on('click', '#table-view-project #cancel-project', function (e) {
-        e.preventDefault();
-        if ($(this).attr("data-mode") == "new") {
-            var nRow = $(this).parents('tr')[0];
-            viewprojectTable.fnDeleteRow(nRow);
-        } else {
-            restoreRow(viewprojectTable, nEditingViewProject);
-            nEditingViewProject = null;
-        }
-    });
-    $(document).on('click', '#table-view-project #edit-project', function (e) {
-        e.preventDefault();
-
-        var nRow = $(this).parents('tr')[0];
-        var nUrl = $(this).attr('href');
-        
-        if (nEditingViewProject !== null && nEditingViewProject != nRow) {
-            restoreRow(viewprojectTable, nEditingViewProject);
-            editRowProject(viewprojectTable, nRow, nUrl);
-            nEditingViewProject = nRow;
-        } else if (nEditingViewProject == nRow && this.innerHTML == "Save") {
-            var titlelanguage = $('#titlelanguage').val();
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('href'),
-                data: 'titlelanguage='+titlelanguage,
-                success: function(msg){
-                    console.log(msg);
-                    saveRowLanguage(viewprojectTable, nEditingViewProject, nUrl);
-                    nEditingViewProject = null;
-                },
-                error: function(msg){
-                    console.log(msg);
-                }
             });
-        } else {
-            editRowProject(viewprojectTable, nRow, nUrl);
-            nEditingViewProject = nRow;
+
+            $('#m_form_status').on('change', function () {
+                viewprojectTable.columns(4).search(this.value, true, false).draw();
+            });
+            $('#m_form_priority').on('change', function () {
+                viewprojectTable.columns(3).search(this.value, true, false).draw();
+            });
         }
-    });
-    $(document).on('click', '#table-view-project #delete-project', function (e) {
-        ElementDelete = this;
-    });*/
-  };
-      return {
-        init: function() {
-          demo();
-        },
-      };
-    }();
+    };
+
+}();
 $(document).ready(function(){
     $("#form-list-tasks").submit(function(e){
         $.ajax({
@@ -438,7 +378,7 @@ $(document).ready(function(){
         $(this).find('.modal-body input#idlisttasks').val(idlisttasks);
     });
 
-    DatatableColumnRenderingDemo.init();
+    EditableTable.init();
 
 });
 </script>

@@ -15,7 +15,7 @@
   <body class="lock-screen">
 
 <div class="pen-title">
-  <h1>470 WEBSITES MANAGEMENT</h1>
+  <img src="<?php echo img_url('app/logo-470websitesmanagement.png'); ?>" alt="">
 </div>
 
 <!--sidebar end-->
@@ -27,34 +27,27 @@
         <div class="row">
             <div class="col-sm-12">
                 <section class="card mb-3">
-                    <header class="card-header"></header>
                     <div class="card-body">
                         <div id="wizard-vertical">
                             <h2>First Step</h2>
                             <section>
                                 <form class="form-horizontal form-step1" method="post" id="loginform">
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">Database Name</label>
-                                            <div class="col-lg-8">
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
                                                 <input type="text" name="databasename" class="form-control">
+                                                <label for="database-name">Database Name</label>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">Username</label>
-                                            <div class="col-lg-8">
+                                            <div class="form-group">
                                                 <input type="text" name="username" class="form-control">
+                                                <label for="username">Username</label>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">Password</label>
-                                            <div class="col-lg-8">
+                                            <div class="form-group">
                                                 <input type="text" name="password" class="form-control">
+                                                <label for="password">Password</label>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">Database Host</label>
-                                            <div class="col-lg-8">
+                                            <div class="form-group">
                                                 <input type="text" name="databasehost" class="form-control" value="localhost">
+                                                <label class="database-host">Database Host</label>
                                             </div>
                                         </div>
                                     </form>
@@ -62,22 +55,18 @@
                             <h2>Second Step</h2>
                             <section>
                                 <form class="form-horizontal form-step2" method="post" id="loginform">
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">Username</label>
-                                        <div class="col-lg-8">
+                                    <div class="col-lg-8">
+                                        <div class="form-group">
                                             <input type="text" name="username" class="form-control">
+                                            <label for="username">Username</label>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">Email</label>
-                                        <div class="col-lg-8">
+                                        <div class="form-group">
                                             <input type="text" name="email" class="form-control">
+                                            <label for="email">Email</label>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">Password</label>
-                                        <div class="col-lg-8">
+                                        <div class="form-group">
                                             <input type="text" name="password" class="form-control">
+                                            <label for="password">Password</label>
                                         </div>
                                     </div>
                                 </form>
@@ -95,73 +84,72 @@
         </section>
     </section>
 
-<?php echo js_url('js/jquery-2.2.4.min.js'); ?>
-<?php echo js_url('js/bootstrap.min.js'); ?>
-<script>
-    $(function ()
-    {
-        
-            $("#wizard-vertical").steps({
-                headerTag: "h2",
-                bodyTag: "section",
-                transitionEffect: "slideLeft",
-                stepsOrientation: "vertical",
-                <?php if($install_database == true) { ?>
-                    startIndex: 1,
-                <?php } ?>
-                onStepChanging: function (event, currentIndex, newIndex) {
-                    var move = true;
-                    if (currentIndex == 0) {
-                        $.ajax({
-                            type: "POST",
-                            url: window.location.href+'index.php/install/step1/',
-                            async: false,
-                            data: $('.form-step1').serialize(),
-                            success: function(data){
-                                move = true;
-                            },
-                            error: function(msg){
-                                move = false;
-                            }
-                        });
-                    }else if (currentIndex == 1) {
-                        $.ajax({
-                            type: "POST",
-                            url: window.location.href+'index.php/install/step2/',
-                            async: false,
-                            data: $('.form-step2').serialize(),
-                            success: function(data){
-                                move = true;
-                            },
-                            error: function(msg){
-                                move = false;
-                            }
-                        });
-                    }
-                    return move;
-                },
-                onFinished: function (event, currentIndex) {
-                        $.ajax({
-                            type: "POST",
-                            url: window.location.href+'index.php/install/step3/',
-                            async: false,
-                            success: function(data){
-                                location.reload();
-                            },
-                            error: function(msg){
-                                move = false;
-                            }
-                        });
-                },
-                saveState: true
-            });
-        
-    });
-</script>
-
+    <?php echo js_url('js/jquery.min.js'); ?>
     <?php echo js_url('js/bootstrap.min.js'); ?>
+    <script>
+        $(function ()
+        {
+            
+                $("#wizard-vertical").steps({
+                    headerTag: "h2",
+                    bodyTag: "section",
+                    transitionEffect: "slideLeft",
+                    stepsOrientation: "vertical",
+                    <?php if($install_database == true) { ?>
+                        startIndex: 1,
+                    <?php } ?>
+                    onStepChanging: function (event, currentIndex, newIndex) {
+                        var move = true;
+                        if (currentIndex == 0) {
+                            $.ajax({
+                                type: "POST",
+                                url: window.location.href+'index.php/install/step1/',
+                                async: false,
+                                data: $('.form-step1').serialize(),
+                                success: function(data){
+                                    move = true;
+                                },
+                                error: function(msg){
+                                    move = false;
+                                }
+                            });
+                        }else if (currentIndex == 1) {
+                            $.ajax({
+                                type: "POST",
+                                url: window.location.href+'index.php/install/step2/',
+                                async: false,
+                                data: $('.form-step2').serialize(),
+                                success: function(data){
+                                    move = true;
+                                },
+                                error: function(msg){
+                                    move = false;
+                                }
+                            });
+                        }
+                        return move;
+                    },
+                    onFinished: function (event, currentIndex) {
+                            $.ajax({
+                                type: "POST",
+                                url: window.location.href+'index.php/install/step3/',
+                                async: false,
+                                success: function(data){
+                                    location.reload();
+                                },
+                                error: function(msg){
+                                    move = false;
+                                }
+                            });
+                    },
+                    saveState: true
+                });
+            
+        });
+    </script>
     <?php echo js_url('js/jquery.dcjqaccordion.2.7.js'); ?>
-    <?php echo js_url('js/jquery.nicescroll.js'); ?>
+    <?php echo js_url('js/mobile-detect.min.js'); ?>
+    <?php echo js_url('js/perfect-scrollbar.jquery.min.js'); ?>
+    <?php echo js_url('js/fuse-html.min.js'); ?>
     <?php echo js_url('js/jquery-steps/jquery.steps.js'); ?>
     <?php echo js_url('js/scripts.js'); ?>
-    <?php echo js_url('js/main.js'); ?>

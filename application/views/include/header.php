@@ -18,6 +18,7 @@
 		<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
 		<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css'>
 		<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css'>
+		<link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
 	</head>
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
 		<main>

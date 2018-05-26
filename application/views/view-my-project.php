@@ -145,28 +145,42 @@
                                     <div class="adv-table editable-table">
                                         <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-view-my-project">
                                             <thead>
-                                              <tr>
-                                                  <th class="all"><?php echo lang('name'); ?></th>
-                                                  <th class="desktop">Description</th>
-                                                  <th class="desktop">Priority</th>
-                                                  <th class="desktop">Status</th>
-                                                  <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                                                    <th class="desktop"><?php echo lang('actions'); ?></th>
-                                                  <?php } ?>
-                                              </tr>
+                                                <tr>
+                                                    <th>List Task</th>
+                                                    <th class="all"><?php echo lang('name'); ?></th>
+                                                    <th class="desktop">Description</th>
+                                                    <th class="desktop">Priority</th>
+                                                    <th class="desktop">Status</th>
+                                                    <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
+                                                        <th class="desktop"><?php echo lang('actions'); ?></th>
+                                                    <?php } ?>
+                                                </tr>
                                             </thead>
                                             <tbody>
                                               <?php foreach ($all_list_tasks->result() as $row_list_tasks) { ?>
-                                                <tr>
-                                                    <td colspan="6"><?php echo $row_list_tasks->title_list_task; ?> <a class="access-list-tasks btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?> "><i class="fa fa-plus"></i> Ajouter une tache</a></td>
-                                                </tr>
-                                                 <?php foreach ($row_list_tasks->tasks as $row) { ?>
+                                                <?php foreach ($row_list_tasks->tasks as $row) { ?>
                                                     <tr>
                                                         <?php if ($row->id_list_tasks==$row_list_tasks->id_list_tasks) { ?>
+                                                            <td>
+                                                                <?php echo $row_list_tasks->title_list_task; ?>
+                                                                <a class="access-list-tasks btn btn-sm btn-success mb-3 float-right" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?>"><i class="fa fa-plus"></i> Ajouter une tache</a>
+                                                            </td>
                                                             <td><?php echo $row->name_task; ?></td>
                                                             <td><?php echo $row->description_task; ?></td>
-                                                            <td><?php echo $row->name_tasks_priority; ?></td>
-                                                            <td><?php echo $row->name_tasks_status; ?></td>
+                                                            <td>
+                                                                <?php if ($row->name_tasks_priority=="Critical") {  ?>
+                                                                    <span class="badge badge-danger"><?php echo $row->name_tasks_priority; ?></span>
+                                                                <?php }elseif ($row->name_tasks_priority=="Hight") { ?>
+                                                                    <span class="badge badge-warning"><?php echo $row->name_tasks_priority; ?></span>
+                                                                <?php }elseif ($row->name_tasks_priority=="Medium") { ?>
+                                                                    <span class="badge badge-primary"><?php echo $row->name_tasks_priority; ?></span>
+                                                                <?php }elseif ($row->name_tasks_priority=="Low") { ?>
+                                                                    <span class="badge badge-success"><?php echo $row->name_tasks_priority; ?></span>
+                                                                <?php  } ?>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge <?php echo str_replace(' ', '-',strtolower($row->name_tasks_status)); ?>"><?php echo $row->name_tasks_status; ?></span>
+                                                            </td>
                                                             <td>
                                                               <div class="dropdown show actions">
                                                                 <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
@@ -184,11 +198,11 @@
                                                     </tr>
                                                 <?php } ?>
                                               <?php } ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
 
 
                         </div>
@@ -279,24 +293,44 @@
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-  $(document).ready(function(){
+$(document).ready(function(){
+    function restoreRow(pTable, nRow) {
+        var aData = pTable.row(nRow).data();
+        var jqTds = $('>td', nRow);
 
+        for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+            pTable.cell(nRow, i).data(aData[i]).draw();
+        }
+    }
     var nEditingViewProject = null;
     var ElementDelete = null;
-    var viewprojectTable = $('#table-view-my-project').dataTable({
-              'columnDefs': [{ // set default column settings
-              'orderable': true,
-              'targets': [0]
-          }, {
-              "searchable": true,
-              "targets": [0]
-          }],
-          "order": [
-              [0, "asc"]
-          ]
-      });
+    var viewprojectTable = $('#table-view-my-project').DataTable({
+        "columnDefs": [{
+            "visible": false,
+            "targets": 0
+        }],
+        "order": [
+            [0, 'asc']
+        ],
+        "displayLength": 25,
+        "drawCallback": function(settings) {
+            var api = this.api();
+            var rows = api.rows({
+                page: 'current'
+            }).nodes();
+            var last = null;
+            api.column(0, {
+                page: 'current'
+            }).data().each(function(group, i) {
+                if (last !== group) {
+                    $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                    last = group;
+                }
+            });
+        }
+    });
 
-        $("#form-list-tasks").submit(function(e){
+/*        $("#form-list-tasks").submit(function(e){
             $.ajax({
                 type: "POST",
                 url: $(this).attr('action'),
@@ -346,16 +380,6 @@
           viewprojectTable.fnUpdate('<a id="delete-dashboard" href="javascript:void(0);">Delete</a>', nRow, 2, false);
           viewprojectTable.fnDraw();
         }
-        function restoreRow(pTable, nRow) {
-          var aData = pTable.fnGetData(nRow);
-          var jqTds = $('>td', nRow);
-
-          for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-              pTable.fnUpdate(aData[i], nRow, i, false);
-          }
-
-          pTable.fnDraw();
-        }
         $(document).on('click', '#table-view-my-project #cancel-project', function (e) {
             e.preventDefault();
             if ($(this).attr("data-mode") == "new") {
@@ -395,10 +419,7 @@
                 editRowProject(viewprojectTable, nRow, nUrl);
                 nEditingViewProject = nRow;
             }
-        });
-        $(document).on('click', '#table-view-my-project #delete-project', function (e) {
-            ElementDelete = this;
-        });
+        });*/
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

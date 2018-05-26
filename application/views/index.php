@@ -9,6 +9,7 @@
 		<?php echo css_url('css/theme-responsive.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
 		<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+		<link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
 	</head>
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
 		<main>
@@ -17,8 +18,8 @@
 					<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
 	                    <div id="login" class="p-8">
 	                        <div class="form-wrapper md-elevation-8 p-8">
-	                            <div class="logo bg-secondary">
-	                                <span>F</span>
+	                            <div class="logo">
+	                                <img src="<?php echo img_url('app/logo-470websitesmanagement.svg'); ?>" alt="">
 	                            </div>
 	                            <div class="title mt-4 mb-8">Log in to your account</div>
 	                            <form name="loginForm" action="<?php echo site_url('index'); ?>" method="post" id="loginform">

@@ -14,11 +14,6 @@
                   <section class="card mb-3">
                       <header class="card-header">
                           Editable Table
-                          <span class="tools pull-right">
-                              <a href="javascript:;" class="fa fa-chevron-down"></a>
-                              <a href="javascript:;" class="fa fa-cog"></a>
-                              <a href="javascript:;" class="fa fa-times"></a>
-                           </span>
                       </header>
                       <div class="card-body">
                           <h4 class="">Projects</h4>
@@ -29,11 +24,6 @@
                   <section class="card mb-3">
                       <header class="card-header">
                           Editable Table
-                          <span class="tools pull-right">
-                              <a href="javascript:;" class="fa fa-chevron-down"></a>
-                              <a href="javascript:;" class="fa fa-cog"></a>
-                              <a href="javascript:;" class="fa fa-times"></a>
-                           </span>
                       </header>
                       <div class="card-body">
                           <h4 class="">Membres</h4>
@@ -44,11 +34,6 @@
                   <section class="card mb-3">
                       <header class="card-header">
                           Editable Table
-                          <span class="tools pull-right">
-                              <a href="javascript:;" class="fa fa-chevron-down"></a>
-                              <a href="javascript:;" class="fa fa-cog"></a>
-                              <a href="javascript:;" class="fa fa-times"></a>
-                           </span>
                       </header>
                       <div class="card-body">
                           <h4 class="">Status</h4>
@@ -59,12 +44,7 @@
               <div class="col-sm-10">
                   <section class="card mb-3">
                       <header class="card-header">
-                          Editable Table
-                          <span class="tools pull-right">
-                              <a href="javascript:;" class="fa fa-chevron-down"></a>
-                              <a href="javascript:;" class="fa fa-cog"></a>
-                              <a href="javascript:;" class="fa fa-times"></a>
-                           </span>
+                          Editable Tables
                       </header>
                       <div class="card-body">
                           <div class="row">
@@ -99,8 +79,9 @@
                                         <td><?php echo $row->deadline_project_tasks; ?></td>
                                         <td><span class="badge badge-danger">Canceled</span></td>
                                         <td>
-                                          <div class="progress progress-striped active progress-sm"><?php echo $row->percentage_tasks; ?>%
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentage_tasks; ?>%"></div>
+                                          <div class="progress">
+                                              <div class="progress-bar" role="progressbar" style="width: <?php echo $row->percentage_tasks; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $row->percentage_tasks; ?>%
+                                              </div>
                                           </div>
                                         </td>
                                         <td>
@@ -110,15 +91,15 @@
                                         </td>
                                         <td>
                                           <div class="dropdown show actions">
-                                            <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-                                              <i class="fa fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                              <a class="dropdown-item" id="view-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
-                                              <div class="dropdown-divider"></div>
-                                              <a class="dropdown-item" id="edit-project" href="<?php echo site_url('all-projects/edit_projects/'.$row->id_project_tasks); ?>"><i class="fa fa-pencil"></i>  <?php echo lang('edit') ?></a>
-                                              <a class="dropdown-item" id="delete-project" href="'.site_url('all-projects/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
-                                            </div>
+                                              <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+                                                <i class="icon icon-dots-vertical"></i>
+                                              </a>
+                                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                  <a class="dropdown-item" id="view-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
+                                                  <div class="dropdown-divider"></div>
+                                                  <a class="dropdown-item" id="edit-project" href="<?php echo site_url('all-projects/edit_projects/'.$row->id_project_tasks); ?>"><i class="fa fa-pencil"></i>  <?php echo lang('edit') ?></a>
+                                                  <a class="dropdown-item" id="delete-project" href="'.site_url('all-projects/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
+                                              </div>
                                           </div>
                                         </td>
                                       </tr>
@@ -209,10 +190,17 @@
           [0, "asc"]
       ]
     });
-    function editRowProjects(projectsTable, nRow, nUrl) {
-      var aData = projectsTable.fnGetData(nRow);
+    function restoreRow(pTable, nRow) {
+      var aData = pTable.row(nRow).data();
       var jqTds = $('>td', nRow);
-      var languageList;
+
+      for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+        pTable.cell(nRow, i).data(aData[i]).draw();
+      }
+    }
+    function editRowProjects(projectsTable, nRow, nUrl) {
+      var aData = projectsTable.row(nRow).data();
+      var jqTds = $('>td', nRow);
       jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameproject" value="' + aData[1] + '">';
       jqTds[2].innerHTML = '<input type="text" class="form-control small" id="startedproject" value="' + aData[2] + '">';
       jqTds[3].innerHTML = '<input type="text" class="form-control small" id="deadlineproject" value="' + aData[3] + '">';
@@ -220,21 +208,15 @@
     }
     function saveRowProjects(projectsTable, nRow, nUrl) {
       var jqInputs = $('input', nRow);
-      projectsTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-      projectsTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
-      projectsTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
-      projectsTable.fnUpdate('<div class="dropdown show actions"><a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" ><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a class="dropdown-item" id="edit-project" href="'+nUrl+'"><i class="fa fa-pencil"></i><?php echo lang('edit'); ?></a>', nRow, 7, false);
-      projectsTable.fnDraw();
+      projectsTable.cell(nRow, 1).data(jqInputs[0].value).draw();
+      projectsTable.cell(nRow, 2).data(jqInputs[1].value).draw();
+      projectsTable.cell(nRow, 3).data(jqInputs[2].value).draw();
+      projectsTable.cell(nRow, 7).data(projectsTable.row(nRow).data()[7]).draw();
     }
-    function restoreRow(pTable, nRow) {
-      var aData = pTable.fnGetData(nRow);
-      var jqTds = $('>td', nRow);
-
-      for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-          pTable.fnUpdate(aData[i], nRow, i, false);
-      }
-
-      pTable.fnDraw();
+    function deleteRowProjects(projectsTable, nRow, nUrl) {
+        var aData = projectsTable.row(nRow).data();
+        var jqTds = $('>td', nRow);
+        jqTds[4].innerHTML = '<a id="delete-members" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
     }
     $(document).on('click', '#table-projects #cancel-project', function (e) {
         e.preventDefault();
@@ -279,7 +261,25 @@
         }
     });
     $(document).on('click', '#table-projects #delete-project', function (e) {
-        ElementDelete = this;
+            var nRow = $(this).parents('tr')[0];
+            var nUrl = $(this).attr('href');
+            if (nEditingProject != nRow) {
+                deleteRowProjects(projectsTable, nRow, nUrl);
+                nEditingProject = nRow;
+            } else if (nEditingProject == nRow && $(this).find("i").attr("value") == "check") {
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('href'),
+                    success: function(msg){
+                        var nRow = $('#table-project #delete-project').parents('tr')[0];
+                        projectsTable.fnDeleteRow(nRow);
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+            }
+            e.preventDefault();
     });
 
     $('#searchProjects').on( 'keyup', function () {

@@ -9,16 +9,17 @@
         <?php echo css_url('css/theme-responsive.css'); ?>
         <?php echo css_url('css/style.css'); ?>
 		<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+        <link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
 	</head>
-	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
+	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar">
         <main>
             <div id="wrapper">
                 <div class="content-wrapper">
                     <div class="content custom-scrollbar ps ps--theme_default ps--active-y">
                         <div id="register" class="p-8">
                             <div class="form-wrapper md-elevation-8 p-8">
-                                <div class="logo bg-secondary">
-                                    <span>F</span>
+                                <div class="logo">
+                                    <img src="<?php echo img_url('app/logo-470websitesmanagement.svg'); ?>" alt="">
                                 </div>
                                 <div class="title mt-4 mb-8">Create an account</div>
                                 <form action="<?php echo site_url('registration/create'); ?>" method="post" id="loginform">
@@ -45,12 +46,12 @@
                                     <div class="terms-conditions row align-items-center justify-content-center pt-4 mb-8">
                                         <div class="form-check mr-1 mb-1">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" aria-label="Remember Me">
+                                                <input type="checkbox" class="form-check-input" name="accept_terms">
                                                 <span class="checkbox-icon fuse-ripple-ready"></span>
                                                 <span>I read and accept</span>
                                             </label>
                                         </div>
-                                        <a href="#" class="text-secondary mb-1">terms and conditions</a>
+                                        <a href="<?php echo site_url('terms-and-conditions'); ?>" class="text-secondary mb-1">terms and conditions</a>
                                     </div>
                                     <button type="submit" class="submit-button btn btn-block btn-secondary my-4 mx-auto fuse-ripple-ready" aria-label="LOG IN">
                                         CREATE MY ACCOUNT
@@ -77,7 +78,7 @@
                                 </form>
                                 <div class="login d-flex flex-column flex-sm-row align-items-center justify-content-center mt-8 mb-6 mx-auto">
                                     <span class="text mr-sm-2">Already have an account?</span>
-                                    <a class="link text-secondary" href=""<?php echo site_url('index'); ?>">Log in</a>
+                                    <a class="link text-secondary" href="<?php echo site_url('index'); ?>">Log in</a>
                                 </div>
                             </div>
                         </div>
@@ -86,9 +87,4 @@
             </div>
         </main>
 <?php $this->load->view('include/javascript.php'); ?>
-<script type="text/javascript">
-    $(document).ready(function(){
-
-    });
-</script>
 <?php $this->load->view('include/footer.php'); ?>
