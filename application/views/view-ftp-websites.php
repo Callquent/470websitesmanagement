@@ -5,15 +5,11 @@
 <pre>
     <code></code>
 </pre>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
     <div id="file-manager" class="page-layout simple right-sidebar">
-
-                        <div class="page-content-wrapper custom-scrollbar ps ps--theme_default ps--active-y">
-
+                        <div class="page-content-wrapper custom-scrollbar">
                             <div class="page-header bg-secondary text-auto p-6">
-
                                 <div class="header-content d-flex flex-column justify-content-between">
-
                                     <div class="toolbar row no-gutters justify-content-between">
 
                                         <button type="button" class="btn btn-icon fuse-ripple-ready">
@@ -22,37 +18,30 @@
 
                                         <div class="right-side row no-gutters">
 
-                                            <a href="<?php echo site_url('ftp-websites/uploadftp/'.$id_ftp_websites); ?>" class="btn btn-icon fuse-ripple-ready">
+                                            <a href="<?php echo site_url('/ftp-websites/'); ?>" class="btn btn-icon fuse-ripple-ready">
                                                 <i class="icon icon-arrow-left-thick"></i>
                                             </a>
 
                                         </div>
 
                                     </div>
-                                    <!-- / TOOLBAR -->
-
-                                    <!-- BREADCRUMB -->
-                                    <div class="breadcrumb text-truncate row no-gutters align-items-center pl-0 pl-sm-20">
-
-                                        <span id="path" class="h4"><?php echo $path_server; ?></span>
-
-                                        <i class="icon-chevron-right separator"></i>
-
-                                        <span class="h4">Documents</span>
-
+                                    <div class="row">
+                                        <div class="breadcrumb text-truncate row no-gutters align-items-center pl-0 pl-sm-20 col-md-8">
+                                            <span id="path" class="h4"><?php echo $path_server; ?></span>
+                                        </div>
+                                        <div id="loading-time" class="col-md-4">
+                                            <ul></ul>
+                                        </div>
                                     </div>
-                                    <!-- / BREADCRUMB -->
 
                                 </div>
-                                <!-- / HEADER CONTENT -->
-
-                                <!-- ADD FILE BUTTON -->
-                                <button id="add-file-button" type="button" class="btn btn-danger btn-fab fuse-ripple-ready" aria-label="Add file">
-                                    <input type="file" class="custom-file-input" id="customFile">
-                                    <i class="icon icon-plus"></i>
-                                </button>
-                                <!-- / ADD FILE BUTTON -->
-
+                                <form enctype="multipart/form-data" action="<?php echo site_url('/ftp-websites/uploadftp/'.$id_ftp_websites); ?>" method="post" id="form-upload-ftp">
+                                    <button id="add-file-button" type="button" class="btn btn-danger btn-fab fuse-ripple-ready" aria-label="Add file">
+                                        <input type="file" class="custom-file-input" name="uploadfile" id="uploadfile">
+                                        <i class="icon icon-plus"></i>
+                                    </button>
+                                    
+                                </form>
                             </div>
                             <!-- / HEADER -->
 
@@ -60,9 +49,7 @@
                             <div class="page-content custom-scrollbar ps ps--theme_default" data-ps-id="fe3679bb-d2bd-acef-4e6e-4ec75edc10b1">
                                 <!-- LIST VIEW -->
                                 <table class="table list-view">
-
                                     <thead>
-
                                         <tr>
                                             <th></th>
                                             <th>Name</th>
@@ -72,9 +59,7 @@
                                             <th class="d-none d-lg-table-cell">Last Modified</th>
                                             <th class="d-table-cell d-xl-none"></th>
                                         </tr>
-
                                     </thead>
-
                                     <tbody>
                                         <tr>
                                             <td class="file-icon">
@@ -113,7 +98,7 @@
                             </div>
                     </div>
 
-                        <aside class="page-sidebar custom-scrollbar ps ps--theme_default ps--active-y" data-fuse-bar="file-manager-info-sidebar" data-fuse-bar-position="right" data-fuse-bar-media-step="lg" data-ps-id="2d326bff-bcc9-55e4-5390-5e14cdb1eaeb">
+                        <aside class="page-sidebar custom-scrollbar" data-fuse-bar="file-manager-info-sidebar" data-fuse-bar-position="right" data-fuse-bar-media-step="lg" data-ps-id="2d326bff-bcc9-55e4-5390-5e14cdb1eaeb">
                             <!-- SIDEBAR HEADER -->
                             <div class="header bg-secondary text-auto d-flex flex-column justify-content-between p-6">
 
@@ -133,20 +118,13 @@
                                     </button>
 
                                 </div>
-                                <!-- / TOOLBAR -->
-
-                                <!-- INFO -->
                                 <div>
-
                                     <div class="title mb-2">Work Documents</div>
-
                                     <div class="subtitle text-muted">
                                         <span>Edited</span>
                                         : May 8, 2017
                                     </div>
-
                                 </div>
-                                <!-- / INFO-->
 
                             </div>
                             <!-- / SIDEBAR HEADER -->
@@ -245,8 +223,7 @@
         <a class="dropdown-item fuse-ripple-ready" href="#">Renommer</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item fuse-ripple-ready" id="createfolder" href="javascript:void(0);" data-toggle="modal" data-target="#modal-create-folder">Créer un dossier</a>
-        <a class="dropdown-item fuse-ripple-ready" id="downloadfolder" href="<?php echo site_url('ftp-websites/downloadftp/'.$id_ftp_websites); ?>">Télécharger</a>
-        <input type="file" name="download-ftp" id="download-ftp" style="display: none;">
+        <a class="dropdown-item fuse-ripple-ready" id="downloadftp" href="<?php echo site_url('ftp-websites/downloadftp/'.$id_ftp_websites); ?>">Télécharger</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item fuse-ripple-ready" id="deleteftp" href="<?php echo site_url('ftp-websites/deleteftp/'.$id_ftp_websites); ?>">Supprimer</a>
     </div>
@@ -254,6 +231,74 @@
 <div class="context-menu-mobile"></div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+$(function(){
+    // Initialize the jQuery File Upload plugin
+    $('#form-upload-ftp').fileupload({
+        dropZone: $('#drop'),
+        add: function (e, data) {
+            
+            var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"'+
+                ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><span></span></li>');
+            $('#loading-time ul').empty();
+            tpl.find('p').text(data.files[0].name).append('<i>' + formatFileSize(data.files[0].size) + '</i>');
+            data.context = tpl.appendTo('#loading-time ul');
+            tpl.find('input').knob();
+            tpl.find('span').click(function(){
+                if(tpl.hasClass('working')){
+                    jqXHR.abort();
+                }
+                tpl.fadeOut(function(){
+                    tpl.remove();
+                });
+            });
+            var jqXHR = data.submit();
+        },
+        progress: function(e, data){
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            data.context.find('input').val(progress).change();
+            if(progress == 100){
+                data.context.removeClass('working');
+                data.context.find('span').html('<i class="icon-check"></i>');
+
+                var formData = new FormData();
+
+                formData.append('uploadfile', data.files[0]);
+                formData.append('path', $("#path").text()+data.files[0].name);
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr("action"),
+                    data: formData,
+                    processData: false,
+                    contentType: false, 
+                    success: function(msg){
+                        console.log(msg);
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+                });
+                e.preventDefault();
+            }
+        },
+        fail:function(e, data){
+            data.context.addClass('error');
+        }
+    });
+    function formatFileSize(bytes) {
+        if (typeof bytes !== 'number') {
+            return '';
+        }
+        if (bytes >= 1000000000) {
+            return (bytes / 1000000000).toFixed(2) + ' GB';
+        }
+        if (bytes >= 1000000) {
+            return (bytes / 1000000).toFixed(2) + ' MB';
+        }
+        return (bytes / 1000).toFixed(2) + ' KB';
+    }
+
+});
+
   $(document).ready(function(){
 
         var folderselect_contextmenu;
@@ -277,24 +322,24 @@
             
              return false;
         });
-        /*$(".content").scroll(function() {
+        $("#file-manager .page-content-wrapper").scroll(function() {
             $("#contextMenu").hide();
-        });*/
+        });
         $('html').click(function() {
             $("#contextMenu").hide();
         });
         $('#form-create-folder').on('submit', function(e) {
             $.ajax({
-                    type: "POST",
-                    url: $(this).attr('action'),
-                    data: 'createfolder='+$("#path").text()+$("#namefolder").val(),
-                    success: function(msg){
-                        $('#modal-create-folder').modal('hide')
-                        $(folderselect_contextmenu).after($("#namefolder").val())
-                    },
-                    error: function(msg){
-                        console.log(msg);
-                    }
+                type: "POST",
+                url: $(this).attr('action'),
+                data: 'createfolder='+$("#path").text()+$("#namefolder").val(),
+                success: function(msg){
+                    $('#modal-create-folder').modal('hide')
+                    $(folderselect_contextmenu).after($("#namefolder").val())
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
             });
             e.preventDefault();
         });
@@ -316,9 +361,100 @@
             });
             e.preventDefault();
         });
-        $('#downloadfolder').on('click', function(e) {
-            /*$('#download-ftp').click();
-            e.preventDefault();*/
+        $('#downloadftp').on('click', function(e) {
+            var path = $("#path").text()+folderselect_contextmenu.find(".name").text();
+            var file = folderselect_contextmenu.find(".name").text();
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('href'),
+                data: {'path':path,'file':file},
+                success: function(response, status, xhr) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('attachment') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                    }
+
+                    var type = xhr.getResponseHeader('Content-Type');
+                    var blob = new Blob([response], { type: type });
+
+                    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                        window.navigator.msSaveBlob(blob, filename);
+                    } else {
+                        var URL = window.URL || window.webkitURL;
+                        var downloadUrl = URL.createObjectURL(blob);
+
+                        if (filename) {
+                            var a = document.createElement("a");
+                            if (typeof a.download === 'undefined') {
+                                window.location = downloadUrl;
+                            } else {
+                                a.href = downloadUrl;
+                                a.download = filename;
+                                document.body.appendChild(a);
+                                a.click();
+                            }
+                        } else {
+                            window.location = downloadUrl;
+                        }
+
+                        setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
+                    }
+                }
+            });
+            e.preventDefault();
+
+/*        var parameters = new FormData();
+
+        parameters.append('path', $("#path").text()+folderselect_contextmenu.find(".name").text());
+        parameters.append('file', folderselect_contextmenu.find(".name").text());
+
+        var xhr = new XMLHttpRequest();
+xhr.open("POST", $(this).attr('href'), true);
+xhr.responseType = 'arraybuffer';
+xhr.onload = function () {
+    if (this.status === 200) {
+        var filename = "";
+        var disposition = xhr.getResponseHeader('Content-Disposition');
+        if (disposition && disposition.indexOf('attachment') !== -1) {
+            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            var matches = filenameRegex.exec(disposition);
+            if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+        }
+        var type = xhr.getResponseHeader('Content-Type');
+
+        var blob = typeof File === 'function'
+            ? new File([this.response], filename, { type: type })
+            : new Blob([this.response], { type: type });
+        if (typeof window.navigator.msSaveBlob !== 'undefined') {
+            window.navigator.msSaveBlob(blob, filename);
+        } else {
+            var URL = window.URL || window.webkitURL;
+            var downloadUrl = URL.createObjectURL(blob);
+
+            if (filename) {
+                var a = document.createElement("a");
+                if (typeof a.download === 'undefined') {
+                    window.location = downloadUrl;
+                } else {
+                    a.href = downloadUrl;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                }
+            } else {
+                window.location = downloadUrl;
+            }
+
+            setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100);
+        }
+    }
+};
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.send('path='+$("#path").text()+folderselect_contextmenu.find(".name").text()+'&file='+folderselect_contextmenu.find(".name").text());*/
+
         });
         $('#deleteftp').on('click', function(e) {
             $.ajax({
@@ -346,11 +482,12 @@
             $.ajax({
                     type: "POST",
                     url: url+'/refreshfolderserver/'+id,
-                    data: 'path='+($('#path').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
-                    success: function(msg){
+                    data: 'path='+($('#path').text() == '/' ? path+elementfolder : path+'/'+elementfolder),
+                    success: function(data){
                         $('.list-view tbody').empty();
-                        results = JSON.parse(msg);
-                        $("#path").text($("#path").text() == '/' ?path+elementfolder:path+'/'+elementfolder);
+                        console.log(data);
+                        results = JSON.parse(data);
+                        $("#path").text(results[0][0].path_server);
                         $('<tr>').append(
                                 $('<td class="file-icon">').html('<i class="icon-folder"></i>'),
                                 $('<td class="name">').html(".."),
@@ -360,7 +497,7 @@
                                 $('<td>').html(""),
                                 $('<td>').html(""),
                             ).appendTo('.list-view');
-                        $.each(results, function(i, item) {
+                        $.each(results[1], function(i, item) {
                             var $tr = $('<tr>').append(
                                 $('<td class="file-icon">').html('<i class="icon-'+item.icon+'"></i>'),
                                 $('<td class="name">').html(item.title),
@@ -372,18 +509,17 @@
                             ).appendTo('.list-view');
                         });
                     },
-                    error: function(msg){
-                        console.log(msg);
+                    error: function(data){
+                        console.log(data);
                     }
             });
             e.preventDefault();
         });
-        $('.treeviewserver').on('click', 'li',function(e) {
+/*        $('.treeviewserver').on('click', 'li',function(e) {
             
             if ($(this).find('ul').length === 0){
                 var elementfolder = $(this).attr('id');
                 var path = $("#path-server").val();
-                /*console.log(elementfolder);*/
 
                 var arr = $(this).parentsUntil( $( "ul.treeviewserver" ));
                 var arrfilter = []
@@ -443,7 +579,7 @@
                     console.log(msg);
                 }
             });
-        });
+        });*/
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

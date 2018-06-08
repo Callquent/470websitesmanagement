@@ -2,7 +2,7 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
         <h2 class="doc-title" id="content"><?php echo lang('dashboard'); ?></h2>

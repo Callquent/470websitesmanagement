@@ -125,7 +125,7 @@ class Model_tasks extends CI_Model {
 			$query = $this->db->get();
 			if (empty($id_user)) {
 				foreach ($query->result() as $value) {
-					$value->percentage_tasks = $this->get_percentage_per_tasks($value->id_project_tasks,$value->id_list_tasks)->row()->percentage_tasks;
+					$value->count_tasks_completed = $this->get_percentage_per_tasks($value->id_project_tasks,$value->id_list_tasks)->row()->count_tasks_completed;
 					$value->tasks = $this->get_tasks_per_list_task($id_project_tasks,$value->id_list_tasks)->result();
 				}
 			} else {
@@ -138,7 +138,7 @@ class Model_tasks extends CI_Model {
 	}
 	function get_percentage_per_tasks($id_project_tasks,$id_list_tasks)
 	{
-		$this->db->select('ROUND(SUM(CASE WHEN id_tasks_status = "2" OR id_tasks_status = "3" THEN 1 ELSE 0 END)/count(*)*100,0) as percentage_tasks')
+		$this->db->select('ROUND(SUM(CASE WHEN id_tasks_status = "2" OR id_tasks_status = "3" THEN 1 ELSE 0 END),0) as count_tasks_completed')
 				->from('470websitesmanagement_tasks')
 				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				->where('470websitesmanagement_tasks.id_list_tasks', $id_list_tasks);

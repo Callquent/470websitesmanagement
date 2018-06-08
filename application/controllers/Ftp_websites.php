@@ -73,7 +73,9 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
-
+		$path_back_folder = str_replace("/..","",$pathfolder);
+		$path[] = array('path_server' => (strrpos($pathfolder, '/..')==true?rtrim($path_back_folder,pathinfo($path_back_folder)["basename"]):$pathfolder) );
+		
 		$data['list'] = $this->ftp->list_files($pathfolder);
 		foreach ($data['list'] as $row) {
 			if ($row["type"]=="file") {
@@ -82,8 +84,9 @@ class Ftp_websites extends CI_Controller {
 				$tree_data[] = array('title' => pathinfo($row["file"])["basename"], 'icon' => 'folder', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
 			}
 		}
-
-		echo json_encode($tree_data);
+		$data[] = $path;
+		$data[] = $tree_data;
+		echo json_encode($data);
 	}
 	public function readfileftp($id_ftp_websites = '')
 	{
@@ -116,7 +119,14 @@ class Ftp_websites extends CI_Controller {
 	}
 	public function uploadftp($id_ftp_websites = '')
 	{
-		$elementupload = $this->input->post('elementupload');
+		ini_set('upload_max_filesize', '0');
+		ini_set('post_max_size', '0');
+		ini_set('max_input_time', 0);
+		ini_set('max_execution_time', 0);
+
+		$destination_to_server = $this->input->post('path');
+		$source_to_local = $_FILES["uploadfile"]["tmp_name"];
+		var_dump($_FILES);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -126,18 +136,18 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$this->ftp->upload('file:///C:/DelFix.txt', $elementupload, 'ascii', 0775);
+		/*$this->ftp->upload($source_to_local, $destination_to_server, 'auto', 0775);*/
 
 		$this->ftp->close();
 	}
 	public function downloadftp($id_ftp_websites = '')
 	{
-		/*$elementdownload = $this->input->post('elementdownload');*/
+		$source_to_server = $this->input->post('path');
+		$file = $this->input->post('file');
 
 		header("Cache-Control: ");
 		header("Content-type: text/plain");
-		header("Content-Disposition: attachment; filename='".$elementdownload."'");
-
+		header("Content-Disposition: attachment; filename=".$file);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -146,8 +156,9 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
-		/*$this->ftp->download("/add_vhost.php", 'C:/', 'ascii');*/
-		var_dump($this->ftp->download("/add_vhost.php", 'C:/add_vhost.php', 'ascii'));
+		$this->ftp->download($source_to_server, 'php://output', 'auto');
+		/*header("Content-Disposition: attachment; filename=\"sans-titre-1.psd\"");*/
+		/*$this->ftp->download('/sans-titre-1.psd', 'php://output', 'auto');*/
 	}
 	public function moveftp()
 	{

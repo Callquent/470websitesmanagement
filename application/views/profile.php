@@ -2,7 +2,7 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-header light-fg d-flex flex-column justify-content-center justify-content-lg-end p-6">
         <div class="flex-column row flex-lg-row align-items-center align-items-lg-end no-gutters justify-content-between">
@@ -13,26 +13,11 @@
             </div>
             <div class="actions row align-items-center no-gutters">
                 <button type="button" class="btn btn-primary fuse-ripple-ready" aria-label="Follow">Follow</button>
-                <button type="button" class="btn btn-secondary ml-2 fuse-ripple-ready" aria-label="Send Message">Send Message</button>
+                <a href="mailto:<?php echo $user->email; ?>" class="btn btn-secondary ml-2 fuse-ripple-ready" aria-label="Send Message">Send Message</a>
             </div>
         </div>
     </div>
   <div class="page-content">
-
-<div class="col-12 p-3">
-    <div class="widget widget5 card">
-        <div class="widget-header px-4 row no-gutters align-items-center justify-content-between">
-        </div>
-        <div class="widget-content p-4">
-          <div class="row">
-            <div class="col-12 col-lg-12">
-
-            </div>
-          </div>
-        </div>
-    </div>
-</div>
-
 
       <section id="main-content">
           <section class="wrapper">

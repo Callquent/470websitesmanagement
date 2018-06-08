@@ -2,7 +2,7 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
   <div id="contacts" class="page-layout simple left-sidebar-floating">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
         <h2 class="doc-title" id="content"><?php echo lang('members'); ?></h2>
@@ -12,7 +12,7 @@
             <div class="page-sidebar-card">
                 <div class="header p-4">
                     <div class="row no-gutters align-items-center">
-                        <img class="avatar mr-4" alt="<?php echo $login; ?>" src="../assets/images/avatars/profile.jpg">
+                        <span class="w-40 avatar circle green" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo $login; ?>" value="<?php echo $login; ?>"><?php echo substr($login, 0, 2); ?></span>
                         <span class="font-weight-bold"><?php echo $login; ?></span>
                     </div>
                 </div>
@@ -220,8 +220,8 @@ var EditableTable = function () {
                         type: "POST",
                         url: $(this).attr('href'),
                         success: function(msg){
-                            var nRow = $('#table-members #delete-members').parents('tr')[0];
-                            membersTable.fnDeleteRow(nRow);
+                            var nRow = $('#table-members #delete-members').parents('tr');
+                            membersTable.row(nRow).remove().draw();
                         },
                         error: function(msg){
                             console.log(msg);

@@ -2,7 +2,7 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-content">
 
@@ -148,10 +148,10 @@
                                             <tr>
                                             <?php if ($row->id_list_tasks==$row_list_tasks->id_list_tasks) { ?>
                                                     <td>
-                                                        <?php var_dump(count($row_list_tasks->tasks)); ?>
                                                         <?php echo $row_list_tasks->title_list_task; ?>
+                                                        <?php echo $row_list_tasks->count_tasks_completed ." / ".count($row_list_tasks->tasks); ?>
                                                         <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: <?php echo $row_list_tasks->percentage_tasks; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $row_list_tasks->percentage_tasks; ?>%
+                                                            <div class="progress-bar" role="progressbar" style="width: <?php echo ($row_list_tasks->count_tasks_completed/count($row_list_tasks->tasks))*100; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo ($row_list_tasks->count_tasks_completed/count($row_list_tasks->tasks))*100; ?>%
                                                             </div>
                                                         </div>
                                                         <a class="access-list-tasks btn btn-sm btn-success mb-3 float-right" href="javascript:void(0);" data-toggle="modal" data-target="#view-task"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?>"><i class="fa fa-plus"></i> Ajouter une tache</a>

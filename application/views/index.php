@@ -5,8 +5,8 @@
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php echo css_url('css/bootstrap.min.css'); ?>
+        <?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('css/theme.css'); ?>
-		<?php echo css_url('css/theme-responsive.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
 		<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 		<link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
@@ -15,7 +15,7 @@
 		<main>
         	<div id="wrapper">
 				<div class="content-wrapper">
-					<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+					<div class="content custom-scrollbar">
 	                    <div id="login" class="p-8">
 	                        <div class="form-wrapper md-elevation-8 p-8">
 	                            <div class="logo">

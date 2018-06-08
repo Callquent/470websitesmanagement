@@ -7,7 +7,20 @@
 		<?php echo js_url('js/mobile-detect.min.js'); ?>
 		<?php echo js_url('js/perfect-scrollbar.jquery.min.js'); ?>
 		<?php echo js_url('js/fuse-html.min.js'); ?>
-		 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			var url = window.location.pathname;  
+			var activePage = url.substring(url.lastIndexOf('/')+1);
+		    $('ul.sidebar-menu li a').each(function(){  
+		        var currentPage = this.href.substring(this.href.lastIndexOf('/')+1);
+
+		        if (activePage == currentPage) {
+		            $('ul.nav-tabs a[href="#' + $(this).parents().eq(2).attr("id") + '"]').tab('show');
+		            $(this).parent().addClass('active');
+		        } 
+		    });
+		});
+		</script>
 		<?php if ($this->uri->segment(1)=='all-projects') { ?>
 			<?php echo js_url('js/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 			<?php echo js_url('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
@@ -110,5 +123,11 @@
 		<?php if ($this->uri->segment(1)=='documentation') { ?>
 			<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
 			<?php echo js_url('js/tocify/javascripts/jquery.tocify.js'); ?>
+		<?php } ?>
+		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
+			<?php echo js_url('/js/jquery.knob.js'); ?>
+			<?php echo js_url('/js/jquery.ui.widget.js'); ?>
+			<?php echo js_url('/js/jquery.iframe-transport.js'); ?>
+			<?php echo js_url('/js/jquery.fileupload.js'); ?>
 		<?php } ?>
 		<?php echo js_url('js/scripts.js'); ?>

@@ -8,11 +8,6 @@
                                 </button>
                                 <div class="toolbar-separator d-block d-lg-none"></div>
                                 <div class="shortcuts-wrapper row no-gutters align-items-center px-0 px-sm-2">
-                                    <div class="shortcuts row no-gutters align-items-center d-none d-md-flex">
-                                        <a href="http://fuse-bootstrap4-material.withinpixels.com/vertical-layout-below-toolbar-left-navigation/apps-contacts.html" class="shortcut-button btn btn-icon mx-1 fuse-ripple-ready">
-                                            <i class="icon icon-account-box"></i>
-                                        </a>
-                                    </div>
                                     <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
                                         <div class="dropdown-toggle btn btn-icon fuse-ripple-ready" role="button" id="dropdownShortcutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="icon icon-plus-circle"></i>
@@ -21,7 +16,7 @@
                                             <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-website'); ?>">
                                                 <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
                                                     <div class="row no-gutters align-items-center flex-nowrap">
-                                                        <i class="icon icon-calendar-today"></i>
+                                                        <i class="icon icon-plus"></i>
                                                         <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_website'); ?></font></font></span>
                                                     </div>
                                                 </div>
@@ -29,7 +24,7 @@
                                             <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-category'); ?>">
                                                 <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
                                                     <div class="row no-gutters align-items-center flex-nowrap">
-                                                        <i class="icon icon-folder"></i>
+                                                        <i class="icon icon-plus"></i>
                                                         <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_category'); ?></font></font></span>
                                                     </div>
                                                 </div>
@@ -37,7 +32,7 @@
                                             <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-language'); ?>">
                                                 <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
                                                     <div class="row no-gutters align-items-center flex-nowrap">
-                                                        <i class="icon icon-checkbox-marked"></i>
+                                                        <i class="icon icon-plus"></i>
                                                         <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_language'); ?></font></font></span>
                                                     </div>
                                                 </div>
@@ -55,7 +50,6 @@
                                     <div class="dropdown-toggle ripple row align-items-center no-gutters px-2 px-sm-4 fuse-ripple-ready" role="button" id="dropdownUserMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="avatar-wrapper">
                                             <img class="avatar" src="./Tableau de bord du projet_files/profile.jpg">
-                                            <i class="status text-green icon-checkbox-marked-circle s-4"></i>
                                         </div>
                                         <span class="username mx-3 d-none d-md-block"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo $login; ?></font></font></span>
                                     </div>

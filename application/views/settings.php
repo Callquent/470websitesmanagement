@@ -2,7 +2,7 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-content">
 
@@ -103,7 +103,7 @@
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
                                             <input type="text" class="form-control">
                                             <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                                <img src="<?php echo (!empty(img_url('company/logo-company.png'))?img_url('company/logo-company.png'):'http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image'); ?>" alt="" />
+                                                <img src="" alt="" />
                                             </div>
                                             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                                             <div>

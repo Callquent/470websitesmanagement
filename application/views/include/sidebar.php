@@ -30,13 +30,13 @@
                                 </div>
                                 <ul class="nav nav-tabs">
                                     <li class="">
-                                        <a data-toggle="tab" href="#home" aria-expanded="false"><i class="fa fa-home"></i></a>
+                                        <a data-toggle="tab" href="#home"><i class="fa fa-home"></i></a>
                                     </li>
                                     <li class="">
-                                        <a data-toggle="tab" href="#groupes" aria-expanded="true"><i class="fa fa-tags"></i></a>
+                                        <a data-toggle="tab" href="#groupes"><i class="fa fa-tags"></i></a>
                                     </li>
                                     <li class="">
-                                        <a data-toggle="tab" href="#list-members" aria-expanded="true"><i class="fa fa-users"></i></a>
+                                        <a data-toggle="tab" href="#list-members"><i class="fa fa-users"></i></a>
                                     </li>
                                     <li class="">
                                         <a data-toggle="tab" href="#admin"><i class="fa fa-cogs"></i></a>

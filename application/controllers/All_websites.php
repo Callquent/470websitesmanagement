@@ -62,15 +62,15 @@ class All_websites extends CI_Controller {
 			$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->w_id.'">Access Back office</a>';
 			$list[] = '<a class="access-htaccess" href="javascript:void(0);" data-toggle="modal" data-target="#view-htaccess" data-id="'.$row->w_id.'">Access Htaccess</a>';
 			$list[] = '<div class="dropdown show actions">
-						  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-						  	<i class="fa fa-ellipsis-v"></i>
-						  </a>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						    <a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
-						    <div class="dropdown-divider"></div>
-						    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-						    <a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-						  </div>
+							<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+								<i class="icon icon-dots-vertical"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+								<a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+							</div>
 						</div>';
 
 			$data[] = $list;

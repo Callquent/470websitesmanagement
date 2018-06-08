@@ -2,7 +2,7 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
         <h2 class="doc-title" id="content"><?php echo lang('websites_management'); ?></h2>
@@ -163,8 +163,9 @@
                                         <td><?php echo $row->started_project_tasks; ?></td>
                                         <td><?php echo $row->deadline_project_tasks; ?></td>
                                         <td>
-                                          <div class="progress progress-striped active progress-sm"><?php echo $row->percentage_tasks; ?>%
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentage_tasks; ?>%"></div>
+                                          <div class="progress">
+                                              <div class="progress-bar" role="progressbar" style="width: <?php echo $row->percentage_tasks; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $row->percentage_tasks; ?>%
+                                              </div>
                                           </div>
                                         </td>
                                         <td>

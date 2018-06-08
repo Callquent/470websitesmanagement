@@ -47,8 +47,15 @@ class Registration extends CI_Controller {
 			else
 			{
 				$this->aauth->create_user($email, $password, $name);
-				$this->session->set_flashdata('success', 'Votre profil a bien été creée.');
-				$this->load->view('index');
+				if ($this->aauth->create_user($email, $password, $name)==false) {
+					foreach ($this->aauth->errors as $value) {
+						$this->session->set_flashdata('danger', $value);
+					}
+					$this->load->view('registration');
+				} else {
+					$this->session->set_flashdata('success', 'Votre profil a bien été creée.');
+					$this->load->view('index');
+				}
 			}
 		}
 	}

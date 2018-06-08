@@ -130,7 +130,7 @@ ul.sidebar-menu .list-title-sidebar span {
 #aside .nav.nav-tabs {border-bottom: 1px solid #1b222c;margin: 0;position: relative;top: -40px;}
 #aside .nav > li > a {position: relative;display: block;padding:9px 19px 9px;}
 #aside .nav.nav-tabs li{margin-right:1px;}
-#aside .nav.nav-tabs li i{font-size:16px;color:#fff; width: auto; height: auto;}
+#aside .nav.nav-tabs li i{font-size:18px;color:#fff; width: auto; height: auto;}
 #aside .nav-tabs > li > a.active { border: 1px solid #22636a; background: #22636a; border-bottom: 1px solid #22636a !important; color: #fff; border-radius: 0px; border-top-left-radius: 2px; border-top-right-radius: 2px; }
 #aside .nav-tabs > li.active > a i,
 #aside .nav-tabs > li > a:hover i,
@@ -471,6 +471,13 @@ div.dt-button-collection a.dt-button:hover {
   position: absolute;
   display: none;
   z-index: 9999;
+}
+#loading-time p {
+  display: inline-block;
+}
+#loading-time p i {
+  display: block;
+  width: auto;
 }
 /****************************/
 /*      DOCUMENTATION       */

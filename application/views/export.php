@@ -2,7 +2,7 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-content">
 
@@ -74,19 +74,6 @@
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
-        $('#form-export a').click(function(e) {
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('href'),
-                success: function(msg){
-                    $('#form-export #keysecrete').val(msg);
-                },
-                error: function(msg){
-                    console.log(msg);
-                }
-            });
-            e.preventDefault();
-        });
         $(":input[type='radio']").on("change", function () {
             if ($("#radio_quick_export").prop("checked") ) {
                 $(".export-search-table").hide();

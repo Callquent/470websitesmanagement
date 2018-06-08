@@ -2,7 +2,7 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar ps ps--theme_default ps--active-y">
+<div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
         <h2 class="doc-title" id="content"><?php echo lang('websites_management'); ?></h2>
@@ -17,11 +17,6 @@
                   <section class="card mb-3">
                       <header class="card-header">
                           <?php echo lang('websites_management'); ?>
-                          <span class="tools float-right">
-                              <a href="javascript:;" class="fa fa-chevron-down"></a>
-                              <a href="javascript:;" class="fa fa-cog"></a>
-                              <a href="javascript:;" class="fa fa-times"></a>
-                           </span>
                       </header>
                       <div class="card-body">
                           <div class="row">

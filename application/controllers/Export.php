@@ -43,9 +43,9 @@ class Export extends CI_Controller {
 	{
 		header("Cache-Control: ");
 		header("Content-type: text/plain");
-		header('Content-Disposition: attachment; filename="websitesmanagement.470"');
+		header("Content-Disposition: attachment; filename=\"websitesmanagement.470\"");
 
-		$key_secrete = $_POST['keysecrete'];
+		$key_secrete = $this->input->post('keysecrete');
 		$this->encryption->initialize(
 			array(
 			        'cipher' => 'aes-256',

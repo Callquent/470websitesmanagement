@@ -150,34 +150,6 @@
                 wheelStep: 35
             });
         }
-        /*==Nice Scroll ==*/
-        if ($.fn.niceScroll) {
-
-
-            $(".leftside-navigation").niceScroll({
-                cursorcolor: "#1FB5AD",
-                cursorborder: "0px solid #fff",
-                cursorborderradius: "5px",
-                background:"rgba(255, 255, 255, 0.1)",
-                cursorwidth: "9px"
-            });
-
-            $(".leftside-navigation").getNiceScroll().resize();
-            if ($('#sidebar').hasClass('hide-left-bar')) {
-                $(".leftside-navigation").getNiceScroll().hide();
-            }
-            $(".leftside-navigation").getNiceScroll().show();
-
-            $(".right-stat-bar").niceScroll({
-                cursorcolor: "#1FB5AD",
-                cursorborder: "0px solid #fff",
-                cursorborderradius: "5px",
-                background:"rgba(255, 255, 255, 0.1)",
-                cursorwidth: "9px"
-            });
-
-        }
-
         /*==Easy Pie chart ==*/
         if ($.fn.easyPieChart) {
 
@@ -380,8 +352,6 @@
 
 
         });
-
-
         $('.panel .tools .fa').click(function () {
             var el = $(this).parents(".panel").children(".panel-body");
             if ($(this).hasClass("fa-chevron-down")) {
@@ -391,18 +361,12 @@
                 $(this).removeClass("fa-chevron-up").addClass("fa-chevron-down");
                 el.slideDown(200); }
         });
-
-
-
         $('.panel .tools .fa-times').click(function () {
             $(this).parents(".panel").parent().remove();
         });
-
-
     });
-
-
 })(jQuery);
+
 
 $(document).ready(function(){
     $('li.language a').click(function(e) {
@@ -420,11 +384,4 @@ $(document).ready(function(){
     });
     var url = window.location.pathname;  
     var activePage = url.substring(url.lastIndexOf('/')+1);
-    $('ul.sidebar-menu li a').each(function(){  
-        var currentPage = this.href.substring(this.href.lastIndexOf('/')+1);
-
-        if (activePage == currentPage) {
-            $(this).parent().addClass('active'); 
-        } 
-    });
 });
