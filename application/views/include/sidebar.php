@@ -17,7 +17,7 @@
                                 <div class="user-profile-container">
                                     <div class="user-profile clearfix">
                                         <div class="admin-user-thumb">
-                                            <img alt="" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>" class="img-circle">
+                                            <img alt="" src="<?php echo img_url('users/profile.jpg'); ?>" class="img-circle">
                                         </div>
                                         <div class="admin-user-info">
                                             <ul class="user-info">

@@ -7,7 +7,7 @@
     <div class="page-header light-fg d-flex flex-column justify-content-center justify-content-lg-end p-6">
         <div class="flex-column row flex-lg-row align-items-center align-items-lg-end no-gutters justify-content-between">
             <div class="user-info flex-column row flex-lg-row no-gutters align-items-center">
-                <img class="profile-image avatar huge mr-6" src="<?php echo img_url('users/Sauron_eye_barad_dur.jpg'); ?>">
+                <img class="profile-image avatar huge mr-6" src="<?php echo img_url('users/profile.jpg'); ?>">
                 <div class="name h2 my-6"><?php echo $user->username; ?></div>
                 <div class="permission my-6"><?php echo $user_role[0]->name; ?></div>
             </div>

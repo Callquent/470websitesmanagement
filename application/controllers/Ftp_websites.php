@@ -144,9 +144,9 @@ class Ftp_websites extends CI_Controller {
 	{
 		$source_to_server = $this->input->post('path');
 		$file = $this->input->post('file');
+		var_dump($_POST);
 
-		header("Cache-Control: ");
-		header("Content-type: text/plain");
+		/*header("Content-type: text/plain");
 		header("Content-Disposition: attachment; filename=".$file);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
@@ -156,7 +156,8 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
-		$this->ftp->download($source_to_server, 'php://output', 'auto');
+		$this->ftp->download($source_to_server, 'php://output', 'auto');*/
+
 		/*header("Content-Disposition: attachment; filename=\"sans-titre-1.psd\"");*/
 		/*$this->ftp->download('/sans-titre-1.psd', 'php://output', 'auto');*/
 	}

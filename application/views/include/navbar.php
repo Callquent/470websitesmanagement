@@ -49,7 +49,7 @@
                                 <div class="user-menu-button dropdown">
                                     <div class="dropdown-toggle ripple row align-items-center no-gutters px-2 px-sm-4 fuse-ripple-ready" role="button" id="dropdownUserMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="avatar-wrapper">
-                                            <img class="avatar" src="./Tableau de bord du projet_files/profile.jpg">
+                                            <img class="avatar" alt="" src="<?php echo img_url('users/profile.jpg'); ?>">
                                         </div>
                                         <span class="username mx-3 d-none d-md-block"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo $login; ?></font></font></span>
                                     </div>

@@ -362,37 +362,36 @@ $(function(){
             e.preventDefault();
         });
         $('#downloadftp').on('click', function(e) {
-            var path = $("#path").text()+folderselect_contextmenu.find(".name").text();
+/*            var path = $("#path").text()+folderselect_contextmenu.find(".name").text();
             var file = folderselect_contextmenu.find(".name").text();
             $.ajax({
                 type: "POST",
                 url: $(this).attr('href'),
                 data: {'path':path,'file':file},
                 success: function(response, status, xhr) {
-                    var filename = "";
                     var disposition = xhr.getResponseHeader('Content-Disposition');
                     if (disposition && disposition.indexOf('attachment') !== -1) {
                         var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
                         var matches = filenameRegex.exec(disposition);
-                        if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                        if (matches != null && matches[1]) file = matches[1].replace(/['"]/g, '');
                     }
 
                     var type = xhr.getResponseHeader('Content-Type');
                     var blob = new Blob([response], { type: type });
 
                     if (typeof window.navigator.msSaveBlob !== 'undefined') {
-                        window.navigator.msSaveBlob(blob, filename);
+                        window.navigator.msSaveBlob(blob, file);
                     } else {
                         var URL = window.URL || window.webkitURL;
                         var downloadUrl = URL.createObjectURL(blob);
 
-                        if (filename) {
+                        if (file) {
                             var a = document.createElement("a");
                             if (typeof a.download === 'undefined') {
                                 window.location = downloadUrl;
                             } else {
                                 a.href = downloadUrl;
-                                a.download = filename;
+                                a.download = file;
                                 document.body.appendChild(a);
                                 a.click();
                             }
@@ -404,56 +403,18 @@ $(function(){
                     }
                 }
             });
-            e.preventDefault();
+            e.preventDefault();*/
 
-/*        var parameters = new FormData();
+        var parameters = new FormData();
 
         parameters.append('path', $("#path").text()+folderselect_contextmenu.find(".name").text());
         parameters.append('file', folderselect_contextmenu.find(".name").text());
 
         var xhr = new XMLHttpRequest();
 xhr.open("POST", $(this).attr('href'), true);
-xhr.responseType = 'arraybuffer';
-xhr.onload = function () {
-    if (this.status === 200) {
-        var filename = "";
-        var disposition = xhr.getResponseHeader('Content-Disposition');
-        if (disposition && disposition.indexOf('attachment') !== -1) {
-            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-            var matches = filenameRegex.exec(disposition);
-            if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-        }
-        var type = xhr.getResponseHeader('Content-Type');
 
-        var blob = typeof File === 'function'
-            ? new File([this.response], filename, { type: type })
-            : new Blob([this.response], { type: type });
-        if (typeof window.navigator.msSaveBlob !== 'undefined') {
-            window.navigator.msSaveBlob(blob, filename);
-        } else {
-            var URL = window.URL || window.webkitURL;
-            var downloadUrl = URL.createObjectURL(blob);
-
-            if (filename) {
-                var a = document.createElement("a");
-                if (typeof a.download === 'undefined') {
-                    window.location = downloadUrl;
-                } else {
-                    a.href = downloadUrl;
-                    a.download = filename;
-                    document.body.appendChild(a);
-                    a.click();
-                }
-            } else {
-                window.location = downloadUrl;
-            }
-
-            setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100);
-        }
-    }
-};
 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-xhr.send('path='+$("#path").text()+folderselect_contextmenu.find(".name").text()+'&file='+folderselect_contextmenu.find(".name").text());*/
+xhr.send(parameters);
 
         });
         $('#deleteftp').on('click', function(e) {
