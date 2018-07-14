@@ -13,7 +13,7 @@ class Add_website extends CI_Controller {
 		$this->load->model('model_back');
 		$this->load->model('model_whois');
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth','Whois','form_validation', 'encrypt', 'session','email'));
+		$this->load->library(array('Aauth','Whois','encryption','form_validation', 'session','email'));
 		$this->load->helper(array('functions','url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
@@ -42,11 +42,19 @@ class Add_website extends CI_Controller {
 	}
 	public function submit()
 	{
-		$c_id				= $this->input->post('categories');
-		$l_id				= $this->input->post('languages');
-		$name_website			= $this->input->post('nom');
-		$url_website			= $this->input->post('url');
+		$id_category		= $this->input->post('categories');
+		$id_language		= $this->input->post('languages');
+		$name_website		= $this->input->post('nom');
+		$url_website		= $this->input->post('url');
 
+		$this->encryption->initialize(
+			array(
+			        'cipher' => 'aes-256',
+			        'mode' => 'ctr',
+			        'key' => $config['encryption_key']
+			)
+		);
+		
 		$w_host_ftp			= $this->input->post('hostftp');
 		$w_login_ftp		= $this->input->post('loginftp');
 		$w_password_ftp		= $this->input->post('passwordftp');
@@ -70,7 +78,7 @@ class Add_website extends CI_Controller {
 			$domain = new Whois($url_website);
 			$whois = $domain->whoisdomain();
 
-			$website_id = $this->model_back->create_websites($c_id, $l_id, $name_website, $url_website);
+			$website_id = $this->model_back->create_websites($id_category, $id_language, $name_website, $url_website);
 			$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 			$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
 			
@@ -79,10 +87,10 @@ class Add_website extends CI_Controller {
 			if (!$pos === false) {
 				sleep(10);
 			}
-			$this->model_back->create_ftp_websites($website_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
-			$this->model_back->create_database_websites($website_id, $w_host_db, $w_name_db, $w_login_db, $w_password_db);
-			$this->model_back->create_backoffice_websites($website_id, $w_host_bo, $w_login_bo, $w_password_bo);
-			$this->model_back->create_htaccess_websites($website_id, $w_login_htaccess, $w_password_htaccess);
+			$this->model_back->create_ftp_websites($website_id, $w_host_ftp, $w_login_ftp, $this->encryption->encrypt($w_password_ftp));
+			$this->model_back->create_database_websites($website_id, $w_host_db, $w_name_db, $w_login_db, $this->encryption->encrypt($w_password_db));
+			$this->model_back->create_backoffice_websites($website_id, $w_host_bo, $w_login_bo, $this->encryption->encrypt($w_password_bo));
+			$this->model_back->create_htaccess_websites($website_id, $w_login_htaccess, $this->encryption->encrypt($w_password_htaccess));
 		/*}*/
 	}
 }

@@ -63,8 +63,9 @@
 			<?php echo js_url('js/fullcalendar/fullcalendar.min.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='dashboard' || $this->uri->segment(1)=='position-tracking') { ?>
-			<?php echo js_url('js/chart-js/Chart.min.js'); ?>
-			<?php echo js_url('js/chartjs.init.js'); ?>
+			
+			<?php echo js_url('js/nvd3/d3.min.js'); ?>
+			<?php echo js_url('js/nvd3/nv.d3.min.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='export') { ?>
 			<?php echo js_url('js/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
@@ -129,5 +130,9 @@
 			<?php echo js_url('/js/jquery.ui.widget.js'); ?>
 			<?php echo js_url('/js/jquery.iframe-transport.js'); ?>
 			<?php echo js_url('/js/jquery.fileupload.js'); ?>
+			<?php echo js_url('/js/codemirror/codemirror.min.js'); ?>
+			<?php echo js_url('/js/codemirror/javascript.js'); ?>
+			<?php echo js_url('/js/codemirror/addon/edit/matchbrackets.min.js'); ?>
+			<?php echo js_url('/js/codemirror/addon/scroll/simplescrollbars.min.js'); ?>
 		<?php } ?>
 		<?php echo js_url('js/scripts.js'); ?>

@@ -12,26 +12,26 @@ class Model_language extends CI_Model {
 
 		$this->db->insert('470websitesmanagement_language', $data);
 	}
-	function update_language($l_id, $title_language)
+	function update_language($id_language, $title_language)
 	{
 		$data = array(
 			'title_language' => $title_language,
 		);
 
-		$this->db->where('l_id', $l_id)
+		$this->db->where('id_language', $id_language)
 				 ->update('470websitesmanagement_language', $data);
 	}
-	function transfert_website_language($l_id_old, $l_id_new)
+	function transfert_website_language($id_language_old, $id_language_new)
 	{
 		$data = array(
-			'l_id' => $l_id_new,
+			'id_language' => $id_language_new,
 		);
 
-		$this->db->where('l_id', $l_id_old)
+		$this->db->where('id_language', $id_language_old)
 				 ->update('470websitesmanagement_website', $data);
 	}
-	function delete_language($l_id)
+	function delete_language($id_language)
 	{
-		$this->db->where('l_id', $l_id)->delete('470websitesmanagement_language'); 
+		$this->db->where('id_language', $id_language)->delete('470websitesmanagement_language'); 
 	}
 }

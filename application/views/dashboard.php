@@ -16,11 +16,6 @@
                   <section class="card mb-3">
                       <header class="card-header">
                           <?php echo lang('dashboard'); ?>
-                          <span class="tools pull-right">
-                              <a href="javascript:;" class="fa fa-chevron-down"></a>
-                              <a href="javascript:;" class="fa fa-cog"></a>
-                              <a href="javascript:;" class="fa fa-times"></a>
-                           </span>
                       </header>
                       <div class="card-body">
                         <div class="row">
@@ -28,15 +23,10 @@
                                 <section class="card mb-3">
                                     <header class="card-header">
                                       <h4><?php echo lang('website_per_languages'); ?></h4>
-                                    <span class="tools pull-right">
-                                        <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                        <a href="javascript:;" class="fa fa-cog"></a>
-                                        <a href="javascript:;" class="fa fa-times"></a>
-                                     </span>
                                     </header>
                                     <div class="card-body">
-                                        <div class="chartJS">
-                                            <canvas id="pie-chart-language" height="250" width="800" ></canvas>
+                                        <div id="pie-chart-language" style="height: 400px;">
+                                            <svg></svg>
                                         </div>
                                     </div>
                                 </section>
@@ -45,15 +35,10 @@
                                 <section class="card mb-3">
                                     <header class="card-header">
                                       <h4><?php echo lang('website_per_categories'); ?></h4>
-                                    <span class="tools pull-right">
-                                        <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                        <a href="javascript:;" class="fa fa-cog"></a>
-                                        <a href="javascript:;" class="fa fa-times"></a>
-                                     </span>
                                     </header>
                                     <div class="card-body">
-                                        <div class="chartJS">
-                                            <canvas id="pie-chart-category" height="250" width="800" ></canvas>
+                                        <div id="pie-chart-category" style="height: 400px;">
+                                            <svg></svg>
                                         </div>
                                     </div>
                                 </section>
@@ -61,13 +46,8 @@
                         </div>
                         <div class="row">
                           <div class="col-sm-12">
+                            <h4><?php echo lang('website_a_renew'); ?></h4>
                             <div class="adv-table editable-table ">
-                                <div class="clearfix">
-                                    <div class="btn-group">
-                                        <h4><?php echo lang('website_a_renew'); ?></h4>
-                                    </div>
-
-                                </div>
                                 <div class="space15"></div>
                                 <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-dashboard">
                                     <thead>
@@ -133,6 +113,8 @@
   var pieDataLanguage = JSON.parse('<?php echo $chart_language; ?>');
   var pieDataCategory = JSON.parse('<?php echo $chart_category; ?>');
 
+  console.log(pieDataCategory);
+
   $(document).ready(function(){
       var dashboardTable = $('#table-dashboard').dataTable({
           "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
@@ -162,6 +144,151 @@
                   targets:   0
               } ],
       });
+
+
+
+    var pieChartLanguage = {
+        options: {
+            chart: {
+                type              : 'pieChart',
+                height            : 400,
+                x                 : function (d)
+                {
+                    return d.key;
+                },
+                y                 : function (d)
+                {
+                    return d.y;
+                },
+                showLabels        : true,
+                transitionDuration: 500,
+                labelThreshold    : 0.01,
+                legend            : {
+                    margin: {
+                        top   : 5,
+                        right : 35,
+                        bottom: 5,
+                        left  : 0
+                    }
+                }
+            }
+        },
+        data   : pieDataLanguage
+    };
+    var pieChartCategory = {
+        options: {
+            chart: {
+                type              : 'pieChart',
+                height            : 400,
+                x                 : function (d)
+                {
+                    return d.key;
+                },
+                y                 : function (d)
+                {
+                    return d.y;
+                },
+                showLabels        : true,
+                transitionDuration: 500,
+                labelThreshold    : 0.01,
+                legend            : {
+                    margin: {
+                        top   : 5,
+                        right : 35,
+                        bottom: 5,
+                        left  : 0
+                    }
+                }
+            }
+        },
+        data   : pieDataCategory
+    };
+
+    nv.addGraph(function ()
+    {
+        var chart = nv.models.pieChart()
+            .options({
+                type              : 'pieChart',
+                height            : 400,
+                x                 : function (d)
+                {
+                    return d.key;
+                },
+                y                 : function (d)
+                {
+                    return d.y;
+                },
+                showLabels        : true,
+                transitionDuration: 500,
+                labelThreshold    : 0.01
+            });
+
+        chart.legend.margin({
+                top   : 5,
+                right : 35,
+                bottom: 5,
+                left  : 0
+            }
+        );
+
+        var chartlanguage = d3.select('#pie-chart-language svg');
+        var chartDataLanguage;
+
+        initChart();
+
+        nv.utils.windowResize(chart.update);
+
+        function initChart()
+        {
+            chartDataLanguage = pieChartLanguage.data;
+            chartlanguage.datum(chartDataLanguage).call(chart);
+        }
+
+        return chart;
+    });
+    nv.addGraph(function ()
+    {
+        var chart = nv.models.pieChart()
+            .options({
+                type              : 'pieChart',
+                height            : 400,
+                x                 : function (d)
+                {
+                    return d.key;
+                },
+                y                 : function (d)
+                {
+                    return d.y;
+                },
+                showLabels        : true,
+                transitionDuration: 500,
+                labelThreshold    : 0.01
+            });
+
+        chart.legend.margin({
+                top   : 5,
+                right : 35,
+                bottom: 5,
+                left  : 0
+            }
+        );
+
+        var chartcategory = d3.select('#pie-chart-category svg');
+        var chartDataCategory;
+
+        initChart();
+
+        nv.utils.windowResize(chart.update);
+
+        function initChart()
+        {
+            chartDataCategory = pieChartCategory.data;
+            chartcategory.datum(chartDataCategory).call(chart);
+        }
+
+        return chart;
+    });
+
       $(document).on('click', '.access-whois', function(e) {
         var id = $(this).data('id');
         $.ajax({

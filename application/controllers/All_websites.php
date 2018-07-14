@@ -11,13 +11,21 @@ class All_websites extends CI_Controller {
 		$this->load->model('model_tasks');
 		$this->load->model('model_back');
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session','email'));
+		$this->load->library(array('Aauth','form_validation', 'encryption', 'session','email'));
 		$this->load->helper(array('functions', 'text', 'url','date','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
 		);
 		$this->session->set_userdata($sesslanguage);
+		$this->encryption->initialize(
+			array(
+			        'cipher' => 'aes-256',
+			        'mode' => 'ctr',
+			        'key' => $this->config->item('encryption_key')
+			)
+		);
+
 		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
 	public function index()
@@ -90,7 +98,7 @@ class All_websites extends CI_Controller {
 
 		$datatable = array(0 => $row->host_ftp,
 							1 => $row->login_ftp,
-							2 => $row->password_ftp,
+							2 => $this->encryption->decrypt($row->password_ftp),
 							3 => '<div class="dropdown show actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
 									  	<i class="fa fa-ellipsis-v"></i>
@@ -112,7 +120,7 @@ class All_websites extends CI_Controller {
 		$datatable = array(0 => $row->host_database,
 							1 => $row->name_database,
 							2 => $row->login_database,
-							3 => $row->password_database,
+							3 => $this->encryption->decrypt($row->password_database),
 							4 => '<div class="dropdown show actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
 									  	<i class="fa fa-ellipsis-v"></i>
@@ -133,7 +141,7 @@ class All_websites extends CI_Controller {
 
 		$datatable = array(0 => $row->host_backoffice,
 							1 => $row->login_backoffice,
-							2 => $row->password_backoffice,
+							2 => $this->encryption->decrypt($row->password_backoffice),
 							3 => '<div class="dropdown show actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
 									  	<i class="fa fa-ellipsis-v"></i>
@@ -153,7 +161,7 @@ class All_websites extends CI_Controller {
 
 
 		$datatable = array(0 => $row->login_htaccess,
-							1 => $row->password_htaccess,
+							1 => $this->encryption->decrypt($row->password_htaccess),
 							2 => '<div class="dropdown show actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
 									  	<i class="fa fa-ellipsis-v"></i>
@@ -241,11 +249,11 @@ class All_websites extends CI_Controller {
 
 		$name_website			= $this->input->post('titlewebsite');
 		$url_website			= $this->input->post('website');
-		$l_id				= $this->input->post('language');
-		$c_id				= $this->input->post('category');
+		$id_language			= $this->input->post('language');
+		$id_category			= $this->input->post('category');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_back->update_website($w_id, $c_id, $l_id, $name_website, $url_website);
+			$this->model_back->update_website($w_id, $id_category, $id_language, $name_website, $url_website);
 		}
 	}
 	public function edit_ftp_website($w_id = '',$w_id_ftp = '')
@@ -254,7 +262,7 @@ class All_websites extends CI_Controller {
 		$w_login_ftp	= $this->input->post('loginftp');
 		$w_password_ftp	= $this->input->post('passwordftp');
 
-		$this->model_back->update_ftp_websites($w_id_ftp, $w_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
+		$this->model_back->update_ftp_websites($w_id_ftp, $w_id, $w_host_ftp, $w_login_ftp, $this->encryption->encrypt($w_password_ftp));
 	}
 	public function edit_database_website($w_id = '',$w_id_db = '')
 	{
@@ -263,7 +271,7 @@ class All_websites extends CI_Controller {
 		$w_login_db		= $this->input->post('logindatabase');
 		$w_password_db	= $this->input->post('passworddatabase');
 
-		$this->model_back->update_database_websites($w_id_db, $w_id, $w_host_db, $w_name_db, $w_login_db, $w_password_db);
+		$this->model_back->update_database_websites($w_id_db, $w_id, $w_host_db, $w_name_db, $w_login_db, $this->encryption->encrypt($w_password_db));
 	}
 	public function edit_backoffice_website($w_id = '',$w_id_bo = '')
 	{
@@ -271,14 +279,14 @@ class All_websites extends CI_Controller {
 		$w_login_bo		= $this->input->post('loginbackoffice');
 		$w_password_bo	= $this->input->post('passwordbackoffice');
 
-		$this->model_back->update_backoffice_websites($w_id_bo, $w_id, $w_host_bo, $w_login_bo, $w_password_bo);
+		$this->model_back->update_backoffice_websites($w_id_bo, $w_id, $w_host_bo, $w_login_bo, $this->encryption->encrypt($w_password_bo));
 	}
 	public function edit_htaccess_website($w_id = '',$w_id_htaccess = '')
 	{
 		$w_login_htaccess		= $this->input->post('loginhtaccess');
 		$w_password_htaccess	= $this->input->post('passwordhtaccess');
 
-		$this->model_back->update_htaccess_websites($w_id_htaccess, $w_id, $w_login_htaccess, $w_password_htaccess);
+		$this->model_back->update_htaccess_websites($w_id_htaccess, $w_id, $w_login_htaccess, $this->encryption->encrypt($w_password_htaccess));
 	}
 	public function delete_website($w_id = '')
 	{

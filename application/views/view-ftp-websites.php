@@ -2,9 +2,10 @@
 
 <?php $this->load->view('include/sidebar.php'); ?>
 <?php $this->load->view('include/navbar.php'); ?>
-<pre>
-    <code></code>
-</pre>
+<div class="file-codemirror">
+    <a class="btn btn-icon btn-close change-view fuse-ripple-ready float-right d-none" data-view="agendaWeek" aria-label="Week" style="z-index: 9999;"><i class="icon icon-close"></i></a>
+    <a class="btn btn-icon btn-save change-view fuse-ripple-ready float-right d-none" href="<?php echo site_url('ftp-websites/writefileftp/'.$id_ftp_websites); ?>" data-view="agendaWeek" aria-label="Week" style="z-index: 9999;"><i class="icon icon-content-save"></i></a>
+</div>
 <div class="content custom-scrollbar">
     <div id="file-manager" class="page-layout simple right-sidebar">
                         <div class="page-content-wrapper custom-scrollbar">
@@ -70,11 +71,7 @@
                                             <td class="owner d-none d-sm-table-cell"></td>
                                             <td class="size d-none d-sm-table-cell"></td>
                                             <td class="last-modified d-none d-lg-table-cell"></td>
-                                            <td class="d-table-cell d-xl-none">
-                                                <button type="button" class="btn btn-icon fuse-ripple-ready" data-fuse-bar-toggle="file-manager-info-sidebar">
-                                                    <i class="icon icon-information-outline"></i>
-                                                </button>
-                                            </td>
+                                            <td class="d-table-cell d-xl-none"></td>
                                         </tr>
                                         <?php foreach ($all_storage_server as $row) {  ?>
                                             <tr>
@@ -87,9 +84,9 @@
                                                 <td class="size d-none d-sm-table-cell"><?php echo $row["size"]; ?></td>
                                                 <td class="last-modified d-none d-lg-table-cell"><?php echo $row["last_modified"]; ?></td>
                                                 <td class="d-table-cell d-xl-none">
-                                                    <button type="button" class="btn btn-icon fuse-ripple-ready" data-fuse-bar-toggle="file-manager-info-sidebar">
+                                                    <a class="btn btn-icon btn-info-file fuse-ripple-ready" data-fuse-bar-toggle="file-manager-info-sidebar">
                                                         <i class="icon icon-information-outline"></i>
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -119,7 +116,7 @@
 
                                 </div>
                                 <div>
-                                    <div class="title mb-2">Work Documents</div>
+                                    <div class="title-file mb-2"></div>
                                     <div class="subtitle text-muted">
                                         <span>Edited</span>
                                         : May 8, 2017
@@ -153,41 +150,33 @@
 
                                     <table class="table">
 
-                                        <tbody><tr class="type">
-                                            <th class="pl-6">Type</th>
-                                            <td>Folder</td>
-                                        </tr>
+                                        <tbody>
+                                            <tr class="type">
+                                                <th class="pl-6">Type</th>
+                                                <td></td>
+                                            </tr>
 
-                                        <tr class="size">
-                                            <th class="pl-6">Size</th>
-                                            <td>-</td>
-                                        </tr>
+                                            <tr class="size">
+                                                <th class="pl-6">Size</th>
+                                                <td></td>
+                                            </tr>
 
-                                        <tr class="location">
-                                            <th class="pl-6">Location</th>
-                                            <td>My Files &gt; Documents</td>
-                                        </tr>
+                                            <tr class="location">
+                                                <th class="pl-6">Location</th>
+                                                <td></td>
+                                            </tr>
 
-                                        <tr class="owner">
-                                            <th class="pl-6">Owner</th>
-                                            <td>Me</td>
-                                        </tr>
+                                            <tr class="owner">
+                                                <th class="pl-6">Owner</th>
+                                                <td></td>
+                                            </tr>
 
-                                        <tr class="modified">
-                                            <th class="pl-6">Modified</th>
-                                            <td>April 8, 2017</td>
-                                        </tr>
-
-                                        <tr class="opened">
-                                            <th class="pl-6">Opened</th>
-                                            <td>April 8, 2017</td>
-                                        </tr>
-
-                                        <tr class="created">
-                                            <th class="pl-6">Created</th>
-                                            <td>April 8, 2017</td>
-                                        </tr>
-                                    </tbody></table>
+                                            <tr class="modified">
+                                                <th class="pl-6">Modified</th>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </aside>
@@ -272,6 +261,18 @@ $(function(){
                     contentType: false, 
                     success: function(msg){
                         console.log(msg);
+                        results = JSON.parse(data);
+                        $("#path").text(results[0][0].path_server);
+                        $('<tr>').append(
+                                $('<td class="file-icon">').html('<i class="icon-'+item.icon+'"></i>'),
+                                $('<td class="name">').html(item.title),
+                                $('<td class="type d-none d-md-table-cell">').html(item.icon),
+                                $('<td class="owner d-none d-sm-table-cell">').html(""),
+                                $('<td class="size d-none d-sm-table-cell">').html(item.size),
+                                $('<td class="last-modified d-none d-lg-table-cell">').html(item.last_modified),
+                                $('<td class="d-table-cell d-xl-none">').html(""),
+                            ).appendTo('.list-view');
+
                     },
                     error: function(msg){
                         console.log(msg);
@@ -302,6 +303,7 @@ $(function(){
   $(document).ready(function(){
 
         var folderselect_contextmenu;
+        var editor;
         $('.list-view').on('contextmenu', 'tr',function(e) {
             /*$('<select id="monselect">').append('<option value="foo">foo</option>').append('<option value="bar">bar</option>').appendTo('.context-menu-mobile');
             $('#monselect').click();*/
@@ -347,13 +349,24 @@ $(function(){
             $.ajax({
                     type: "POST",
                     url: $(this).attr("href"),
-                    data: 'folderdelete='+$("#path").text()+folderselect_contextmenu.find(".name").text(),
+                    data: 'file='+$("#path").text()+folderselect_contextmenu.find(".name").text(),
                     success: function(msg){
                         results = JSON.parse(msg);
-                        $('pre code').each(function(i, block) {
-                            hljs.highlightBlock(block);
+                        $('.CodeMirror').remove();
+                        $('.file-codemirror').append('<textarea class="cm-s-monokai CodeMirror codemirror-textarea"></textarea>');
+                        $('.btn-close').removeClass( "d-none" ).addClass( "d-block" );
+                        $('.btn-save').removeClass( "d-none" ).addClass( "d-block" );
+                        
+                        $('.CodeMirror').html(results);
+                        var code = $(".CodeMirror")[0];
+                        editor = CodeMirror.fromTextArea(code,{
+                            theme: "monokai",
+                            lineNumbers: true,
+                            styleActiveLine: true,
+                            matchBrackets: true,
+                            scrollbarStyle: "overlay",
+                            viewportMargin: Infinity
                         });
-                        $('pre code').append(results);
                     },
                     error: function(msg){
                         console.log(msg);
@@ -361,8 +374,38 @@ $(function(){
             });
             e.preventDefault();
         });
+        $('.file-codemirror .btn-close').on('click', function(e) {
+            $('.CodeMirror').remove();
+            $('.btn-close').removeClass( "d-block" ).addClass( "d-none" );
+            $('.btn-save').removeClass( "d-block" ).addClass( "d-none" );
+        });
+        $('.file-codemirror .btn-save').on('click', function(e) {
+            /*console.log(editor.getValue());*/
+            $.ajax({
+                    type: "POST",
+                    url: $(this).attr("href"),
+                    data: 'file='+$("#path").text()+folderselect_contextmenu.find(".name").text()+'content='+editor.getValue(),
+                    success: function(msg){
+                        alert("File saved!");
+                        console.log(msg);
+                    },
+                    error: function(msg){
+                        console.log(msg);
+                    }
+            });
+        });
+        $('.btn-info-file').on('click', function(e) {
+            $("aside .title-file").text($(this).parents().eq(1).find(".name").text());
+
+             $("aside .type td").text($(this).parents().eq(1).find(".type").text());
+             $("aside .size td").text($(this).parents().eq(1).find(".size").text());
+             $("aside .location td").text($(this).parents().eq(1).find(".location").text());
+             $("aside .owner td").text($(this).parents().eq(1).find(".owner").text());
+             $("aside .modified td").text($(this).parents().eq(1).find(".last-modified").text());
+        });
+        
         $('#downloadftp').on('click', function(e) {
-/*            var path = $("#path").text()+folderselect_contextmenu.find(".name").text();
+            var path = $("#path").text()+folderselect_contextmenu.find(".name").text();
             var file = folderselect_contextmenu.find(".name").text();
             $.ajax({
                 type: "POST",
@@ -376,7 +419,7 @@ $(function(){
                         if (matches != null && matches[1]) file = matches[1].replace(/['"]/g, '');
                     }
 
-                    var type = xhr.getResponseHeader('Content-Type');
+                    var type = xhr.getResponseHeader('Content-type', 'application/x-www-form-urlencoded');
                     var blob = new Blob([response], { type: type });
 
                     if (typeof window.navigator.msSaveBlob !== 'undefined') {
@@ -403,18 +446,18 @@ $(function(){
                     }
                 }
             });
-            e.preventDefault();*/
+            e.preventDefault();
 
-        var parameters = new FormData();
+        /*var parameters = new FormData();
 
         parameters.append('path', $("#path").text()+folderselect_contextmenu.find(".name").text());
         parameters.append('file', folderselect_contextmenu.find(".name").text());
 
         var xhr = new XMLHttpRequest();
-xhr.open("POST", $(this).attr('href'), true);
+        xhr.open("POST", $(this).attr('href'), true);
 
-xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-xhr.send(parameters);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        xhr.send(parameters);*/
 
         });
         $('#deleteftp').on('click', function(e) {
@@ -446,7 +489,6 @@ xhr.send(parameters);
                     data: 'path='+($('#path').text() == '/' ? path+elementfolder : path+'/'+elementfolder),
                     success: function(data){
                         $('.list-view tbody').empty();
-                        console.log(data);
                         results = JSON.parse(data);
                         $("#path").text(results[0][0].path_server);
                         $('<tr>').append(
@@ -476,71 +518,7 @@ xhr.send(parameters);
             });
             e.preventDefault();
         });
-/*        $('.treeviewserver').on('click', 'li',function(e) {
-            
-            if ($(this).find('ul').length === 0){
-                var elementfolder = $(this).attr('id');
-                var path = $("#path-server").val();
 
-                var arr = $(this).parentsUntil( $( "ul.treeviewserver" ));
-                var arrfilter = []
-
-                $.each( arr, function( key, data ) {
-                                arrfilter.push(data.id );
-                            });
-
-                console.log('tag : '+arrfilter);
-
-                var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
-                var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-
-                $.ajax({
-                    type: "POST",
-                    url: url+'/refreshfolderserver/'+id,
-                    data: 'path='+($('#path-server').val() == '/' ?path+elementfolder:path+'/'+elementfolder),
-                    success: function(msg){
-                        results = JSON.parse(msg);
-                        $("#path-server").val($("#path-server").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
-                        $('ul.treeviewserver #'+elementfolder+' a').after('<ul></ul>');
-                        for(var key in results) {
-                            $('ul.treeviewserver #'+elementfolder+' > ul').append('<li class="tree-branch" id="'+results[key].title+'"><a href="javascript:void(0);"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
-                        }
-                    },
-                    error: function(msg){
-                        console.log(msg);
-                    }
-                });
-            } else {
-                $(this).find('ul').toggle();
-            }
-            e.stopPropagation();
-        });
-
-        $('ul.treeviewlocal').on('click', 'li', function() {
-            var elementfolder = $(this).attr('id');
-            var path = $("#path-local").val();
-
-
-            var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
-            var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-
-            $.ajax({
-                type: "POST",
-                url: url+'/refreshfolderlocal/'+id,
-                data: 'path='+(elementfolder+':'),
-                success: function(msg){
-                    results = JSON.parse(msg);
-                    $("#path-local").val($("#path-local").val() == '/' ?path+elementfolder:path+'/'+elementfolder);
-                    $('ul.treeviewlocal #'+elementfolder+' a').after('<ul></ul>');
-                    for(var key in results) {
-                        $('ul.treeviewlocal #'+elementfolder+' a').next().append('<li class="tree-branch" id="'+results[key].title+'"><a href="javascript:void(0)"><i class="'+results[key].icon+'"></i> '+results[key].title+'</a></li>');
-                    }
-                },
-                error: function(msg){
-                    console.log(msg);
-                }
-            });
-        });*/
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

@@ -536,7 +536,68 @@ class CI_FTP {
 
 		return TRUE;
 	}
+	// --------------------------------------------------------------------
 
+	/**
+	 * Set file permissions
+	 *
+	 * @param	string	$path	File path
+	 * @return	text
+	 */
+	public function read_file($path)
+	{
+		if ( $this->_is_conn() )
+		{
+			$file = "ftp://".$this->username.":".$this->password."@".$this->hostname.$path;
+			$content = htmlspecialchars(file_get_contents($file));
+
+			return $content;
+		}
+
+		return FALSE;
+	}
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Write File
+	 *
+	 * Writes data to the file specified in the path.
+	 * Creates a new file if non-existent.
+	 *
+	 * @param	string	$path	File path
+	 * @param	string	$data	Data to write
+	 * @param	string	$mode	fopen() mode (default: 'wb')
+	 * @return	bool
+	 */
+
+	function write_file($path, $data, $mode = 'wb')
+	{
+		if ( $this->_is_conn() )
+		{
+			$file = "ftp://".$this->username.":".$this->password."@".$this->hostname.$path;
+			if ( ! $fp = @fopen($file, $mode))
+			{
+				return FALSE;
+			}
+
+			flock($fp, LOCK_EX);
+
+			for ($result = $written = 0, $length = strlen($data); $written < $length; $written += $result)
+			{
+				if (($result = fwrite($fp, substr($data, $written))) === FALSE)
+				{
+					break;
+				}
+			}
+
+			flock($fp, LOCK_UN);
+			fclose($fp);
+
+			return is_int($result);
+		}
+
+		return FALSE;
+	}
 	// --------------------------------------------------------------------
 
 	/**

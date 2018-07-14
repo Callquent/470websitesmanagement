@@ -50,8 +50,8 @@
                                       <tr>
                                         <td><?php echo $row->title_category; ?></td>
                                         <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                                          <td><a id="edit-dashboard" href="<?php echo site_url('category/edit-category/'.$row->c_id); ?>">Edit</a></td>
-                                          <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-category" data-id="<?php echo $row->c_id; ?>">Delete</a></td>
+                                          <td><a id="edit-dashboard" href="<?php echo site_url('category/edit-category/'.$row->id_category); ?>">Edit</a></td>
+                                          <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-category" data-id="<?php echo $row->id_category; ?>">Delete</a></td>
                                         <?php } ?>
                                       </tr>
                                     <?php } ?>
@@ -137,8 +137,8 @@
         $.getJSON( window.location.href+'/loadCategories/', function( data ) {
           categoryList = '<select id="category" name="category" class="form-control">';
           $.each( data, function( key, val ) {
-            if ( id != val.c_id ) {
-              categoryList += '<option value="'+val.c_id+'">'+ val.c_title + '</option>';
+            if ( id != val.id_category ) {
+              categoryList += '<option value="'+val.id_category+'">'+ val.c_title + '</option>';
             }
           });
           categoryList += '</select>';

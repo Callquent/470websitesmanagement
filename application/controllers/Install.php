@@ -6,8 +6,8 @@ class Install extends CI_Controller {
 	{
 		parent::__construct();
 		// Chargement des ressources pour ce controller
-		$this->load->library(array('form_validation','encrypt','session'));
-		$this->load->helper(array('functions','url'));
+		$this->load->library(array('form_validation','encryption','session'));
+		$this->load->helper(array('functions','url','file'));
 	}
 	public function index()
 	{
@@ -29,7 +29,6 @@ class Install extends CI_Controller {
 				$this->load->view('index');
 			}
 		}
-		
 	}
 	public function step1()
 	{
@@ -51,6 +50,14 @@ class Install extends CI_Controller {
 		$contenuMod=preg_replace($patterns,$replacements, $contenu);
 		fwrite($text,$contenuMod);
 		fclose($text);
+
+		$key=bin2hex($this->encryption->create_key(5));
+		$fichier = APPPATH."./config/config.php";
+		$contenu = read_file($fichier);
+		$patterns = array('/\$config\[\'encryption_key\'\] = \'(.*)\'/');
+		$replacements = array('$config[\'encryption_key\'] = \''.password_hash($key, PASSWORD_DEFAULT).'\'');
+		$contenuMod=preg_replace($patterns,$replacements, $contenu);
+		write_file($fichier, $contenuMod, 'r+');
 
 		$this->load->database();
 		if ( $this->load->database() === FALSE )
@@ -82,10 +89,8 @@ class Install extends CI_Controller {
 	public function step3()
 	{
 		$fichier = APPPATH."./config/routes.php";
-		$text=fopen($fichier,'r+') or die("Fichier manquant");
-		$contenu=file_get_contents($fichier); 
+		$contenu = read_file($fichier);
 		$contenuMod=str_replace( "install", "index", $contenu);
-		fwrite($text,$contenuMod);
-		fclose($text);
+		write_file($fichier, $contenuMod, 'r+');
 	}
 }

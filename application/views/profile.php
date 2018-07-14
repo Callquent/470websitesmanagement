@@ -12,7 +12,6 @@
                 <div class="permission my-6"><?php echo $user_role[0]->name; ?></div>
             </div>
             <div class="actions row align-items-center no-gutters">
-                <button type="button" class="btn btn-primary fuse-ripple-ready" aria-label="Follow">Follow</button>
                 <a href="mailto:<?php echo $user->email; ?>" class="btn btn-secondary ml-2 fuse-ripple-ready" aria-label="Send Message">Send Message</a>
             </div>
         </div>

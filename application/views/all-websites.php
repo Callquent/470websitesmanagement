@@ -192,21 +192,32 @@
                   <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                   <input type="email" class="form-control" name="email" placeholder="Email">
                 </div>
-                <div class="checkbox">
-                  <label>
-                    <input name="check_bo" type="checkbox"> Acces Backoffice
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input name="check_bo" type="checkbox" class="form-check-input">
+                      <span class="checkbox-icon fuse-ripple-ready"></span>
+                      <span>Acces Backoffice</span>
                   </label>
-                  <label>
-                    <input name="check_ftp" type="checkbox"> Acces FTP
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input name="check_ftp" type="checkbox" class="form-check-input">
+                      <span class="checkbox-icon fuse-ripple-ready"></span>
+                      <span>Acces FTP</span>
                   </label>
-                  <label>
-                    <input name="check_db" type="checkbox"> Acces Base de Donnée
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input name="check_db" type="checkbox" class="form-check-input">
+                      <span class="checkbox-icon fuse-ripple-ready"></span>
+                      <span>Acces Base de Donnée</span>
                   </label>
+                </div>
                 </div>
               </div>
               <div class="modal-footer ">
-                <button type="submit" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-share"></span> Envoyer</button>
-                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Annuler</button>
+                <button type="submit" class="btn btn-warning btn-lg"> Envoyer</button>
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"> Annuler</button>
               </div>
             </form>
           </div>

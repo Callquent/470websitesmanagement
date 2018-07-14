@@ -12,26 +12,26 @@ class Model_category extends CI_Model {
 
 		$this->db->insert('470websitesmanagement_category', $data);
 	}
-	function update_category($c_id, $title_category)
+	function update_category($id_category, $title_category)
 	{
 		$data = array(
 			'title_category' => $title_category,
 		);
 
-		$this->db->where('c_id', $c_id)
+		$this->db->where('id_category', $id_category)
 				 ->update('470websitesmanagement_category', $data);
 	}
-	function transfert_website_category($c_id_old, $c_id_new)
+	function transfert_website_category($id_category_old, $id_category_new)
 	{
 		$data = array(
-			'c_id' => $c_id_new,
+			'id_category' => $id_category_new,
 		);
 
-		$this->db->where('c_id', $c_id_old)
+		$this->db->where('id_category', $id_category_old)
 				 ->update('470websitesmanagement_website', $data);
 	}
-	function delete_category($c_id)
+	function delete_category($id_category)
 	{
-		$this->db->where('c_id', $c_id)->delete('470websitesmanagement_category'); 
+		$this->db->where('id_category', $id_category)->delete('470websitesmanagement_category'); 
 	}
 }

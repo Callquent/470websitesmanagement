@@ -11,7 +11,7 @@ class Import extends CI_Controller {
 		$this->load->model('model_tasks');
 		$this->load->model('model_back');
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth','encryption','form_validation', 'encrypt', 'session','email'));
+		$this->load->library(array('Aauth','encryption','form_validation','session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(

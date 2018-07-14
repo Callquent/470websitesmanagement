@@ -74,7 +74,20 @@
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
-        $(":input[type='radio']").on("change", function () {
+        $('#form-export a').click(function(e) {
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('href'),
+                success: function(msg){
+                    $('#form-export #keysecrete').val(msg);
+                },
+                error: function(msg){
+                    console.log(msg);
+                }
+            });
+            e.preventDefault();
+        });
+        $("input[type='radio']").on("change", function () {
             if ($("#radio_quick_export").prop("checked") ) {
                 $(".export-search-table").hide();
             }

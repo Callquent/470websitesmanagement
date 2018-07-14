@@ -50,8 +50,8 @@
                                       <tr>
                                         <td><?php echo $row->title_language; ?></td>
                                         <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-                                          <td><a id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->l_id); ?>">Edit</a></td>
-                                          <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-language" data-id="<?php echo $row->l_id; ?>">Delete</a></td>
+                                          <td><a id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_language); ?>">Edit</a></td>
+                                          <td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-language" data-id="<?php echo $row->id_language; ?>">Delete</a></td>
                                         <?php } ?>
                                       </tr>
                                     <?php } ?>
@@ -136,8 +136,8 @@
       $.getJSON( window.location.href+'/loadLanguages/', function( data ) {
         languageList = '<select id="language" name="language" class="form-control">';
         $.each( data, function( key, val ) {
-          if ( id != val.l_id ) {
-            languageList += '<option value="'+val.l_id+'">'+ val.l_title + '</option>';
+          if ( id != val.id_language ) {
+            languageList += '<option value="'+val.id_language+'">'+ val.l_title + '</option>';
           }
         });
         languageList += '</select>';

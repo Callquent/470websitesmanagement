@@ -3,11 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_back extends CI_Model {
 	
-	function create_websites($c_id, $l_id, $name_website, $url_website)
+	function create_websites($id_category, $id_language, $name_website, $url_website)
 	{
 		$data = array(
-			'c_id'				=> $c_id,
-			'l_id'				=> $l_id,
+			'id_category'			=> $id_category,
+			'id_language'			=> $id_language,
 			'name_website'			=> $name_website,
 			'url_website'			=> $url_website,
 		);
@@ -79,11 +79,11 @@ class Model_back extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function update_website($w_id, $c_id, $l_id, $name_website, $url_website)
+	function update_website($w_id, $id_category, $id_language, $name_website, $url_website)
 	{
 		$data = array(
-			'c_id'				=> $c_id,
-			'l_id'				=> $l_id,
+			'id_category'			=> $id_category,
+			'id_language'			=> $id_language,
 			'name_website'			=> $name_website,
 			'url_website'			=> $url_website,
 		);
@@ -168,8 +168,8 @@ class Model_back extends CI_Model {
 		foreach ($query->result() as $row) {
 			$data = array(
 				'w_id' => $row->w_id,
-				'c_id'  => $row->c_id,
-				'l_id'  => $row->l_id,
+				'id_category'  => $row->id_category,
+				'id_language'  => $row->id_language,
 				'name_website' => $row->name_website,
 				'url_website'  => $row->url_website
 			);

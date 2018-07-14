@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 18 avr. 2018 à 06:34
+-- Généré le :  sam. 14 juil. 2018 à 21:38
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.0.23
 
@@ -42,16 +42,37 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_backoffice` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `470websitesmanagement_card_tasks`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_card_tasks`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_card_tasks` (
+  `id_list_tasks` int(11) UNSIGNED NOT NULL,
+  `id_project_tasks` int(11) UNSIGNED NOT NULL,
+  `title_card_tasks` varchar(255) NOT NULL,
+  `description_card_tasks` text NOT NULL,
+  `id_priority_tasks` int(11) NOT NULL,
+  `id_status_tasks` int(11) NOT NULL,
+  PRIMARY KEY (`id_list_tasks`,`id_project_tasks`),
+  KEY `fk_id_list_tasks` (`id_project_tasks`),
+  KEY `fk_id_status_tasks` (`id_status_tasks`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `470websitesmanagement_category`
 --
 
 DROP TABLE IF EXISTS `470websitesmanagement_category`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_category` (
-  `c_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_category` int(11) NOT NULL AUTO_INCREMENT,
   `title_category` varchar(255) CHARACTER SET latin1 NOT NULL,
   `title_url_category` varchar(255) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id_category`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -150,17 +171,17 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_htaccess` (
 
 DROP TABLE IF EXISTS `470websitesmanagement_language`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_language` (
-  `l_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_language` int(11) NOT NULL AUTO_INCREMENT,
   `title_language` varchar(255) NOT NULL,
   `title_url_language` varchar(255) NOT NULL,
-  PRIMARY KEY (`l_id`)
+  PRIMARY KEY (`id_language`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `470websitesmanagement_language`
 --
 
-INSERT INTO `470websitesmanagement_language` (`l_id`, `title_language`, `title_url_language`) VALUES
+INSERT INTO `470websitesmanagement_language` (`id_language`, `title_language`, `title_url_language`) VALUES
 (1, 'HTML', 'html'),
 (2, 'Ruby on Rails', 'ruby-on-rails'),
 (3, 'Django', 'django'),
@@ -169,21 +190,6 @@ INSERT INTO `470websitesmanagement_language` (`l_id`, `title_language`, `title_u
 (6, 'Joomla', 'joomla'),
 (8, 'Drupal', 'drupal'),
 (9, 'OpenCart', 'opencart');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `470websitesmanagement_list_tasks`
---
-
-DROP TABLE IF EXISTS `470websitesmanagement_list_tasks`;
-CREATE TABLE IF NOT EXISTS `470websitesmanagement_list_tasks` (
-  `id_list_tasks` int(11) UNSIGNED NOT NULL,
-  `id_project_tasks` int(11) UNSIGNED NOT NULL,
-  `title_list_task` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_list_tasks`,`id_project_tasks`),
-  KEY `fk_id_list_tasks` (`id_project_tasks`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -198,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_login_attempts` (
   `timestamp` datetime DEFAULT NULL,
   `login_attempts` tinyint(2) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `470websitesmanagement_login_attempts`
@@ -347,17 +353,13 @@ INSERT INTO `470websitesmanagement_settings` (`id_s`, `name_s`, `value_s`) VALUE
 DROP TABLE IF EXISTS `470websitesmanagement_tasks`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks` (
   `id_project_tasks` int(11) UNSIGNED NOT NULL,
-  `id_task` int(11) UNSIGNED NOT NULL,
   `id_list_tasks` int(11) UNSIGNED NOT NULL,
+  `id_task` int(11) UNSIGNED NOT NULL,
   `name_task` varchar(255) NOT NULL,
-  `description_task` varchar(255) NOT NULL,
-  `id_tasks_priority` int(11) NOT NULL,
-  `id_tasks_status` int(11) NOT NULL,
+  `check_tasks` tinyint(1) NOT NULL,
   `id_user` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id_project_tasks`,`id_task`,`id_list_tasks`),
   KEY `id_users` (`id_user`),
-  KEY `id_task_priority` (`id_tasks_priority`),
-  KEY `id_tasks_status` (`id_tasks_status`),
   KEY `fk_task_to_list_tasks` (`id_list_tasks`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -402,9 +404,9 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks_status` (
 --
 
 INSERT INTO `470websitesmanagement_tasks_status` (`id_tasks_status`, `name_tasks_status`) VALUES
-(1, 'In Progress'),
-(2, 'Completed'),
-(3, 'Canceled');
+(1, 'To Do'),
+(2, 'In Progress'),
+(3, 'Completed');
 
 -- --------------------------------------------------------
 
@@ -429,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_users` (
   `totp_secret` varchar(16) DEFAULT NULL,
   `ip_address` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -469,15 +471,15 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_user_variables` (
 DROP TABLE IF EXISTS `470websitesmanagement_website`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_website` (
   `w_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `c_id` int(11) NOT NULL,
-  `l_id` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `id_language` int(11) NOT NULL,
   `name_website` varchar(255) NOT NULL,
   `url_website` varchar(255) NOT NULL,
   PRIMARY KEY (`w_id`),
   UNIQUE KEY `w_url_rw` (`url_website`),
-  KEY `fk_c_id` (`c_id`),
-  KEY `fk_l_id` (`l_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `fk_c_id` (`id_category`),
+  KEY `fk_l_id` (`id_language`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -494,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
   `registrar` varchar(255) DEFAULT NULL,
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`whois_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Contraintes pour les tables déchargées
@@ -505,6 +507,13 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
 --
 ALTER TABLE `470websitesmanagement_backoffice`
   ADD CONSTRAINT `fk_id_bo` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_card_tasks`
+--
+ALTER TABLE `470websitesmanagement_card_tasks`
+  ADD CONSTRAINT `fk_id_list_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_project_tasks` (`id_project_tasks`),
+  ADD CONSTRAINT `fk_id_status_tasks` FOREIGN KEY (`id_status_tasks`) REFERENCES `470websitesmanagement_tasks_status` (`id_tasks_status`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_database`
@@ -523,12 +532,6 @@ ALTER TABLE `470websitesmanagement_ftp`
 --
 ALTER TABLE `470websitesmanagement_htaccess`
   ADD CONSTRAINT `fk_id_ht` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
-
---
--- Contraintes pour la table `470websitesmanagement_list_tasks`
---
-ALTER TABLE `470websitesmanagement_list_tasks`
-  ADD CONSTRAINT `fk_id_list_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_project_tasks` (`id_project_tasks`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_positiontracking`
@@ -552,18 +555,16 @@ ALTER TABLE `470websitesmanagement_project_tasks`
 -- Contraintes pour la table `470websitesmanagement_tasks`
 --
 ALTER TABLE `470websitesmanagement_tasks`
-  ADD CONSTRAINT `fk_id_task_priority` FOREIGN KEY (`id_tasks_priority`) REFERENCES `470websitesmanagement_tasks_priority` (`id_tasks_priority`),
-  ADD CONSTRAINT `fk_id_task_status` FOREIGN KEY (`id_tasks_status`) REFERENCES `470websitesmanagement_tasks_status` (`id_tasks_status`),
   ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `470websitesmanagement_users` (`id`),
-  ADD CONSTRAINT `fk_task_to_list_tasks` FOREIGN KEY (`id_list_tasks`) REFERENCES `470websitesmanagement_list_tasks` (`id_list_tasks`),
-  ADD CONSTRAINT `fk_task_to_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_list_tasks` (`id_project_tasks`);
+  ADD CONSTRAINT `fk_task_to_list_tasks` FOREIGN KEY (`id_list_tasks`) REFERENCES `470websitesmanagement_card_tasks` (`id_list_tasks`),
+  ADD CONSTRAINT `fk_task_to_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_card_tasks` (`id_project_tasks`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_website`
 --
 ALTER TABLE `470websitesmanagement_website`
-  ADD CONSTRAINT `fk_c_id` FOREIGN KEY (`c_id`) REFERENCES `470websitesmanagement_category` (`c_id`),
-  ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`l_id`) REFERENCES `470websitesmanagement_language` (`l_id`);
+  ADD CONSTRAINT `fk_c_id` FOREIGN KEY (`id_category`) REFERENCES `470websitesmanagement_category` (`id_category`),
+  ADD CONSTRAINT `fk_l_id` FOREIGN KEY (`id_language`) REFERENCES `470websitesmanagement_language` (`id_language`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_whois`

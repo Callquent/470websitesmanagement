@@ -36,7 +36,7 @@ class All_projects extends CI_Controller {
 		$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
 		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
-		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
+		/*$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();*/
 
 
 		if($this->uri->total_segments() == 1){
@@ -44,6 +44,14 @@ class All_projects extends CI_Controller {
 
 			$this->load->view('all-projects', $data);
 		} elseif($this->uri->total_segments() == 2) {
+			foreach ($data['list_users']->result() as $row)
+			{
+				$list = array();
+				$list['value'] = strip_tags($row->name_user);
+				$list['data'] = strip_tags($row->id);
+
+				$data['users'][] = $list;
+			}
 			$data['project'] = $this->model_tasks->get_project($id_project_tasks);
 
 			$data['datetimestart'] = past_time_project($id_project_tasks);
@@ -54,14 +62,11 @@ class All_projects extends CI_Controller {
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
 			$data['all_list_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
+			$data['all_card_tasks_to_do'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"1");
+			$data['all_card_tasks_in_progress'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"2");
+			$data['all_card_tasks_completed'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"3");
+			
 			$data['all_users_to_project'] = $this->model_tasks->get_users_to_project($id_project_tasks);
-			$data['id_project_tasks'] = $id_project_tasks;
-
-			/*if ( $data['percentage']->num_rows() == 0) {
-				$data['percentage_all_tasks'] = 0;
-			} else {
-				$data['percentage_all_tasks'] = round(($data['percentage']->num_rows()*100)/$data['all_tasks']->num_rows());
-			}*/
 
 			$this->load->view('view-project', $data);
 		}
@@ -89,6 +94,15 @@ class All_projects extends CI_Controller {
 	{
 		$this->model_tasks->delete_project($id_project);
 	}
+	public function view_card_tasks()
+	{
+		$id_project			= $this->input->post('idproject');
+		$id_card_tasks		= $this->input->post('idcard');
+
+		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project, $id_card_tasks);
+
+		echo json_encode($data);
+	}
 	public function create_list_tasks($id_project_tasks = '')
 	{
 		$title_list_task			= $this->input->post('titlelisttasks');
@@ -99,24 +113,20 @@ class All_projects extends CI_Controller {
 	{
 		$idlisttasks			= $this->input->post('idlisttasks');
 		$nametask				= $this->input->post('titletask');
-		$descriptiontask		= $this->input->post('descriptiontask');
-		$idtaskpriority			= $this->input->post('taskspriority');
-		$idtaskstatus			= $this->input->post('tasksstatus');
 		$iduser					= $this->input->post('user');
 
-		$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $nametask, $descriptiontask, $idtaskpriority, $idtaskstatus, $iduser);
+		$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $nametask, $iduser);
 	}
-	public function edit_tasks($w_id = '')
+	public function edit_tasks($id_project_tasks = '')
 	{
 		$idlisttasks			= $this->input->post('idlisttasks');
+		$idtask					= $this->input->post('idtask');
 		$nametask				= $this->input->post('titletask');
-		$descriptiontask		= $this->input->post('descriptiontask');
-		$idtaskpriority			= $this->input->post('taskspriority');
-		$idtaskstatus			= $this->input->post('tasksstatus');
+		$check_tasks			= $this->input->post('check_tasks');
 		$iduser					= $this->input->post('user');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_back->update_projects($w_id, $started_project_tasks, $started_project_tasks, $deadline_project_tasks);
+			$this->model_back->update_tasks($id_project_tasks, $idlisttasks, $idtask, $name_task, $check_tasks, $iduser);
 		}
 	}
 }

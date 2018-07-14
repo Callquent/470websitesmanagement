@@ -42,7 +42,7 @@
                                                 <div class="col-lg-6">
                                                   <select name="languages" class="add-website-languages" class="form-control">
                                                   <?php foreach ($all_languages->result() as $row){  ?>
-                                                      <option value="<?php echo $row->l_id; ?>"><?php echo $row->title_language; ?></option>
+                                                      <option value="<?php echo $row->id_language; ?>"><?php echo $row->title_language; ?></option>
                                                   <?php } ?>
                                                   </select>
                                                 </div>
@@ -52,7 +52,7 @@
                                                 <div class="col-lg-6">
                                                   <select name="categories" class="add-website-categories" class="form-control">
                                                   <?php foreach ($all_categories->result() as $row){  ?>
-                                                      <option value="<?php echo $row->c_id; ?>"><?php echo $row->title_category; ?></option>
+                                                      <option value="<?php echo $row->id_category; ?>"><?php echo $row->title_category; ?></option>
                                                   <?php } ?>
                                                   </select>
                                                 </div>

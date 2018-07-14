@@ -11,13 +11,21 @@ class Ftp_websites extends CI_Controller {
 		$this->load->model('model_tasks');
 		$this->load->model('model_users');
 		$this->load->model('model_settings');
-		$this->load->library(array('user_agent','Aauth','form_validation','encrypt','session','ftp'));
-		$this->load->helper(array('functions', 'text', 'url','language'));
+		$this->load->library(array('user_agent','Aauth','form_validation','encryption','session','ftp'));
+		$this->load->helper(array('functions', 'text', 'url','language','file'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
 		);
 		$this->session->set_userdata($sesslanguage);
+		$this->encryption->initialize(
+			array(
+			        'cipher' => 'aes-256',
+			        'mode' => 'ctr',
+			        'key' => $this->config->item('encryption_key')
+			)
+		);
+
 		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
 	public function index($id_ftp_websites = '')
@@ -41,7 +49,7 @@ class Ftp_websites extends CI_Controller {
 			if (!empty($row->host_ftp) && !empty($row->login_ftp) && !empty($row->password_ftp)) {
 				$config['hostname'] = $row->host_ftp;
 				$config['username'] = $row->login_ftp;
-				$config['password'] = $row->password_ftp;
+				$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 				$this->ftp->connect($config);
 				$data['path_server'] = '/';
@@ -70,7 +78,7 @@ class Ftp_websites extends CI_Controller {
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
-		$config['password'] = $row->password_ftp;
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
 		$path_back_folder = str_replace("/..","",$pathfolder);
@@ -88,19 +96,6 @@ class Ftp_websites extends CI_Controller {
 		$data[] = $tree_data;
 		echo json_encode($data);
 	}
-	public function readfileftp($id_ftp_websites = '')
-	{
-		/*$row =  $this->model_front->get_website($id_ftp_websites)->row();
-
-		$config['hostname'] = $row->host_ftp;
-		$config['username'] = $row->login_ftp;
-		$config['password'] = $row->password_ftp;*/
-
-		$filename = "ftp://serrurier-lyon69:YxyEcwYJbQQVKwevGrHdyeqD@176.31.21.136/public_html/index.php";
-		$handle = fopen($filename, "r");
-		$contents = fread($handle, filesize($filename));
-		echo json_encode($contents);
-	}
 	public function mkdirftp($id_ftp_websites = '')
 	{
 		$createfolder = $this->input->post('createfolder');
@@ -109,7 +104,7 @@ class Ftp_websites extends CI_Controller {
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
-		$config['password'] = $row->password_ftp;
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
 
@@ -132,42 +127,44 @@ class Ftp_websites extends CI_Controller {
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
-		$config['password'] = $row->password_ftp;
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
 
-		/*$this->ftp->upload($source_to_local, $destination_to_server, 'auto', 0775);*/
+		$this->ftp->upload($source_to_local, $destination_to_server, 'auto', 0775);
 
 		$this->ftp->close();
 	}
 	public function downloadftp($id_ftp_websites = '')
 	{
-		$source_to_server = $this->input->post('path');
-		$file = $this->input->post('file');
-		var_dump($_POST);
+		/*$source_to_server = $this->input->post('path');
+		$file = $this->input->post('file');*/
 
-		/*header("Content-type: text/plain");
-		header("Content-Disposition: attachment; filename=".$file);
+		header("Content-type: text/plain");
+		header("Content-Disposition: attachment; filename=\"sans-titre-1.psd\"");
+		/*header("Content-Disposition: attachment; filename=".$file);*/
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
-		$config['password'] = $row->password_ftp;
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-		$this->ftp->download($source_to_server, 'php://output', 'auto');*/
 
-		/*header("Content-Disposition: attachment; filename=\"sans-titre-1.psd\"");*/
-		/*$this->ftp->download('/sans-titre-1.psd', 'php://output', 'auto');*/
+				
+		/*$this->ftp->download($source_to_server, 'php://output', 'auto');*/
+
+		
+		$this->ftp->download('/sans-titre-1.psd', 'php://output', 'auto');
 	}
-	public function moveftp()
+	/*public function moveftp()
 	{
 		$oldmove = $this->input->post('oldmove');
 		$newmove = $this->input->post('newmove');
 
 		$this->ftp->move('/public_html/joe/blog.html', '/public_html/fred/blog.html');
-	}
+	}*/
 	public function renameftp()
 	{
 		$oldrename = $this->input->post('oldrename');
@@ -177,7 +174,7 @@ class Ftp_websites extends CI_Controller {
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
-		$config['password'] = $row->password_ftp;
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
 
@@ -193,7 +190,7 @@ class Ftp_websites extends CI_Controller {
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
-		$config['password'] = $row->password_ftp;
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
 
@@ -204,5 +201,39 @@ class Ftp_websites extends CI_Controller {
 			$this->ftp->delete_dir($folderdelete);
 		}
 	}
+	public function readfileftp($id_ftp_websites = '')
+	{
+		$filepath = $this->input->post('file');
 
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
+
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+
+		$this->ftp->connect($config);
+		$data = $this->ftp->read_file($filepath);
+		echo json_encode($data);
+	}
+	public function writefileftp($id_ftp_websites = '')
+	{
+		$filepath = $this->input->post('file');
+		$content = $this->input->post('content');
+
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
+
+		/*$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+
+		$this->ftp->connect($config);*/
+		/*$data = $this->ftp->write_file($filepath,$content);*/
+		$fp = fopen('php://temp', 'r+');
+		fwrite($fp, $content);
+		rewind($fp);
+
+		$conn_id = ftp_connect($row->host_ftp);
+		$login_result = ftp_login($conn_id, $row->login_ftp, $this->encryption->decrypt($row->password_ftp));
+		ftp_fput($conn_id, $filepath, $fp, FTP_ASCII);
+	}
 }

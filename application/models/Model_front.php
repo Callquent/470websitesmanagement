@@ -7,7 +7,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
-				 ->order_by('470websitesmanagement_website.c_id', 'ASC');
+				 ->order_by('470websitesmanagement_website.id_category', 'ASC');
 
 		$query = $this->db->get();
 		$count_domain=0;
@@ -26,7 +26,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
-				 ->order_by('470websitesmanagement_website.c_id', 'ASC');
+				 ->order_by('470websitesmanagement_website.id_category', 'ASC');
 
 		$query = $this->db->get();
 		$count_subdomain=0;
@@ -48,8 +48,8 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
-				 ->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
-				 ->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id');
+				 ->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
+				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category');
 		$i = 0;
 		if(isset($_POST['search']['value'])){
 			foreach ($this->column as $item) {
@@ -82,8 +82,8 @@ class Model_front extends CI_Model {
 		$this->_get_datatables_query();
 		/*$this->db->select('*')
 				 ->from('470websitesmanagement_website')
-				 ->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = language.l_id')
-				 ->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = category.c_id')
+				 ->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = language.id_language')
+				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = category.id_category')
 				 ->order_by('470websitesmanagement_website.w_id', 'ASC');*/
 		if (isset($_POST['length']) && isset($_POST['start'])) {
 			if($_POST['length'] != -1){
@@ -104,10 +104,10 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
-				 ->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id')
-				 ->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
+				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
+				 ->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
 				 ->where('title_url_category', $url)
-				 ->order_by('470websitesmanagement_website.c_id', 'ASC');
+				 ->order_by('470websitesmanagement_website.id_category', 'ASC');
 
 		$query = $this->db->get();
 		return $query;
@@ -116,10 +116,10 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
-				 ->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
-				 ->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id')
+				 ->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
+				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
 				 ->where('title_url_language', $url)
-				 ->order_by('470websitesmanagement_website.l_id', 'ASC');
+				 ->order_by('470websitesmanagement_website.id_language', 'ASC');
 
 		$query = $this->db->get();
 		return $query;
@@ -147,8 +147,8 @@ class Model_front extends CI_Model {
 				->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.id_website = 470websitesmanagement_website.w_id')
 				->join('470websitesmanagement_database', '470websitesmanagement_database.id_website = 470websitesmanagement_website.w_id')
 				->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.id_website = 470websitesmanagement_website.w_id')
-				->join('470websitesmanagement_language', '470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id')
-				->join('470websitesmanagement_category', '470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id')
+				->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
+				->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
 				->where('w_id', $id)
 				->limit(1);
 
@@ -159,7 +159,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_category')
-				->where('c_id', $id)
+				->where('id_category', $id)
 				->limit(1);
 
 		$query = $this->db->get();
@@ -169,7 +169,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_language')
-				->where('l_id', $id)
+				->where('id_language', $id)
 				->limit(1);
 
 		$query = $this->db->get();
@@ -228,18 +228,18 @@ class Model_front extends CI_Model {
 	}
 	function count_websites_per_category()
 	{
-		$this->db->select('*, (SELECT count(*) from 470websitesmanagement_website WHERE 470websitesmanagement_website.c_id = 470websitesmanagement_category.c_id) as count_websites_per_category')
+		$this->db->select('*, (SELECT count(*) from 470websitesmanagement_website WHERE 470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category) as count_websites_per_category')
 				 ->from('470websitesmanagement_category')
-				 ->group_by('470websitesmanagement_category.c_id');
+				 ->group_by('470websitesmanagement_category.id_category');
 
 		$query = $this->db->get();
 		return $query;
 	}
 	function count_websites_per_language()
 	{
-		$this->db->select('*, (SELECT count(*) from 470websitesmanagement_website WHERE 470websitesmanagement_website.l_id = 470websitesmanagement_language.l_id) as count_websites_per_language')
+		$this->db->select('*, (SELECT count(*) from 470websitesmanagement_website WHERE 470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language) as count_websites_per_language')
 				 ->from('470websitesmanagement_language')
-				 ->group_by('470websitesmanagement_language.l_id');
+				 ->group_by('470websitesmanagement_language.id_language');
 
 		$query = $this->db->get();
 		return $query;
