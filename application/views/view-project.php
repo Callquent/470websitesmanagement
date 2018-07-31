@@ -5,146 +5,114 @@
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
-        <h2 class="doc-title" id="content"><?php echo lang('website_scrapper_google'); ?></h2>
+        <h2 class="doc-title" id="content"><?php echo lang('dashboard'); ?></h2>
     </div>
     <div class="page-content">
+      <section id="main-content" >
+          <section class="wrapper">
+            <div class="row">
+                <div class="col-sm-12">
 
 
-<div class="card">
-    <div class="card-body mb-4">
 
-        <h2 class="text-center font-weight-bold pt-4 pb-5"><strong>Steps form example</strong></h2>
+test<br>
+testtest<br>
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
+v
+test<br>v
 
-        <!-- Stepper -->
-        <div class="steps-form">
-            <div class="steps-row setup-panel">
-                <div class="steps-step">
-                    <a href="#step-9" type="button" class="btn btn-indigo btn-circle">1</a>
-                    <p>Step 1</p>
-                </div>
-                <div class="steps-step">
-                    <a href="#step-10" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                    <p>Step 2</p>
-                </div>
-                <div class="steps-step">
-                    <a href="#step-11" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                    <p>Step 3</p>
-                </div>
-            </div>
-        </div>
+vv
+test<br>
+v
+vv
+vtest<br>
+test<br>
+test<br>
 
-        <form role="form" action="" method="post">
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
+v
+test<br>v
 
-            <!-- First Step -->
-            <div class="row setup-content" id="step-9">
-                <div class="col-md-12">
-                    <h3 class="font-weight-bold pl-0 my-4"><strong>Step 1</strong></h3>
-                    <div class="form-group md-form">
-                        <label for="yourName" data-error="wrong" data-success="right">First Name</label>
-                        <input id="yourName" type="text" required="required" class="form-control validate">
-                    </div>
-                    <div class="form-group md-form mt-3">
-                        <label for="yourLastName" data-error="wrong" data-success="right">Last Name</label>
-                        <input id="yourLastName" type="text" required="required" class="form-control validate">
-                    </div>
-                    <div class="form-group md-form mt-3">
-                        <label for="yourAddress" data-error="wrong" data-success="right">Address</label>
-                        <textarea id="yourAddress" type="text" required="required" rows="2" class="md-textarea validate form-control"></textarea>
-                    </div>
-                    <button class="btn btn-indigo btn-rounded nextBtn float-right" type="button">Next</button>
-                </div>
-            </div>
+vv
+test<br>
+v
+vv
+vtest<br>
+test<br>
+test<br>
 
-            <!-- Second Step -->
-            <div class="row setup-content" id="step-10">
-                <div class="col-md-12">
-                    <h3 class="font-weight-bold pl-0 my-4"><strong>Step 2</strong></h3>
-                    <div class="form-group md-form">
-                        <label for="companyName" data-error="wrong" data-success="right">Company Name</label>
-                        <input id="companyName" type="text" required="required" class="form-control validate">
-                    </div>
-                    <div class="form-group md-form mt-3">
-                        <label for="companyAddress" data-error="wrong" data-success="right">Company Address</label>
-                        <input id="companyAddress" type="text" required="required" class="form-control validate">
-                    </div>
-                    <button class="btn btn-indigo btn-rounded prevBtn float-left" type="button">Previous</button>
-                    <button class="btn btn-indigo btn-rounded nextBtn float-right" type="button">Next</button>
-                </div>
-            </div>
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
+test<br>
 
-            <!-- Third Step -->
-            <div class="row setup-content" id="step-11">
-                <div class="col-md-12">
-                    <h3 class="font-weight-bold pl-0 my-4"><strong>Step 3</strong></h3>
-                    <button class="btn btn-indigo btn-rounded prevBtn float-left" type="button">Previous</button>
-                    <button class="btn btn-default btn-rounded float-right" type="submit">Submit</button>
-                </div>
-            </div>
-
-        </form>
-
-    </div>
-</div>
-
-
-<academy-course class="ng-tns-c58-59 ng-star-inserted">
+<!-- <div class="ng-tns-c58-59 ng-star-inserted">
     <div class="page-layout simple left-sidebar inner-scroll" id="academy-course">
-        <fuse-sidebar class="sidebar left-positioned open locked-open" lockedopen="gt-md" name="academy-course-left-sidebar-1" position="left" style="">
-            <div class="content ng-tns-c58-59 ps ps--active-y" fuseperfectscrollbar="">
+        <aside class="sidebar left-positioned open locked-open">
+            <div class="content">
                 <div class="steps">
-                    <div class="step ng-tns-c58-59 current first ng-star-inserted">
-                        <div class="index"><a href=""><span class="ng-tns-c58-59">1</span></a></div>
+                    <a class="step ng-tns-c58-59 current first ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">1</span></div>
                         <div class="title">Introduction</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">2</span></div>
                         <div class="title">Get the sample code</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">3</span></div>
                         <div class="title">Create a Firebase project and Set up your app</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">4</span></div>
                         <div class="title">Install the Firebase Command Line Interface</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">5</span></div>
                         <div class="title">Deploy and run the web app</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">6</span></div>
                         <div class="title">The Functions Directory</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">7</span></div>
                         <div class="title">Import the Cloud Functions and Firebase Admin modules</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">8</span></div>
                         <div class="title">Welcome New Users</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">9</span></div>
                         <div class="title">Images moderation</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">10</span></div>
                         <div class="title">New Message Notifications</div>
-                    </div>
-                    <div class="step ng-tns-c58-59 last ng-star-inserted">
+                    </a>
+                    <a class="step ng-tns-c58-59 last ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">11</span></div>
                         <div class="title">Congratulations!</div>
-                    </div>
-                </div>
-                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                </div>
-                <div class="ps__rail-y" style="top: 0px; right: 0px; height: 513px;">
-                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 345px;"></div>
+                    </a>
                 </div>
             </div>
-        </fuse-sidebar>
+        </aside>
         <div class="center">
             <div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                 <button class="sidebar-toggle mr-16 mat-icon-button" fxhide.gt-md="" mat-icon-button="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">menu</mat-icon></span>
@@ -159,7 +127,7 @@
                     <h2 class="ng-tns-c58-59">Basics of Angular</h2></div>
             </div>
             <div class="content" id="course-content">
-                <div class="course-step ng-tns-c58-59 ps ng-trigger ng-trigger-slideIn ng-star-inserted ps--active-y" fuseperfectscrollbar="">
+                <div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
                     <div class="course-step-content" id="course-step-content">
                         <h1>Step 1 - Introduction</h1>
                         <br>This is an example step of the course. You can put anything in here from example codes to videos.
@@ -207,11 +175,14 @@
             </div>
         </div>
     </div>
-</academy-course>
+</div> -->
 
 
 
-
+            </div>
+        </div>
+    </section>
+</section>
 
 
 
@@ -486,7 +457,6 @@
   </div>
 </div>
 
-
 <div class="modal fade" id="view-send-mail" tabindex="-1" role="dialog" aria-labelledby="view-send-mail" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -519,59 +489,10 @@
 </div>
 
 
-
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 
-    var navListItems = $('div.steps div a'),
-        allWells = $('.setup-content'),
-        allNextBtn = $('.nextBtn'),
-        allPrevBtn = $('.prevBtn');
 
-    allWells.hide();
-
-    navListItems.click(function (e) {
-        e.preventDefault();
-        var $target = $($(this).attr('href')),
-            $item = $(this);
-
-        if (!$item.hasClass('disabled')) {
-            navListItems.removeClass('btn-indigo').addClass('btn-default');
-            $item.addClass('btn-indigo');
-            allWells.hide();
-            $target.show();
-            $target.find('input:eq(0)').focus();
-        }
-    });
-
-    allPrevBtn.click(function(){
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            prevStepSteps = $('div.steps div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-            prevStepSteps.removeAttr('disabled').trigger('click');
-    });
-
-    allNextBtn.click(function(){
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.steps div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
-            isValid = true;
-
-        $(".form-group").removeClass("has-error");
-        for(var i=0; i< curInputs.length; i++){
-            if (!curInputs[i].validity.valid){
-                isValid = false;
-                $(curInputs[i]).closest(".form-group").addClass("has-error");
-            }
-        }
-
-        if (isValid)
-            nextStepWizard.removeAttr('disabled').trigger('click');
-    });
-
-    $('div.steps div a.btn-indigo').trigger('click');
 
 /*var EditableTable = function () {
 
@@ -624,7 +545,70 @@
 
 }();*/
 $(document).ready(function(){
-    var autocomplete_user = JSON.parse('<?php echo json_encode($users); ?>');
+
+    var navListItems = $('.steps a'),
+        allWells = $('.setup-content'),
+        allNextBtn = $('.nextBtn'),
+        allPrevBtn = $('.prevBtn');
+
+    allWells.hide();
+
+    navListItems.click(function (e) {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+            $item = $(this);
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('current').removeClass('completed');
+            $.each( $('.steps a'), function(i, item) {
+                if (i < $item.index()) {
+                    $(item).addClass('completed');
+                } else if (i==$item.index()) {
+                    $(item).addClass('current');
+                }
+            });
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
+    });
+
+    allPrevBtn.click(function(){
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            prevStepSteps = $('.steps a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+
+            prevStepSteps.removeAttr('disabled').trigger('click');
+    });
+
+    allNextBtn.click(function(){
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            nextStepWizard = $('.steps a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            isValid = true;
+
+        $(".form-group").removeClass("has-error");
+        for(var i=0; i< curInputs.length; i++){
+            if (!curInputs[i].validity.valid){
+                isValid = false;
+                $(curInputs[i]).closest(".form-group").addClass("has-error");
+            }
+        }
+
+        if (isValid)
+            nextStepWizard.removeAttr('disabled').trigger('click');
+    });
+
+    $('.steps a.btn-indigo').trigger('click');
+
+
+
+
+    
+
+
+   /* var autocomplete_user = JSON.parse('<?php echo json_encode($users); ?>');
 
     $('#autocomplete-user').autocomplete({
         lookup: autocomplete_user,
@@ -762,14 +746,14 @@ $(document).ready(function(){
                 }
                 event.preventDefault();
             });
-        }
+        }*/
 
 
 
 
 
 
-    EditableTable.init();
+    /*EditableTable.init();*/
 
 });
 </script>

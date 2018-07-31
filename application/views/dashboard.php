@@ -113,8 +113,6 @@
   var pieDataLanguage = JSON.parse('<?php echo $chart_language; ?>');
   var pieDataCategory = JSON.parse('<?php echo $chart_category; ?>');
 
-  console.log(pieDataCategory);
-
   $(document).ready(function(){
       var dashboardTable = $('#table-dashboard').dataTable({
           "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],

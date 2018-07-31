@@ -4,8 +4,8 @@
                         <div class="aside-toolbar">
                             <div class="logo">
                                 <a href="<?php echo site_url('dashboard'); ?>" class="logo">
-                                    <img class="d-none logo-folded" src="<?php echo img_url('app/logo-470websitesmanagement.png'); ?>" alt="">
-                                    <img class="logo-expanded" src="<?php echo img_url('app/logo-470websitesmanagement-old.png'); ?>" alt="">
+                                    <img class="d-none logo-folded" src="<?php echo img_url('app/logo-470websitesmanagement-folded.png'); ?>" alt="">
+                                    <img class="logo-expanded" src="<?php echo img_url('app/logo-470websitesmanagement-expanded.png'); ?>" alt="">
                                 </a>
                             </div>
                             <button id="toggle-fold-aside-button" type="button" class="btn btn-icon d-none d-lg-block fuse-ripple-ready" data-fuse-aside-toggle-fold="">

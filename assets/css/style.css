@@ -275,15 +275,6 @@ h3.r{
 /*********************/
 /*      MEMBERS      */
 /*********************/
-.completed {
-  background-color: #00BCD4;
-}
-.in-progress {
-  background-color: #999999;
-}
-.canceled {
-  background-color: #F44336;
-}
 .avatar {
   width: 40px;
   height: 40px;
