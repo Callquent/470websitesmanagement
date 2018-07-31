@@ -4,9 +4,225 @@
 <?php $this->load->view('include/navbar.php'); ?>
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
+    <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
+        <h2 class="doc-title" id="content"><?php echo lang('website_scrapper_google'); ?></h2>
+    </div>
     <div class="page-content">
 
-        <section id="main-content">
+
+<div class="card">
+    <div class="card-body mb-4">
+
+        <h2 class="text-center font-weight-bold pt-4 pb-5"><strong>Steps form example</strong></h2>
+
+        <!-- Stepper -->
+        <div class="steps-form">
+            <div class="steps-row setup-panel">
+                <div class="steps-step">
+                    <a href="#step-9" type="button" class="btn btn-indigo btn-circle">1</a>
+                    <p>Step 1</p>
+                </div>
+                <div class="steps-step">
+                    <a href="#step-10" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                    <p>Step 2</p>
+                </div>
+                <div class="steps-step">
+                    <a href="#step-11" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                    <p>Step 3</p>
+                </div>
+            </div>
+        </div>
+
+        <form role="form" action="" method="post">
+
+            <!-- First Step -->
+            <div class="row setup-content" id="step-9">
+                <div class="col-md-12">
+                    <h3 class="font-weight-bold pl-0 my-4"><strong>Step 1</strong></h3>
+                    <div class="form-group md-form">
+                        <label for="yourName" data-error="wrong" data-success="right">First Name</label>
+                        <input id="yourName" type="text" required="required" class="form-control validate">
+                    </div>
+                    <div class="form-group md-form mt-3">
+                        <label for="yourLastName" data-error="wrong" data-success="right">Last Name</label>
+                        <input id="yourLastName" type="text" required="required" class="form-control validate">
+                    </div>
+                    <div class="form-group md-form mt-3">
+                        <label for="yourAddress" data-error="wrong" data-success="right">Address</label>
+                        <textarea id="yourAddress" type="text" required="required" rows="2" class="md-textarea validate form-control"></textarea>
+                    </div>
+                    <button class="btn btn-indigo btn-rounded nextBtn float-right" type="button">Next</button>
+                </div>
+            </div>
+
+            <!-- Second Step -->
+            <div class="row setup-content" id="step-10">
+                <div class="col-md-12">
+                    <h3 class="font-weight-bold pl-0 my-4"><strong>Step 2</strong></h3>
+                    <div class="form-group md-form">
+                        <label for="companyName" data-error="wrong" data-success="right">Company Name</label>
+                        <input id="companyName" type="text" required="required" class="form-control validate">
+                    </div>
+                    <div class="form-group md-form mt-3">
+                        <label for="companyAddress" data-error="wrong" data-success="right">Company Address</label>
+                        <input id="companyAddress" type="text" required="required" class="form-control validate">
+                    </div>
+                    <button class="btn btn-indigo btn-rounded prevBtn float-left" type="button">Previous</button>
+                    <button class="btn btn-indigo btn-rounded nextBtn float-right" type="button">Next</button>
+                </div>
+            </div>
+
+            <!-- Third Step -->
+            <div class="row setup-content" id="step-11">
+                <div class="col-md-12">
+                    <h3 class="font-weight-bold pl-0 my-4"><strong>Step 3</strong></h3>
+                    <button class="btn btn-indigo btn-rounded prevBtn float-left" type="button">Previous</button>
+                    <button class="btn btn-default btn-rounded float-right" type="submit">Submit</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<academy-course class="ng-tns-c58-59 ng-star-inserted">
+    <div class="page-layout simple left-sidebar inner-scroll" id="academy-course">
+        <fuse-sidebar class="sidebar left-positioned open locked-open" lockedopen="gt-md" name="academy-course-left-sidebar-1" position="left" style="">
+            <div class="content ng-tns-c58-59 ps ps--active-y" fuseperfectscrollbar="">
+                <div class="steps">
+                    <div class="step ng-tns-c58-59 current first ng-star-inserted">
+                        <div class="index"><a href=""><span class="ng-tns-c58-59">1</span></a></div>
+                        <div class="title">Introduction</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">2</span></div>
+                        <div class="title">Get the sample code</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">3</span></div>
+                        <div class="title">Create a Firebase project and Set up your app</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">4</span></div>
+                        <div class="title">Install the Firebase Command Line Interface</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">5</span></div>
+                        <div class="title">Deploy and run the web app</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">6</span></div>
+                        <div class="title">The Functions Directory</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">7</span></div>
+                        <div class="title">Import the Cloud Functions and Firebase Admin modules</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">8</span></div>
+                        <div class="title">Welcome New Users</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">9</span></div>
+                        <div class="title">Images moderation</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">10</span></div>
+                        <div class="title">New Message Notifications</div>
+                    </div>
+                    <div class="step ng-tns-c58-59 last ng-star-inserted">
+                        <div class="index"><span class="ng-tns-c58-59">11</span></div>
+                        <div class="title">Congratulations!</div>
+                    </div>
+                </div>
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                </div>
+                <div class="ps__rail-y" style="top: 0px; right: 0px; height: 513px;">
+                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 345px;"></div>
+                </div>
+            </div>
+        </fuse-sidebar>
+        <div class="center">
+            <div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                <button class="sidebar-toggle mr-16 mat-icon-button" fxhide.gt-md="" mat-icon-button="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">menu</mat-icon></span>
+                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                    <div class="mat-button-focus-overlay"></div>
+                </button>
+                <button class="mr-16 mat-icon-button" mat-icon-button="" tabindex="0"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">arrow_back</mat-icon></span>
+                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                    <div class="mat-button-focus-overlay"></div>
+                </button>
+                <div class="ng-tns-c58-59">
+                    <h2 class="ng-tns-c58-59">Basics of Angular</h2></div>
+            </div>
+            <div class="content" id="course-content">
+                <div class="course-step ng-tns-c58-59 ps ng-trigger ng-trigger-slideIn ng-star-inserted ps--active-y" fuseperfectscrollbar="">
+                    <div class="course-step-content" id="course-step-content">
+                        <h1>Step 1 - Introduction</h1>
+                        <br>This is an example step of the course. You can put anything in here from example codes to videos.
+                        <br>
+                        <br>To install the CLI you need to have installed <b>npm</b> which typically comes with <b>NodeJS</b>.To install or upgrade the CLI run the following <b>npm</b> command:
+                        <br>
+                        <br><code>npm -g install @angular/cli</code>
+                        <br>
+                        <br>To verify that the CLI has been installed correctly, open a console and run:
+                        <br>
+                        <br><code>ng version</code>
+                        <br>
+                        <br>
+                        <h2>Install dependencies</h2>
+                        <br>To moderate the images we'll need a few Node.js packages:
+                        <br>
+                        <br>
+                        <ul>
+                            <li>The Google Cloud Vision Client Library for Node.js: @google-cloud/vision to run the image through the Cloud Vision API to detect inappropriate images.</li>
+                            <br>
+                            <li>The Google Cloud Storage Client Library for Node.js: @google-cloud/storage to download and upload the images from Cloud Storage.</li>
+                            <br>
+                            <li>A Node.js library allowing us to run processes: child-process-promise to run ImageMagick since the ImageMagick command-line tool comes pre-installed on all Functions instances.</li>
+                        </ul>
+                        <br>To install these three packages into your Cloud Functions app, run the following npm install --save command. Make sure that you do this from the functions directory.
+                        <br>
+                        <br><code>npm install --save @google-cloud/vision @google-cloud/storage child-process-promise</code>
+                        <br>
+                        <br>This will install the three packages locally and add them as declared dependencies in your package.js file.</div>
+                </div>
+            </div>
+            <div class="step-navigation">
+                <button class="previous mat-accent white-fg mat-fab" mat-fab="" disabled="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">chevron_left</mat-icon></span>
+                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                    <div class="mat-button-focus-overlay"></div>
+                </button>
+                <button class="next mat-accent white-fg mat-fab" mat-fab="" style="display: block;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">chevron_right</mat-icon></span>
+                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                    <div class="mat-button-focus-overlay"></div>
+                </button>
+                <button class="done mat-green-600-bg mat-fab mat-accent" mat-fab="" routerlink="/apps/academy/courses" tabindex="0" disabled="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">check</mat-icon></span>
+                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                    <div class="mat-button-focus-overlay"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+</academy-course>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        <!-- <section id="main-content">
             <section class="wrapper">
             <div class="row">
                 <div class="col-sm-12">
@@ -195,7 +411,7 @@
                 </div>
             </div>
             </section>
-        </section>
+        </section> -->
     </div>
   </div>
 </div>
@@ -306,6 +522,57 @@
 
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+
+    var navListItems = $('div.steps div a'),
+        allWells = $('.setup-content'),
+        allNextBtn = $('.nextBtn'),
+        allPrevBtn = $('.prevBtn');
+
+    allWells.hide();
+
+    navListItems.click(function (e) {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+            $item = $(this);
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('btn-indigo').addClass('btn-default');
+            $item.addClass('btn-indigo');
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
+    });
+
+    allPrevBtn.click(function(){
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            prevStepSteps = $('div.steps div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+
+            prevStepSteps.removeAttr('disabled').trigger('click');
+    });
+
+    allNextBtn.click(function(){
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            nextStepWizard = $('div.steps div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            isValid = true;
+
+        $(".form-group").removeClass("has-error");
+        for(var i=0; i< curInputs.length; i++){
+            if (!curInputs[i].validity.valid){
+                isValid = false;
+                $(curInputs[i]).closest(".form-group").addClass("has-error");
+            }
+        }
+
+        if (isValid)
+            nextStepWizard.removeAttr('disabled').trigger('click');
+    });
+
+    $('div.steps div a.btn-indigo').trigger('click');
+
 /*var EditableTable = function () {
 
     return {
@@ -461,7 +728,7 @@ $(document).ready(function(){
 
 
             var kanbanCol = $('.card-body');
-            kanbanCol.css('max-height', (window.innerHeight - 150) + 'px');
+            kanbanCol.css('max-height', (window.innerHeight - 380) + 'px');
 
             var kanbanColCount = parseInt(kanbanCol.length);
             $('.container-fluid').css('min-width', (kanbanColCount * 350) + 'px');

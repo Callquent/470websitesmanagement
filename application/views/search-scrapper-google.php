@@ -16,11 +16,6 @@
                     <section class="card mb-3">
                         <header class="card-header">
                             <?php echo lang('search_scrapper_google'); ?>
-                            <span class="tools pull-right">
-                                <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                <a href="javascript:;" class="fa fa-cog"></a>
-                                <a href="javascript:;" class="fa fa-times"></a>
-                             </span>
                         </header>
                         <div class="card-body">
                             <div class="adv-table editable-table ">

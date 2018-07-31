@@ -101,9 +101,10 @@ class Model_tasks extends CI_Model {
 	}
 	function get_all_tasks_priority_to_user($id_user,$id_project_tasks="")
 	{
-		$this->db->select('SUM(CASE WHEN id_tasks_priority = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_tasks_priority = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_tasks_priority = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_tasks_priority = "4", 1,0)) as all_tasks_critical_user')
+		$this->db->select('SUM(CASE WHEN id_priority_tasks = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_priority_tasks = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_priority_tasks = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_priority_tasks = "4", 1,0)) as all_tasks_critical_user')
+				 ->from('470websitesmanagement_card_tasks')
 				 ->from('470websitesmanagement_tasks')
-				 ->where('470websitesmanagement_tasks.id_tasks_status', "1");
+				 ->where('470websitesmanagement_card_tasks.id_status_tasks', "1");
 				 if (!empty($id_project_tasks)) {
 				 	$this->db->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks);
 				 }
@@ -114,7 +115,7 @@ class Model_tasks extends CI_Model {
 	}
 	function get_percentage_user($id_project_tasks,$id_user)
 	{
-		$this->db->select('ROUND(SUM(CASE WHEN id_tasks_status = "2" OR id_tasks_status = "3" THEN 1 ELSE 0 END)/count(*)*100,0) as percentage')
+		$this->db->select('ROUND(SUM(CASE WHEN id_status_tasks = "2" OR id_status_tasks = "3" THEN 1 ELSE 0 END)/count(*)*100,0) as percentage')
 				->from('470websitesmanagement_tasks')
 				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				->where('470websitesmanagement_tasks.id_user', $id_user);
@@ -124,7 +125,8 @@ class Model_tasks extends CI_Model {
 	}
 	function get_all_tasks_per_users()
 	{
-		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, 470websitesmanagement_users.username, 470websitesmanagement_users.email, SUM(IF(id_tasks_status = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_tasks_status = "2", 1,0)) as all_tasks_completed_user')
+		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, 470websitesmanagement_users.username, 470websitesmanagement_users.email, SUM(IF(id_status_tasks = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_status_tasks = "2", 1,0)) as all_tasks_completed_user')
+				 ->from('470websitesmanagement_card_tasks')
 				 ->from('470websitesmanagement_tasks')
 				 ->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
 				 ->group_by(array('470websitesmanagement_tasks.id_user','470websitesmanagement_users.username'));
@@ -137,7 +139,9 @@ class Model_tasks extends CI_Model {
 	}
 	function get_all_tasks_priority_per_users($id_project_tasks,$id_user=1)
 	{
-		$this->db->select('SUM(CASE WHEN id_tasks_priority = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_tasks_priority = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_tasks_priority = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_tasks_priority = "4", 1,0)) as all_tasks_critical_user')
+		$this->db->select('SUM(CASE WHEN id_priority_tasks = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_priority_tasks = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_priority_tasks = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_priority_tasks = "4", 1,0)) as all_tasks_critical_user')
+				 ->from('470websitesmanagement_card_tasks')
+				 ->from('470websitesmanagement_tasks')
 				 ->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				 ->where('470websitesmanagement_tasks.id_user', $id_user);
 

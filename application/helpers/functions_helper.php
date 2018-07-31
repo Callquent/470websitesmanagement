@@ -88,9 +88,8 @@ if ( ! function_exists('removeurl_createdomain'))
 {
     function removeurl_createdomain($url)
     {
-        $urlParts = parse_url(trim($url, '/'));
-        $domain = preg_replace('/^www\./', '', $urlParts['host']);
-
+        $url_domain_page = preg_replace('/((https?|ftp|file):\/\/|www\.)/i', '', $url);
+        $domain = preg_replace('/(\/\S*)?/i', '', $url_domain_page);
         return $domain;
     }
 }

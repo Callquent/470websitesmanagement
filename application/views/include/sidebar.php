@@ -4,11 +4,12 @@
                         <div class="aside-toolbar">
                             <div class="logo">
                                 <a href="<?php echo site_url('dashboard'); ?>" class="logo">
-                                    <img src="<?php echo img_url('app/logo-470websitesmanagement.png'); ?>" alt="">
+                                    <img class="d-none logo-folded" src="<?php echo img_url('app/logo-470websitesmanagement.png'); ?>" alt="">
+                                    <img class="logo-expanded" src="<?php echo img_url('app/logo-470websitesmanagement-old.png'); ?>" alt="">
                                 </a>
                             </div>
                             <button id="toggle-fold-aside-button" type="button" class="btn btn-icon d-none d-lg-block fuse-ripple-ready" data-fuse-aside-toggle-fold="">
-                                <i class="icon icon-backburger"></i>
+                                <i class="icon icon-menu"></i>
                             </button>
                         </div>
                         <ul class="nav flex-column custom-scrollbar ps ps--theme_default ps--active-y" id="sidenav" data-children=".nav-item" data-ps-id="e22c9d1b-78a1-dbad-8fc7-5aaeace92bb4">
@@ -45,7 +46,7 @@
                                 <div class="tab-content">
                                     <div id="home" class="tab-pane active">
                                         <ul class="sidebar-menu" id="nav-accordion">
-                                            <li class="list-title-sidebar">
+                                            <li class="list-title-sidebar subheader">
                                                 <span><?php echo lang('general'); ?></span>
                                             </li>
                                             <li>
