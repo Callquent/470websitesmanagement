@@ -84,8 +84,8 @@
         </section>
     </section>
 
-    <?php echo js_url('js/jquery.min.js'); ?>
-    <?php echo js_url('js/bootstrap.min.js'); ?>
+    <?php echo js_url('plugins/jquery.min.js'); ?>
+    <?php echo js_url('plugins/bootstrap.min.js'); ?>
     <script>
         $(function ()
         {
@@ -147,9 +147,9 @@
             
         });
     </script>
-    <?php echo js_url('js/jquery.dcjqaccordion.2.7.js'); ?>
-    <?php echo js_url('js/mobile-detect.min.js'); ?>
-    <?php echo js_url('js/perfect-scrollbar.jquery.min.js'); ?>
-    <?php echo js_url('js/fuse-html.min.js'); ?>
-    <?php echo js_url('js/jquery-steps/jquery.steps.js'); ?>
-    <?php echo js_url('js/scripts.js'); ?>
+    <?php echo js_url('plugins/jquery.dcjqaccordion.2.7.js'); ?>
+    <?php echo js_url('plugins/mobile-detect.min.js'); ?>
+    <?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
+    <?php echo js_url('plugins/fuse-html.min.js'); ?>
+    <?php echo js_url('plugins/jquery-steps/jquery.steps.js'); ?>
+    <?php echo js_url('plugins/scripts.js'); ?>
