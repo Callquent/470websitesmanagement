@@ -22,11 +22,8 @@
 		});
 		</script>
 		<?php if ($this->uri->segment(1)=='all-projects') { ?>
-			<?php echo js_url('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
-			<?php echo js_url('plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
-			<?php /*echo js_url('plugins/advanced-form.js');*/ ?>
 			<?php echo js_url('plugins/jquery.autocomplete.js'); ?>
-			<?php /*echo js_url('plugins/mdb/mdb.min.js');*/ ?>
+			<?php echo js_url('plugins/mdb/mdb.min.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='dashboard' ||
 		$this->uri->segment(1)=='all-websites' ||

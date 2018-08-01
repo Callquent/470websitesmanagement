@@ -709,7 +709,7 @@ label .glyphicon {
 
 
 
-#all-projects.layout #wrapper>.content-wrapper>.content {
+#all-projectstest.layout #wrapper>.content-wrapper>.content {
     flex-direction: row;
     display: flex;
     overflow-y: hidden;

@@ -14,99 +14,52 @@
                 <div class="col-sm-12">
 
 
-
-test<br>
-testtest<br>
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-v
-test<br>v
-
-vv
-test<br>
-v
-vv
-vtest<br>
-test<br>
-test<br>
-
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-v
-test<br>v
-
-vv
-test<br>
-v
-vv
-vtest<br>
-test<br>
-test<br>
-
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-test<br>
-
-<!-- <div class="ng-tns-c58-59 ng-star-inserted">
+<div class="ng-tns-c58-59 ng-star-inserted">
     <div class="page-layout simple left-sidebar inner-scroll" id="academy-course">
         <aside class="sidebar left-positioned open locked-open">
             <div class="content">
                 <div class="steps">
-                    <a class="step ng-tns-c58-59 current first ng-star-inserted">
+                    <a href="#step-9" class="step ng-tns-c58-59 current first ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">1</span></div>
                         <div class="title">Introduction</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">2</span></div>
                         <div class="title">Get the sample code</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">3</span></div>
                         <div class="title">Create a Firebase project and Set up your app</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">4</span></div>
                         <div class="title">Install the Firebase Command Line Interface</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">5</span></div>
                         <div class="title">Deploy and run the web app</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">6</span></div>
                         <div class="title">The Functions Directory</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">7</span></div>
                         <div class="title">Import the Cloud Functions and Firebase Admin modules</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">8</span></div>
                         <div class="title">Welcome New Users</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">9</span></div>
                         <div class="title">Images moderation</div>
                     </a>
-                    <a class="step ng-tns-c58-59 ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">10</span></div>
                         <div class="title">New Message Notifications</div>
                     </a>
-                    <a class="step ng-tns-c58-59 last ng-star-inserted">
+                    <a href="#step-10" class="step ng-tns-c58-59 last ng-star-inserted">
                         <div class="index"><span class="ng-tns-c58-59">11</span></div>
                         <div class="title">Congratulations!</div>
                     </a>
@@ -126,7 +79,7 @@ test<br>
                 <div class="ng-tns-c58-59">
                     <h2 class="ng-tns-c58-59">Basics of Angular</h2></div>
             </div>
-            <div class="content" id="course-content">
+            <div class="row setup-content" id="step-9">
                 <div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
                     <div class="course-step-content" id="course-step-content">
                         <h1>Step 1 - Introduction</h1>
@@ -159,12 +112,45 @@ test<br>
                         <br>This will install the three packages locally and add them as declared dependencies in your package.js file.</div>
                 </div>
             </div>
+            <div class="row setup-content" id="step-10">
+                <div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
+                    <div class="course-step-content" id="course-step-content">
+                        <h1>Step 2 - Introduction</h1>
+                        <br>This is an example step of the course. You can put anything in here from example codes to videos.
+                        <br>
+                        <br>To install the CLI you need to have installed <b>npm</b> which typically comes with <b>NodeJS</b>.To install or upgrade the CLI run the following <b>npm</b> command:
+                        <br>
+                        <br><code>npm -g install @angular/cli</code>
+                        <br>
+                        <br>To verify that the CLI has been installed correctly, open a console and run:
+                        <br>
+                        <br><code>ng version</code>
+                        <br>
+                        <br>
+                        <h2>Install dependencies</h2>
+                        <br>To moderate the images we'll need a few Node.js packages:
+                        <br>
+                        <br>
+                        <ul>
+                            <li>The Google Cloud Vision Client Library for Node.js: @google-cloud/vision to run the image through the Cloud Vision API to detect inappropriate images.</li>
+                            <br>
+                            <li>The Google Cloud Storage Client Library for Node.js: @google-cloud/storage to download and upload the images from Cloud Storage.</li>
+                            <br>
+                            <li>A Node.js library allowing us to run processes: child-process-promise to run ImageMagick since the ImageMagick command-line tool comes pre-installed on all Functions instances.</li>
+                        </ul>
+                        <br>To install these three packages into your Cloud Functions app, run the following npm install --save command. Make sure that you do this from the functions directory.
+                        <br>
+                        <br><code>npm install --save @google-cloud/vision @google-cloud/storage child-process-promise</code>
+                        <br>
+                        <br>This will install the three packages locally and add them as declared dependencies in your package.js file.</div>
+                </div>
+            </div>
             <div class="step-navigation">
-                <button class="previous mat-accent white-fg mat-fab" mat-fab="" disabled="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">chevron_left</mat-icon></span>
+                <button class="previousBtn mat-accent white-fg mat-fab" mat-fab="" disabled="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">chevron_left</mat-icon></span>
                     <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
                     <div class="mat-button-focus-overlay"></div>
                 </button>
-                <button class="next mat-accent white-fg mat-fab" mat-fab="" style="display: block;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">chevron_right</mat-icon></span>
+                <button class="nextBtn mat-accent white-fg mat-fab" mat-fab="" style="display: block;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">chevron_right</mat-icon></span>
                     <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
                     <div class="mat-button-focus-overlay"></div>
                 </button>
@@ -175,7 +161,7 @@ test<br>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 
 
@@ -600,7 +586,7 @@ $(document).ready(function(){
             nextStepWizard.removeAttr('disabled').trigger('click');
     });
 
-    $('.steps a.btn-indigo').trigger('click');
+    $('.steps a.current').trigger('click');
 
 
 

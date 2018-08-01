@@ -12,7 +12,7 @@
                                 <i class="icon icon-menu"></i>
                             </button>
                         </div>
-                        <ul class="nav flex-column custom-scrollbar ps ps--theme_default ps--active-y" id="sidenav" data-children=".nav-item" data-ps-id="e22c9d1b-78a1-dbad-8fc7-5aaeace92bb4">
+                        <ul class="nav flex-column custom-scrollbar ps ps--theme_default" id="sidenav" data-children=".nav-item" data-ps-id="e22c9d1b-78a1-dbad-8fc7-5aaeace92bb4">
                             <!-- sidebar menu start-->
                             <div class="leftside-navigation">
                                 <div class="user-profile-container">
