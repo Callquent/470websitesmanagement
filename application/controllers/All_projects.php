@@ -78,7 +78,7 @@ class All_projects extends CI_Controller {
 		$date_started			= $this->input->post('datestarted');
 		$date_deadline			= $this->input->post('datedeadline');
 
-		$this->model_tasks->create_project($website_id, $titleproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
+		$this->model_tasks->create_project($website_id, $nameproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
 	}
 	public function edit_projects($id_project = '')
 	{
