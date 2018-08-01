@@ -138,7 +138,7 @@
                 <div class="form-group">
                     <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
                     <div class="col-lg-12">
-                      <input class="form-control" type="text" name="titleproject" placeholder="Titre Projet" required />
+                      <input class="form-control" type="text" name="nameproject" placeholder="Titre Projet" required />
                     </div>
                 </div>
                 <div class="form-group">
