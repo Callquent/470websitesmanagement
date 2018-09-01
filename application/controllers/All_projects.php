@@ -61,7 +61,7 @@ class All_projects extends CI_Controller {
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
-			$data['all_list_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
+			$data['all_card_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
 			$data['all_card_tasks_to_do'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"1");
 			$data['all_card_tasks_in_progress'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"2");
 			$data['all_card_tasks_completed'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"3");
@@ -101,7 +101,16 @@ class All_projects extends CI_Controller {
 
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project, $id_card_tasks);
 
-		echo json_encode($data);
+		foreach ($data['card_tasks']->tasks as $key => $row)
+		{
+			$list = array();
+			$list[] = $row->check_tasks;
+			$list[] = $row->name_task;
+			$list[] = $row->username;
+			$list_tasks_preview[] = $list;
+		}
+
+		echo json_encode($list_tasks_preview);
 	}
 	public function create_list_tasks($id_project_tasks = '')
 	{

@@ -5,7 +5,13 @@
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
-        <h2 class="doc-title" id="content"><?php echo lang('dashboard'); ?></h2>
+        <h2 class="doc-title" id="content"><?php echo $project->name_project_tasks; ?></h2>
+        <a href="<?php echo site_url('/all-projects/'); ?>" class="btn btn-icon fuse-ripple-ready">
+            <i class="icon icon-arrow-left-thick"></i>
+        </a>
+        <button id="add-event-button" type="button" class="btn btn-danger btn-fab fuse-ripple-ready" aria-label="Add event">
+            <i class="icon icon-plus"></i>
+        </button>
     </div>
     <div class="page-content">
       <section id="main-content" >
@@ -16,57 +22,26 @@
 
 <div class="ng-tns-c58-59 ng-star-inserted">
     <div class="page-layout simple left-sidebar inner-scroll" id="academy-course">
-        <aside class="sidebar left-positioned open locked-open">
+        <aside class="sidebar left-positioned open locked-open col-md-2">
             <div class="content">
                 <div class="steps">
-                    <a href="#step-9" class="step ng-tns-c58-59 current first ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">1</span></div>
-                        <div class="title">Introduction</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">2</span></div>
-                        <div class="title">Get the sample code</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">3</span></div>
-                        <div class="title">Create a Firebase project and Set up your app</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">4</span></div>
-                        <div class="title">Install the Firebase Command Line Interface</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">5</span></div>
-                        <div class="title">Deploy and run the web app</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">6</span></div>
-                        <div class="title">The Functions Directory</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">7</span></div>
-                        <div class="title">Import the Cloud Functions and Firebase Admin modules</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">8</span></div>
-                        <div class="title">Welcome New Users</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">9</span></div>
-                        <div class="title">Images moderation</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">10</span></div>
-                        <div class="title">New Message Notifications</div>
-                    </a>
-                    <a href="#step-10" class="step ng-tns-c58-59 last ng-star-inserted">
-                        <div class="index"><span class="ng-tns-c58-59">11</span></div>
-                        <div class="title">Congratulations!</div>
-                    </a>
+                    <?php foreach ($all_card_tasks->result() as $row_list_tasks) { ?>
+                        <?php if ($row_list_tasks->id_list_tasks==1) { ?>
+                            <a href="#step-<?php echo $row_list_tasks->id_list_tasks; ?>" class="step ng-tns-c58-59 current first ng-star-inserted">
+                                <div class="index"><span class="ng-tns-c58-59"><?php echo $row_list_tasks->id_list_tasks; ?></span></div>
+                                <div class="title"><?php echo $row_list_tasks->title_card_tasks; ?></div>
+                            </a>
+                        <?php } else { ?>
+                            <a href="#step-<?php echo $row_list_tasks->id_list_tasks; ?>" class="step ng-tns-c58-59 ng-star-inserted">
+                                <div class="index"><span class="ng-tns-c58-59"><?php echo $row_list_tasks->id_list_tasks; ?></span></div>
+                                <div class="title"><?php echo $row_list_tasks->title_card_tasks; ?></div>
+                            </a>
+                        <?php } ?>
+                    <?php } ?>
                 </div>
             </div>
         </aside>
-        <div class="center">
+        <div class="center col-md-10">
             <div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                 <button class="sidebar-toggle mr-16 mat-icon-button" fxhide.gt-md="" mat-icon-button="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">menu</mat-icon></span>
                     <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
@@ -80,76 +55,27 @@
                     <h2 class="ng-tns-c58-59">Basics of Angular</h2></div>
             </div>
             <div class="step-content">
-                <div class="row setup-content" id="step-9">
+                <div class="row setup-content" id="step-1">
                     <div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
                         <div class="course-step-content" id="course-step-content">
                             <h1>Step 1 - Introduction</h1>
-                            <br>This is an example step of the course. You can put anything in here from example codes to videos.
-                            <br>
-                            <br>To install the CLI you need to have installed <b>npm</b> which typically comes with <b>NodeJS</b>.To install or upgrade the CLI run the following <b>npm</b> command:
-                            <br>
-                            <br><code>npm -g install @angular/cli</code>
-                            <br>
-                            <br>To verify that the CLI has been installed correctly, open a console and run:
-                            <br>
-                            <br><code>ng version</code>
-                            <br>
-                            <br>
-                            <h2>Install dependencies</h2>
-                            <br>To moderate the images we'll need a few Node.js packages:
-                            <br>
-                            <br>
-                            <ul>
-                                <li>The Google Cloud Vision Client Library for Node.js: @google-cloud/vision to run the image through the Cloud Vision API to detect inappropriate images.</li>
-                                <br>
-                                <li>The Google Cloud Storage Client Library for Node.js: @google-cloud/storage to download and upload the images from Cloud Storage.</li>
-                                <br>
-                                <li>A Node.js library allowing us to run processes: child-process-promise to run ImageMagick since the ImageMagick command-line tool comes pre-installed on all Functions instances.</li>
-                            </ul>
-                            <br>To install these three packages into your Cloud Functions app, run the following npm install --save command. Make sure that you do this from the functions directory.
-                            <br>
-                            <br><code>npm install --save @google-cloud/vision @google-cloud/storage child-process-promise</code>
-                            <br>
-                            <br>This will install the three packages locally and add them as declared dependencies in your package.js file.</div>
-                    </div>
-                </div>
-                <div class="row setup-content" id="step-10">
-                    <div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
-                        <div class="course-step-content" id="course-step-content">
-                            <h1>Step 2 - Introduction</h1>
-                            <br>This is an example step of the course. You can put anything in here from example codes to videos.
-                            <br>
-                            <br>To install the CLI you need to have installed <b>npm</b> which typically comes with <b>NodeJS</b>.To install or upgrade the CLI run the following <b>npm</b> command:
-                            <br>
-                            <br><code>npm -g install @angular/cli</code>
-                            <br>
-                            <br>To verify that the CLI has been installed correctly, open a console and run:
-                            <br>
-                            <br><code>ng version</code>
-                            <br>
-                            <br>
-                            <h2>Install dependencies</h2>
-                            <br>To moderate the images we'll need a few Node.js packages:
-                            <br>
-                            <br>
-                            <ul>
-                                <li>The Google Cloud Vision Client Library for Node.js: @google-cloud/vision to run the image through the Cloud Vision API to detect inappropriate images.</li>
-                                <br>
-                                <li>The Google Cloud Storage Client Library for Node.js: @google-cloud/storage to download and upload the images from Cloud Storage.</li>
-                                <br>
-                                <li>A Node.js library allowing us to run processes: child-process-promise to run ImageMagick since the ImageMagick command-line tool comes pre-installed on all Functions instances.</li>
-                            </ul>
-                            <br>To install these three packages into your Cloud Functions app, run the following npm install --save command. Make sure that you do this from the functions directory.
-                            <br>
-                            <br><code>npm install --save @google-cloud/vision @google-cloud/storage child-process-promise</code>
-                            <br>
-                            <br>This will install the three packages locally and add them as declared dependencies in your package.js file.</div>
+                            <div class="adv-table editable-table ">
+                                <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-view-project">
+                                  <thead>
+                                    <th class="all">check</th>
+                                    <th class="desktop">Name Tasks</th>
+                                    <th class="desktop">User</th>
+                                  </thead>
+                                  <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="step-navigation">
-                <button class="previousBtn mat-accent white-fg mat-fab" mat-fab="" disabled="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">chevron_left</mat-icon></span>
+                <button class="prevBtn mat-accent white-fg mat-fab" mat-fab="" disabled="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">chevron_left</mat-icon></span>
                     <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
                     <div class="mat-button-focus-overlay"></div>
                 </button>
@@ -248,7 +174,7 @@
                                                             </div>
                                                             <div class="col-md-6 col-xs-6 text-right">
                                                                 <h5><?php echo $project->url_website; ?></h5>
-                                                                <h5><?php echo $all_list_tasks->num_rows(); ?></h5>
+                                                                <h5><?php echo $all_card_tasks->num_rows(); ?></h5>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -483,7 +409,7 @@
 
 
 
-/*var EditableTable = function () {
+var EditableTable = function () {
 
     return {
         init: function () {
@@ -498,54 +424,84 @@
             var nEditingViewProject = null;
             var ElementDelete = null;
             var viewprojectTable = $('#table-view-project').DataTable({
-                "columnDefs": [{
-                    "visible": false,
-                    "targets": 0
-                }],
-                "order": [
-                    [0, 'asc']
-                ],
-                "displayLength": 25,
-                "drawCallback": function(settings) {
-                    var api = this.api();
-                    var rows = api.rows({
-                        page: 'current'
-                    }).nodes();
-                    var last = null;
-                    api.column(0, {
-                        page: 'current'
-                    }).data().each(function(group, i) {
-                        if (last !== group) {
-                            $(rows).eq(i).before('<tr class="group"><td colspan="6">' + group + '</td></tr>');
-                            last = group;
-                        }
-                    });
-                }
-            });
-
-            $('#m_form_status').on('change', function () {
-                viewprojectTable.columns(4).search(this.value, true, false).draw();
-            });
-            $('#m_form_priority').on('change', function () {
-                viewprojectTable.columns(3).search(this.value, true, false).draw();
+                  "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+                  "order": [],
+                  "dom": 'lBfrtip',
+                  "buttons": [
+                      {
+                          extend: 'collection',
+                          text: 'Export',
+                          buttons: [
+                              'copy',
+                              'excel',
+                              'csv',
+                              'pdf',
+                              'print'
+                          ]
+                      }
+                  ],
+                  responsive: {
+                          details: {
+                             
+                          }
+                      },
+                      columnDefs: [ {
+                          className: 'control',
+                          orderable: false,
+                          targets:   0
+                      } ],
             });
         }
     };
 
-}();*/
+}();
 $(document).ready(function(){
+
+    EditableTable.init();
+/*    var table = $('#table-view-project').DataTable();
+ 
+table.rows.add( [ {
+        "titre":       "Tiger Nixon",
+        "toto":   "System Architect"
+    }, {
+        "titre": "Garrett Winters",
+        "toto": "Director"
+    } ] )
+    .draw();
+*/
 
     var navListItems = $('.steps a'),
         allWells = $('.setup-content'),
         allNextBtn = $('.nextBtn'),
         allPrevBtn = $('.prevBtn');
 
-    allWells.hide();
+   /* allWells.hide();*/
 
     navListItems.click(function (e) {
         e.preventDefault();
         var $target = $($(this).attr('href')),
             $item = $(this);
+
+        $.ajax({
+            type: "POST",
+            async:false,
+            url: window.location.href.substr(0, window.location.href.lastIndexOf('/') + 1)+'view_card_tasks/',
+            data: {'idproject':window.location.href.split('/').pop() ,'idcard':$(this).find('.index').text()},
+            success: function(data){
+                var jsdata = JSON.parse(data);
+
+                console.log($item);
+
+                $(".setup-content").attr("id",$item.attr('href').substr(1,$item.attr('href').length));
+                
+                $("#table-view-project").DataTable().rows().remove().draw();
+                $("#table-view-project").DataTable().rows.add(jsdata).draw();
+            },
+            error: function(msg){
+                console.log(msg.responseText);
+            }
+        });
+
 
         if (!$item.hasClass('disabled')) {
             navListItems.removeClass('current').removeClass('completed');
@@ -556,10 +512,12 @@ $(document).ready(function(){
                     $(item).addClass('current');
                 }
             });
-            allWells.hide();
+            /*allWells.hide();
             $target.show();
-            $target.find('input:eq(0)').focus();
+            $target.find('input:eq(0)').focus();*/
         }
+
+
     });
 
     allPrevBtn.click(function(){
@@ -743,7 +701,7 @@ $(document).ready(function(){
 
 
 
-    /*EditableTable.init();*/
+    
 
 });
 </script>
