@@ -9,9 +9,9 @@
         <a href="<?php echo site_url('/all-projects/'); ?>" class="btn btn-icon fuse-ripple-ready">
             <i class="icon icon-arrow-left-thick"></i>
         </a>
-        <button id="add-event-button" type="button" class="btn btn-danger btn-fab fuse-ripple-ready" aria-label="Add event">
+        <a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" href="javascript:void(0);" data-toggle="modal" data-target="#create-card-task">
             <i class="icon icon-plus"></i>
-        </button>
+        </a>
     </div>
     <div class="page-content">
       <section id="main-content" >
@@ -25,15 +25,21 @@
         <aside class="sidebar left-positioned open locked-open col-md-2">
             <div class="content">
                 <div class="steps">
-                    <?php foreach ($all_card_tasks->result() as $row_list_tasks) { ?>
-                        <?php if ($row_list_tasks->id_list_tasks==1) { ?>
-                            <a href="#step-<?php echo $row_list_tasks->id_list_tasks; ?>" class="step ng-tns-c58-59 current first ng-star-inserted">
-                                <div class="index"><span class="ng-tns-c58-59"><?php echo $row_list_tasks->id_list_tasks; ?></span></div>
+                    <?php foreach ($all_card_tasks->result() as $key => $row_list_tasks) { ?>
+                        <?php if ($row_list_tasks->id_card_tasks==1) { ?>
+                            <a href="#step-<?php echo $row_list_tasks->id_card_tasks; ?>" class="step ng-tns-c58-59 current first ng-star-inserted">
+                                <div class="index">
+                                    <span data-val="<?php echo $row_list_tasks->id_card_tasks; ?>"><?php echo $row_list_tasks->id_card_tasks; ?></span>
+                                    <?php echo ($row_list_tasks->id_status_tasks == 3?'<i class="icon icon-check-circle"></i>':'') ?>
+                                </div>
                                 <div class="title"><?php echo $row_list_tasks->title_card_tasks; ?></div>
                             </a>
                         <?php } else { ?>
-                            <a href="#step-<?php echo $row_list_tasks->id_list_tasks; ?>" class="step ng-tns-c58-59 ng-star-inserted">
-                                <div class="index"><span class="ng-tns-c58-59"><?php echo $row_list_tasks->id_list_tasks; ?></span></div>
+                            <a href="#step-<?php echo $row_list_tasks->id_card_tasks; ?>" class="step ng-tns-c58-59 ng-star-inserted">
+                                <div class="index">
+                                    <span data-val="<?php echo $row_list_tasks->id_card_tasks; ?>"><?php echo $row_list_tasks->id_card_tasks; ?></span>
+                                    <?php echo ($row_list_tasks->id_status_tasks == 3?'<i class="icon icon-check-circle"></i>':'') ?>
+                                </div>
                                 <div class="title"><?php echo $row_list_tasks->title_card_tasks; ?></div>
                             </a>
                         <?php } ?>
@@ -42,33 +48,35 @@
             </div>
         </aside>
         <div class="center col-md-10">
-            <div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
-                <button class="sidebar-toggle mr-16 mat-icon-button" fxhide.gt-md="" mat-icon-button="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">menu</mat-icon></span>
-                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
-                    <div class="mat-button-focus-overlay"></div>
-                </button>
-                <button class="mr-16 mat-icon-button" mat-icon-button="" tabindex="0"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">arrow_back</mat-icon></span>
-                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
-                    <div class="mat-button-focus-overlay"></div>
-                </button>
-                <div class="ng-tns-c58-59">
-                    <h2 class="ng-tns-c58-59">Basics of Angular</h2></div>
-            </div>
             <div class="step-content">
-                <div class="row setup-content" id="step-1">
+                <div class="setup-content" id="step-1">
                     <div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
                         <div class="course-step-content" id="course-step-content">
-                            <h1>Step 1 - Introduction</h1>
-                            <div class="adv-table editable-table ">
-                                <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-view-project">
-                                  <thead>
-                                    <th class="all">check</th>
-                                    <th class="desktop">Name Tasks</th>
-                                    <th class="desktop">User</th>
-                                  </thead>
-                                  <tbody></tbody>
-                                </table>
+                            <div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                                <h1>Step 1 - Introduction</h1>
+                                <div><a id="delete-card-tasks" href="<?php echo site_url('/all-projects/delete-card-tasks/'); ?>">Supprimer la card</a></div>
                             </div>
+                            <section class="card mb-3">
+                              <header class="card-header">
+                                  <?php echo lang('websites_management'); ?>
+                              </header>
+                              <div class="card-body">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <a class="btn btn-primary btn-lg" href="javascript:void(0);" data-toggle="modal" data-target="#create-task">ADD Tasks</a>
+                                      </div>
+                                  </div>
+                                    <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-view-project">
+                                      <thead>
+                                        <th class="all">check</th>
+                                        <th class="desktop">Name Tasks</th>
+                                        <th class="desktop">User</th>
+                                        <th class="desktop">Actions</th>
+                                      </thead>
+                                      <tbody></tbody>
+                                    </table>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
@@ -99,208 +107,70 @@
     </section>
 </section>
 
-
-
-
-
-
-
-
-
-        
-        <!-- <section id="main-content">
-            <section class="wrapper">
-            <div class="row">
-                <div class="col-sm-12">
-                            <div class="container-fluid">
-                    <div class="row" id="sortableKanbanBoards">
-                        <div class="card card-primary kanban-col custom-scrollbar">
-                            <div class="card card-default">
-                                <div class="card-header">
-                                    Project Details
-                                </div>
-                                <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h1 class="title-view-project"><?php echo $project->name_project_tasks; ?></h5>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h5 class="no-margin"><?php echo lang('time_spent'); ?></h5>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-6 text-right">
-                                                        <h5 class="no-margin"><?php echo $datetimestart; ?> <?php echo lang('days'); ?></h5>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h5 class="no-margin m-t-5"><?php echo lang('remaining_time'); ?></h5>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-6 text-right">
-                                                        <h5 class="no-margin m-t-5"><?php echo $datetimedeadline; ?> <?php echo lang('days'); ?></h5>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-12 m-t-5">
-                                                        <h6 class="no-margin m-b-10">Taches réalisées : <?php echo $percentage_project->percentage; ?>%</h6>
-                                                        <div class="progress m-t-5 m-b-10">
-                                                            <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:<?php echo $percentage_project->percentage; ?>%">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h6 class="no-margin m-b-10">Assigned to</h6>
-                                                        <?php foreach ($all_users_to_project->result() as $row_user) { ?>
-                                                            <span class="w-40 avatar circle green" data-toggle="tooltip" data-placement="top" title="<?php echo $row_user->username; ?>" value="<?php echo $row_user->username; ?>"><?php echo substr($row_user->username, 0, 2); ?></span>
-                                                        <?php } ?>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h6 class="no-margin">Project details</h6>
-                                                        <div class="row">
-                                                            <div class="col-md-6 col-xs-6">
-                                                                <h5><?php echo lang('website'); ?></h5>
-                                                                <h5>List Task</h5>
-                                                            </div>
-                                                            <div class="col-md-6 col-xs-6 text-right">
-                                                                <h5><?php echo $project->url_website; ?></h5>
-                                                                <h5><?php echo $all_card_tasks->num_rows(); ?></h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h6 class="no-margin m-b-10">Options</h6>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <div class="checker border-info text-info"><span class="checked"><input type="checkbox" class="control-info" checked="checked"></span></div>
-                                                                Make this project a priority
-                                                            </label>
-                                                        </div>
-                                                        <a class="access-list-tasks btn btn-sm btn-success mb-3 fuse-ripple-ready" href="javascript:void(0);" data-toggle="modal" data-target="#view-list-tasks"><span><i class="fa fa-plus"></i></span> Send mail All project</a>
-                                                    </div>
-                                                </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-            <div class="card card-primary kanban-col custom-scrollbar">
-                <div class="card-header">
-                    TODO
-                </div>
-                <div class="card-body">
-                    <div id="TODO" class="kanban-centered">
-
-                    <?php foreach ($all_card_tasks_to_do->result() as $row_list_tasks) { ?>
-                        <a class="kanban-entry grab" href="<?php echo site_url('/all-projects/view_card_tasks/'); ?>" draggable="true" data-toggle="modal" data-target="#view-card-tasks"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?>">
-                            <div class="kanban-entry-inner">
-                                <div class="kanban-label">
-                                    <h2><?php echo $row_list_tasks->title_card_tasks; ?></h2>
-                                    <span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
-                                         <span class="badge badge-dark"><?php echo $row_list_tasks->count_tasks_completed ." / ".count($row_list_tasks->tasks); ?></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                    <?php } ?>
-
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <a class="add-card-link" href="#">Add a card...</a>
-                    <div class="add-card-form">
-                        <form id="form-list-tasks" method="post" action="<?php echo site_url('/all-projects/create-list-tasks/'.$project->id_project_tasks); ?>">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="titlelisttasks" name="titlelisttasks" placeholder="Titre Liste Tasks" required >
-                                <label for="titlelisttasks">Titre Liste Tasks</label>
-                                </small>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary fuse-ripple-ready">Sign in</button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="javascript:void(0);">
-                                        <i class="icon icon-close"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-primary kanban-col custom-scrollbar">
-                <div class="card-header">
-                    DOING
-                </div>
-                <div class="card-body">
-                    <div id="DOING" class="kanban-centered">
-
-                        <?php foreach ($all_card_tasks_in_progress->result() as $row_list_tasks) { ?>
-                            <a class="kanban-entry grab" href="<?php echo site_url('/all-projects/view_card_tasks/'); ?>" draggable="true" data-toggle="modal" data-target="#view-card-tasks"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?>">
-                                <div class="kanban-entry-inner">
-                                    <div class="kanban-label">
-                                        <h2><?php echo $row_list_tasks->title_card_tasks; ?></h2>
-                                        <span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
-                                             <span class="badge badge-dark"><?php echo $row_list_tasks->count_tasks_completed ." / ".count($row_list_tasks->tasks); ?></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        <?php } ?>
-
-                    </div>
-                </div>
-            </div>
-            <div class="card card-primary kanban-col custom-scrollbar">
-                <div class="card-header">
-                    DONE
-                </div>
-                <div class="card-body">
-                    <div id="DONE" class="kanban-centered">
-
-                        <?php foreach ($all_card_tasks_completed->result() as $row_list_tasks) { ?>
-                            <a class="kanban-entry grab" href="<?php echo site_url('/all-projects/view_card_tasks/'); ?>" draggable="true" data-toggle="modal" data-target="#view-card-tasks"  data-id="<?php echo $row_list_tasks->id_list_tasks; ?>">
-                                <div class="kanban-entry-inner">
-                                    <div class="kanban-label">
-                                        <h2><?php echo $row_list_tasks->title_card_tasks; ?></h2>
-                                        <span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
-                                             <span class="badge badge-dark"><?php echo $row_list_tasks->count_tasks_completed ." / ".count($row_list_tasks->tasks); ?></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        <?php } ?>
-
-
-                    </div>
-                </div>
-            </div>
-
-
-                </div>
-                    </div>
-                </div>
-            </div>
-            </section>
-        </section> -->
     </div>
   </div>
 </div>
+<div class="modal fade" id="create-card-task" tabindex="-1" role="dialog" aria-labelledby="create-card-task" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-success">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Ajouter une card de tâches</h4>
+      </div>
+        <form id="form-card-tasks" method="post" action="<?php echo site_url('/all-projects/create-card-tasks/'.$project->id_project_tasks); ?>">
+          <div class="modal-body">
+            <div class="form-group">
+                <label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
+                <div class="col-lg-12">
+                  <input class="form-control" type="text" name="titlelisttasks" placeholder="Titre Liste Tasks" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="form-control md-has-value" type="number" name="idlisttasks" value="<?php echo $all_card_tasks->num_rows()+1; ?>" min="1" max="<?php echo $all_card_tasks->num_rows()+1; ?>"  required>
+                <label for="example-number-input">Number</label>
+            </div>
+          </div>
+          <div class="modal-footer ">
+            <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span><?php echo lang('cancel'); ?></button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="create-task" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter une tâche</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-task" method="post" action="<?php echo site_url('/all-projects/create-task/'); ?>">
+                    <div class="form-group">
+                        <input class="titletasks form-control" type="text" name="nametask" placeholder="Titre Task" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="user" id="autocomplete-user" >
+                        <label for="url-user">Url User</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg">ADD Tasks</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary fuse-ripple-ready" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary fuse-ripple-ready">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="view-card-tasks" tabindex="-1" role="dialog" aria-labelledby="view-card-tasks" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -372,42 +242,10 @@
   </div>
 </div>
 
-<div class="modal fade" id="view-send-mail" tabindex="-1" role="dialog" aria-labelledby="view-send-mail" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header modal-header-warning">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-        <h4 class="modal-title custom_align" id="Heading">Ajouter une tâche</h4>
-      </div>
-          <div class="modal-body">
-
-            <form id="form-task" method="post" action="<?php echo site_url('/all-projects/create-task/'.$project->id_project_tasks); ?>">
-                <div class="form-row">
-                    <div class="form-group col-md-7">
-                      <input class="titletasks form-control" type="text" name="titletask" placeholder="Titre Task" required />
-                    </div>
-                    <div class="form-group col-md-5">
-                        <a href="javascript:void(0);" class="add-user"><i class="icon icon-plus-circle"></i></a>
-                        <input id="autocomplete-user" class="form-control" type="text" name="titletask" placeholder="Titre Task" required />
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span>ADD Tasks</button>
-                    </div>
-                </div>
-            </form>
-
-          </div>
-    </div>
-  </div>
-</div>
 
 
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-
-
 
 var EditableTable = function () {
 
@@ -455,27 +293,26 @@ var EditableTable = function () {
     };
 
 }();
+var autocomplete_user = JSON.parse('<?php echo json_encode($users); ?>');
+console.log(autocomplete_user);
+
+/*$('#autocomplete-user').autocomplete({
+    lookup: autocomplete_user,
+        onSelect: function (suggestion) {
+    }
+});*/
+$( "#autocomplete-user" ).autocomplete({
+  source: autocomplete_user
+});
+
 $(document).ready(function(){
 
     EditableTable.init();
-/*    var table = $('#table-view-project').DataTable();
- 
-table.rows.add( [ {
-        "titre":       "Tiger Nixon",
-        "toto":   "System Architect"
-    }, {
-        "titre": "Garrett Winters",
-        "toto": "Director"
-    } ] )
-    .draw();
-*/
 
     var navListItems = $('.steps a'),
         allWells = $('.setup-content'),
         allNextBtn = $('.nextBtn'),
         allPrevBtn = $('.prevBtn');
-
-   /* allWells.hide();*/
 
     navListItems.click(function (e) {
         e.preventDefault();
@@ -484,18 +321,15 @@ table.rows.add( [ {
 
         $.ajax({
             type: "POST",
-            async:false,
             url: window.location.href.substr(0, window.location.href.lastIndexOf('/') + 1)+'view_card_tasks/',
-            data: {'idproject':window.location.href.split('/').pop() ,'idcard':$(this).find('.index').text()},
+            data: {'idproject':window.location.href.split('/').pop() ,'idcard':$(this).find('.index span').attr('data-val')},
             success: function(data){
-                var jsdata = JSON.parse(data);
-
-                console.log($item);
+                /*var jsdata = JSON.parse(data);*/
 
                 $(".setup-content").attr("id",$item.attr('href').substr(1,$item.attr('href').length));
                 
                 $("#table-view-project").DataTable().rows().remove().draw();
-                $("#table-view-project").DataTable().rows.add(jsdata).draw();
+                $("#table-view-project").DataTable().rows.add(data).draw();
             },
             error: function(msg){
                 console.log(msg.responseText);
@@ -512,12 +346,7 @@ table.rows.add( [ {
                     $(item).addClass('current');
                 }
             });
-            /*allWells.hide();
-            $target.show();
-            $target.find('input:eq(0)').focus();*/
         }
-
-
     });
 
     allPrevBtn.click(function(){
@@ -550,19 +379,66 @@ table.rows.add( [ {
 
     $('.steps a.current').trigger('click');
 
-
-
-
-    
-
-
-   /* var autocomplete_user = JSON.parse('<?php echo json_encode($users); ?>');
-
-    $('#autocomplete-user').autocomplete({
-        lookup: autocomplete_user,
-        onSelect: function (suggestion) {
-        }
+    $("#form-card-tasks").submit(function(e){
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(msg){
+                console.log(msg.responseText);
+            },
+            error: function(msg){
+                console.log(msg.responseText);
+            }
+        });
+        e.preventDefault();
     });
+    $("#delete-card-tasks").click(function(e){
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('href'),
+            data: {'idproject':window.location.href.split('/').pop() ,'idcard':$('.current .index span').attr('data-val')},
+            success: function(msg){
+                console.log(msg.responseText);
+            },
+            error: function(msg){
+                console.log(msg.responseText);
+            }
+        });
+        e.preventDefault();
+    });
+    $("#form-task").submit(function(e){
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize()+"&id_project="+window.location.href.split('/').pop()+"&id_card_tasks="+$('.current .index span').attr('data-val'),
+            success: function(msg){
+                console.log(msg.responseText);
+            },
+            error: function(msg){
+                console.log(msg.responseText);
+            }
+        });
+        e.preventDefault();
+    });
+    $(document).on("change", ".checkbox-task", function(e) {
+        $.ajax({
+            type: "POST",
+            url: window.location.href.substr(0, window.location.href.lastIndexOf('/') + 1)+'check_tasks/',
+            data: {'id_project':window.location.href.split('/').pop() ,'id_card_tasks':$('.current .index span').attr('data-val') ,'id_task':$(this).val() ,'check_tasks':$(this).is(":checked")?1:0},
+            success: function(msg){
+                console.log(msg.responseText);
+            },
+            error: function(msg){
+                console.log(msg.responseText);
+            }
+        });
+        e.preventDefault();
+    });
+
+
+
+   /*
     $(".add-user").click(function() {
         $('#autocomplete-user').show().focus();
         $(this).hide();

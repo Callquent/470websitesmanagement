@@ -14,41 +14,28 @@
                         <section class="card mb-3">
                             <header class="card-header">
                                 Ajouter un site web
-                                <span class="tools pull-right">
-                                    <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="fa fa-cog" href="javascript:;"></a>
-                                    <a class="fa fa-times" href="javascript:;"></a>
-                                 </span>
                             </header>
                             <div class="card-body">
-
-                                <div class="adv-table editable-table ">
-                                    <div class="clearfix">
-                                        <div class="btn-group"></div>
-                                    </div>
-                                    <div class="space15"></div>
-                                    <?php if(empty($all_storage_server)){ ?>
-                                        <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftpwebsites">
-                                            <thead>
-                                              <tr>
-                                                <th class="all"><?php echo lang('name'); ?></th>
-                                                <th class="desktop"><?php echo lang('website'); ?></th>
-                                                <th class="desktop">FTP</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <?php foreach ($all_websites->result() as $row) { ?>
-                                                <tr>
-                                                    <td><?php echo $row->name_website ?></td>
-                                                    <td><a href="<?php echo prep_url($row->url_website); ?>" target="_blank"><?php echo $row->url_website; ?></a></td>
-                                                    <td><a href="<?php echo site_url('ftp-websites/'.$row->w_id); ?>">Connect FTP</a></td>
-                                                </tr>
-                                              <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    <?php } ?>
-                                </div>
-
+                                <?php if(empty($all_storage_server)){ ?>
+                                    <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-ftpwebsites">
+                                        <thead>
+                                          <tr>
+                                            <th class="all"><?php echo lang('name'); ?></th>
+                                            <th class="desktop"><?php echo lang('website'); ?></th>
+                                            <th class="desktop">FTP</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <?php foreach ($all_websites->result() as $row) { ?>
+                                            <tr>
+                                                <td><?php echo $row->name_website ?></td>
+                                                <td><a href="<?php echo prep_url($row->url_website); ?>" target="_blank"><?php echo $row->url_website; ?></a></td>
+                                                <td><a href="<?php echo site_url('ftp-websites/'.$row->w_id); ?>">Connect FTP</a></td>
+                                            </tr>
+                                          <?php } ?>
+                                        </tbody>
+                                    </table>
+                                <?php } ?>
                             </div>
                         </section>
                     </div>
@@ -61,7 +48,7 @@
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
-        var ftpwebsitesTable = $('#table-ftpwebsites').dataTable({
+        var ftpwebsitesTable = $('#table-ftpwebsites').DataTable({
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
             "responsive": {
                 'details': {

@@ -40,47 +40,43 @@
             </div>
         </aside>
         <div class="page-content p-4 p-sm-6">
-
-
-            <div class="adv-table editable-table">
-                <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-members">
-                    <thead>
-                      <tr>
-                          <th class="all"></th>
-                          <th class="desktop">Name</th>
-                          <th class="desktop">Email</th>
-                          <th class="desktop">Groupe</th>
-                          <th class="desktop"><?php echo lang('actions'); ?></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach($list_users->result() as $row) { ?>
-                        <tr>
-                            <td>
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-indicator fuse-ripple-ready"></span>
-                                </label>
-                            </td>
-                            <td><?php echo $row->name_user; ?></td>
-                            <td><?php echo $row->email; ?></td>
-                            <td><?php echo $row->name_group; ?></td>
-                            <td>
-                                <div class="dropdown show actions">
-                                    <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-                                      <i class="icon icon-dots-vertical"></i>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                      <a class="dropdown-item" id="edit-members" href="<?php echo site_url('members/edit/'.$row->id); ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                      <a class="dropdown-item" id="delete-members" href="<?php echo site_url('members/delete/'.$row->id); ?>"><i class="fa fa-trash"></i> Delete</a>
-                                    </div>
+            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-members">
+                <thead>
+                  <tr>
+                      <th class="all"></th>
+                      <th class="desktop">Name</th>
+                      <th class="desktop">Email</th>
+                      <th class="desktop">Groupe</th>
+                      <th class="desktop"><?php echo lang('actions'); ?></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach($list_users->result() as $row) { ?>
+                    <tr>
+                        <td>
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input">
+                                <span class="custom-control-indicator fuse-ripple-ready"></span>
+                            </label>
+                        </td>
+                        <td><?php echo $row->name_user; ?></td>
+                        <td><?php echo $row->email; ?></td>
+                        <td><?php echo $row->name_group; ?></td>
+                        <td>
+                            <div class="dropdown show actions">
+                                <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+                                  <i class="icon icon-dots-vertical"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                  <a class="dropdown-item" id="edit-members" href="<?php echo site_url('members/edit/'.$row->id); ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                  <a class="dropdown-item" id="delete-members" href="<?php echo site_url('members/delete/'.$row->id); ?>"><i class="fa fa-trash"></i> Delete</a>
                                 </div>
-                            </td>
-                        </tr>
-                      <?php } ?>
-                    </tbody>
-                </table>
-            </div>
+                            </div>
+                        </td>
+                    </tr>
+                  <?php } ?>
+                </tbody>
+            </table>
         </div>
     </div>
   </div>
@@ -156,7 +152,7 @@ var EditableTable = function () {
               jqTds[4].innerHTML = '<a id="edit-members" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
             }
             function saveRowMembers(membersTable, nRow, nUrl) {
-              var jqInputs = $('input', nRow);
+                var jqInputs = $('input', nRow);
                 membersTable.cell(nRow, 2).data(jqInputs[1].value).draw();
                 var jqSelects = $('select', nRow);
                 membersTable.cell(nRow, 3).data(jqSelects[0].options[jqSelects[0].selectedIndex].text).draw();

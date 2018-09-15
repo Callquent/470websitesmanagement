@@ -14,11 +14,6 @@
                     <section class="card mb-3">
                         <header class="card-header">
                             Advanced File Input
-                              <span class="tools pull-right">
-                                <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                <a class="fa fa-cog" href="javascript:;"></a>
-                                <a class="fa fa-times" href="javascript:;"></a>
-                             </span>
                         </header>
                         <div class="card-body">
             <li class="dropdown language">

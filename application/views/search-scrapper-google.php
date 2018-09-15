@@ -18,41 +18,39 @@
                             <?php echo lang('search_scrapper_google'); ?>
                         </header>
                         <div class="card-body">
-                            <div class="adv-table editable-table ">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div id="results">
-                                            <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span> est indexer sur ce mot clé "<span class="message-keyword"></span>" à la position</h4></div>
-                                            <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div id="results">
+                                        <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span> est indexer sur ce mot clé "<span class="message-keyword"></span>" à la position</h4></div>
+                                        <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
+                                    </div>
+                                    <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="keyword-google" id="keyword-google">
+                                            <label for="keyword">Keyword</label>
                                         </div>
-                                        <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="keyword-google" id="keyword-google">
-                                                <label for="keyword">Keyword</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="website" id="autocomplete">
-                                                <label for="url-website">Url Website</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-4">
-                                      <button class="btn btn-success btn-ls float-right" data-title="Ajouter" data-toggle="modal" data-target="#serptools"><?php echo lang('serp_simulator'); ?></button>
-                                    </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="website" id="autocomplete">
+                                            <label for="url-website">Url Website</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-search-scrapper-google">
-                                  <thead>
-                                    <th class="all"><?php echo lang('position'); ?></th>
-                                    <th class="desktop"><?php echo lang('website'); ?></th>
-                                    <th class="desktop"><?php echo lang('meta_title'); ?></th>
-                                    <th class="desktop"><?php echo lang('meta_description'); ?></th>
-                                  </thead>
-                                </table>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                  <button class="btn btn-success btn-ls float-right" data-title="Ajouter" data-toggle="modal" data-target="#serptools"><?php echo lang('serp_simulator'); ?></button>
+                                </div>
                             </div>
+                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-search-scrapper-google">
+                              <thead>
+                                <th class="all"><?php echo lang('position'); ?></th>
+                                <th class="desktop"><?php echo lang('website'); ?></th>
+                                <th class="desktop"><?php echo lang('meta_title'); ?></th>
+                                <th class="desktop"><?php echo lang('meta_description'); ?></th>
+                              </thead>
+                            </table>
                         </div>
                     </section>
                 </div>

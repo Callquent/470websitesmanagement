@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 14 juil. 2018 à 21:38
+-- Généré le :  sam. 15 sep. 2018 à 07:28
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.0.23
 
@@ -42,26 +42,6 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_backoffice` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `470websitesmanagement_card_tasks`
---
-
-DROP TABLE IF EXISTS `470websitesmanagement_card_tasks`;
-CREATE TABLE IF NOT EXISTS `470websitesmanagement_card_tasks` (
-  `id_list_tasks` int(11) UNSIGNED NOT NULL,
-  `id_project_tasks` int(11) UNSIGNED NOT NULL,
-  `title_card_tasks` varchar(255) NOT NULL,
-  `description_card_tasks` text NOT NULL,
-  `id_priority_tasks` int(11) NOT NULL,
-  `id_status_tasks` int(11) NOT NULL,
-  PRIMARY KEY (`id_list_tasks`,`id_project_tasks`),
-  KEY `fk_id_list_tasks` (`id_project_tasks`),
-  KEY `fk_id_status_tasks` (`id_status_tasks`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `470websitesmanagement_category`
 --
 
@@ -72,7 +52,6 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_category` (
   `title_url_category` varchar(255) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id_category`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 
@@ -204,14 +183,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_login_attempts` (
   `timestamp` datetime DEFAULT NULL,
   `login_attempts` tinyint(2) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `470websitesmanagement_login_attempts`
---
-
-INSERT INTO `470websitesmanagement_login_attempts` (`id`, `ip_address`, `timestamp`, `login_attempts`) VALUES
-(1, '::1', '2018-03-15 17:51:19', 1);
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -309,23 +281,6 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_positiontracking_scheduled` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `470websitesmanagement_project_tasks`
---
-
-DROP TABLE IF EXISTS `470websitesmanagement_project_tasks`;
-CREATE TABLE IF NOT EXISTS `470websitesmanagement_project_tasks` (
-  `id_project_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_website` int(11) UNSIGNED NOT NULL,
-  `name_project_tasks` varchar(255) NOT NULL,
-  `started_project_tasks` date NOT NULL,
-  `deadline_project_tasks` date NOT NULL,
-  PRIMARY KEY (`id_project_tasks`),
-  KEY `fk_id_pt` (`id_website`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `470websitesmanagement_settings`
 --
 
@@ -353,34 +308,53 @@ INSERT INTO `470websitesmanagement_settings` (`id_s`, `name_s`, `value_s`) VALUE
 DROP TABLE IF EXISTS `470websitesmanagement_tasks`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks` (
   `id_project_tasks` int(11) UNSIGNED NOT NULL,
-  `id_list_tasks` int(11) UNSIGNED NOT NULL,
+  `id_card_tasks` int(11) UNSIGNED NOT NULL,
   `id_task` int(11) UNSIGNED NOT NULL,
   `name_task` varchar(255) NOT NULL,
   `check_tasks` tinyint(1) NOT NULL,
   `id_user` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id_project_tasks`,`id_task`,`id_list_tasks`),
+  PRIMARY KEY (`id_project_tasks`,`id_task`,`id_card_tasks`),
   KEY `id_users` (`id_user`),
-  KEY `fk_task_to_list_tasks` (`id_list_tasks`)
+  KEY `fk_task_to_list_tasks` (`id_card_tasks`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `470websitesmanagement_tasks_priority`
+-- Structure de la table `470websitesmanagement_tasks__card`
 --
 
-DROP TABLE IF EXISTS `470websitesmanagement_tasks_priority`;
-CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks_priority` (
+DROP TABLE IF EXISTS `470websitesmanagement_tasks__card`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks__card` (
+  `id_project_tasks` int(11) UNSIGNED NOT NULL,
+  `id_card_tasks` int(11) UNSIGNED NOT NULL,
+  `title_card_tasks` varchar(255) NOT NULL,
+  `description_card_tasks` text NOT NULL,
+  `id_priority_tasks` int(11) NOT NULL,
+  `id_status_tasks` int(11) NOT NULL,
+  PRIMARY KEY (`id_card_tasks`,`id_project_tasks`),
+  KEY `fk_id_list_tasks` (`id_project_tasks`),
+  KEY `fk_id_status_tasks` (`id_status_tasks`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_tasks__priority`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_tasks__priority`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks__priority` (
   `id_tasks_priority` int(11) NOT NULL AUTO_INCREMENT,
   `name_tasks_priority` varchar(255) NOT NULL,
   PRIMARY KEY (`id_tasks_priority`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `470websitesmanagement_tasks_priority`
+-- Déchargement des données de la table `470websitesmanagement_tasks__priority`
 --
 
-INSERT INTO `470websitesmanagement_tasks_priority` (`id_tasks_priority`, `name_tasks_priority`) VALUES
+INSERT INTO `470websitesmanagement_tasks__priority` (`id_tasks_priority`, `name_tasks_priority`) VALUES
 (1, 'Low'),
 (2, 'Medium'),
 (3, 'Hight'),
@@ -389,21 +363,38 @@ INSERT INTO `470websitesmanagement_tasks_priority` (`id_tasks_priority`, `name_t
 -- --------------------------------------------------------
 
 --
--- Structure de la table `470websitesmanagement_tasks_status`
+-- Structure de la table `470websitesmanagement_tasks__project`
 --
 
-DROP TABLE IF EXISTS `470websitesmanagement_tasks_status`;
-CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks_status` (
+DROP TABLE IF EXISTS `470websitesmanagement_tasks__project`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks__project` (
+  `id_project_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_website` int(11) UNSIGNED NOT NULL,
+  `name_project_tasks` varchar(255) NOT NULL,
+  `started_project_tasks` date NOT NULL,
+  `deadline_project_tasks` date NOT NULL,
+  PRIMARY KEY (`id_project_tasks`),
+  KEY `fk_id_pt` (`id_website`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `470websitesmanagement_tasks__status`
+--
+
+DROP TABLE IF EXISTS `470websitesmanagement_tasks__status`;
+CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks__status` (
   `id_tasks_status` int(11) NOT NULL AUTO_INCREMENT,
   `name_tasks_status` varchar(255) NOT NULL,
   PRIMARY KEY (`id_tasks_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `470websitesmanagement_tasks_status`
+-- Déchargement des données de la table `470websitesmanagement_tasks__status`
 --
 
-INSERT INTO `470websitesmanagement_tasks_status` (`id_tasks_status`, `name_tasks_status`) VALUES
+INSERT INTO `470websitesmanagement_tasks__status` (`id_tasks_status`, `name_tasks_status`) VALUES
 (1, 'To Do'),
 (2, 'In Progress'),
 (3, 'Completed');
@@ -431,7 +422,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_users` (
   `totp_secret` varchar(16) DEFAULT NULL,
   `ip_address` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=546 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -509,13 +500,6 @@ ALTER TABLE `470websitesmanagement_backoffice`
   ADD CONSTRAINT `fk_id_bo` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
--- Contraintes pour la table `470websitesmanagement_card_tasks`
---
-ALTER TABLE `470websitesmanagement_card_tasks`
-  ADD CONSTRAINT `fk_id_list_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_project_tasks` (`id_project_tasks`),
-  ADD CONSTRAINT `fk_id_status_tasks` FOREIGN KEY (`id_status_tasks`) REFERENCES `470websitesmanagement_tasks_status` (`id_tasks_status`);
-
---
 -- Contraintes pour la table `470websitesmanagement_database`
 --
 ALTER TABLE `470websitesmanagement_database`
@@ -546,18 +530,25 @@ ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
   ADD CONSTRAINT `fk_id_positiontracking_sc` FOREIGN KEY (`w_id_pt`) REFERENCES `470websitesmanagement_positiontracking` (`w_id_pt`);
 
 --
--- Contraintes pour la table `470websitesmanagement_project_tasks`
---
-ALTER TABLE `470websitesmanagement_project_tasks`
-  ADD CONSTRAINT `fk_id_pt` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
-
---
 -- Contraintes pour la table `470websitesmanagement_tasks`
 --
 ALTER TABLE `470websitesmanagement_tasks`
   ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `470websitesmanagement_users` (`id`),
-  ADD CONSTRAINT `fk_task_to_list_tasks` FOREIGN KEY (`id_list_tasks`) REFERENCES `470websitesmanagement_card_tasks` (`id_list_tasks`),
-  ADD CONSTRAINT `fk_task_to_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_card_tasks` (`id_project_tasks`);
+  ADD CONSTRAINT `fk_task_to_card_tasks` FOREIGN KEY (`id_card_tasks`) REFERENCES `470websitesmanagement_tasks__card` (`id_card_tasks`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_task_to_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_tasks__card`
+--
+ALTER TABLE `470websitesmanagement_tasks__card`
+  ADD CONSTRAINT `fk_id_card_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`),
+  ADD CONSTRAINT `fk_id_status_tasks` FOREIGN KEY (`id_status_tasks`) REFERENCES `470websitesmanagement_tasks__status` (`id_tasks_status`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_tasks__project`
+--
+ALTER TABLE `470websitesmanagement_tasks__project`
+  ADD CONSTRAINT `fk_id_pt` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`w_id`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_website`

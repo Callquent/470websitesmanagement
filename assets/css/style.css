@@ -108,7 +108,7 @@ ul.sidebar-menu .list-title-sidebar span {
 /*      SIDEBAR       */
 /***********************/
 #aside .badge { background: #1fb5ac !important; color: #ffffff;}
-#aside .nav.nav-tabs {border-bottom: 1px solid #1b222c;margin: 0;position: relative;top: -40px;}
+#aside .nav.nav-tabs {margin: 0;position: relative;top: -40px;}
 #aside .nav > li > a {position: relative;display: block;padding:9px 19px 9px;}
 #aside .nav.nav-tabs li{margin-right:1px;}
 #aside .nav.nav-tabs li i{font-size:18px;color:#fff; width: auto; height: auto;}
@@ -330,6 +330,9 @@ h3.r{
 /***********************/
 /*      Datables       */
 /***********************/
+table td {
+  font-size: 14px !important;
+}
 table.dataTable {
   border-collapse: collapse !important;
 }
@@ -543,8 +546,13 @@ table#table-view-project .progress {
 #all-projects select.form-control {
     background-position: right 13px center;
 }
-#autocomplete-user {
-  display: none;
+#academy-course .sidebar .steps .step .index .icon-check-circle {
+    position: absolute;
+    bottom: 7px;
+    z-index: 999;
+    left: 33px;
+    font-size: 1.7rem;
+    color: #5cb85c;
 }
 /***************************/
 /*      PROJECT VIEW       */
@@ -580,7 +588,11 @@ table#table-view-project .progress {
     font-size: 12px;
     line-height: 1.428571429;
     border-radius: 15px;
-    margin-top: 0; }
+    margin-top: 0;
+}
+.ui-widget.ui-widget-content {
+    z-index: 9999;
+}
 /*********************/
 /*      CUSTOM       */
 /*********************/

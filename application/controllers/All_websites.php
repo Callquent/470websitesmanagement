@@ -101,7 +101,7 @@ class All_websites extends CI_Controller {
 							2 => $this->encryption->decrypt($row->password_ftp),
 							3 => '<div class="dropdown show actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									  	<i class="fa fa-ellipsis-v"></i>
+									  	<i class="icon icon-dots-vertical"></i>
 									  </a>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-ftp-website/'.$row->id_website.'/'.$row->id_ftp).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
@@ -123,7 +123,7 @@ class All_websites extends CI_Controller {
 							3 => $this->encryption->decrypt($row->password_database),
 							4 => '<div class="dropdown show actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									  	<i class="fa fa-ellipsis-v"></i>
+									  	<i class="icon icon-dots-vertical"></i>
 									  </a>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-database-website/'.$row->id_website.'/'.$row->id_database).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
@@ -144,7 +144,7 @@ class All_websites extends CI_Controller {
 							2 => $this->encryption->decrypt($row->password_backoffice),
 							3 => '<div class="dropdown show actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									  	<i class="fa fa-ellipsis-v"></i>
+									  	<i class="icon icon-dots-vertical"></i>
 									  </a>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->id_website.'/'.$row->id_backoffice).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
@@ -164,7 +164,7 @@ class All_websites extends CI_Controller {
 							1 => $this->encryption->decrypt($row->password_htaccess),
 							2 => '<div class="dropdown show actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									  	<i class="fa fa-ellipsis-v"></i>
+									  	<i class="icon icon-dots-vertical"></i>
 									  </a>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-htaccess-website/'.$row->id_website.'/'.$row->id_htaccess).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>

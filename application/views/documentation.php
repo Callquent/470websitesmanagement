@@ -14,11 +14,6 @@
                         <section class="card mb-3">
                             <header class="card-header">
                                 <?php echo lang('notice'); ?>
-                                <span class="tools pull-right">
-                                    <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                    <a class="fa fa-cog" href="javascript:;"></a>
-                                    <a class="fa fa-times" href="javascript:;"></a>
-                                 </span>
                             </header>
                             <div class="card-body">
                                 <div class="row">

@@ -1,4 +1,4 @@
-var EditableTable = function () {
+var EditableTableManagement = function () {
 
     return {
 

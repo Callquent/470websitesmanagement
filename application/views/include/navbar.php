@@ -4,7 +4,7 @@
                         <div class="col">
                             <div class="row no-gutters align-items-center flex-nowrap">
                                 <button type="button" class="toggle-aside-button btn btn-icon d-block d-lg-none fuse-ripple-ready" data-fuse-bar-toggle="aside">
-                                    <i class="fa fa-2x fa-bars"></i>
+                                    <i class="icon icon-menu"></i>
                                 </button>
                                 <div class="toolbar-separator d-block d-lg-none"></div>
                                 <div class="shortcuts-wrapper row no-gutters align-items-center px-0 px-sm-2">

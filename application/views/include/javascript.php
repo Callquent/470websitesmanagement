@@ -3,12 +3,11 @@
 		<?php echo js_url('plugins/jquery.min.js'); ?>
 		<?php echo js_url('plugins/popper.min.js'); ?>
 		<?php echo js_url('plugins/bootstrap.min.js'); ?>
-		<?php echo js_url('plugins/jquery.dcjqaccordion.2.7.js'); ?>
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
 		<?php echo js_url('plugins/fuse-html.min.js'); ?>
 		<script type="text/javascript">
-		$(document).ready(function(){
+		/*$(document).ready(function(){
 			var url = window.location.pathname;  
 			var activePage = url.substring(url.lastIndexOf('/')+1);
 		    $('ul.sidebar-menu li a').each(function(){  
@@ -19,11 +18,10 @@
 		            $(this).parent().addClass('active');
 		        } 
 		    });
-		});
+		});*/
 		</script>
 		<?php if ($this->uri->segment(1)=='all-projects') { ?>
-			<?php echo js_url('plugins/jquery.autocomplete.js'); ?>
-			<?php echo js_url('plugins/mdb/mdb.min.js'); ?>
+			<?php echo js_url('plugins/jquery-ui/jquery-ui.min.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='dashboard' ||
 		$this->uri->segment(1)=='all-websites' ||
@@ -65,7 +63,7 @@
 			<?php echo js_url('plugins/nvd3/nv.d3.min.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='export') { ?>
-			<?php echo js_url('plugins/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
+			<?php echo js_url('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js'); ?>
 			<?php echo js_url('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 			<?php echo js_url('plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
 			<?php echo js_url('plugins/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>

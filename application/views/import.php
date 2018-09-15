@@ -30,8 +30,8 @@
                                                 <div class="col-lg-6">
                                                     <div class="fileupload fileupload-new" data-provides="fileupload">
                                                                 <span class="btn btn-white btn-file">
-                                                                    <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select file</span>
-                                                                    <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                                    <span class="fileupload-new"><i class="icon icon-attachment"></i> Select file</span>
+                                                                    <span class="fileupload-exists"><i class="icon icon-replay"></i> Change</span>
                                                                     <input type="file" name="importfile" class="default" />
                                                                 </span>
                                                         <span class="fileupload-preview" style="margin-left:5px;"></span>

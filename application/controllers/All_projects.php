@@ -47,8 +47,8 @@ class All_projects extends CI_Controller {
 			foreach ($data['list_users']->result() as $row)
 			{
 				$list = array();
-				$list['value'] = strip_tags($row->name_user);
-				$list['data'] = strip_tags($row->id);
+				$list['value'] = strip_tags($row->id);
+				$list['label'] = strip_tags($row->name_user);
 
 				$data['users'][] = $list;
 			}
@@ -96,46 +96,88 @@ class All_projects extends CI_Controller {
 	}
 	public function view_card_tasks()
 	{
-		$id_project			= $this->input->post('idproject');
+		$id_project_tasks			= $this->input->post('idproject');
 		$id_card_tasks		= $this->input->post('idcard');
 
-		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project, $id_card_tasks);
+		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
+		/*var_dump(isset($data['card_tasks']->tasks));*/
 
-		foreach ($data['card_tasks']->tasks as $key => $row)
-		{
-			$list = array();
-			$list[] = $row->check_tasks;
-			$list[] = $row->name_task;
-			$list[] = $row->username;
-			$list_tasks_preview[] = $list;
+		if (isset($data['card_tasks']->tasks)) {
+			foreach ($data['card_tasks']->tasks as $key => $row)
+			{
+				$list = array();
+				if ($row->check_tasks==0) {
+					$list[] = '<label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input checkbox-task" name="idtask" value="'.$row->id_task.'">
+                                    <span class="custom-control-indicator fuse-ripple-ready"></span>
+                                </label>';
+				} else{
+					$list[] = '<label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input checkbox-task" name="idtask" value="'.$row->id_task.'" checked>
+                                    <span class="custom-control-indicator fuse-ripple-ready"></span>
+                                </label>';
+				}
+				$list[] = $row->name_task;
+				$list[] = $row->username;
+				$list[] = '<div class="dropdown show actions">
+							<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+								<i class="icon icon-dots-vertical"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-projects/edit-projects/'.$row->id_task).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+								<a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-projects/delete-projects/'.$row->id_task).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+							</div>
+						</div>';
+				$list_tasks_preview[] = $list;
+			}
+
+			$this->output->set_content_type('application/json')->set_output( json_encode($list_tasks_preview)); 
+		} else {
+			$this->output->parse_exec_vars = FALSE;
 		}
-
-		echo json_encode($list_tasks_preview);
 	}
-	public function create_list_tasks($id_project_tasks = '')
+	public function delete_card_tasks()
 	{
+		$id_project_tasks		= $this->input->post('idproject');
+		$id_card_tasks		= $this->input->post('idcard');
+
+		$this->model_tasks->delete_card_tasks($id_project_tasks,$id_card_tasks);
+	}
+	public function create_card_tasks($id_project_tasks = '')
+	{
+		$id_card_tasks			= $this->input->post('idlisttasks');
 		$title_list_task			= $this->input->post('titlelisttasks');
 
-		$this->model_tasks->create_list_tasks($id_project_tasks, $title_list_task);
+		$this->model_tasks->create_list_tasks($id_project_tasks, $id_card_tasks, $title_list_task);
 	}
-	public function create_task($id_project_tasks = '')
+	public function create_task()
 	{
-		$idlisttasks			= $this->input->post('idlisttasks');
-		$nametask				= $this->input->post('titletask');
+		$id_project_tasks		= $this->input->post('id_project');
+		$id_card_tasks			= $this->input->post('id_card_tasks');
+		$nametask				= $this->input->post('nametask');
 		$iduser					= $this->input->post('user');
 
-		$this->model_tasks->create_task($id_project_tasks, $idlisttasks, $nametask, $iduser);
+		$this->model_tasks->create_task($id_project_tasks, $id_card_tasks, $nametask, $iduser);
+	}
+	public function check_tasks()
+	{
+		$id_project_tasks		= $this->input->post('id_project');
+		$id_card_tasks			= $this->input->post('id_card_tasks');
+		$id_task				= $this->input->post('id_task');
+		$check_tasks			= $this->input->post('check_tasks');
+
+		$this->model_tasks->update_check_task($id_project_tasks, $id_card_tasks, $id_task, $check_tasks);
 	}
 	public function edit_tasks($id_project_tasks = '')
 	{
-		$idlisttasks			= $this->input->post('idlisttasks');
+		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$idtask					= $this->input->post('idtask');
 		$nametask				= $this->input->post('titletask');
 		$check_tasks			= $this->input->post('check_tasks');
 		$iduser					= $this->input->post('user');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_back->update_tasks($id_project_tasks, $idlisttasks, $idtask, $name_task, $check_tasks, $iduser);
+			$this->model_tasks->update_task($id_project_tasks, $id_card_tasks, $idtask, $name_task, $check_tasks, $iduser);
 		}
 	}
 }
