@@ -100,7 +100,8 @@ class All_projects extends CI_Controller {
 		$id_card_tasks		= $this->input->post('idcard');
 
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
-		/*var_dump(isset($data['card_tasks']->tasks));*/
+
+		$data['title_card_tasks'] = $data['card_tasks']->title_card_tasks;
 
 		if (isset($data['card_tasks']->tasks)) {
 			foreach ($data['card_tasks']->tasks as $key => $row)
@@ -130,11 +131,10 @@ class All_projects extends CI_Controller {
 						</div>';
 				$list_tasks_preview[] = $list;
 			}
-
-			$this->output->set_content_type('application/json')->set_output( json_encode($list_tasks_preview)); 
-		} else {
-			$this->output->parse_exec_vars = FALSE;
+			$data['list_tasks_preview'] = $list_tasks_preview;
 		}
+		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
+
 	}
 	public function delete_card_tasks()
 	{
@@ -155,7 +155,9 @@ class All_projects extends CI_Controller {
 		$id_project_tasks		= $this->input->post('id_project');
 		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$nametask				= $this->input->post('nametask');
-		$iduser					= $this->input->post('user');
+		$user					= $this->input->post('user');
+		
+		$iduser = $this->model_users->get_user_id($user)->id;
 
 		$this->model_tasks->create_task($id_project_tasks, $id_card_tasks, $nametask, $iduser);
 	}
@@ -167,6 +169,8 @@ class All_projects extends CI_Controller {
 		$check_tasks			= $this->input->post('check_tasks');
 
 		$this->model_tasks->update_check_task($id_project_tasks, $id_card_tasks, $id_task, $check_tasks);
+
+		$this->model_tasks->update_check_card_completed($id_project_tasks, $id_card_tasks);
 	}
 	public function edit_tasks($id_project_tasks = '')
 	{

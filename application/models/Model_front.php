@@ -144,9 +144,9 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.id_website = 470websitesmanagement_website.w_id')
-				->join('470websitesmanagement_database', '470websitesmanagement_database.id_website = 470websitesmanagement_website.w_id')
-				->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_website__ftp', '470websitesmanagement_website__ftp.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_website__database', '470websitesmanagement_website__database.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_website__backoffice', '470websitesmanagement_website__backoffice.id_website = 470websitesmanagement_website.w_id')
 				->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
 				->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
 				->where('w_id', $id)
@@ -179,7 +179,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_ftp', '470websitesmanagement_ftp.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_website__ftp', '470websitesmanagement_website__ftp.id_website = 470websitesmanagement_website.w_id')
 				->where('w_id', $id)
 				->limit(1);
 
@@ -190,7 +190,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_database', '470websitesmanagement_database.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_website__database', '470websitesmanagement_website__database.id_website = 470websitesmanagement_website.w_id')
 				->where('w_id', $id)
 				->limit(1);
 
@@ -201,7 +201,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_backoffice', '470websitesmanagement_backoffice.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_website__backoffice', '470websitesmanagement_website__backoffice.id_website = 470websitesmanagement_website.w_id')
 				->where('w_id', $id)
 				->limit(1);
 
@@ -212,7 +212,7 @@ class Model_front extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_htaccess', '470websitesmanagement_htaccess.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_website__htaccess', '470websitesmanagement_website__htaccess.id_website = 470websitesmanagement_website.w_id')
 				->where('w_id', $id)
 				->limit(1);
 

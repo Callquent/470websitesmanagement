@@ -37,7 +37,7 @@
                                         <a data-toggle="tab" href="#groupes"><i class="icon icon-tag-multiple"></i></a>
                                     </li>
                                     <li class="">
-                                        <a data-toggle="tab" href="#list-members"><i class="icon icon-account-multiple"></i></a>
+                                        <a data-toggle="tab" href="#list-members"><i class="icon icon-account-box"></i></a>
                                     </li>
                                     <li class="">
                                         <a data-toggle="tab" href="#admin"><i class="icon icon-settings"></i></a>
@@ -83,19 +83,19 @@
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('ftp-websites'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-exchange"></i>
+                                                    <i class="icon icon-swap-horizontal"></i>
                                                     <span>FTP Websites</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('whois-domain'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-file"></i>
+                                                    <i class="fa fa-file icon-lan-connect"></i>
                                                     <span>Whois Domain</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:;" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-projects">
-                                                    <i class="fa fa-briefcase"></i>
+                                                    <i class="icon icon-bulletin-board"></i>
                                                     <span>Projects</span>
                                                 </a>
                                                 <ul id="collapse-projects" class="collapse" role="tabpanel" data-children=".nav-item">
@@ -107,7 +107,7 @@
                                             </li>
                                             <li>
                                                 <a href="javascript:;" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-scrapperseo">
-                                                    <i class="fa fa-search"></i>
+                                                    <i class="icon icon-search-web"></i>
                                                     <span>Scrapper SEO</span>
                                                 </a>
                                                 <ul id="collapse-scrapperseo" class="collapse" role="tabpanel" data-children=".nav-item">
@@ -135,13 +135,13 @@
                                             </li>
                                             <li class="sub-menu">
                                                 <a href="<?php echo site_url('language'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-code"></i>
+                                                    <i class="icon icon-code-tags"></i>
                                                     <span><?php echo lang('languages'); ?></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('category'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-th"></i>
+                                                    <i class="icon icon-table"></i>
                                                     <span><?php echo lang('categories'); ?></span>
                                                 </a>
                                             </li>
@@ -154,7 +154,7 @@
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('members'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-user"></i>
+                                                    <i class="icon icon-account-multiple"></i>
                                                     <span><?php echo lang('members'); ?></span>
                                                 </a>
                                             </li>
@@ -167,25 +167,25 @@
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('settings'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-cog"></i>
+                                                    <i class="icon icon-tune-vertical"></i>
                                                     <span><?php echo lang('settings'); ?></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('export'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-download"></i>
+                                                    <i class="icon icon-download"></i>
                                                     <span><?php echo lang('export'); ?></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('import'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-upload"></i>
+                                                    <i class="icon icon-upload"></i>
                                                     <span><?php echo lang('import'); ?></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('documentation'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-info-circle"></i>
+                                                    <i class="icon icon-help-circle"></i>
                                                     <span><?php echo lang('documentation'); ?></span>
                                                 </a>
                                             </li>
