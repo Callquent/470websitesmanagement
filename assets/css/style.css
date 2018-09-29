@@ -551,7 +551,10 @@ table#table-view-project .progress {
 #all-projects select.form-control {
     background-position: right 13px center;
 }
-
+.widget-tasks .widget-content .title {
+    font-size: 7.2rem;
+    line-height: 7.2rem;
+}
 /***************************/
 /*      PROJECT VIEW       */
 /***************************/

@@ -56,14 +56,14 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">
                                         <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('profile'); ?>">
                                             <div class="row no-gutters align-items-center flex-nowrap">
-                                                <i class="fa fa-2x fa-user"></i>
+                                                <i class="icon icon-account"></i>
                                                 <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('profile'); ?></font></font></span>
                                             </div>
                                         </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('index/logout'); ?>">
                                             <div class="row no-gutters align-items-center flex-nowrap">
-                                                <i class="fa fa-2x fa-sign-out"></i>
+                                                <i class="icon icon-logout"></i>
                                                 <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('log_out'); ?></font></font></span>
                                             </div>
                                         </a>

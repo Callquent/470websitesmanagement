@@ -47,7 +47,7 @@ class All_projects extends CI_Controller {
 			foreach ($data['list_users']->result() as $row)
 			{
 				$list = array();
-				$list['value'] = strip_tags($row->id);
+				$list['value'] = strip_tags($row->name_user);
 				$list['label'] = strip_tags($row->name_user);
 
 				$data['users'][] = $list;
@@ -61,13 +61,8 @@ class All_projects extends CI_Controller {
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
-			$data['all_card_tasks'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks);
-			$data['all_card_tasks_to_do'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"1");
-			$data['all_card_tasks_in_progress'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"2");
-			$data['all_card_tasks_completed'] = $this->model_tasks->get_list_tasks_per_project($id_project_tasks,"3");
+			$data['all_card_tasks'] = $this->model_tasks->get_all_tasks_card($id_project_tasks);
 			
-			$data['all_users_to_project'] = $this->model_tasks->get_users_to_project($id_project_tasks);
-
 			$this->load->view('view-project', $data);
 		}
 	}
@@ -125,8 +120,8 @@ class All_projects extends CI_Controller {
 								<i class="icon icon-dots-vertical"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-projects/edit-projects/'.$row->id_task).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-								<a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-projects/delete-projects/'.$row->id_task).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+								<a class="dropdown-item" id="edit-task" href="'.site_url('all-projects/edit-task/').'" data-val="'.$row->id_task.'"><i class="icon icon-pencil"></i> '.lang('edit').'</a>
+								<a class="dropdown-item" id="delete-task" href="'.site_url('all-projects/delete-task/').'" data-val="'.$row->id_task.'"><i class="icon icon-trash"></i> '.lang('delete').'</a>
 							</div>
 						</div>';
 				$list_tasks_preview[] = $list;
@@ -172,16 +167,24 @@ class All_projects extends CI_Controller {
 
 		$this->model_tasks->update_check_card_completed($id_project_tasks, $id_card_tasks);
 	}
-	public function edit_tasks($id_project_tasks = '')
+	public function edit_task($id_project_tasks = '')
 	{
-		$id_card_tasks			= $this->input->post('id_card_tasks');
-		$idtask					= $this->input->post('idtask');
-		$nametask				= $this->input->post('titletask');
-		$check_tasks			= $this->input->post('check_tasks');
-		$iduser					= $this->input->post('user');
+		$id_project_tasks	= $this->input->post('idproject');
+		$id_card_tasks		= $this->input->post('idcard');
+		$id_task			= $this->input->post('idtask');
+		$nametask			= $this->input->post('titletask');
+		$iduser				= $this->input->post('user');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_tasks->update_task($id_project_tasks, $id_card_tasks, $idtask, $name_task, $check_tasks, $iduser);
+			$this->model_tasks->update_task($id_project_tasks, $id_card_tasks, $id_task, $name_task, $check_tasks, $iduser);
 		}
+	}
+	public function delete_task()
+	{
+		$id_project_tasks	= $this->input->post('idproject');
+		$id_card_tasks		= $this->input->post('idcard');
+		$id_task			= $this->input->post('idtask');
+
+		$this->model_tasks->delete_tasks($id_project_tasks,$id_card_tasks,$id_task);
 	}
 }

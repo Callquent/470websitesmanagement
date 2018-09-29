@@ -76,7 +76,15 @@
 									<td><?php echo $row->name_project_tasks; ?></td>
 									<td><?php echo $row->started_project_tasks; ?></td>
 									<td><?php echo $row->deadline_project_tasks; ?></td>
-									<td><span class="badge badge-danger">Canceled</span></td>
+									<td>
+										<?php
+										if ( $row->percentage_tasks == 100) {
+											echo '<span class="badge badge-success">Success</span>';
+										} else {
+											echo '<span class="badge badge-warning">In progress</span>';
+										}
+										?>
+									</td>
 									<td>
 									  <div class="progress">
 										  <div class="progress-bar" role="progressbar" style="width: <?php echo $row->percentage_tasks; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $row->percentage_tasks; ?>%
@@ -141,10 +149,10 @@
 				</div>
 				<div class="form-group">
 					  <label class="control-label">Date Range</label>
-					  <div class="input-group input-large" data-date="13/07/2013" data-date-format="mm/dd/yyyy">
-						  <input type="text" class="form-control dpd1" type="date" name="datestarted">
+					  <div class="input-group input-large">
+						  <input class="form-control dpd1" value="<?php echo date('Y-m-d'); ?>" type="date" name="datestarted">
 						  <span class="input-group-addon">To</span>
-						  <input type="text" class="form-control dpd2" type="date" name="datedeadline">
+						  <input class="form-control dpd2" value="<?php echo date('Y-m-d'); ?>" type="date" name="datedeadline">
 					  </div>
 				</div>
 			  </div>

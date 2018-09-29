@@ -13,7 +13,7 @@
 
 		  <div class="row">
 			<div class="col-12 col-sm-6 col-xl-3 p-3">
-			  <div class="widget widget2 card">
+			  <div class="widget-tasks card">
 				  <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
 					  <div class="col">
 						  <span class="h6">Critical</span>
@@ -35,7 +35,7 @@
 			  </div>
 			</div>
 			<div class="col-12 col-sm-6 col-xl-3 p-3">
-			  <div class="widget widget2 card">
+			  <div class="widget-tasks card">
 				  <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
 					  <div class="col">
 						  <span class="h6">Hight</span>
@@ -57,7 +57,7 @@
 			  </div>
 			</div>
 			<div class="col-12 col-sm-6 col-xl-3 p-3">
-			  <div class="widget widget2 card">
+			  <div class="widget-tasks card">
 				  <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
 					  <div class="col">
 						  <span class="h6">Medium</span>
@@ -79,7 +79,7 @@
 			  </div>
 			</div>
 			<div class="col-12 col-sm-6 col-xl-3 p-3">
-			  <div class="widget widget2 card">
+			  <div class="widget-tasks card">
 				  <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
 					  <div class="col">
 						  <span class="h6">Low</span>

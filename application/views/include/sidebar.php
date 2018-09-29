@@ -89,7 +89,7 @@
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url('whois-domain'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="fa fa-file icon-lan-connect"></i>
+                                                    <i class="icon icon-file-document-box"></i>
                                                     <span>Whois Domain</span>
                                                 </a>
                                             </li>

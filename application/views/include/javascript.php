@@ -6,20 +6,7 @@
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
 		<?php echo js_url('plugins/fuse-html.min.js'); ?>
-		<script type="text/javascript">
-		/*$(document).ready(function(){
-			var url = window.location.pathname;  
-			var activePage = url.substring(url.lastIndexOf('/')+1);
-		    $('ul.sidebar-menu li a').each(function(){  
-		        var currentPage = this.href.substring(this.href.lastIndexOf('/')+1);
-
-		        if (activePage == currentPage) {
-		            $('ul.nav-tabs a[href="#' + $(this).parents().eq(2).attr("id") + '"]').tab('show');
-		            $(this).parent().addClass('active');
-		        } 
-		    });
-		});*/
-		</script>
+		<?php echo js_url('plugins/pnotify/pnotify.custom.min.js'); ?>
 		<?php if ($this->uri->segment(1)=='all-projects') { ?>
 			<?php echo js_url('plugins/jquery-ui/jquery-ui.min.js'); ?>
 		<?php } ?>
@@ -39,8 +26,6 @@
 			<?php echo js_url('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js'); ?>
 			<?php echo js_url('plugins/jquery-multi-select/js/jquery.multi-select.js'); ?>
 			<?php echo js_url('plugins/jquery-multi-select/js/jquery.quicksearch.js'); ?>
-			<?php echo js_url('plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js'); ?>
-			<?php echo js_url('plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js'); ?>
 			<?php echo js_url('plugins/jquery-tags-input/jquery.tagsinput.min.js'); ?>
 
 			<?php echo js_url('plugins/advanced-form.js'); ?>

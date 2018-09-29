@@ -54,25 +54,22 @@
 						<div class="course-step-content" id="course-step-content">
 							<div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center; align-items: center;">
 								<h2 id="title-card-tasks"></h2>
-								<div><a id="delete-card-tasks" href="<?php echo site_url('/all-projects/delete-card-tasks/'); ?>">Supprimer la card</a></div>
-								<div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
-
-                                                        <button type="button" class="btn btn-icon fuse-ripple-ready">
-                                                            <i class="icon icon-dots-vertical"></i>
-                                                        </button>
-
-                                                    </div>
+								<div class="dropdown actions">
+									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-expanded="true">
+										<i class="icon icon-dots-vertical"></i>
+									  </a>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
+									  	<a class="dropdown-item fuse-ripple-ready" href="javascript:void(0);" data-toggle="modal" data-target="#create-task"><i class="fa fa-eye"></i> Ajouter</a>
+										<a class="dropdown-item fuse-ripple-ready" id="delete-card-tasks" href="<?php echo site_url('/all-projects/delete-card-tasks/'); ?>"><i class="fa fa-eye"></i> Supprimer</a>
+										<div class="dropdown-divider"></div>
+									  </div>
+								  </div>								
 							</div>
 							<section class="card mb-3">
 							  <header class="card-header">
 								  <?php echo lang('websites_management'); ?>
 							  </header>
 							  <div class="card-body">
-								  <div class="row">
-									  <div class="col-sm-12">
-										<a class="btn btn-primary btn-lg" href="javascript:void(0);" data-toggle="modal" data-target="#create-task">ADD Tasks</a>
-									  </div>
-								  </div>
 									<table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-view-project">
 									  <thead>
 										<th class="all">check</th>
@@ -304,7 +301,6 @@ var EditableTable = function () {
 
 }();
 var autocomplete_user = JSON.parse('<?php echo json_encode($users); ?>');
-console.log(autocomplete_user);
 
 /*$('#autocomplete-user').autocomplete({
 	lookup: autocomplete_user,
@@ -312,15 +308,7 @@ console.log(autocomplete_user);
 	}
 });*/
 $( "#autocomplete-user" ).autocomplete({
-  source: autocomplete_user,
-  focus: function( event, ui ) {
-        $( "#autocomplete-user" ).val( ui.item.label );
-        return false;
-      },
-   select: function( event, ui ) {
-        $( "#autocomplete-user" ).val( ui.item.label );
-        return false;
-      }
+  source: autocomplete_user
 });
 
 $(document).ready(function(){
@@ -414,7 +402,34 @@ $(document).ready(function(){
 			url: $(this).attr('action'),
 			data: $(this).serialize(),
 			success: function(msg){
-				console.log(msg.responseText);
+				new PNotify({
+				    text    : 'Vous avez creer une nouvelle card',
+				    type: 'success',
+				    confirm : {
+				        confirm: true,
+				        buttons: [
+				            {
+				                text    : 'Dismiss',
+				                addClass: 'btn btn-link',
+				                click   : function (notice) {
+				                    notice.remove();
+				                }
+				            },
+				            null
+				        ]
+				    },
+				    buttons : {
+				        closer : false,
+				        sticker: false
+				    },
+				    animate : {
+				        animate  : true,
+				        in_class : 'slideInDown',
+				        out_class: 'slideOutUp'
+				    },
+				    addclass: 'md'
+				});
+    
 			},
 			error: function(msg){
 				console.log(msg.responseText);
@@ -428,7 +443,33 @@ $(document).ready(function(){
 			url: $(this).attr('href'),
 			data: {'idproject':window.location.href.split('/').pop() ,'idcard':$('.current .index span').attr('data-val')},
 			success: function(msg){
-				console.log(msg.responseText);
+				new PNotify({
+				    text    : 'Vous avez supprimer une card',
+				    type: 'success',
+				    confirm : {
+				        confirm: true,
+				        buttons: [
+				            {
+				                text    : 'Dismiss',
+				                addClass: 'btn btn-link',
+				                click   : function (notice) {
+				                    notice.remove();
+				                }
+				            },
+				            null
+				        ]
+				    },
+				    buttons : {
+				        closer : false,
+				        sticker: false
+				    },
+				    animate : {
+				        animate  : true,
+				        in_class : 'slideInDown',
+				        out_class: 'slideOutUp'
+				    },
+				    addclass: 'md'
+				});
 			},
 			error: function(msg){
 				console.log(msg.responseText);
@@ -442,7 +483,76 @@ $(document).ready(function(){
 			url: $(this).attr('action'),
 			data: $(this).serialize()+"&id_project="+window.location.href.split('/').pop()+"&id_card_tasks="+$('.current .index span').attr('data-val'),
 			success: function(msg){
+				$("#create-task").modal('hide');
+				/*$("#table-view-project").DataTable().rows.add(data.list_tasks_preview).draw();*/
+				new PNotify({
+				    text    : 'Vous avez creer une nouvelle task',
+				    type: 'success',
+				    confirm : {
+				        confirm: true,
+				        buttons: [
+				            {
+				                text    : 'Dismiss',
+				                addClass: 'btn btn-link',
+				                click   : function (notice) {
+				                    notice.remove();
+				                }
+				            },
+				            null
+				        ]
+				    },
+				    buttons : {
+				        closer : false,
+				        sticker: false
+				    },
+				    animate : {
+				        animate  : true,
+				        in_class : 'slideInDown',
+				        out_class: 'slideOutUp'
+				    },
+				    addclass: 'md'
+				});
+			},
+			error: function(msg){
 				console.log(msg.responseText);
+			}
+		});
+		e.preventDefault();
+	});
+	$(document).on("click", "#delete-task", function(e) {
+		$.ajax({
+			type: "POST",
+			url: $(this).attr('href'),
+			data: {'idproject':window.location.href.split('/').pop() ,'idcard':$('.current .index span').attr('data-val'),'idtask':$(this).attr('data-val')},
+			success: function(msg){
+				console.log(msg);
+				new PNotify({
+				    text    : 'Vous avez supprimer une task',
+				    type: 'success',
+				    confirm : {
+				        confirm: true,
+				        buttons: [
+				            {
+				                text    : 'Dismiss',
+				                addClass: 'btn btn-link',
+				                click   : function (notice) {
+				                    notice.remove();
+				                }
+				            },
+				            null
+				        ]
+				    },
+				    buttons : {
+				        closer : false,
+				        sticker: false
+				    },
+				    animate : {
+				        animate  : true,
+				        in_class : 'slideInDown',
+				        out_class: 'slideOutUp'
+				    },
+				    addclass: 'md'
+				});
 			},
 			error: function(msg){
 				console.log(msg.responseText);

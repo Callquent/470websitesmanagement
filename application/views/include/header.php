@@ -15,6 +15,8 @@
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('plugins/nvd3/nv.d3.min.css'); ?>
 		<?php echo css_url('plugins/jquery-ui/jquery-ui.min.css'); ?>
+		<?php echo css_url('plugins/pnotify/animate.min.css'); ?>
+		<?php echo css_url('plugins/pnotify/pnotify.custom.min.css'); ?>
 		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 			<?php echo css_url('plugins/codemirror/codemirror.min.css'); ?>
 			<?php echo css_url('plugins/codemirror/theme/monokai.min.css'); ?>
