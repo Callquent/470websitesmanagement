@@ -1,7 +1,4 @@
 <?php $this->load->view('include/header.php'); ?>
-
-<?php $this->load->view('include/sidebar.php'); ?>
-<?php $this->load->view('include/navbar.php'); ?>
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
 	<div class="page-content">
@@ -210,7 +207,7 @@
 	  jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameproject" value="' + aData[1] + '">';
 	  jqTds[2].innerHTML = '<input type="text" class="form-control small" id="startedproject" value="' + aData[2] + '">';
 	  jqTds[3].innerHTML = '<input type="text" class="form-control small" id="deadlineproject" value="' + aData[3] + '">';
-	  jqTds[7].innerHTML = '<a id="edit-project" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-project" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+	  jqTds[7].innerHTML = '<a id="edit-project" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-project" href="" class="btn btn-white"><i class="icon-close"></i></a>';
 	}
 	function saveRowProjects(projectsTable, nRow, nUrl) {
 	  var jqInputs = $('input', nRow);
@@ -222,7 +219,7 @@
 	function deleteRowProjects(projectsTable, nRow, nUrl) {
 		var aData = projectsTable.row(nRow).data();
 		var jqTds = $('>td', nRow);
-		jqTds[4].innerHTML = '<a id="delete-members" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+		jqTds[4].innerHTML = '<a id="delete-members" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="icon-close"></i></a>';
 	}
 	$(document).on('click', '#table-projects #cancel-project', function (e) {
 		e.preventDefault();

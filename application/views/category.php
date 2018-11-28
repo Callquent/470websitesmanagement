@@ -1,8 +1,100 @@
 <?php $this->load->view('include/header.php'); ?>
+<div class="custom-scrollbar">
+	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
+		<h2 class="doc-title" id="content"><?php echo lang('languages'); ?></h2>
+	</div>
 
-<?php $this->load->view('include/sidebar.php'); ?>
-<?php $this->load->view('include/navbar.php'); ?>
-<div class="content custom-scrollbar">
+  <v-container fluid grid-list-sm>
+    <v-layout row wrap>
+      <v-flex xs12>
+	  	<v-app>
+	  		<v-card>
+                <template>
+                        <v-data-table
+                            :headers="headers"
+                            :items="list_category"
+                            class="elevation-1"
+                            :rows-per-page-items="[10,20,50,100]"
+                        >
+                            <template slot="items" slot-scope="props">
+                                <td>
+                                	<v-edit-dialog
+							            class="text-xs-right"
+							            @open="props.item._title_category = props.item.title_category"
+							            @save="f_editCategory(props.item)"
+							            @cancel="props.item.title_category = props.item._title_category || props.item.title_category"
+							            large
+							            lazy
+							          >{{ props.item.title_category }}
+										<v-text-field
+											slot="input"
+											label="Edit"
+											v-model="props.item.title_category"
+											single-line
+											counter
+											autofocus
+										></v-text-field>
+							      	</v-edit-dialog>
+								</td>
+                                <td class="text-xs-left">
+									<div class="dropdown show actions">
+										<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+											<i class="icon icon-dots-vertical"></i>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item" id="edit-dashboard"><i class="fa fa-pencil"></i><?php echo lang('edit') ?></a>
+											<a class="dropdown-item" id="delete-dashboard" @click="dialogCategory(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
+										</div>
+									</div>
+                                </td>
+                            </template>
+                        </v-data-table>
+                </template>
+            </v-card>
+        </v-app>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</div>
+
+<v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          Privacy Policy
+        </v-card-title>
+
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+             <v-flex xs12 sm6>
+                <v-select
+                	v-model="deleteCategory.id_move_category"
+					:items="list_delete_category"
+					label="Choose category"
+					item-text="title_category"
+					item-value="id_category"
+					required
+                ></v-select>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        	<v-btn color="blue darken-1" flat @click="f_deleteCategory()">Save</v-btn>
+        	<v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+<!-- <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
 		<h2 class="doc-title" id="content"><?php echo lang('categories'); ?></h2>
@@ -66,10 +158,59 @@
 	  </form>
 	</div>
   </div>
-</div>
+</div> -->
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-  $(document).ready(function(){
+var v = new Vue({
+    el: '#app',
+    data : {
+    	dialog: false,
+        currentRoute: window.location.href,
+        headers: [
+            { text: '<?php echo lang("category"); ?>', value: 'category' },
+            { text: '<?php echo lang("actions"); ?>', value: 'actions'},
+        ],
+        list_category: [],
+        list_delete_category: [],
+        deleteCategory:{
+        	id_move_category: '',
+        	id_delete_category: '',
+        },
+    },
+    created(){
+        this.displayPage();
+    },
+    methods:{
+        displayPage(){
+
+        },
+        f_editCategory(item){
+            var formData = new FormData(); 
+            formData.append("id_category",item.id_category);
+            formData.append("title_category",item.title_category);
+            axios.post(this.currentRoute+"/edit-category/", formData).then(function(response){
+                
+            })
+        },
+		dialogCategory(item){
+			this.dialog = true;
+			this.deleteCategory.id_delete_category = item.id_category;
+			this.list_delete_category = this.list_category.slice();
+			this.list_delete_category.splice(this.list_delete_category.indexOf(item), 1);
+		},
+        f_deleteCategory(){
+            var formData = new FormData(); 
+            formData.append("id_move_category",this.deleteCategory.id_move_category);
+            formData.append("id_delete_category",this.deleteCategory.id_delete_category);
+            axios.post(this.currentRoute+"/delete-category/", formData).then(function(response){
+            	v.dialog = false;
+                v.list_category = v.list_delete_category.slice();
+            })
+        },
+    }
+})
+v.list_category = <?php echo json_encode($all_categories->result_array()); ?>;
+  /*$(document).ready(function(){
 	var nEditingCategory = null;
 	var ElementDelete = null;
 		var categoryTable = $('#table-category').dataTable({
@@ -190,6 +331,6 @@
 		$(document).on('click', '#table-category #delete-dashboard', function (e) {
 			ElementDelete = this;
 		});
-  });
+  });*/
 </script>
 <?php $this->load->view('include/footer.php'); ?>

@@ -55,9 +55,9 @@ class Website_scrapper_google extends CI_Controller {
 		foreach ($all_websites as $key => $row)
 		{
 			$list = array();
-			$list[] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
-			$list[] = strip_tags($row['title']);
-			$list[] = strip_tags($row['description']);
+			$list['website'] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
+			$list['meta_title'] = strip_tags($row['title']);
+			$list['meta_description'] = strip_tags($row['description']);
 			$website_search_preview[] = $list;
 		}
 		$data['result_websites'] = $website_search_preview;

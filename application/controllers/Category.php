@@ -38,26 +38,28 @@ class Category extends CI_Controller {
 
 		$this->load->view('category', $data);
 	}
-	public function edit_category($id_category = '')
+	public function edit_category()
 	{
-		$this->form_validation->set_rules('titlecategory', 'TitleCategory', 'trim|required');
+		$id_category = $this->input->post('id_category');
+		$title_category = $this->input->post('title_category');
 
-		$title_category = $this->input->post('titlecategory');
+		$this->form_validation->set_rules('title_category', 'TitleCategory', 'trim|required');
 
 		if ($this->form_validation->run() !== FALSE){
 			$this->model_category->update_category($id_category, $title_category);
 		}
 	}
-	public function loadCategories(){
+/*	public function loadCategories(){
 		$data['all_categories'] = $this->model_front->get_all_categories();
 
 		$this->output
 			->set_content_type('application/json')
 			->set_output( json_encode($data['all_categories']->result()));
-	}
-	public function delete_category($id_category_old = '')
+	}*/
+	public function delete_category()
 	{
-		$id_category_new = $this->input->post('category');
+		$id_category_new = $this->input->post('id_move_category');
+		$id_category_old = $this->input->post('id_delete_category');
 
 		if ($this->model_front->get_category($id_category_old)->num_rows() == 1){
 			$this->model_category->transfert_website_category($id_category_old, $id_category_new);

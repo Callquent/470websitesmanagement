@@ -5,7 +5,6 @@
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<?php echo css_url('css/bootstrap.min.css'); ?>
-		<?php echo css_url('plugins/fullcalendar/bootstrap-fullcalendar.css'); ?>
 		<?php echo css_url('plugins/bootstrap-fileupload/bootstrap-fileupload.css'); ?>
 		<?php echo css_url('plugins/bootstrap-colorpicker/css/colorpicker.css'); ?>
 		<?php echo css_url('plugins/jquery-multi-select/css/multi-select.css'); ?>
@@ -17,11 +16,8 @@
 		<?php echo css_url('plugins/jquery-ui/jquery-ui.min.css'); ?>
 		<?php echo css_url('plugins/pnotify/animate.min.css'); ?>
 		<?php echo css_url('plugins/pnotify/pnotify.custom.min.css'); ?>
-		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
-			<?php echo css_url('plugins/codemirror/codemirror.min.css'); ?>
-			<?php echo css_url('plugins/codemirror/theme/monokai.min.css'); ?>
-			<?php echo css_url('plugins/codemirror/addon/scroll/simplescrollbars.min.css'); ?>
-		<?php } ?>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+  		<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.3.9/vuetify.min.css" rel="stylesheet">
 		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
 		<link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
@@ -29,3 +25,6 @@
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
 		<main>
         <div id="wrapper">
+		<?php $this->load->view('include/sidebar.php'); ?>
+		<?php $this->load->view('include/navbar.php'); ?>
+		

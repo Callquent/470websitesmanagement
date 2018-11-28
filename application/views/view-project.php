@@ -1,7 +1,5 @@
 <?php $this->load->view('include/header.php'); ?>
 
-<?php $this->load->view('include/sidebar.php'); ?>
-<?php $this->load->view('include/navbar.php'); ?>
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
@@ -20,9 +18,27 @@
 				<div class="col-sm-12">
 
 
+
 <div class="ng-tns-c58-59 ng-star-inserted">
 	<div class="page-layout simple left-sidebar inner-scroll" id="academy-course">
 		<aside class="sidebar left-positioned open locked-open col-md-2 d-none d-lg-block">
+			<div class="content ">
+
+				<v-stepper non-linear vertical>
+					<template v-for="step in steps">
+						<v-stepper-step 
+							
+							@click.native="changeCard(step.id_card_tasks)"
+							editable
+							:step="step.id_card_tasks">
+							{{ step.title_card_tasks }}
+						</v-stepper-step>
+						<v-stepper-content :step="step.id_card_tasks"></v-stepper-content>
+					</template>
+				</v-stepper>
+  
+
+<aside class="sidebar left-positioned open locked-open col-md-2 d-none d-lg-block">
 			<div class="content ">
 				<div class="steps">
 					<?php foreach ($all_card_tasks->result() as $key => $row_list_tasks) { ?>
@@ -47,20 +63,24 @@
 				</div>
 			</div>
 		</aside>
+
+
+			</div>
+		</aside>
 		<div class="center col-md-10">
 			<div class="step-content">
 				<div class="setup-content" id="step-1">
 					<div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
 						<div class="course-step-content" id="course-step-content">
 							<div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center; align-items: center;">
-								<h2 id="title-card-tasks"></h2>
+								<h2 id="title-card-tasks">{{ title_card_tasks }}</h2>
 								<div class="dropdown actions">
 									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-expanded="true">
 										<i class="icon icon-dots-vertical"></i>
 									  </a>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
 									  	<a class="dropdown-item fuse-ripple-ready" href="javascript:void(0);" data-toggle="modal" data-target="#create-task"><i class="fa fa-eye"></i> Ajouter</a>
-										<a class="dropdown-item fuse-ripple-ready" id="delete-card-tasks" href="<?php echo site_url('/all-projects/delete-card-tasks/'); ?>"><i class="fa fa-eye"></i> Supprimer</a>
+										<a class="dropdown-item fuse-ripple-ready" id="delete-card-tasks" @click="deleteCard(step)"><i class="fa fa-eye"></i> Supprimer</a>
 										<div class="dropdown-divider"></div>
 									  </div>
 								  </div>								
@@ -69,16 +89,36 @@
 							  <header class="card-header">
 								  <?php echo lang('websites_management'); ?>
 							  </header>
-							  <div class="card-body">
-									<table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-view-project">
-									  <thead>
-										<th class="all">check</th>
-										<th class="desktop">Name Tasks</th>
-										<th class="desktop">User</th>
-										<th class="desktop">Actions</th>
-									  </thead>
-									  <tbody></tbody>
-									</table>
+
+								<div class="card-body">
+
+									<template>
+										<v-data-table
+											v-model="selected"
+											:headers="headers"
+											:items="list_tasks"
+											select-all
+											class="elevation-1"
+										>
+											<template slot="items" slot-scope="props">
+												<td><v-checkbox @change="test()" v-model="props.selected" primary hide-details></v-checkbox></td>
+												<td>{{ props.item.name_task }}</td>
+												<td class="text-xs-left">{{ props.item.username }}</td>
+												<td class="justify-center layout px-0">
+													<div class="dropdown show actions">
+														<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+															<i class="icon icon-dots-vertical"></i>
+														</a>
+														<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+															<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
+															<a class="dropdown-item" id="delete-task" @click="deleteTask(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
+														</div>
+													</div>
+												</td>
+											</template>
+										</v-data-table>
+									</template>
+
 								</div>
 							</section>
 						</div>
@@ -127,16 +167,16 @@
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 		<h4 class="modal-title custom_align" id="Heading">Ajouter une card de tâches</h4>
 	  </div>
-		<form id="form-card-tasks" method="post" action="<?php echo site_url('/all-projects/create-card-tasks/'.$project->id_project_tasks); ?>">
+		<form id="form-card-tasks" @submit.prevent="createCard">
 		  <div class="modal-body">
 			<div class="form-group">
 				<label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
 				<div class="col-lg-12">
-				  <input class="form-control" type="text" name="titlelisttasks" placeholder="Titre Liste Tasks" required />
+				  <input class="form-control" type="text" name="name_card_tasks" placeholder="Titre Liste Tasks" v-model="newCard.name_card_tasks" required />
 				</div>
 			</div>
 			<div class="form-group">
-				<input class="form-control md-has-value" type="number" name="idlisttasks" value="<?php echo $all_card_tasks->num_rows()+1; ?>" min="1" max="<?php echo $all_card_tasks->num_rows()+1; ?>"  required>
+				<input class="form-control md-has-value" type="number" name="id_card_task"  v-model.number="newCard.id_card_task" value="<?php echo $all_card_tasks->num_rows()+1; ?>" min="1" max="<?php echo $all_card_tasks->num_rows()+1; ?>"  required>
 				<label for="example-number-input">Number</label>
 			</div>
 		  </div>
@@ -159,13 +199,73 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="form-task" method="post" action="<?php echo site_url('/all-projects/create-task/'); ?>">
+				<form id="form-task" @submit.prevent="createTask">
 					<div class="form-group">
-						<input class="titletasks form-control" type="text" name="nametask" placeholder="Titre Task" required />
+						<input class="titletasks form-control" type="text" name="nametask" placeholder="Titre Task" v-model="newTask.nametask" required/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="user" id="autocomplete-user" >
-						<label for="url-user">Url User</label>
+
+<template>
+  <v-card
+    color="blue-grey darken-1"
+    dark
+  >
+      <v-form>
+      <v-container>
+        <v-layout wrap>
+          <v-flex xs12 md6>
+			<v-autocomplete
+              v-model="newTask.user"
+              :disabled="isUpdating"
+              :items="users"
+              box
+              chips
+              color="blue-grey lighten-2"
+              label="Select"
+              item-text="name_user"
+              item-value="name_user">
+              <template
+                slot="selection"
+                slot-scope="data"
+              >
+                <v-chip
+                  :selected="data.selected"
+                  close
+                  class="chip--select-multi"
+                  @input="remove(data.item)"
+                >
+                  <v-avatar>
+                    <img :src="data.item.avatar">
+                  </v-avatar>
+                  {{ data.item.name_user }}
+                </v-chip>
+              </template>
+              <template
+                slot="item"
+                slot-scope="data"
+              >
+                <template v-if="typeof data.item !== 'object'">
+                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                </template>
+                <template v-else>
+                  <v-list-tile-avatar>
+                    <img :src="data.item.avatar">
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title v-html="data.item.name_user"></v-list-tile-title>
+                  </v-list-tile-content>
+                </template>
+              </template>
+            </v-autocomplete>
+         </v-flex>
+                 </v-layout>
+      </v-container>
+    </v-form>
+</v-card>
+</template>
+
+						<!-- <input type="text" class="form-control" name="user" id="autocomplete-user" v-model="newTask.user">
+						<label for="url-user">Url User</label> -->
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-lg">ADD Tasks</button>
@@ -180,311 +280,135 @@
 	</div>
 </div>
 
-
-<div class="modal fade" id="view-card-tasks" tabindex="-1" role="dialog" aria-labelledby="view-card-tasks" aria-hidden="true">
-  <div class="modal-dialog">
-	<div class="modal-content">
-	  <div class="modal-header modal-header-success">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-		<h4 class="modal-title custom_align" id="Heading">Ajouter une tâche</h4>
-	  </div>
-		  <div class="modal-body">
-			<div class="form-group">
-				<label for="curl" class="control-label col-lg-3">title tasks</label>
-				<div class="col-lg-12">
-				  <input class="form-control" type="text" name="titlelisttasks" id="titlelisttasks" placeholder="Titre Liste Tasks" required />
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="curl" class="control-label col-lg-3">description tasks</label>
-				<div class="col-lg-12">
-				  <textarea class="form-control" type="text" name="descriptiontask" id="descriptiontask" placeholder="Description Task" required></textarea>
-				</div>
-			</div>
-
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="inputEmail4">Email</label>
-					<select name="tasksstatus" class="form-control">
-					<?php foreach ($all_tasks_status->result() as $row){  ?>
-					  <option value="<?php echo $row->id_tasks_status; ?>"><?php echo $row->name_tasks_status; ?></option>
-					<?php } ?>
-					</select>
-				</div>
-				<div class="form-group col-md-6">
-					<label for="inputEmail4">Email</label>
-					<select name="taskspriority" class="form-control">
-					<?php foreach ($all_tasks_priority->result() as $row){  ?>
-					  <option value="<?php echo $row->id_tasks_priority; ?>"><?php echo $row->name_tasks_priority; ?></option>
-					<?php } ?>
-					</select>
-				</div>
-			</div>
-
-			<span class="section-title" fxflex="" style="flex: 1 1 0%; box-sizing: border-box;">Pages</span>
-			<span class="checklist-progress-value"></span>
-			<div class="progress" style="height:4px;">
-				<div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-			<div id="tasks"></div>
-			<form id="form-task" method="post" action="<?php echo site_url('/all-projects/create-task/'.$project->id_project_tasks); ?>">
-				<div class="form-row">
-					<div class="form-group col-md-7">
-					  <input class="titletasks form-control" type="text" name="titletask" placeholder="Titre Task" required />
-					</div>
-					<div class="form-group col-md-5">
-						<a href="javascript:void(0);" class="add-user"><i class="icon icon-plus-circle"></i></a>
-						<input id="autocomplete-user" class="form-control" type="text" name="titletask" placeholder="Titre Task" required />
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						<button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span>ADD Tasks</button>
-					</div>
-				</div>
-			</form>
-
-		  </div>
-	</div>
-  </div>
-</div>
-
-
-
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+var v = new Vue({
+	el: '#app',
+    data : {
+		currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+		id_project: window.location.href.split('/').pop(),
+		id_card: $('.v-stepper__step--active .v-stepper__step__step').text(),
+		headers: [
+			{ text: 'Name Task', value: 'name_task', sortable: false},
+			{ text: 'User', value: 'username' },
+			{ text: 'Actions', value: 'name', sortable: false }
+		],
+		newCard:{
+			name_card_tasks:"",
+			id_card_task:"",
+		},
+		newTask:{
+		    nametask:'',
+		    user:'',
+		},
+        title_card_tasks:"",
+        list_tasks: [],
+        steps: [],
+        users: [],
+    },
+    created(){
+		this.displayPage();
+    },
+    methods:{
+    	displayPage(){
+			var formData = new FormData(); 
+			formData.append("id_project_tasks",this.id_project);
+			formData.append("id_card_tasks",this.id_card);
+    		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
+				if(response.status = 200){
+					v.list_tasks = response.data.card_tasks.tasks;
+					v.title_card_tasks = response.data.title_card_tasks;
+				}else{
 
-var EditableTable = function () {
-
-	return {
-		init: function () {
-			function restoreRow(pTable, nRow) {
-				var aData = pTable.row(nRow).data();
-				var jqTds = $('>td', nRow);
-
-				for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-					pTable.cell(nRow, i).data(aData[i]).draw();
 				}
-			}
-			var nEditingViewProject = null;
-			var ElementDelete = null;
-			var viewprojectTable = $('#table-view-project').DataTable({
-				  "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
-				  "order": [],
-				  "dom": 'lBfrtip',
-				  "buttons": [
-					  {
-						  extend: 'collection',
-						  text: 'Export',
-						  buttons: [
-							  'copy',
-							  'excel',
-							  'csv',
-							  'pdf',
-							  'print'
-						  ]
-					  }
-				  ],
-				  responsive: {
-						  details: {
-							 
-						  }
-					  },
-					  columnDefs: [ {
-						  className: 'control',
-						  orderable: false,
-						  targets:   0
-					  } ],
-			});
-		}
-	};
+			})
+        },
+        test(){
+    		console.log(data);
+        },
+        changeCard(id_card_task){
+    		var formData = new FormData(); 
+    		formData.append("id_project_tasks",this.id_project);
+			formData.append("id_card_tasks",id_card_task);
+    		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
+				if(response.status = 200){
+					v.list_tasks = response.data.card_tasks.tasks;
+					v.title_card_tasks = response.data.title_card_tasks;
+				}else{
 
-}();
-var autocomplete_user = JSON.parse('<?php echo json_encode($users); ?>');
+				}
+			})
+        },
+		createCard(){
+			var formData = new FormData();
+			formData.append("name_card_tasks",this.newCard.name_card_tasks);
+			formData.append("id_card_task",this.newCard.id_card_task);
+			formData.append("id_project_tasks",this.id_project);
+			axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
+				if(response.status = 200){
+					v.steps.push({title_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.id_project})
+				}else{
 
-/*$('#autocomplete-user').autocomplete({
-	lookup: autocomplete_user,
-		onSelect: function (suggestion) {
-	}
-});*/
-$( "#autocomplete-user" ).autocomplete({
-  source: autocomplete_user
-});
+				}
+			})
+		},
+		deleteCard(item){
+			var formData = new FormData();
+			formData.append("id_project_tasks",this.id_project);
+			formData.append("id_card_task",this.id_card);
+			axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
+				if(response.status = 200){
+					const index = v.steps.indexOf(item)
+					confirm('Are you sure you want to delete this item?') && v.steps.splice(index, 1)
+				}else{
+
+				}
+			})
+		},
+		createTask(){
+			var formData = new FormData();
+			formData.append("nametask",this.newTask.nametask);
+			formData.append("user",this.newTask.user);
+			formData.append("id_project_tasks",this.id_project);
+			formData.append("id_card_tasks",$('.v-stepper__step--active .v-stepper__step__step').text());
+			axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
+				if(response.status = 200){
+					v.list_tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
+				}else{
+
+				}
+			})
+		},
+		deleteTask(item){
+			var formData = new FormData();
+			formData.append("id_project_tasks",this.id_project);
+			formData.append("id_card_tasks",this.id_card);
+			formData.append("id_task",item.id_task);
+			axios.post(this.currentRoute+"/delete_task/", formData).then(function(response){
+				if(response.status = 200){
+					const index = v.list_tasks.indexOf(item)
+					confirm('Are you sure you want to delete this item?') && v.list_tasks.splice(index, 1)
+				}else{
+
+				}
+			})
+		},
+    }
+})
+v.steps = <?php echo json_encode($all_card_tasks->result_array()); ?>;
+v.users = <?php echo json_encode($list_users->result_array()); ?>;
 
 $(document).ready(function(){
 
-	EditableTable.init();
 
-	var navListItems = $('.steps a'),
-		allWells = $('.setup-content'),
-		allNextBtn = $('.nextBtn'),
-		allPrevBtn = $('.prevBtn');
-
-	navListItems.click(function (e) {
-		e.preventDefault();
-		var $target = $($(this).attr('href')),
-			$item = $(this);
-
-		$.ajax({
-			type: "POST",
-			url: window.location.href.substr(0, window.location.href.lastIndexOf('/') + 1)+'view_card_tasks/',
-			data: {'idproject':window.location.href.split('/').pop() ,'idcard':$(this).find('.index span').attr('data-val')},
-			success: function(data) {
-				/*var jsdata = JSON.parse(data);*/
-
-				$("#title-card-tasks").text(data.title_card_tasks);
-				$(".setup-content").attr("id",$item.attr('href').substr(1,$item.attr('href').length));
-				
-				$("#table-view-project").DataTable().rows().remove().draw();
-				$("#table-view-project").DataTable().rows.add(data.list_tasks_preview).draw();
-			},
-			error: function(msg){
-				console.log(msg.responseText);
-			}
-		});
-
-		if (!$item.hasClass('disabled')) {
-			navListItems.removeClass('current').removeClass('select');
-			$.each( $('.steps a'), function(i, item) {
-				if (i < $item.index()) {
-					$(item).addClass('select');
-				} else if (i==$item.index()) {
-					$(item).addClass('current');
-				}
-			});
-		}
-	});
-
-	allPrevBtn.click(function(){
-		var curStep = $(this).closest(".setup-content"),
-			curStepBtn = curStep.attr("id"),
-			prevStepSteps = $('.steps a[href="#' + $('.step-content').children(":visible").attr("id") + '"]').prev();
-			if (!$('.steps a[href="#' + $('.step-content').children(":visible").attr("id") + '"]').prevAll().eq(1).length) {
-				$(".prevBtn").hide();
-			} else {
-				$(".nextBtn").show();
-				$(".prevBtn").show();
-			}
-
-			prevStepSteps.removeAttr('disabled').trigger('click');
-	});
-
-	allNextBtn.click(function(){
-		var curStep = $(this).closest(".setup-content"),
-			curStepBtn = curStep.attr("id"),
-			nextStepWizard = $('.steps a[href="#' + $('.step-content').children(":visible").attr("id") + '"]').next(),
-			curInputs = curStep.find("input[type='text'],input[type='url']"),
-			isValid = true;
-
-		$(".form-group").removeClass("has-error");
-		for(var i=0; i< curInputs.length; i++){
-			if (!curInputs[i].validity.valid) {
-				isValid = false;
-				$(curInputs[i]).closest(".form-group").addClass("has-error");
-			}
-		}
-		if (!$('.steps a[href="#' + $('.step-content').children(":visible").attr("id") + '"]').nextAll().eq(1).length) {
-				$(".nextBtn").hide();
-		} else {
-			$(".nextBtn").show();
-			$(".prevBtn").show();
-		}
-		if (isValid){
-			nextStepWizard.removeAttr('disabled').trigger('click');
-		}
-	});
-
-	$('.steps a.current').trigger('click');
-
-	$("#form-card-tasks").submit(function(e){
-		$.ajax({
-			type: "POST",
-			url: $(this).attr('action'),
-			data: $(this).serialize(),
-			success: function(msg){
-				new PNotify({
-				    text    : 'Vous avez creer une nouvelle card',
-				    type: 'success',
-				    confirm : {
-				        confirm: true,
-				        buttons: [
-				            {
-				                text    : 'Dismiss',
-				                addClass: 'btn btn-link',
-				                click   : function (notice) {
-				                    notice.remove();
-				                }
-				            },
-				            null
-				        ]
-				    },
-				    buttons : {
-				        closer : false,
-				        sticker: false
-				    },
-				    animate : {
-				        animate  : true,
-				        in_class : 'slideInDown',
-				        out_class: 'slideOutUp'
-				    },
-				    addclass: 'md'
-				});
-    
-			},
-			error: function(msg){
-				console.log(msg.responseText);
-			}
-		});
-		e.preventDefault();
-	});
-	$("#delete-card-tasks").click(function(e){
-		$.ajax({
-			type: "POST",
-			url: $(this).attr('href'),
-			data: {'idproject':window.location.href.split('/').pop() ,'idcard':$('.current .index span').attr('data-val')},
-			success: function(msg){
-				new PNotify({
-				    text    : 'Vous avez supprimer une card',
-				    type: 'success',
-				    confirm : {
-				        confirm: true,
-				        buttons: [
-				            {
-				                text    : 'Dismiss',
-				                addClass: 'btn btn-link',
-				                click   : function (notice) {
-				                    notice.remove();
-				                }
-				            },
-				            null
-				        ]
-				    },
-				    buttons : {
-				        closer : false,
-				        sticker: false
-				    },
-				    animate : {
-				        animate  : true,
-				        in_class : 'slideInDown',
-				        out_class: 'slideOutUp'
-				    },
-				    addclass: 'md'
-				});
-			},
-			error: function(msg){
-				console.log(msg.responseText);
-			}
-		});
-		e.preventDefault();
-	});
-	$("#form-task").submit(function(e){
+	/*$("#form-task").submit(function(e){
 		$.ajax({
 			type: "POST",
 			url: $(this).attr('action'),
 			data: $(this).serialize()+"&id_project="+window.location.href.split('/').pop()+"&id_card_tasks="+$('.current .index span').attr('data-val'),
 			success: function(msg){
 				$("#create-task").modal('hide');
-				/*$("#table-view-project").DataTable().rows.add(data.list_tasks_preview).draw();*/
+				//$("#table-view-project").DataTable().rows.add(data.list_tasks_preview).draw();
 				new PNotify({
 				    text    : 'Vous avez creer une nouvelle task',
 				    type: 'success',
@@ -518,48 +442,7 @@ $(document).ready(function(){
 			}
 		});
 		e.preventDefault();
-	});
-	$(document).on("click", "#delete-task", function(e) {
-		$.ajax({
-			type: "POST",
-			url: $(this).attr('href'),
-			data: {'idproject':window.location.href.split('/').pop() ,'idcard':$('.current .index span').attr('data-val'),'idtask':$(this).attr('data-val')},
-			success: function(msg){
-				console.log(msg);
-				new PNotify({
-				    text    : 'Vous avez supprimer une task',
-				    type: 'success',
-				    confirm : {
-				        confirm: true,
-				        buttons: [
-				            {
-				                text    : 'Dismiss',
-				                addClass: 'btn btn-link',
-				                click   : function (notice) {
-				                    notice.remove();
-				                }
-				            },
-				            null
-				        ]
-				    },
-				    buttons : {
-				        closer : false,
-				        sticker: false
-				    },
-				    animate : {
-				        animate  : true,
-				        in_class : 'slideInDown',
-				        out_class: 'slideOutUp'
-				    },
-				    addclass: 'md'
-				});
-			},
-			error: function(msg){
-				console.log(msg.responseText);
-			}
-		});
-		e.preventDefault();
-	});
+	});*/
 	$(document).on("change", ".checkbox-task", function(e) {
 		$.ajax({
 			type: "POST",

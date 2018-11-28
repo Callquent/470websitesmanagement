@@ -28,7 +28,20 @@ h1 {
     text-transform: uppercase;
     border-radius: 0px !important;
 }
-
+.lock-screen {
+    background: #1FB3A3 url("../img/app/lock-screen.jpg") no-repeat fixed 0 0 / cover;
+}
+/***********************/
+/*        COLOR        */
+/***********************/
+.primary {
+  background-color: #1867c0 !important;
+  border-color: #1867c0 !important;
+}
+.primary--text {
+  color: #1867c0 !important;
+  caret-color: #1867c0 !important;
+}
 /***********************/
 /*        LOGIN        */
 /***********************/
@@ -232,12 +245,12 @@ ul.user-info li a{color:#fff;}
     background-color: #5cb85c !important;
     color: white;
 }
-#search-scrapper-google .alert-success,
+/*#search-scrapper-google .alert-success,
 #search-scrapper-google .alert-danger,
 #website-scrapper-google .alert-success,
 #website-scrapper-google .alert-danger {
     display: none;
-}
+}*/
 /***************************/
 /*      AUTOCOMPLETE       */
 /***************************/

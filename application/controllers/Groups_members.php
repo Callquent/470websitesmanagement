@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Members extends CI_Controller {
+class Groups_members extends CI_Controller {
 
 	public function __construct()
 	{
@@ -26,34 +26,26 @@ class Members extends CI_Controller {
 		$data['user_role'] = $this->aauth->get_user_groups();
 
 		$data['list_users'] = $this->model_users->get_all_users();
-		$data['list_groups'] = $this->model_users->get_all_groups();
+		$data['list_groups_users'] = $this->aauth->list_groups();
 
 		$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
 		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		$this->load->view('members/members', $data);
+		$this->load->view('members/groups-members', $data);
 	}
-	public function edit($id_members = '')
+	public function create_groups_members()
 	{
-			$emailmember = $this->input->post('emailmember');
-			$idgroup_member_old = $this->input->post('idgroup_member_old');
-			$idgroup_member_new = $this->input->post('idgroup_member_new');
+			$group_name = $this->input->post('group_name');
+			$definition = $this->input->post('definition');
 
-			$this->aauth->remove_member($id_members, $idgroup_member_old);
-			$this->aauth->add_member($id_members, $idgroup_member_new);
-			$this->aauth->update_user($id_members, $emailmember);
+			$this->aauth->create_group($group_name, $definition);
 	}
-	public function loadGroup()
+	public function delete_groups_members()
 	{
-		$data['list_groups'] = $this->model_users->get_all_groups();
+		$id_groups_members = $this->input->post('id_groups_members');
 
-		$this->output->set_content_type('application/json')->set_output( json_encode($data['list_groups']->result()));
-	}
-	public function delete($w_id = '')
-	{
-		$this->model_users->delete_user($w_id);
-		$this->aauth->delete_user($w_id);
+		$this->aauth->delete_group($id_groups_members);
 	}
 }

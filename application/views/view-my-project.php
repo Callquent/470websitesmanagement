@@ -272,7 +272,73 @@
 
 
 
+<div class="modal fade" id="view-card-tasks" tabindex="-1" role="dialog" aria-labelledby="view-card-tasks" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-success">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Ajouter une tâche</h4>
+      </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label for="curl" class="control-label col-lg-3">title tasks</label>
+                <div class="col-lg-12">
+                  <input class="form-control" type="text" name="titlelisttasks" id="titlelisttasks" placeholder="Titre Liste Tasks" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="curl" class="control-label col-lg-3">description tasks</label>
+                <div class="col-lg-12">
+                  <textarea class="form-control" type="text" name="descriptiontask" id="descriptiontask" placeholder="Description Task" required></textarea>
+                </div>
+            </div>
 
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <select name="tasksstatus" class="form-control">
+                    <?php foreach ($all_tasks_status->result() as $row){  ?>
+                      <option value="<?php echo $row->id_tasks_status; ?>"><?php echo $row->name_tasks_status; ?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <select name="taskspriority" class="form-control">
+                    <?php foreach ($all_tasks_priority->result() as $row){  ?>
+                      <option value="<?php echo $row->id_tasks_priority; ?>"><?php echo $row->name_tasks_priority; ?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+            </div>
+
+            <span class="section-title" fxflex="" style="flex: 1 1 0%; box-sizing: border-box;">Pages</span>
+            <span class="checklist-progress-value"></span>
+            <div class="progress" style="height:4px;">
+                <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div id="tasks"></div>
+            <form id="form-task" method="post" action="<?php echo site_url('/all-projects/create-task/'.$project->id_project_tasks); ?>">
+                <div class="form-row">
+                    <div class="form-group col-md-7">
+                      <input class="titletasks form-control" type="text" name="titletask" placeholder="Titre Task" required/>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <a href="javascript:void(0);" class="add-user"><i class="icon icon-plus-circle"></i></a>
+                        <input id="autocomplete-user" class="form-control" type="text" name="titletask" placeholder="User" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span>ADD Tasks</button>
+                    </div>
+                </div>
+            </form>
+
+          </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -363,7 +429,7 @@
           jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameviewproject" value="' + aData[1] + '">';
           jqTds[2].innerHTML = '<input type="text" class="form-control small" id="descriptionviewproject" value="' + aData[2] + '">';
           jqTds[3].innerHTML = '<input type="text" class="form-control small" id="priorityviewproject" value="' + aData[3] + '">';
-          jqTds[7].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+          jqTds[7].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="icon-close"></i></a>';
         }
         function saveRowLanguage(viewprojectTable, nRow, nUrl) {
           var jqInputs = $('input', nRow);

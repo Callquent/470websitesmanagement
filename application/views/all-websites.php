@@ -297,7 +297,7 @@
 						jqTds[0].innerHTML = '<input type="text" class="form-control small" id="hoteftp" value="' + aData[0] + '">';
 						jqTds[1].innerHTML = '<input type="text" class="form-control small" id="loginftp" value="' + aData[1] + '">';
 						jqTds[2].innerHTML = '<input type="text" class="form-control small" id="passwordftp" value="' + aData[2] + '">';
-						jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+						jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="icon-close"></i></a>';
 					}
 					function saveRowWebsiteFtp(ftpTable, nRow, nUrl) {
 						var jqInputs = $('input', nRow);
@@ -313,7 +313,7 @@
 						jqTds[1].innerHTML = '<input type="text" class="form-control small" id="namedatabase" value="' + aData[1] + '">';
 						jqTds[2].innerHTML = '<input type="text" class="form-control small" id="logindatabase" value="' + aData[2] + '">';
 						jqTds[3].innerHTML = '<input type="text" class="form-control small" id="passworddatabase" value="' + aData[3] + '">';
-						jqTds[4].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+						jqTds[4].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="icon-close"></i></a>';
 					}
 					function saveRowWebsiteDatabase(dbTable, nRow, nUrl) {
 						var jqInputs = $('input', nRow);
@@ -329,7 +329,7 @@
 						jqTds[0].innerHTML = '<input type="text" class="form-control small" id="hotebackoffice" value="' + aData[0] + '">';
 						jqTds[1].innerHTML = '<input type="text" class="form-control small" id="loginbackoffice" value="' + aData[1] + '">';
 						jqTds[2].innerHTML = '<input type="text" class="form-control small" id="passwordbackoffice" value="' + aData[2] + '">';
-						jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+						jqTds[3].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="icon-close"></i></a>';
 					}
 					function saveRowWebsiteBackoffice(boTable, nRow, nUrl) {
 						var jqInputs = $('input', nRow);
@@ -343,7 +343,7 @@
 						var jqTds = $('>td', nRow);
 						jqTds[0].innerHTML = '<input type="text" class="form-control small" id="loginhtaccess" value="' + aData[0] + '">';
 						jqTds[1].innerHTML = '<input type="text" class="form-control small" id="passwordhtaccess" value="' + aData[1] + '">';
-						jqTds[2].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+						jqTds[2].innerHTML = '<a id="edit-dashboard" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-dashboard" href="" class="btn btn-white"><i class="icon-close"></i></a>';
 					}
 					function saveRowWebsiteHtaccess(htTable, nRow, nUrl) {
 						var jqInputs = $('input', nRow);

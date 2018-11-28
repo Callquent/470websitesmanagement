@@ -34,6 +34,14 @@ $lang['management'] = "Administration";
 $lang['members'] = "Membres";
 $lang['documentation'] = "Documentation";
 /***********************/
+/*      language       */
+/***********************/
+$lang['language'] = "Langage";
+/***********************/
+/*      category       */
+/***********************/
+$lang['category'] = "Catégorie";
+/***********************/
 /*     add website     */
 /***********************/
 $lang['add_website'] = "Ajouter un site web";

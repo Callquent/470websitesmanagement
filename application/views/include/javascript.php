@@ -1,8 +1,12 @@
+				</div>
 			</div>
-		</div>
+
 		<?php echo js_url('plugins/jquery.min.js'); ?>
 		<?php echo js_url('plugins/popper.min.js'); ?>
 		<?php echo js_url('plugins/bootstrap.min.js'); ?>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.3.9/vuetify.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
 		<?php echo js_url('plugins/fuse-html.min.js'); ?>
@@ -13,7 +17,6 @@
 		<?php if ($this->uri->segment(1)=='dashboard' ||
 		$this->uri->segment(1)=='all-websites' ||
 		$this->uri->segment(1)=='category' ||
-		$this->uri->segment(1)=='language' ||
 		$this->uri->segment(1)=='ftp-websites' ||
 		$this->uri->segment(1)=='whois-domain' ||
 		$this->uri->segment(1)=='users-tasks' ||
@@ -110,9 +113,5 @@
 			<?php echo js_url('plugins/jquery.ui.widget.js'); ?>
 			<?php echo js_url('plugins/jquery.iframe-transport.js'); ?>
 			<?php echo js_url('plugins/jquery.fileupload.js'); ?>
-			<?php echo js_url('plugins/codemirror/codemirror.min.js'); ?>
-			<?php echo js_url('plugins/codemirror/javascript.js'); ?>
-			<?php echo js_url('plugins/codemirror/addon/edit/matchbrackets.min.js'); ?>
-			<?php echo js_url('plugins/codemirror/addon/scroll/simplescrollbars.min.js'); ?>
 		<?php } ?>
 		<?php echo js_url('plugins/scripts.js'); ?>

@@ -6,15 +6,13 @@
  */
 class Googlescraper
 {
-	private $keyword				=	"";
-	private $number_page			=	"";
-	private $metaList				=	"";
-	private $cookie					=	"";
-	private $ei						=	"";
+	private $keyword	= "";
+	private $number_page= "";
+	private $metaList	= array();
+	private $ei			= "";
 
 	
 	function __construct() {
-		$this->cookie = tempnam ("/tmp", "cookie");
 		$this->headers[] = "Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"; 
 		$this->headers[] = "Connection: keep-alive"; 
 		$this->headers[] = "Keep-Alive: 115"; 
@@ -53,29 +51,20 @@ class Googlescraper
 				echo "You are blocked";
 				exit;
 			} else {
+
 				preg_match_all('/<div\sclass="rc">.*<span.*class="st">.*<\/span>.*<\/div>/siU', $data, $meta_google_search);
 
 				for ($j = 0; $j <= count($meta_google_search[0])-1; $j++) {
 
 					preg_match_all('/<cite.*>([^\"]*)<\/cite>/siU', $meta_google_search[0][$j], $meta_cite);
-					preg_match_all('/<h3\s*class="r".*><a\s[^>]*href=\"(.*)\".*>.*<\/a><\/h3>/siU', $meta_google_search[0][$j], $meta_url);
-					preg_match_all('/<h3\s*class="r".*><a\s[^>]*href\s*=\s*\"[^>]*>(.*)<\/a><\/h3>/siU', $meta_google_search[0][$j], $meta_title);
+					preg_match_all('/<div\s*class="r".*><a\s[^>]*href=\"(.*)\".*>.*<\/a>/siU', $meta_google_search[0][$j], $meta_url);
+					preg_match_all('/<h3\s*class="LC20lb".*>(.*)<\/h3>/siU', $meta_google_search[0][$j], $meta_title);
 					preg_match_all('/<span\s*class="st">(<span\s*class="f">.*<\/span>(.*)<\/span>|(.*)<\/span>)/siU', $meta_google_search[0][$j], $meta_description);
 
 					if ($meta_title[1][0] && $meta_url[1][0] && $meta_description[1][0]) {
-						if (isset($meta_url[1][0]) && !is_null($meta_url[1][0])) {
-							$this->metaList[$j]['url'] =  html_entity_decode($meta_url[1][0],ENT_QUOTES);
-						}
-						if (isset($meta_title[1][0]) && !is_null($meta_title[1][0])) {
-							$this->metaList[$j]['title'] =  html_entity_decode($meta_title[1][0],ENT_QUOTES);
-						}
-						if ($meta_description) {
-							if (!empty($meta_description[2][0]) ) {
-								$this->metaList[$j]['description'] = ($meta_description[2][0]);
-							} else if (!empty($meta_description[3][0]) ) {
-								$this->metaList[$j]['description'] = ($meta_description[3][0]);
-							}
-						}
+						$this->getMetaUrl($meta_url,$j);
+						$this->getMetaTitle($meta_title,$j);
+						$this->getMetaDescription($meta_description,$j);
 					}
 				}
 			}
@@ -86,7 +75,28 @@ class Googlescraper
 			exit;
 		}
 	}
-
+	function getMetaUrl($meta_url,$j)
+	{
+		if (isset($meta_url[1][0]) && !is_null($meta_url[1][0])) {
+			$this->metaList[$j]['url'] =  html_entity_decode($meta_url[1][0],ENT_QUOTES);
+		}
+	}
+	function getMetaTitle($meta_title,$j)
+	{
+		if (isset($meta_title[1][0]) && !is_null($meta_title[1][0])) {
+			$this->metaList[$j]['title'] =  html_entity_decode($meta_title[1][0],ENT_QUOTES);
+		}
+	}
+	function getMetaDescription($meta_description,$j)
+	{
+		if ($meta_description) {
+			if (!empty($meta_description[2][0]) ) {
+				$this->metaList[$j]['description'] = ($meta_description[2][0]);
+			} else if (!empty($meta_description[3][0]) ) {
+				$this->metaList[$j]['description'] = ($meta_description[3][0]);
+			}
+		}
+	}
 	function getUrlList($keyword,$number_page,$proxy='') {
 		$this->keyword=$keyword;
 		$this->number_page=$number_page;

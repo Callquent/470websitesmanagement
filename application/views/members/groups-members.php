@@ -1,7 +1,4 @@
 <?php $this->load->view('include/header.php'); ?>
-
-<?php $this->load->view('include/sidebar.php'); ?>
-<?php $this->load->view('include/navbar.php'); ?>
 <div class="content custom-scrollbar">
   <div id="contacts" class="page-layout simple left-sidebar-floating">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
@@ -12,8 +9,7 @@
             <div class="page-sidebar-card">
                 <div class="header p-4">
                     <div class="row no-gutters align-items-center">
-                        <span class="w-40 avatar circle green" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo $login; ?>" value="<?php echo $login; ?>"><?php echo substr($login, 0, 2); ?></span>
-                        <span class="font-weight-bold"><?php echo $login; ?></span>
+                        Managing Users Roles and Permissions 
                     </div>
                 </div>
                 <div class="divider"></div>
@@ -28,7 +24,7 @@
                         <div class="divider"></div>
                         <li class="subheader">Groups</li>
                         <div class="divider"></div>
-                        <?php foreach ($list_groups->result() as $row){  ?>
+                        <?php foreach ($list_groups_users as $row){  ?>
                             <li class="nav-item">
                                 <a class="nav-link ripple active fuse-ripple-ready" href="#">
                                     <span><?php echo $row->name; ?></span>
@@ -149,7 +145,7 @@ var EditableTable = function () {
                     jqTds[3].innerHTML = MembersList;
                 });
 
-              jqTds[4].innerHTML = '<a id="edit-members" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+              jqTds[4].innerHTML = '<a id="edit-members" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="icon-close"></i></a>';
             }
             function saveRowMembers(membersTable, nRow, nUrl) {
                 var jqInputs = $('input', nRow);
@@ -161,7 +157,7 @@ var EditableTable = function () {
             function deleteRowMembers(membersTable, nRow, nUrl) {
                 var aData = membersTable.row(nRow).data();
                 var jqTds = $('>td', nRow);
-                jqTds[4].innerHTML = '<a id="delete-members" href="'+nUrl+'" class="btn btn-white"><i class="fa fa-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="fa fa-close"></i></a>';
+                jqTds[4].innerHTML = '<a id="delete-members" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="icon-close"></i></a>';
             }
             $(document).on('click', '#table-members #cancel-members', function (e) {
                 e.preventDefault();

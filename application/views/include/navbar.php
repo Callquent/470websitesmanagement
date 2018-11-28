@@ -1,4 +1,4 @@
-            <div class="content-wrapper">
+            <div id="app" class="content-wrapper">
                 <nav id="toolbar" class="bg-white">
                     <div class="row no-gutters align-items-center flex-nowrap">
                         <div class="col">

@@ -1,7 +1,4 @@
 <?php $this->load->view('include/header.php'); ?>
-
-<?php $this->load->view('include/sidebar.php'); ?>
-<?php $this->load->view('include/navbar.php'); ?>
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
@@ -21,16 +18,16 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div id="results">
-                                        <div class="alert alert-success alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span> est indexer sur ce mot clé "<span class="message-keyword"></span>" à la position</h4></div>
-                                        <div class="alert alert-danger alert-block"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
+                                        <div class="alert alert-success alert-block" v-show="message.success"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span> est indexer sur ce mot clé "<span class="message-keyword" v-for="position in positions">{{ position }}</span>" à la position</h4></div>
+                                        <div class="alert alert-danger alert-block" v-show="message.error"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
                                     </div>
-                                    <form class="form-horizontal" id="form-search-scrapper-google" role="form"  action="<?php echo site_url('/search-scrapper-google/ajaxSearchScrapperGoogle/'); ?>">
+                                    <form @submit.prevent="SerpSearchGoogle" class="form-horizontal" id="form-search-scrapper-google">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="keyword-google" id="keyword-google">
+                                            <input type="text" class="form-control" name="keyword-google" id="keyword-google" v-model="searchGoogle.keyword">
                                             <label for="keyword">Keyword</label>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="website" id="autocomplete">
+                                            <input type="text" class="form-control" name="website" id="autocomplete" v-model="searchGoogle.url_website">
                                             <label for="url-website">Url Website</label>
                                         </div>
                                         <div class="form-group">
@@ -43,14 +40,23 @@
                                   <button class="btn btn-success btn-ls float-right" data-title="Ajouter" data-toggle="modal" data-target="#serptools"><?php echo lang('serp_simulator'); ?></button>
                                 </div>
                             </div>
-                            <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-search-scrapper-google">
-                              <thead>
-                                <th class="all"><?php echo lang('position'); ?></th>
-                                <th class="desktop"><?php echo lang('website'); ?></th>
-                                <th class="desktop"><?php echo lang('meta_title'); ?></th>
-                                <th class="desktop"><?php echo lang('meta_description'); ?></th>
-                              </thead>
-                            </table>
+                            <template>
+                                    <v-data-table
+                                        :headers="headers"
+                                        :items="list_serp_search_google"
+                                        class="elevation-1"
+                                        :rows-per-page-items="[-1]"
+                                    >
+                                        <template slot="items" slot-scope="props">
+                                            <tr :class="props.item.className">
+                                                <td>{{ props.item.position }}</td>
+                                                <td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
+                                                <td class="text-xs-left">{{ props.item.meta_title }}</td>
+                                                <td class="text-xs-left"  v-html="props.item.meta_description">{{ props.item.meta_description }}</td>
+                                            </tr>
+                                        </template>
+                                    </v-data-table>
+                            </template>
                         </div>
                     </section>
                 </div>
@@ -68,7 +74,7 @@
         <h4 class="modal-title custom_align" id="Heading">Simulateur de SERP</h4>
       </div>
       <div class="modal-body">
-        <form id="form-serptools" method="post" action="<?php echo site_url('/dashboard/add'); ?>">
+        <form id="form-serptools">
           <div class="form-group">
            <span id="titlechar">70</span> Nombre de caractères <span id="titlepixels">0</span> / <span id="statuschars">500</span> Nombre de pixels
             <input class="form-control" type="text" name="meta_title" id="meta_title" placeholder="Titre">
@@ -101,75 +107,59 @@
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+var v = new Vue({
+    el: '#app',
+    data : {
+        message:{
+            success:'',
+            error:'',
+        },
+        position:'',
+        positions:[],
+        searchGoogle:{
+            keyword:'',
+            url_website:'',
+        },
+        currentRoute: window.location.href,
+        headers: [
+            { text: '<?php echo lang("position"); ?>', value: 'position'},
+            { text: '<?php echo lang("website"); ?>', value: 'website' },
+            { text: '<?php echo lang("meta_title"); ?>', value: 'meta_title'},
+            { text: '<?php echo lang("meta_description"); ?>', value: 'meta_description'},
+        ],
+        list_serp_search_google: [],
+    },
+    created(){
+        this.displayPage();
+    },
+    methods:{
+        displayPage(){
+
+        },
+        SerpSearchGoogle(){
+            var formData = new FormData(); 
+            formData.append("keyword_google",this.searchGoogle.keyword);
+            formData.append("website",this.searchGoogle.url_website);
+            axios.post(this.currentRoute+"/ajaxSearchScrapperGoogle/", formData).then(function(response){
+                if(response.data.result_position_website !== undefined){
+                    v.list_serp_search_google = response.data.result_websites;
+                    v.message.success = true;
+                    v.message.error = false;
+                    v.positions = response.data.result_position_website;
+                }else{
+                    v.message.success = false;
+                    v.message.error = true;
+                }
+            })
+        },
+    }
+})
     var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
 
     $('#autocomplete').autocomplete({
         lookup: autocomplete_website,
         onSelect: function (suggestion) {
         }
-    });
-
-
-    $(document).ready(function(){
-        var searchgoogleTable = $('#table-search-scrapper-google').DataTable({
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
-            "order": [],
-            "dom": 'lBfrtip',
-            "buttons": [
-                {
-                    extend: 'collection',
-                    text: 'Export',
-                    buttons: [
-                        'copy',
-                        'excel',
-                        'csv',
-                        'pdf',
-                        'print'
-                    ]
-                }
-            ],
-            responsive: {
-                details: {
-                   
-                }
-            },
-            columnDefs: [ {
-                className: 'control',
-                orderable: false,
-                targets:   0
-            } ],
-        });
-        $('#form-search-scrapper-google').submit(function(e) {
-            $("#form-search-scrapper-google button").button('loading');
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(data){
-                    $("#form-search-scrapper-google button").button("reset");
-                    $("#table-search-scrapper-google").DataTable().rows().remove().draw();
-                    $("#results .alert-success h4 span.message-position").remove();
-                    var jsdata = JSON.parse(data).result_websites;
-                    var message_website_position = JSON.parse(data).result_position_website;
-                    if ( typeof message_website_position !== 'undefined') {
-                        $('#results .alert-danger').fadeOut('fast');
-                        $('#results .alert-success').fadeIn('fast');
-                        $("#results .alert-success h4 .message-website").text($('#form-search-scrapper-google').find('input[name="website"]').val());
-                        $("#results .alert-success h4 .message-keyword").text($('#form-search-scrapper-google').find('input[name="keyword-google"]').val());
-                        $("#results .alert-success h4").append(" <span class='message-position'>"+message_website_position+"</span>");
-                    } else {
-                        $('#results .alert-success').fadeOut('fast');
-                        $('#results .alert-danger').fadeIn('fast');
-
-                    }
-                    $("#table-search-scrapper-google").DataTable().rows.add(jsdata).draw();
-                },
-                error: function(msg){
-                    console.log(msg);
-                }
-            });
-            e.preventDefault();
-        });
     });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

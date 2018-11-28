@@ -38,27 +38,21 @@ class Language extends CI_Controller {
 
 		$this->load->view('language', $data);
 	}
-	public function edit_language($id_language = '')
+	public function edit_language()
 	{
-		$this->form_validation->set_rules('titlelanguage', 'TitleLanguage', 'trim|required');
-
-		$title_language = $this->input->post('titlelanguage');
-
+	
+		$id_language = $this->input->post('id_language');
+		$title_language = $this->input->post('title_language');
+		
+		$this->form_validation->set_rules('title_language', 'TitleLanguage', 'trim|required');
 		if ($this->form_validation->run() !== FALSE){
 			$this->model_language->update_language($id_language, $title_language);
 		}
 	}
-	public function loadLanguages()
+	public function delete_language()
 	{
-		$data['all_languages'] = $this->model_front->get_all_languages();
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output( json_encode($data['all_languages']->result()));
-	}
-	public function delete_language($id_language_old = '')
-	{
-		$id_language_new = $this->input->post('language');
+		$id_language_new = $this->input->post('id_move_language');
+		$id_language_old = $this->input->post('id_delete_language');
 
 		if ($this->model_front->get_language($id_language_old)->num_rows() == 1){
 			$this->model_language->transfert_website_language($id_language_old, $id_language_new);

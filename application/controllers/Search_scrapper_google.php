@@ -47,7 +47,7 @@ class Search_scrapper_google extends CI_Controller {
 	}
 	public function ajaxSearchScrapperGoogle()
 	{
-		$keyword_google = $this->input->post('keyword-google');
+		$keyword_google = $this->input->post('keyword_google');
 		$website = ( empty($this->input->post('website')) ? " " :$this->input->post('website'));
 
 		$googlescraper = new Googlescraper();
@@ -56,12 +56,12 @@ class Search_scrapper_google extends CI_Controller {
 		foreach ($all_websites as $key => $row)
 		{
 			$list = array();
-			$list[] = ++$key;
-			$list[] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
-			$list[] = strip_tags($row['title']);
-			$list[] = strip_tags($row['description']);
+			$list['position'] = ++$key;
+			$list['website'] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
+			$list['meta_title'] = strip_tags($row['title']);
+			$list['meta_description'] = strip_tags($row['description']);
 			if (removeurl_createdomain($website) == removeurl_createdomain($row['url']) ) {
-				$list['DT_RowClass'] = 'dt-position-website-true';
+				$list['className'] = 'dt-position-website-true';
 				$show_position[] = $key;
 			}	
 			$website_search_preview[] = $list;
@@ -70,6 +70,7 @@ class Search_scrapper_google extends CI_Controller {
 		if (isset($show_position)) {
 			$data['result_position_website'] = $show_position;
 		}
-		echo json_encode($data);
+
+		$this->output->set_content_type('application/json')->set_output( json_encode($data));
 	}
 }

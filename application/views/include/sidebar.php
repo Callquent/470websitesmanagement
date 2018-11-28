@@ -158,6 +158,12 @@
                                                     <span><?php echo lang('members'); ?></span>
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="<?php echo site_url('groups-members'); ?>" class="nav-link ripple fuse-ripple-ready">
+                                                    <i class="icon icon-account-multiple"></i>
+                                                    <span><?php echo lang('groups_members'); ?></span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div id="admin" class="tab-pane">

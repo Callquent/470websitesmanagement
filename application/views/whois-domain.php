@@ -1,7 +1,4 @@
 <?php $this->load->view('include/header.php'); ?>
-
-<?php $this->load->view('include/sidebar.php'); ?>
-<?php $this->load->view('include/navbar.php'); ?>
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
@@ -41,22 +38,23 @@
 								  </div>
 
 							  </div>
-							  <div class="space15"></div>
-							  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-whois">
-								  <thead>
-									<tr>
-										<th class="all">Nom</th>
-										<th class="desktop">Site Web</th>
-										<th class="desktop">Hebergeur</th>
-										<th class="desktop">Date de mise en ligne</th>
-										<th class="desktop">Date d'expiration</th>
-										<th class="desktop">Whois</th>
-									</tr>
-								  </thead>
-								  <tbody>
 
-								  </tbody>
-							  </table>
+								<template>
+									<v-data-table
+										:headers="headers"
+										:items="list_whois"
+										class="elevation-1"
+									>
+										<template slot="items" slot-scope="props">
+											<td>{{ props.item.name_whois }}</td>
+											<td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
+											<td class="text-xs-left">{{ props.item.hosting }}</td>
+											<td class="text-xs-left">{{ props.item.date_delivery }}</td>
+											<td class="text-xs-left">{{ props.item.date_expiration }}</td>
+											<td class="text-xs-left" v-html="props.item.whois">{{ props.item.whois }}</td>
+										</template>
+									</v-data-table>
+								</template>
 						  </div>
 
 						  <div class="row whois-calendar">
@@ -99,62 +97,36 @@
 	  </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+var v = new Vue({
+	el: '#app',
+	data : {
+		currentRoute: window.location.href,
+		headers: [
+			{ text: 'Nom', value: 'name_whois'},
+			{ text: 'Site Web', value: 'website' },
+			{ text: 'Hebergeur', value: 'hosting'},
+			{ text: 'Date de mise en ligne', value: 'date_delivery'},
+			{ text: 'Date d\'expiration', value: 'date_expiration'},
+			{ text: 'Whois', value: 'whois'},
+		],
+        list_whois: [],
+    },
+    created(){
+		this.displayPage();
+    },
+    methods:{
+    	displayPage(){
+    		axios.get(this.currentRoute+"/ajaxWhois/").then(function(response){
+				if(response.status = 200){
+					v.list_whois = response.data;
+				}else{
+
+				}
+			})
+        },
+    }
+})
   $(document).ready(function(){
-		var registarTable = $('#table-whois').DataTable({
-			"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
-			"processing": true, //Feature control the processing indicator.
-			"serverSide": true, //Feature control DataTables' server-side processing mode.
-			"order": [], //Initial no order.
-	  		"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-			"buttons": [
-				{
-					extend: 'collection',
-					text: 'Export',
-					buttons: [
-						'copy',
-						'excel',
-						'csv',
-						'pdf',
-						'print'
-					]
-				}
-			],
-			"ajax": {
-				"url":  window.location.href+'/ajaxWhois/',
-				"type": "POST"
-			},
-			responsive: {
-				details: {
-				   
-				}
-			},
-			columnDefs: [ {
-				className: 'control',
-				orderable: false,
-				targets:   0
-			} ],
-		});
-
-	$( "#load-refresh-whois" ).click(function() {
-	  $(this).button('loading');
-	  $.ajax({
-		type: "POST",
-		url: window.location.href+'/ajaxRefresh/',
-		success: function(data){
-		  $( "#load-refresh-whois" ).button('reset');
-		  $('#table-whois').DataTable().rows().remove().draw();
-		  var jsdata = JSON.parse(data);
-		  $('#table-whois').DataTable().rows.add(jsdata).draw();
-		},
-		error: function(data){
-		  $( "#load-refresh-whois" ).button('reset');
-		  $('#table-whois').DataTable().rows().remove().draw();
-		  var jsdata = JSON.parse(data);
-		  $('#table-whois').DataTable().rows.add(jsdata).draw();
-		}
-	  });
-	});
-
 	$(document).on('click', '.access-whois', function(e) {
 
 	  var id = $(this).data('id');

@@ -44,14 +44,6 @@ class All_projects extends CI_Controller {
 
 			$this->load->view('all-projects', $data);
 		} elseif($this->uri->total_segments() == 2) {
-			foreach ($data['list_users']->result() as $row)
-			{
-				$list = array();
-				$list['value'] = strip_tags($row->name_user);
-				$list['label'] = strip_tags($row->name_user);
-
-				$data['users'][] = $list;
-			}
 			$data['project'] = $this->model_tasks->get_project($id_project_tasks);
 
 			$data['datetimestart'] = past_time_project($id_project_tasks);
@@ -91,8 +83,8 @@ class All_projects extends CI_Controller {
 	}
 	public function view_card_tasks()
 	{
-		$id_project_tasks			= $this->input->post('idproject');
-		$id_card_tasks		= $this->input->post('idcard');
+		$id_project_tasks	= $this->input->post('id_project_tasks');
+		$id_card_tasks		= $this->input->post('id_card_tasks');
 
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
 
@@ -115,39 +107,33 @@ class All_projects extends CI_Controller {
 				}
 				$list[] = $row->name_task;
 				$list[] = $row->username;
-				$list[] = '<div class="dropdown show actions">
-							<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-								<i class="icon icon-dots-vertical"></i>
-							</a>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" id="edit-task" href="'.site_url('all-projects/edit-task/').'" data-val="'.$row->id_task.'"><i class="icon icon-pencil"></i> '.lang('edit').'</a>
-								<a class="dropdown-item" id="delete-task" href="'.site_url('all-projects/delete-task/').'" data-val="'.$row->id_task.'"><i class="icon icon-trash"></i> '.lang('delete').'</a>
-							</div>
-						</div>';
 				$list_tasks_preview[] = $list;
 			}
 			$data['list_tasks_preview'] = $list_tasks_preview;
+		} else {
+			$data['card_tasks']->tasks = array();
 		}
-		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
 
+		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
 	}
 	public function delete_card_tasks()
 	{
-		$id_project_tasks		= $this->input->post('idproject');
-		$id_card_tasks		= $this->input->post('idcard');
+		$id_project_tasks		= $this->input->post('id_project_tasks');
+		$id_card_tasks		= $this->input->post('id_card_task');
 
 		$this->model_tasks->delete_card_tasks($id_project_tasks,$id_card_tasks);
 	}
-	public function create_card_tasks($id_project_tasks = '')
+	public function create_card_tasks()
 	{
-		$id_card_tasks			= $this->input->post('idlisttasks');
-		$title_list_task			= $this->input->post('titlelisttasks');
+		$id_project_tasks		= $this->input->post('id_project_tasks');
+		$id_card_tasks			= $this->input->post('id_card_task');
+		$title_list_task		= $this->input->post('name_card_tasks');
 
 		$this->model_tasks->create_list_tasks($id_project_tasks, $id_card_tasks, $title_list_task);
 	}
 	public function create_task()
 	{
-		$id_project_tasks		= $this->input->post('id_project');
+		$id_project_tasks		= $this->input->post('id_project_tasks');
 		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$nametask				= $this->input->post('nametask');
 		$user					= $this->input->post('user');
@@ -181,9 +167,9 @@ class All_projects extends CI_Controller {
 	}
 	public function delete_task()
 	{
-		$id_project_tasks	= $this->input->post('idproject');
-		$id_card_tasks		= $this->input->post('idcard');
-		$id_task			= $this->input->post('idtask');
+		$id_project_tasks	= $this->input->post('id_project_tasks');
+		$id_card_tasks		= $this->input->post('id_card_tasks');
+		$id_task			= $this->input->post('id_task');
 
 		$this->model_tasks->delete_tasks($id_project_tasks,$id_card_tasks,$id_task);
 	}
