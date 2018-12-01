@@ -90,7 +90,7 @@ class All_projects extends CI_Controller {
 
 		$data['title_card_tasks'] = $data['card_tasks']->title_card_tasks;
 
-		if (isset($data['card_tasks']->tasks)) {
+		/*if (isset($data['card_tasks']->tasks)) {
 			foreach ($data['card_tasks']->tasks as $key => $row)
 			{
 				$list = array();
@@ -112,7 +112,7 @@ class All_projects extends CI_Controller {
 			$data['list_tasks_preview'] = $list_tasks_preview;
 		} else {
 			$data['card_tasks']->tasks = array();
-		}
+		}*/
 
 		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
 	}
@@ -144,7 +144,7 @@ class All_projects extends CI_Controller {
 	}
 	public function check_tasks()
 	{
-		$id_project_tasks		= $this->input->post('id_project');
+		$id_project_tasks		= $this->input->post('id_project_tasks');
 		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$id_task				= $this->input->post('id_task');
 		$check_tasks			= $this->input->post('check_tasks');
@@ -152,6 +152,7 @@ class All_projects extends CI_Controller {
 		$this->model_tasks->update_check_task($id_project_tasks, $id_card_tasks, $id_task, $check_tasks);
 
 		$this->model_tasks->update_check_card_completed($id_project_tasks, $id_card_tasks);
+		var_dump($check_tasks);
 	}
 	public function edit_task($id_project_tasks = '')
 	{

@@ -1,6 +1,5 @@
 				</div>
 			</div>
-
 		<?php echo js_url('plugins/jquery.min.js'); ?>
 		<?php echo js_url('plugins/popper.min.js'); ?>
 		<?php echo js_url('plugins/bootstrap.min.js'); ?>

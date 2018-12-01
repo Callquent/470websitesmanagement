@@ -56,7 +56,7 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item" role="tab">
-                                                <a href="javascript:;" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitesmanagement">
+                                                <a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitesmanagement">
                                                     <i class="icon icon-desktop-mac"></i>
                                                     <span><?php echo lang('websites_management'); ?></span>
                                                 </a>
@@ -64,7 +64,7 @@
                                                     <li>
                                                         <a href="<?php echo site_url('all-websites'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_websites'); ?> <span class="badge badge-all-websites"><?php echo $all_count_websites->count_all_websites; ?></span></a></li>
                                                     <li>
-                                                        <a href="javascript:;" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitelanguages"><i class="fa fa-plus"></i><?php echo lang('website_languages'); ?></a>
+                                                        <a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitelanguages"><i class="fa fa-plus"></i><?php echo lang('website_languages'); ?></a>
                                                         <ul id="collapse-websitelanguages" class="collapse" role="tabpanel" data-children=".nav-item">
                                                             <?php foreach ($all_count_websites_per_language->result() as $row) {  ?>
                                                             <li><a href="<?php echo site_url('all-websites/language/'.$row->title_url_language); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->title_language; ?> <span class="badge badge-language-<?php echo $row->title_language; ?>"><?php echo $row->count_websites_per_language; ?></span></a></li>
@@ -72,7 +72,7 @@
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:;" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitecategories"><i class="fa fa-plus"></i><?php echo lang('website_categories'); ?></a>
+                                                        <a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitecategories"><i class="fa fa-plus"></i><?php echo lang('website_categories'); ?></a>
                                                         <ul id="collapse-websitecategories" class="collapse" role="tabpanel" data-children=".nav-item">
                                                             <?php foreach ($all_count_websites_per_category->result() as $row) {  ?>
                                                             <li><a href="<?php echo site_url('all-websites/category/'.$row->title_url_category); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->title_category; ?> <span class="badge badge-category-<?php echo $row->title_category; ?>"><?php echo $row->count_websites_per_category; ?></span></a></li>
@@ -94,7 +94,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-projects">
+                                                <a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-projects">
                                                     <i class="icon icon-bulletin-board"></i>
                                                     <span>Projects</span>
                                                 </a>
@@ -106,7 +106,7 @@
                                             </li>
                                             </li>
                                             <li>
-                                                <a href="javascript:;" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-scrapperseo">
+                                                <a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-scrapperseo">
                                                     <i class="icon icon-search-web"></i>
                                                     <span>Scrapper SEO</span>
                                                 </a>
@@ -116,7 +116,7 @@
                                                 </ul>
                                             </li>
                                             <!-- <li>
-                                                <a href="javascript:;">
+                                                <a href="javascript:void(0);">
                                                     <i class="fa fa-bar-chart"></i>
                                                     <span>Position Tracking</span>
                                                 </a>

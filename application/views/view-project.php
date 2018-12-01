@@ -1,7 +1,6 @@
 <?php $this->load->view('include/header.php'); ?>
+<div class="custom-scrollbar">
 
-<div class="content custom-scrollbar">
-  <div class="page-layout simple full-width">
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
 		<h2 class="doc-title" id="content"><?php echo $project->name_project_tasks; ?></h2>
 		<a href="<?php echo site_url('/all-projects/'); ?>" class="btn btn-icon fuse-ripple-ready">
@@ -11,154 +10,106 @@
 			<i class="icon icon-plus"></i>
 		</a>
 	</div>
-	<div class="page-content">
-	  <section id="main-content" >
-		  <section class="wrapper">
-			<div class="row">
-				<div class="col-sm-12">
 
 
 
-<div class="ng-tns-c58-59 ng-star-inserted">
-	<div class="page-layout simple left-sidebar inner-scroll" id="academy-course">
-		<aside class="sidebar left-positioned open locked-open col-md-2 d-none d-lg-block">
-			<div class="content ">
 
+
+	<v-container fluid grid-list-sm>
+		<v-layout row wrap>
+			<v-flex xs2>
 				<v-stepper non-linear vertical>
-					<template v-for="step in steps">
-						<v-stepper-step 
-							
-							@click.native="changeCard(step.id_card_tasks)"
-							editable
-							:step="step.id_card_tasks">
-							{{ step.title_card_tasks }}
-						</v-stepper-step>
-						<v-stepper-content :step="step.id_card_tasks"></v-stepper-content>
-					</template>
+				    <template v-for="n in steps.length">
+				      <v-stepper-step
+				      	@click.native="changeCard(steps[n-1].id_card_tasks)"
+				        :step="n"
+				        editable
+				      >
+				       {{ steps[n-1].title_card_tasks  }}
+				      </v-stepper-step>
+				      <v-stepper-content :step="steps[n-1].id_card_tasks"></v-stepper-content>
+				    </template>
 				</v-stepper>
-  
-
-<aside class="sidebar left-positioned open locked-open col-md-2 d-none d-lg-block">
-			<div class="content ">
-				<div class="steps">
-					<?php foreach ($all_card_tasks->result() as $key => $row_list_tasks) { ?>
-						<?php if ($row_list_tasks->id_card_tasks==1) { ?>
-							<a href="#step-<?php echo $row_list_tasks->id_card_tasks; ?>" class="step ng-tns-c58-59 current first ng-star-inserted <?php echo $row_list_tasks->name_tasks_status; ?>">
-								<div class="index">
-									<span data-val="<?php echo $row_list_tasks->id_card_tasks; ?>"><?php echo $row_list_tasks->id_card_tasks; ?></span>
-									<?php echo ($row_list_tasks->id_tasks_status == 3?'<i class="icon icon-check-circle"></i>':'') ?>
+			</v-flex>
+			<v-flex xs10>
+				<div class="step-content">
+					<div class="setup-content" id="step-1">
+						<div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
+							<div class="course-step-content" id="course-step-content">
+								<div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center; align-items: center;">
+									<h2 id="title-card-tasks">{{ title_card_tasks }}</h2>
+									<div class="dropdown actions">
+										  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-expanded="true">
+											<i class="icon icon-dots-vertical"></i>
+										  </a>
+										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
+										  	<a class="dropdown-item fuse-ripple-ready" @click="dialog_task = true"><i class="fa fa-eye"></i> Ajouter</a>
+											<a class="dropdown-item fuse-ripple-ready" id="delete-card-tasks" @click="deleteCard(step)"><i class="fa fa-eye"></i> Supprimer</a>
+											<div class="dropdown-divider"></div>
+										  </div>
+									  </div>								
 								</div>
-								<div class="title"><?php echo $row_list_tasks->title_card_tasks; ?></div>
-							</a>
-						<?php } else { ?>
-							<a href="#step-<?php echo $row_list_tasks->id_card_tasks; ?>" class="step ng-tns-c58-59 ng-star-inserted <?php echo $row_list_tasks->name_tasks_status; ?>">
-								<div class="index">
-									<span data-val="<?php echo $row_list_tasks->id_card_tasks; ?>"><?php echo $row_list_tasks->id_card_tasks; ?></span>
-									<?php echo ($row_list_tasks->id_tasks_status == 3?'<i class="icon icon-check-circle"></i>':'') ?>
-								</div>
-								<div class="title"><?php echo $row_list_tasks->title_card_tasks; ?></div>
-							</a>
-						<?php } ?>
-					<?php } ?>
-				</div>
-			</div>
-		</aside>
-
-
-			</div>
-		</aside>
-		<div class="center col-md-10">
-			<div class="step-content">
-				<div class="setup-content" id="step-1">
-					<div class="course-step ng-tns-c58-59" fuseperfectscrollbar="">
-						<div class="course-step-content" id="course-step-content">
-							<div class="header mat-accent-bg p-24" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center; align-items: center;">
-								<h2 id="title-card-tasks">{{ title_card_tasks }}</h2>
-								<div class="dropdown actions">
-									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-expanded="true">
-										<i class="icon icon-dots-vertical"></i>
-									  </a>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
-									  	<a class="dropdown-item fuse-ripple-ready" href="javascript:void(0);" data-toggle="modal" data-target="#create-task"><i class="fa fa-eye"></i> Ajouter</a>
-										<a class="dropdown-item fuse-ripple-ready" id="delete-card-tasks" @click="deleteCard(step)"><i class="fa fa-eye"></i> Supprimer</a>
-										<div class="dropdown-divider"></div>
-									  </div>
-								  </div>								
-							</div>
-							<section class="card mb-3">
-							  <header class="card-header">
-								  <?php echo lang('websites_management'); ?>
-							  </header>
-
-								<div class="card-body">
-
-									<template>
-										<v-data-table
-											v-model="selected"
-											:headers="headers"
-											:items="list_tasks"
-											select-all
-											class="elevation-1"
-										>
-											<template slot="items" slot-scope="props">
-												<td><v-checkbox @change="test()" v-model="props.selected" primary hide-details></v-checkbox></td>
-												<td>{{ props.item.name_task }}</td>
-												<td class="text-xs-left">{{ props.item.username }}</td>
-												<td class="justify-center layout px-0">
-													<div class="dropdown show actions">
-														<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-															<i class="icon icon-dots-vertical"></i>
-														</a>
-														<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-															<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
-															<a class="dropdown-item" id="delete-task" @click="deleteTask(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
+								<section class="card mb-3">
+								  <header class="card-header">
+									  <?php echo lang('websites_management'); ?>
+								  </header>
+									<v-card>
+										<template>
+											<v-data-table
+												:headers="headers"
+												:items="list_tasks"
+												select-all
+												class="elevation-1"
+											>
+												<template slot="items" slot-scope="props">
+													<td><v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks == 1 ? true : false" primary hide-details></v-checkbox></td>
+													<td>{{ props.item.name_task }}</td>
+													<td>{{ props.item.username }}</td>
+													<td>
+														<div class="dropdown show actions">
+															<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+																<i class="icon icon-dots-vertical"></i>
+															</a>
+															<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+																<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
+																<a class="dropdown-item" id="delete-task" @click="deleteTask(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
+															</div>
 														</div>
-													</div>
-												</td>
-											</template>
-										</v-data-table>
-									</template>
+													</td>
+												</template>
+											</v-data-table>
+										</template>
+									</v-card>
 
-								</div>
-							</section>
+								</section>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="step-navigation">
-				<button class="prevBtn mat-accent white-fg mat-fab" style="display: none;">
-					<span class="mat-button-wrapper">
-						<i class="icon-chevron-left" aria-hidden="true"></i>
-					</span>
-					<div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
-					<div class="mat-button-focus-overlay"></div>
-				</button>
-				<button class="nextBtn mat-accent white-fg mat-fab" style="display: block;">
-					<span class="mat-button-wrapper">
-						<i class="icon-chevron-right" aria-hidden="true"></i>
-					</span>
-					<div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
-					<div class="mat-button-focus-overlay"></div>
-				</button>
-				<button class="done mat-green-600-bg mat-fab mat-accent" mat-fab="" routerlink="/apps/academy/courses" tabindex="0" disabled="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">check</mat-icon></span>
-					<div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
-					<div class="mat-button-focus-overlay"></div>
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-			</div>
-		</div>
-	</section>
-</section>
-
-	</div>
-  </div>
+				<div class="step-navigation">
+					<button class="prevBtn mat-accent white-fg mat-fab" style="display: none;">
+						<span class="mat-button-wrapper">
+							<i class="icon-chevron-left" aria-hidden="true"></i>
+						</span>
+						<div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+						<div class="mat-button-focus-overlay"></div>
+					</button>
+					<button class="nextBtn mat-accent white-fg mat-fab" style="display: block;">
+						<span class="mat-button-wrapper">
+							<i class="icon-chevron-right" aria-hidden="true"></i>
+						</span>
+						<div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+						<div class="mat-button-focus-overlay"></div>
+					</button>
+					<button class="done mat-green-600-bg mat-fab mat-accent" mat-fab="" routerlink="/apps/academy/courses" tabindex="0" disabled="" style="display: none;"><span class="mat-button-wrapper"><mat-icon class="mat-icon ng-tns-c58-59 material-icons" role="img" aria-hidden="true">check</mat-icon></span>
+						<div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+						<div class="mat-button-focus-overlay"></div>
+					</button>
+				</div>
+			</v-flex>
+		</v-layout>
+	</v-container>
 </div>
 <div class="modal fade" id="create-card-task" tabindex="-1" role="dialog" aria-labelledby="create-card-task" aria-hidden="true">
   <div class="modal-dialog">
@@ -205,64 +156,7 @@
 					</div>
 					<div class="form-group">
 
-<template>
-  <v-card
-    color="blue-grey darken-1"
-    dark
-  >
-      <v-form>
-      <v-container>
-        <v-layout wrap>
-          <v-flex xs12 md6>
-			<v-autocomplete
-              v-model="newTask.user"
-              :disabled="isUpdating"
-              :items="users"
-              box
-              chips
-              color="blue-grey lighten-2"
-              label="Select"
-              item-text="name_user"
-              item-value="name_user">
-              <template
-                slot="selection"
-                slot-scope="data"
-              >
-                <v-chip
-                  :selected="data.selected"
-                  close
-                  class="chip--select-multi"
-                  @input="remove(data.item)"
-                >
-                  <v-avatar>
-                    <img :src="data.item.avatar">
-                  </v-avatar>
-                  {{ data.item.name_user }}
-                </v-chip>
-              </template>
-              <template
-                slot="item"
-                slot-scope="data"
-              >
-                <template v-if="typeof data.item !== 'object'">
-                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                </template>
-                <template v-else>
-                  <v-list-tile-avatar>
-                    <img :src="data.item.avatar">
-                  </v-list-tile-avatar>
-                  <v-list-tile-content>
-                    <v-list-tile-title v-html="data.item.name_user"></v-list-tile-title>
-                  </v-list-tile-content>
-                </template>
-              </template>
-            </v-autocomplete>
-         </v-flex>
-                 </v-layout>
-      </v-container>
-    </v-form>
-</v-card>
-</template>
+
 
 						<!-- <input type="text" class="form-control" name="user" id="autocomplete-user" v-model="newTask.user">
 						<label for="url-user">Url User</label> -->
@@ -280,14 +174,92 @@
 	</div>
 </div>
 
+<v-dialog
+      v-model="dialog_task"
+      width="500"
+    >
+	<v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          Privacy Policy
+        </v-card-title>
+
+        <v-card-text>
+			<v-container grid-list-md>
+				<v-layout wrap>
+					<v-flex xs12 sm6>
+						<v-text-field label="Titre Task"  v-model="newTask.nametask" required></v-text-field>
+					</v-flex>
+					<v-flex xs12 sm6>
+
+								<v-autocomplete
+					              v-model="newTask.user"
+					              :items="users"
+					              box
+					              chips
+					              label="Select"
+					              item-text="name_user"
+					              item-value="name_user">
+					              <template
+					                slot="selection"
+					                slot-scope="data"
+					              >
+					                <v-chip
+					                  :selected="data.selected"
+					                  close
+					                  class="chip--select-multi"
+					                  @input="remove(data.item)"
+					                >
+					                  <v-avatar>
+					                    <img :src="data.item.avatar">
+					                  </v-avatar>
+					                  {{ data.item.name_user }}
+					                </v-chip>
+					              </template>
+					              <template
+					                slot="item"
+					                slot-scope="data"
+					              >
+					                <template v-if="typeof data.item !== 'object'">
+					                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
+					                </template>
+					                <template v-else>
+					                  <v-list-tile-avatar>
+					                    <img :src="data.item.avatar">
+					                  </v-list-tile-avatar>
+					                  <v-list-tile-content>
+					                    <v-list-tile-title v-html="data.item.name_user"></v-list-tile-title>
+					                  </v-list-tile-content>
+					                </template>
+					              </template>
+					            </v-autocomplete>
+
+					</v-flex>
+				</v-layout>
+			</v-container>
+			<small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        	<v-btn color="blue darken-1" flat @click="f_createTask()">Save</v-btn>
+        	<v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+        </v-card-actions>
+	</v-card>
+</v-dialog>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+
 var v = new Vue({
 	el: '#app',
     data : {
+    	steps: <?php echo json_encode($all_card_tasks->result_array()); ?>,
+        users: <?php echo json_encode($list_users->result_array()); ?>,
+    	dialog_task: false,
 		currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
 		id_project: window.location.href.split('/').pop(),
-		id_card: $('.v-stepper__step--active .v-stepper__step__step').text(),
+		id_card: <?php echo json_encode($all_card_tasks->row()->id_card_tasks); ?>,
 		headers: [
 			{ text: 'Name Task', value: 'name_task', sortable: false},
 			{ text: 'User', value: 'username' },
@@ -303,8 +275,6 @@ var v = new Vue({
 		},
         title_card_tasks:"",
         list_tasks: [],
-        steps: [],
-        users: [],
     },
     created(){
 		this.displayPage();
@@ -323,10 +293,9 @@ var v = new Vue({
 				}
 			})
         },
-        test(){
-    		console.log(data);
-        },
-        changeCard(id_card_task){
+		changeCard(id_card_task){
+			this.id_card = id_card_task;
+
     		var formData = new FormData(); 
     		formData.append("id_project_tasks",this.id_project);
 			formData.append("id_card_tasks",id_card_task);
@@ -365,12 +334,28 @@ var v = new Vue({
 				}
 			})
 		},
-		createTask(){
+		f_checkTask(item){
+			/*data: {'id_project':window.location.href.split('/').pop() ,'id_card_tasks':$('.current .index span').attr('data-val') ,'id_task':$(this).val() ,'check_tasks':$(this).is(":checked")?1:0},*/
+
+			var formData = new FormData();
+			formData.append("id_project_tasks",this.id_project);
+			formData.append("id_card_tasks",this.id_card);
+			formData.append("id_task",item.id_task);
+			formData.append("check_tasks",(item.check_tasks==0?1:0));
+			axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
+				if(response.status = 200){
+
+				}else{
+
+				}
+			})
+		},
+		f_createTask(){
 			var formData = new FormData();
 			formData.append("nametask",this.newTask.nametask);
 			formData.append("user",this.newTask.user);
 			formData.append("id_project_tasks",this.id_project);
-			formData.append("id_card_tasks",$('.v-stepper__step--active .v-stepper__step__step').text());
+			formData.append("id_card_tasks",this.id_card);
 			axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
 				if(response.status = 200){
 					v.list_tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
@@ -395,8 +380,6 @@ var v = new Vue({
 		},
     }
 })
-v.steps = <?php echo json_encode($all_card_tasks->result_array()); ?>;
-v.users = <?php echo json_encode($list_users->result_array()); ?>;
 
 $(document).ready(function(){
 
@@ -443,21 +426,6 @@ $(document).ready(function(){
 		});
 		e.preventDefault();
 	});*/
-	$(document).on("change", ".checkbox-task", function(e) {
-		$.ajax({
-			type: "POST",
-			url: window.location.href.substr(0, window.location.href.lastIndexOf('/') + 1)+'check_tasks/',
-			data: {'id_project':window.location.href.split('/').pop() ,'id_card_tasks':$('.current .index span').attr('data-val') ,'id_task':$(this).val() ,'check_tasks':$(this).is(":checked")?1:0},
-			success: function(msg){
-				console.log(msg.responseText);
-			},
-			error: function(msg){
-				console.log(msg.responseText);
-			}
-		});
-		e.preventDefault();
-	});
-
 
 
    /*
