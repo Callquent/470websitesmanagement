@@ -85,6 +85,7 @@ class Ftp_websites extends CI_Controller {
 		$path[] = array('path_server' => (strrpos($pathfolder, '/..')==true?rtrim($path_back_folder,pathinfo($path_back_folder)["basename"]):$pathfolder) );
 		
 		$data['list'] = $this->ftp->list_files($pathfolder);
+		$tree_data = array();
 		foreach ($data['list'] as $row) {
 			if ($row["type"]=="file") {
 				$tree_data[] = array('title' => pathinfo($row["file"])["basename"], 'icon' => 'file', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
@@ -92,8 +93,8 @@ class Ftp_websites extends CI_Controller {
 				$tree_data[] = array('title' => pathinfo($row["file"])["basename"], 'icon' => 'folder', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
 			}
 		}
-		$data[] = $path;
-		$data[] = $tree_data;
+		$data['path'] = $path;
+		$data['folder'] = $tree_data;
 		echo json_encode($data);
 	}
 	public function mkdirftp($id_ftp_websites = '')

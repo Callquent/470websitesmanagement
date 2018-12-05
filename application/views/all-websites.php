@@ -1,7 +1,4 @@
 <?php $this->load->view('include/header.php'); ?>
-
-<?php $this->load->view('include/sidebar.php'); ?>
-<?php $this->load->view('include/navbar.php'); ?>
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">

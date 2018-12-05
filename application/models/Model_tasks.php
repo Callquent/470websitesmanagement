@@ -179,6 +179,7 @@ class Model_tasks extends CI_Model {
 	{
 		$this->db->select('*')
 			->from('470websitesmanagement_tasks__card')
+			->join('470websitesmanagement_tasks__status', '470websitesmanagement_tasks__card.id_tasks_status = 470websitesmanagement_tasks__status.id_tasks_status')
 			->where('470websitesmanagement_tasks__card.id_project_tasks', $id_projects)
 			->where('470websitesmanagement_tasks__card.id_card_tasks', $id_card_tasks)
 			->limit(1);

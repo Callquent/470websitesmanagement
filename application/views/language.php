@@ -56,53 +56,6 @@
     </v-layout>
   </v-container>
 </div>
-						 <!--  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-language">
-							<thead>
-							  <tr>
-								  <th>Langage</th>
-								  <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-									<th>Modifier</th>
-									<th>Supprimer</th>
-								  <?php } ?>
-							  </tr>
-							</thead>
-							<tbody>
-							  <?php foreach ($all_languages->result() as $row) { ?>
-								<tr>
-								  <td><?php echo $row->title_language; ?></td>
-								  <?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-									<td><a id="edit-dashboard" href="<?php echo site_url('language/edit-language/'.$row->id_language); ?>">Edit</a></td>
-									<td><a id="delete-dashboard" href="javascript:void(0);" data-toggle="modal" data-target="#modal-delete-language" data-id="<?php echo $row->id_language; ?>">Delete</a></td>
-								  <?php } ?>
-								</tr>
-							  <?php } ?>
-							</tbody>
-						  </table> -->
-
-
-<!-- 	<div class="modal fade" id="modal-delete-language" tabindex="-1" role="dialog" aria-labelledby="modal-delete-language" aria-hidden="true">
-	  <div class="modal-dialog">
-		<div class="modal-content">
-		  <div class="modal-header modal-header-success">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-			<h4 class="modal-title custom_align" id="Heading">Delete Language</h4>
-		  </div>
-		  <form id="form-language" method="post" action="#">
-			<div class="modal-body">
-				<select id="language" name="language" class="form-control">
-					<option v-for="item_language in list_language" :value="item_language.id_language">{{ item_language.title_language }}</option>
-				</select>
-			</div>
-			<div class="modal-footer ">
-			  <button type="submit" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-share"></span> Envoyer</button>
-			  <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Annuler</button>
-			</div>
-		  </form>
-		</div>
-	  </div>
-	</div>
- -->
-
 
 <v-dialog
       v-model="dialog"
@@ -157,7 +110,7 @@ var v = new Vue({
             { text: '<?php echo lang("language"); ?>', value: 'langage' },
             { text: '<?php echo lang("actions"); ?>', value: 'actions'},
         ],
-        list_language: [],
+        list_language: <?php echo json_encode($all_languages->result_array()); ?>,
         list_delete_language: [],
         deleteLanguage:{
         	id_move_language: '',
@@ -199,6 +152,5 @@ var v = new Vue({
         },
     }
 })
-v.list_language = <?php echo json_encode($all_languages->result_array()); ?>;
 </script>
 <?php $this->load->view('include/footer.php'); ?>

@@ -90,30 +90,6 @@ class All_projects extends CI_Controller {
 
 		$data['title_card_tasks'] = $data['card_tasks']->title_card_tasks;
 
-		/*if (isset($data['card_tasks']->tasks)) {
-			foreach ($data['card_tasks']->tasks as $key => $row)
-			{
-				$list = array();
-				if ($row->check_tasks==0) {
-					$list[] = '<label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input checkbox-task" name="idtask" value="'.$row->id_task.'">
-                                    <span class="custom-control-indicator fuse-ripple-ready"></span>
-                                </label>';
-				} else{
-					$list[] = '<label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input checkbox-task" name="idtask" value="'.$row->id_task.'" checked>
-                                    <span class="custom-control-indicator fuse-ripple-ready"></span>
-                                </label>';
-				}
-				$list[] = $row->name_task;
-				$list[] = $row->username;
-				$list_tasks_preview[] = $list;
-			}
-			$data['list_tasks_preview'] = $list_tasks_preview;
-		} else {
-			$data['card_tasks']->tasks = array();
-		}*/
-
 		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
 	}
 	public function delete_card_tasks()
@@ -152,7 +128,10 @@ class All_projects extends CI_Controller {
 		$this->model_tasks->update_check_task($id_project_tasks, $id_card_tasks, $id_task, $check_tasks);
 
 		$this->model_tasks->update_check_card_completed($id_project_tasks, $id_card_tasks);
-		var_dump($check_tasks);
+
+		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
+
+		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
 	}
 	public function edit_task($id_project_tasks = '')
 	{

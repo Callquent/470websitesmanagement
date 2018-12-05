@@ -19,16 +19,18 @@
 		<v-layout row wrap>
 			<v-flex xs2>
 				<v-stepper non-linear vertical>
-				    <template v-for="n in steps.length">
-				      <v-stepper-step
-				      	@click.native="changeCard(steps[n-1].id_card_tasks)"
-				        :step="n"
-				        editable
-				      >
-				       {{ steps[n-1].title_card_tasks  }}
-				      </v-stepper-step>
-				      <v-stepper-content :step="steps[n-1].id_card_tasks"></v-stepper-content>
-				    </template>
+					<template v-for="n in steps.length">
+						<v-stepper-step
+							@click.native="changeCard(steps[n-1].id_card_tasks)"
+							:step="n"
+							:edit-icon="'check'"
+							editable
+							:complete="steps[n-1].name_tasks_status=='completed' ? true : false"
+							>
+							{{ steps[n-1].title_card_tasks  }}
+						</v-stepper-step>
+						<v-stepper-content :step="steps[n-1].id_card_tasks"></v-stepper-content>
+					</template>
 				</v-stepper>
 			</v-flex>
 			<v-flex xs10>
@@ -58,11 +60,12 @@
 											<v-data-table
 												:headers="headers"
 												:items="list_tasks"
+												item-key="name_task"
 												select-all
 												class="elevation-1"
 											>
 												<template slot="items" slot-scope="props">
-													<td><v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks == 1 ? true : false" primary hide-details></v-checkbox></td>
+													<td><v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks" primary hide-details></v-checkbox></td>
 													<td>{{ props.item.name_task }}</td>
 													<td>{{ props.item.username }}</td>
 													<td>
@@ -286,7 +289,10 @@ var v = new Vue({
 			formData.append("id_card_tasks",this.id_card);
     		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
 				if(response.status = 200){
-					v.list_tasks = response.data.card_tasks.tasks;
+					for (var i = 0; i < response.data.card_tasks.tasks.length; ++i) {
+						(response.data.card_tasks.tasks[i].check_tasks=="1"?response.data.card_tasks.tasks[i].check_tasks=true:response.data.card_tasks.tasks[i].check_tasks=false);
+						v.list_tasks.push(response.data.card_tasks.tasks[i]);
+					}
 					v.title_card_tasks = response.data.title_card_tasks;
 				}else{
 
@@ -294,14 +300,18 @@ var v = new Vue({
 			})
         },
 		changeCard(id_card_task){
-			this.id_card = id_card_task;
-
     		var formData = new FormData(); 
     		formData.append("id_project_tasks",this.id_project);
 			formData.append("id_card_tasks",id_card_task);
     		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
 				if(response.status = 200){
-					v.list_tasks = response.data.card_tasks.tasks;
+					v.id_card = id_card_task;
+					v.list_tasks = [];
+					for (var i = 0; i < response.data.card_tasks.tasks.length; ++i) {
+						(response.data.card_tasks.tasks[i].check_tasks=="1"?response.data.card_tasks.tasks[i].check_tasks=true:response.data.card_tasks.tasks[i].check_tasks=false);
+						v.list_tasks.push(response.data.card_tasks.tasks[i]);
+					}
+					/*v.list_tasks = response.data.card_tasks.tasks;*/
 					v.title_card_tasks = response.data.title_card_tasks;
 				}else{
 
@@ -335,16 +345,15 @@ var v = new Vue({
 			})
 		},
 		f_checkTask(item){
-			/*data: {'id_project':window.location.href.split('/').pop() ,'id_card_tasks':$('.current .index span').attr('data-val') ,'id_task':$(this).val() ,'check_tasks':$(this).is(":checked")?1:0},*/
-
 			var formData = new FormData();
 			formData.append("id_project_tasks",this.id_project);
 			formData.append("id_card_tasks",this.id_card);
 			formData.append("id_task",item.id_task);
-			formData.append("check_tasks",(item.check_tasks==0?1:0));
+			formData.append("check_tasks",(item.check_tasks==true?1:0));
 			axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
 				if(response.status = 200){
-
+					/*v.steps = response.data.card_tasks.name_tasks_status
+					Object.assign(v.steps[v.steps.indexOf(item)], v.editedItem)*/
 				}else{
 
 				}

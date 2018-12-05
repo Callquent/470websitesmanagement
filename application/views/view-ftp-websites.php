@@ -1,11 +1,23 @@
 <?php $this->load->view('include/header.php'); ?>
+<v-app>
+<div class="editor-file" v-if="codemirror_show">
+  <md-card >
+    <md-card-actions>
+        <v-btn color="error" @click='f_closeCodemirror()'>Close</v-btn>
+    </md-card-actions>
+        <md-card-media>
+      <div class="vue">
+        <div class="codemirror">
+            <codemirror v-model="code" :options="cmOptions">
+                
+            </codemirror>
+        </div>
+      </div>
+    </md-card-media>
+  </md-card>
 
-<?php $this->load->view('include/sidebar.php'); ?>
-<?php $this->load->view('include/navbar.php'); ?>
-<div class="file-codemirror">
-    <a class="btn btn-icon btn-close change-view fuse-ripple-ready float-right d-none" data-view="agendaWeek" aria-label="Week" style="z-index: 9999;"><i class="icon icon-close"></i></a>
-    <a class="btn btn-icon btn-save change-view fuse-ripple-ready float-right d-none" href="<?php echo site_url('ftp-websites/writefileftp/'.$id_ftp_websites); ?>" data-view="agendaWeek" aria-label="Week" style="z-index: 9999;"><i class="icon icon-content-save"></i></a>
 </div>
+
 <div class="content custom-scrollbar">
     <div id="file-manager" class="page-layout simple right-sidebar">
                         <div class="page-content-wrapper custom-scrollbar">
@@ -28,7 +40,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="breadcrumb text-truncate row no-gutters align-items-center pl-0 pl-sm-20 col-md-8">
-                                            <span id="path" class="h4"><?php echo $path_server; ?></span>
+                                            <span id="path" class="h4">{{ path }}</span>
                                         </div>
                                         <div id="loading-time" class="col-md-4">
                                             <ul></ul>
@@ -48,8 +60,30 @@
 
                             <!-- CONTENT -->
                             <div class="page-content custom-scrollbar ps ps--theme_default" data-ps-id="fe3679bb-d2bd-acef-4e6e-4ec75edc10b1">
+                                <v-card @contextmenu="f_showContextMenu">
+                                    <template>
+                                        <v-data-table
+                                            :headers="headers"
+                                            :items="list_view_ftp"
+                                            class="elevation-1"
+                                            :rows-per-page-items="[-1]"
+                                        >
+                                            <template slot="items" slot-scope="props">
+                                                <tr @dblclick="f_openFolder(props.item)">
+                                                    <td class="file-icon"><i :class="'icon-'+props.item.icon"></i></td>
+                                                    <td class="name">{{ props.item.title }}</td>
+                                                    <td>{{ props.item.icon }}</td>
+                                                    <td></td>
+                                                    <td>{{ props.item.size }}</td>
+                                                    <td>{{ props.item.last_modified }}</td>
+                                                </tr>
+                                            </template>
+                                        </v-data-table>
+                                    </template>
+                                </v-card>
+
                                 <!-- LIST VIEW -->
-                                <table class="table list-view">
+                                <!-- <table class="table list-view">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -73,6 +107,7 @@
                                             <td class="last-modified d-none d-lg-table-cell"></td>
                                             <td class="d-table-cell d-xl-none"></td>
                                         </tr>
+
                                         <?php foreach ($all_storage_server as $row) {  ?>
                                             <tr>
                                                 <td class="file-icon">
@@ -91,7 +126,7 @@
                                             </tr>
                                         <?php } ?>
                                     </tbody>
-                                </table>
+                                </table> -->
                             </div>
                     </div>
 
@@ -206,9 +241,9 @@
     </div>
   </div>
 </div>
-<div id="contextMenu" class="dropdown clearfix">
+<!-- <div id="contextMenu" class="dropdown clearfix">
     <div class="dropdown-menu" style="display:block;position:static;margin-bottom:5px;">
-        <a class="dropdown-item fuse-ripple-ready" id="editfile" href="<?php echo site_url('ftp-websites/readfileftp/'.$id_ftp_websites); ?>">Editer</a>
+        <a class="dropdown-item fuse-ripple-ready" id="editfile" @click='f_editFile()'>Editer</a>
         <a class="dropdown-item fuse-ripple-ready" href="#">Renommer</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item fuse-ripple-ready" id="createfolder" href="javascript:void(0);" data-toggle="modal" data-target="#modal-create-folder">Créer un dossier</a>
@@ -217,9 +252,116 @@
         <a class="dropdown-item fuse-ripple-ready" id="deleteftp" href="<?php echo site_url('ftp-websites/deleteftp/'.$id_ftp_websites); ?>">Supprimer</a>
     </div>
 </div>
-<div class="context-menu-mobile"></div>
+<div class="context-menu-mobile"></div> -->
+
+<v-menu
+    transition="scale-transition"
+  v-model="showMenu"
+  :position-x="x"
+  :position-y="y"
+  absolute
+  offset-y
+>
+  <v-list>
+    <v-list-tile
+      v-for="(item, index) in items"
+      :key="index"
+      @click=""
+    >
+      <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+    </v-list-tile>
+    <v-divider></v-divider>
+    <v-list-tile @click='f_editFile(contextMenu.selected_file)'>
+      <v-list-tile-title>Editer</v-list-tile-title>
+    </v-list-tile>
+  </v-list>
+</v-menu>
+</v-app>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+var v = new Vue({
+    el: '#app',
+    data : {
+        showMenu: false,
+        x: 0,
+        y: 0,
+        items: [
+            { title: 'Click Me' },
+            { title: 'Click Me' },
+            { title: 'Click Me' },
+            { title: 'Click Me 2' }
+        ],
+        contextMenu:{
+            selected_file: '',
+        },
+        currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+        id_website: window.location.href.split('/').pop(),
+        list_view_ftp: <?php echo json_encode($all_storage_server); ?>,
+        path: '<?php echo $path_server; ?>',
+        headers: [
+            { text: '', value: 'icon', sortable: false },
+            { text: 'Name', value: 'name', sortable: false},
+            { text: 'Type', value: 'type' },
+            { text: 'Owner', value: 'owner', sortable: false },
+            { text: 'Size', value: 'size', sortable: false},
+            { text: 'Last Modified', value: 'last_modified' },
+        ],
+        codemirror_show: false,
+        code: '',
+        cmOptions: {
+            tabSize: 4,
+            mode: 'text/javascript',
+            theme: 'monokai',
+            lineNumbers: true,
+            line: true,
+        }
+    },
+    created(){
+
+    },
+    methods:{
+        f_showContextMenu (e) {
+            v.contextMenu.selected_file = $('table tbody').find("tr:hover .name").text();
+            e.preventDefault()
+            this.showMenu = false
+            this.x = e.clientX
+            this.y = e.clientY
+            this.$nextTick(() => {
+                this.showMenu = true
+            })
+        },
+        f_openFolder (item) {
+            console.log("ter");
+            var formData = new FormData(); 
+            formData.append("path",$("#path").text()+item.title);
+            axios.post(this.currentRoute+"/refreshfolderserver/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    v.list_view_ftp = [];
+                    v.list_view_ftp = response.data.folder;
+                }else{
+
+                }
+            })
+        },
+        f_editFile(item){
+            var formData = new FormData(); 
+            formData.append("file",$("#path").text()+item);
+            axios.post(this.currentRoute+"/readfileftp/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    v.codemirror_show = true;
+                    v.code = response.data;
+                }else{
+
+                }
+            })
+        },
+        f_closeCodemirror (){
+            v.codemirror_show = false;
+        },
+
+    },
+})
+
 $(function(){
     // Initialize the jQuery File Upload plugin
     $('#form-upload-ftp').fileupload({

@@ -4,7 +4,7 @@
 		<?php echo js_url('plugins/popper.min.js'); ?>
 		<?php echo js_url('plugins/bootstrap.min.js'); ?>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.3.9/vuetify.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.3.9/vuetify.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
@@ -108,6 +108,11 @@
 			<?php echo js_url('plugins/tocify/javascripts/jquery.tocify.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.js"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-codemirror@4.0.6/dist/vue-codemirror.min.js"></script>
+			<script type="text/javascript">
+				Vue.use(window.VueCodemirror)
+			</script>
 			<?php echo js_url('plugins/jquery.knob.js'); ?>
 			<?php echo js_url('plugins/jquery.ui.widget.js'); ?>
 			<?php echo js_url('plugins/jquery.iframe-transport.js'); ?>
