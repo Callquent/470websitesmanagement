@@ -54,6 +54,8 @@ class Ftp_websites extends CI_Controller {
 				$this->ftp->connect($config);
 				$data['path_server'] = '/';
 
+				$data['all_storage_server'][] = array('title' => "..", 'icon' => 'folder', 'size' => "", 'last_modified' => "");
+
 				$data['list'] = $this->ftp->list_files($data['path_server']);
 				foreach ($data['list'] as $row) {
 					if ($row["type"]=="file") {
@@ -72,7 +74,8 @@ class Ftp_websites extends CI_Controller {
 	}
 	public function refreshfolderserver($id_ftp_websites = '')
 	{
-		$pathfolder = $this->input->post('path');
+		$path = $this->input->post('path');
+		$file = $this->input->post('file');
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -81,11 +84,18 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-		$path_back_folder = str_replace("/..","",$pathfolder);
-		$path[] = array('path_server' => (strrpos($pathfolder, '/..')==true?rtrim($path_back_folder,pathinfo($path_back_folder)["basename"]):$pathfolder) );
 		
-		$data['list'] = $this->ftp->list_files($pathfolder);
+		$path = (rtrim($path,'/').'/').$file;
+		if (strrpos($path, '/..')==true) {
+			$path_delete_two_point = str_replace("/..","",$path);
+			$path = (dirname($path_delete_two_point)=="\\"?"/":dirname($path_delete_two_point));
+		}
+
 		$tree_data = array();
+
+		$tree_data[] = array('title' => "..", 'icon' => 'folder', 'size' => "", 'last_modified' => "");
+
+		$data['list'] = $this->ftp->list_files($path);
 		foreach ($data['list'] as $row) {
 			if ($row["type"]=="file") {
 				$tree_data[] = array('title' => pathinfo($row["file"])["basename"], 'icon' => 'file', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
@@ -99,7 +109,9 @@ class Ftp_websites extends CI_Controller {
 	}
 	public function mkdirftp($id_ftp_websites = '')
 	{
+		$path = $this->input->post('path');
 		$createfolder = $this->input->post('createfolder');
+		$path = (rtrim($path,'/').'/').$createfolder;
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -109,7 +121,7 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$this->ftp->mkdir($createfolder, 0755);
+		$this->ftp->mkdir($path, 0755);
 
 		$this->ftp->close();
 	}
@@ -138,12 +150,12 @@ class Ftp_websites extends CI_Controller {
 	}
 	public function downloadftp($id_ftp_websites = '')
 	{
-		/*$source_to_server = $this->input->post('path');
-		$file = $this->input->post('file');*/
+		$path = $this->input->post('path');
+		$file = $this->input->post('file');
+		$item_download = (rtrim($path,'/').'/').$file;
 
 		header("Content-type: text/plain");
-		header("Content-Disposition: attachment; filename=\"sans-titre-1.psd\"");
-		/*header("Content-Disposition: attachment; filename=".$file);*/
+		header("Content-Disposition: attachment; filename=".$item_download);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -152,12 +164,7 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-
-				
-		/*$this->ftp->download($source_to_server, 'php://output', 'auto');*/
-
-		
-		$this->ftp->download('/sans-titre-1.psd', 'php://output', 'auto');
+		$this->ftp->download($item_download, 'php://output', 'auto');
 	}
 	/*public function moveftp()
 	{
@@ -168,6 +175,8 @@ class Ftp_websites extends CI_Controller {
 	}*/
 	public function renameftp()
 	{
+		$path = $this->input->post('path');
+		$path = (rtrim($path,'/').'/').$createfolder;
 		$oldrename = $this->input->post('oldrename');
 		$newrename = $this->input->post('newrename');
 
@@ -185,7 +194,9 @@ class Ftp_websites extends CI_Controller {
 	}
 	public function deleteftp($id_ftp_websites = '')
 	{
-		$folderdelete = $this->input->post('folderdelete');
+		$file = $this->input->post('file');
+		$path = $this->input->post('path');
+		$item_delete = (rtrim($path,'/').'/').$file;
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -195,16 +206,17 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$item = pathinfo($folderdelete);
+		$item = pathinfo($item_delete);
 		if (isset($item["extension"])) {
-			$this->ftp->delete_file($folderdelete);
+			$this->ftp->delete_file($item_delete);
 		} else {
-			$this->ftp->delete_dir($folderdelete);
+			$this->ftp->delete_dir($item_delete);
 		}
 	}
 	public function readfileftp($id_ftp_websites = '')
 	{
-		$filepath = $this->input->post('file');
+		$file = $this->input->post('file');
+		$path = $this->input->post('path');
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -213,7 +225,7 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-		$data = $this->ftp->read_file($filepath);
+		$data = $this->ftp->read_file((rtrim($path,'/').'/').$file);
 		echo json_encode($data);
 	}
 	public function writefileftp($id_ftp_websites = '')

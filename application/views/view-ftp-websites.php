@@ -253,12 +253,41 @@
     </div>
 </div>
 <div class="context-menu-mobile"></div> -->
+<v-dialog
+  v-model="dialog_createFolder"
+  width="500"
+>
+  <v-card>
+    <v-card-title
+      class="headline grey lighten-2"
+      primary-title
+    >
+      Create Folder
+    </v-card-title>
+
+    <v-card-text>
+      <v-container grid-list-md>
+        <v-layout wrap>
+         <v-flex xs12 sm6>
+            <v-text-field v-model="createfolder" label="Name Folder*" required></v-text-field>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      <small>*indicates required field</small>
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" flat @click="f_createFolder()">Save</v-btn>
+        <v-btn color="blue darken-1" flat @click="dialog_createFolder = false">Close</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
 
 <v-menu
     transition="scale-transition"
-  v-model="showMenu"
-  :position-x="x"
-  :position-y="y"
+  v-model="contextMenu.showMenu"
+  :position-x="contextMenu.x"
+  :position-y="contextMenu.y"
   absolute
   offset-y
 >
@@ -268,11 +297,25 @@
       :key="index"
       @click=""
     >
-      <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+      <v-list-tile-title @click='item.click'>{{ item.title }}</v-list-tile-title>
     </v-list-tile>
     <v-divider></v-divider>
-    <v-list-tile @click='f_editFile(contextMenu.selected_file)'>
+    <v-list-tile @click='f_editFile(contextMenu.selected_item)'>
       <v-list-tile-title>Editer</v-list-tile-title>
+    </v-list-tile>
+    <v-list-tile>
+      <v-list-tile-title>Renommer</v-list-tile-title>
+    </v-list-tile>
+    <v-divider></v-divider>
+    <v-list-tile @click='dialog_createFolder = true'>
+      <v-list-tile-title>Créer un dossier</v-list-tile-title>
+    </v-list-tile>
+    <v-list-tile @click='f_downloadFile(contextMenu.selected_item)'>
+      <v-list-tile-title>Télécharger</v-list-tile-title>
+    </v-list-tile>
+    <v-divider></v-divider>
+    <v-list-tile @click='f_deleteFile(contextMenu.selected_item)'>
+      <v-list-tile-title>Supprimer</v-list-tile-title>
     </v-list-tile>
   </v-list>
 </v-menu>
@@ -282,17 +325,16 @@
 var v = new Vue({
     el: '#app',
     data : {
-        showMenu: false,
-        x: 0,
-        y: 0,
+        dialog_createFolder: false,
+        createfolder:'',
         items: [
-            { title: 'Click Me' },
-            { title: 'Click Me' },
-            { title: 'Click Me' },
-            { title: 'Click Me 2' }
+            { title: 'Editer', click: "f_editFile(contextMenu.selected_item)"},
         ],
         contextMenu:{
-            selected_file: '',
+            showMenu: false,
+            x: 0,
+            y: 0,
+            selected_item: [],
         },
         currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
         id_website: window.location.href.split('/').pop(),
@@ -321,35 +363,92 @@ var v = new Vue({
     },
     methods:{
         f_showContextMenu (e) {
-            v.contextMenu.selected_file = $('table tbody').find("tr:hover .name").text();
+            var filename = $('table tbody').find("tr:hover .name").text();
+            v.contextMenu.selected_item = this.list_view_ftp.find( item => item.title === filename);
             e.preventDefault()
-            this.showMenu = false
-            this.x = e.clientX
-            this.y = e.clientY
+            this.contextMenu.showMenu = false
+            this.contextMenu.x = e.clientX
+            this.contextMenu.y = e.clientY
             this.$nextTick(() => {
-                this.showMenu = true
+                this.contextMenu.showMenu = true
             })
         },
         f_openFolder (item) {
-            console.log("ter");
             var formData = new FormData(); 
-            formData.append("path",$("#path").text()+item.title);
+            formData.append("path",v.path);
+            formData.append("file",item.title);
             axios.post(this.currentRoute+"/refreshfolderserver/"+this.id_website, formData).then(function(response){
                 if(response.status = 200){
                     v.list_view_ftp = [];
                     v.list_view_ftp = response.data.folder;
+                    v.path = response.data.path;
                 }else{
 
                 }
             })
         },
         f_editFile(item){
-            var formData = new FormData(); 
-            formData.append("file",$("#path").text()+item);
+            var formData = new FormData();
+            formData.append("path",v.path);
+            formData.append("file",item.title);
             axios.post(this.currentRoute+"/readfileftp/"+this.id_website, formData).then(function(response){
                 if(response.status = 200){
                     v.codemirror_show = true;
                     v.code = response.data;
+                }else{
+
+                }
+            })
+        },
+        f_createFolder(item){
+            var formData = new FormData();
+            formData.append("path",v.path);
+            formData.append("createfolder",v.createfolder);
+            axios.post(this.currentRoute+"/mkdirftp/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+
+                }else{
+
+                }
+            })
+        },
+        f_downloadFile(item){
+            var formData = new FormData();
+            formData.append("path",v.path);
+            formData.append("file",item.title);
+            axios({
+                method: 'POST',
+                url: this.currentRoute+"/downloadftp/"+this.id_website,
+                data: formData,
+                responseType:'blob',
+                }).then(function(response){
+                    let blob = new Blob([response.data], {type: response.data.type});
+                    let link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = v.contextMenu.selected_item.title;
+                    link.click();
+            })
+            /*axios.post(this.currentRoute+"/downloadftp/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    let blob = new Blob([response.data], {type: response.data.type});
+                    let link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = v.contextMenu.selected_item.title;
+                    link.click();
+                    window.URL.revokeObjectURL(link.href);
+                }else{
+
+                }
+            })*/
+        },
+        f_deleteFile(item){
+            var formData = new FormData();
+            formData.append("path",v.path);
+            formData.append("file",item.title);
+            axios.post(this.currentRoute+"/deleteftp/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    const index = v.list_view_ftp.indexOf(v.contextMenu.selected_item)
+                    confirm('Are you sure you want to delete this item?') && v.list_view_ftp.splice(index, 1)
                 }else{
 
                 }
@@ -444,11 +543,9 @@ $(function(){
 
   $(document).ready(function(){
 
-        var folderselect_contextmenu;
+       /* var folderselect_contextmenu;
         var editor;
         $('.list-view').on('contextmenu', 'tr',function(e) {
-            /*$('<select id="monselect">').append('<option value="foo">foo</option>').append('<option value="bar">bar</option>').appendTo('.context-menu-mobile');
-            $('#monselect').click();*/
             folderselect_contextmenu = $(this);
             if (e.pageY+$("#contextMenu").height() >= $(window).height()) {
                 $("#contextMenu").css({
@@ -471,7 +568,7 @@ $(function(){
         });
         $('html').click(function() {
             $("#contextMenu").hide();
-        });
+        });*/
         $('#form-create-folder').on('submit', function(e) {
             $.ajax({
                 type: "POST",
@@ -487,55 +584,6 @@ $(function(){
             });
             e.preventDefault();
         });
-        $('#editfile').on('click', function(e) {
-            $.ajax({
-                    type: "POST",
-                    url: $(this).attr("href"),
-                    data: 'file='+$("#path").text()+folderselect_contextmenu.find(".name").text(),
-                    success: function(msg){
-                        results = JSON.parse(msg);
-                        $('.CodeMirror').remove();
-                        $('.file-codemirror').append('<textarea class="cm-s-monokai CodeMirror codemirror-textarea"></textarea>');
-                        $('.btn-close').removeClass( "d-none" ).addClass( "d-block" );
-                        $('.btn-save').removeClass( "d-none" ).addClass( "d-block" );
-                        
-                        $('.CodeMirror').html(results);
-                        var code = $(".CodeMirror")[0];
-                        editor = CodeMirror.fromTextArea(code,{
-                            theme: "monokai",
-                            lineNumbers: true,
-                            styleActiveLine: true,
-                            matchBrackets: true,
-                            scrollbarStyle: "overlay",
-                            viewportMargin: Infinity
-                        });
-                    },
-                    error: function(msg){
-                        console.log(msg);
-                    }
-            });
-            e.preventDefault();
-        });
-        $('.file-codemirror .btn-close').on('click', function(e) {
-            $('.CodeMirror').remove();
-            $('.btn-close').removeClass( "d-block" ).addClass( "d-none" );
-            $('.btn-save').removeClass( "d-block" ).addClass( "d-none" );
-        });
-        $('.file-codemirror .btn-save').on('click', function(e) {
-            /*console.log(editor.getValue());*/
-            $.ajax({
-                    type: "POST",
-                    url: $(this).attr("href"),
-                    data: 'file='+$("#path").text()+folderselect_contextmenu.find(".name").text()+'content='+editor.getValue(),
-                    success: function(msg){
-                        alert("File saved!");
-                        console.log(msg);
-                    },
-                    error: function(msg){
-                        console.log(msg);
-                    }
-            });
-        });
         $('.btn-info-file').on('click', function(e) {
             $("aside .title-file").text($(this).parents().eq(1).find(".name").text());
 
@@ -545,120 +593,9 @@ $(function(){
              $("aside .owner td").text($(this).parents().eq(1).find(".owner").text());
              $("aside .modified td").text($(this).parents().eq(1).find(".last-modified").text());
         });
-        
-        $('#downloadftp').on('click', function(e) {
-            var path = $("#path").text()+folderselect_contextmenu.find(".name").text();
-            var file = folderselect_contextmenu.find(".name").text();
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('href'),
-                data: {'path':path,'file':file},
-                success: function(response, status, xhr) {
-                    var disposition = xhr.getResponseHeader('Content-Disposition');
-                    if (disposition && disposition.indexOf('attachment') !== -1) {
-                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                        var matches = filenameRegex.exec(disposition);
-                        if (matches != null && matches[1]) file = matches[1].replace(/['"]/g, '');
-                    }
-
-                    var type = xhr.getResponseHeader('Content-type', 'application/x-www-form-urlencoded');
-                    var blob = new Blob([response], { type: type });
-
-                    if (typeof window.navigator.msSaveBlob !== 'undefined') {
-                        window.navigator.msSaveBlob(blob, file);
-                    } else {
-                        var URL = window.URL || window.webkitURL;
-                        var downloadUrl = URL.createObjectURL(blob);
-
-                        if (file) {
-                            var a = document.createElement("a");
-                            if (typeof a.download === 'undefined') {
-                                window.location = downloadUrl;
-                            } else {
-                                a.href = downloadUrl;
-                                a.download = file;
-                                document.body.appendChild(a);
-                                a.click();
-                            }
-                        } else {
-                            window.location = downloadUrl;
-                        }
-
-                        setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
-                    }
-                }
-            });
-            e.preventDefault();
-
-        /*var parameters = new FormData();
-
-        parameters.append('path', $("#path").text()+folderselect_contextmenu.find(".name").text());
-        parameters.append('file', folderselect_contextmenu.find(".name").text());
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", $(this).attr('href'), true);
-
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        xhr.send(parameters);*/
-
-        });
-        $('#deleteftp').on('click', function(e) {
-            $.ajax({
-                    type: "POST",
-                    url: $(this).attr("href"),
-                    data: 'folderdelete='+$("#path").text()+folderselect_contextmenu.find(".name").text(),
-                    success: function(msg){
-                        $(folderselect_contextmenu).remove();
-                    },
-                    error: function(msg){
-                        console.log(msg);
-                    }
-            });
-            e.preventDefault();
-        });
         $('.list-view').on('click', 'tr',function(e) {
             $('.list-view tr').removeClass();
             $(this).addClass("select-ftp-blue");
-        });
-        $('.list-view').on('dblclick', 'tr',function(e) {    
-            var elementfolder = $(this).find(".name").html();
-            var path = $("#path").text();
-            var url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
-            var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-            $.ajax({
-                    type: "POST",
-                    url: url+'/refreshfolderserver/'+id,
-                    data: 'path='+($('#path').text() == '/' ? path+elementfolder : path+'/'+elementfolder),
-                    success: function(data){
-                        $('.list-view tbody').empty();
-                        results = JSON.parse(data);
-                        $("#path").text(results[0][0].path_server);
-                        $('<tr>').append(
-                                $('<td class="file-icon">').html('<i class="icon-folder"></i>'),
-                                $('<td class="name">').html(".."),
-                                $('<td class="type d-none d-md-table-cell">').html("folder"),
-                                $('<td>').html(""),
-                                $('<td>').html(""),
-                                $('<td>').html(""),
-                                $('<td>').html(""),
-                            ).appendTo('.list-view');
-                        $.each(results[1], function(i, item) {
-                            var $tr = $('<tr>').append(
-                                $('<td class="file-icon">').html('<i class="icon-'+item.icon+'"></i>'),
-                                $('<td class="name">').html(item.title),
-                                $('<td class="type d-none d-md-table-cell">').html(item.icon),
-                                $('<td class="owner d-none d-sm-table-cell">').html(""),
-                                $('<td class="size d-none d-sm-table-cell">').html(item.size),
-                                $('<td class="last-modified d-none d-lg-table-cell">').html(item.last_modified),
-                                $('<td class="d-table-cell d-xl-none">').html(""),
-                            ).appendTo('.list-view');
-                        });
-                    },
-                    error: function(data){
-                        console.log(data);
-                    }
-            });
-            e.preventDefault();
         });
 
   });
