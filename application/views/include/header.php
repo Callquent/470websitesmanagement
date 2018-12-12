@@ -19,13 +19,16 @@
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.3.9/vuetify.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/theme/monokai.css">
 		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
 		<link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
 	</head>
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
 		<main>
-        <div id="wrapper">
+			<div id="app">
+				<v-app>
+					<div id="wrapper">
 		<?php $this->load->view('include/sidebar.php'); ?>
 		<?php $this->load->view('include/navbar.php'); ?>
 		

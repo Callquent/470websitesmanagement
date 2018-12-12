@@ -1,5 +1,7 @@
+					</div>
 				</div>
-			</div>
+			</v-app>
+		</div>
 		<?php echo js_url('plugins/jquery.min.js'); ?>
 		<?php echo js_url('plugins/popper.min.js'); ?>
 		<?php echo js_url('plugins/bootstrap.min.js'); ?>
@@ -9,7 +11,6 @@
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
 		<?php echo js_url('plugins/fuse-html.min.js'); ?>
-		<?php echo js_url('plugins/pnotify/pnotify.custom.min.js'); ?>
 		<?php if ($this->uri->segment(1)=='all-projects') { ?>
 			<?php echo js_url('plugins/jquery-ui/jquery-ui.min.js'); ?>
 		<?php } ?>
@@ -110,6 +111,7 @@
 		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.js"></script>
 			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-codemirror@4.0.6/dist/vue-codemirror.min.js"></script>
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/mode/javascript/javascript.js"></script>
 			<script type="text/javascript">
 				Vue.use(window.VueCodemirror)
 			</script>

@@ -31,6 +31,13 @@ if ( ! function_exists('img_url'))
         return base_url() . 'assets/img/' . $nom;
     }
 }
+if ( ! function_exists('path_slash'))
+{
+    function path_jointure_file($path,$file)
+    {
+        return (rtrim($path,'/').'/').$file;
+    }
+}
 if ( ! function_exists('check_access'))
 {
     function check_access()

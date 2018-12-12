@@ -549,7 +549,7 @@ class CI_FTP {
 		if ( $this->_is_conn() )
 		{
 			$file = "ftp://".$this->username.":".$this->password."@".$this->hostname.$path;
-			$content = htmlspecialchars(file_get_contents($file));
+			$content = file_get_contents($file);
 
 			return $content;
 		}
@@ -579,11 +579,12 @@ class CI_FTP {
 			{
 				return FALSE;
 			}
-
+			
 			flock($fp, LOCK_EX);
 
 			for ($result = $written = 0, $length = strlen($data); $written < $length; $written += $result)
 			{
+				$fwrite = fwrite($fp, substr($data, $written));
 				if (($result = fwrite($fp, substr($data, $written))) === FALSE)
 				{
 					break;
@@ -608,27 +609,41 @@ class CI_FTP {
 	 */
 	public function list_files($path = '.')
 	{
+		return $this->_is_conn()
+			? ftp_nlist($this->conn_id, $path)
+			: FALSE;
+	}
+	// --------------------------------------------------------------------
+
+	/**
+	 * FTP List files in the specified directory
+	 *
+	 * @param	string	$path
+	 * @return	array
+	 */
+	public function list_files_details($path = '.')
+	{
 		if ( $this->_is_conn())
 		{
 			$list_files = array();
-			foreach (ftp_nlist($this->conn_id, $path) as $key => $row)
+			$list_files[0] = array('title' => '..', 'type' => 'folder', 'chmod' => '', 'owner' =>'', 'size' => '', 'last_modified' => '');
+			foreach (ftp_rawlist ($this->conn_id, $path) as $key => $row)
 			{
-				$size = ftp_size($this->conn_id, ltrim($row,'/'));
+				$out = preg_split("/[\s]+/", $row);
+				
+				/*$buff = ftp_mdtm($this->conn_id, ltrim($row,'/'));*/
+				$size = ftp_size($this->conn_id, $path.'/'.$out[8]);
 
-				$buff = ftp_mdtm ( $this->conn_id, ltrim($row,'/'));
 				if ($size != -1) {
-					$list_files[$key] = array('file' => $row, 'type' => "file" ,'size' => $size, 'last_modified' => date("F d Y H:i:s.", $buff) );
+					$list_files[++$key] = array('title' => $out[8], 'type' => 'file', 'chmod' => $out[0], 'owner' => $out[2], 'size' => $out[4], 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
 				} else {
-					$list_files[$key] = array('file' => $row,'type' => "folder" ,'size' => '0', 'last_modified' => "" );
+					$list_files[++$key] = array('title' => $out[8], 'type' => 'folder', 'chmod' => $out[0], 'owner' => $out[2], 'size' => '', 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
 				}
 			}
 			return $list_files;
 		} else {
 			return FALSE;
 		}
-/*		return $this->_is_conn()
-			? ftp_nlist($this->conn_id, $path)
-			: FALSE;*/
 	}
 
 	// ------------------------------------------------------------------------
