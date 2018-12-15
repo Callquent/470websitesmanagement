@@ -7,34 +7,6 @@
   <v-container fluid grid-list-sm>
     <v-layout row wrap>
       <v-flex xs12>
-            <v-toolbar flat color="white">
-              <v-spacer></v-spacer>
-              <v-dialog v-model="dialog_add_language" max-width="500px">
-                <v-btn slot="activator" color="primary" dark class="mb-2">New Language</v-btn>
-                <v-card>
-                  <v-card-title>
-                    <span class="headline">Add Language</span>
-                  </v-card-title>
-
-                  <v-card-text>
-                    <v-container grid-list-md>
-                      <v-layout wrap>
-                        <v-flex xs12>
-                          <v-text-field v-model="addLanguage.name" label="add language"></v-text-field>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" flat @click="f_addLanguage()">Save</v-btn>
-                    <v-btn color="blue darken-1" flat @click="dialog_add_language = false">Cancel</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-toolbar>
-
 	  		<v-card>
                 <template>
                         <v-data-table
@@ -69,6 +41,7 @@
 											<i class="icon icon-dots-vertical"></i>
 										</a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item" id="edit-dashboard"><i class="fa fa-pencil"></i><?php echo lang('edit') ?></a>
 											<a class="dropdown-item" id="delete-dashboard" @click="dialogLanguage(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
 										</div>
 									</div>
@@ -129,8 +102,7 @@
 var v = new Vue({
     el: '#app',
     data : {
-        dialog_add_language: false,
-    	  dialog: false,
+    	dialog: false,
         currentRoute: window.location.href,
         headers: [
             { text: '<?php echo lang("language"); ?>', value: 'langage' },
@@ -138,9 +110,6 @@ var v = new Vue({
         ],
         list_language: <?php echo json_encode($all_languages->result_array()); ?>,
         list_delete_language: [],
-        addLanguage: {
-            name: '',
-        },
         deleteLanguage:{
         	id_move_language: '',
         	id_delete_language: '',
@@ -152,40 +121,6 @@ var v = new Vue({
     methods:{
         displayPage(){
 
-        },
-        f_addLanguage(){
-            var formData = new FormData(); 
-            formData.append("language",v.addLanguage.name);
-            axios.post(this.currentRoute+"/add-language/", formData).then(function(response){
-                v.dialog_add_language = false;
-                //v.list_language.push(response.data);
-            })
-        },
-        f_editLanguage(item){
-            var formData = new FormData(); 
-            formData.append("id_language",item.id_language);
-            formData.append("title_language",item.title_language);
-            axios.post(this.currentRoute+"/edit-language/", formData).then(function(response){
-                
-            })
-        },
-        dialogLanguage(item){
-        	this.dialog = true;
-        	this.deleteLanguage.id_delete_language = item.id_language;
-        	/*this.list_delete_language = this.list_language.filter(function (el) {
-        		return el.title_language !== item.title_language
-        	});*/
-        	this.list_delete_language = this.list_language.slice();
-        	this.list_delete_language.splice(this.list_delete_language.indexOf(item), 1);
-        },
-        f_deleteLanguage(){
-            var formData = new FormData(); 
-            formData.append("id_move_language",this.deleteLanguage.id_move_language);
-            formData.append("id_delete_language",this.deleteLanguage.id_delete_language);
-            axios.post(this.currentRoute+"/delete-language/", formData).then(function(response){
-            	  v.dialog = false;
-                v.list_language = v.list_delete_language.slice();
-            })
         },
     }
 })

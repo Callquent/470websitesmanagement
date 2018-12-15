@@ -504,7 +504,7 @@ md-card-actions {
 .CodeMirror {
   position: absolute;
   top: 50px;
-  height: 100%;
+  height: calc(100% - 114px);
   width: 100%;
   z-index: 999;
   font-size: 16px;

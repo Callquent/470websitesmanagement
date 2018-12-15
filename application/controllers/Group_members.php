@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Groups_members extends CI_Controller {
+class Group_members extends CI_Controller {
 
 	public function __construct()
 	{
@@ -33,19 +33,27 @@ class Groups_members extends CI_Controller {
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		$this->load->view('members/groups-members', $data);
+		$this->load->view('members/group-members', $data);
 	}
-	public function create_groups_members()
+	public function add_group_members()
 	{
 			$group_name = $this->input->post('group_name');
 			$definition = $this->input->post('definition');
 
 			$this->aauth->create_group($group_name, $definition);
 	}
-	public function delete_groups_members()
+	public function edit_group_members()
 	{
-		$id_groups_members = $this->input->post('id_groups_members');
+		$id = $this->input->post('id_group_members');
+		$group_name = $this->input->post('group_name');
+		$definition = $this->input->post('definition');
 
-		$this->aauth->delete_group($id_groups_members);
+		$this->aauth->update_group($id, $group_name, $definition);
+	}
+	public function delete_group_members()
+	{
+		$id = $this->input->post('id_group_members');
+
+		$this->aauth->delete_group($id);
 	}
 }

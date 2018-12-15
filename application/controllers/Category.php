@@ -38,6 +38,16 @@ class Category extends CI_Controller {
 
 		$this->load->view('category', $data);
 	}
+	public function add_category()
+	{
+		$this->form_validation->set_rules('category', 'Category', 'trim|required');
+
+		$title_category = $this->input->post('category');
+
+		if ($this->form_validation->run() !== FALSE){
+			$this->model_category->create_category($title_category);
+		}
+	}
 	public function edit_category()
 	{
 		$id_category = $this->input->post('id_category');
@@ -49,13 +59,6 @@ class Category extends CI_Controller {
 			$this->model_category->update_category($id_category, $title_category);
 		}
 	}
-/*	public function loadCategories(){
-		$data['all_categories'] = $this->model_front->get_all_categories();
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output( json_encode($data['all_categories']->result()));
-	}*/
 	public function delete_category()
 	{
 		$id_category_new = $this->input->post('id_move_category');

@@ -209,6 +209,44 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog
+      v-model="dialog_chmodPermissions"
+      width="500"
+    >
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          Change Chmod
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-data-table
+                    :headers="headers_list_chmod"
+                    :items="list_chmod"
+                    class="elevation-1"
+                  >
+                    <template slot="items" slot-scope="props">
+                      <td>{{ props.item.name }}</td>
+                      <td class="text-xs-right">{{ props.item.calories }}</td>
+                      <td class="text-xs-right">{{ props.item.fat }}</td>
+                      <td class="text-xs-right">{{ props.item.carbs }}</td>
+                      <td class="text-xs-right">{{ props.item.protein }}</td>
+                      <td class="text-xs-right">{{ props.item.iron }}</td>
+                    </template>
+                </v-data-table>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="f_chmodPermissions()">Save</v-btn>
+            <v-btn color="blue darken-1" flat @click="dialog_chmodPermissions = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-menu
       transition="scale-transition"
       v-model="contextMenu.showMenu"
@@ -218,7 +256,7 @@
       offset-y
     >
       <v-list>
-        <v-list-tile @click='f_editFile(contextMenu.selected_item)'>
+        <v-list-tile @click='f_viewFile(contextMenu.selected_item)'>
           <v-list-tile-title>Editer</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click='renameItem()'>
@@ -230,6 +268,9 @@
         </v-list-tile>
         <v-list-tile @click='f_downloadFile(contextMenu.selected_item)'>
           <v-list-tile-title>Télécharger</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click='dialog_chmodPermissions = true'>
+          <v-list-tile-title>Chmod</v-list-tile-title>
         </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click='f_deleteFile(contextMenu.selected_item)'>
@@ -244,6 +285,7 @@ var v = new Vue({
     data : {
         dialog_renameFile: false,
         dialog_createFolder: false,
+        dialog_chmodPermissions: false,
         createfolder:'',
         renamefile:'',
         uploadfile:'',
@@ -259,6 +301,12 @@ var v = new Vue({
             { text: 'Last Modified', value: 'last_modified' },
             { text: 'Chmod', value: 'chmod'},
             { text: 'Owner', value: 'owner'},
+        ],
+        headers_list_chmod: [
+            { text: '', value: 'action', sortable: false},
+            { text: 'Read', value: 'read'},
+            { text: 'Write', value: 'write' },
+            { text: 'Execute', value: 'execute'},
         ],
         codemirror_show: false,
         code: '',
@@ -305,7 +353,7 @@ var v = new Vue({
                 }
             })
         },
-        f_editFile(item){
+        f_viewFile(item){
             var formData = new FormData();
             formData.append("path",v.path);
             formData.append("file",item.title);
@@ -317,6 +365,22 @@ var v = new Vue({
 
                 }
             })
+        },
+        f_saveCodemirror(){
+            var formData = new FormData();
+            formData.append("path",v.path);
+            formData.append("file",v.contextMenu.selected_item.title);
+            formData.append("content",v.code);
+            axios.post(this.currentRoute+"/writefileftp/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    v.codemirror_show = false;
+                }else{
+
+                }
+            })
+        },
+        f_closeCodemirror (){
+            v.codemirror_show = false;
         },
         renameItem () {
             v.renamefile = v.contextMenu.selected_item.title;
@@ -354,7 +418,7 @@ var v = new Vue({
             var formData = new FormData();
             formData.append('uploadfile', v.file);
             formData.append('path', v.path);
-             formData.append("file",v.file.name);
+            formData.append("file",v.file.name);
             axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
                 if(response.status = 200){
                     v.list_view_ftp.push(response.data);
@@ -380,23 +444,35 @@ var v = new Vue({
                     link.click();
             })
         },
-        f_deleteFile(item){
+        f_chmodPermissions(){
+            v.file = this.$refs.file.files[0];
             var formData = new FormData();
-            formData.append("path",v.path);
-            formData.append("file",item.title);
-            axios.post(this.currentRoute+"/deleteftp/"+this.id_website, formData).then(function(response){
+            formData.append('uploadfile', v.file);
+            formData.append('path', v.path);
+             formData.append("file",v.file.name);
+            axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
                 if(response.status = 200){
-                    const index = v.list_view_ftp.indexOf(v.contextMenu.selected_item)
-                    confirm('Are you sure you want to delete this item?') && v.list_view_ftp.splice(index, 1)
+                    v.list_view_ftp.push(response.data);
                 }else{
 
                 }
             })
         },
-        f_closeCodemirror (){
-            v.codemirror_show = false;
-        },
+        f_deleteFile(item){
+            var formData = new FormData();
+            formData.append("path",v.path);
+            formData.append("file",item.title);
+            if (confirm('Are you sure you want to delete this item?') == true) {
+                axios.post(this.currentRoute+"/deleteftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        const index = v.list_view_ftp.indexOf(v.contextMenu.selected_item);
+                        v.list_view_ftp.splice(index, 1);
+                    }else{
 
+                    }
+                })
+            }
+        },
     },
 });
 

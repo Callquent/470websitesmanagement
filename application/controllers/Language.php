@@ -38,6 +38,16 @@ class Language extends CI_Controller {
 
 		$this->load->view('language', $data);
 	}
+	public function add_language()
+	{
+		$this->form_validation->set_rules('language', 'Language', 'trim|required');
+
+		$title_language = $this->input->post('language');
+
+		if ($this->form_validation->run() !== FALSE){
+			$this->model_language->create_language($title_language);
+		}
+	}
 	public function edit_language()
 	{
 	

@@ -1,27 +1,28 @@
 <?php $this->load->view('include/header.php'); ?>
 <div class="custom-scrollbar">
-
+    <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
+        <h2 class="doc-title" id="content"><?php echo lang('ftp'); ?></h2>
+    </div>
+    
   <v-container fluid grid-list-sm>
     <v-layout row wrap>
       <v-flex xs12>
-        <v-app>
-            <v-card>
-                <template>
-                        <v-data-table
-                            :headers="headers"
-                            :items="list_website_ftp"
-                            class="elevation-1"
-                            :rows-per-page-items="[10,20,50,100]"
-                        >
-                            <template slot="items" slot-scope="props">
-                                <td>{{ props.item.name_website }}</td>
-                                <td><a :href="props.item.url_website">{{ props.item.url_website }}</a></td>
-                                <td><a :href="currentRoute+'/'+props.item.w_id">Connect FTP</a></td>
-                            </template>
-                        </v-data-table>
-                </template>
-            </v-card>
-        </v-app>
+        <v-card>
+            <template>
+                    <v-data-table
+                        :headers="headers"
+                        :items="list_website_ftp"
+                        class="elevation-1"
+                        :rows-per-page-items="[10,20,50,100]"
+                    >
+                        <template slot="items" slot-scope="props">
+                            <td>{{ props.item.name_website }}</td>
+                            <td><a :href="props.item.url_website">{{ props.item.url_website }}</a></td>
+                            <td><a :href="currentRoute+'/'+props.item.w_id">Connect FTP</a></td>
+                        </template>
+                    </v-data-table>
+            </template>
+        </v-card>
       </v-flex>
     </v-layout>
   </v-container>

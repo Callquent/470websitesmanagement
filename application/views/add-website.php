@@ -23,6 +23,7 @@
 												<input type="text" name="nom" class="form-control">
 												<label for="cname"><?php echo lang('name_add_website'); ?></label>
 											  </div>
+											  <v-divider></v-divider>
 											  <div class="form-group ">
 												  <input type="text" name="url" class="form-control">
 												  <label for="curl"><?php echo lang('url_add_website'); ?></label>
@@ -188,6 +189,21 @@
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+	var v = new Vue({
+    el: '#app',
+    data : {
+        currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+        id_website: window.location.href.split('/').pop(),
+    },
+    created(){
+
+    },
+    methods:{
+        f_showContextMenu () {
+
+        },
+    },
+});
   $(document).ready(function(){
 		$("#results .alert-success").hide();
 		$("#results .alert-danger").hide();

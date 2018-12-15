@@ -7,7 +7,34 @@
   <v-container fluid grid-list-sm>
     <v-layout row wrap>
       <v-flex xs12>
-	  	<v-app>
+            <v-toolbar flat color="white">
+              <v-spacer></v-spacer>
+              <v-dialog v-model="dialog_add_category" max-width="500px">
+                <v-btn slot="activator" color="primary" dark class="mb-2">New Category</v-btn>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">Add Category</span>
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container grid-list-md>
+                      <v-layout wrap>
+                        <v-flex xs12>
+                          <v-text-field v-model="addCategory.name" label="add category"></v-text-field>
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="f_addCategory()">Save</v-btn>
+                    <v-btn color="blue darken-1" flat @click="dialog_add_category = false">Cancel</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+
 	  		<v-card>
                 <template>
                         <v-data-table
@@ -42,7 +69,6 @@
 											<i class="icon icon-dots-vertical"></i>
 										</a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" id="edit-dashboard"><i class="fa fa-pencil"></i><?php echo lang('edit') ?></a>
 											<a class="dropdown-item" id="delete-dashboard" @click="dialogCategory(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
 										</div>
 									</div>
@@ -51,7 +77,6 @@
                         </v-data-table>
                 </template>
             </v-card>
-        </v-app>
       </v-flex>
     </v-layout>
   </v-container>
@@ -98,6 +123,7 @@
 var v = new Vue({
     el: '#app',
     data : {
+        dialog_add_category: false,
     	dialog: false,
         currentRoute: window.location.href,
         headers: [
@@ -106,6 +132,9 @@ var v = new Vue({
         ],
         list_category: [],
         list_delete_category: [],
+        addCategory: {
+            name: '',
+        },
         deleteCategory:{
         	id_move_category: '',
         	id_delete_category: '',
@@ -117,6 +146,14 @@ var v = new Vue({
     methods:{
         displayPage(){
 
+        },
+        f_addCategory(){
+            var formData = new FormData(); 
+            formData.append("category",v.addCategory.name);
+            axios.post(this.currentRoute+"/add-category/", formData).then(function(response){
+                v.dialog_add_category = false;
+                //v.list_category.push(response.data);
+            })
         },
         f_editCategory(item){
             var formData = new FormData(); 

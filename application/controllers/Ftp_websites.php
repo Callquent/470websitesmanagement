@@ -55,14 +55,6 @@ class Ftp_websites extends CI_Controller {
 				$data['path_server'] = '/';
 
 				$data['all_storage_server'] = $this->ftp->list_files_details($data['path_server']);
-				//var_dump($data['all_storage_server']);
-				/*foreach ($data['list'] as $row) {
-					if ($row["type"]=="file") {
-						$data['all_storage_server'][] = array('title' => ltrim($row["file"],'/'), 'icon' => 'file', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
-					} else {
-						$data['all_storage_server'][] = array('title' => ltrim($row["file"],'/'), 'icon' => 'folder', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
-					}
-				}*/
 				$data['id_ftp_websites'] = $id_ftp_websites;
 				$this->load->view('view-ftp-websites', $data);
 			}
@@ -90,18 +82,6 @@ class Ftp_websites extends CI_Controller {
 			$path = (dirname($path_delete_two_point)=="\\"?"/":dirname($path_delete_two_point));
 		}
 
-		// $tree_data = array();
-
-		// $tree_data[] = array('title' => "..", 'icon' => 'folder', 'size' => "", 'last_modified' => "");
-
-		/*$data['list'] = $this->ftp->list_files($path);
-		foreach ($data['list'] as $row) {
-			if ($row["type"]=="file") {
-				$tree_data[] = array('title' => pathinfo($row["file"])["basename"], 'icon' => 'file', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
-			} else {
-				$tree_data[] = array('title' => pathinfo($row["file"])["basename"], 'icon' => 'folder', 'size' => $row["size"], 'last_modified' => $row["last_modified"]);
-			}
-		}*/
 		$data['path'] = $path;
 		$data['folder'] = $this->ftp->list_files_details($path);
 		echo json_encode($data);
@@ -151,7 +131,7 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->close();
 
-		$data = array('title' => $_FILES["uploadfile"]["name"], 'icon' => 'file', 'size' => $_FILES["uploadfile"]["size"], 'last_modified' => "");
+		$data = array('title' => $_FILES["uploadfile"]["name"], 'type' => 'file', 'chmod' => '', 'owner' =>'', 'size' => $_FILES["uploadfile"]["size"], 'last_modified' => "");
 		echo json_encode($data);
 	}
 	public function downloadftp($id_ftp_websites = '')
@@ -220,8 +200,8 @@ class Ftp_websites extends CI_Controller {
 	}
 	public function readfileftp($id_ftp_websites = '')
 	{
-		$file = $this->input->post('file');
 		$path = $this->input->post('path');
+		$file = $this->input->post('file');
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -235,31 +215,18 @@ class Ftp_websites extends CI_Controller {
 	}
 	public function writefileftp($id_ftp_websites = '')
 	{
-		/*$filepath = $this->input->post('file');
+		$path = $this->input->post('path');
+		$file = $this->input->post('file');
 		$content = $this->input->post('content');
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);*/
-		$config['hostname'] = "176.31.21.136";
-		$config['username'] = "serrurier-lyon69";
-		$config['password'] = "YxyEcwYJbQQVKwevGrHdyeqD";
-		$filepath = '/test.sql';
-		$content = 'test';
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-		var_dump($this->ftp->write_file($filepath,$content));
 
-		$data = $this->ftp->write_file($filepath,$content);
-
-		/*$fp = fopen('php://temp', 'r+');
-		fwrite($fp, $content);
-		rewind($fp);
-
-		$conn_id = ftp_connect($row->host_ftp);
-		$login_result = ftp_login($conn_id, $row->login_ftp, $this->encryption->decrypt($row->password_ftp));
-		ftp_fput($conn_id, $filepath, $fp, FTP_ASCII);*/
+		$data = $this->ftp->write_file(path_jointure_file($path,$file),$content);
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Add_language extends CI_Controller {
+class Permission_member_groups extends CI_Controller {
 
 	public function __construct()
 	{
@@ -10,7 +10,7 @@ class Add_language extends CI_Controller {
 		$this->load->database();
 		$this->load->model('model_front');
 		$this->load->model('model_tasks');
-		$this->load->model('model_language');
+		$this->load->model('model_category');
 		$this->load->model('model_settings');
 		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
@@ -25,7 +25,7 @@ class Add_language extends CI_Controller {
 	{
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
-
+		
 		$data['all_websites'] = $this->model_front->get_all_websites();
 		$data['all_languages'] = $this->model_front->get_all_languages();
 		$data['all_categories'] = $this->model_front->get_all_categories();
@@ -37,16 +37,16 @@ class Add_language extends CI_Controller {
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		$this->load->view('add-language',$data);
+		$this->load->view('members/add-member-groups',$data);
 	}
 	public function submit()
 	{
-		$this->form_validation->set_rules('language', 'Category', 'trim|required');
+		$this->form_validation->set_rules('category', 'Category', 'trim|required');
 
-		$title_language = $this->input->post('language');
+		$title_category = $this->input->post('category');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_language->create_language($title_language);
+			$this->model_category->create_category($title_category);
 		}
 	}
 }

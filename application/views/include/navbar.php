@@ -21,23 +21,6 @@
                                                     </div>
                                                 </div>
                                             </a>
-                                            <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-category'); ?>">
-                                                <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
-                                                    <div class="row no-gutters align-items-center flex-nowrap">
-                                                        <i class="icon icon-plus"></i>
-                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_category'); ?></font></font></span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-language'); ?>">
-                                                <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
-                                                    <div class="row no-gutters align-items-center flex-nowrap">
-                                                        <i class="icon icon-plus"></i>
-                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_language'); ?></font></font></span>
-                                                    </div>
-                                                </div>
-                                            </a>
-
                                         </div>
                                     </div>
                                 </div>

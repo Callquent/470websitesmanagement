@@ -570,31 +570,21 @@ class CI_FTP {
 	 * @return	bool
 	 */
 
-	function write_file($path, $data, $mode = 'wb')
+	function write_file($path, $data, $mode = 'auto')
 	{
 		if ( $this->_is_conn() )
 		{
 			$file = "ftp://".$this->username.":".$this->password."@".$this->hostname.$path;
-			if ( ! $fp = @fopen($file, $mode))
-			{
-				return FALSE;
-			}
-			
-			flock($fp, LOCK_EX);
 
-			for ($result = $written = 0, $length = strlen($data); $written < $length; $written += $result)
-			{
-				$fwrite = fwrite($fp, substr($data, $written));
-				if (($result = fwrite($fp, substr($data, $written))) === FALSE)
-				{
-					break;
-				}
-			}
+			/*$options = array('ftp' => array('overwrite' => true)); 
+			$stream = stream_context_create($options);
+			file_put_contents($file, "test", 0, $stream); */
 
-			flock($fp, LOCK_UN);
-			fclose($fp);
-
-			return is_int($result);
+			$fp = tmpfile();
+			@fwrite($fp, $data);
+			rewind($fp);
+			ftp_fput($this->conn_id, $path, $fp, FTP_ASCII);
+			@fclose($fp);
 		}
 
 		return FALSE;

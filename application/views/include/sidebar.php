@@ -159,9 +159,15 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="<?php echo site_url('groups-members'); ?>" class="nav-link ripple fuse-ripple-ready">
-                                                    <i class="icon icon-account-multiple"></i>
+                                                <a href="<?php echo site_url('group-members'); ?>" class="nav-link ripple fuse-ripple-ready">
+                                                    <i class="icon icon-account-multiple-plus"></i>
                                                     <span><?php echo lang('groups_members'); ?></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo site_url('add-member-groups'); ?>" class="nav-link ripple fuse-ripple-ready">
+                                                    <i class="icon icon-account-settings-variant"></i>
+                                                    <span><?php echo lang('add-member-groups'); ?></span>
                                                 </a>
                                             </li>
                                         </ul>
