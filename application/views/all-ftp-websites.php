@@ -17,7 +17,7 @@
                     >
                         <template slot="items" slot-scope="props">
                             <td>{{ props.item.name_website }}</td>
-                            <td><a :href="props.item.url_website">{{ props.item.url_website }}</a></td>
+                            <td><a :href="'http://'+props.item.url_website">{{props.item.url_website}}</a></td>
                             <td><a :href="currentRoute+'/'+props.item.w_id">Connect FTP</a></td>
                         </template>
                     </v-data-table>

@@ -161,7 +161,7 @@
                                             <li>
                                                 <a href="<?php echo site_url('group-members'); ?>" class="nav-link ripple fuse-ripple-ready">
                                                     <i class="icon icon-account-multiple-plus"></i>
-                                                    <span><?php echo lang('groups_members'); ?></span>
+                                                    <span><?php echo lang('group_members'); ?></span>
                                                 </a>
                                             </li>
                                             <li>

@@ -141,8 +141,7 @@ class Model_tasks extends CI_Model {
 	}
 	function get_all_tasks_per_users()
 	{
-		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, 470websitesmanagement_users.username, 470websitesmanagement_users.email, SUM(IF(id_tasks_status = "1", 1,0)) as all_tasks_progress_user, SUM(IF(id_tasks_status = "2", 1,0)) as all_tasks_completed_user')
-				 ->from('470websitesmanagement_tasks__card')
+		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, 470websitesmanagement_users.username, 470websitesmanagement_users.email, SUM(IF(check_tasks = "0", 1,0)) as all_tasks_progress_user, SUM(IF(check_tasks = "1", 1,0)) as all_tasks_completed_user')
 				 ->from('470websitesmanagement_tasks')
 				 ->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
 				 ->group_by(array('470websitesmanagement_tasks.id_user','470websitesmanagement_users.username'));
@@ -264,7 +263,7 @@ class Model_tasks extends CI_Model {
 	{
 		$this->db->where('id_project_tasks', $id_project_tasks)->delete('470websitesmanagement_tasks__project');
 	}
-	function create_list_tasks($id_project_tasks, $id_card_tasks, $title_card_tasks)
+	function create_card_tasks($id_project_tasks, $id_card_tasks, $title_card_tasks)
 	{
 		if ($id_card_tasks=="") {
 			$this->db->select_max('id_card_tasks');

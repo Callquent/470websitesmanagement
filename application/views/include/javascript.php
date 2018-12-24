@@ -11,16 +11,11 @@
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
 		<?php echo js_url('plugins/fuse-html.min.js'); ?>
-		<?php if ($this->uri->segment(1)=='all-projects') { ?>
-			<?php echo js_url('plugins/jquery-ui/jquery-ui.min.js'); ?>
-		<?php } ?>
 		<?php if ($this->uri->segment(1)=='dashboard' ||
 		$this->uri->segment(1)=='all-websites' ||
-		$this->uri->segment(1)=='category' ||
 		$this->uri->segment(1)=='ftp-websites' ||
 		$this->uri->segment(1)=='whois-domain' ||
 		$this->uri->segment(1)=='users-tasks' ||
-		$this->uri->segment(1)=='all-projects' ||
 		$this->uri->segment(1)=='members' ||
 		$this->uri->segment(1)=='my-tasks') { ?>
 			<?php echo js_url('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
@@ -65,9 +60,7 @@
 
 			<?php echo js_url('plugins/jquery.validate.min.js'); ?>
 		<?php } ?>
-		<?php if ($this->uri->segment(1)=='add-website'
-		|| $this->uri->segment(1)=='add-category'
-		|| $this->uri->segment(1)=='add-language') { ?>
+		<?php if ($this->uri->segment(1)=='add-website') { ?>
 			<?php echo js_url('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 			<?php echo js_url('plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
 			<?php echo js_url('plugins/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>
@@ -82,16 +75,7 @@
 			<?php echo js_url('plugins/jquery.validate.min.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='website-scrapper-google' || $this->uri->segment(1)=='search-scrapper-google') { ?>
-			<?php echo js_url('plugins/data-tables/datatables.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/dataTables.buttons.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.flash.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.html5.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.print.js'); ?>
-			<?php echo js_url('plugins/data-tables/datatables.bootstrap.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/datatables.responsive.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/dataTables.tableTools.js'); ?>
 			<?php echo js_url('plugins/app-seo.js'); ?>
-			<?php echo js_url('plugins/jquery.autocomplete.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='settings') { ?>
 			<?php echo js_url('plugins/data-tables/datatables.min.js'); ?>
@@ -115,9 +99,6 @@
 			<script type="text/javascript">
 				Vue.use(window.VueCodemirror)
 			</script>
-			<?php echo js_url('plugins/jquery.knob.js'); ?>
 			<?php echo js_url('plugins/jquery.ui.widget.js'); ?>
-			<?php echo js_url('plugins/jquery.iframe-transport.js'); ?>
-			<?php echo js_url('plugins/jquery.fileupload.js'); ?>
 		<?php } ?>
 		<?php echo js_url('plugins/scripts.js'); ?>

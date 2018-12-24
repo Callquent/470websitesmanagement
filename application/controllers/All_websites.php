@@ -33,6 +33,7 @@ class All_websites extends CI_Controller {
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
 		
+		$data['all_websites'] = $this->model_front->get_all_websites();
 		$data['all_languages'] = $this->model_front->get_all_languages();
 		$data['all_categories'] = $this->model_front->get_all_categories();
 
@@ -42,6 +43,34 @@ class All_websites extends CI_Controller {
 		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
+
+		foreach ($data['all_websites']->result() as $key => $row)
+		{
+			
+			$list = array();
+			$list['id'] = $row->w_id;
+			$list['name_website'] = $row->name_website;
+			$list['url_website'] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
+			$list['address_ip'] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
+			$list['name_category'] = $row->title_category;
+			$list['id_category'] = $row->id_category;
+			$list['name_language'] = $row->title_language;
+			$list['id_language'] = $row->id_language;
+			$list['access'] = '<a class="access-ftp" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="'.$row->w_id.'">Access FTP</a>';
+			$list['actions'] = '<div class="dropdown show actions">
+							<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+								<i class="icon icon-dots-vertical"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+								<a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+							</div>
+						</div>';
+
+			$data['websites'][] = $list;
+		}
 
 		$this->load->view('all-websites', $data);
 	}
@@ -61,7 +90,7 @@ class All_websites extends CI_Controller {
 		{
 			$list = array();
 			$list[] = $row->name_website;
-			$list[] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
+			$list[] = $row->url_website;
 			$list[] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
 			$list[] = $row->title_category;
 			$list[] = $row->title_language;
@@ -242,19 +271,21 @@ class All_websites extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output( json_encode($data['all_languages']->result()));
 	}
-	public function edit_website($w_id = '')
+	public function edit_website()
 	{
-		$this->form_validation->set_rules('titlewebsite', 'TitleWebsite', 'trim|required');
-		$this->form_validation->set_rules('website', 'Website', 'trim|required');
+		$this->form_validation->set_rules('id_website', 'IdWebsite', 'trim|required');
+		$this->form_validation->set_rules('name_website', 'NameWebsite', 'trim|required');
 
-		$name_website			= $this->input->post('titlewebsite');
-		$url_website			= $this->input->post('website');
-		$id_language			= $this->input->post('language');
-		$id_category			= $this->input->post('category');
+		$id_website				= $this->input->post('id_website');
+		$name_website			= $this->input->post('name_website');
+		$url_website			= $this->input->post('url_website');
+		$id_language			= $this->input->post('id_language');
+		$id_category			= $this->input->post('id_category');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_back->update_website($w_id, $id_category, $id_language, $name_website, $url_website);
+			$this->model_back->update_website($id_website, $id_category, $id_language, $name_website, $url_website);
 		}
+		echo "string";
 	}
 	public function edit_ftp_website($w_id = '',$w_id_ftp = '')
 	{

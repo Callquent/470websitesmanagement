@@ -183,9 +183,9 @@ var v = new Vue({
         f_editGroupMember(item){
             var formData = new FormData();
             formData.append("id_group_members",item.id);
-            formData.append("group_name",v.addGroupMember.group_name);
-            formData.append("definition",v.addGroupMember.definition);
-            axios.post(this.currentRoute+"/edit-language/", formData).then(function(response){
+            formData.append("group_name",item.name);
+            formData.append("definition",item.definition);
+            axios.post(this.currentRoute+"/edit-group-members/", formData).then(function(response){
                 
             })
         },

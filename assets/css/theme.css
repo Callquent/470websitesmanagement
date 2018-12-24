@@ -78621,171 +78621,22 @@ nvd3.show-line-points .nv-line .nv-scatter .nv-groups .nv-point {
         visibility: hidden
     }
 }
-/**************/
-/*  ACADEMY  */
-/**************/
-#academy-course .sidebar .steps {
-    padding: 16px 0
-}
-
-#academy-course .sidebar .steps .step {
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 16px;
-    cursor: pointer;
-    color: rgba(0, 0, 0, .54)
-}
-
-#academy-course .sidebar .steps .step.current {
-    background: #e3f2fd;
-    color: rgba(0, 0, 0, .87)
-}
-
-#academy-course .sidebar .steps .step.current .index span {
-    border: 2px solid #2196f3
-}
-
-#academy-course .sidebar .steps .step.current .title {
-    font-weight: 700
-}
-
-#academy-course .sidebar .steps .step.select {
-    color: rgba(0, 0, 0, .87)
-}
-
-#academy-course .sidebar .steps .step.select .index span {
-    border: 2px solid #2196f3
-}
-
-#academy-course .sidebar .steps .step.select .index:after,
-#academy-course .sidebar .steps .step.select+.step .index:before {
-    border-left-color: #2196f3
-}
-
-#academy-course .sidebar .steps .step.first .index:before,
-#academy-course .sidebar .steps .step.last .index:after {
-    display: none
-}
-
-#academy-course .sidebar .steps .step .index {
-    display: flex;
-    margin-right: 12px
-}
-
-#academy-course .sidebar .steps .step .index span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 32px;
-    min-width: 32px;
-    max-width: 32px;
-    height: 32px;
-    background: #fff;
-    border-radius: 100%;
-    border: 2px solid #9e9e9e;
-    font-weight: 700;
-    font-size: 12px;
-    z-index: 10
-}
-
-#academy-course .sidebar .steps .step .index:after,
-#academy-course .sidebar .steps .step .index:before {
-    position: absolute;
-    display: block;
-    content: ' ';
-    border-left: 2px solid #e0e0e0;
-    width: 1px;
-    height: 50%;
-    left: 31px;
-    z-index: 8
-}
-
-#academy-course .sidebar .steps .step .index:before {
-    top: 0
-}
-
-#academy-course .sidebar .steps .step .index:after {
-    bottom: 0
-}
-
-#academy-course .sidebar .steps .step .title {
-    display: flex
-}
-
-#academy-course .center {
-    position: relative;
-    overflow: hidden
-}
-
-#academy-course .center .header {
-    height: 72px;
-    min-height: 72px;
-    max-height: 72px
-}
-
-#academy-course .center .content {
-    position: relative;
-    display: flex;
-    background: #eee
-}
-
-#academy-course .center .content .course-step {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 48px;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch
-}
-
-#academy-course .center .content .course-step.ng-animating {
-    overflow: hidden
-}
-
-@media (max-width:720px) {
-    #academy-course .center .content .course-step {
-        padding: 0 0 120px
-    }
-}
-
-#academy-course .center .content .course-step .course-step-content {
-    padding: 24px;
-    max-width: 720px;
-    margin: 0 auto;
-    width: 100%;
-    background: #fff;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12)
-}
-
-#academy-course .center .step-navigation {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    bottom: 32px;
-    max-width: 944px;
-    padding: 0 24px;
-    width: 100%;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%)
-}
-
-#academy-course .center .step-navigation .previous {
-    margin-right: auto
-}
-
-#academy-course .center .step-navigation .done,
-#academy-course .center .step-navigation .next {
-    margin-left: auto
-}
 
 /***********/
+/***********/
+/***********/
+content{position:relative;display:flex;z-index:1;flex:1 0 auto}content>:not(router-outlet){display:flex;flex:1 0 auto;width:100%;min-width:100%}
+scrumboard-board mat-sidenav-container{width:100%;height:100%}scrumboard-board mat-sidenav-container mat-sidenav{width:320px!important;min-width:320px!important;max-width:320px!important}scrumboard-board mat-sidenav-container #board{display:flex;flex-direction:column!important;height:100%}scrumboard-board mat-sidenav-container #board>.header{position:relative;min-height:96px;background-image:none;z-index:49}scrumboard-board mat-sidenav-container #board>.header .header-content .header-boards-button{margin:0}scrumboard-board mat-sidenav-container #board>.header .header-content .header-board-name{font-size:16px}scrumboard-board mat-sidenav-container #board>.header .header-content .header-board-name .board-subscribe{margin-right:8px}scrumboard-board mat-sidenav-container #board>.header .header-content .header-board-name .editable-buttons mat-icon{color:#fff!important}scrumboard-board mat-sidenav-container #board>.header .header-content .right-side>.mat-button:last-child{margin-right:0}scrumboard-board mat-sidenav-container #board #board-selector{position:absolute;top:96px;right:0;left:0;height:192px;z-index:48;padding:24px;opacity:1}scrumboard-board mat-sidenav-container #board #board-selector .board-list-item{width:128px;height:192px;padding:16px;cursor:pointer;position:relative}scrumboard-board mat-sidenav-container #board #board-selector .board-list-item .board-name{text-align:center;padding:16px 0}scrumboard-board mat-sidenav-container #board #board-selector .board-list-item .selected-icon{position:absolute;top:0;left:50%;width:32px;height:32px;margin-left:-16px;border-radius:50%;text-align:center;color:#fff}scrumboard-board mat-sidenav-container #board #board-selector .board-list-item .selected-icon i{line-height:32px!important}scrumboard-board mat-sidenav-container #board #board-selector .board-list-item.add-new-board{opacity:.6}scrumboard-board mat-sidenav-container #board .board-content-wrapper{position:relative}scrumboard-board mat-sidenav-container #board .board-content-wrapper .board-content{position:absolute;top:0;right:0;bottom:0;left:0;height:100%;overflow-y:hidden;overflow-x:auto;-webkit-overflow-scrolling:touch}scrumboard-board mat-sidenav-container #board .board-content-wrapper .board-content .list-sortable-placeholder{background:rgba(0,0,0,.06);margin-right:24px}scrumboard-board mat-sidenav-container #board .board-content-wrapper .board-content .new-list-wrapper{width:344px;min-width:344px;max-width:344px;padding-right:24px}
+.mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-container.ng-animate-disabled .mat-drawer-backdrop,.mat-drawer-container.ng-animate-disabled .mat-drawer-content,.ng-animate-disabled .mat-drawer-container .mat-drawer-backdrop,.ng-animate-disabled .mat-drawer-container .mat-drawer-content{transition:none}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}@media screen and (-ms-high-contrast:active){.mat-drawer,[dir=rtl] .mat-drawer.mat-drawer-end{border-right:solid 1px currentColor}}@media screen and (-ms-high-contrast:active){.mat-drawer.mat-drawer-end,[dir=rtl] .mat-drawer{border-left:solid 1px currentColor;border-right:none}}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer-inner-container{width:100%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch}.mat-sidenav-fixed{position:fixed}
+scrumboard-edit-board-name{display:block!important}scrumboard-edit-board-name .board-name{text-overflow:ellipsis;overflow:hidden;font-size:15px;font-weight:600}
+scrumboard-board-add-list .new-list{border-radius:2px}scrumboard-board-add-list .new-list .new-list-form-button{text-transform:none;font-size:15px;padding:0 16px;height:64px;margin:0;width:100%}scrumboard-board-add-list .new-list .new-list-form-button mat-icon{border-radius:50%;height:40px;width:40px;line-height:40px;margin-right:16px}scrumboard-board-add-list .new-list .new-list-form{padding:16px;height:64px}scrumboard-board-add-list .new-list .new-list-form>input{height:100%}
+scrumboard-board-settings{display:flex;flex-direction:column;flex:1 0 auto;height:100%}scrumboard-board-settings .views{display:flex;flex-direction:column;position:relative;overflow:hidden;height:100%}scrumboard-board-settings .views .view{position:absolute;width:100%;height:100%;bottom:0;left:0;right:0;top:0;display:flex;flex-direction:column}scrumboard-board-settings .views .view>.header{flex:0 1 auto;height:64px;min-height:64px;border-bottom:1px solid}scrumboard-board-settings .views .view>.content{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch}
+scrumboard-board-list{width:344px;min-width:344px;max-width:344px;padding-right:24px!important;height:100%}scrumboard-board-list .list{max-height:100%;border-radius:2px;transition:box-shadow 150ms ease}scrumboard-board-list .list .list-header{height:64px;min-height:64px;padding:0 8px 0 16px;border-bottom:1px solid}@media screen and (max-width:959px){scrumboard-board-list .list .list-header{height:48px;min-height:48px}}scrumboard-board-list .list .list-content{position:relative;min-height:0;overflow:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}scrumboard-board-list .list .list-content .list-cards{position:relative;min-height:32px;padding:0 16px}scrumboard-board-list .list .list-footer{display:flex;flex-direction:column;flex:1 0 auto;border-top:1px solid;min-height:48px}scrumboard-board-list .ngx-dnd-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}scrumboard-board-list.gu-mirror{position:fixed!important;margin:0!important;z-index:9999!important;opacity:.8;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";filter:alpha(opacity=80)}scrumboard-board-list.gu-mirror>.list{box-shadow:0 4px 5px -2px rgba(0,0,0,.2),0 7px 10px 1px rgba(0,0,0,.14),0 2px 16px 1px rgba(0,0,0,.12)}scrumboard-board-list.gu-hide{display:none!important}scrumboard-board-list.gu-unselectable{-webkit-user-select:none!important;-moz-user-select:none!important;-ms-user-select:none!important;user-select:none!important}scrumboard-board-list.gu-transit{opacity:.2;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";filter:alpha(opacity=20)}
+scrumboard-board-edit-list-name .list-header-name{text-overflow:ellipsis;overflow:hidden;font-size:15px;font-weight:600;cursor:pointer}
+scrumboard-board-add-card .add-card-button{position:relative;height:48px;min-height:48px;padding:0 16px;text-align:left;text-transform:none;font-weight:600;font-size:14px;cursor:pointer;border-radius:2px}scrumboard-board-add-card .add-card-button mat-icon{margin-right:8px}scrumboard-board-add-card .add-card-form-wrapper .add-card-form{z-index:999;display:block;position:relative;padding:8px}scrumboard-board-add-card .add-card-form-wrapper .add-card-form mat-form-field{width:100%;margin:0;padding:12px 8px}
+scrumboard-board-card{position:relative;display:block;width:100%;margin:16px 0!important;border-radius:4px;border:1px solid;cursor:pointer}scrumboard-board-card .list-card-sort-handle{display:none;position:absolute;top:0;right:0;padding:4px;background:rgba(255,255,255,.8)}scrumboard-board-card .list-card-details{padding:16px 16px 0}scrumboard-board-card .list-card-details .list-card-labels{margin-bottom:6px}scrumboard-board-card .list-card-details .list-card-labels .list-card-label{width:32px;height:6px;border-radius:6px;margin:0 6px 6px 0}scrumboard-board-card .list-card-details .list-card-name{font-size:14px;font-weight:600;margin-bottom:12px}scrumboard-board-card .list-card-details .list-card-badges{margin-bottom:12px}scrumboard-board-card .list-card-details .list-card-badges .badge{margin-right:8px;padding:4px 8px;border-radius:2px}scrumboard-board-card .list-card-details .list-card-badges .badge mat-icon{margin-right:4px}scrumboard-board-card .list-card-details .list-card-members{margin-bottom:12px}scrumboard-board-card .list-card-details .list-card-members .list-card-member{margin-right:8px}scrumboard-board-card .list-card-details .list-card-members .list-card-member .list-card-member-avatar{border-radius:50%;width:32px;height:32px}scrumboard-board-card .list-card-footer{border-top:1px solid;padding:0 16px}scrumboard-board-card .list-card-footer .list-card-footer-item{height:48px;margin-right:12px}scrumboard-board-card .list-card-footer .list-card-footer-item .value{padding-left:8px}scrumboard-board-card .list-card-footer .list-card-footer-item:last-of-type{margin-right:0}scrumboard-board-card .ngx-dnd-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}scrumboard-board-card.gu-mirror{position:fixed!important;margin:0!important;z-index:9999!important;opacity:.8;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";filter:alpha(opacity=80);box-shadow:0 4px 5px -2px rgba(0,0,0,.2),0 7px 10px 1px rgba(0,0,0,.14),0 2px 16px 1px rgba(0,0,0,.12)}scrumboard-board-card.gu-hide{display:none!important}scrumboard-board-card.gu-unselectable{-webkit-user-select:none!important;-moz-user-select:none!important;-ms-user-select:none!important;user-select:none!important}scrumboard-board-card.gu-transit{opacity:.2;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";filter:alpha(opacity=20)}
+.mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}
+
 .v-small-dialog__actions button:first-child {
     float: right;
 }

@@ -2,295 +2,305 @@
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
 	<div class="page-content">
-	  
-	  <section id="main-content">
-		  <section class="wrapper">
 
-		  <div class="row">
-			  <div class="col-sm-2">
-				  <section class="card mb-3">
-					  <header class="card-header">
-						  Editable Table
-					  </header>
-					  <div class="card-body">
-						  <h4 class="">Projects</h4>
-						  <hr>
-						  <input type="text" class="form-control" name="searchproject" id="searchProjects" >
-					  </div>
-				  </section>
-				  <section class="card mb-3">
-					  <header class="card-header">
-						  Editable Table
-					  </header>
-					  <div class="card-body">
-						  <h4 class="">Membres</h4>
-						  <hr>
-						  <input type="text" class="form-control" name="search" id="searchMembers" >
-					  </div>
-				  </section>
-				  <section class="card mb-3">
-					  <header class="card-header">
-						  Editable Table
-					  </header>
-					  <div class="card-body">
-						  <h4 class="">Status</h4>
-						  <hr>
-					  </div>
-				  </section>
-			  </div>
-			  <div class="col-sm-10">
-				  <section class="card mb-3">
-					  <header class="card-header">
-						  Editable Tables
-					  </header>
-					  <div class="card-body">
-						  <div class="row">
-							  <div class="col-sm-12 float-right">
-								  <div class="float-right">
-									  <a class="access-project btn btn-sm btn-success mb-3" href="javascript:void(0);" data-toggle="modal" data-target="#create-project"><span><i class="fa fa-plus"></i></span> Ajouter un Projet</a>
-								  </div>
-							  </div>
-						  </div>
-						  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-projects">
-							  <thead>
-								<tr>
-									<th class="all"><?php echo lang('website'); ?></th>
-									<th class="desktop"><?php echo lang('name'); ?></th>
-									<th class="desktop">Started on</th>
-									<th class="desktop">Deadline</th>
-									<th class="desktop">Status</th>
-									<th class="desktop">Progress</th>
-									<th class="desktop">Member</th>
-									<?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-									  <th class="desktop"><?php echo lang('actions'); ?></th>
-									<?php } ?>
-								</tr>
-							  </thead>
-							  <tbody>
-								<?php foreach ($all_projects->result() as $row) { ?>
-								  <tr>
-									<td><?php echo $row->name_website; ?></td>
-									<td><?php echo $row->name_project_tasks; ?></td>
-									<td><?php echo $row->started_project_tasks; ?></td>
-									<td><?php echo $row->deadline_project_tasks; ?></td>
-									<td>
-										<?php
-										if ( $row->percentage_tasks == 100) {
-											echo '<span class="badge badge-success">Success</span>';
-										} else {
-											echo '<span class="badge badge-warning">In progress</span>';
-										}
-										?>
-									</td>
-									<td>
-									  <div class="progress">
-										  <div class="progress-bar" role="progressbar" style="width: <?php echo $row->percentage_tasks; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $row->percentage_tasks; ?>%
+  <v-container fluid grid-list-sm>
+    <v-layout row wrap>
+    	<v-flex xs2>
+		    		
+			<v-toolbar color="light-blue" dark>
+				<v-toolbar-title>Project</v-toolbar-title>
+			</v-toolbar>
+			<v-card>
+				<v-container
+				fluid
+				grid-list-lg
+				>
+					<v-layout row wrap>
+						<v-flex xs12>
+							<template>
+								<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+							</template>
+						</v-flex>
+					</v-layout>
+				</v-container>
+			</v-card>
+
+			<v-toolbar color="light-blue" dark>
+				<v-toolbar-title>Members</v-toolbar-title>
+			</v-toolbar>
+			<v-card>
+				<v-container
+				fluid
+				grid-list-lg
+				>
+					<v-layout row wrap>
+						<v-flex xs12>
+							<template>
+								<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+							</template>
+						</v-flex>
+					</v-layout>
+				</v-container>
+			</v-card>
+
+			<v-toolbar color="light-blue" dark>
+				<v-toolbar-title>Status</v-toolbar-title>
+			</v-toolbar>
+			<v-card>
+				<v-container
+				fluid
+				grid-list-lg
+				>
+					<v-layout row wrap>
+						<v-flex xs12>
+							<template>
+								<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+							</template>
+						</v-flex>
+					</v-layout>
+				</v-container>
+			</v-card>
+
+		</v-flex> 
+		<v-flex xs10>
+	  		<v-card>
+                <template>
+					<v-toolbar flat color="white">
+					  <v-toolbar-title>My CRUD</v-toolbar-title>
+					  <v-divider
+					    class="mx-2"
+					    inset
+					    vertical
+					  ></v-divider>
+					  <v-spacer></v-spacer>
+					  <v-dialog v-model="dialog_add_project" max-width="500px">
+					    <v-btn slot="activator" color="primary" dark class="mb-2">New Project</v-btn>
+					    <v-card>
+					      <v-card-title>
+					        <span class="headline">New Project</span>
+					      </v-card-title>
+
+					      <v-card-text>
+					        <v-container grid-list-md>
+					          <v-layout wrap>
+					          		<v-flex xs12>
+										
+									<v-autocomplete
+									v-model="Project.name_website"
+									:items="autocomplete_website"
+									:loading="isLoading"
+									:search-input.sync="search"
+									color="white"
+									hide-no-data
+									hide-selected
+									item-text="url_website"
+									item-value="id_website"
+									label="Website"
+									placeholder="Name Website"
+									return-object
+									></v-autocomplete>
+
+									</v-flex>
+									<v-flex xs12>
+										<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+									</v-flex>
+					            	<v-flex xs12 lg6>
+										<v-menu
+										    ref="menu"
+										    :close-on-content-click="false"
+										    v-model="menu1"
+										    :nudge-right="40"
+										    lazy
+										    transition="scale-transition"
+										    offset-y
+										    full-width
+										    min-width="290px"
+										  >
+										    <v-text-field
+										      slot="activator"
+										      v-model="Project.started_project_tasks"
+										      label="Picker in menu"
+										      prepend-icon="event"
+										      readonly
+										    ></v-text-field>
+										    <v-date-picker v-model="Project.started_project_tasks" no-title @input="menu1 = false"> </v-date-picker>
+										</v-menu>
+								      </v-flex>
+
+									<v-flex xs12 lg6>
+										<v-menu
+										    ref="menu"
+										    :close-on-content-click="false"
+										    v-model="menu2"
+										    :nudge-right="40"
+										    lazy
+										    transition="scale-transition"
+										    offset-y
+										    full-width
+										    min-width="290px"
+										  >
+										    <v-text-field
+										      slot="activator"
+										      v-model="Project.deadline_project_tasks"
+										      label="Picker in menu"
+										      prepend-icon="event"
+										      readonly
+										    ></v-text-field>
+										    <v-date-picker v-model="Project.deadline_project_tasks" no-title @input="menu2 = false"></v-date-picker>
+										</v-menu>
+									</v-flex>
+					          </v-layout>
+					        </v-container>
+					      </v-card-text>
+
+					      <v-card-actions>
+					        <v-spacer></v-spacer>
+					 		<v-btn color="blue darken-1" flat @click="f_editProject()">Save</v-btn>
+					        <v-btn color="blue darken-1" flat @click="f_dialog_close()">Cancel</v-btn>
+					      </v-card-actions>
+					    </v-card>
+					  </v-dialog>
+					</v-toolbar>
+                        <v-data-table
+                            :headers="headers"
+                            :items="list_projects"
+                            class="elevation-1"
+                            :rows-per-page-items="[10,20,50,100]"
+                        >
+                            <template slot="items" slot-scope="props">
+                                <td>{{ props.item.name_website }}</td>
+                                <td>{{ props.item.name_project_tasks }}</td>
+                                <td>{{ props.item.started_project_tasks }}</td>
+                                <td>{{ props.item.deadline_project_tasks }}</td>
+                                <td>
+									<span v-if="props.item.percentage_tasks == '100'" class="badge badge-success">Success</span>
+									<span v-else class="badge badge-warning">In progress</span>
+                                </td>
+                                <td>
+                                	<div class="progress">
+										  <div class="progress-bar" role="progressbar" :style="{width: props.item.percentage_tasks + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ props.item.percentage_tasks }}%
 										  </div>
-									  </div>
-									</td>
-									<td>
-									  <?php foreach ($row->users_to_project as $row_user) { ?>
-										<span class="w-40 avatar circle green" value="<?php echo $row_user->username; ?>"><?php echo substr($row_user->username, 0, 2); ?></span>
-									  <?php } ?>
-									</td>
-									<td>
-									  <div class="dropdown show actions">
-										  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+									</div>
+                                </td>
+                                <td>
+                                	<span v-for="itemUser in props.item.users_to_project">
+	                                	<v-avatar color="red">
+											<span class="white--text headline">{{ itemUser.username.substr(0, 2) }}</span>
+										</v-avatar>
+									</span>
+								</td>
+                                <td class="text-xs-left">
+									<div class="dropdown show actions">
+										<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
 											<i class="icon icon-dots-vertical"></i>
-										  </a>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											  <a class="dropdown-item" id="view-project" href="<?php echo site_url('all-projects/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
-											  <div class="dropdown-divider"></div>
-											  <a class="dropdown-item" id="edit-project" href="<?php echo site_url('all-projects/edit_projects/'.$row->id_project_tasks); ?>"><i class="fa fa-pencil"></i>  <?php echo lang('edit') ?></a>
-											  <a class="dropdown-item" id="delete-project" href="'.site_url('all-projects/delete-website/'.$row->w_id).'"><i class="fa fa-trash"></i> Delete</a>
-										  </div>
-									  </div>
-									</td>
-								  </tr>
-								<?php } ?>
-							  </tbody>
-						  </table>
-					  </div>
-				  </section>
-			  </div>
-		  </div>
-		  </section>
-	  </section>
-	</div>
-  </div>
-</div>
-<div class="modal fade" id="create-project" tabindex="-1" role="dialog" aria-labelledby="create-project" aria-hidden="true">
-  <div class="modal-dialog">
-	<div class="modal-content">
-	  <div class="modal-header modal-header-success">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-		<h4 class="modal-title custom_align" id="Heading">Ajouter un projet</h4>
-	  </div>
-			<form id="form-projects" method="post" action="<?php echo site_url('/all-projects/create-projects/'); ?>">
-			  <div class="modal-body">
-				<div class="form-group">
-					<label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
-					<div class="col-lg-12">
-					  <select name="websites" class="form-control">
-					  <?php foreach ($all_websites->result() as $row){  ?>
-						  <option value="<?php echo $row->w_id; ?>"><?php echo $row->name_website; ?></option>
-					  <?php } ?>
-					  </select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
-					<div class="col-lg-12">
-					  <input class="form-control" type="text" name="nameproject" placeholder="Titre Projet" required />
-					</div>
-				</div>
-				<div class="form-group">
-					  <label class="control-label">Date Range</label>
-					  <div class="input-group input-large">
-						  <input class="form-control dpd1" value="<?php echo date('Y-m-d'); ?>" type="date" name="datestarted">
-						  <span class="input-group-addon">To</span>
-						  <input class="form-control dpd2" value="<?php echo date('Y-m-d'); ?>" type="date" name="datedeadline">
-					  </div>
-				</div>
-			  </div>
-			  <div class="modal-footer ">
-				<button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
-				<button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span><?php echo lang('cancel'); ?></button>
-			  </div>
-			</form>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+												<a class="dropdown-item" id="view-project" :href="currentRoute+'/'+props.item.id_project_tasks"><i class="fa fa-eye"></i> View</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" id="edit-project" @click="f_dialog_editProject(props.item)"><i class="fa fa-pencil"></i>  <?php echo lang('edit') ?></a>
+												<a class="dropdown-item" id="delete-project" @click="f_deleteProject(props.item)"><i class="fa fa-trash"></i> <?php echo lang('delete') ?></a>
+										</div>
+									</div>
+                                </td>
+                            </template>
+                        </v-data-table>
+                </template>
+            </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+
 	</div>
   </div>
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-  $(document).ready(function(){
-	$("#form-projects").submit(function(e){
-	  $.ajax({
-		type: "POST",
-		url: $(this).attr('action'),
-		data: $(this).serialize(),
-		success: function(msg){
-		  $('#create-project').modal('hide');
+var v = new Vue({
+    el: '#app',
+    data : {
+    	menu1: false,
+    	menu2: false,
+    	autocomplete_website: <?php echo json_encode($all_websites->result_array()); ?>,
+        dialog_add_project: false,
+        currentRoute: window.location.href,
+        headers: [
+        	{ text: '<?php echo lang('website'); ?>', value: 'website' },
+			{ text: '<?php echo lang('name'); ?>', value: 'name' },
+			{ text: 'Started on', value: 'started_on' },
+			{ text: 'Deadline', value: 'deadline' },
+			{ text: 'Status', value: 'status' },
+			{ text: 'Progress', value: 'progress' },
+			{ text: 'Member', value: 'member' },
+            { text: '<?php echo lang("actions"); ?>', value: 'actions'},
+        ],
+        list_projects: <?php echo json_encode($all_projects->result_array()); ?>,
+		Project:{
+			id_project_tasks:"",
+			name_website:"",
+			name_project_tasks: "",
+			started_project_tasks: new Date().toISOString().substr(0, 10),
+			deadline_project_tasks: new Date().toISOString().substr(0, 10),
 		},
-		error: function(msg){
-		  console.log(msg.responseText);
-		}
-	  });
-	  e.preventDefault();
-	});
+		defaultProject:{
+        	id_project_tasks:"",
+			name_website:"",
+			name_project_tasks: "",
+			started_project_tasks: new Date().toISOString().substr(0, 10),
+			deadline_project_tasks: new Date().toISOString().substr(0, 10),
+		},
+		editedIndexProject: -1,
+    },
+    created(){
+        this.displayPage();
+    },
+    methods:{
+        displayPage(){
 
-	var nEditingProject = null;
-	var ElementDelete = null;
-	var projectsTable = $('#table-projects').DataTable({
-	  "columnDefs": [{
-		'orderable': true,
-		'targets': [0]
-	  }, {
-		  "searchable": true,
-		  "targets": [0]
-	  }],
-	  "order": [
-		  [0, "asc"]
-	  ]
-	});
-	function restoreRow(pTable, nRow) {
-	  var aData = pTable.row(nRow).data();
-	  var jqTds = $('>td', nRow);
-
-	  for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-		pTable.cell(nRow, i).data(aData[i]).draw();
-	  }
-	}
-	function editRowProjects(projectsTable, nRow, nUrl) {
-	  var aData = projectsTable.row(nRow).data();
-	  var jqTds = $('>td', nRow);
-	  jqTds[1].innerHTML = '<input type="text" class="form-control small" id="nameproject" value="' + aData[1] + '">';
-	  jqTds[2].innerHTML = '<input type="text" class="form-control small" id="startedproject" value="' + aData[2] + '">';
-	  jqTds[3].innerHTML = '<input type="text" class="form-control small" id="deadlineproject" value="' + aData[3] + '">';
-	  jqTds[7].innerHTML = '<a id="edit-project" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-project" href="" class="btn btn-white"><i class="icon-close"></i></a>';
-	}
-	function saveRowProjects(projectsTable, nRow, nUrl) {
-	  var jqInputs = $('input', nRow);
-	  projectsTable.cell(nRow, 1).data(jqInputs[0].value).draw();
-	  projectsTable.cell(nRow, 2).data(jqInputs[1].value).draw();
-	  projectsTable.cell(nRow, 3).data(jqInputs[2].value).draw();
-	  projectsTable.cell(nRow, 7).data(projectsTable.row(nRow).data()[7]).draw();
-	}
-	function deleteRowProjects(projectsTable, nRow, nUrl) {
-		var aData = projectsTable.row(nRow).data();
-		var jqTds = $('>td', nRow);
-		jqTds[4].innerHTML = '<a id="delete-members" href="'+nUrl+'" class="btn btn-white"><i class="icon-check" value="check"></i></a><a id="cancel-members" href="" class="btn btn-white"><i class="icon-close"></i></a>';
-	}
-	$(document).on('click', '#table-projects #cancel-project', function (e) {
-		e.preventDefault();
-		if ($(this).attr("data-mode") == "new") {
-			var nRow = $(this).parents('tr')[0];
-			projectsTable.fnDeleteRow(nRow);
-		} else {
-			restoreRow(projectsTable, nEditingProject);
-			nEditingProject = null;
-		}
-	});
-	$(document).on('click', '#table-projects #edit-project', function (e) {
-		e.preventDefault();
-
-		var nRow = $(this).parents('tr')[0];
-		var nUrl = $(this).attr('href');
-		
-		if (nEditingProject !== null && nEditingProject != nRow) {
-			restoreRow(projectsTable, nEditingProject);
-			editRowProjects(projectsTable, nRow, nUrl);
-			nEditingProject = nRow;
-		} else if (nEditingProject == nRow && $(this).find("i").attr("value") == "check") {
-			var nameproject = $('#nameproject').val();
-			var startedproject = $('#startedproject').val();
-			var deadlineproject = $('#deadlineproject').val();
-			$.ajax({
-				type: "POST",
-				url: $(this).attr('href'),
-				data: {'nameproject':nameproject,'startedproject':startedproject,'deadlineproject':deadlineproject},
-				success: function(msg){
-					console.log(msg);
-					saveRowProjects(projectsTable, nEditingProject, nUrl);
-					nEditingProject = null;
-				},
-				error: function(msg){
-					console.log(msg);
-				}
-			});
-		} else {
-			editRowProjects(projectsTable, nRow, nUrl);
-			nEditingProject = nRow;
-		}
-	});
-	$(document).on('click', '#table-projects #delete-project', function (e) {
-			var nRow = $(this).parents('tr')[0];
-			var nUrl = $(this).attr('href');
-			if (nEditingProject != nRow) {
-				deleteRowProjects(projectsTable, nRow, nUrl);
-				nEditingProject = nRow;
-			} else if (nEditingProject == nRow && $(this).find("i").attr("value") == "check") {
-				$.ajax({
-					type: "POST",
-					url: $(this).attr('href'),
-					success: function(msg){
-						var nRow = $('#table-project #delete-project').parents('tr')[0];
-						projectsTable.fnDeleteRow(nRow);
-					},
-					error: function(msg){
-						console.log(msg);
-					}
-				});
+        },
+        f_editProject(){
+    		var formData = new FormData();
+			
+			formData.append("name_project",v.Project.name_project_tasks);
+			formData.append("date_started",v.Project.started_project_tasks);
+			formData.append("date_deadline",v.Project.deadline_project_tasks);
+			if (v.editedIndexProject > -1) {
+				formData.append("id_project",v.Project.id_project_tasks);
+				axios.post(v.currentRoute+"/edit-project/", formData).then(function(response){
+					v.dialog_add_project = false;
+					Object.assign(v.list_projects[v.editedIndexProject], v.Project)
+				})	
+			} else {
+				formData.append("id_website",v.Project.name_website.w_id);
+				axios.post(v.currentRoute+"/create-project/", formData).then(function(response){
+					v.dialog_add_project = false;
+					//v.list_projects.push(v.editedItem)
+				})				
 			}
-			e.preventDefault();
-	});
 
-	$('#searchProjects').on( 'keyup', function () {
-		projectsTable.columns(1).search( this.value ).draw();
-	});
-	$('#searchMembers').on( 'keyup', function () {
-		projectsTable.columns(6).search( this.value ).draw();
-	});
-  });
+		},
+		f_dialog_close () {
+			v.dialog_add_project = false
+			setTimeout(() => {
+				v.Project = Object.assign({}, v.defaultProject)
+				v.editedIndexProject = -1
+			}, 300)
+		},
+		f_dialog_editProject(item){
+			var formData = new FormData();
+			v.editedIndexProject = v.list_projects.indexOf(item);
+	        v.Project = Object.assign({}, item);
+	        v.Project.name_website = item.url_website;
+	        v.dialog_add_project = true;
+	    },
+        f_deleteProject(item){
+            var formData = new FormData();
+            formData.append("id_project",item.id_project_tasks);
+            axios.post(this.currentRoute+"/delete-project/", formData).then(function(response){
+                const index = v.list_projects.indexOf(item);
+				confirm('Are you sure you want to delete this item?') && v.list_projects.splice(index, 1);
+            })
+        },
+    }
+})
 </script>
 <?php $this->load->view('include/footer.php'); ?>

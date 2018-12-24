@@ -58,27 +58,30 @@ class All_projects extends CI_Controller {
 			$this->load->view('view-project', $data);
 		}
 	}
-	public function create_projects()
+	public function create_project()
 	{
-		$website_id				= $this->input->post('websites');
-		$nameproject			= $this->input->post('nameproject');
-		$date_started			= $this->input->post('datestarted');
-		$date_deadline			= $this->input->post('datedeadline');
+		$id_website				= $this->input->post('id_website');
+		$nameproject			= $this->input->post('name_project');
+		$date_started			= $this->input->post('date_started');
+		$date_deadline			= $this->input->post('date_deadline');
 
-		$this->model_tasks->create_project($website_id, $nameproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
+		$this->model_tasks->create_project($id_website, $nameproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
 	}
-	public function edit_projects($id_project = '')
+	public function edit_project()
 	{
-		$name_project			= $this->input->post('nameproject');
-		$started_project			= $this->input->post('startedproject');
-		$deadline_project				= $this->input->post('deadlineproject');
+		$id_project				= $this->input->post('id_project');
+		$name_project			= $this->input->post('name_project');
+		$started_project			= $this->input->post('date_started');
+		$deadline_project				= $this->input->post('date_deadline');
 
 		/*if ($this->form_validation->run() !== FALSE){*/
 			$this->model_tasks->update_project($id_project, $name_project, date("Y-m-d", strtotime($started_project)), date("Y-m-d", strtotime($deadline_project)));
 		/*}*/
 	}
-	public function delete_project($id_project = '')
+	public function delete_project()
 	{
+		$id_project			= $this->input->post('id_project');
+
 		$this->model_tasks->delete_project($id_project);
 	}
 	public function view_card_tasks()
@@ -105,7 +108,7 @@ class All_projects extends CI_Controller {
 		$id_card_tasks			= $this->input->post('id_card_task');
 		$title_list_task		= $this->input->post('name_card_tasks');
 
-		$this->model_tasks->create_list_tasks($id_project_tasks, $id_card_tasks, $title_list_task);
+		$this->model_tasks->create_card_tasks($id_project_tasks, $id_card_tasks, $title_list_task);
 	}
 	public function create_task()
 	{
@@ -123,7 +126,7 @@ class All_projects extends CI_Controller {
 		$id_project_tasks		= $this->input->post('id_project_tasks');
 		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$id_task				= $this->input->post('id_task');
-		$check_tasks			= $this->input->post('check_tasks');
+		$check_tasks			= ($this->input->post('check_tasks')=="true"?1:0);
 
 		$this->model_tasks->update_check_task($id_project_tasks, $id_card_tasks, $id_task, $check_tasks);
 

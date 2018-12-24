@@ -6,7 +6,7 @@
 		<a href="<?php echo site_url('/all-projects/'); ?>" class="btn btn-icon fuse-ripple-ready">
 			<i class="icon icon-arrow-left-thick"></i>
 		</a>
-		<a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" href="javascript:void(0);" data-toggle="modal" data-target="#create-card-task">
+		<a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
 			<i class="icon icon-plus"></i>
 		</a>
 	</div>
@@ -45,12 +45,13 @@
 											<i class="icon icon-dots-vertical"></i>
 										  </a>
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
-										  	<a class="dropdown-item fuse-ripple-ready" @click="dialog_task = true"><i class="fa fa-eye"></i> Ajouter</a>
+										  	<a class="dropdown-item fuse-ripple-ready" @click="dialog_add_task = true"><i class="fa fa-eye"></i> Ajouter</a>
 											<a class="dropdown-item fuse-ripple-ready" id="delete-card-tasks" @click="deleteCard(step)"><i class="fa fa-eye"></i> Supprimer</a>
 											<div class="dropdown-divider"></div>
 										  </div>
 									  </div>								
 								</div>
+								<div>{{check_tasks_complete}} / {{list_tasks.length}} <v-progress-linear v-model="valueDeterminate"></v-progress-linear></div>
 								<section class="card mb-3">
 								  <header class="card-header">
 									  <?php echo lang('websites_management'); ?>
@@ -114,131 +115,98 @@
 		</v-layout>
 	</v-container>
 </div>
-<div class="modal fade" id="create-card-task" tabindex="-1" role="dialog" aria-labelledby="create-card-task" aria-hidden="true">
-  <div class="modal-dialog">
-	<div class="modal-content">
-	  <div class="modal-header modal-header-success">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-		<h4 class="modal-title custom_align" id="Heading">Ajouter une card de tâches</h4>
-	  </div>
-		<form id="form-card-tasks" @submit.prevent="createCard">
-		  <div class="modal-body">
-			<div class="form-group">
-				<label for="curl" class="control-label col-lg-3"><?php echo lang('websites'); ?></label>
-				<div class="col-lg-12">
-				  <input class="form-control" type="text" name="name_card_tasks" placeholder="Titre Liste Tasks" v-model="newCard.name_card_tasks" required />
-				</div>
-			</div>
-			<div class="form-group">
-				<input class="form-control md-has-value" type="number" name="id_card_task"  v-model.number="newCard.id_card_task" value="<?php echo $all_card_tasks->num_rows()+1; ?>" min="1" max="<?php echo $all_card_tasks->num_rows()+1; ?>"  required>
-				<label for="example-number-input">Number</label>
-			</div>
-		  </div>
-		  <div class="modal-footer ">
-			<button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-share"></span><?php echo lang('save'); ?></button>
-			<button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span><?php echo lang('cancel'); ?></button>
-		  </div>
-		</form>
-	</div>
-  </div>
-</div>
-
-<div class="modal fade" id="create-task" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Ajouter une tâche</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form id="form-task" @submit.prevent="createTask">
-					<div class="form-group">
-						<input class="titletasks form-control" type="text" name="nametask" placeholder="Titre Task" v-model="newTask.nametask" required/>
-					</div>
-					<div class="form-group">
-
-
-
-						<!-- <input type="text" class="form-control" name="user" id="autocomplete-user" v-model="newTask.user">
-						<label for="url-user">Url User</label> -->
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-lg">ADD Tasks</button>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary fuse-ripple-ready" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary fuse-ripple-ready">Send message</button>
-			</div>
-		</div>
-	</div>
-</div>
-
 <v-dialog
-      v-model="dialog_task"
+      v-model="dialog_add_card"
       width="500"
     >
 	<v-card>
         <v-card-title
-          class="headline grey lighten-2"
+          class="headline green lighten-2"
           primary-title
         >
-          Privacy Policy
+          Ajouter une tâche
         </v-card-title>
 
         <v-card-text>
 			<v-container grid-list-md>
 				<v-layout wrap>
-					<v-flex xs12 sm6>
+					<v-flex xs12>
+						<v-text-field label="Titre Task"  v-model="newCard.name_card_tasks" required></v-text-field>
+					</v-flex>
+					<v-flex xs12>
+						<v-text-field v-model="newCard.id_card_task" type="number" min="newCard.max" :max="newCard.max" required></v-text-field>
+					</v-flex>
+				</v-layout>
+			</v-container>
+			<small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        	<v-btn color="blue darken-1" flat @click="f_createCard()">Save</v-btn>
+        	<v-btn color="blue darken-1" flat @click="dialog_add_card = false">Close</v-btn>
+        </v-card-actions>
+	</v-card>
+</v-dialog>
+<v-dialog
+      v-model="dialog_add_task"
+      width="500"
+    >
+	<v-card>
+        <v-card-title
+          class="headline green lighten-2"
+          primary-title
+        >
+          Ajouter une tâche
+        </v-card-title>
+
+        <v-card-text>
+			<v-container grid-list-md>
+				<v-layout wrap>
+					<v-flex xs12>
 						<v-text-field label="Titre Task"  v-model="newTask.nametask" required></v-text-field>
 					</v-flex>
-					<v-flex xs12 sm6>
-
-								<v-autocomplete
-					              v-model="newTask.user"
-					              :items="users"
-					              box
-					              chips
-					              label="Select"
-					              item-text="name_user"
-					              item-value="name_user">
-					              <template
-					                slot="selection"
-					                slot-scope="data"
-					              >
-					                <v-chip
-					                  :selected="data.selected"
-					                  close
-					                  class="chip--select-multi"
-					                  @input="remove(data.item)"
-					                >
-					                  <v-avatar>
-					                    <img :src="data.item.avatar">
-					                  </v-avatar>
-					                  {{ data.item.name_user }}
-					                </v-chip>
-					              </template>
-					              <template
-					                slot="item"
-					                slot-scope="data"
-					              >
-					                <template v-if="typeof data.item !== 'object'">
-					                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
-					                </template>
-					                <template v-else>
-					                  <v-list-tile-avatar>
-					                    <img :src="data.item.avatar">
-					                  </v-list-tile-avatar>
-					                  <v-list-tile-content>
-					                    <v-list-tile-title v-html="data.item.name_user"></v-list-tile-title>
-					                  </v-list-tile-content>
-					                </template>
-					              </template>
-					            </v-autocomplete>
-
+					<v-flex xs12>
+						<v-autocomplete
+			              v-model="newTask.user"
+			              :items="users"
+			              box
+			              chips
+			              label="Select"
+			              item-text="name_user"
+			              item-value="name_user">
+			              <template
+			                slot="selection"
+			                slot-scope="data"
+			              >
+			                <v-chip
+			                  :selected="data.selected"
+			                  close
+			                  class="chip--select-multi"
+			                  @input="remove(data.item)"
+			                >
+			                  <v-avatar>
+			                    <img :src="data.item.avatar">
+			                  </v-avatar>
+			                  {{ data.item.name_user }}
+			                </v-chip>
+			              </template>
+			              <template
+			                slot="item"
+			                slot-scope="data"
+			              >
+			                <template v-if="typeof data.item !== 'object'">
+			                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
+			                </template>
+			                <template v-else>
+			                  <v-avatar color="red">
+      <span class="white--text headline">J</span>
+    </v-avatar>
+			                  <v-list-tile-content>
+			                    <v-list-tile-title v-html="data.item.name_user"></v-list-tile-title>
+			                  </v-list-tile-content>
+			                </template>
+			              </template>
+			            </v-autocomplete>
 					</v-flex>
 				</v-layout>
 			</v-container>
@@ -247,7 +215,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
         	<v-btn color="blue darken-1" flat @click="f_createTask()">Save</v-btn>
-        	<v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+        	<v-btn color="blue darken-1" flat @click="dialog_add_task = false">Close</v-btn>
         </v-card-actions>
 	</v-card>
 </v-dialog>
@@ -259,7 +227,8 @@ var v = new Vue({
     data : {
     	steps: <?php echo json_encode($all_card_tasks->result_array()); ?>,
         users: <?php echo json_encode($list_users->result_array()); ?>,
-    	dialog_task: false,
+    	dialog_add_task: false,
+    	dialog_add_card: false,
 		currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
 		id_project: window.location.href.split('/').pop(),
 		id_card: <?php echo json_encode($all_card_tasks->row()->id_card_tasks); ?>,
@@ -270,12 +239,16 @@ var v = new Vue({
 		],
 		newCard:{
 			name_card_tasks:"",
-			id_card_task:"",
+			id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
+			min: "1",
+			max: <?php echo $all_card_tasks->num_rows()+1; ?>,
 		},
 		newTask:{
 		    nametask:'',
 		    user:'',
 		},
+		check_tasks_complete:0,
+		valueDeterminate: 0,
         title_card_tasks:"",
         list_tasks: [],
     },
@@ -289,10 +262,19 @@ var v = new Vue({
 			formData.append("id_card_tasks",this.id_card);
     		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
 				if(response.status = 200){
-					for (var i = 0; i < response.data.card_tasks.tasks.length; ++i) {
-						(response.data.card_tasks.tasks[i].check_tasks=="1"?response.data.card_tasks.tasks[i].check_tasks=true:response.data.card_tasks.tasks[i].check_tasks=false);
-						v.list_tasks.push(response.data.card_tasks.tasks[i]);
+					if (response.data.card_tasks.tasks != null) {
+						for (var i = 0; i < response.data.card_tasks.tasks.length; ++i) {
+							
+							if (response.data.card_tasks.tasks[i].check_tasks=="1") {
+								response.data.card_tasks.tasks[i].check_tasks = true;
+								v.check_tasks_complete++;
+							} else {
+								response.data.card_tasks.tasks[i].check_tasks=false;
+							}
+							v.list_tasks.push(response.data.card_tasks.tasks[i]);
+						}
 					}
+					v.valueDeterminate = v.f_isNaN((v.check_tasks_complete/v.list_tasks.length)*100);
 					v.title_card_tasks = response.data.title_card_tasks;
 				}else{
 
@@ -300,32 +282,44 @@ var v = new Vue({
 			})
         },
 		changeCard(id_card_task){
-    		var formData = new FormData(); 
+			var formData = new FormData(); 
     		formData.append("id_project_tasks",this.id_project);
 			formData.append("id_card_tasks",id_card_task);
     		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
 				if(response.status = 200){
-					v.id_card = id_card_task;
+					v.check_tasks_complete = 0;
 					v.list_tasks = [];
-					for (var i = 0; i < response.data.card_tasks.tasks.length; ++i) {
-						(response.data.card_tasks.tasks[i].check_tasks=="1"?response.data.card_tasks.tasks[i].check_tasks=true:response.data.card_tasks.tasks[i].check_tasks=false);
-						v.list_tasks.push(response.data.card_tasks.tasks[i]);
+
+					v.id_card = id_card_task;
+					if (response.data.card_tasks.tasks != null) {
+						for (var i = 0; i < response.data.card_tasks.tasks.length; ++i) {
+
+							if (response.data.card_tasks.tasks[i].check_tasks=="1") {
+								response.data.card_tasks.tasks[i].check_tasks = true;
+								v.check_tasks_complete++;
+							} else {
+								response.data.card_tasks.tasks[i].check_tasks=false;
+							}
+							v.list_tasks.push(response.data.card_tasks.tasks[i]);
+						}
 					}
-					/*v.list_tasks = response.data.card_tasks.tasks;*/
+					v.valueDeterminate = v.f_isNaN((v.check_tasks_complete/v.list_tasks.length)*100);
 					v.title_card_tasks = response.data.title_card_tasks;
 				}else{
 
 				}
 			})
         },
-		createCard(){
+		f_createCard(){
 			var formData = new FormData();
-			formData.append("name_card_tasks",this.newCard.name_card_tasks);
-			formData.append("id_card_task",this.newCard.id_card_task);
-			formData.append("id_project_tasks",this.id_project);
+			formData.append("name_card_tasks",v.newCard.name_card_tasks);
+			formData.append("id_card_task",v.newCard.id_card_task);
+			formData.append("id_project_tasks",v.id_project);
 			axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
 				if(response.status = 200){
-					v.steps.push({title_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.id_project})
+					v.steps.push({title_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.id_project});
+					v.newCard.max = v.newCard.max + 1;
+					v.dialog_add_card = false;
 				}else{
 
 				}
@@ -337,8 +331,9 @@ var v = new Vue({
 			formData.append("id_card_task",this.id_card);
 			axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
 				if(response.status = 200){
-					const index = v.steps.indexOf(item)
-					confirm('Are you sure you want to delete this item?') && v.steps.splice(index, 1)
+					const index = v.steps.indexOf(item);
+					confirm('Are you sure you want to delete this item?') && v.steps.splice(index, 1);
+					v.newCard.max = v.newCard.max - 1
 				}else{
 
 				}
@@ -349,9 +344,18 @@ var v = new Vue({
 			formData.append("id_project_tasks",this.id_project);
 			formData.append("id_card_tasks",this.id_card);
 			formData.append("id_task",item.id_task);
-			formData.append("check_tasks",(item.check_tasks==true?1:0));
+			formData.append("check_tasks",item.check_tasks);
 			axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
 				if(response.status = 200){
+					// item.check_tasks = (item.check_tasks=1?true:false);
+					if (item.check_tasks == 1) {
+						v.valueDeterminate = v.f_isNaN((v.check_tasks_complete+1)/v.list_tasks.length*100)
+						v.check_tasks_complete++
+					} else {
+						v.valueDeterminate = v.f_isNaN((v.check_tasks_complete-1)/v.list_tasks.length*100)
+						v.check_tasks_complete--
+					}
+					
 					/*v.steps = response.data.card_tasks.name_tasks_status
 					Object.assign(v.steps[v.steps.indexOf(item)], v.editedItem)*/
 				}else{
@@ -387,6 +391,13 @@ var v = new Vue({
 				}
 			})
 		},
+		f_isNaN(val) {
+			if (isNaN(val)) {
+				return 0;
+			} else {
+				return val;
+			}
+		}
     }
 })
 

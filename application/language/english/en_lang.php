@@ -153,3 +153,7 @@ $lang['remaining_time'] = "Remaining time :";
 /*    Documentation    */
 /***********************/
 $lang['notice'] = "Notice";
+/***********************/
+/*    Group Members    */
+/***********************/
+$lang['group_members'] = "Group Members";

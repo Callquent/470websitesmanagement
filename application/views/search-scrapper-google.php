@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div id="results">
-                                        <div class="alert alert-success alert-block" v-show="message.success"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span> est indexer sur ce mot clé "<span class="message-keyword" v-for="position in positions">{{ position }}</span>" à la position</h4></div>
+                                        <div class="alert alert-success alert-block" v-show="message.success"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span> est indexer sur ce mot clé "<span class="message-keyword" v-for="(position, index) in positions">{{ position }}<span v-if="index != (positions.length - 1)">, </span></span>" à la position</h4></div>
                                         <div class="alert alert-danger alert-block" v-show="message.error"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
                                     </div>
                                     <form @submit.prevent="SerpSearchGoogle" class="form-horizontal" id="form-search-scrapper-google">
@@ -27,8 +27,13 @@
                                             <label for="keyword">Keyword</label>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="website" id="autocomplete" v-model="searchGoogle.url_website">
-                                            <label for="url-website">Url Website</label>
+                                            <v-autocomplete
+                                                v-model="searchGoogle.url_website"
+                                                :items="list_website"
+                                                label="Select"
+                                                item-text="url_website"
+                                                item-value="url_website">
+                                            </v-autocomplete>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
@@ -128,6 +133,7 @@ var v = new Vue({
             { text: '<?php echo lang("meta_description"); ?>', value: 'meta_description'},
         ],
         list_serp_search_google: [],
+        list_website:  <?php echo json_encode($all_websites->result_array()); ?>,
     },
     created(){
         this.displayPage();
@@ -154,12 +160,5 @@ var v = new Vue({
         },
     }
 })
-    var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
-
-    $('#autocomplete').autocomplete({
-        lookup: autocomplete_website,
-        onSelect: function (suggestion) {
-        }
-    });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

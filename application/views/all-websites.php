@@ -15,6 +15,112 @@
 					  <header class="card-header">
 						  <?php echo lang('websites_management'); ?>
 					  </header>
+
+					<v-card>
+						<template>
+								<v-data-table
+									:headers="headers"
+									:items="list_website"
+									class="elevation-1"
+									:rows-per-page-items="[10,20,50,100]"
+								>
+									<template slot="items" slot-scope="props">
+										<td>
+											<v-edit-dialog
+												class="text-xs-right"
+												@open="props.item._name_website = props.item.name_website"
+												@save="f_editWebsite(props.item)"
+												@cancel="props.item.name_website = props.item._name_website || props.item.name_website"
+												large
+												lazy
+											  >{{ props.item.name_website }}
+												<v-text-field
+													slot="input"
+													label="Edit"
+													v-model="props.item.name_website"
+													single-line
+													counter
+													autofocus
+												></v-text-field>
+											</v-edit-dialog>
+										</td>
+										<td v-html="props.item.url_website">
+											<a :href="'http://'+props.item.url_website">
+												<v-edit-dialog
+													class="text-xs-right"
+													@open="props.item._url_website = props.item.url_website"
+													@save="f_editWebsite(props.item)"
+													@cancel="props.item.url_website = props.item._url_website || props.item.url_website"
+													large
+													lazy
+												  >{{ props.item.url_website }}
+													<v-text-field
+														slot="input"
+														label="Edit"
+														v-model="props.item.url_website"
+														single-line
+														counter
+														autofocus
+													></v-text-field>
+											</v-edit-dialog>
+											</a>
+										</td>
+										<td>{{ props.item.address_ip }}</td>
+										<td>
+											<v-edit-dialog
+												class="text-xs-right"
+												@open="props.item._name_category = props.item.name_category"
+												@save="f_editWebsite(props.item)"
+												@cancel="props.item.name_category = props.item._name_category || props.item.name_category"
+												large
+												lazy
+											  >{{ props.item.name_category }}
+												<v-text-field
+													slot="input"
+													label="Edit"
+													v-model="props.item.name_category"
+													single-line
+													counter
+													autofocus
+												></v-text-field>
+											</v-edit-dialog>
+										</td>
+										<td>
+											<v-edit-dialog
+												class="text-xs-right"
+												@open="props.item._name_language = props.item.name_language"
+												@save="f_editWebsite(props.item)"
+												@cancel="props.item.name_language = props.item._name_language || props.item.name_language"
+												large
+												lazy
+											  >{{ props.item.name_language }}
+												<v-text-field
+													slot="input"
+													label="Edit"
+													v-model="props.item.name_language"
+													single-line
+													counter
+													autofocus
+												></v-text-field>
+											</v-edit-dialog>
+										</td>
+										<td><i class="icon icon-eye"></i></td>
+										<td class="text-xs-left">
+											<div class="dropdown show actions">
+												<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+													<i class="icon icon-dots-vertical"></i>
+												</a>
+												<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+													<a class="dropdown-item" id="delete-dashboard" @click="dialogLanguage(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
+												</div>
+											</div>
+										</td>
+									</template>
+								</v-data-table>
+						</template>
+					</v-card>
+
+
 					  <div class="card-body">
 						  <div class="row">
 							  <div class="col-sm-12">
@@ -27,8 +133,8 @@
 									<th class="all"><?php echo lang('name'); ?></th>
 									<th class="desktop"><?php echo lang('website'); ?></th>
 									<th class="desktop"><?php echo lang('address_ip'); ?></th>
-									<th class="desktop"><?php echo lang('categories'); ?></th>
-									<th class="desktop"><?php echo lang('languages'); ?></th>
+									<th class="desktop"><?php echo lang('name_category'); ?></th>
+									<th class="desktop"><?php echo lang('name_language'); ?></th>
 									<th class="desktop"><?php echo lang('access_ftp'); ?></th>
 									<th class="desktop"><?php echo lang('access_sql'); ?></th>
 									<th class="desktop"><?php echo lang('access_backoffice'); ?></th>
@@ -222,6 +328,45 @@
 	  </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+var v = new Vue({
+    el: '#app',
+    data : {
+        currentRoute: window.location.href,
+        headers: [
+        	{ text: '<?php echo lang("name"); ?>', value: 'name'},
+            { text: '<?php echo lang("website"); ?>', value: 'website'},
+            { text: '<?php echo lang("address_ip"); ?>', value: 'address_ip' },
+            { text: '<?php echo lang("categories"); ?>', value: 'categories'},
+            { text: '<?php echo lang("languages"); ?>', value: 'languages'},
+            { text: '<?php echo lang("access"); ?>', value: 'access'},
+            { text: '<?php echo lang("actions"); ?>', value: 'actions' },
+        ],
+        list_website:  <?php echo json_encode($websites); ?>,
+    },
+    created(){
+        this.displayPage();
+    },
+    methods:{
+        displayPage(){
+
+        },
+        f_editWebsite(item){
+			var formData = new FormData(); 
+			formData.append("id_website",item.id);
+			formData.append("name_website",item.name_website);
+			formData.append("url_website",item.url_website);
+			formData.append("id_category",item.id_category);
+			formData.append("id_language",item.id_language);
+			/*axios.post(this.currentRoute+"/edit-website/", formData).then(function(response){
+				console.log(response);
+			})*/
+		},
+    }
+})
+
+
+
+
 	var EditableTable = function () {
 
 		return {

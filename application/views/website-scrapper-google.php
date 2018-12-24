@@ -23,8 +23,13 @@
 									</div>
 									<form class="form-horizontal" id="form-website-scrapper-google" @submit.prevent="WebsiteSearchGoogle">
 										<div class="form-group">
-										  <input type="text" class="form-control" name="website" id="autocomplete" v-model="searchGoogle.url_website">
-										  <label for="url-website">Url Website</label>
+											<v-autocomplete
+                                                v-model="searchGoogle.url_website"
+                                                :items="list_website"
+                                                label="Select"
+                                                item-text="url_website"
+                                                item-value="url_website">
+                                            </v-autocomplete>
 										</div>
 										<div class="form-group">
 											<div class="col-lg-2">
@@ -127,6 +132,7 @@ var v = new Vue({
             { text: '<?php echo lang("meta_description"); ?>', value: 'meta_description'},
         ],
         list_website_search_google: [],
+        list_website:  <?php echo json_encode($all_websites->result_array()); ?>,
     },
     created(){
         this.displayPage();
@@ -147,12 +153,5 @@ var v = new Vue({
         },
     }
 })
-	var autocomplete_website = JSON.parse('<?php echo json_encode($website); ?>');
-
-	$('#autocomplete').autocomplete({
-		lookup: autocomplete_website,
-		onSelect: function (suggestion) {
-		}
-	});
 </script>
 <?php $this->load->view('include/footer.php'); ?>

@@ -130,7 +130,7 @@ var v = new Vue({
             { text: '<?php echo lang("category"); ?>', value: 'category' },
             { text: '<?php echo lang("actions"); ?>', value: 'actions'},
         ],
-        list_category: [],
+        list_category: <?php echo json_encode($all_categories->result_array()); ?>,
         list_delete_category: [],
         addCategory: {
             name: '',
@@ -180,6 +180,5 @@ var v = new Vue({
         },
     }
 })
-v.list_category = <?php echo json_encode($all_categories->result_array()); ?>;
 </script>
 <?php $this->load->view('include/footer.php'); ?>
