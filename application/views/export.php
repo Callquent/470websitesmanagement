@@ -47,7 +47,7 @@
                                                 <div class="col-md-9">
                                                     <select name="websites[]" class="multi-select" multiple="" id="my_multi_select3" >
                                                         <?php foreach ($all_websites->result() as $row) {  ?>
-                                                            <option value="<?php echo $row->w_id; ?>"><?php echo $row->url_website; ?></option>
+                                                            <option value="<?php echo $row->id_website; ?>"><?php echo $row->url_website; ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>

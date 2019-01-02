@@ -7,7 +7,7 @@ class Model_whois extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_whois')
-				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.w_id')
+				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.id_website')
 				 ->order_by('470websitesmanagement_whois.expiration_date', 'ASC');
 
 		$query = $this->db->get();
@@ -17,7 +17,7 @@ class Model_whois extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_whois')
-				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.w_id')
+				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.id_website')
 				 ->where('YEAR(470websitesmanagement_whois.expiration_date)',$year)
 				 ->where('MONTH(470websitesmanagement_whois.expiration_date)',$month)
 				 ->order_by('470websitesmanagement_whois.expiration_date', 'ASC');

@@ -270,7 +270,7 @@ var v = new Vue({
 					Object.assign(v.list_projects[v.editedIndexProject], v.Project)
 				})	
 			} else {
-				formData.append("id_website",v.Project.name_website.w_id);
+				formData.append("id_website",v.Project.name_website.id_website);
 				axios.post(v.currentRoute+"/create-project/", formData).then(function(response){
 					v.dialog_add_project = false;
 					//v.list_projects.push(v.editedItem)

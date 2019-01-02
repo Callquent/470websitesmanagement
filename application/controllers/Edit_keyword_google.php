@@ -45,19 +45,19 @@ class Edit_keyword_google extends CI_Controller {
 		foreach ($all_websites->result() as $row)
 		{
 			$list = array();
-			$list[] = $row->w_id;
+			$list[] = $row->id_website;
 			$list[] = $row->name_website;
 			$list[] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
 			$list[] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
 			$list[] = $row->title_category;
 			$list[] = $row->title_language;
-			$list[] = '<a class="access-ftp" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="'.$row->w_id.'">Access FTP</a>';
-			$list[] = '<a class="access-sql" href="javascript:void(0);" data-toggle="modal" data-target="#view-database" data-id="'.$row->w_id.'">Access SQL</a>';
-			$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->w_id.'">Access Back office</a>';
-			$list[] = '<a class="email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->w_id.'">Email</a>';
-			$list[] = '<a id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->w_id).'">Edit</a>';
-			$list[] = '<a id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->w_id).'">Delete</a>';
-			$list[] = '<a href="'.site_url('ftp-websites/'.$row->w_id).'">Connect FTP</a>';
+			$list[] = '<a class="access-ftp" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="'.$row->id_website.'">Access FTP</a>';
+			$list[] = '<a class="access-sql" href="javascript:void(0);" data-toggle="modal" data-target="#view-database" data-id="'.$row->id_website.'">Access SQL</a>';
+			$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->id_website.'">Access Back office</a>';
+			$list[] = '<a class="email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->id_website.'">Email</a>';
+			$list[] = '<a id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->id_website).'">Edit</a>';
+			$list[] = '<a id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->id_website).'">Delete</a>';
+			$list[] = '<a href="'.site_url('ftp-websites/'.$row->id_website).'">Connect FTP</a>';
 
 			$data[] = $list;
 		}

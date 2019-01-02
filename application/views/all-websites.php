@@ -27,7 +27,6 @@
 									<template slot="items" slot-scope="props">
 										<td>
 											<v-edit-dialog
-												class="text-xs-right"
 												@open="props.item._name_website = props.item.name_website"
 												@save="f_editWebsite(props.item)"
 												@cancel="props.item.name_website = props.item._name_website || props.item.name_website"
@@ -44,16 +43,13 @@
 												></v-text-field>
 											</v-edit-dialog>
 										</td>
-										<td v-html="props.item.url_website">
-											<a :href="'http://'+props.item.url_website">
-												<v-edit-dialog
-													class="text-xs-right"
-													@open="props.item._url_website = props.item.url_website"
-													@save="f_editWebsite(props.item)"
-													@cancel="props.item.url_website = props.item._url_website || props.item.url_website"
-													large
-													lazy
-												  >{{ props.item.url_website }}
+										<td>
+											<v-edit-dialog
+												@open="props.item._url_website = props.item.url_website"
+												@save="f_editWebsite(props.item)"
+												@cancel="props.item.url_website = props.item._url_website || props.item.url_website"
+												large
+												lazy>{{ props.item.url_website }}
 													<v-text-field
 														slot="input"
 														label="Edit"
@@ -63,48 +59,52 @@
 														autofocus
 													></v-text-field>
 											</v-edit-dialog>
-											</a>
 										</td>
 										<td>{{ props.item.address_ip }}</td>
 										<td>
 											<v-edit-dialog
-												class="text-xs-right"
 												@open="props.item._name_category = props.item.name_category"
 												@save="f_editWebsite(props.item)"
 												@cancel="props.item.name_category = props.item._name_category || props.item.name_category"
 												large
 												lazy
 											  >{{ props.item.name_category }}
-												<v-text-field
-													slot="input"
-													label="Edit"
-													v-model="props.item.name_category"
-													single-line
-													counter
-													autofocus
-												></v-text-field>
+												<v-select
+												v-model="props.item.id_category"
+												slot="input"
+												label="Choose category"
+												single-line
+												autofocus
+												:items="list_category"
+												item-text="title_category"
+												item-value="id_category">
+												</v-select>
 											</v-edit-dialog>
 										</td>
 										<td>
 											<v-edit-dialog
-												class="text-xs-right"
 												@open="props.item._name_language = props.item.name_language"
 												@save="f_editWebsite(props.item)"
 												@cancel="props.item.name_language = props.item._name_language || props.item.name_language"
 												large
 												lazy
 											  >{{ props.item.name_language }}
-												<v-text-field
-													slot="input"
-													label="Edit"
-													v-model="props.item.name_language"
-													single-line
-													counter
-													autofocus
-												></v-text-field>
+												<v-select
+												v-model="props.item.id_language"
+												slot="input"
+												label="Choose language"
+												single-line
+												autofocus
+												:items="list_language"
+												item-text="title_language"
+												item-value="id_language">
+												</v-select>
 											</v-edit-dialog>
 										</td>
-										<td><i class="icon icon-eye"></i></td>
+										<td>
+											<a :href="'http://'+props.item.url_website" target="_blank"><i class="icon-link-variant"></i></a>
+											<a @click="f_opendialog_Access(props.item)"><i class="icon icon-eye"></i></a>
+										</td>
 										<td class="text-xs-left">
 											<div class="dropdown show actions">
 												<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
@@ -326,22 +326,161 @@
 		  </div>
 		</div>
 	  </div>
+
+<v-dialog v-model="dialog_access" width="800">
+	<v-card>
+        <v-card-title
+          class="headline green lighten-2"
+          primary-title
+        >
+          Ajouter une tâche
+        </v-card-title>
+
+        <v-card-text>
+			<v-container grid-list-md>
+
+				<v-layout wrap>
+					<v-flex xs12>
+						<v-data-table :headers="headers_ftp" :items="list_ftp">
+							<template slot="items" slot-scope="props">
+								<td>{{ props.item.host_ftp }}</td>
+								<td>{{ props.item.login_ftp }}</td>
+								<td>{{ props.item.password_ftp }}</td>
+								<td>
+									<div class="dropdown show actions">
+										<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+											<i class="icon icon-dots-vertical"></i>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
+											<a class="dropdown-item" id="delete-task" @click="deleteTask(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
+										</div>
+									</div>
+								</td>
+							</template>
+						</v-data-table>
+					</v-flex>
+					<v-flex xs12>
+						<v-data-table :headers="headers_ftp" :items="list_database">
+							<template slot="items" slot-scope="props">
+								<td>{{ props.item.host_ftp }}</td>
+								<td>{{ props.item.login_ftp }}</td>
+								<!-- <td>{{ props.item.password_ftp }}</td> -->
+								<td>ezf</td>
+								<td>
+									<div class="dropdown show actions">
+										<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+											<i class="icon icon-dots-vertical"></i>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
+											<a class="dropdown-item" id="delete-task" @click="deleteTask(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
+										</div>
+									</div>
+								</td>
+							</template>
+						</v-data-table>
+					</v-flex>
+					<v-flex xs12>
+						<v-data-table :headers="headers_ftp" :items="list_backoffice">
+							<template slot="items" slot-scope="props">
+								<td>{{ props.item.host_ftp }}</td>
+								<td>{{ props.item.login_ftp }}</td>
+								<!-- <td>{{ props.item.password_ftp }}</td> -->
+								<td>ezf</td>
+								<td>
+									<div class="dropdown show actions">
+										<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+											<i class="icon icon-dots-vertical"></i>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
+											<a class="dropdown-item" id="delete-task" @click="deleteTask(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
+										</div>
+									</div>
+								</td>
+							</template>
+						</v-data-table>
+					</v-flex>
+					<v-flex xs12>
+						<v-data-table :headers="headers_ftp" :items="list_htaccess">
+							<template slot="items" slot-scope="props">
+								<td>{{ props.item.host_ftp }}</td>
+								<td>{{ props.item.login_ftp }}</td>
+								<td>{{ props.item.password_ftp }}</td>
+								<td>
+									<div class="dropdown show actions">
+										<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+											<i class="icon icon-dots-vertical"></i>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
+											<a class="dropdown-item" id="delete-task" @click="deleteTask(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
+										</div>
+									</div>
+								</td>
+							</template>
+						</v-data-table>
+					</v-flex>
+				</v-layout>
+			</v-container>
+			<small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        	<v-btn color="blue darken-1" flat @click="f_createCard()">Save</v-btn>
+        	<v-btn color="blue darken-1" flat @click="dialog_access = false">Close</v-btn>
+        </v-card-actions>
+	</v-card>
+</v-dialog>
+
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 var v = new Vue({
     el: '#app',
     data : {
+    	dialog_access: false,
         currentRoute: window.location.href,
-        headers: [
-        	{ text: '<?php echo lang("name"); ?>', value: 'name'},
-            { text: '<?php echo lang("website"); ?>', value: 'website'},
-            { text: '<?php echo lang("address_ip"); ?>', value: 'address_ip' },
-            { text: '<?php echo lang("categories"); ?>', value: 'categories'},
-            { text: '<?php echo lang("languages"); ?>', value: 'languages'},
-            { text: '<?php echo lang("access"); ?>', value: 'access'},
-            { text: '<?php echo lang("actions"); ?>', value: 'actions' },
-        ],
-        list_website:  <?php echo json_encode($websites); ?>,
+		headers: [
+			{ text: '<?php echo lang("name"); ?>', value: 'name'},
+			{ text: '<?php echo lang("website"); ?>', value: 'website'},
+			{ text: '<?php echo lang("address_ip"); ?>', value: 'address_ip' },
+			{ text: '<?php echo lang("categories"); ?>', value: 'categories'},
+			{ text: '<?php echo lang("languages"); ?>', value: 'languages'},
+			{ text: '<?php echo lang("access"); ?>', value: 'access'},
+			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+		],
+		headers_ftp: [
+			{ text: '<?php echo lang("host_ftp"); ?>', value: 'host_ftp'},
+			{ text: '<?php echo lang("login_ftp"); ?>', value: 'login_ftp'},
+			{ text: '<?php echo lang("password_ftp"); ?>', value: 'password_ftp'},
+			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+		],
+		headers_database: [
+			{ text: '<?php echo lang("host_sql"); ?>', value: 'host_sql'},
+			{ text: '<?php echo lang("name_sql"); ?>', value: 'name_sql'},
+			{ text: '<?php echo lang("login_sql"); ?>', value: 'login_sql'},
+			{ text: '<?php echo lang("password_sql"); ?>', value: 'password_sql'},
+			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+		],
+		headers_backoffice: [
+			{ text: '<?php echo lang("host_backoffice"); ?>', value: 'host_backoffice'},
+			{ text: '<?php echo lang("login_backoffice"); ?>', value: 'login_backoffice'},
+			{ text: '<?php echo lang("password_backoffice"); ?>', value: 'password_backoffice'},
+			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+		],
+		headers_htaccess: [
+			{ text: '<?php echo lang("login_htaccess"); ?>', value: 'login_htaccess'},
+			{ text: '<?php echo lang("password_htaccess"); ?>', value: 'password_htaccess'},
+			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+		],
+        list_website: <?php echo json_encode($websites); ?>,
+        list_category: <?php echo json_encode($all_categories->result_array()); ?>,
+        list_language: <?php echo json_encode($all_languages->result_array()); ?>,
+        list_ftp:  [],
+        list_database:  [],
+        list_backoffice:  [],
+        list_htaccess:  [],
     },
     created(){
         this.displayPage();
@@ -357,9 +496,26 @@ var v = new Vue({
 			formData.append("url_website",item.url_website);
 			formData.append("id_category",item.id_category);
 			formData.append("id_language",item.id_language);
-			/*axios.post(this.currentRoute+"/edit-website/", formData).then(function(response){
+			axios.post(this.currentRoute+"/edit-website/", formData).then(function(response){
 				console.log(response);
-			})*/
+			})
+		},
+		f_opendialog_Access(item){
+			
+			var formData = new FormData();
+			formData.append("id_website",item.id);
+			axios.post(this.currentRoute+"/view-access-website/", formData).then(function(response){
+				if(response.status = 200){
+					console.log(response);
+					v.list_ftp = response.data.ftp;
+					v.list_database = response.data.databas;
+					v.list_backoffice = response.data.backoffice;
+					v.list_htaccess = response.data.htaccess;
+				}else{
+
+				}
+			})
+			v.dialog_access = true;
 		},
     }
 })

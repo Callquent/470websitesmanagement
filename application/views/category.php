@@ -100,11 +100,11 @@
              <v-flex xs12 sm6>
                 <v-select
                 	v-model="deleteCategory.id_move_category"
-					:items="list_delete_category"
-					label="Choose category"
-					item-text="title_category"
-					item-value="id_category"
-					required
+        					:items="list_delete_category"
+        					label="Choose category"
+        					item-text="title_category"
+        					item-value="id_category"
+        					required
                 ></v-select>
               </v-flex>
             </v-layout>

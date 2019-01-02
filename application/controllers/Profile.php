@@ -20,7 +20,7 @@ class Profile extends CI_Controller {
 		$this->session->set_userdata($sesslanguage);
 		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
-	public function index($w_id = '')
+	public function index()
 	{
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();

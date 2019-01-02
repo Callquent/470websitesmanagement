@@ -7,7 +7,7 @@ class Model_tasks extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_tasks__project')
-				 ->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.w_id');
+				 ->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.id_website');
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
@@ -102,7 +102,7 @@ class Model_tasks extends CI_Model {
 		$this->db->select('470websitesmanagement_tasks__project.id_project_tasks, 470websitesmanagement_tasks__project.name_project_tasks, name_website, started_project_tasks, deadline_project_tasks')
 				 ->from('470websitesmanagement_tasks__project')
 				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
-				 ->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.w_id')
+				 ->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.id_website')
 				 ->where('470websitesmanagement_tasks.id_user', $id_user)
 				 ->group_by(array('470websitesmanagement_tasks__project.id_project_tasks', '470websitesmanagement_tasks__project.name_project_tasks'));
 
@@ -167,7 +167,7 @@ class Model_tasks extends CI_Model {
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_tasks__project')
-				->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.w_id')
+				->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.id_website')
 				->where('id_project_tasks', $id_project_tasks)
 				->limit(1);
 
