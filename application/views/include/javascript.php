@@ -36,7 +36,6 @@
 			<?php echo js_url('plugins/data-tables/datatables.bootstrap.min.js'); ?>
 			<?php echo js_url('plugins/data-tables/datatables.responsive.min.js'); ?>
 			<?php echo js_url('plugins/data-tables/dataTables.tableTools.js'); ?>
-			<?php echo js_url('plugins/table-editable.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='whois-domain') { ?>
 			<?php echo js_url('plugins/fullcalendar/fullcalendar.min.js'); ?>
@@ -78,14 +77,6 @@
 			<?php echo js_url('plugins/app-seo.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='settings') { ?>
-			<?php echo js_url('plugins/data-tables/datatables.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/dataTables.buttons.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.flash.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.html5.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.print.js'); ?>
-			<?php echo js_url('plugins/data-tables/datatables.bootstrap.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/datatables.responsive.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/dataTables.tableTools.js'); ?>
 			<?php echo js_url('plugins/bootstrap-fileupload/bootstrap-fileupload.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='documentation') { ?>

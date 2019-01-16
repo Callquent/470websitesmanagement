@@ -149,7 +149,7 @@ class Model_front extends CI_Model {
 				->join('470websitesmanagement_website__backoffice', '470websitesmanagement_website__backoffice.id_website = 470websitesmanagement_website.id_website')
 				->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
 				->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
-				->where('id_website', $id)
+				->where('470websitesmanagement_website.id_website', $id)
 				->limit(1);
 
 		$query = $this->db->get();

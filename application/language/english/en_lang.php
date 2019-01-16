@@ -99,6 +99,7 @@ $lang['website'] = "Website";
 $lang['address_ip'] = "Address IP";
 $lang['categories'] = "Categories";
 $lang['languages'] = "Languages";
+$lang['access'] = "Access";
 $lang['access_ftp'] = "Access FTP";
 $lang['access_sql'] = "Access SQL";
 $lang['access_backoffice'] = "Access Backoffice";

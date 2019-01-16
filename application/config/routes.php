@@ -50,10 +50,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'index';
-$route['ftp-websites/(:num)'] = 'ftp-websites/index/$1';
+$route['all-websites/(:num)'] = 'all-websites/index/$1';
 $route['all-websites/language/(:any)'] = 'all-websites/index/language/$1';
 $route['all-websites/category/(:any)'] = 'all-websites/index/category/$1';
-$route['website-scrapper-google/(:num)'] = 'website-scrapper-google/index/$1';
+$route['ftp-websites/(:num)'] = 'ftp-websites/index/$1';
 $route['all-projects/(:num)'] = 'all-projects/index/$1';
 $route['my-tasks/(:num)'] = 'my-tasks/index/$1';
 $route['404_override'] = '';

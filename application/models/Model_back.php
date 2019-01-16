@@ -15,14 +15,25 @@ class Model_back extends CI_Model {
 		$this->db->insert('470websitesmanagement_website', $data);
 		return $this->db->insert_id();
 	}
-
-	function create_database_websites($w_id_info, $w_host_db, $w_name_db, $w_login_db, $w_password_db)
+	function create_ftp_website($w_id_info, $w_host_ftp, $w_login_ftp, $w_password_ftp)
 	{
-		$this->db->select_max('id_database');
+		$this->db->where('id_website', $w_id_info); 
+		$query = $this->db->get('470websitesmanagement_website__ftp');
+		$data = array(
+			'id_website'		=> $w_id_info,
+			'host_ftp'			=> $w_host_ftp,
+			'login_ftp'			=> $w_login_ftp,
+			'password_ftp'		=> $w_password_ftp,
+		);
+
+		$this->db->insert('470websitesmanagement_website__ftp', $data);
+		return $this->db->insert_id();
+	}
+	function create_database_website($w_id_info, $w_host_db, $w_name_db, $w_login_db, $w_password_db)
+	{
 		$this->db->where('id_website', $w_id_info); 
 		$query = $this->db->get('470websitesmanagement_website__database');
 		$data = array(
-			'id_database'			=> $query->row()->id_database+1,
 			'id_website'			=> $w_id_info,
 			'host_database'			=> $w_host_db,
 			'name_database'			=> $w_name_db,
@@ -33,29 +44,11 @@ class Model_back extends CI_Model {
 		$this->db->insert('470websitesmanagement_website__database', $data);
 		return $this->db->insert_id();
 	}
-	function create_ftp_websites($w_id_info, $w_host_ftp, $w_login_ftp, $w_password_ftp)
+	function create_backoffice_website($w_id_info, $w_host_bo, $w_login_bo, $w_password_bo)
 	{
-		$this->db->select_max('id_ftp');
-		$this->db->where('id_website', $w_id_info); 
-		$query = $this->db->get('470websitesmanagement_website__ftp');
-		$data = array(
-			'id_ftp'			=> $query->row()->id_ftp+1,
-			'id_website'		=> $w_id_info,
-			'host_ftp'			=> $w_host_ftp,
-			'login_ftp'			=> $w_login_ftp,
-			'password_ftp'		=> $w_password_ftp,
-		);
-
-		$this->db->insert('470websitesmanagement_website__ftp', $data);
-		return $this->db->insert_id();
-	}
-	function create_backoffice_websites($w_id_info, $w_host_bo, $w_login_bo, $w_password_bo)
-	{
-		$this->db->select_max('id_backoffice');
 		$this->db->where('id_website', $w_id_info); 
 		$query = $this->db->get('470websitesmanagement_website__backoffice');
 		$data = array(
-			'id_backoffice'			=> $query->row()->id_backoffice+1,
 			'id_website'			=> $w_id_info,
 			'host_backoffice'		=> $w_host_bo,
 			'login_backoffice'		=> $w_login_bo,
@@ -64,13 +57,11 @@ class Model_back extends CI_Model {
 		$this->db->insert('470websitesmanagement_website__backoffice', $data);
 		return $this->db->insert_id();
 	}
-	function create_htaccess_websites($w_id_info, $w_login_htaccess, $w_password_htaccess)
+	function create_htaccess_website($w_id_info, $w_login_htaccess, $w_password_htaccess)
 	{
-		$this->db->select_max('id_htaccess');
 		$this->db->where('id_website', $w_id_info); 
 		$query = $this->db->get('470websitesmanagement_website__htaccess');
 		$data = array(
-			'id_htaccess'			=> $query->row()->id_htaccess+1,
 			'id_website'			=> $w_id_info,
 			'login_htaccess'		=> $w_login_htaccess,
 			'password_htaccess'		=> $w_password_htaccess,
@@ -141,13 +132,9 @@ class Model_back extends CI_Model {
 	}
 	function delete_website($id)
 	{
-		/*$tables = array('470websitesmanagement_website__backoffice', '470websitesmanagement_website__database', '470websitesmanagement_website__ftp');
-		$this->db->where('id_website', $id)->delete($tables);*/
-		$this->db->where('id_website', $id)->delete('470websitesmanagement_website__backoffice');
-		$this->db->where('id_website', $id)->delete('470websitesmanagement_website__database');
-		$this->db->where('id_website', $id)->delete('470websitesmanagement_website__ftp');
-		$this->db->where('id_website', $id)->delete('470websitesmanagement_website__htaccess');
-		$this->db->where('id_website', $id)->delete('470websitesmanagement_website');
+		$tables = array('470websitesmanagement_website', '470websitesmanagement_website__ftp', '470websitesmanagement_website__database', '470websitesmanagement_website__backoffice', '470websitesmanagement_website__htaccess');
+		$this->db->where('id_website', $id)->delete($tables);
+		//$this->db->where('id_website', $id)->delete('470websitesmanagement_website');
 	}
 	function export_website($websites = "")
 	{

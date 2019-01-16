@@ -111,6 +111,7 @@ $lang['website'] = "Site Web";
 $lang['address_ip'] = "Adresse IP";
 $lang['categories'] = "Catégories";
 $lang['languages'] = "Langages";
+$lang['access'] = "Acces";
 $lang['access_ftp'] = "Acces FTP";
 $lang['access_sql'] = "Acces SQL";
 $lang['access_htaccess'] = "Acces Htaccess";

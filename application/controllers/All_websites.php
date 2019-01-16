@@ -28,7 +28,7 @@ class All_websites extends CI_Controller {
 
 		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
-	public function index()
+	public function index($id_website = "")
 	{
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
@@ -44,214 +44,120 @@ class All_websites extends CI_Controller {
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		foreach ($data['all_websites']->result() as $key => $row)
-		{
-			
-			$list = array();
-			$list['id'] = $row->id_website;
-			$list['name_website'] = $row->name_website;
-			$list['url_website'] = $row->url_website;
-			$list['address_ip'] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
-			$list['name_category'] = $row->title_category;
-			$list['id_category'] = $row->id_category;
-			$list['name_language'] = $row->title_language;
-			$list['id_language'] = $row->id_language;
-			$list['actions'] = '<div class="dropdown show actions">
-							<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-								<i class="icon icon-dots-vertical"></i>
-							</a>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->id_website.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->id_website).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-								<a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->id_website).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-							</div>
-						</div>';
 
-			$data['websites'][] = $list;
+		if($this->uri->total_segments() == 1){
+
+			foreach ($data['all_websites']->result() as $key => $row)
+			{
+				
+				$list = array();
+				$list['id'] = $row->id_website;
+				$list['name_website'] = $row->name_website;
+				$list['url_website'] = $row->url_website;
+				$list['address_ip'] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
+				$list['name_category'] = $row->title_category;
+				$list['id_category'] = $row->id_category;
+				$list['name_language'] = $row->title_language;
+				$list['id_language'] = $row->id_language;
+				$list['actions'] = '<div class="dropdown show actions">
+								<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+									<i class="icon icon-dots-vertical"></i>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->id_website.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->id_website).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
+									<a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->id_website).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
+								</div>
+							</div>';
+
+				$data['websites'][] = $list;
+			}
+
+			$this->load->view('all-websites', $data);
+
+		} elseif($this->uri->total_segments() == 2) {
+			$data['website'] = $this->model_front->get_website($id_website);
+
+			$website_ftp = $this->model_front->get_website_per_ftp($id_website);
+			foreach ($website_ftp->result() as $key => $row)
+			{
+				$list = array();
+				$list['id_ftp'] = $row->id_ftp;
+				$list['host_ftp'] = $this->encryption->decrypt($row->host_ftp);
+				$list['login_ftp'] = $this->encryption->decrypt($row->login_ftp);
+				$list['password_ftp'] = $this->encryption->decrypt($row->password_ftp);
+
+				$ftp[] = $list;
+			}
+			$data['ftp'] = $ftp;
+
+			$website_database = $this->model_front->get_website_per_database($id_website);
+			foreach ($website_database->result() as $key => $row)
+			{
+				$list = array();
+				$list['id_database'] = $row->id_database;
+				$list['host_database'] = $this->encryption->decrypt($row->host_database);
+				$list['name_database'] = $this->encryption->decrypt($row->name_database);
+				$list['login_database'] = $this->encryption->decrypt($row->login_database);
+				$list['password_database'] = $this->encryption->decrypt($row->password_database);
+
+				$database[] = $list;
+			}
+			$data['database'] = $database;
+
+			$website_backoffice = $this->model_front->get_website_per_backoffice($id_website);
+			foreach ($website_backoffice->result() as $key => $row)
+			{
+				$list = array();
+				$list['id_backoffice'] = $row->id_backoffice;
+				$list['host_backoffice'] = $this->encryption->decrypt($row->host_backoffice);
+				$list['login_backoffice'] = $this->encryption->decrypt($row->login_backoffice);
+				$list['password_backoffice'] = $this->encryption->decrypt($row->password_backoffice);
+
+				$backoffice[] = $list;
+			}
+			$data['backoffice'] = $backoffice;
+
+			$website_htaccess = $this->model_front->get_website_per_htaccess($id_website);
+			foreach ($website_htaccess->result() as $key => $row)
+			{
+				$list = array();
+				$list['id_htaccess'] = $row->id_htaccess;
+				$list['login_htaccess'] = $this->encryption->decrypt($row->login_htaccess);
+				$list['password_htaccess'] = $this->encryption->decrypt($row->password_htaccess);
+
+				$htaccess[] = $list;
+			}
+			$data['htaccess'] = $htaccess;
+
+			$this->load->view('view-details-website', $data);
 		}
-
-		$this->load->view('all-websites', $data);
 	}
-	public function ajaxDashboard($website_group = '', $website_group_name = '')
+	public function delete_website()
 	{
-		if ($website_group == "category") {
-			$all_websites = $this->model_front->get_all_websites_per_category($website_group_name);
-		} elseif ($website_group == "language") {
-			$all_websites = $this->model_front->get_all_websites_per_language($website_group_name);
-		} else {
-			$all_websites = $this->model_front->get_all_websites();
-		}
+		$id_website		= $this->input->post('id_website');
 		
-		$count_websites = $this->model_front->count_all_websites_per_page();
-		$data = array();
-		foreach ($all_websites->result() as $row)
-		{
-			$list = array();
-			$list[] = $row->name_website;
-			$list[] = $row->url_website;
-			$list[] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
-			$list[] = $row->title_category;
-			$list[] = $row->title_language;
-			$list[] = '<a class="access-ftp" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="'.$row->id_website.'">Access FTP</a>';
-			$list[] = '<a class="access-sql" href="javascript:void(0);" data-toggle="modal" data-target="#view-database" data-id="'.$row->id_website.'">Access SQL</a>';
-			$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->id_website.'">Access Back office</a>';
-			$list[] = '<a class="access-htaccess" href="javascript:void(0);" data-toggle="modal" data-target="#view-htaccess" data-id="'.$row->id_website.'">Access Htaccess</a>';
-			$list[] = '<div class="dropdown show actions">
-							<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-								<i class="icon icon-dots-vertical"></i>
-							</a>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->id_website.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->id_website).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-								<a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->id_website).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-							</div>
-						</div>';
-
-			$data[] = $list;
+		// Si le site existe, on peut le supprimer
+		if ($this->model_front->get_website($id_website)->num_rows() == 1){
+			$this->model_back->delete_website($id_website);
 		}
-
-		$output = array("draw" => $_POST['draw'],
-						"recordsTotal" => $all_websites->num_rows(),
-						"recordsFiltered" => $count_websites->num_rows(),
-						"data" => $data);
-		echo json_encode($output);
 	}
-	public function view_access_website()
+	public function edit_website()
 	{
-		$id_website = $this->input->post('id_website');
+		$this->form_validation->set_rules('id_website', 'IdWebsite', 'trim|required');
+		$this->form_validation->set_rules('name_website', 'NameWebsite', 'trim|required');
 
-		$website_ftp = $this->model_front->get_website_per_ftp($id_website);
-		foreach ($website_ftp->result() as $key => $row)
-		{
-			
-			$list = array();
-			$list['host_ftp'] = $row->host_ftp;
-			$list['login_ftp'] = $row->login_ftp;
-			$list['password_ftp'] = $this->encryption->decrypt($row->password_ftp);
+		$id_website				= $this->input->post('id_website');
+		$name_website			= $this->input->post('name_website');
+		$url_website			= $this->input->post('url_website');
+		$id_language			= $this->input->post('id_language');
+		$id_category			= $this->input->post('id_category');
 
-			$website['ftp'][] = $list;
+		if ($this->form_validation->run() !== FALSE){
+			$this->model_back->update_website($id_website, $id_category, $id_language, $name_website, $url_website);
 		}
-		$website_database = $this->model_front->get_website_per_database($id_website);
-		foreach ($website_database->result() as $key => $row)
-		{
-			
-			$list = array();
-			$list['host_database'] = $row->host_database;
-			$list['name_database'] = $row->name_database;
-			$list['login_database'] = $row->login_database;
-			$list['password_database'] = $this->encryption->decrypt($row->password_database);
-
-			$website['database'][] = $list;
-		}
-		$website_backoffice = $this->model_front->get_website_per_backoffice($id_website);
-		foreach ($website_backoffice->result() as $key => $row)
-		{
-			
-			$list = array();
-			$list['host_backoffice'] = $row->host_backoffice;
-			$list['login_backoffice'] = $row->login_backoffice;
-			$list['password_backoffice'] = $this->encryption->decrypt($row->password_backoffice);
-
-			$website['backoffice'][] = $list;
-		}
-		$website_htaccess = $this->model_front->get_website_per_htaccess($id_website);
-		foreach ($website_htaccess->result() as $key => $row)
-		{
-			
-			$list = array();
-			$list['login_htaccess'] = $row->login_htaccess;
-			$list['password_htaccess'] = $this->encryption->decrypt($row->password_htaccess);
-
-			$website['htaccess'][] = $list;
-		}
-
-		$this->output->set_content_type('application/json')->set_output( json_encode($website)); 
-	}
-	public function modal_ftp_website($w_id_ftp = '')
-	{
-		$all_websites = $this->model_front->get_website_per_ftp($w_id_ftp);
-		$row = $all_websites->row($w_id_ftp);
-
-
-		$datatable = array(0 => $row->host_ftp,
-							1 => $row->login_ftp,
-							2 => $this->encryption->decrypt($row->password_ftp),
-							3 => '<div class="dropdown show actions">
-									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									  	<i class="icon icon-dots-vertical"></i>
-									  </a>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-ftp-website/'.$row->id_website.'/'.$row->id_ftp).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-									    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-									  </div>
-									</div>');
-
-		echo json_encode($datatable, JSON_FORCE_OBJECT);
-	}
-	public function modal_database_website($w_id_db = '')
-	{
-		$all_websites = $this->model_front->get_website_per_database($w_id_db);
-		$row = $all_websites->row($w_id_db);
-
-
-		$datatable = array(0 => $row->host_database,
-							1 => $row->name_database,
-							2 => $row->login_database,
-							3 => $this->encryption->decrypt($row->password_database),
-							4 => '<div class="dropdown show actions">
-									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									  	<i class="icon icon-dots-vertical"></i>
-									  </a>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-database-website/'.$row->id_website.'/'.$row->id_database).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-									    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-									  </div>
-									</div>');
-
-		echo json_encode($datatable, JSON_FORCE_OBJECT);
-	}
-	public function modal_backoffice_website($w_id_bo = '')
-	{
-		$all_websites = $this->model_front->get_website_per_backoffice($w_id_bo);
-		$row = $all_websites->row($w_id_bo);
-
-
-		$datatable = array(0 => $row->host_backoffice,
-							1 => $row->login_backoffice,
-							2 => $this->encryption->decrypt($row->password_backoffice),
-							3 => '<div class="dropdown show actions">
-									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									  	<i class="icon icon-dots-vertical"></i>
-									  </a>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-backoffice-website/'.$row->id_website.'/'.$row->id_backoffice).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-									    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-									  </div>
-									</div>');
-
-		echo json_encode($datatable, JSON_FORCE_OBJECT);
-	}
-	public function modal_htaccess_website($w_id_ht = '')
-	{
-		$all_websites = $this->model_front->get_website_per_htaccess($w_id_ht);
-		$row = $all_websites->row($w_id_ht);
-
-
-		$datatable = array(0 => $row->login_htaccess,
-							1 => $this->encryption->decrypt($row->password_htaccess),
-							2 => '<div class="dropdown show actions">
-									  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									  	<i class="icon icon-dots-vertical"></i>
-									  </a>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									    <a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-htaccess-website/'.$row->id_website.'/'.$row->id_htaccess).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-									    <a class="dropdown-item"  href="javascript:void(0);"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-									  </div>
-									</div>');
-
-		echo json_encode($datatable, JSON_FORCE_OBJECT);
+		echo "string";
 	}
 	public function contact()
 	{
@@ -307,73 +213,81 @@ class All_websites extends CI_Controller {
 			echo ("Merci ! Votre message a bien été envoyé");
 		}
 	}
-	public function loadCategories(){
-		$data['all_categories'] = $this->model_front->get_all_categories();
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output( json_encode($data['all_categories']->result()));
-	}
-	public function loadLanguages(){
-		$data['all_languages'] = $this->model_front->get_all_languages();
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output( json_encode($data['all_languages']->result()));
-	}
-	public function edit_website()
+	public function create_ftp_website()
 	{
-		$this->form_validation->set_rules('id_website', 'IdWebsite', 'trim|required');
-		$this->form_validation->set_rules('name_website', 'NameWebsite', 'trim|required');
+		$id_website	= $this->input->post('id_website');
+		$w_host_ftp	= $this->input->post('hote_ftp');
+		$w_login_ftp	= $this->input->post('login_ftp');
+		$w_password_ftp	= $this->input->post('password_ftp');
 
-		$id_website				= $this->input->post('id_website');
-		$name_website			= $this->input->post('name_website');
-		$url_website			= $this->input->post('url_website');
-		$id_language			= $this->input->post('id_language');
-		$id_category			= $this->input->post('id_category');
-
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_back->update_website($id_website, $id_category, $id_language, $name_website, $url_website);
-		}
-		echo "string";
+		$this->model_back->create_ftp_website($id_website, $this->encryption->encrypt($w_host_ftp), $this->encryption->encrypt($w_login_ftp), $this->encryption->encrypt($w_password_ftp));
 	}
-	public function edit_ftp_website($w_id = '',$w_id_ftp = '')
+	public function edit_ftp_website()
 	{
-		$w_host_ftp		= $this->input->post('hoteftp');
-		$w_login_ftp	= $this->input->post('loginftp');
-		$w_password_ftp	= $this->input->post('passwordftp');
+		$id_website		= $this->input->post('id_website');
+		$id_ftp			= $this->input->post('id_ftp');
+		$w_host_ftp		= $this->input->post('hote_ftp');
+		$w_login_ftp	= $this->input->post('login_ftp');
+		$w_password_ftp	= $this->input->post('password_ftp');
 
-		$this->model_back->update_ftp_websites($w_id_ftp, $w_id, $w_host_ftp, $w_login_ftp, $this->encryption->encrypt($w_password_ftp));
+		$this->model_back->update_ftp_websites($id_ftp, $id_website, $this->encryption->encrypt($w_host_ftp), $this->encryption->encrypt($w_login_ftp), $this->encryption->encrypt($w_password_ftp));
 	}
-	public function edit_database_website($w_id = '',$w_id_db = '')
+	public function create_database_website()
 	{
-		$w_host_db		= $this->input->post('hotedatabase');
-		$w_name_db		= $this->input->post('namedatabase');
-		$w_login_db		= $this->input->post('logindatabase');
-		$w_password_db	= $this->input->post('passworddatabase');
+		$id_website		= $this->input->post('id_website');
+		$w_host_db		= $this->input->post('hote_database');
+		$w_name_db		= $this->input->post('name_database');
+		$w_login_db		= $this->input->post('login_database');
+		$w_password_db	= $this->input->post('password_database');
 
-		$this->model_back->update_database_websites($w_id_db, $w_id, $w_host_db, $w_name_db, $w_login_db, $this->encryption->encrypt($w_password_db));
+		$this->model_back->create_database_website($id_website, $this->encryption->encrypt($w_host_db), $this->encryption->encrypt($w_name_db), $this->encryption->encrypt($w_login_db), $this->encryption->encrypt($w_password_db));
 	}
-	public function edit_backoffice_website($w_id = '',$w_id_bo = '')
+	public function edit_database_website()
 	{
-		$w_host_bo		= $this->input->post('hotebackoffice');
-		$w_login_bo		= $this->input->post('loginbackoffice');
-		$w_password_bo	= $this->input->post('passwordbackoffice');
+		$id_website		= $this->input->post('id_website');
+		$id_database	= $this->input->post('id_database');
+		$w_host_db		= $this->input->post('hote_database');
+		$w_name_db		= $this->input->post('name_database');
+		$w_login_db		= $this->input->post('login_database');
+		$w_password_db	= $this->input->post('password_database');
 
-		$this->model_back->update_backoffice_websites($w_id_bo, $w_id, $w_host_bo, $w_login_bo, $this->encryption->encrypt($w_password_bo));
+		$this->model_back->update_database_websites($id_database, $id_website, $this->encryption->encrypt($w_host_db), $this->encryption->encrypt($w_name_db), $this->encryption->encrypt($w_login_db), $this->encryption->encrypt($w_password_db));
 	}
-	public function edit_htaccess_website($w_id = '',$w_id_htaccess = '')
+	public function create_backoffice_website()
 	{
-		$w_login_htaccess		= $this->input->post('loginhtaccess');
-		$w_password_htaccess	= $this->input->post('passwordhtaccess');
+		$id_website	= $this->input->post('id_website');
+		$w_host_bo		= $this->input->post('hote_backoffice');
+		$w_login_bo		= $this->input->post('login_backoffice');
+		$w_password_bo	= $this->input->post('password_backoffice');
 
-		$this->model_back->update_htaccess_websites($w_id_htaccess, $w_id, $w_login_htaccess, $this->encryption->encrypt($w_password_htaccess));
+		$this->model_back->create_backoffice_website($id_website, $this->encryption->encrypt($w_host_bo), $this->encryption->encrypt($w_login_bo), $this->encryption->encrypt($w_password_bo));
 	}
-	public function delete_website($w_id = '')
+	public function edit_backoffice_website()
 	{
-		// Si le site existe, on peut le supprimer
-		if ($this->model_front->get_website($w_id)->num_rows() == 1){
-			$this->model_back->delete_website($w_id);
-		}
+		$id_website		= $this->input->post('id_website');
+		$id_backoffice	= $this->input->post('id_backoffice');
+		$w_host_bo		= $this->input->post('hote_backoffice');
+		$w_login_bo		= $this->input->post('login_backoffice');
+		$w_password_bo	= $this->input->post('password_backoffice');
+
+		$this->model_back->update_backoffice_websites($id_backoffice, $id_website, $this->encryption->encrypt($w_host_bo), $this->encryption->encrypt($w_login_bo), $this->encryption->encrypt($w_password_bo));
 	}
+	public function create_htaccess_website()
+	{
+		$id_website	= $this->input->post('id_website');
+		$w_login_htaccess		= $this->input->post('login_htaccess');
+		$w_password_htaccess	= $this->input->post('password_htaccess');
+
+		$this->model_back->create_htaccess_website($id_website, $this->encryption->encrypt($w_login_htaccess), $this->encryption->encrypt($w_password_htaccess));
+	}
+	public function edit_htaccess_website()
+	{
+		$id_website		= $this->input->post('id_website');
+		$id_htaccess	= $this->input->post('id_htaccess');
+		$w_login_htaccess		= $this->input->post('login_htaccess');
+		$w_password_htaccess	= $this->input->post('password_htaccess');
+
+		$this->model_back->update_htaccess_websites($id_htaccess, $id_website, $this->encryption->encrypt($w_login_htaccess), $this->encryption->encrypt($w_password_htaccess));
+	}
+
 }
