@@ -122,7 +122,7 @@
                     v-model="deleteLanguage.id_move_language"
                     :items="list_delete_language"
                     label="Choose language"
-                    item-text="title_language"
+                    item-text="name_language"
                     item-value="id_language"
                     required
                 ></v-select>

@@ -47,16 +47,16 @@
                                 <td>
                                 	<v-edit-dialog
 							            class="text-xs-right"
-							            @open="props.item._title_category = props.item.title_category"
+							            @open="props.item._name_category = props.item.name_category"
 							            @save="f_editCategory(props.item)"
-							            @cancel="props.item.title_category = props.item._title_category || props.item.title_category"
+							            @cancel="props.item.name_category = props.item._name_category || props.item.name_category"
 							            large
 							            lazy
-							          >{{ props.item.title_category }}
+							          >{{ props.item.name_category }}
 										<v-text-field
 											slot="input"
 											label="Edit"
-											v-model="props.item.title_category"
+											v-model="props.item.name_category"
 											single-line
 											counter
 											autofocus
@@ -102,7 +102,7 @@
                 	v-model="deleteCategory.id_move_category"
         					:items="list_delete_category"
         					label="Choose category"
-        					item-text="title_category"
+        					item-text="name_category"
         					item-value="id_category"
         					required
                 ></v-select>
@@ -158,7 +158,7 @@ var v = new Vue({
         f_editCategory(item){
             var formData = new FormData(); 
             formData.append("id_category",item.id_category);
-            formData.append("title_category",item.title_category);
+            formData.append("name_category",item.name_category);
             axios.post(this.currentRoute+"/edit-category/", formData).then(function(response){
                 
             })

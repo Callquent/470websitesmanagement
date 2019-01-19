@@ -329,15 +329,17 @@ var v = new Vue({
 			var formData = new FormData();
 			formData.append("id_project_tasks",this.id_project);
 			formData.append("id_card_task",this.id_card);
-			axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
-				if(response.status = 200){
-					const index = v.steps.indexOf(item);
-					confirm('Are you sure you want to delete this item?') && v.steps.splice(index, 1);
-					v.newCard.max = v.newCard.max - 1
-				}else{
+			if (confirm('Are you sure you want to delete this item?') == true) {
+				axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
+					if(response.status = 200){
+						const index = v.steps.indexOf(item);
+						v.steps.splice(index, 1);
+						v.newCard.max = v.newCard.max - 1
+					}else{
 
-				}
-			})
+					}
+				})
+			}
 		},
 		f_checkTask(item){
 			var formData = new FormData();
@@ -382,14 +384,16 @@ var v = new Vue({
 			formData.append("id_project_tasks",this.id_project);
 			formData.append("id_card_tasks",this.id_card);
 			formData.append("id_task",item.id_task);
-			axios.post(this.currentRoute+"/delete_task/", formData).then(function(response){
-				if(response.status = 200){
-					const index = v.list_tasks.indexOf(item)
-					confirm('Are you sure you want to delete this item?') && v.list_tasks.splice(index, 1)
-				}else{
+			if (confirm('Are you sure you want to delete this item?') == true) {
+				axios.post(this.currentRoute+"/delete_task/", formData).then(function(response){
+					if(response.status = 200){
+						const index = v.list_tasks.indexOf(item)
+						v.list_tasks.splice(index, 1)
+					}else{
 
-				}
-			})
+					}
+				})
+			}
 		},
 		f_isNaN(val) {
 			if (isNaN(val)) {

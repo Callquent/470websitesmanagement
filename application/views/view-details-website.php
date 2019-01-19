@@ -105,16 +105,16 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedDatabase.host_database" label="Dessert name"></v-text-field>
+                  <v-text-field v-model="editedDatabase.host_database" label="<?php echo lang("host_sql"); ?>"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedDatabase.name_database" label="Calories"></v-text-field>
+                  <v-text-field v-model="editedDatabase.name_database" label="<?php echo lang("name_sql"); ?>"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedDatabase.login_database" label="Fat (g)"></v-text-field>
+                  <v-text-field v-model="editedDatabase.login_database" label="<?php echo lang("login_sql"); ?>"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedDatabase.password_database" label="Fat (g)"></v-text-field>
+                  <v-text-field v-model="editedDatabase.password_database" label="<?php echo lang("password_sql"); ?>"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -172,13 +172,13 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedBackoffice.host_backoffice" label="Dessert name"></v-text-field>
+                  <v-text-field v-model="editedBackoffice.host_backoffice" label="<?php echo lang("host_backoffice"); ?>"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedBackoffice.login_backoffice" label="Calories"></v-text-field>
+                  <v-text-field v-model="editedBackoffice.login_backoffice" label="<?php echo lang("login_backoffice"); ?>"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedBackoffice.password_backoffice" label="Fat (g)"></v-text-field>
+                  <v-text-field v-model="editedBackoffice.password_backoffice" label="<?php echo lang("password_backoffice"); ?>"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -235,10 +235,10 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedHtaccess.login_htaccess" label="Dessert name"></v-text-field>
+                  <v-text-field v-model="editedHtaccess.login_htaccess" label="<?php echo lang("login_htaccess"); ?>"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedHtaccess.password_htaccess" label="Calories"></v-text-field>
+                  <v-text-field v-model="editedHtaccess.password_htaccess" label="<?php echo lang("password_htaccess"); ?>"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -293,10 +293,10 @@
 var v = new Vue({
     el: '#app',
     data : {
-    	dialog_ftp: false,
-    	dialog_database: false,
-    	dialog_backoffice: false,
-    	dialog_htaccess: false,
+		dialog_ftp: false,
+		dialog_database: false,
+		dialog_backoffice: false,
+		dialog_htaccess: false,
         currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
         id_website: window.location.href.split('/').pop(),
 		headers_ftp: [
@@ -357,6 +357,20 @@ var v = new Vue({
         list_backoffice:  <?php echo json_encode($backoffice); ?>,
         list_htaccess:  <?php echo json_encode($htaccess); ?>,
     },
+	watch: {
+		dialog_ftp (val) {
+			val || this.closeFTP()
+		},
+		dialog_database (val) {
+			val || this.closeDatabase()
+		},
+		dialog_backoffice (val) {
+			val || this.closeBackoffice()
+		},
+		dialog_htaccess (val) {
+			val || this.closeHtaccess()
+		}
+	},
     created(){
         this.displayPage();
     },
@@ -384,124 +398,171 @@ var v = new Vue({
 			this.editedHtaccess = Object.assign({}, item)
 			this.dialog_htaccess = true
 		},
+		f_deleteFtp (item) {
+			var formData = new FormData();
+			formData.append("id_website",v.id_website);
+			formData.append("id_ftp",item.id_ftp);
+			if (confirm('Are you sure you want to delete this item?') == true) {
+				axios.post(this.currentRoute+"/delete-ftp-website/", formData).then(function(response){
+					if(response.status = 200){
+						const index = v.list_ftp.indexOf(item);
+						v.list_ftp.splice(index, 1);
+					}
+				})
+			}
+		},
+		f_deleteDatabase (item) {
+			var formData = new FormData();
+			formData.append("id_website",v.id_website);
+			formData.append("id_database",item.id_database);
+			if (confirm('Are you sure you want to delete this item?') == true) {
+				axios.post(this.currentRoute+"/delete-database-website/", formData).then(function(response){
+					if(response.status = 200){
+						const index = v.list_database.indexOf(item);
+						v.list_database.splice(index, 1);
+					}
+				})
+			}
+		},
+		f_deleteBackoffice (item) {
+			var formData = new FormData();
+			formData.append("id_website",v.id_website);
+			formData.append("id_backoffice",item.id_backoffice);
+			if (confirm('Are you sure you want to delete this item?') == true) {
+				axios.post(this.currentRoute+"/delete-backoffice-website/", formData).then(function(response){
+					if(response.status = 200){
+						const index = v.list_backoffice.indexOf(item);
+						v.list_backoffice.splice(index, 1);
+					}
+				})
+			}
+		},
+		f_deleteHtaccess (item) {
+			var formData = new FormData();
+			formData.append("id_website",v.id_website);
+			formData.append("id_htaccess",item.id_htaccess);
+			axios.post(this.currentRoute+"/delete-htaccess-website/", formData).then(function(response){
+				if(response.status = 200){
+					const index = v.list_htaccess.indexOf(item);
+        			v.list_htaccess.splice(index, 1);
+				}
+			})
+		},
 		saveFTP () {
+			var formData = new FormData();
+			formData.append("id_website",v.id_website);
+			formData.append("hote_ftp",v.editedFtp.host_ftp);
+			formData.append("login_ftp",v.editedFtp.login_ftp);
+			formData.append("password_ftp",v.editedFtp.password_ftp);
 			if (this.editedFtpIndex > -1) {
-				var formData = new FormData();
-				formData.append("id_website",v.id_website);
 				formData.append("id_ftp",v.editedFtp.id_ftp);
-				formData.append("hote_ftp",v.editedFtp.host_ftp);
-				formData.append("login_ftp",v.editedFtp.login_ftp);
-				formData.append("password_ftp",v.editedFtp.password_ftp);
 				axios.post(this.currentRoute+"/edit-ftp-website/", formData).then(function(response){
 					if(response.status = 200){
 						Object.assign(v.list_ftp[v.editedFtpIndex], v.editedFtp)
 					}
 				})
 			} else {
-				var formData = new FormData();
-				formData.append("id_website",v.id_website);
-				formData.append("hote_ftp",v.editedFtp.host_ftp);
-				formData.append("login_ftp",v.editedFtp.login_ftp);
-				formData.append("password_ftp",v.editedFtp.password_ftp);
 				axios.post(this.currentRoute+"/create-ftp-website/", formData).then(function(response){
 					if(response.status = 200){
-						this.list_ftp.push(this.editedFtp)
+						v.list_ftp.push(v.editedFtp)
 					}
 				})
 			}
-			this.close()
+			this.closeFTP()
 		},
 		saveDatabase () {
+			var formData = new FormData();
+			formData.append("id_website",v.id_website);
+			formData.append("hote_database",v.editedDatabase.host_database);
+			formData.append("name_database",v.editedDatabase.name_database);
+			formData.append("login_database",v.editedDatabase.login_database);
+			formData.append("password_database",v.editedDatabase.password_database);
 			if (this.editedDatabaseIndex > -1) {
-				var formData = new FormData();
-				formData.append("id_website",v.id_website);
 				formData.append("id_database",v.editedDatabase.id_database);
-				formData.append("hote_database",v.editedDatabase.host_database);
-				formData.append("name_database",v.editedDatabase.name_database);
-				formData.append("login_database",v.editedDatabase.login_database);
-				formData.append("password_database",v.editedDatabase.password_database);
 				axios.post(this.currentRoute+"/edit-database-website/", formData).then(function(response){
 					if(response.status = 200){
 						Object.assign(v.list_database[v.editedDatabaseIndex], v.editedDatabase)
 					}
 				})
 			} else {
-				var formData = new FormData();
-				formData.append("id_website",v.id_website);
-				formData.append("hote_database",v.editedDatabase.host_database);
-				formData.append("login_database",v.editedDatabase.login_database);
-				formData.append("password_database",v.editedDatabase.password_database);
 				axios.post(this.currentRoute+"/create-database-website/", formData).then(function(response){
 					if(response.status = 200){
-						this.list_database.push(this.editedDatabase)
+						v.list_database.push(v.editedDatabase)
 					}
 				})
 			}
-			this.close()
+			this.closeDatabase()
 		},
 		saveBackoffice () {
+			var formData = new FormData();
+			formData.append("id_website",v.id_website);
+			formData.append("hote_backoffice",v.editedBackoffice.host_backoffice);
+			formData.append("login_backoffice",v.editedBackoffice.login_backoffice);
+			formData.append("password_backoffice",v.editedBackoffice.password_backoffice);
 			if (this.editedBackofficeIndex > -1) {
-				var formData = new FormData();
-				formData.append("id_website",v.id_website);
 				formData.append("id_backoffice",v.editedBackoffice.id_backoffice);
-				formData.append("hote_backoffice",v.editedBackoffice.host_backoffice);
-				formData.append("login_backoffice",v.editedBackoffice.login_backoffice);
-				formData.append("password_backoffice",v.editedBackoffice.password_backoffice);
 				axios.post(this.currentRoute+"/edit-backoffice-website/", formData).then(function(response){
 					if(response.status = 200){
 						Object.assign(v.list_backoffice[v.editedBackofficeIndex], v.editedBackoffice)
 					}
 				})
 			} else {
-				var formData = new FormData();
-				formData.append("id_website",v.id_website);
-				formData.append("hote_backoffice",v.editedBackoffice.host_ftp);
-				formData.append("login_backoffice",v.editedBackoffice.login_ftp);
-				formData.append("password_backoffice",v.editedBackoffice.password_ftp);
 				axios.post(this.currentRoute+"/create-backoffice-website/", formData).then(function(response){
 					if(response.status = 200){
-						this.list_backoffice.push(this.editedBackoffice)
+						v.list_backoffice.push(v.editedBackoffice)
 					}
 				})
 			}
-			this.close()
+			this.closeBackoffice()
 		},
 		saveHtaccess () {
+			var formData = new FormData();
+			formData.append("id_website",v.id_website);
+			formData.append("login_htaccess",v.editedHtaccess.login_htaccess);
+			formData.append("password_htaccess",v.editedHtaccess.password_htaccess);
 			if (this.editedHtaccessIndex > -1) {
-				var formData = new FormData();
-				formData.append("id_website",v.id_website);
 				formData.append("id_htaccess",v.editedHtaccess.id_htaccess);
-				formData.append("login_htaccess",v.editedHtaccess.login_htaccess);
-				formData.append("password_htaccess",v.editedHtaccess.password_htaccess);
 				axios.post(this.currentRoute+"/edit-htaccess-website/", formData).then(function(response){
 					if(response.status = 200){
 						Object.assign(v.list_htaccess[v.editedHtaccessIndex], v.editedHtaccess)
 					}
 				})
 			} else {
-				var formData = new FormData();
-				formData.append("id_website",v.id_website);
-				formData.append("login_htaccess",v.editedHtaccess.login_htaccess);
-				formData.append("password_htaccess",v.editedHtaccess.password_htaccess);
 				axios.post(this.currentRoute+"/create-htaccess-website/", formData).then(function(response){
 					if(response.status = 200){
-						this.list_htaccess.push(this.editedHtaccess)
+						v.list_htaccess.push(v.editedHtaccess)
 					}
 				})
 			}
-			this.close()
+			this.closeHtaccess()
 		},
 		closeFTP () {
-			
+			this.dialog_ftp = false
+			setTimeout(() => {
+				this.editedFtp = Object.assign({}, {id_ftp: '', host_ftp: '', login_ftp: '', password_ftp: ''})
+				this.editedFtpIndex = -1
+			}, 300)
 		},
 		closeDatabase () {
-			
+			this.dialog_database = false
+			setTimeout(() => {
+				this.editedDatabase = Object.assign({}, {id_database: '', host_database: '', name_database: '', login_database: '', password_database: ''})
+				this.editedDatabaseIndex = -1
+			}, 300)
 		},
 		closeBackoffice () {
-			
+			this.dialog_backoffice = false
+			setTimeout(() => {
+				this.editedBackoffice = Object.assign({}, {id_backoffice: '', host_backoffice: '', login_backoffice: '', password_backoffice: ''})
+				this.editedBackofficeIndex = -1
+			}, 300)
 		},
 		closeHtaccess () {
-
+			this.dialog_htaccess = false
+			setTimeout(() => {
+				this.editedHtaccess = Object.assign({}, {id_htaccess: '', login_htaccess: '', password_htaccess: ''})
+				this.editedHtaccessIndex = -1
+			}, 300)
 		}
     }
 })

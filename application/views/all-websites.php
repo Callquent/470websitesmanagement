@@ -81,12 +81,14 @@
 												<v-select
 												v-model="props.item.id_category"
 												slot="input"
+												:items="list_category"
+												item-text="name_category"
+												item-value="id_category"
 												label="Choose category"
 												single-line
 												autofocus
-												:items="list_category"
-												item-text="title_category"
-												item-value="id_category">
+												persistent-hint
+												return-object>
 												</v-select>
 											</v-edit-dialog>
 										</td>
@@ -105,7 +107,7 @@
 												single-line
 												autofocus
 												:items="list_language"
-												item-text="title_language"
+												item-text="name_language"
 												item-value="id_language">
 												</v-select>
 											</v-edit-dialog>
@@ -291,14 +293,16 @@ var v = new Vue({
 		f_deleteWebsite(item){
 			var formData = new FormData();
 			formData.append("id_website",item.id);
-			axios.post(this.currentRoute+"/delete-website/", formData).then(function(response){
-				if(response.status = 200){
-					const index = v.list_website.indexOf(item)
-					confirm('Are you sure you want to delete this item?') && v.list_website.splice(index, 1)
-				}else{
+			if (confirm('Are you sure you want to delete this item?') == true) {
+				axios.post(this.currentRoute+"/delete-website/", formData).then(function(response){
+					if(response.status = 200){
+						const index = v.list_website.indexOf(item)
+						v.list_website.splice(index, 1)
+					}else{
 
-				}
-			})
+					}
+				})
+			}
 		}
     }
 })

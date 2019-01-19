@@ -47,16 +47,16 @@
 								<td>
 									<v-edit-dialog
 										class="text-xs-right"
-										@open="props.item._title_language = props.item.title_language"
+										@open="props.item._name_language = props.item.name_language"
 										@save="f_editLanguage(props.item)"
-										@cancel="props.item.title_language = props.item._title_language || props.item.title_language"
+										@cancel="props.item.name_language = props.item._name_language || props.item.name_language"
 										large
 										lazy
-									  >{{ props.item.title_language }}
+									  >{{ props.item.name_language }}
 										<v-text-field
 											slot="input"
 											label="Edit"
-											v-model="props.item.title_language"
+											v-model="props.item.name_language"
 											single-line
 											counter
 											autofocus
@@ -102,7 +102,7 @@
 					v-model="deleteLanguage.id_move_language"
 					:items="list_delete_language"
 					label="Choose language"
-					item-text="title_language"
+					item-text="name_language"
 					item-value="id_language"
 					required
 				></v-select>
@@ -164,7 +164,7 @@ var v = new Vue({
 		f_editLanguage(item){
 			var formData = new FormData(); 
 			formData.append("id_language",item.id_language);
-			formData.append("title_language",item.title_language);
+			formData.append("name_language",item.name_language);
 			axios.post(this.currentRoute+"/edit-language/", formData).then(function(response){
 				
 			})
@@ -173,7 +173,7 @@ var v = new Vue({
 			this.dialog = true;
 			this.deleteLanguage.id_delete_language = item.id_language;
 			/*this.list_delete_language = this.list_language.filter(function (el) {
-				return el.title_language !== item.title_language
+				return el.name_language !== item.name_language
 			});*/
 			this.list_delete_language = this.list_language.slice();
 			this.list_delete_language.splice(this.list_delete_language.indexOf(item), 1);

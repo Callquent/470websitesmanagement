@@ -67,7 +67,7 @@
                                                         <a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitelanguages"><i class="fa fa-plus"></i><?php echo lang('website_languages'); ?></a>
                                                         <ul id="collapse-websitelanguages" class="collapse" role="tabpanel" data-children=".nav-item">
                                                             <?php foreach ($all_count_websites_per_language->result() as $row) {  ?>
-                                                            <li><a href="<?php echo site_url('all-websites/language/'.$row->title_url_language); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->title_language; ?> <span class="badge badge-language-<?php echo $row->title_language; ?>"><?php echo $row->count_websites_per_language; ?></span></a></li>
+                                                            <li><a href="<?php echo site_url('all-websites/language/'.$row->name_url_language); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->name_language; ?> <span class="badge badge-language-<?php echo $row->name_language; ?>"><?php echo $row->count_websites_per_language; ?></span></a></li>
                                                             <?php } ?>
                                                         </ul>
                                                     </li>
@@ -75,7 +75,7 @@
                                                         <a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitecategories"><i class="fa fa-plus"></i><?php echo lang('website_categories'); ?></a>
                                                         <ul id="collapse-websitecategories" class="collapse" role="tabpanel" data-children=".nav-item">
                                                             <?php foreach ($all_count_websites_per_category->result() as $row) {  ?>
-                                                            <li><a href="<?php echo site_url('all-websites/category/'.$row->title_url_category); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->title_category; ?> <span class="badge badge-category-<?php echo $row->title_category; ?>"><?php echo $row->count_websites_per_category; ?></span></a></li>
+                                                            <li><a href="<?php echo site_url('all-websites/category/'.$row->name_url_category); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->name_category; ?> <span class="badge badge-category-<?php echo $row->name_category; ?>"><?php echo $row->count_websites_per_category; ?></span></a></li>
                                                             <?php } ?>
                                                         </ul>
                                                     </li>

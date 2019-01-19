@@ -43,10 +43,10 @@ class Permission_member_groups extends CI_Controller {
 	{
 		$this->form_validation->set_rules('category', 'Category', 'trim|required');
 
-		$title_category = $this->input->post('category');
+		$name_category = $this->input->post('category');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_category->create_category($title_category);
+			$this->model_category->create_category($name_category);
 		}
 	}
 }

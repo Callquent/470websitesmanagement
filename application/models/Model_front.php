@@ -41,55 +41,13 @@ class Model_front extends CI_Model {
 
 		return $count_subdomain;
 	}
-	var $column = array('id_website', 'title_category', 'title_language', 'name_website', 'url_website');
-	var $order = array('name_website' => 'desc');
-
-	private function _get_datatables_query()
+	function get_all_websites()
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
 				 ->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
-				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category');
-		$i = 0;
-		if(isset($_POST['search']['value'])){
-			foreach ($this->column as $item) {
-				if($i===0)
-				{
-					$this->db->like($item, $_POST['search']['value']);
-				}
-				else
-				{
-					$this->db->or_like($item, $_POST['search']['value']);
-				}
-
-				$column[$i] = $item;
-				$i++;
-			}
-		}
-		if(isset($_POST['order'])) // here order processing
-		{
-			$this->db->order_by($column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
-		} 
-		else if(isset($this->db->order))
-		{
-			$order = $this->order;
-			$this->db->order_by(key($order), $order[key($order)]);
-		}
-	}
-
-	function get_all_websites()
-	{
-		$this->_get_datatables_query();
-		/*$this->db->select('*')
-				 ->from('470websitesmanagement_website')
-				 ->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = language.id_language')
-				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = category.id_category')
-				 ->order_by('470websitesmanagement_website.id_website', 'ASC');*/
-		if (isset($_POST['length']) && isset($_POST['start'])) {
-			if($_POST['length'] != -1){
-				$this->db->limit($_POST['length'], $_POST['start']);
-			}				 	
-		}
+				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
+				 ->order_by('470websitesmanagement_website.id_website', 'ASC');
 
 		$query = $this->db->get();
 		return $query;
@@ -106,7 +64,7 @@ class Model_front extends CI_Model {
 				 ->from('470websitesmanagement_website')
 				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
 				 ->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
-				 ->where('title_url_category', $url)
+				 ->where('name_url_category', $url)
 				 ->order_by('470websitesmanagement_website.id_category', 'ASC');
 
 		$query = $this->db->get();
@@ -118,7 +76,7 @@ class Model_front extends CI_Model {
 				 ->from('470websitesmanagement_website')
 				 ->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
 				 ->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
-				 ->where('title_url_language', $url)
+				 ->where('name_url_language', $url)
 				 ->order_by('470websitesmanagement_website.id_language', 'ASC');
 
 		$query = $this->db->get();

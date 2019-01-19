@@ -55,9 +55,9 @@ class All_websites extends CI_Controller {
 				$list['name_website'] = $row->name_website;
 				$list['url_website'] = $row->url_website;
 				$list['address_ip'] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
-				$list['name_category'] = $row->title_category;
+				$list['name_category'] = $row->name_category;
 				$list['id_category'] = $row->id_category;
-				$list['name_language'] = $row->title_language;
+				$list['name_language'] = $row->name_language;
 				$list['id_language'] = $row->id_language;
 				$list['actions'] = '<div class="dropdown show actions">
 								<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
@@ -232,6 +232,13 @@ class All_websites extends CI_Controller {
 
 		$this->model_back->update_ftp_websites($id_ftp, $id_website, $this->encryption->encrypt($w_host_ftp), $this->encryption->encrypt($w_login_ftp), $this->encryption->encrypt($w_password_ftp));
 	}
+	public function delete_ftp_website()
+	{
+		$id_website		= $this->input->post('id_website');
+		$id_ftp		= $this->input->post('id_ftp');
+		
+		$this->model_back->delete_ftp_website($id_ftp, $id_website);
+	}
 	public function create_database_website()
 	{
 		$id_website		= $this->input->post('id_website');
@@ -253,6 +260,13 @@ class All_websites extends CI_Controller {
 
 		$this->model_back->update_database_websites($id_database, $id_website, $this->encryption->encrypt($w_host_db), $this->encryption->encrypt($w_name_db), $this->encryption->encrypt($w_login_db), $this->encryption->encrypt($w_password_db));
 	}
+	public function delete_database_website()
+	{
+		$id_website		= $this->input->post('id_website');
+		$id_database		= $this->input->post('id_database');
+		
+		$this->model_back->delete_database_website($id_database, $id_website);
+	}
 	public function create_backoffice_website()
 	{
 		$id_website	= $this->input->post('id_website');
@@ -272,6 +286,13 @@ class All_websites extends CI_Controller {
 
 		$this->model_back->update_backoffice_websites($id_backoffice, $id_website, $this->encryption->encrypt($w_host_bo), $this->encryption->encrypt($w_login_bo), $this->encryption->encrypt($w_password_bo));
 	}
+	public function delete_backoffice_website()
+	{
+		$id_website		= $this->input->post('id_website');
+		$id_backoffice		= $this->input->post('id_backoffice');
+		
+		$this->model_back->delete_backoffice_website($id_backoffice, $id_website);
+	}
 	public function create_htaccess_website()
 	{
 		$id_website	= $this->input->post('id_website');
@@ -289,5 +310,11 @@ class All_websites extends CI_Controller {
 
 		$this->model_back->update_htaccess_websites($id_htaccess, $id_website, $this->encryption->encrypt($w_login_htaccess), $this->encryption->encrypt($w_password_htaccess));
 	}
-
+	public function delete_htaccess_website()
+	{
+		$id_website		= $this->input->post('id_website');
+		$id_htaccess		= $this->input->post('id_htaccess');
+		
+		$this->model_back->delete_htaccess_website($id_htaccess, $id_website);
+	}
 }

@@ -49,8 +49,8 @@ class Edit_keyword_google extends CI_Controller {
 			$list[] = $row->name_website;
 			$list[] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
 			$list[] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
-			$list[] = $row->title_category;
-			$list[] = $row->title_language;
+			$list[] = $row->name_category;
+			$list[] = $row->name_language;
 			$list[] = '<a class="access-ftp" href="javascript:void(0);" data-toggle="modal" data-target="#view-ftp" data-id="'.$row->id_website.'">Access FTP</a>';
 			$list[] = '<a class="access-sql" href="javascript:void(0);" data-toggle="modal" data-target="#view-database" data-id="'.$row->id_website.'">Access SQL</a>';
 			$list[] = '<a class="access-backoffice" href="javascript:void(0);" data-toggle="modal" data-target="#view-backoffice" data-id="'.$row->id_website.'">Access Back office</a>';

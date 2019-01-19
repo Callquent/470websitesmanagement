@@ -3,19 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_language extends CI_Model {
 
-	function create_language($title_language)
+	function create_language($name_language)
 	{
 		$data = array(
-			'title_language' => $title_language,
-			'title_url_language' => str_replace( " ", "-", strtolower($title_language)),
+			'name_language' => $name_language,
+			'name_url_language' => str_replace( " ", "-", strtolower($name_language)),
 		);
 
 		$this->db->insert('470websitesmanagement_language', $data);
 	}
-	function update_language($id_language, $title_language)
+	function update_language($id_language, $name_language)
 	{
 		$data = array(
-			'title_language' => $title_language,
+			'name_language' => $name_language,
 		);
 
 		$this->db->where('id_language', $id_language)

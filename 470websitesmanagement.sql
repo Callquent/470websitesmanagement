@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_backoffice` (
 DROP TABLE IF EXISTS `470websitesmanagement_category`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_category` (
   `id_category` int(11) NOT NULL AUTO_INCREMENT,
-  `title_category` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `title_url_category` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `name_category` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `name_url_category` varchar(255) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id_category`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -151,8 +151,8 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_htaccess` (
 DROP TABLE IF EXISTS `470websitesmanagement_language`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_language` (
   `id_language` int(11) NOT NULL AUTO_INCREMENT,
-  `title_language` varchar(255) NOT NULL,
-  `title_url_language` varchar(255) NOT NULL,
+  `name_language` varchar(255) NOT NULL,
+  `name_url_language` varchar(255) NOT NULL,
   PRIMARY KEY (`id_language`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_language` (
 -- Déchargement des données de la table `470websitesmanagement_language`
 --
 
-INSERT INTO `470websitesmanagement_language` (`id_language`, `title_language`, `title_url_language`) VALUES
+INSERT INTO `470websitesmanagement_language` (`id_language`, `name_language`, `name_url_language`) VALUES
 (1, 'HTML', 'html'),
 (2, 'Ruby on Rails', 'ruby-on-rails'),
 (3, 'Django', 'django'),

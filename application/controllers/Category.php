@@ -20,12 +20,12 @@ class Category extends CI_Controller {
 		$this->session->set_userdata($sesslanguage);
 		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
-	public function index($title_url_category = '')
+	public function index($name_url_category = '')
 	{
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
 
-		$data['all_websites'] = $this->model_front->get_all_websites_per_category($title_url_category);
+		$data['all_websites'] = $this->model_front->get_all_websites_per_category($name_url_category);
 		$data['all_languages'] = $this->model_front->get_all_languages();
 		$data['all_categories'] = $this->model_front->get_all_categories();
 
@@ -42,21 +42,21 @@ class Category extends CI_Controller {
 	{
 		$this->form_validation->set_rules('category', 'Category', 'trim|required');
 
-		$title_category = $this->input->post('category');
+		$name_category = $this->input->post('category');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_category->create_category($title_category);
+			$this->model_category->create_category($name_category);
 		}
 	}
 	public function edit_category()
 	{
 		$id_category = $this->input->post('id_category');
-		$title_category = $this->input->post('title_category');
+		$name_category = $this->input->post('name_category');
 
-		$this->form_validation->set_rules('title_category', 'TitleCategory', 'trim|required');
+		$this->form_validation->set_rules('name_category', 'NameCategory', 'trim|required');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_category->update_category($id_category, $title_category);
+			$this->model_category->update_category($id_category, $name_category);
 		}
 	}
 	public function delete_category()

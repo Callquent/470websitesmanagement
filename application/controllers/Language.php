@@ -20,12 +20,12 @@ class Language extends CI_Controller {
 		$this->session->set_userdata($sesslanguage);
 		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
-	public function index($title_url_language = '')
+	public function index($name_url_language = '')
 	{
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
 
-		$data['all_websites'] = $this->model_front->get_all_websites_per_language($title_url_language);
+		$data['all_websites'] = $this->model_front->get_all_websites_per_language($name_url_language);
 		$data['all_languages'] = $this->model_front->get_all_languages();
 		$data['all_categories'] = $this->model_front->get_all_categories();
 
@@ -42,21 +42,21 @@ class Language extends CI_Controller {
 	{
 		$this->form_validation->set_rules('language', 'Language', 'trim|required');
 
-		$title_language = $this->input->post('language');
+		$name_language = $this->input->post('language');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_language->create_language($title_language);
+			$this->model_language->create_language($name_language);
 		}
 	}
 	public function edit_language()
 	{
 	
 		$id_language = $this->input->post('id_language');
-		$title_language = $this->input->post('title_language');
+		$name_language = $this->input->post('name_language');
 		
-		$this->form_validation->set_rules('title_language', 'TitleLanguage', 'trim|required');
+		$this->form_validation->set_rules('name_language', 'TitleLanguage', 'trim|required');
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_language->update_language($id_language, $title_language);
+			$this->model_language->update_language($id_language, $name_language);
 		}
 	}
 	public function delete_language()

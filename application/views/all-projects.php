@@ -295,10 +295,12 @@ var v = new Vue({
         f_deleteProject(item){
             var formData = new FormData();
             formData.append("id_project",item.id_project_tasks);
-            axios.post(this.currentRoute+"/delete-project/", formData).then(function(response){
-                const index = v.list_projects.indexOf(item);
-				confirm('Are you sure you want to delete this item?') && v.list_projects.splice(index, 1);
-            })
+            if (confirm('Are you sure you want to delete this item?') == true) {
+				axios.post(this.currentRoute+"/delete-project/", formData).then(function(response){
+					const index = v.list_projects.indexOf(item);
+					v.list_projects.splice(index, 1);
+				})
+			}
         },
     }
 })
