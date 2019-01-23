@@ -279,7 +279,6 @@ var v = new Vue({
 			formData.append("id_website",item.id);
 			axios.post(this.currentRoute+"/view-access-website/", formData).then(function(response){
 				if(response.status = 200){
-					console.log(response);
 					v.list_ftp = response.data.ftp;
 					v.list_database = response.data.databas;
 					v.list_backoffice = response.data.backoffice;

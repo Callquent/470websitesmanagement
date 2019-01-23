@@ -328,7 +328,7 @@ DROP TABLE IF EXISTS `470websitesmanagement_tasks__card`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_tasks__card` (
   `id_project_tasks` int(11) UNSIGNED NOT NULL,
   `id_card_tasks` int(11) UNSIGNED NOT NULL,
-  `title_card_tasks` varchar(255) NOT NULL,
+  `name_card_tasks` varchar(255) NOT NULL,
   `description_card_tasks` text NOT NULL,
   `id_priority_tasks` int(11) NOT NULL,
   `id_status_tasks` int(11) NOT NULL,

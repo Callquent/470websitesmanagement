@@ -36,7 +36,7 @@ class All_projects extends CI_Controller {
 		$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
 		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
-		/*$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();*/
+		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
 
 		if($this->uri->total_segments() == 1){
@@ -54,7 +54,9 @@ class All_projects extends CI_Controller {
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
 			$data['all_card_tasks'] = $this->model_tasks->get_all_tasks_card($id_project_tasks);
-			
+
+			$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $data['all_card_tasks']->row()->id_card_tasks);
+
 			$this->load->view('view-project', $data);
 		}
 	}
@@ -91,7 +93,7 @@ class All_projects extends CI_Controller {
 
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
 
-		$data['title_card_tasks'] = $data['card_tasks']->title_card_tasks;
+		$data['name_card_tasks'] = $data['card_tasks']->name_card_tasks;
 
 		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
 	}
@@ -126,7 +128,7 @@ class All_projects extends CI_Controller {
 		$id_project_tasks		= $this->input->post('id_project_tasks');
 		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$id_task				= $this->input->post('id_task');
-		$check_tasks			= ($this->input->post('check_tasks')=="true"?1:0);
+		$check_tasks			= $this->input->post('check_tasks');
 
 		$this->model_tasks->update_check_task($id_project_tasks, $id_card_tasks, $id_task, $check_tasks);
 

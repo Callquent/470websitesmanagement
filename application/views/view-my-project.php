@@ -185,12 +185,146 @@
 
         
 <content>
-<scrumboard-board><mat-sidenav-container class="mat-drawer-container mat-sidenav-container"><mat-sidenav-content><div id="board" class="ng-tns-c39-37" style="flex-direction: row; box-sizing: border-box; display: flex;"><div fxflex="" style="flex: 1 1 0%; box-sizing: border-box;" class="board-content-wrapper p-16 p-md-24"><div fxlayout="row" ngxdroppable="list" style="flex-direction: row; box-sizing: border-box; display: flex;" class="board-content ngx-dnd-container p-16 p-md-24 ng-trigger ng-trigger-animateStagger">
-    <scrumboard-board-list class="scrumboard-board-list list-wrapper ngx-dnd-item ng-tns-c39-37 ng-trigger ng-trigger-animate ng-star-inserted" ngxdraggable="" style=""><div class="list mat-elevation-z1" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;"><div class="list-header" fxflex="" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center space-between; align-items: center; flex: 1 1 1e-09px;">
-        <scrumboard-board-edit-list-name fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box; flex-direction: row; display: flex;"><!----><div class="list-header-name ng-star-inserted" fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box;"> Design</div>
-        </scrumboard-board-edit-list-name><div fxflex="0 1 auto" style="flex: 0 1 auto; box-sizing: border-box;"><button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">more_vert</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button><mat-menu class="ng-tns-c35-40"><!----></mat-menu></div></div><div class="list-content" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;"><div class="list-cards ngx-dnd-container ps ps--active-y" fuseperfectscrollbar="" ngxdroppable="card"><scrumboard-board-card class="scrumboard-board-card ngx-dnd-item ng-star-inserted" ngxdraggable="" style=""><!----><div class="list-card-cover ng-star-inserted"><img src="assets/images/scrumboard/mail.jpg"></div><div class="list-card-details"><div class="list-card-sort-handle"><mat-icon class="icon s16 mat-icon material-icons" mat-font-icon="icon-cursor-move" role="img" aria-hidden="true"></mat-icon></div><!----><div class="list-card-labels ng-star-inserted" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;"><!----><span class="list-card-label orange-400 ng-star-inserted" aria-describedby="cdk-describedby-message-32" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span><!----><span class="list-card-label blue-600 ng-star-inserted" aria-describedby="cdk-describedby-message-33" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span><!----></div><div class="list-card-name">Change background colors</div><!----><div class="list-card-badges ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><!----><span class="badge due-date overdue ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-16 mat-icon material-icons" role="img" aria-hidden="true">access_time</mat-icon><span>Aug 29, 2017</span></span><!----><span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-16 mat-icon material-icons" role="img" aria-hidden="true">check_circle</mat-icon><span>2</span><span>/</span><span>7</span></span></div><!----><div class="list-card-members ng-star-inserted" fxlayout="row" style="flex-direction: row; box-sizing: border-box; display: flex;"><!----><div class="list-card-member ng-star-inserted"><img class="list-card-member-avatar" aria-describedby="cdk-describedby-message-34" cdk-describedby-host="" src="assets/images/avatars/james.jpg" style="touch-action: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div></div></div><div class="list-card-footer" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center space-between; align-items: center;"><div fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><!----><span class="list-card-footer-item ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-18 mat-icon material-icons" role="img" aria-hidden="true">remove_red_eye</mat-icon></span><!----></div><div fxlayout="row" fxlayoutalign="end center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-end; align-items: center;"><!----><span class="list-card-footer-item ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-18 mat-icon material-icons" role="img" aria-hidden="true">attachment</mat-icon><span class="value">2</span></span><!----><span class="list-card-footer-item ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-18 mat-icon material-icons" role="img" aria-hidden="true">comment</mat-icon><span class="value">2</span></span></div></div></scrumboard-board-card><scrumboard-board-card class="scrumboard-board-card ngx-dnd-item ng-star-inserted" ngxdraggable="" style=""><!----><div class="list-card-details"><div class="list-card-sort-handle"><mat-icon class="icon s16 mat-icon material-icons" mat-font-icon="icon-cursor-move" role="img" aria-hidden="true"></mat-icon></div><!----><div class="list-card-labels ng-star-inserted" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;"><!----><span class="list-card-label orange-400 ng-star-inserted" aria-describedby="cdk-describedby-message-32" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span><!----><span class="list-card-label red-500 ng-star-inserted" aria-describedby="cdk-describedby-message-35" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span><!----></div><div class="list-card-name">Mail app new layout</div><!----><!----><div class="list-card-members ng-star-inserted" fxlayout="row" style="flex-direction: row; box-sizing: border-box; display: flex;"><!----><div class="list-card-member ng-star-inserted"><img class="list-card-member-avatar" aria-describedby="cdk-describedby-message-6" cdk-describedby-host="" src="assets/images/avatars/alice.jpg" style="touch-action: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div><div class="list-card-member ng-star-inserted"><img class="list-card-member-avatar" aria-describedby="cdk-describedby-message-36" cdk-describedby-host="" src="assets/images/avatars/danielle.jpg" style="touch-action: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div><div class="list-card-member ng-star-inserted"><img class="list-card-member-avatar" aria-describedby="cdk-describedby-message-34" cdk-describedby-host="" src="assets/images/avatars/james.jpg" style="touch-action: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div><div class="list-card-member ng-star-inserted"><img class="list-card-member-avatar" aria-describedby="cdk-describedby-message-37" cdk-describedby-host="" src="assets/images/avatars/vincent.jpg" style="touch-action: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div></div></div><div class="list-card-footer" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center space-between; align-items: center;"><div fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><!----><!----><span class="list-card-footer-item ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-18 mat-icon material-icons" role="img" aria-hidden="true">description</mat-icon></span></div><div fxlayout="row" fxlayoutalign="end center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-end; align-items: center;"><!----><span class="list-card-footer-item ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-18 mat-icon material-icons" role="img" aria-hidden="true">attachment</mat-icon><span class="value">0</span></span><!----><span class="list-card-footer-item ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-18 mat-icon material-icons" role="img" aria-hidden="true">comment</mat-icon><span class="value">0</span></span></div></div></scrumboard-board-card><div class="ps__rail-x" style="left: 0px; top: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; left: 0px; height: 248px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 98px;"></div></div></div></div><div class="list-footer"><scrumboard-board-add-card><!----><div class="add-card-button ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-20 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon><div>Add a card</div></div></scrumboard-board-add-card></div></div></scrumboard-board-list>
+    <scrumboard-board>
+        <mat-sidenav-container class="mat-drawer-container mat-sidenav-container">
+            <mat-sidenav-content>
+                <div id="board" class="ng-tns-c39-37" style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div fxflex="" style="flex: 1 1 0%; box-sizing: border-box;" class="board-content-wrapper p-16 p-md-24">
+                        <div fxlayout="row" ngxdroppable="list" style="flex-direction: row; box-sizing: border-box; display: flex;" class="board-content ngx-dnd-container p-16 p-md-24 ng-trigger ng-trigger-animateStagger">
+                            <scrumboard-board-list class="scrumboard-board-list list-wrapper ngx-dnd-item ng-tns-c39-37 ng-trigger ng-trigger-animate ng-star-inserted" ngxdraggable="" style="">
+                                <div class="list mat-elevation-z1" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
+                                    <div class="list-header" fxflex="" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center space-between; align-items: center; flex: 1 1 1e-09px;">
+                                        <scrumboard-board-edit-list-name fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box; flex-direction: row; display: flex;">
+                                            <div class="list-header-name ng-star-inserted" fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box;"> TO-DO</div>
+                                        </scrumboard-board-edit-list-name>
+                                        <div fxflex="0 1 auto" style="flex: 0 1 auto; box-sizing: border-box;">
+                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">more_vert</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
+                                            <mat-menu class="ng-tns-c35-40"></mat-menu>
+                                        </div>
+                                    </div>
+                                    <div class="list-content" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
+                                        <div class="list-cards ngx-dnd-container custom-scrollbar ps ps--active-y" fuseperfectscrollbar="" ngxdroppable="card">
+                                            <scrumboard-board-card @click="f_dialog_editCard(card_tasks_to_do)" v-for="card_tasks_to_do in list_card_tasks_to_do" class="scrumboard-board-card ngx-dnd-item ng-star-inserted" ngxdraggable="" style="">
+                                                <div class="list-card-details">
+                                                    <div class="list-card-sort-handle">
+                                                        <mat-icon class="icon s16 mat-icon material-icons" mat-font-icon="icon-cursor-move" role="img" aria-hidden="true"></mat-icon>
+                                                    </div>
+                                                    <div class="list-card-labels ng-star-inserted" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+                                                        <span class="list-card-label orange-400 ng-star-inserted" aria-describedby="cdk-describedby-message-32" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
+                                                        <span class="list-card-label blue-600 ng-star-inserted" aria-describedby="cdk-describedby-message-33" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
+                                                    </div>
+                                                    <div class="list-card-name">{{ card_tasks_to_do.title_card_tasks }}</div>
+                                                    <div class="list-card-badges ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                                                        <span class="badge due-date overdue ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><span>{{card_tasks_to_do.name_tasks_priority}}</span></span><span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-16 mat-icon material-icons" role="img" aria-hidden="true">check_circle</mat-icon><span>{{card_tasks_to_do.count_tasks_check_per_card}}</span><span>/</span><span>{{card_tasks_to_do.count_tasks_per_card}}</span></span>
+                                                    </div>
+                                                </div>
+                                            </scrumboard-board-card>
+                                        </div>
+                                    </div>
+                                    <div class="list-footer">
+                                        <scrumboard-board-add-card>
+                                            <div class="add-card-button ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                                                <mat-icon class="s-20 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>
+                                                <div>Add a card</div>
+                                            </div>
+                                        </scrumboard-board-add-card>
+                                    </div>
+                                </div>
+                            </scrumboard-board-list>
 
-<scrumboard-board-add-list class="new-list-wrapper ng-trigger ng-trigger-animate" ngxdraggable=""><div class="list new-list mat-elevation-z1"><!----><button class="new-list-form-button mat-button ng-star-inserted" mat-button="" style=""><span class="mat-button-wrapper"><div fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="red mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon><span>Add a list</span></div></span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div></button><!----></div></scrumboard-board-add-list></div></div></div></mat-sidenav-content></mat-sidenav-container></scrumboard-board>
+                            <scrumboard-board-list class="scrumboard-board-list list-wrapper ngx-dnd-item ng-tns-c39-37 ng-trigger ng-trigger-animate ng-star-inserted" ngxdraggable="" style="">
+                                <div class="list mat-elevation-z1" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
+                                    <div class="list-header" fxflex="" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center space-between; align-items: center; flex: 1 1 1e-09px;">
+                                        <scrumboard-board-edit-list-name fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box; flex-direction: row; display: flex;">
+                                            <div class="list-header-name ng-star-inserted" fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box;"> IN PROGRESS</div>
+                                        </scrumboard-board-edit-list-name>
+                                        <div fxflex="0 1 auto" style="flex: 0 1 auto; box-sizing: border-box;">
+                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">more_vert</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
+                                            <mat-menu class="ng-tns-c35-40"></mat-menu>
+                                        </div>
+                                    </div>
+                                    <div class="list-content" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
+                                        <div class="list-cards ngx-dnd-container custom-scrollbar ps ps--active-y" fuseperfectscrollbar="" ngxdroppable="card">
+                                            <scrumboard-board-card @click="f_dialog_editCard(card_tasks_in_progress)" v-for="card_tasks_in_progress in list_card_tasks_in_progress" class="scrumboard-board-card ngx-dnd-item ng-star-inserted" ngxdraggable="" style="">
+                                                <div class="list-card-details">
+                                                    <div class="list-card-sort-handle">
+                                                        <mat-icon class="icon s16 mat-icon material-icons" mat-font-icon="icon-cursor-move" role="img" aria-hidden="true"></mat-icon>
+                                                    </div>
+                                                    <div class="list-card-labels ng-star-inserted" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+                                                        <span class="list-card-label orange-400 ng-star-inserted" aria-describedby="cdk-describedby-message-32" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
+                                                        <span class="list-card-label blue-600 ng-star-inserted" aria-describedby="cdk-describedby-message-33" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
+                                                    </div>
+                                                    <div class="list-card-name">{{ card_tasks_in_progress.title_card_tasks }}</div>
+                                                    <div class="list-card-badges ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                                                        <span class="badge due-date overdue ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><span>{{card_tasks_in_progress.name_tasks_priority}}</span></span><span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-16 mat-icon material-icons" role="img" aria-hidden="true">check_circle</mat-icon><span>{{card_tasks_in_progress.count_tasks_check_per_card}}</span><span>/</span><span>{{card_tasks_in_progress.count_tasks_per_card}}</span></span>
+                                                    </div>
+                                                </div>
+                                            </scrumboard-board-card>
+                                        </div>
+                                    </div>
+                                    <div class="list-footer">
+                                        <scrumboard-board-add-card>
+                                            <div class="add-card-button ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                                                <mat-icon class="s-20 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>
+                                                <div>Add a card</div>
+                                            </div>
+                                        </scrumboard-board-add-card>
+                                    </div>
+                                </div>
+                            </scrumboard-board-list>
+
+                            <scrumboard-board-list class="scrumboard-board-list list-wrapper ngx-dnd-item ng-tns-c39-37 ng-trigger ng-trigger-animate ng-star-inserted" ngxdraggable="" style="">
+                                <div class="list mat-elevation-z1" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
+                                    <div class="list-header" fxflex="" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center space-between; align-items: center; flex: 1 1 1e-09px;">
+                                        <scrumboard-board-edit-list-name fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box; flex-direction: row; display: flex;">
+                                            <div class="list-header-name ng-star-inserted" fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box;"> COMPLETED</div>
+                                        </scrumboard-board-edit-list-name>
+                                        <div fxflex="0 1 auto" style="flex: 0 1 auto; box-sizing: border-box;">
+                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">more_vert</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
+                                            <mat-menu class="ng-tns-c35-40"></mat-menu>
+                                        </div>
+                                    </div>
+                                    <div class="list-content" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
+                                        <div class="list-cards ngx-dnd-container custom-scrollbar ps ps--active-y" fuseperfectscrollbar="" ngxdroppable="card">
+                                            <scrumboard-board-card @click="f_dialog_editCard(card_tasks_completed)" v-for="card_tasks_completed in list_card_tasks_completed" class="scrumboard-board-card ngx-dnd-item ng-star-inserted" ngxdraggable="" style="">
+                                                <div class="list-card-details">
+                                                    <div class="list-card-sort-handle">
+                                                        <mat-icon class="icon s16 mat-icon material-icons" mat-font-icon="icon-cursor-move" role="img" aria-hidden="true"></mat-icon>
+                                                    </div>
+                                                    <div class="list-card-labels ng-star-inserted" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+                                                        <span class="list-card-label orange-400 ng-star-inserted" aria-describedby="cdk-describedby-message-32" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
+                                                        <span class="list-card-label blue-600 ng-star-inserted" aria-describedby="cdk-describedby-message-33" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
+                                                    </div>
+                                                    <div class="list-card-name">{{ card_tasks_completed.title_card_tasks }}</div>
+                                                    <div class="list-card-badges ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                                                        <span class="badge due-date overdue ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><span>{{card_tasks_completed.name_tasks_priority}}</span></span><span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-16 mat-icon material-icons" role="img" aria-hidden="true">check_circle</mat-icon><span>{{card_tasks_completed.count_tasks_check_per_card}}</span><span>/</span><span>{{card_tasks_completed.count_tasks_per_card}}</span></span>
+                                                    </div>
+                                                </div>
+                                            </scrumboard-board-card>
+                                        </div>
+                                    </div>
+                                    <div class="list-footer">
+                                        <scrumboard-board-add-card>
+                                            <div class="add-card-button ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                                                <mat-icon class="s-20 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>
+                                                <div>Add a card</div>
+                                            </div>
+                                        </scrumboard-board-add-card>
+                                    </div>
+                                </div>
+                            </scrumboard-board-list>
+
+                            <scrumboard-board-add-list class="new-list-wrapper ng-trigger ng-trigger-animate" ngxdraggable="">
+                                <div class="list new-list mat-elevation-z1">
+                                    <button class="new-list-form-button mat-button ng-star-inserted" mat-button="" style=""><span class="mat-button-wrapper"><div fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="red mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon><span>Add a list</span></div></span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
+                                </div>
+                            </scrumboard-board-add-list>
+                        </div>
+                    </div>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </scrumboard-board>
 </content>
 
 
@@ -344,17 +478,143 @@
   </div>
 </div>
 
+<v-dialog
+      v-model="dialog_card"
+      width="720"
+    >
+    <v-card>
+        <v-card-title
+          class="headline green lighten-2"
+          primary-title
+        >
+          Ajouter une tâche
+        </v-card-title>
 
-
-
+        <v-card-text>
+            <v-container grid-list-md>
+                <v-layout wrap>
+                    <v-flex xs12>
+                        <v-text-field label="Titre Card Task" v-model="editCard.name_card_tasks" required></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                        <v-textarea v-model="editCard.description_card_tasks">
+                            <div slot="label">Decription Card Task <small>(optional)</small></div>
+                        </v-textarea>
+                    </v-flex>
+                    <v-flex xs6>
+                        Priority
+                    </v-flex>
+                    <v-flex xs6>
+                        User
+                    </v-flex>
+                    <v-flex xs12>
+                        <v-card>
+                            <template>
+                                <v-data-table
+                                    :headers="headers"
+                                    :items="list_tasks"
+                                    item-key="name_task"
+                                    select-all
+                                    class="elevation-1"
+                                >
+                                    <template slot="items" slot-scope="props">
+                                        <td><v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks" primary hide-details></v-checkbox></td>
+                                        <td>{{ props.item.name_task }}</td>
+                                        <td>{{ props.item.username }}</td>
+                                        <td>
+                                            <a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
+                                        </td>
+                                    </template>
+                                </v-data-table>
+                            </template>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+            <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="f_createCard()">Save</v-btn>
+            <v-btn color="blue darken-1" flat @click="dialog_add_card = false">Close</v-btn>
+        </v-card-actions>
+    </v-card>
+</v-dialog>
 
 
 
         
 
-
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
+var v = new Vue({
+    el: '#app',
+    data : {
+        dialog_card: false,
+        list_card_tasks_to_do: <?php echo json_encode($all_card_tasks_to_do->result_array()); ?>,
+        list_card_tasks_in_progress: <?php echo json_encode($all_card_tasks_in_progress->result_array()); ?>,
+        list_card_tasks_completed: <?php echo json_encode($all_card_tasks_completed->result_array()); ?>,
+        currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+        id_project: window.location.href.split('/').pop(),
+        id_card: <?php echo json_encode($all_card_tasks->row()->id_card_tasks); ?>,
+        headers: [
+            { text: 'Name Task', value: 'name_task', sortable: false},
+            { text: 'User', value: 'username' },
+            { text: 'Actions', value: 'name', sortable: false }
+        ],
+        editCard:{
+            name_card_tasks:"",
+            description_card_tasks:"",
+        },
+        newCard:{
+            name_card_tasks:"",
+            id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
+        },
+        newTask:{
+            nametask:'',
+            user:'',
+        },
+        check_tasks_complete:0,
+        valueDeterminate: 0,
+        title_card_tasks:"",
+        list_tasks: [],
+    },
+    created(){
+        this.displayPage();
+    },
+    methods:{
+        displayPage(){
+
+        },
+        f_dialog_editCard(card_tasks){
+            var formData = new FormData(); 
+            formData.append("id_project_tasks",card_tasks.id_project_tasks);
+            formData.append("id_card_tasks",card_tasks.id_card_tasks);
+            axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
+                if(response.status = 200){
+                    v.editCard.name_card_tasks = response.data.card_tasks.name_card_tasks;
+                    v.editCard.description_card_tasks = response.data.card_tasks.description_card_tasks;
+                    /*if (response.data.card_tasks.tasks[i].check_tasks=="1") {
+                        response.data.card_tasks.tasks[i].check_tasks = true;
+                        v.check_tasks_complete++;
+                    } else {
+                        response.data.card_tasks.tasks[i].check_tasks=false;
+                    }*/
+                    v.list_tasks = response.data.card_tasks.tasks;
+
+                    /*v.valueDeterminate = v.f_isNaN((v.check_tasks_complete/v.list_tasks.length)*100);*/
+                }else{
+
+                }
+            })
+            v.dialog_card = true;
+        },
+        f_addTasksStatus(){
+
+        },
+    }
+})
+
 /*$(document).ready(function(){
     function restoreRow(pTable, nRow) {
         var aData = pTable.row(nRow).data();
@@ -392,7 +652,7 @@
         }
     });
   });*/
-        $("#form-list-tasks").submit(function(e){
+        /*$("#form-list-tasks").submit(function(e){
             $.ajax({
                 type: "POST",
                 url: $(this).attr('action'),
@@ -481,7 +741,7 @@
                 editRowProject(viewprojectTable, nRow, nUrl);
                 nEditingViewProject = nRow;
             }
-        });
+        });*/
 
 </script>
 <?php $this->load->view('include/footer.php'); ?>

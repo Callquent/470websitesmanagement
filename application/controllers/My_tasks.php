@@ -62,4 +62,19 @@ class My_tasks extends CI_Controller {
 			$this->load->view('view-my-project', $data);
 		}
 	}
+	public function view_card_tasks()
+	{
+		$id_project_tasks	= $this->input->post('id_project_tasks');
+		$id_card_tasks		= $this->input->post('id_card_tasks');
+
+		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
+
+		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
+	}
+	public function create_tasks_status()
+	{
+		$id_website				= $this->input->post('id_website');
+
+		$this->model_tasks->create_project($id_website, $nameproject, date("Y-m-d", strtotime($date_started)), date("Y-m-d", strtotime($date_deadline)));
+	}
 }
