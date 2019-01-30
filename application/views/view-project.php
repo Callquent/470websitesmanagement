@@ -3,7 +3,7 @@
 
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
 		<h2 class="doc-title" id="content"><?php echo $project->name_project_tasks; ?></h2>
-		<a href="<?php echo site_url('/all-projects/'); ?>" class="btn btn-icon fuse-ripple-ready">
+		<a href="<?php echo site_url('/all-projects'); ?>" class="btn btn-icon fuse-ripple-ready">
 			<i class="icon icon-arrow-left-thick"></i>
 		</a>
 		<a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
@@ -51,7 +51,7 @@
 										  </div>
 									  </div>								
 								</div>
-								<div>{{card_tasks.count_tasks_completed}} / {{list_tasks.length}} <v-progress-linear v-model="valueDeterminate"></v-progress-linear></div>
+								<div>{{card_tasks.count_tasks_completed}} / {{card_tasks.tasks.length}} <v-progress-linear v-model="valueDeterminate"></v-progress-linear></div>
 								<div class="step-navigation hidden-md-and-up">
 									<button class="prevBtn mat-accent white-fg mat-fab" @click="f_prevBtn(--id_card)" v-if="first_step != stepper">
 										<span class="mat-button-wrapper">
@@ -76,7 +76,7 @@
 										<template>
 											<v-data-table
 												:headers="headers"
-												:items="list_tasks"
+												:items="card_tasks.tasks"
 												item-key="name_task"
 												select-all
 												class="elevation-1"
@@ -117,11 +117,8 @@
       width="500"
     >
 	<v-card>
-        <v-card-title
-          class="headline green lighten-2"
-          primary-title
-        >
-          Ajouter une tâche
+        <v-card-title class="headline green lighten-2" primary-title>
+          Ajouter une Card
         </v-card-title>
 
         <v-card-text>
@@ -129,6 +126,18 @@
 				<v-layout wrap>
 					<v-flex xs12>
 						<v-text-field label="Titre Task"  v-model="newCard.name_card_tasks" required></v-text-field>
+					</v-flex>
+					<v-flex xs12>
+						<v-select
+						v-model="newCard.id_priority"
+						slot="input"
+						label="Choose Priority"
+						single-line
+						autofocus
+						:items="list_tasks_priority"
+						item-text="name_tasks_priority"
+						item-value="id_tasks_priority">
+						</v-select>
 					</v-flex>
 					<v-flex xs12>
 						<v-text-field v-model="newCard.id_card_task" type="number" min="newCard.max" :max="newCard.max" required></v-text-field>
@@ -170,7 +179,7 @@
 			              chips
 			              label="Select"
 			              item-text="name_user"
-			              item-value="name_user">
+			              item-value="id">
 			              <template
 			                slot="selection"
 			                slot-scope="data"
@@ -227,7 +236,8 @@ var v = new Vue({
 		last_step: <?php echo json_encode($all_card_tasks->num_rows()); ?>,
 		stepper: "",
     	list_card_tasks: <?php echo json_encode($all_card_tasks->result_array()); ?>,
-    	list_tasks: <?php echo json_encode($card_tasks->tasks); ?>,
+    	list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
+    	card_tasks: <?php echo json_encode($card_tasks); ?>,
         users: <?php echo json_encode($list_users->result_array()); ?>,
 		currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
 		id_project: window.location.href.split('/').pop(),
@@ -240,23 +250,25 @@ var v = new Vue({
 		newCard:{
 			name_card_tasks:"",
 			id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
+			id_priority:"",
 			min: "1",
 			max: <?php echo $all_card_tasks->num_rows()+1; ?>,
 		},
+		editCard:[],
 		newTask:{
 		    nametask:'',
 		    user:'',
 		},
-		/*check_tasks_complete:0,*/
 		valueDeterminate: 0,
-        card_tasks: <?php echo json_encode($card_tasks); ?>,
     },
     created(){
 		this.displayPage();
     },
     methods:{
     	displayPage(){
-			this.valueDeterminate = this.f_isNaN((this.card_tasks.count_tasks_completed/this.list_tasks.length)*100);
+    		this.card_tasks.tasks = (this.card_tasks.tasks == null ? [] : this.card_tasks.tasks);
+    		this.valueDeterminate = this.f_isNaN((this.card_tasks.count_tasks_completed/this.card_tasks.tasks.length)*100);
+    		
         },
 		f_prevBtn(id_card) {
 			v.stepper=id_card;
@@ -273,13 +285,13 @@ var v = new Vue({
     		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
 				if(response.status = 200){
 					v.check_tasks_complete = 0;
-					v.list_tasks = [];
+					v.card_tasks.tasks = [];
 
 					v.id_card = id_card_task;
 					if (response.data.card_tasks.tasks != null) {
-						v.list_tasks = response.data.card_tasks.tasks;
+						v.card_tasks = response.data.card_tasks;
 					}
-					v.valueDeterminate = v.f_isNaN((v.check_tasks_complete/v.list_tasks.length)*100);
+					v.valueDeterminate = v.f_isNaN((v.card_tasks.count_tasks_completed/v.card_tasks.tasks.length)*100);
 					v.name_card_tasks = response.data.name_card_tasks;
 				}else{
 
@@ -289,8 +301,9 @@ var v = new Vue({
 		f_createCard(){
 			var formData = new FormData();
 			formData.append("name_card_tasks",v.newCard.name_card_tasks);
-			formData.append("id_card_task",v.newCard.id_card_task);
 			formData.append("id_project_tasks",v.id_project);
+			formData.append("id_card_task",v.newCard.id_card_task);
+			formData.append("id_tasks_priority",v.newCard.id_priority);
 			axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
 				if(response.status = 200){
 					v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.id_project});
@@ -325,16 +338,12 @@ var v = new Vue({
 			formData.append("check_tasks",(item.check_tasks^=1));
 			axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
 				if(response.status = 200){
-					if (item.check_tasks == 1) {
-						v.card_tasks.count_tasks_completed++
-						v.valueDeterminate = v.f_isNaN((v.card_tasks.count_tasks_completed)/v.list_tasks.length*100)
-					} else {
-						v.card_tasks.count_tasks_completed--
-						v.valueDeterminate = v.f_isNaN((v.card_tasks.count_tasks_completed)/v.list_tasks.length*100)
-					}
-					
-					/*v.list_card_tasks = response.data.card_tasks.name_tasks_status
-					Object.assign(v.list_card_tasks[v.list_card_tasks.indexOf(item)], v.editedItem)*/
+					v.editCard = response.data.card_tasks;
+					v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_completed)/v.card_tasks.tasks.length*100)
+					Object.assign(v.card_tasks, v.editCard);
+					//change status
+					var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
+					v.list_card_tasks[index].name_tasks_status = response.data.card_tasks.name_tasks_status;
 				}else{
 
 				}
@@ -343,12 +352,12 @@ var v = new Vue({
 		f_createTask(){
 			var formData = new FormData();
 			formData.append("nametask",this.newTask.nametask);
-			formData.append("user",this.newTask.user);
+			formData.append("id_user",this.newTask.user);
 			formData.append("id_project_tasks",this.id_project);
 			formData.append("id_card_tasks",this.id_card);
 			axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
 				if(response.status = 200){
-					v.list_tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
+					v.card_tasks.tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
 				}else{
 
 				}
@@ -362,8 +371,8 @@ var v = new Vue({
 			if (confirm('Are you sure you want to delete this item?') == true) {
 				axios.post(this.currentRoute+"/delete_task/", formData).then(function(response){
 					if(response.status = 200){
-						const index = v.list_tasks.indexOf(item)
-						v.list_tasks.splice(index, 1)
+						const index = v.card_tasks.tasks.indexOf(item)
+						v.card_tasks.tasks.splice(index, 1)
 					}else{
 
 					}

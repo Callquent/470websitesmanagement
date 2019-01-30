@@ -8,6 +8,9 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.3.9/vuetify.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+		<script type="text/javascript">
+			var user_current = <?php echo json_encode($user_role[0]); ?>;
+		</script>
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
 		<?php echo js_url('plugins/fuse-html.min.js'); ?>

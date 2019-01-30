@@ -615,7 +615,6 @@ class CI_FTP {
 	{
 		if ( $this->_is_conn())
 		{
-			$list_files = array();
 			$list_files[0] = array('title' => '..', 'type' => 'folder', 'chmod' => '', 'owner' =>'', 'size' => '', 'last_modified' => '');
 			foreach (ftp_rawlist ($this->conn_id, $path) as $key => $row)
 			{
@@ -625,15 +624,74 @@ class CI_FTP {
 				$size = ftp_size($this->conn_id, $path.'/'.$out[8]);
 
 				if ($size != -1) {
-					$list_files[++$key] = array('title' => $out[8], 'type' => 'file', 'chmod' => $out[0], 'owner' => $out[2], 'size' => $out[4], 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
+					$list_files[++$key] = array('title' => $out[8], 'type' => 'file', 'icon' => $this->_file_icon_details($out[8]), 'chmod' => $out[0], 'owner' => $out[2], 'size' => $out[4], 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
 				} else {
-					$list_files[++$key] = array('title' => $out[8], 'type' => 'folder', 'chmod' => $out[0], 'owner' => $out[2], 'size' => '', 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
+					$list_files[++$key] = array('title' => $out[8], 'type' => 'folder', 'icon' => 'icon-folder', 'chmod' => $out[0], 'owner' => $out[2], 'size' => '', 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
 				}
 			}
 			return $list_files;
 		} else {
 			return FALSE;
 		}
+	}
+	public function file_details($path = '.')
+	{
+		if ( $this->_is_conn())
+		{
+			$row = ftp_rawlist ($this->conn_id, $path);
+			$out = preg_split("/[\s]+/", $row[0]);
+			
+			$size = ftp_size($this->conn_id, $path);
+
+			if ($size != -1) {
+				$file = array('title' => substr(strrchr($out[8], "/"), 1), 'type' => 'file', 'icon' => $this->_file_icon_details($out[8]), 'chmod' => $out[0], 'owner' => $out[2], 'size' => $out[4], 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
+			}
+
+			return $file;
+		} else {
+			return FALSE;
+		}
+	}
+	protected function _file_icon_details($title_file){
+		$mime_file = get_mime_by_extension($title_file);
+
+		switch ($mime_file) {
+			case strpos($mime_file, 'excel') !== false:
+			case strpos($mime_file, 'spreadsheetml') !== false:
+				$file_icon = 'icon-file-excel';
+				break;
+			case strpos($mime_file, 'word') !== false:
+			case strpos($mime_file, 'wordprocessingml') !== false:
+				$file_icon = 'icon-file-word';
+				break;
+			case strpos($mime_file, 'powerpoint') !== false:
+			case strpos($mime_file, 'presentationml') !== false:
+				$file_icon = 'icon-file-powerpoint';
+				break;		
+			case strstr($mime_file, '/', true) == 'text':
+				$file_icon = 'icon-file-document';
+				break;
+			case strstr($mime_file, '/', true) == 'image':
+				$file_icon = 'icon-file-image';
+				break;
+			case strstr($mime_file, '/', true) == 'audio':
+				$file_icon = 'icon-file-music';
+				break;
+			case strstr($mime_file, '/', true) == 'video':
+				$file_icon = 'icon-file-video';
+				break;
+			case strpos($mime_file, 'zip') !== false:
+			case strpos($mime_file, 'rar') !== false:
+			case strpos($mime_file, 'tar') !== false:
+			case strpos($mime_file, 'gzip') !== false:
+			case strpos($mime_file, 'compressed') !== false:
+				$file_icon = 'icon-zip-box';
+				break;
+			default:
+				$file_icon = 'icon-file';
+				break;
+		}
+		return $file_icon;
 	}
 
 	// ------------------------------------------------------------------------

@@ -97,6 +97,15 @@ class All_projects extends CI_Controller {
 
 		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
 	}
+	public function create_card_tasks()
+	{
+		$id_project_tasks		= $this->input->post('id_project_tasks');
+		$id_card_tasks			= $this->input->post('id_card_task');
+		$name_card_tasks		= $this->input->post('name_card_tasks');
+		$id_tasks_priority		= $this->input->post('id_tasks_priority');
+
+		$this->model_tasks->create_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $id_tasks_priority);
+	}
 	public function delete_card_tasks()
 	{
 		$id_project_tasks		= $this->input->post('id_project_tasks');
@@ -104,24 +113,14 @@ class All_projects extends CI_Controller {
 
 		$this->model_tasks->delete_card_tasks($id_project_tasks,$id_card_tasks);
 	}
-	public function create_card_tasks()
-	{
-		$id_project_tasks		= $this->input->post('id_project_tasks');
-		$id_card_tasks			= $this->input->post('id_card_task');
-		$title_list_task		= $this->input->post('name_card_tasks');
-
-		$this->model_tasks->create_card_tasks($id_project_tasks, $id_card_tasks, $title_list_task);
-	}
 	public function create_task()
 	{
 		$id_project_tasks		= $this->input->post('id_project_tasks');
 		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$nametask				= $this->input->post('nametask');
-		$user					= $this->input->post('user');
+		$id_user				= $this->input->post('id_user');
 		
-		$iduser = $this->model_users->get_user_id($user)->id;
-
-		$this->model_tasks->create_task($id_project_tasks, $id_card_tasks, $nametask, $iduser);
+		$this->model_tasks->create_task($id_project_tasks, $id_card_tasks, $nametask, $id_user);
 	}
 	public function check_tasks()
 	{
@@ -136,7 +135,7 @@ class All_projects extends CI_Controller {
 
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
 
-		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
+		$this->output->set_content_type('application/json')->set_output( json_encode($data));
 	}
 	public function edit_task($id_project_tasks = '')
 	{

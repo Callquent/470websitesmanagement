@@ -274,7 +274,7 @@ var v = new Vue({
 				axios.post(v.currentRoute+"/create-project/", formData).then(function(response){
 					v.dialog_add_project = false;
 					//v.list_projects.push(v.editedItem)
-				})				
+				})
 			}
 
 		},

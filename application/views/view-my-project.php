@@ -93,7 +93,7 @@
                         <a class="kanban-entry grab" href="<?php echo site_url('/all-projects/view-card-tasks/'); ?>" draggable="true" data-toggle="modal" data-target="#view-card-tasks"  data-id="<?php echo $row_list_tasks->id_card_tasks; ?>">
                             <div class="kanban-entry-inner">
                                 <div class="kanban-label">
-                                    <h2><?php echo $row_list_tasks->title_card_tasks; ?></h2>
+                                    <h2><?php echo $row_list_tasks->name_card_tasks; ?></h2>
                                     <span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                          <span class="badge badge-dark"><?php echo $row_list_tasks->count_tasks_check_per_card ." / ".$row_list_tasks->count_tasks_per_card; ?></span>
                                     </span>
@@ -138,7 +138,7 @@
                             <a class="kanban-entry grab" href="<?php echo site_url('/all-projects/view-card-tasks/'); ?>" draggable="true" data-toggle="modal" data-target="#view-card-tasks"  data-id="<?php echo $row_list_tasks->id_card_tasks; ?>">
                                 <div class="kanban-entry-inner">
                                     <div class="kanban-label">
-                                        <h2><?php echo $row_list_tasks->title_card_tasks; ?></h2>
+                                        <h2><?php echo $row_list_tasks->name_card_tasks; ?></h2>
                                         <span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                              <span class="badge badge-dark"><?php echo $row_list_tasks->count_tasks_check_per_card ." / ".$row_list_tasks->count_tasks_per_card; ?></span>
                                         </span>
@@ -161,7 +161,7 @@
                             <a class="kanban-entry grab" href="<?php echo site_url('/all-projects/view-card-tasks/'); ?>" draggable="true" data-toggle="modal" data-target="#view-card-tasks"  data-id="<?php echo $row_list_tasks->id_card_tasks; ?>">
                                 <div class="kanban-entry-inner">
                                     <div class="kanban-label">
-                                        <h2><?php echo $row_list_tasks->title_card_tasks; ?></h2>
+                                        <h2><?php echo $row_list_tasks->name_card_tasks; ?></h2>
                                         <span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                              <span class="badge badge-dark"><?php echo $row_list_tasks->count_tasks_check_per_card ." / ".$row_list_tasks->count_tasks_per_card; ?></span>
                                         </span>
@@ -213,7 +213,7 @@
                                                         <span class="list-card-label orange-400 ng-star-inserted" aria-describedby="cdk-describedby-message-32" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
                                                         <span class="list-card-label blue-600 ng-star-inserted" aria-describedby="cdk-describedby-message-33" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
                                                     </div>
-                                                    <div class="list-card-name">{{ card_tasks_to_do.title_card_tasks }}</div>
+                                                    <div class="list-card-name">{{ card_tasks_to_do.name_card_tasks }}</div>
                                                     <div class="list-card-badges ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                                         <span class="badge due-date overdue ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><span>{{card_tasks_to_do.name_tasks_priority}}</span></span><span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-16 mat-icon material-icons" role="img" aria-hidden="true">check_circle</mat-icon><span>{{card_tasks_to_do.count_tasks_check_per_card}}</span><span>/</span><span>{{card_tasks_to_do.count_tasks_per_card}}</span></span>
                                                     </div>
@@ -223,9 +223,19 @@
                                     </div>
                                     <div class="list-footer">
                                         <scrumboard-board-add-card>
-                                            <div class="add-card-button ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                                            <div @click="display_card = false" class="add-card-button ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;" v-if="display_card">
                                                 <mat-icon class="s-20 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>
                                                 <div>Add a card</div>
+                                            </div>
+                                            <div class="add-card-form-wrapper ng-star-inserted" v-else>
+                                                <form class="add-card-form ng-pristine ng-invalid ng-touched" style="flex-direction: column; box-sizing: border-box; display: flex;">
+                                                    <v-text-field label="Name Card Task" v-model="newCard.name_card_tasks" required :rules="[() => newCard.name_card_tasks.length > 0 || 'Required field']"></v-text-field>
+                                                    <v-select v-model="newCard.id_priority" slot="input" label="Choose Priority" single-line autofocus :items="list_tasks_priority" item-text="name_tasks_priority" item-value="id_tasks_priority"></v-select>
+                                                    <div class="pl-8" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center space-between; align-items: center;">
+                                                        <v-btn @click="f_createCard">Add</v-btn>
+                                                        <button class="cancel-button mat-icon-button" @click="display_card = true"><span class="mat-button-wrapper"><i class="icon-close"></i></span></button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </scrumboard-board-add-card>
                                     </div>
@@ -254,7 +264,7 @@
                                                         <span class="list-card-label orange-400 ng-star-inserted" aria-describedby="cdk-describedby-message-32" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
                                                         <span class="list-card-label blue-600 ng-star-inserted" aria-describedby="cdk-describedby-message-33" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
                                                     </div>
-                                                    <div class="list-card-name">{{ card_tasks_in_progress.title_card_tasks }}</div>
+                                                    <div class="list-card-name">{{ card_tasks_in_progress.name_card_tasks }}</div>
                                                     <div class="list-card-badges ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                                         <span class="badge due-date overdue ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><span>{{card_tasks_in_progress.name_tasks_priority}}</span></span><span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-16 mat-icon material-icons" role="img" aria-hidden="true">check_circle</mat-icon><span>{{card_tasks_in_progress.count_tasks_check_per_card}}</span><span>/</span><span>{{card_tasks_in_progress.count_tasks_per_card}}</span></span>
                                                     </div>
@@ -295,7 +305,7 @@
                                                         <span class="list-card-label orange-400 ng-star-inserted" aria-describedby="cdk-describedby-message-32" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
                                                         <span class="list-card-label blue-600 ng-star-inserted" aria-describedby="cdk-describedby-message-33" cdk-describedby-host="" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></span>
                                                     </div>
-                                                    <div class="list-card-name">{{ card_tasks_completed.title_card_tasks }}</div>
+                                                    <div class="list-card-name">{{ card_tasks_completed.name_card_tasks }}</div>
                                                     <div class="list-card-badges ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                                         <span class="badge due-date overdue ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><span>{{card_tasks_completed.name_tasks_priority}}</span></span><span class="badge check-items ng-star-inserted" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;"><mat-icon class="s-16 mat-icon material-icons" role="img" aria-hidden="true">check_circle</mat-icon><span>{{card_tasks_completed.count_tasks_check_per_card}}</span><span>/</span><span>{{card_tasks_completed.count_tasks_per_card}}</span></span>
                                                     </div>
@@ -483,21 +493,18 @@
       width="720"
     >
     <v-card>
-        <v-card-title
-          class="headline green lighten-2"
-          primary-title
-        >
-          Ajouter une tâche
+        <v-card-title class="headline green lighten-2" primary-title>
+          Card
         </v-card-title>
 
         <v-card-text>
             <v-container grid-list-md>
                 <v-layout wrap>
                     <v-flex xs12>
-                        <v-text-field label="Titre Card Task" v-model="editCard.name_card_tasks" required></v-text-field>
+                        <v-text-field label="Titre Card Task" v-model="card_tasks.name_card_tasks" required></v-text-field>
                     </v-flex>
                     <v-flex xs12>
-                        <v-textarea v-model="editCard.description_card_tasks">
+                        <v-textarea v-model="card_tasks.description_card_tasks">
                             <div slot="label">Decription Card Task <small>(optional)</small></div>
                         </v-textarea>
                     </v-flex>
@@ -508,17 +515,18 @@
                         User
                     </v-flex>
                     <v-flex xs12>
+                        <div>{{card_tasks.count_tasks_check_per_card}} / {{card_tasks.count_tasks_per_card}} <v-progress-linear v-model="valueDeterminate"></v-progress-linear></div>
                         <v-card>
                             <template>
                                 <v-data-table
                                     :headers="headers"
-                                    :items="list_tasks"
+                                    :items="card_tasks.tasks"
                                     item-key="name_task"
                                     select-all
                                     class="elevation-1"
                                 >
                                     <template slot="items" slot-scope="props">
-                                        <td><v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks" primary hide-details></v-checkbox></td>
+                                        <td><v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks == 1" primary hide-details></v-checkbox></td>
                                         <td>{{ props.item.name_task }}</td>
                                         <td>{{ props.item.username }}</td>
                                         <td>
@@ -536,55 +544,74 @@
         <v-card-actions>
           <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click="f_createCard()">Save</v-btn>
-            <v-btn color="blue darken-1" flat @click="dialog_add_card = false">Close</v-btn>
+            <v-btn color="blue darken-1" flat @click="dialog_card = false">Close</v-btn>
         </v-card-actions>
     </v-card>
 </v-dialog>
 
+<v-dialog v-model="dialog_add_task" persistent width="500">
+    <v-card>
+        <v-card-title class="headline green lighten-2" primary-title>
+            Ajouter une tâche
+        </v-card-title>
 
-
-        
+        <v-card-text>
+            <v-container grid-list-md>
+                <v-layout wrap>
+                    <v-flex xs12>
+                        <v-text-field label="Titre Task"  v-model="newTask.nametask" required :rules="[() => !!newTask.nametask || 'Name is required']"></v-text-field>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+            <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="f_createTask()">Save</v-btn>
+            <v-btn color="blue darken-1" flat @click="dialog_add_task = false">Close</v-btn>
+        </v-card-actions>
+    </v-card>
+</v-dialog>
 
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 var v = new Vue({
     el: '#app',
     data : {
+        dialog_add_task: false,
         dialog_card: false,
         list_card_tasks_to_do: <?php echo json_encode($all_card_tasks_to_do->result_array()); ?>,
         list_card_tasks_in_progress: <?php echo json_encode($all_card_tasks_in_progress->result_array()); ?>,
         list_card_tasks_completed: <?php echo json_encode($all_card_tasks_completed->result_array()); ?>,
+        list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
         currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
         id_project: window.location.href.split('/').pop(),
-        id_card: <?php echo json_encode($all_card_tasks->row()->id_card_tasks); ?>,
+        id_card: "",
+        user_profil: user_current,
         headers: [
             { text: 'Name Task', value: 'name_task', sortable: false},
             { text: 'User', value: 'username' },
             { text: 'Actions', value: 'name', sortable: false }
         ],
-        editCard:{
-            name_card_tasks:"",
-            description_card_tasks:"",
-        },
+        card_tasks:[],
         newCard:{
             name_card_tasks:"",
             id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
+            id_priority:"",
         },
         newTask:{
             nametask:'',
-            user:'',
         },
-        check_tasks_complete:0,
+        display_card:true,
         valueDeterminate: 0,
-        title_card_tasks:"",
-        list_tasks: [],
     },
     created(){
         this.displayPage();
     },
     methods:{
         displayPage(){
-
+            this.card_tasks.tasks = (this.card_tasks.tasks == null ? [] : this.card_tasks.tasks);
+            this.valueDeterminate = this.f_isNaN((this.card_tasks.count_tasks_completed/this.card_tasks.tasks.length)*100);
         },
         f_dialog_editCard(card_tasks){
             var formData = new FormData(); 
@@ -592,26 +619,84 @@ var v = new Vue({
             formData.append("id_card_tasks",card_tasks.id_card_tasks);
             axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
                 if(response.status = 200){
-                    v.editCard.name_card_tasks = response.data.card_tasks.name_card_tasks;
-                    v.editCard.description_card_tasks = response.data.card_tasks.description_card_tasks;
-                    /*if (response.data.card_tasks.tasks[i].check_tasks=="1") {
-                        response.data.card_tasks.tasks[i].check_tasks = true;
-                        v.check_tasks_complete++;
-                    } else {
-                        response.data.card_tasks.tasks[i].check_tasks=false;
-                    }*/
-                    v.list_tasks = response.data.card_tasks.tasks;
-
-                    /*v.valueDeterminate = v.f_isNaN((v.check_tasks_complete/v.list_tasks.length)*100);*/
+                    v.card_tasks = response.data.card_tasks;
                 }else{
 
                 }
             })
             v.dialog_card = true;
         },
-        f_addTasksStatus(){
+        f_checkTask(item){
+            var formData = new FormData();
+            formData.append("id_project_tasks",item.id_project_tasks);
+            formData.append("id_card_tasks",item.id_card_tasks);
+            formData.append("id_task",item.id_task);
+            formData.append("check_tasks",(item.check_tasks^=1));
+            axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
+                if(response.status = 200){
+                    v.editCard = response.data.card_tasks;
+                    v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_completed)/v.card_tasks.tasks.length*100)
+                    Object.assign(v.card_tasks, v.editCard);
+                    //change status
+                    var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
+                    v.list_card_tasks[index].name_tasks_status = response.data.card_tasks.name_tasks_status;
+                }else{
 
+                }
+            })
         },
+        f_createCard(){
+            var formData = new FormData();
+            formData.append("name_card_tasks",v.newCard.name_card_tasks);
+            formData.append("id_project_tasks",v.id_project);
+            formData.append("id_card_task",v.newCard.id_card_task);
+            formData.append("id_tasks_priority",v.newCard.id_priority);
+            axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
+                if(response.status = 200){
+                    response.data.card_tasks.count_tasks_per_card++;
+                    v.list_card_tasks_to_do.push(response.data.card_tasks);
+                    v.id_card = v.newCard.id_card_task;
+                    v.dialog_add_task = true;
+                    v.display_card = true;
+                }else{
+
+                }
+            })
+        },
+        f_editCard(card_tasks){
+            var formData = new FormData(); 
+            formData.append("id_project_tasks",card_tasks.id_project_tasks);
+            formData.append("id_card_tasks",card_tasks.id_card_tasks);
+            axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
+                if(response.status = 200){
+                    v.card_tasks = response.data.card_tasks;
+                }else{
+
+                }
+            })
+            v.dialog_card = true;
+        },
+        f_createTask(){
+            var formData = new FormData();
+            formData.append("nametask",v.newTask.nametask);
+            formData.append("id_user",v.user_profil.user_id);
+            formData.append("id_project_tasks",v.id_project);
+            formData.append("id_card_tasks",v.id_card);
+            axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
+                if(response.status = 200){
+                    v.dialog_add_task = false;
+                }else{
+
+                }
+            })
+        },
+        f_isNaN(val) {
+            if (isNaN(val)) {
+                return 0;
+            } else {
+                return val;
+            }
+        }
     }
 })
 

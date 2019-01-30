@@ -63,7 +63,7 @@
                         >
                             <template slot="items" slot-scope="props">
                                 <tr @dblclick="f_openFolder(props.item)">
-                                    <td class="file-icon"><i :class="'icon-'+props.item.type"></i></td>
+                                    <td class="file-icon"><i :class="props.item.icon"></i></td>
                                     <td class="name">{{ props.item.title }}</td>
                                     <td>{{ props.item.size }}</td>
                                     <td>{{ props.item.type }}</td>
