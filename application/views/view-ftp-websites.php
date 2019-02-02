@@ -449,7 +449,7 @@ var v = new Vue({
             var formData = new FormData();
             formData.append('uploadfile', v.file);
             formData.append('path', v.path);
-             formData.append("file",v.file.name);
+            formData.append("file",v.file.name);
             axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
                 if(response.status = 200){
                     v.list_view_ftp.push(response.data);

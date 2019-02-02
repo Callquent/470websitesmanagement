@@ -370,7 +370,7 @@ class CI_FTP {
 		}
 
 		$mode = ($mode === 'ascii') ? FTP_ASCII : FTP_BINARY;
-
+		
 		$result = @ftp_get($this->conn_id, $locpath, $rempath, $mode);
 
 		if ($result === FALSE)
@@ -384,6 +384,92 @@ class CI_FTP {
 		}
 
 		return TRUE;
+	}
+
+	public function downloadFolder($rempath, $locpath, $mode = 'auto')
+	{
+		if ( ! $this->_is_conn())
+		{
+			return FALSE;
+		}
+
+		$downloadFileAr = $this->_tree_Folder($rempath);
+
+		if (sizeof($downloadFileAr) > 1) {
+			$zip_file_name   = "monsta_ftp_".date("Y_m_d_H_i_s").".zip";
+
+			$serverTmp = ini_get('upload_tmp_dir') ? ini_get('upload_tmp_dir') : sys_get_temp_dir();
+    		$toto =tempnam($serverTmp, $zip_file_name);
+
+			$zip_file        = $toto;
+			$zip             = new ZipArchive();
+			$zip->open($zip_file, ZipArchive::CREATE);
+
+			foreach ($downloadFileAr as $file) {
+
+				$file_name = substr(strrchr($file, "/"), 1);
+
+				$serverTmp = ini_get('upload_tmp_dir') ? ini_get('upload_tmp_dir') : sys_get_temp_dir();
+    			$titi =tempnam($serverTmp, $zip_file_name);
+
+				$fp1       = $titi;
+				$fp2       = $file;
+/*
+				$unlinkFileAr[] = $fp1;
+
+				$isError = 0;
+
+				ensureFtpConnActive();
+*/
+				// Download file to client server
+				@ftp_get($this->conn_id, $fp1, $fp2, FTP_BINARY);
+
+				$file_path = ltrim($fp2, '/');
+				//if ($isError == 0) {
+				    $zip->addFile($fp1,$file_path);
+				//}
+				//    var_dump($fp1." ------------------- ".$file_path);
+			}
+			$zip->close();
+
+		header("Content-type: text/plain");
+		header("Content-Disposition: attachment; filename=".$zip_file_name);
+
+			$fp = @fopen($zip_file, "r");
+			while (!feof($fp)) {
+				echo @fread($fp, 65536);
+				@flush();
+			}
+			@fclose($fp);
+		}
+
+		/*if ($result === FALSE)
+		{
+			if ($this->debug === TRUE)
+			{
+				$this->_error('ftp_unable_to_download');
+			}
+
+			return FALSE;
+		}
+
+		return TRUE;*/
+	}
+	function _tree_Folder($path, &$downloadFileAr = array())
+	{
+		foreach (ftp_rawlist ($this->conn_id, $path) as $key => $row) {
+
+			$out = preg_split("/[\s]+/", $row);
+
+			$size = ftp_size($this->conn_id, $path.'/'.$out[8]);
+
+			if ($size != -1) {
+				$downloadFileAr[] = $path. "/" .$out[8];
+			} else {
+				$this->_tree_Folder($path. "/" . $out[8],$downloadFileAr);
+			}
+		}
+		return $downloadFileAr;
 	}
 
 	// --------------------------------------------------------------------

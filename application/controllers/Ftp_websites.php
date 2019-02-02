@@ -134,18 +134,15 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->close();
 
-
-		//$data = array('title' => $_FILES["uploadfile"]["name"], 'type' => 'file', 'chmod' => '', 'owner' =>'', 'size' => $_FILES["uploadfile"]["size"], 'last_modified' => "");
 		echo json_encode($data);
 	}
 	public function downloadftp($id_ftp_websites = '')
 	{
-		$path = $this->input->post('path');
+		/*$path = $this->input->post('path');
 		$file = $this->input->post('file');
-		$item_download = path_jointure_file($path,$file);
-
-		header("Content-type: text/plain");
-		header("Content-Disposition: attachment; filename=".$item_download);
+		$item_download = path_jointure_file($path,$file);*/
+		$file ="test";
+		$item_download = path_jointure_file("/",$file);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -154,7 +151,16 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-		$this->ftp->download($item_download, 'php://output', 'auto');
+		if (isset($toto)) {
+			$this->ftp->download($item_download, 'php://output', 'auto');
+		} else {
+			$this->ftp->downloadFolder($item_download, 'php://output', 'auto');
+			$item_download = $file.date("_Y_m_d_H_i_s").".zip";
+		}
+		/*header("Content-type: text/plain");
+		header("Content-Disposition: attachment; filename=".$item_download);
+*/
+		$this->ftp->close();
 	}
 	/*public function moveftp()
 	{
