@@ -93,7 +93,7 @@ class Ftp_websites extends CI_Controller {
 	{
 		$path = $this->input->post('path');
 		$createfolder = $this->input->post('createfolder');
-		$path = path_jointure_file($path,$createfolder);
+		$item_download = path_jointure_file($path,$createfolder);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -103,10 +103,11 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$this->ftp->mkdir($path, 0755);
+		$this->ftp->mkdir($item_download, 0755);
+		$data = $this->ftp->file_details($path,$createfolder);
 
 		$this->ftp->close();
-		$data = array('title' => $createfolder, 'type' => 'folder', 'chmod' => '', 'owner' =>'', 'size' => '', 'last_modified' => '');
+
 		echo json_encode($data);
 	}
 	public function uploadftp($id_ftp_websites = '')
@@ -130,7 +131,7 @@ class Ftp_websites extends CI_Controller {
 		$this->ftp->connect($config);
 
 		$this->ftp->upload($source_to_local, path_jointure_file($path,$file), 'auto', 0775);
-		$data = $this->ftp->file_details(path_jointure_file($path,$file));
+		$data = $this->ftp->file_details($path,$file);
 
 		$this->ftp->close();
 
@@ -138,11 +139,10 @@ class Ftp_websites extends CI_Controller {
 	}
 	public function downloadftp($id_ftp_websites = '')
 	{
-		/*$path = $this->input->post('path');
+		$path = $this->input->post('path');
 		$file = $this->input->post('file');
-		$item_download = path_jointure_file($path,$file);*/
-		$file ="test";
-		$item_download = path_jointure_file("/",$file);
+		$chmod_permissions = $this->input->post('chmod_permissions');
+		$item_download = path_jointure_file($path,$file);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
 
@@ -151,15 +151,12 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-		if (isset($toto)) {
+		if ($chmod_permissions != "d") {
 			$this->ftp->download($item_download, 'php://output', 'auto');
 		} else {
-			$this->ftp->downloadFolder($item_download, 'php://output', 'auto');
-			$item_download = $file.date("_Y_m_d_H_i_s").".zip";
+			$this->ftp->download_folder($item_download, 'php://output', 'auto');
 		}
-		/*header("Content-type: text/plain");
-		header("Content-Disposition: attachment; filename=".$item_download);
-*/
+		
 		$this->ftp->close();
 	}
 	/*public function moveftp()
@@ -183,7 +180,45 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$this->ftp->rename( path_jointure_file($path,$oldrename), path_jointure_file($path,$newrename));
+		$this->ftp->rename(path_jointure_file($path,$oldrename), path_jointure_file($path,$newrename));
+
+		$this->ftp->close();
+	}
+	public function chmodftp($id_ftp_websites = '')
+	{
+		$path = $this->input->post('path');
+		$file = $this->input->post('file');
+		$chmod = $this->input->post('chmod');
+		$item_download = path_jointure_file($path,$file);
+
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
+
+		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
+		$config['username'] = $this->encryption->decrypt($row->login_ftp);
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+
+		$this->ftp->connect($config);
+		$this->ftp->chmod($item_download, $chmod);
+		
+		$this->ftp->close();
+	}
+	public function test($id_ftp_websites = '')
+	{
+		$file = "/civuejs.zip";
+
+		/*$file = $this->input->post('file');
+		$path = $this->input->post('path');
+		$item_delete = path_jointure_file($path,$file);*/
+
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
+
+		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
+		$config['username'] = $this->encryption->decrypt($row->login_ftp);
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+
+		$this->ftp->connect($config);
+
+		$this->ftp->extract_zip($file);
 
 		$this->ftp->close();
 	}
@@ -191,6 +226,7 @@ class Ftp_websites extends CI_Controller {
 	{
 		$file = $this->input->post('file');
 		$path = $this->input->post('path');
+		$chmod_permissions = $this->input->post('chmod_permissions');
 		$item_delete = path_jointure_file($path,$file);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
@@ -201,8 +237,7 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$item = pathinfo($item_delete);
-		if (isset($item["extension"])) {
+		if ($chmod_permissions != "d") {
 			$this->ftp->delete_file($item_delete);
 		} else {
 			$this->ftp->delete_dir($item_delete);

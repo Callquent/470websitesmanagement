@@ -223,20 +223,32 @@
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-            <v-data-table
-                    :headers="headers_list_chmod"
-                    :items="list_chmod"
-                    class="elevation-1"
-                  >
-                    <template slot="items" slot-scope="props">
-                      <td>{{ props.item.name }}</td>
-                      <td class="text-xs-right">{{ props.item.calories }}</td>
-                      <td class="text-xs-right">{{ props.item.fat }}</td>
-                      <td class="text-xs-right">{{ props.item.carbs }}</td>
-                      <td class="text-xs-right">{{ props.item.protein }}</td>
-                      <td class="text-xs-right">{{ props.item.iron }}</td>
-                    </template>
-                </v-data-table>
+                <table>
+                    <th>
+                        <td>Owner</td>
+                        <td>Group</td>
+                        <td>Other</td>
+                    </th>
+                    <tr>
+                        <td>Read</td>
+                        <td><v-checkbox input-value="true" value="4"></v-checkbox></td>
+                        <td><v-checkbox input-value="true" value="4"></v-checkbox></td>
+                        <td><v-checkbox input-value="true" value="4"></v-checkbox></td>
+                    </tr>
+                    <tr>
+                        <td>Write</td>
+                        <td><v-checkbox input-value="true" value="2"></v-checkbox></td>
+                        <td><v-checkbox input-value="true" value="2"></v-checkbox></td>
+                        <td><v-checkbox input-value="true" value="2"></v-checkbox></td>
+                    </tr>
+                    <tr>
+                        <td>Execute</td>
+                        <td><v-checkbox input-value="true" value="1"></v-checkbox></td>
+                        <td><v-checkbox input-value="true" value="1"></v-checkbox></td>
+                        <td><v-checkbox input-value="true" value="1"></v-checkbox></td>
+                    </tr>
+                </table>
+                <v-text-field v-model="chmod_item" mask="###" hint="This field uses maxlength attribute" label="Limit exceeded"></v-text-field>
           </v-container>
           <small>*indicates required field</small>
         </v-card-text>
@@ -272,6 +284,9 @@
         <v-list-tile @click='dialog_chmodPermissions = true'>
           <v-list-tile-title>Chmod</v-list-tile-title>
         </v-list-tile>
+        <v-list-tile @click='dialog_chmodPermissions = true'>
+          <v-list-tile-title>Décompresser</v-list-tile-title>
+        </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click='f_deleteFile(contextMenu.selected_item)'>
           <v-list-tile-title>Supprimer</v-list-tile-title>
@@ -293,6 +308,7 @@ var v = new Vue({
         id_website: window.location.href.split('/').pop(),
         list_view_ftp: <?php echo json_encode($all_storage_server); ?>,
         path: '<?php echo $path_server; ?>',
+        chmod_item: "000",
         headers: [
             { text: '', value: 'icon', sortable: false},
             { text: 'Name', value: 'name'},
@@ -333,11 +349,13 @@ var v = new Vue({
             v.contextMenu.selected_item = this.list_view_ftp.find( item => item.title === filename);
             e.preventDefault()
             this.contextMenu.showMenu = false
-            this.contextMenu.x = e.clientX
-            this.contextMenu.y = e.clientY
-            this.$nextTick(() => {
-                this.contextMenu.showMenu = true
-            })
+            if (filename.length > 0) {
+                this.contextMenu.x = e.clientX
+                this.contextMenu.y = e.clientY
+                this.$nextTick(() => {
+                    this.contextMenu.showMenu = true
+                })
+            }
         },
         f_openFolder (item) {
             var formData = new FormData(); 
@@ -431,6 +449,7 @@ var v = new Vue({
             var formData = new FormData();
             formData.append("path",v.path);
             formData.append("file",item.title);
+            formData.append("chmod_permissions",item.chmod.charAt(0));
             axios({
                 method: 'POST',
                 url: this.currentRoute+"/downloadftp/"+this.id_website,
@@ -458,10 +477,23 @@ var v = new Vue({
                 }
             })
         },
+        f_test(){
+            var formData = new FormData();
+            formData.append('path', v.path);
+            formData.append("file",v.file.name);
+            axios.post(this.currentRoute+"/test/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    
+                }else{
+
+                }
+            })
+        },
         f_deleteFile(item){
             var formData = new FormData();
             formData.append("path",v.path);
             formData.append("file",item.title);
+            formData.append("chmod_permissions",item.chmod.charAt(0));
             if (confirm('Are you sure you want to delete this item?') == true) {
                 axios.post(this.currentRoute+"/deleteftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
