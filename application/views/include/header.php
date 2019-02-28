@@ -5,11 +5,8 @@
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<?php echo css_url('css/bootstrap.min.css'); ?>
-		<?php echo css_url('plugins/bootstrap-fileupload/bootstrap-fileupload.css'); ?>
 		<?php echo css_url('plugins/bootstrap-colorpicker/css/colorpicker.css'); ?>
 		<?php echo css_url('plugins/jquery-multi-select/css/multi-select.css'); ?>
-		<?php echo css_url('plugins/data-tables/datatables.bootstrap.min.css'); ?>
-		<?php echo css_url('plugins/data-tables/Buttons/css/buttons.dataTables.css'); ?>
 		<?php echo css_url('plugins/tocify/stylesheets/jquery.tocify.css'); ?>
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('plugins/nvd3/nv.d3.min.css'); ?>

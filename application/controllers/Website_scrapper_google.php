@@ -53,6 +53,6 @@ class Website_scrapper_google extends CI_Controller {
 			$website_search_preview[] = $list;
 		}
 		$data['result_websites'] = $website_search_preview;
-		echo json_encode($data);
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 }

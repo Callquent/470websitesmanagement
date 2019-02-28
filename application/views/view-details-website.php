@@ -3,8 +3,8 @@
   <div class="page-layout simple full-width">
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
 		<h2 class="doc-title" id="content">{{ website.url_website }}</h2>
-		<a href="<?php echo site_url('/all-websites'); ?>" class="btn btn-icon fuse-ripple-ready">
-			<i class="icon icon-arrow-left-thick"></i>
+		<a href="<?php echo site_url('all-websites'); ?>" class="btn btn-icon fuse-ripple-ready">
+			<i class="icon icon-arrow-left-thick s-10"></i>
 		</a>
 	</div>
 	<div class="page-content">
@@ -15,52 +15,43 @@
 		  <div class="row">
 			  <div class="col-sm-12">
 				  <section class="card mb-3">
-					  <header class="card-header">
-						  <?php echo lang('websites_management'); ?>
-					  </header>
 
 					<v-card>
 						<template>
 							<v-container fluid grid-list-sm>
 								<v-layout row wrap>
 									<v-flex xs6 md6 sm12>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>My CRUD</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
-      <v-spacer></v-spacer>
-      <v-dialog v-model="dialog_ftp" max-width="500px">
-        <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
-        <v-card>
-          <v-card-title>
-            <span class="headline">Add Ftp</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedFtp.host_ftp" label="<?php echo lang("host_ftp"); ?>"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedFtp.login_ftp" label="<?php echo lang("login_ftp"); ?>"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedFtp.password_ftp" label="<?php echo lang("password_ftp"); ?>"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="closeFTP()">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="saveFTP()">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-toolbar>
+										<v-toolbar flat color="white">
+										  <v-spacer></v-spacer>
+										  <v-dialog v-model="dialog_ftp" max-width="500px">
+										    <v-btn slot="activator" color="primary" dark class="mb-2">New Ftp</v-btn>
+										    <v-card>
+										      <v-card-title>
+										        <span class="headline">Add Ftp</span>
+										      </v-card-title>
+										      <v-card-text>
+										        <v-container grid-list-md>
+										          <v-layout wrap>
+										            <v-flex xs12 sm6 md4>
+										              <v-text-field v-model="editedFtp.host_ftp" label="<?php echo lang("host_ftp"); ?>"></v-text-field>
+										            </v-flex>
+										            <v-flex xs12 sm6 md4>
+										              <v-text-field v-model="editedFtp.login_ftp" label="<?php echo lang("login_ftp"); ?>"></v-text-field>
+										            </v-flex>
+										            <v-flex xs12 sm6 md4>
+										              <v-text-field v-model="editedFtp.password_ftp" label="<?php echo lang("password_ftp"); ?>"></v-text-field>
+										            </v-flex>
+										          </v-layout>
+										        </v-container>
+										      </v-card-text>
+										      <v-card-actions>
+										        <v-spacer></v-spacer>
+										        <v-btn color="blue darken-1" flat @click="closeFTP()">Cancel</v-btn>
+										        <v-btn color="blue darken-1" flat @click="saveFTP()">Save</v-btn>
+										      </v-card-actions>
+										    </v-card>
+										  </v-dialog>
+										</v-toolbar>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_ftp'); ?>
@@ -84,49 +75,42 @@
 												</template>
 											</v-data-table>
 										</section>
-
 									</v-flex>
 									<v-flex xs6 md6 sm12>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>My CRUD</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
-      <v-spacer></v-spacer>
-      <v-dialog v-model="dialog_database" max-width="500px">
-        <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
-        <v-card>
-          <v-card-title>
-            <span class="headline">Add Database</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedDatabase.host_database" label="<?php echo lang("host_sql"); ?>"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedDatabase.name_database" label="<?php echo lang("name_sql"); ?>"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedDatabase.login_database" label="<?php echo lang("login_sql"); ?>"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedDatabase.password_database" label="<?php echo lang("password_sql"); ?>"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="closeDatabase()">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="saveDatabase()">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-toolbar>
+									    <v-toolbar flat color="white">
+									      <v-spacer></v-spacer>
+									      <v-dialog v-model="dialog_database" max-width="500px">
+									        <v-btn slot="activator" color="primary" dark class="mb-2">New Database</v-btn>
+									        <v-card>
+									          <v-card-title>
+									            <span class="headline">Add Database</span>
+									          </v-card-title>
+									          <v-card-text>
+									            <v-container grid-list-md>
+									              <v-layout wrap>
+									                <v-flex xs12 sm6 md4>
+									                  <v-text-field v-model="editedDatabase.host_database" label="<?php echo lang("host_sql"); ?>"></v-text-field>
+									                </v-flex>
+									                <v-flex xs12 sm6 md4>
+									                  <v-text-field v-model="editedDatabase.name_database" label="<?php echo lang("name_sql"); ?>"></v-text-field>
+									                </v-flex>
+									                <v-flex xs12 sm6 md4>
+									                  <v-text-field v-model="editedDatabase.login_database" label="<?php echo lang("login_sql"); ?>"></v-text-field>
+									                </v-flex>
+									                <v-flex xs12 sm6 md4>
+									                  <v-text-field v-model="editedDatabase.password_database" label="<?php echo lang("password_sql"); ?>"></v-text-field>
+									                </v-flex>
+									              </v-layout>
+									            </v-container>
+									          </v-card-text>
+									          <v-card-actions>
+									            <v-spacer></v-spacer>
+									            <v-btn color="blue darken-1" flat @click="closeDatabase()">Cancel</v-btn>
+									            <v-btn color="blue darken-1" flat @click="saveDatabase()">Save</v-btn>
+									          </v-card-actions>
+									        </v-card>
+									      </v-dialog>
+									    </v-toolbar>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_sql'); ?>
@@ -154,43 +138,37 @@
 
 									</v-flex>
 									<v-flex xs6 md6 sm12>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>My CRUD</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
-      <v-spacer></v-spacer>
-      <v-dialog v-model="dialog_backoffice" max-width="500px">
-        <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
-        <v-card>
-          <v-card-title>
-            <span class="headline">Add Backoffice</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedBackoffice.host_backoffice" label="<?php echo lang("host_backoffice"); ?>"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedBackoffice.login_backoffice" label="<?php echo lang("login_backoffice"); ?>"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedBackoffice.password_backoffice" label="<?php echo lang("password_backoffice"); ?>"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="closeBackoffice()">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="saveBackoffice()">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-toolbar>
+										<v-toolbar flat color="white">
+										  <v-spacer></v-spacer>
+										  <v-dialog v-model="dialog_backoffice" max-width="500px">
+										    <v-btn slot="activator" color="primary" dark class="mb-2">New Backoffice</v-btn>
+										    <v-card>
+										      <v-card-title>
+										        <span class="headline">Add Backoffice</span>
+										      </v-card-title>
+										      <v-card-text>
+										        <v-container grid-list-md>
+										          <v-layout wrap>
+										            <v-flex xs12 sm6 md4>
+										              <v-text-field v-model="editedBackoffice.host_backoffice" label="<?php echo lang("host_backoffice"); ?>"></v-text-field>
+										            </v-flex>
+										            <v-flex xs12 sm6 md4>
+										              <v-text-field v-model="editedBackoffice.login_backoffice" label="<?php echo lang("login_backoffice"); ?>"></v-text-field>
+										            </v-flex>
+										            <v-flex xs12 sm6 md4>
+										              <v-text-field v-model="editedBackoffice.password_backoffice" label="<?php echo lang("password_backoffice"); ?>"></v-text-field>
+										            </v-flex>
+										          </v-layout>
+										        </v-container>
+										      </v-card-text>
+										      <v-card-actions>
+										        <v-spacer></v-spacer>
+										        <v-btn color="blue darken-1" flat @click="closeBackoffice()">Cancel</v-btn>
+										        <v-btn color="blue darken-1" flat @click="saveBackoffice()">Save</v-btn>
+										      </v-card-actions>
+										    </v-card>
+										  </v-dialog>
+										</v-toolbar>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_backoffice'); ?>
@@ -217,40 +195,34 @@
 
 									</v-flex>
 									<v-flex xs6 md6 sm12>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>My CRUD</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
-      <v-spacer></v-spacer>
-      <v-dialog v-model="dialog_htaccess" max-width="500px">
-        <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
-        <v-card>
-          <v-card-title>
-            <span class="headline">Add Htaccess</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedHtaccess.login_htaccess" label="<?php echo lang("login_htaccess"); ?>"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedHtaccess.password_htaccess" label="<?php echo lang("password_htaccess"); ?>"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="closeHtaccess()">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="saveHtaccess()">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-toolbar>
+										<v-toolbar flat color="white">
+										  <v-spacer></v-spacer>
+										  <v-dialog v-model="dialog_htaccess" max-width="500px">
+										    <v-btn slot="activator" color="primary" dark class="mb-2">New Htaccess</v-btn>
+										    <v-card>
+										      <v-card-title>
+										        <span class="headline">Add Htaccess</span>
+										      </v-card-title>
+										      <v-card-text>
+										        <v-container grid-list-md>
+										          <v-layout wrap>
+										            <v-flex xs12 sm6 md4>
+										              <v-text-field v-model="editedHtaccess.login_htaccess" label="<?php echo lang("login_htaccess"); ?>"></v-text-field>
+										            </v-flex>
+										            <v-flex xs12 sm6 md4>
+										              <v-text-field v-model="editedHtaccess.password_htaccess" label="<?php echo lang("password_htaccess"); ?>"></v-text-field>
+										            </v-flex>
+										          </v-layout>
+										        </v-container>
+										      </v-card-text>
+										      <v-card-actions>
+										        <v-spacer></v-spacer>
+										        <v-btn color="blue darken-1" flat @click="closeHtaccess()">Cancel</v-btn>
+										        <v-btn color="blue darken-1" flat @click="saveHtaccess()">Save</v-btn>
+										      </v-card-actions>
+										    </v-card>
+										  </v-dialog>
+										</v-toolbar>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_htaccess'); ?>
@@ -352,10 +324,10 @@ var v = new Vue({
 			password_htaccess: '',
 		},
 		website:  <?php echo json_encode($website->row()); ?>,
-        list_ftp:  <?php echo json_encode($ftp); ?>,
-        list_database:  <?php echo json_encode($database); ?>,
-        list_backoffice:  <?php echo json_encode($backoffice); ?>,
-        list_htaccess:  <?php echo json_encode($htaccess); ?>,
+        list_ftp:  <?php echo json_encode($ftp->result_array()); ?>,
+        list_database:  <?php echo json_encode($database->result_array()); ?>,
+        list_backoffice:  <?php echo json_encode($backoffice->result_array()); ?>,
+        list_htaccess:  <?php echo json_encode($htaccess->result_array()); ?>,
     },
 	watch: {
 		dialog_ftp (val) {

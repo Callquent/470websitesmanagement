@@ -12,7 +12,7 @@ class Ftp_websites extends CI_Controller {
 		$this->load->model('model_users');
 		$this->load->model('model_settings');
 		$this->load->library(array('user_agent','Aauth','form_validation','encryption','session','ftp'));
-		$this->load->helper(array('functions', 'text', 'url','language','file'));
+		$this->load->helper(array('functions', 'text', 'number', 'url','language','file'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
@@ -63,7 +63,22 @@ class Ftp_websites extends CI_Controller {
 		}
 
 	}
-	public function refreshfolderserver($id_ftp_websites = '')
+	public function refreshftp($id_ftp_websites = '')
+	{
+		$path = $this->input->post('path');
+
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
+
+		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
+		$config['username'] = $this->encryption->decrypt($row->login_ftp);
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+
+		$this->ftp->connect($config);
+
+		$data['folder'] = $this->ftp->list_files_details($path);
+		echo json_encode($data);
+	}
+	public function openfolderftp($id_ftp_websites = '')
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
@@ -159,13 +174,26 @@ class Ftp_websites extends CI_Controller {
 		
 		$this->ftp->close();
 	}
-	/*public function moveftp()
+	public function moveftp($id_ftp_websites = '')
 	{
-		$oldmove = $this->input->post('oldmove');
-		$newmove = $this->input->post('newmove');
+		$old_path = $this->input->post('old_path');
+		$new_path = $this->input->post('new_path');
+		$file = $this->input->post('file');
 
-		$this->ftp->move('/public_html/joe/blog.html', '/public_html/fred/blog.html');
-	}*/
+		$row =  $this->model_front->get_website($id_ftp_websites)->row();
+
+		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
+		$config['username'] = $this->encryption->decrypt($row->login_ftp);
+		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+
+		$this->ftp->connect($config);
+		$this->ftp->move(path_jointure_file($old_path,$file), path_jointure_file($new_path,$file));
+		$data = $this->ftp->file_details($new_path,$file);
+
+		$this->ftp->close();
+
+		echo json_encode($data);
+	}
 	public function renameftp($id_ftp_websites = '')
 	{
 		$path = $this->input->post('path');
@@ -179,7 +207,6 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-
 		$this->ftp->rename(path_jointure_file($path,$oldrename), path_jointure_file($path,$newrename));
 
 		$this->ftp->close();
@@ -189,6 +216,7 @@ class Ftp_websites extends CI_Controller {
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
 		$chmod = $this->input->post('chmod');
+
 		$item_download = path_jointure_file($path,$file);
 
 		$row =  $this->model_front->get_website($id_ftp_websites)->row();
@@ -198,13 +226,14 @@ class Ftp_websites extends CI_Controller {
 		$config['password'] = $this->encryption->decrypt($row->password_ftp);
 
 		$this->ftp->connect($config);
-		$this->ftp->chmod($item_download, $chmod);
+		$data = $this->ftp->chmod($item_download, $chmod);
 		
 		$this->ftp->close();
+		echo json_encode($data);
 	}
 	public function test($id_ftp_websites = '')
 	{
-		$file = "/civuejs.zip";
+		//$file = "/civuejs.zip";
 
 		/*$file = $this->input->post('file');
 		$path = $this->input->post('path');
@@ -218,7 +247,7 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->connect($config);
 
-		$this->ftp->extract_zip($file);
+		//$this->ftp->extract_zip($file);
 
 		$this->ftp->close();
 	}

@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2018, British Columbia Institute of Technology
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,8 @@
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2018, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
  * @since	Version 1.0.0
  * @filesource
@@ -370,7 +370,7 @@ class CI_FTP {
 		}
 
 		$mode = ($mode === 'ascii') ? FTP_ASCII : FTP_BINARY;
-		
+
 		$result = @ftp_get($this->conn_id, $locpath, $rempath, $mode);
 
 		if ($result === FALSE)
@@ -386,117 +386,6 @@ class CI_FTP {
 		return TRUE;
 	}
 
-	public function download_folder($rempath, $locpath, $mode = 'auto')
-	{
-		if ( ! $this->_is_conn())
-		{
-			return FALSE;
-		}
-		// Set the mode if not specified
-		if ($mode === 'auto')
-		{
-			// Get the file extension so we can set the upload type
-			$ext = $this->_getext($rempath);
-			$mode = $this->_settype($ext);
-		}
-
-		$downloadFileAr = $this->_tree_folder($rempath);
-
-		if (sizeof($downloadFileAr) > 0) {
-			$zip_file_name   = substr(strrchr($rempath, "/"), 1).date("_Y_m_d_H_i_s").".zip";
-			$zip_file        = tempnam(sys_get_temp_dir(), $zip_file_name);
-			$zip             = new ZipArchive();
-			$zip->open($zip_file, ZipArchive::CREATE);
-
-			foreach ($downloadFileAr as $file) {
-				$file_local_path       = tempnam(sys_get_temp_dir(), $zip_file_name);
-
-				$unlinkFileAr[] = $file_local_path;
-
-				// $isError = 0;
-
-				// ensureFtpConnActive();
-
-				// Download file to client server
-				$mode = ($mode === 'ascii') ? FTP_ASCII : FTP_BINARY;
-				$result = @ftp_get($this->conn_id, $file_local_path, $file, $mode);
-
-				$file_path = str_replace(pathinfo($rempath)['dirname']."/","",$file);
-				//if ($isError == 0) {
-				    $zip->addFile($file_local_path, $file_path);
-				//}
-			}
-			$zip->close();
-
-			foreach ($unlinkFileAr as $file) {
-				unlink($file);
-			} 
-
-			header("Content-type: application/zip");
-			header("Content-Disposition: attachment; filename=".$zip_file_name);
-			header("Content-Length: " . filesize($zip_file));
-
-			$fp = @fopen($zip_file, "r");
-			while (!feof($fp)) {
-				echo @fread($fp, filesize($zip_file));
-				@flush();
-			}
-			@fclose($fp);
-
-			unlink($zip_file);
-
-		}
-		/* elseif (sizeof($downloadFileAr) == 1) {
-			$this->download($downloadFileAr[0], $locpath, "auto");
-		}*/
-
-
-		if ($result === FALSE)
-		{
-			if ($this->debug === TRUE)
-			{
-				$this->_error('ftp_unable_to_download');
-			}
-
-			return FALSE;
-		}
-
-		return TRUE;
-	}
-	function _tree_folder($path, &$downloadFileAr = array())
-	{
-		foreach (ftp_rawlist ($this->conn_id, $path) as $key => $row) {
-
-			$out = preg_split("/[\s]+/", $row);
-
-			$size = ftp_size($this->conn_id, $path.'/'.$out[8]);
-
-			if ($size != -1) {
-				$downloadFileAr[] = $path. "/" .$out[8];
-			} else {
-				$this->_tree_Folder($path. "/" . $out[8],$downloadFileAr);
-			}
-		}
-		return $downloadFileAr;
-	}
-	function extract_zip($rempath)
-	{
-		if ( ! $this->_is_conn())
-		{
-			return FALSE;
-		}
-		$zip = new ZipArchive;
-		$res = $zip->open($rempath);
-		//ftp_fput($this->conn_id, $rempath, $fp, FTP_ASCII)
-		var_dump($res === TRUE);
-		if ($res === TRUE) {  
-			$zip->extractTo("ftp://".$this->username.":".$this->password."@".$this->hostname.$rempath);
-			$zip->close();
-			echo 'ok';
-		} else {
-			echo 'échec';
-		}
-	}
 	// --------------------------------------------------------------------
 
 	/**
@@ -597,12 +486,11 @@ class CI_FTP {
 		{
 			for ($i = 0, $c = count($list); $i < $c; $i++)
 			{
-
 				// If we can't delete the item it's probably a directory,
 				// so we'll recursively call delete_dir()
 				if ( ! preg_match('#/\.\.?$#', $list[$i]) && ! @ftp_delete($this->conn_id, $list[$i]))
 				{
-					$this->delete_dir($list[$i]);
+					$this->delete_dir($filepath.$list[$i]);
 				}
 			}
 		}
@@ -648,59 +536,7 @@ class CI_FTP {
 
 		return TRUE;
 	}
-	// --------------------------------------------------------------------
 
-	/**
-	 * Set file permissions
-	 *
-	 * @param	string	$path	File path
-	 * @return	text
-	 */
-	public function read_file($path)
-	{
-		if ( $this->_is_conn() )
-		{
-			$file = "ftp://".$this->username.":".$this->password."@".$this->hostname.$path;
-			$content = file_get_contents($file);
-
-			return $content;
-		}
-
-		return FALSE;
-	}
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Write File
-	 *
-	 * Writes data to the file specified in the path.
-	 * Creates a new file if non-existent.
-	 *
-	 * @param	string	$path	File path
-	 * @param	string	$data	Data to write
-	 * @param	string	$mode	fopen() mode (default: 'wb')
-	 * @return	bool
-	 */
-
-	function write_file($path, $data, $mode = 'auto')
-	{
-		if ( $this->_is_conn() )
-		{
-			$file = "ftp://".$this->username.":".$this->password."@".$this->hostname.$path;
-
-			/*$options = array('ftp' => array('overwrite' => true)); 
-			$stream = stream_context_create($options);
-			file_put_contents($file, "test", 0, $stream); */
-
-			$fp = tmpfile();
-			@fwrite($fp, $data);
-			rewind($fp);
-			ftp_fput($this->conn_id, $path, $fp, FTP_ASCII);
-			@fclose($fp);
-		}
-
-		return FALSE;
-	}
 	// --------------------------------------------------------------------
 
 	/**
@@ -714,99 +550,6 @@ class CI_FTP {
 		return $this->_is_conn()
 			? ftp_nlist($this->conn_id, $path)
 			: FALSE;
-	}
-	// --------------------------------------------------------------------
-
-	/**
-	 * FTP List files in the specified directory
-	 *
-	 * @param	string	$path
-	 * @return	array
-	 */
-	public function list_files_details($path = '.')
-	{
-		if ( $this->_is_conn())
-		{
-			$list_files[0] = array('title' => '..', 'type' => 'folder', 'chmod' => '', 'owner' =>'', 'size' => '', 'last_modified' => '');
-			foreach (ftp_rawlist ($this->conn_id, $path) as $key => $row)
-			{
-				$out = preg_split("/[\s]+/", $row);
-				
-				/*$buff = ftp_mdtm($this->conn_id, ltrim($row,'/'));*/
-				$size = ftp_size($this->conn_id, $path.'/'.$out[8]);
-
-				if ($size != -1) {
-					$list_files[++$key] = array('title' => $out[8], 'type' => 'file', 'icon' => $this->_file_icon_details($out[8]), 'chmod' => $out[0], 'owner' => $out[2], 'size' => $out[4], 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
-				} else {
-					$list_files[++$key] = array('title' => $out[8], 'type' => 'folder', 'icon' => 'icon-folder', 'chmod' => $out[0], 'owner' => $out[2], 'size' => '', 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
-				}
-			}
-			return $list_files;
-		} else {
-			return FALSE;
-		}
-	}
-	public function file_details($path = '.', $file)
-	{
-		if ( $this->_is_conn())
-		{
-			foreach (ftp_rawlist ($this->conn_id, $path) as $key => $row)
-			{
-				$out = preg_split("/[\s]+/", $row);
-				
-				$size = ftp_size($this->conn_id, $path.'/'.$out[8]);
-				if ($out[8] == $file) {
-					if ($size != -1) {
-						return array('title' => $out[8], 'type' => 'file', 'icon' => $this->_file_icon_details($out[8]), 'chmod' => $out[0], 'owner' => $out[2], 'size' => $out[4], 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
-					} else {
-						return array('title' => $out[8], 'type' => 'folder', 'icon' => 'icon-folder', 'chmod' => $out[0], 'owner' => $out[2], 'size' => '', 'last_modified' => $out[5]." ".$out[6] . " ".$out[7]);
-					}
-				}
-			}
-		} else {
-			return FALSE;
-		}
-	}
-	protected function _file_icon_details($title_file){
-		$mime_file = get_mime_by_extension($title_file);
-
-		switch ($mime_file) {
-			case strpos($mime_file, 'excel') !== false:
-			case strpos($mime_file, 'spreadsheetml') !== false:
-				$file_icon = 'icon-file-excel';
-				break;
-			case strpos($mime_file, 'word') !== false:
-			case strpos($mime_file, 'wordprocessingml') !== false:
-				$file_icon = 'icon-file-word';
-				break;
-			case strpos($mime_file, 'powerpoint') !== false:
-			case strpos($mime_file, 'presentationml') !== false:
-				$file_icon = 'icon-file-powerpoint';
-				break;		
-			case strstr($mime_file, '/', true) == 'text':
-				$file_icon = 'icon-file-document';
-				break;
-			case strstr($mime_file, '/', true) == 'image':
-				$file_icon = 'icon-file-image';
-				break;
-			case strstr($mime_file, '/', true) == 'audio':
-				$file_icon = 'icon-file-music';
-				break;
-			case strstr($mime_file, '/', true) == 'video':
-				$file_icon = 'icon-file-video';
-				break;
-			case strpos($mime_file, 'zip') !== false:
-			case strpos($mime_file, 'rar') !== false:
-			case strpos($mime_file, 'tar') !== false:
-			case strpos($mime_file, 'gzip') !== false:
-			case strpos($mime_file, 'compressed') !== false:
-				$file_icon = 'icon-zip-box';
-				break;
-			default:
-				$file_icon = 'icon-file';
-				break;
-		}
-		return $file_icon;
 	}
 
 	// ------------------------------------------------------------------------

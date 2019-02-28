@@ -158,3 +158,4 @@ $lang['notice'] = "Notice";
 /*    Group Members    */
 /***********************/
 $lang['group_members'] = "Group Members";
+$lang['permission_group_members'] = "Permission Group Members";

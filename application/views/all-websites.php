@@ -6,13 +6,9 @@
 	</div>
 	<div class="page-content">
 
-	  <section id="main-content">
-		  <section class="wrapper">
-
-			<div class="row">
-				<div class="col-sm-12">
-				  <section class="card mb-3">
-
+		<v-container fluid grid-list-sm>
+			<v-layout row wrap>
+				<v-flex xs12>
 					<v-card>
 						<template>
 							<v-card-title>
@@ -132,11 +128,9 @@
 								</v-data-table>
 						</template>
 					</v-card>
-				  </section>
-			  </div>
-		  </div>
-		  </section>
-	  </section>
+				</v-flex>
+			</v-layout>
+		</v-container>
 	</div>
   </div>
 </div>
@@ -148,7 +142,7 @@
 			  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 			  <h4 class="modal-title custom_align" id="Heading">Envoyer un email à un client</h4>
 			</div>
-			<form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact/'); ?>">
+			<form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact'); ?>">
 			  <div class="modal-body">
 				<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
@@ -185,51 +179,6 @@
 		  </div>
 		</div>
 	  </div>
-
-<v-dialog v-model="dialog_email" width="800">
-	<v-card>
-        <v-card-title
-          class="headline green lighten-2"
-          primary-title
-        >
-          Ajouter une tâche
-        </v-card-title>
-
-        <v-card-text>
-			<v-container grid-list-md>
-
-				<v-layout wrap>
-					<v-flex xs12>
-						<v-data-table :headers="headers_ftp" :items="list_ftp">
-							<template slot="items" slot-scope="props">
-								<td>{{ props.item.host_ftp }}</td>
-								<td>{{ props.item.login_ftp }}</td>
-								<td>{{ props.item.password_ftp }}</td>
-								<td>
-									<div class="dropdown show actions">
-										<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-											<i class="icon icon-dots-vertical"></i>
-										</a>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
-											<a class="dropdown-item" id="delete-task" @click="deleteTask(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
-										</div>
-									</div>
-								</td>
-							</template>
-						</v-data-table>
-					</v-flex>
-				</v-layout>
-			</v-container>
-			<small>*indicates required field</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-        	<v-btn color="blue darken-1" flat @click="f_createCard()">Save</v-btn>
-        	<v-btn color="blue darken-1" flat @click="dialog_access = false">Close</v-btn>
-        </v-card-actions>
-	</v-card>
-</v-dialog>
 
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">

@@ -10,6 +10,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 		<script type="text/javascript">
 			var user_current = <?php echo json_encode($user_role[0]); ?>;
+			var login = <?php echo json_encode($login); ?>;
 		</script>
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
@@ -30,15 +31,6 @@
 			<?php echo js_url('plugins/jquery-tags-input/jquery.tagsinput.min.js'); ?>
 
 			<?php echo js_url('plugins/advanced-form.js'); ?>
-
-			<?php echo js_url('plugins/data-tables/datatables.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/dataTables.buttons.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.flash.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.html5.js'); ?>
-			<?php echo js_url('plugins/data-tables/Buttons/js/buttons.print.js'); ?>
-			<?php echo js_url('plugins/data-tables/datatables.bootstrap.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/datatables.responsive.min.js'); ?>
-			<?php echo js_url('plugins/data-tables/dataTables.tableTools.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='whois-domain') { ?>
 			<?php echo js_url('plugins/fullcalendar/fullcalendar.min.js'); ?>
@@ -75,12 +67,6 @@
 			<?php echo js_url('plugins/advanced-form.js'); ?>
 
 			<?php echo js_url('plugins/jquery.validate.min.js'); ?>
-		<?php } ?>
-		<?php if ($this->uri->segment(1)=='website-scrapper-google' || $this->uri->segment(1)=='search-scrapper-google') { ?>
-			<?php echo js_url('plugins/app-seo.js'); ?>
-		<?php } ?>
-		<?php if ($this->uri->segment(1)=='settings') { ?>
-			<?php echo js_url('plugins/bootstrap-fileupload/bootstrap-fileupload.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='documentation') { ?>
 			<?php echo js_url('plugins/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>

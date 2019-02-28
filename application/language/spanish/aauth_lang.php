@@ -3,53 +3,57 @@
 /* E-mail Messages */
 
 // Account verification
-$lang['aauth_email_verification_subject'] = 'Account Verification';
-$lang['aauth_email_verification_code'] = 'Your verification code is: ';
-$lang['aauth_email_verification_text'] = " You can also click on (or copy and paste) the following link\n\n";
+$lang['aauth_email_verification_subject'] = 'Verificación de Cuenta';
+$lang['aauth_email_verification_code'] = 'Tu código de verificación es: ';
+$lang['aauth_email_verification_text'] = " También puedes hacer click (o copia y pega en tu navegador) en el siguiente link. \n\n";
 
 // Password reset
-$lang['aauth_email_reset_subject'] = 'Reset Password';
-$lang['aauth_email_reset_text'] = "To reset your password click on (or copy and paste in your browser address bar) the link below:\n\n";
+$lang['aauth_email_reset_subject'] = 'Reiniciar contraseña';
+$lang['aauth_email_reset_text'] = "Para reiniciar la contraseña click (o copia y pega en tu navegador) el siguiente link:\n\n";
 
 // Password reset success
-$lang['aauth_email_reset_success_subject'] = 'Successful Pasword Reset';
-$lang['aauth_email_reset_success_new_password'] = 'Your password has successfully been reset. Your new password is : ';
+$lang['aauth_email_reset_success_subject'] = 'Constraseña reiniciada exitosamente';
+$lang['aauth_email_reset_success_new_password'] = 'Tu contraseña ha sido correctamente reiniciada. Tu nueva contraseña es : ';
 
 
 /* Error Messages */
 
 // Account creation errors
-$lang['aauth_error_email_exists'] = 'Email address already exists on the system. If you forgot your password, you can click the link below.';
-$lang['aauth_error_username_exists'] = "Account already exists on the system with that username.  Please enter a different username, or if you forgot your password, please click the link below.";
-$lang['aauth_error_email_invalid'] = 'Invalid e-mail address';
-$lang['aauth_error_password_invalid'] = 'Invalid password';
-$lang['aauth_error_username_invalid'] = 'Invalid Username';
-$lang['aauth_error_username_required'] = 'Username required';
-$lang['aauth_error_totp_code_required'] = 'TOTP Code required';
-$lang['aauth_error_totp_code_invalid'] = 'Invalid TOTP Code';
+$lang['aauth_error_email_exists'] = 'El correo electrónico ya existe. Si olvidaste tu contraseña, puedes hacer click en el siguiente link.';
+$lang['aauth_error_username_exists'] = "Ya existe una cuenta con ese nombre de usuario. Por favor ingrese un nombre de usuario diferente, o si olvidaste tu contraseña puedes hacer click en el siguiente link.";
+$lang['aauth_error_email_invalid'] = 'Correo electrónico inválido';
+$lang['aauth_error_password_invalid'] = 'Contraseña invalida';
+$lang['aauth_error_username_invalid'] = 'Nombre de usuario invalido';
+$lang['aauth_error_username_required'] = 'Nombre de usuario obligatorio';
+$lang['aauth_error_totp_code_required'] = 'El código TOTP es obligatorio';
+$lang['aauth_error_totp_code_invalid'] = 'Código TOTP obligatorio';
 
 
 // Account update errors
-$lang['aauth_error_update_email_exists'] = 'Email address already exists on the system.  Please enter a different email address.';
-$lang['aauth_error_update_username_exists'] = "Username already exists on the system.  Please enter a different username.";
+$lang['aauth_error_update_email_exists'] = 'El correo electrónico ya existe, por favor ingresa un correo electrónico diferente.';
+$lang['aauth_error_update_username_exists'] = "El nombre de usuario ya existe, por favor ingresa un nombre de usuario diferente.";
 
 
 // Access errors
-$lang['aauth_error_no_access'] = 'Sorry, you do not have access to the resource you requested.';
-$lang['aauth_error_login_failed_email'] = 'E-mail Address and Password do not match.';
-$lang['aauth_error_login_failed_name'] = 'Username and Password do not match.';
-$lang['aauth_error_login_attempts_exceeded'] = 'You have exceeded your login attempts, your account has now been locked.';
-$lang['aauth_error_recaptcha_not_correct'] = 'Sorry, the reCAPTCHA text entered was incorrect.';
+$lang['aauth_error_no_access'] = 'Ups, lo siento, no tienes permiso para ver el recurso solicitado.';
+$lang['aauth_error_login_failed_email'] = 'El Correo electrónico y contraseña no coinciden.';
+$lang['aauth_error_login_failed_name'] = 'El Nombre de usuario y contraseña no coinciden.';
+$lang['aauth_error_login_failed_all'] = 'El Correo electrónico, nombre de usuario y contraseña no coinciden.';
+$lang['aauth_error_login_attempts_exceeded'] = 'Has excedido el número de intentos de inicio de sesión, tu cuenta ha sido bloqueada.';
+$lang['aauth_error_recaptcha_not_correct'] = 'Ups, El texto ingresado es incorrecto.';
 
 // Misc. errors
-$lang['aauth_error_no_user'] = 'User does not exist';
-$lang['aauth_error_account_not_verified'] = 'Your account has not been verified. Please check your e-mail and verify your account.';
-$lang['aauth_error_no_group'] = 'Group does not exist';
-$lang['aauth_error_self_pm'] = 'It is not possible to send a Message to yourself.';
-$lang['aauth_error_no_pm'] = 'Private Message not found';
+$lang['aauth_error_no_user'] = 'El usuario no existe.';
+$lang['aauth_error_vercode_invalid'] = 'Código de verificación invalido';
+$lang['aauth_error_account_not_verified'] = 'Tu cuenta aún no ha sido verificada, por favor revisa tu correo electrónico y verifica tu cuenta.';
+$lang['aauth_error_no_group'] = 'El grupo no existe';
+$lang['aauth_error_no_subgroup'] = 'El subgrupo no existe';
+$lang['aauth_error_self_pm'] = 'No es posible enviarte un mensaje a ti mismo.';
+$lang['aauth_error_no_pm'] = 'Mensaje privado no encontrado';
 
 
 /* Info messages */
-$lang['aauth_info_already_member'] = 'User is already member of group';
-$lang['aauth_info_group_exists'] = 'Group name already exists';
-$lang['aauth_info_perm_exists'] = 'Permission name already exists';
+$lang['aauth_info_already_member'] = 'El usuario ya es miembro del grupo';
+$lang['aauth_info_already_subgroup'] = 'El subgrupo ya es miembro del grupo';
+$lang['aauth_info_group_exists'] = 'El nombre del grupo ya existe';
+$lang['aauth_info_perm_exists'] = 'El nombre del permiso ya existe';

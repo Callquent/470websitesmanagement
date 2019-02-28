@@ -69,7 +69,7 @@ class My_tasks extends CI_Controller {
 
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
 
-		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
+		$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
 	}
 	public function create_card_tasks()
 	{
@@ -82,7 +82,7 @@ class My_tasks extends CI_Controller {
 
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
 
-		$this->output->set_content_type('application/json')->set_output( json_encode($data));
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 	public function create_task()
 	{

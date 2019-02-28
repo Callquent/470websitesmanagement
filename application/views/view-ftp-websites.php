@@ -23,12 +23,12 @@
             <div class="page-header bg-secondary text-auto p-6">
                 <div class="header-content d-flex flex-column justify-content-between">
                     <div class="toolbar row no-gutters justify-content-between">
-                        <button type="button" class="btn btn-icon fuse-ripple-ready">
-                            <i class="icon icon-menu"></i>
-                        </button>
+                        <a href="<?php echo site_url('ftp-websites'); ?>" class="btn btn-icon fuse-ripple-ready">
+                            <i class="icon icon-arrow-left-thick s-10"></i>
+                        </a>
                         <div class="right-side row no-gutters">
-                            <a href="<?php echo site_url('/ftp-websites/'); ?>" class="btn btn-icon fuse-ripple-ready">
-                                <i class="icon icon-arrow-left-thick"></i>
+                            <a @click="f_refresh()" class="btn btn-icon fuse-ripple-ready">
+                                <i class="icon icon-refresh s-10"></i>
                             </a>
                         </div>
                     </div>
@@ -42,28 +42,38 @@
                     </div>
                 </div>
                 <form enctype="multipart/form-data" method="post" id="form-upload-ftp">
-                    <button id="add-file-button" type="button" class="btn btn-danger btn-fab fuse-ripple-ready">
-                        <input type="file" ref="file" class="custom-file-input" name="uploadfile" id="uploadfile" @change="f_uploadFile()">
-                        <i class="icon icon-plus"></i>
-                    </button>
-                    
+                    <v-menu offset-y>
+                        <button slot="activator" id="add-file-button" type="button" class="btn btn-danger btn-fab fuse-ripple-ready">
+                            <i class="icon icon-plus"></i>
+                        </button>
+                        <v-list>
+                            <v-list-tile>
+                                <v-list-tile-title>Choisir un fichier</v-list-tile-title>
+                                <input type="file" ref="file" class="custom-file-input" name="uploadfile" id="uploadfile" @change="f_uploadFile()" />
+                            </v-list-tile>
+                            <v-list-tile>
+                                <v-list-tile-title>Choisir un dossier</v-list-tile-title>
+                                <input type="file" ref="folder" class="custom-file-input" name="uploadfile[]" id="uploadfolder" @change="f_uploadFolder()" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
                 </form>
             </div>
             <!-- / HEADER -->
 
             <!-- CONTENT -->
             <div class="page-content custom-scrollbar ps ps--theme_default" data-ps-id="fe3679bb-d2bd-acef-4e6e-4ec75edc10b1">
-                <v-card @contextmenu="f_showContextMenu">
+                <v-card height="100%" @contextmenu="f_showContextMenu">
                     <template>
                         <v-data-table
-                            :headers="headers"
+                            :headers="headers_ftp"
                             :items="list_view_ftp"
                             class="elevation-1"
                             :rows-per-page-items="[-1]"
                         >
                             <template slot="items" slot-scope="props">
-                                <tr @dblclick="f_openFolder(props.item)">
-                                    <td class="file-icon"><i :class="props.item.icon"></i></td>
+                                <tr @click="f_openFile_details(props.item)" @dblclick="f_openFolder(props.item)">
+                                    <td class="file-icon" ><i :class="[props.item.icon,{'icon-cut' : cutfile.old_path+cutfile.file == path+props.item.title }]"></i></td>
                                     <td class="name">{{ props.item.title }}</td>
                                     <td>{{ props.item.size }}</td>
                                     <td>{{ props.item.type }}</td>
@@ -77,28 +87,23 @@
                 </v-card>
             </div>
         </div>
-        <aside class="page-sidebar custom-scrollbar" data-fuse-bar="file-manager-info-sidebar" data-fuse-bar-position="right" data-fuse-bar-media-step="lg">
+        <aside v-if="aside_file_details" class="page-sidebar custom-scrollbar" data-fuse-bar="file-manager-info-sidebar" data-fuse-bar-position="right" data-fuse-bar-media-step="lg">
             <!-- SIDEBAR HEADER -->
             <div class="header bg-secondary text-auto d-flex flex-column justify-content-between p-6">
                 <!-- TOOLBAR -->
                 <div class="toolbar row no-gutters align-items-center justify-content-end">
-                    <button type="button" class="btn btn-icon fuse-ripple-ready">
-                        <i class="icon-delete"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-icon fuse-ripple-ready">
+                    <button @click="f_downloadFile(file_details)" type="button" class="btn btn-icon fuse-ripple-ready">
                         <i class="icon icon-download"></i>
                     </button>
-
-                    <button type="button" class="btn btn-icon fuse-ripple-ready">
-                        <i class="icon icon-dots-vertical"></i>
+                    <button  @click="aside_file_details=false" type="button" class="btn btn-icon fuse-ripple-ready">
+                        <i class="icon-close"></i>
                     </button>
                 </div>
                 <div>
-                    <div class="title-file mb-2"></div>
+                    <div class="title-file mb-2">{{ file_details.title }}</div>
                     <div class="subtitle text-muted">
                         <span>Edited</span>
-                        : May 8, 2017
+                        : {{ file_details.last_modified }}
                     </div>
                 </div>
             </div>
@@ -108,42 +113,27 @@
             <div class="content">
                 <div class="file-details">
                     <div class="preview file-icon row no-gutters align-items-center justify-content-center">
-                        <i class="icon-folder s-12"></i>
+                        <i class="s-25" :class="file_details.icon"></i>
                     </div>
-                    <div class="offline-switch row no-gutters align-items-center justify-content-between px-6 py-4">
-                        <span>Available Offline</span>
-
-                        <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" aria-label="Toggle offline">
-                            <span class="custom-control-indicator fuse-ripple-ready"></span>
-                        </label>
-                    </div>
+                    <div class="offline-switch row no-gutters align-items-center justify-content-between px-6 py-4"></div>
                     <div class="title px-6 py-4">Info</div>
                     <table class="table">
                         <tbody>
                             <tr class="type">
                                 <th class="pl-6">Type</th>
-                                <td></td>
+                                <td>{{ file_details.type }}</td>
                             </tr>
-
                             <tr class="size">
                                 <th class="pl-6">Size</th>
-                                <td></td>
+                                <td>{{ file_details.size }}</td>
                             </tr>
-
-                            <tr class="location">
-                                <th class="pl-6">Location</th>
-                                <td></td>
-                            </tr>
-
                             <tr class="owner">
                                 <th class="pl-6">Owner</th>
-                                <td></td>
+                                <td>{{ file_details.owner }}</td>
                             </tr>
-
                             <tr class="modified">
                                 <th class="pl-6">Modified</th>
-                                <td></td>
+                                <td>{{ file_details.last_modified }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -224,31 +214,26 @@
         <v-card-text>
           <v-container grid-list-md>
                 <table>
-                    <th>
+                    <tr>
                         <td>Owner</td>
+                        <td><v-checkbox v-model="chmod[0].chmod_check" @change='f_checkboxChmodPermissions(chmod[0])' label="Read"></v-checkbox></td>
+                        <td><v-checkbox v-model="chmod[1].chmod_check" @change='f_checkboxChmodPermissions(chmod[1])' label="Write"></v-checkbox></td>
+                        <td><v-checkbox v-model="chmod[2].chmod_check" @change='f_checkboxChmodPermissions(chmod[2])' label="Execute"></v-checkbox></td>
+                    </tr>
+                    <tr>
                         <td>Group</td>
+                        <td><v-checkbox v-model="chmod[3].chmod_check" @change='f_checkboxChmodPermissions(chmod[3])' label="Read"></v-checkbox></td>
+                        <td><v-checkbox v-model="chmod[4].chmod_check" @change='f_checkboxChmodPermissions(chmod[4])' label="Write"></v-checkbox></td>
+                        <td><v-checkbox v-model="chmod[5].chmod_check" @change='f_checkboxChmodPermissions(chmod[5])' label="Execute"></v-checkbox></td>
+                    </tr>
+                    <tr>
                         <td>Other</td>
-                    </th>
-                    <tr>
-                        <td>Read</td>
-                        <td><v-checkbox input-value="true" value="4"></v-checkbox></td>
-                        <td><v-checkbox input-value="true" value="4"></v-checkbox></td>
-                        <td><v-checkbox input-value="true" value="4"></v-checkbox></td>
-                    </tr>
-                    <tr>
-                        <td>Write</td>
-                        <td><v-checkbox input-value="true" value="2"></v-checkbox></td>
-                        <td><v-checkbox input-value="true" value="2"></v-checkbox></td>
-                        <td><v-checkbox input-value="true" value="2"></v-checkbox></td>
-                    </tr>
-                    <tr>
-                        <td>Execute</td>
-                        <td><v-checkbox input-value="true" value="1"></v-checkbox></td>
-                        <td><v-checkbox input-value="true" value="1"></v-checkbox></td>
-                        <td><v-checkbox input-value="true" value="1"></v-checkbox></td>
+                        <td><v-checkbox v-model="chmod[6].chmod_check" @change='f_checkboxChmodPermissions(chmod[6])' label="Read"></v-checkbox></td>
+                        <td><v-checkbox v-model="chmod[7].chmod_check" @change='f_checkboxChmodPermissions(chmod[7])' label="Write"></v-checkbox></td>
+                        <td><v-checkbox v-model="chmod[8].chmod_check" @change='f_checkboxChmodPermissions(chmod[8])' label="Execute"></v-checkbox></td>
                     </tr>
                 </table>
-                <v-text-field v-model="chmod_item" mask="###" hint="This field uses maxlength attribute" label="Limit exceeded"></v-text-field>
+                <v-text-field v-model="total_chmod" mask="###" hint="This field uses maxlength attribute" label="Limit exceeded"></v-text-field>
           </v-container>
           <small>*indicates required field</small>
         </v-card-text>
@@ -274,6 +259,10 @@
         <v-list-tile @click='renameItem()'>
           <v-list-tile-title>Renommer</v-list-tile-title>
         </v-list-tile>
+        <v-list-tile @click='cutfile.cut_active == false?f_cutFile(contextMenu.selected_item):f_pasteFile(contextMenu.selected_item)'>
+          <v-list-tile-title v-if="cutfile.cut_active == false">Cut</v-list-tile-title>
+          <v-list-tile-title v-else>Paste</v-list-tile-title>
+        </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click='dialog_createFolder = true'>
           <v-list-tile-title>Créer un dossier</v-list-tile-title>
@@ -281,10 +270,10 @@
         <v-list-tile @click='f_downloadFile(contextMenu.selected_item)'>
           <v-list-tile-title>Télécharger</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click='dialog_chmodPermissions = true'>
+        <v-list-tile @click='f_dialog_chmodPermissions'>
           <v-list-tile-title>Chmod</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click='dialog_chmodPermissions = true'>
+        <v-list-tile>
           <v-list-tile-title>Décompresser</v-list-tile-title>
         </v-list-tile>
         <v-divider></v-divider>
@@ -301,15 +290,18 @@ var v = new Vue({
         dialog_renameFile: false,
         dialog_createFolder: false,
         dialog_chmodPermissions: false,
+        aside_file_details: false,
+        file_details:{icon: '', title: '', size: '', type: '', last_modified: '', chmod: '', owner: ''},
         createfolder:'',
         renamefile:'',
-        uploadfile:'',
+        cutfile:{old_path:'',file:'',cut_active:false},
         currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
         id_website: window.location.href.split('/').pop(),
         list_view_ftp: <?php echo json_encode($all_storage_server); ?>,
         path: '<?php echo $path_server; ?>',
-        chmod_item: "000",
-        headers: [
+        chmod: [{chmod_check: false, value:400},{chmod_check: false, value:200},{chmod_check: false, value:100},{chmod_check: false, value:40},{chmod_check: false, value:20},{chmod_check: false, value:10},{chmod_check: false, value:4},{chmod_check: false, value:2},{chmod_check: false, value:1}],
+        total_chmod: "000",
+        headers_ftp: [
             { text: '', value: 'icon', sortable: false},
             { text: 'Name', value: 'name'},
             { text: 'Size', value: 'size'},
@@ -345,11 +337,17 @@ var v = new Vue({
     },
     methods:{
         f_showContextMenu (e) {
-            var filename = $('table tbody').find("tr:hover .name").text();
+            if (e.target.localName == "i") {
+                var filename = e.target.parentElement.parentElement.getElementsByClassName("name")[0].innerHTML;
+            } else if(e.target.localName == "th") {
+                var filename = "";
+            } else {
+                var filename = e.target.parentElement.getElementsByClassName("name")[0].innerHTML;
+            }
             v.contextMenu.selected_item = this.list_view_ftp.find( item => item.title === filename);
             e.preventDefault()
             this.contextMenu.showMenu = false
-            if (filename.length > 0) {
+            if (filename != ".." && filename != "") {
                 this.contextMenu.x = e.clientX
                 this.contextMenu.y = e.clientY
                 this.$nextTick(() => {
@@ -357,11 +355,23 @@ var v = new Vue({
                 })
             }
         },
+        f_refresh () {
+            var formData = new FormData(); 
+            formData.append("path",v.path);
+            axios.post(this.currentRoute+"/refreshftp/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    v.list_view_ftp = [];
+                    v.list_view_ftp = response.data.folder;
+                }else{
+
+                }
+            })
+        },
         f_openFolder (item) {
             var formData = new FormData(); 
             formData.append("path",v.path);
             formData.append("file",item.title);
-            axios.post(this.currentRoute+"/refreshfolderserver/"+this.id_website, formData).then(function(response){
+            axios.post(this.currentRoute+"/openfolderftp/"+this.id_website, formData).then(function(response){
                 if(response.status = 200){
                     v.list_view_ftp = [];
                     v.list_view_ftp = response.data.folder;
@@ -370,6 +380,10 @@ var v = new Vue({
 
                 }
             })
+        },
+        f_openFile_details (item){
+            v.file_details = item;
+            v.aside_file_details = true;
         },
         f_viewFile(item){
             var formData = new FormData();
@@ -389,13 +403,15 @@ var v = new Vue({
             formData.append("path",v.path);
             formData.append("file",v.contextMenu.selected_item.title);
             formData.append("content",v.code);
-            axios.post(this.currentRoute+"/writefileftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.codemirror_show = false;
-                }else{
+            if (confirm('Are you sure you want to delete this item?') == true) {
+                axios.post(this.currentRoute+"/writefileftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.codemirror_show = false;
+                    }else{
 
-                }
-            })
+                    }
+                })
+            }
         },
         f_closeCodemirror (){
             v.codemirror_show = false;
@@ -445,11 +461,31 @@ var v = new Vue({
                 }
             })
         },
+        f_uploadFolder(){
+            v.file = this.$refs.folder.files[0];
+            var formData = new FormData();
+            formData.append('uploadfile', v.file);
+            formData.append('path', v.path);
+            formData.append("file",v.file.name);
+            /*for( var i = 0; i < v.file.length; i++ ){
+            let file = v.file[i];
+
+            formData.append('files[' + i + ']', file);
+            }*/
+            axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    v.list_view_ftp.push(response.data);
+                }else{
+
+                }
+            })
+        },
         f_downloadFile(item){
+            v.contextMenu.selected_item = item;
             var formData = new FormData();
             formData.append("path",v.path);
-            formData.append("file",item.title);
-            formData.append("chmod_permissions",item.chmod.charAt(0));
+            formData.append("file",v.contextMenu.selected_item.title);
+            formData.append("chmod_permissions",v.contextMenu.selected_item.chmod.charAt(0));
             axios({
                 method: 'POST',
                 url: this.currentRoute+"/downloadftp/"+this.id_website,
@@ -463,15 +499,77 @@ var v = new Vue({
                     link.click();
             })
         },
+        f_dialog_chmodPermissions(){
+            v.dialog_chmodPermissions = true;
+            v.total_chmod = 0;
+            var n = 0,m = 0;
+            for (var i = 0; i < v.contextMenu.selected_item.chmod.length; i++) {
+                
+                if (i >= 1 && i <= 3)
+                    m = 100;
+                if (i >= 4 && i <= 6)
+                    m = 10;
+                if (i >= 7 && i <= 9)
+                    m = 1;
+                
+                var l = v.contextMenu.selected_item.chmod.substr(i, 1);
+                
+                if (l != "d" && l != "-") {
+                    
+                    if (l == "r") {
+                        n = 4;
+                        v.chmod[i-1].chmod_check = true;
+                    }
+                    if (l == "w") {
+                        n = 2;
+                        v.chmod[i-1].chmod_check = true;
+                    }
+                    if (l == "x") {
+                        n = 1;
+                        v.chmod[i-1].chmod_check = true;
+                    }
+                    
+                    v.total_chmod += n * m;
+                }
+            }
+        },
+        f_checkboxChmodPermissions (item) {
+            if (item.chmod_check == true) {
+                v.total_chmod = v.total_chmod + item.value;
+            } else {
+                v.total_chmod = v.total_chmod - item.value;
+            }
+        },
         f_chmodPermissions(){
-            v.file = this.$refs.file.files[0];
             var formData = new FormData();
-            formData.append('uploadfile', v.file);
+            formData.append('chmod', v.total_chmod);
             formData.append('path', v.path);
-            formData.append("file",v.file.name);
-            axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
+            formData.append("file",v.contextMenu.selected_item.title);
+            axios.post(this.currentRoute+"/chmodftp/"+this.id_website, formData).then(function(response){
                 if(response.status = 200){
-                    v.list_view_ftp.push(response.data);
+                    console.log(response);
+                }else{
+
+                }
+            })
+        },
+        f_cutFile(item){
+            v.cutfile.old_path = v.path;
+            v.cutfile.file = item.title;
+            v.cutfile.cut_active = true;
+        },
+        f_pasteFile(item){
+            var cutIndex = v.list_view_ftp.indexOf(v.list_view_ftp.find( search => search.title === v.cutfile.file));
+            var formData = new FormData();
+            formData.append('old_path', v.cutfile.old_path);
+            formData.append('new_path', v.path);
+            formData.append("file", v.cutfile.file);
+            axios.post(this.currentRoute+"/moveftp/"+this.id_website, formData).then(function(response){
+                if(response.status = 200){
+                    v.cutfile = Object.assign({}, {old_path: '', file: '', cut_active: false});
+                    if (cutIndex == -1) {
+                        v.list_view_ftp.push(response.data);
+                    }
                 }else{
 
                 }
@@ -506,103 +604,6 @@ var v = new Vue({
             }
         },
     },
-});
-
-/*$(function(){
-    $('#form-upload-ftp').fileupload({
-        dropZone: $('#drop'),
-        add: function (e, data) {
-            
-            var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"'+
-                ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><span></span></li>');
-            $('#loading-time ul').empty();
-            tpl.find('p').text(data.files[0].name).append('<i>' + formatFileSize(data.files[0].size) + '</i>');
-            data.context = tpl.appendTo('#loading-time ul');
-            tpl.find('input').knob();
-            tpl.find('span').click(function(){
-                if(tpl.hasClass('working')){
-                    jqXHR.abort();
-                }
-                tpl.fadeOut(function(){
-                    tpl.remove();
-                });
-            });
-            var jqXHR = data.submit();
-        },
-        progress: function(e, data){
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            data.context.find('input').val(progress).change();
-            if(progress == 100){
-                data.context.removeClass('working');
-                data.context.find('span').html('<i class="icon-check"></i>');
-
-                var formData = new FormData();
-
-                formData.append('uploadfile', data.files[0]);
-                formData.append('path', $("#path").text()+data.files[0].name);
-                $.ajax({
-                    type: "POST",
-                    url: $(this).attr("action"),
-                    data: formData,
-                    processData: false,
-                    contentType: false, 
-                    success: function(msg){
-                        console.log(msg);
-                        results = JSON.parse(data);
-                        $("#path").text(results[0][0].path_server);
-                        $('<tr>').append(
-                                $('<td class="file-icon">').html('<i class="icon-'+item.icon+'"></i>'),
-                                $('<td class="name">').html(item.title),
-                                $('<td class="type d-none d-md-table-cell">').html(item.icon),
-                                $('<td class="owner d-none d-sm-table-cell">').html(""),
-                                $('<td class="size d-none d-sm-table-cell">').html(item.size),
-                                $('<td class="last-modified d-none d-lg-table-cell">').html(item.last_modified),
-                                $('<td class="d-table-cell d-xl-none">').html(""),
-                            ).appendTo('.list-view');
-
-                    },
-                    error: function(msg){
-                        console.log(msg);
-                    }
-                });
-                e.preventDefault();
-            }
-        },
-        fail:function(e, data){
-            data.context.addClass('error');
-        }
-    });
-    function formatFileSize(bytes) {
-        if (typeof bytes !== 'number') {
-            return '';
-        }
-        if (bytes >= 1000000000) {
-            return (bytes / 1000000000).toFixed(2) + ' GB';
-        }
-        if (bytes >= 1000000) {
-            return (bytes / 1000000).toFixed(2) + ' MB';
-        }
-        return (bytes / 1000).toFixed(2) + ' KB';
-    }
-
-});
-*/
-$(document).ready(function(){
-
-        $('.btn-info-file').on('click', function(e) {
-            $("aside .title-file").text($(this).parents().eq(1).find(".name").text());
-
-             $("aside .type td").text($(this).parents().eq(1).find(".type").text());
-             $("aside .size td").text($(this).parents().eq(1).find(".size").text());
-             $("aside .location td").text($(this).parents().eq(1).find(".location").text());
-             $("aside .owner td").text($(this).parents().eq(1).find(".owner").text());
-             $("aside .modified td").text($(this).parents().eq(1).find(".last-modified").text());
-        });
-        $('.list-view').on('click', 'tr',function(e) {
-            $('.list-view tr').removeClass();
-            $(this).addClass("select-ftp-blue");
-        });
-
 });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

@@ -80,56 +80,16 @@ class All_websites extends CI_Controller {
 			$data['website'] = $this->model_front->get_website($id_website);
 
 			$website_ftp = $this->model_front->get_website_per_ftp($id_website);
-			foreach ($website_ftp->result() as $key => $row)
-			{
-				$list = array();
-				$list['id_ftp'] = $row->id_ftp;
-				$list['host_ftp'] = $this->encryption->decrypt($row->host_ftp);
-				$list['login_ftp'] = $this->encryption->decrypt($row->login_ftp);
-				$list['password_ftp'] = $this->encryption->decrypt($row->password_ftp);
-
-				$ftp[] = $list;
-			}
-			$data['ftp'] = $ftp;
+			$data['ftp'] = $website_ftp;
 
 			$website_database = $this->model_front->get_website_per_database($id_website);
-			foreach ($website_database->result() as $key => $row)
-			{
-				$list = array();
-				$list['id_database'] = $row->id_database;
-				$list['host_database'] = $this->encryption->decrypt($row->host_database);
-				$list['name_database'] = $this->encryption->decrypt($row->name_database);
-				$list['login_database'] = $this->encryption->decrypt($row->login_database);
-				$list['password_database'] = $this->encryption->decrypt($row->password_database);
-
-				$database[] = $list;
-			}
-			$data['database'] = $database;
+			$data['database'] = $website_database;
 
 			$website_backoffice = $this->model_front->get_website_per_backoffice($id_website);
-			foreach ($website_backoffice->result() as $key => $row)
-			{
-				$list = array();
-				$list['id_backoffice'] = $row->id_backoffice;
-				$list['host_backoffice'] = $this->encryption->decrypt($row->host_backoffice);
-				$list['login_backoffice'] = $this->encryption->decrypt($row->login_backoffice);
-				$list['password_backoffice'] = $this->encryption->decrypt($row->password_backoffice);
-
-				$backoffice[] = $list;
-			}
-			$data['backoffice'] = $backoffice;
+			$data['backoffice'] = $website_backoffice;
 
 			$website_htaccess = $this->model_front->get_website_per_htaccess($id_website);
-			foreach ($website_htaccess->result() as $key => $row)
-			{
-				$list = array();
-				$list['id_htaccess'] = $row->id_htaccess;
-				$list['login_htaccess'] = $this->encryption->decrypt($row->login_htaccess);
-				$list['password_htaccess'] = $this->encryption->decrypt($row->password_htaccess);
-
-				$htaccess[] = $list;
-			}
-			$data['htaccess'] = $htaccess;
+			$data['htaccess'] = $website_htaccess;
 
 			$this->load->view('view-details-website', $data);
 		}

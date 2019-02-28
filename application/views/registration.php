@@ -61,11 +61,6 @@
                                         <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert">×</a>
                                     </div>
                                     <?php } ?>
-                                    <?php if($this->session->flashdata('disconnect')){ ?>
-                                    <div class="alert alert-danger">
-                                        <?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert">×</a>
-                                    </div>
-                                    <?php } ?>
                                     <?php if($this->session->flashdata('danger')){ ?>
                                     <div class="alert alert-danger">
                                         <?php echo $this->session->flashdata('danger'); ?> <a class="close" data-dismiss="alert">×</a>

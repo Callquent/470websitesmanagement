@@ -25,8 +25,8 @@ $lang['aauth_error_email_invalid'] = 'Invalid e-mail address';
 $lang['aauth_error_password_invalid'] = 'Invalid password';
 $lang['aauth_error_username_invalid'] = 'Invalid Username';
 $lang['aauth_error_username_required'] = 'Username required';
-$lang['aauth_error_totp_code_required'] = 'TOTP Code required';
-$lang['aauth_error_totp_code_invalid'] = 'Invalid TOTP Code';
+$lang['aauth_error_totp_code_required'] = 'Authentication Code required';
+$lang['aauth_error_totp_code_invalid'] = 'Invalid Authentication Code';
 
 
 // Account update errors
@@ -38,18 +38,22 @@ $lang['aauth_error_update_username_exists'] = "Username already exists on the sy
 $lang['aauth_error_no_access'] = 'Sorry, you do not have access to the resource you requested.';
 $lang['aauth_error_login_failed_email'] = 'E-mail Address and Password do not match.';
 $lang['aauth_error_login_failed_name'] = 'Username and Password do not match.';
+$lang['aauth_error_login_failed_all'] = 'E-mail, Username or Password do not match.';
 $lang['aauth_error_login_attempts_exceeded'] = 'You have exceeded your login attempts, your account has now been locked.';
 $lang['aauth_error_recaptcha_not_correct'] = 'Sorry, the reCAPTCHA text entered was incorrect.';
 
 // Misc. errors
 $lang['aauth_error_no_user'] = 'User does not exist';
+$lang['aauth_error_vercode_invalid'] = 'Invalid Verification Code';
 $lang['aauth_error_account_not_verified'] = 'Your account has not been verified. Please check your e-mail and verify your account.';
 $lang['aauth_error_no_group'] = 'Group does not exist';
+$lang['aauth_error_no_subgroup'] = 'Subgroup does not exist';
 $lang['aauth_error_self_pm'] = 'It is not possible to send a Message to yourself.';
 $lang['aauth_error_no_pm'] = 'Private Message not found';
 
 
 /* Info messages */
 $lang['aauth_info_already_member'] = 'User is already member of group';
+$lang['aauth_info_already_subgroup'] = 'Subgroup is already member of group';
 $lang['aauth_info_group_exists'] = 'Group name already exists';
 $lang['aauth_info_perm_exists'] = 'Permission name already exists';

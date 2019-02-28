@@ -114,7 +114,7 @@ class Whois_domain extends CI_Controller {
 						"recordsTotal" => $all_whois->num_rows(),
 						"recordsFiltered" => $count_websites->num_rows(),
 						"data" => $data);
-		echo json_encode($output);
+		$this->output->set_content_type('application/json')->set_output(json_encode($output));
 	}
 	public function modal_whois($whois_id = '')
 	{

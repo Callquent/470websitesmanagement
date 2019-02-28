@@ -11,7 +11,7 @@ class Members extends CI_Controller {
 		$this->load->model('model_tasks');
 		$this->load->model('model_users');
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session'));
+		$this->load->library(array('Aauth','form_validation','form_validation_470websitesmanagement', 'encrypt', 'session'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
@@ -35,25 +35,42 @@ class Members extends CI_Controller {
 
 		$this->load->view('members/members', $data);
 	}
-	public function edit($id_members = '')
+	public function create_user()
 	{
-			$emailmember = $this->input->post('emailmember');
-			$idgroup_member_old = $this->input->post('idgroup_member_old');
-			$idgroup_member_new = $this->input->post('idgroup_member_new');
+		$name = $this->input->post('name');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		$password_confirm = $this->input->post('password_confirm');
+		
+		$this->form_validation_470websitesmanagement->set_rules('name', 'Name', 'trim|required|min_length[5]');
+		$this->form_validation_470websitesmanagement->set_rules('email', 'Email', 'trim|required|valid_email');
+		$this->form_validation_470websitesmanagement->set_rules('password', 'Password', 'trim|required|min_length[10]|valid_password');
+		$this->form_validation_470websitesmanagement->set_rules('password_confirm', 'Confirm Password', 'trim|required|matches[password]');
 
-			$this->aauth->remove_member($id_members, $idgroup_member_old);
-			$this->aauth->add_member($id_members, $idgroup_member_new);
-			$this->aauth->update_user($id_members, $emailmember);
+		if ($this->form_validation_470websitesmanagement->run() == true) {
+				$this->aauth->create_user($email, $password, $name);
+				$this->session->set_flashdata('success', 'Votre profil a bien été creée.');
+		}
+		// All errors
+		$errors = array_merge($this->form_validation_470websitesmanagement->error_array(),$this->aauth->errors);
+		$this->output->set_content_type('application/json')->set_output(json_encode($errors));
 	}
-	public function loadGroup()
+	public function edit_user()
 	{
-		$data['list_groups'] = $this->model_users->get_all_groups();
+		$id_user = $this->input->post('id_user');
+		$email_user = $this->input->post('email_user');
+		$old_idgroup_user = $this->input->post('old_idgroup_user');
+		$new_idgroup_user = $this->input->post('new_idgroup_user');
 
-		$this->output->set_content_type('application/json')->set_output( json_encode($data['list_groups']->result()));
+		$this->aauth->remove_member($id_user, $old_idgroup_user);
+		$this->aauth->add_member($id_user, $new_idgroup_user);
+		$this->aauth->update_user($id_user, $email_user);
 	}
-	public function delete($w_id = '')
+	public function delete_user()
 	{
-		$this->model_users->delete_user($w_id);
-		$this->aauth->delete_user($w_id);
+		$id_user = $this->input->post('id_user');
+
+		$this->model_users->delete_user($id_user);
+		$this->aauth->delete_user($id_user);
 	}
 }

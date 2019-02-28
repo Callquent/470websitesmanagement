@@ -42,10 +42,10 @@ class Add_website extends CI_Controller {
 	}
 	public function submit()
 	{
-		$id_category		= $this->input->post('categories');
-		$id_language		= $this->input->post('languages');
-		$name_website		= $this->input->post('nom');
-		$url_website		= $this->input->post('url');
+		$name_website		= $this->input->post('name_website');
+		$url_website		= $this->input->post('url_website');
+		$id_category		= $this->input->post('id_category');
+		$id_language		= $this->input->post('id_language');
 
 		$this->encryption->initialize(
 			array(
@@ -55,21 +55,21 @@ class Add_website extends CI_Controller {
 			)
 		);
 		
-		$w_host_ftp				= $this->encryption->encrypt($this->input->post('hostftp'));
-		$w_login_ftp			= $this->encryption->encrypt($this->input->post('loginftp'));
-		$w_password_ftp			= $this->encryption->encrypt($this->input->post('passwordftp'));
+		$host_ftp				= $this->encryption->encrypt($this->input->post('host_ftp'));
+		$login_ftp			= $this->encryption->encrypt($this->input->post('login_ftp'));
+		$password_ftp			= $this->encryption->encrypt($this->input->post('password_ftp'));
 
-		$w_host_db				= $this->encryption->encrypt($this->input->post('hostsql'));
-		$w_name_db				= $this->encryption->encrypt($this->input->post('namedatabase'));
-		$w_login_db				= $this->encryption->encrypt($this->input->post('loginsql'));
-		$w_password_db			= $this->encryption->encrypt($this->input->post('passwordsql'));
+		$host_db				= $this->encryption->encrypt($this->input->post('host_db'));
+		$name_db				= $this->encryption->encrypt($this->input->post('name_db'));
+		$login_db				= $this->encryption->encrypt($this->input->post('login_db'));
+		$password_db			= $this->encryption->encrypt($this->input->post('password_db'));
 
-		$w_host_bo				= $this->encryption->encrypt($this->input->post('adminhost'));
-		$w_login_bo				= $this->encryption->encrypt($this->input->post('adminlogin'));
-		$w_password_bo			= $this->encryption->encrypt($this->input->post('adminpassword'));
+		$host_bo				= $this->encryption->encrypt($this->input->post('host_bo'));
+		$login_bo				= $this->encryption->encrypt($this->input->post('login_bo'));
+		$password_bo			= $this->encryption->encrypt($this->input->post('password_bo'));
 
-		$w_login_htaccess		= $this->encryption->encrypt($this->input->post('loginhtaccess'));
-		$w_password_htaccess	= $this->encryption->encrypt($this->input->post('passwordhtaccess'));
+		$login_htaccess		= $this->encryption->encrypt($this->input->post('login_htaccess'));
+		$password_htaccess	= $this->encryption->encrypt($this->input->post('password_htaccess'));
 
 		/*$this->form_validation->set_rules('nom', 'Nom', 'required');
 		$this->form_validation->set_rules('url', 'Url', 'required');
@@ -87,10 +87,10 @@ class Add_website extends CI_Controller {
 			if (!$pos === false) {
 				sleep(10);
 			}
-			$this->model_back->create_ftp_website($website_id, $w_host_ftp, $w_login_ftp, $w_password_ftp);
-			$this->model_back->create_database_websites($website_id, $w_host_db, $w_name_db, $w_login_db,$w_password_db);
-			$this->model_back->create_backoffice_websites($website_id, $w_host_bo, $w_login_bo, $w_password_bo);
-			$this->model_back->create_htaccess_websites($website_id, $w_login_htaccess, $w_password_htaccess);
+			$this->model_back->create_ftp_website($website_id, $host_ftp, $login_ftp, $password_ftp);
+			$this->model_back->create_database_websites($website_id, $host_db, $name_db, $login_db,$password_db);
+			$this->model_back->create_backoffice_websites($website_id, $host_bo, $login_bo, $password_bo);
+			$this->model_back->create_htaccess_websites($website_id, $login_htaccess, $password_htaccess);
 		/*}*/
 	}
 }

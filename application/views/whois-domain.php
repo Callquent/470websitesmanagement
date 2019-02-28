@@ -38,7 +38,6 @@
 								  </div>
 
 							  </div>
-
 								<template>
 									<v-data-table
 										:headers="headers"
@@ -62,7 +61,6 @@
 									<div id="calendar" class="has-toolbar"></div>
 							  </aside>
 						  </div>
-
 					  </div>
 				  </section>
 			  </div>

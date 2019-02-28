@@ -41,36 +41,33 @@
 								</section>
 							</div>
 						</div>
-						<div class="row">
-						  <div class="col-sm-12">
-							<h4><?php echo lang('website_a_renew'); ?></h4>
-							<div class="space15"></div>
-							<table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-dashboard">
-								<thead>
-								  <tr>
-									  <th class="all">Nom</th>
-									  <th class="desktop">Site Web</th>
-									  <th class="desktop">Hebergeur</th>
-									  <th class="desktop">Date de mise en ligne</th>
-									  <th class="desktop">Date d'expiration</th>
-									  <th class="desktop">Whois</th>
-								  </tr>
-								</thead>
-								<tbody>
-								  <?php foreach ($all_whois_renew_tomonth->result() as $row) { ?>
-									<tr>
-									  <td><?php echo $row->name_website; ?></td>
-									  <td><?php echo '<a href="https://www.google.com/search?q=info:'.strip_tags($row->url_website).'" target="_blank">'.strip_tags($row->url_website).'</a>'; ?></td>
-									  <td><?php echo $row->registrar; ?></td>
-									  <td><?php echo $row->creation_date; ?></td>
-									  <td><?php echo $row->expiration_date; ?></td>
-									  <td><?php echo '<a class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->whois_id.'">Whois</a>'; ?></td>
-									</tr>
-								  <?php } ?>
-								</tbody>
-							</table>
+					  <div class="card-body">
+						  <div class="whois-list">
+								<template>
+									<v-data-table
+										:headers="headers"
+										:items="list_whois"
+										class="elevation-1"
+									>
+										<template slot="items" slot-scope="props">
+											<td>{{ props.item.name_whois }}</td>
+											<td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
+											<td class="text-xs-left">{{ props.item.hosting }}</td>
+											<td class="text-xs-left">{{ props.item.date_delivery }}</td>
+											<td class="text-xs-left">{{ props.item.date_expiration }}</td>
+											<td class="text-xs-left" v-html="props.item.whois">{{ props.item.whois }}</td>
+										</template>
+									</v-data-table>
+								</template>
 						  </div>
-						</div>
+
+						  <div class="row whois-calendar">
+							  <aside class="col-lg-12">
+									<div id="calendar" class="has-toolbar"></div>
+							  </aside>
+						  </div>
+					  </div>
+
 					  </div>
 				  </section>
 			  </div>
@@ -108,38 +105,29 @@
   var pieDataLanguage = JSON.parse('<?php echo $chart_language; ?>');
   var pieDataCategory = JSON.parse('<?php echo $chart_category; ?>');
 
+var v = new Vue({
+	el: '#app',
+	data : {
+		currentRoute: window.location.href,
+		headers: [
+			{ text: 'Nom', value: 'name_whois'},
+			{ text: 'Site Web', value: 'website' },
+			{ text: 'Hebergeur', value: 'hosting'},
+			{ text: 'Date de mise en ligne', value: 'date_delivery'},
+			{ text: 'Date d\'expiration', value: 'date_expiration'},
+			{ text: 'Whois', value: 'whois'},
+		],
+        list_whois: <?php echo json_encode($all_whois_renew_tomonth->result_array()); ?>,
+    },
+    created(){
+
+    },
+    methods:{
+
+    }
+})
+
   $(document).ready(function(){
-	  var dashboardTable = $('#table-dashboard').dataTable({
-		  "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
-		  "order": [],
-		  "dom": 'lBfrtip',
-		  "buttons": [
-			  {
-				  extend: 'collection',
-				  text: 'Export',
-				  buttons: [
-					  'copy',
-					  'excel',
-					  'csv',
-					  'pdf',
-					  'print'
-				  ]
-			  }
-		  ],
-		  responsive: {
-				  details: {
-					 
-				  }
-			  },
-			  columnDefs: [ {
-				  className: 'control',
-				  orderable: false,
-				  targets:   0
-			  } ],
-	  });
-
-
-
 	var pieChartLanguage = {
 		options: {
 			chart: {

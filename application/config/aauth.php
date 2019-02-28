@@ -105,7 +105,7 @@ $config_aauth["default"] = array(
  'remember'                       => ' +3 days',
 
  'max'                            => 32,
- 'min'                            => 8,
+ 'min'                            => 10,
 
  'additional_valid_chars'         => array(),
 
