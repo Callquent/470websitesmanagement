@@ -100,16 +100,16 @@
 												v-model="props.item.id_language"
 												slot="input"
 												label="Choose language"
-												single-line
-												autofocus
 												:items="list_language"
 												item-text="name_language"
-												item-value="id_language">
+												item-value="id_language"
+												single-line
+												autofocus>
 												</v-select>
 											</v-edit-dialog>
 										</td>
 										<td>
-											<a :href="currentRoute+'/'+props.item.id"><i class="icon icon-eye"></i></a>
+											<a :href="currentRoute+'/'+props.item.id_website"><i class="icon icon-eye"></i></a>
 										</td>
 										<td class="text-xs-left">
 											<div class="dropdown show actions">
@@ -197,7 +197,7 @@ var v = new Vue({
 			{ text: '<?php echo lang("access"); ?>', value: 'access'},
 			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
 		],
-        list_website: <?php echo json_encode($websites); ?>,
+        list_website: <?php echo json_encode($all_websites->result_array()); ?>,
         list_category: <?php echo json_encode($all_categories->result_array()); ?>,
         list_language: <?php echo json_encode($all_languages->result_array()); ?>,
         list_ftp:  [],
@@ -214,7 +214,7 @@ var v = new Vue({
         },
         f_editWebsite(item){
 			var formData = new FormData(); 
-			formData.append("id_website",item.id);
+			formData.append("id_website",item.id_website);
 			formData.append("name_website",item.name_website);
 			formData.append("url_website",item.url_website);
 			formData.append("id_category",item.id_category);
@@ -225,7 +225,7 @@ var v = new Vue({
 		},
 		f_opendialog_Access(item){
 			var formData = new FormData();
-			formData.append("id_website",item.id);
+			formData.append("id_website",item.id_website);
 			axios.post(this.currentRoute+"/view-access-website/", formData).then(function(response){
 				if(response.status = 200){
 					v.list_ftp = response.data.ftp;
@@ -240,7 +240,7 @@ var v = new Vue({
 		},
 		f_deleteWebsite(item){
 			var formData = new FormData();
-			formData.append("id_website",item.id);
+			formData.append("id_website",item.id_website);
 			if (confirm('Are you sure you want to delete this item?') == true) {
 				axios.post(this.currentRoute+"/delete-website/", formData).then(function(response){
 					if(response.status = 200){

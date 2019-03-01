@@ -70,7 +70,7 @@ class Whois
             { 
                 case 'com':
                 case 'net':
-                preg_match_all('/Creation\sDate:\s(.*)T.*Expiration\sDate:\s(.*)T.*Registrar:(.*)Registrar/siU', $string_utf8, $data);
+                preg_match_all('/Creation\sDate:\s(.*)T.*Expiry\sDate:\s(.*)T.*Registrar:(.*)Registrar/siU', $string_utf8, $data);
                     if (isset($data[1][0]) && isset($data[2][0])) {
                         $result[]=trim($data[1][0]);
                         $result[]=trim($data[2][0]);

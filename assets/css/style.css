@@ -50,6 +50,14 @@ h1 {
 	caret-color: #1867c0 !important;
 }
 /***********************/
+/*      DIALOG       */
+/***********************/
+.v-dialog__content {
+	top: 64px;
+	left: 276px;
+	width: calc(100% - 276px);
+}
+/***********************/
 /*      SNACKBAR       */
 /***********************/
 .v-snack {
@@ -213,13 +221,19 @@ ul.user-info li a{color:#fff;}
 /***********************/
 /*      CALENDAR       */
 /***********************/
-.fc-today {
-	background: #b3b0c5;
-}
-.fc-event-skin {
-		background-color: #d9534f !important;
-		border-color: #d9534f !important;
-		color: #FFFFFF !important;
+.my-event {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	border-radius: 2px;
+	background-color: #1867c0;
+	color: #ffffff;
+	border: 1px solid #1867c0;
+	width: 100%;
+	font-size: 12px;
+	padding: 3px;
+	cursor: pointer;
+	margin-bottom: 1px;
 }
 /***********************/
 /*      META SEO       */

@@ -288,10 +288,10 @@ var v = new Vue({
 		f_dialog_editProject(item){
 			var formData = new FormData();
 			v.editedIndexProject = v.list_projects.indexOf(item);
-	        v.Project = Object.assign({}, item);
-	        v.Project.name_website = item.url_website;
-	        v.dialog_add_project = true;
-	    },
+			v.Project = Object.assign({}, item);
+			v.Project.name_website = item.url_website;
+			v.dialog_add_project = true;
+		},
         f_deleteProject(item){
             var formData = new FormData();
             formData.append("id_project",item.id_project_tasks);

@@ -51,12 +51,12 @@ class Add_website extends CI_Controller {
 			array(
 			        'cipher' => 'aes-256',
 			        'mode' => 'ctr',
-			        'key' => $config['encryption_key']
+			        'key' => $this->config->item('encryption_key')
 			)
 		);
 		
 		$host_ftp				= $this->encryption->encrypt($this->input->post('host_ftp'));
-		$login_ftp			= $this->encryption->encrypt($this->input->post('login_ftp'));
+		$login_ftp				= $this->encryption->encrypt($this->input->post('login_ftp'));
 		$password_ftp			= $this->encryption->encrypt($this->input->post('password_ftp'));
 
 		$host_db				= $this->encryption->encrypt($this->input->post('host_db'));
@@ -88,9 +88,9 @@ class Add_website extends CI_Controller {
 				sleep(10);
 			}
 			$this->model_back->create_ftp_website($website_id, $host_ftp, $login_ftp, $password_ftp);
-			$this->model_back->create_database_websites($website_id, $host_db, $name_db, $login_db,$password_db);
-			$this->model_back->create_backoffice_websites($website_id, $host_bo, $login_bo, $password_bo);
-			$this->model_back->create_htaccess_websites($website_id, $login_htaccess, $password_htaccess);
+			$this->model_back->create_database_website($website_id, $host_db, $name_db, $login_db,$password_db);
+			$this->model_back->create_backoffice_website($website_id, $host_bo, $login_bo, $password_bo);
+			$this->model_back->create_htaccess_website($website_id, $login_htaccess, $password_htaccess);
 		/*}*/
 	}
 }

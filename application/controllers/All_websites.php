@@ -46,32 +46,20 @@ class All_websites extends CI_Controller {
 
 
 		if($this->uri->total_segments() == 1){
-
+			
+			$list = array();
 			foreach ($data['all_websites']->result() as $key => $row)
 			{
-				
-				$list = array();
-				$list['id'] = $row->id_website;
-				$list['name_website'] = $row->name_website;
-				$list['url_website'] = $row->url_website;
-				$list['address_ip'] = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
-				$list['name_category'] = $row->name_category;
-				$list['id_category'] = $row->id_category;
-				$list['name_language'] = $row->name_language;
-				$list['id_language'] = $row->id_language;
-				$list['actions'] = '<div class="dropdown show actions">
-								<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-									<i class="icon icon-dots-vertical"></i>
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->id_website.'"><i class="fa fa-envelope"></i> '.lang('email').'</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" id="edit-dashboard" href="'.site_url('all-websites/edit-website/'.$row->id_website).'"><i class="fa fa-pencil"></i> '.lang('edit').'</a>
-									<a class="dropdown-item" id="delete-dashboard" href="'.site_url('all-websites/delete-website/'.$row->id_website).'"><i class="fa fa-trash"></i> '.lang('delete').'</a>
-								</div>
-							</div>';
+				$row->id_website = $row->id_website;
+				$row->name_website = $row->name_website;
+				$row->url_website = $row->url_website;
+				$row->address_ip = ($this->input->valid_ip(gethostbyname($row->url_website))?gethostbyname($row->url_website):"ADRESSE IP NON VALIDE");
+				$row->name_category = $row->name_category;
+				$row->id_category = $row->id_category;
+				$row->name_language = $row->name_language;
+				$row->id_language = $row->id_language;
 
-				$data['websites'][] = $list;
+				//$data['websites'][] = $list;
 			}
 
 			$this->load->view('all-websites', $data);

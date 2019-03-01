@@ -44,6 +44,7 @@ class Whois_domain extends CI_Controller {
 		$all_whois = $this->model_whois->view_all_whois();
 		$count_websites =  $this->model_front->count_all_websites();
 		$data = array();
+		$list = array();
 		foreach ($all_whois->result() as $row)
 		{
 			if (strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) <= strtotime(date('Y-m-d')) && strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) != 0 ) {
@@ -58,13 +59,12 @@ class Whois_domain extends CI_Controller {
 				}
 			}
 
-			$list = array();
 			$list['name_whois'] = $row->name_website;
 			$list['website'] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
 			$list['hosting'] = $row->registrar;
 			$list['date_delivery'] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
 			$list['date_expiration'] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
-			$list['whois'] = '<a class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->whois_id.'">Whois</a>';
+			$list['whois'] = $row->whois;
 
 			$data[] = $list;
 		}
@@ -77,9 +77,9 @@ class Whois_domain extends CI_Controller {
 		$count_websites =  $this->model_front->count_all_websites();
 		foreach ($all_whois->result() as $row)
 		{
-			$calendar_whois[] = array('title' => $row->url_website, 'start' => $row->expiration_date );
+			$calendar_whois[] = array('title' => $row->url_website, 'details' => 'Eat chocolate until you pass out', 'date' => $row->expiration_date, 'open' => false );
 		}			
-		echo json_encode($calendar_whois);
+		$this->output->set_content_type('application/json')->set_output(json_encode($calendar_whois));
 	}
 	public function ajaxRefresh()
 	{
@@ -101,20 +101,17 @@ class Whois_domain extends CI_Controller {
 			}
 
 			$list = array();
-			$list[] = $row->name_website;
-			$list[] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
-			$list[] = $row->registrar;
-			$list[] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
-			$list[] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
-			$list[] = '<a  class="access-whois" href="javascript:void(0);" data-toggle="modal" data-target="#view-whois" data-id="'.$row->whois_id.'">Whois</a>';
+			$list['name_whois'] = $row->name_website;
+			$list['website'] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
+			$list['hosting'] = $row->registrar;
+			$list['date_delivery'] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
+			$list['date_expiration'] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
+			$list['whois'] = $row->whois;
+
 
 			$data[] = $list;
 		}
-		$output = array("draw" => $_POST['draw'],
-						"recordsTotal" => $all_whois->num_rows(),
-						"recordsFiltered" => $count_websites->num_rows(),
-						"data" => $data);
-		$this->output->set_content_type('application/json')->set_output(json_encode($output));
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 	public function modal_whois($whois_id = '')
 	{

@@ -157,7 +157,7 @@
     	display_db: 'false',
     	display_bo: 'false',
     	display_htaccess: 'false',
-        currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+        currentRoute: window.location.href,
         id_website: window.location.href.split('/').pop(),
         list_category: <?php echo json_encode($all_categories->result_array()); ?>,
         list_language: <?php echo json_encode($all_languages->result_array()); ?>,
@@ -207,7 +207,7 @@
 			formData.append("password_bo",v.newWebSite.password_bo);
 			formData.append("login_htaccess",v.newWebSite.login_htaccess);
 			formData.append("password_htaccess",v.newWebSite.password_htaccess);
-			axios.post(this.currentRoute+"/add-website/submit/", formData).then(function(response){
+			axios.post(this.currentRoute+"/submit/", formData).then(function(response){
 				if(response.status = 200){
 					v.message.success = true;
 					v.$refs.form.reset();

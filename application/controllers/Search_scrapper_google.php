@@ -47,22 +47,22 @@ class Search_scrapper_google extends CI_Controller {
 
 		foreach ($all_websites as $key => $row)
 		{
-			$list = array();
-			$list['position'] = ++$key;
-			$list['website'] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
-			$list['meta_title'] = strip_tags($row['title']);
-			$list['meta_description'] = strip_tags($row['description']);
-			if (removeurl_createdomain($website) == removeurl_createdomain($row['url']) ) {
-				$list['className'] = 'dt-position-website-true';
-				$show_position[] = $key;
-			}	
+			$list = new stdClass();
+			$list->position = $key+1;
+			$list->website = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
+			$list->meta_title = strip_tags($row['title']);
+			$list->meta_description = strip_tags($row['description']);
+			if (removeurl_createdomain($website) == removeurl_createdomain($row['url'])) {
+				$list->class = 'dt-position-website-true';
+				$show_position[] = $key+1;
+			}
+			
 			$website_search_preview[] = $list;
 		}
 		$data['result_websites'] = $website_search_preview;
 		if (isset($show_position)) {
 			$data['result_position_website'] = $show_position;
 		}
-
 		$this->output->set_content_type('application/json')->set_output( json_encode($data));
 	}
 }

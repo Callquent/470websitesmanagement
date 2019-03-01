@@ -42,9 +42,9 @@ class Edit_keyword_google extends CI_Controller {
 		$all_websites = $this->model_front->get_all_websites();
 		$count_websites = $this->model_front->count_all_websites_per_page();
 		$data = array();
+		$list = array();
 		foreach ($all_websites->result() as $row)
 		{
-			$list = array();
 			$list[] = $row->id_website;
 			$list[] = $row->name_website;
 			$list[] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';

@@ -14,7 +14,7 @@
 		<?php echo css_url('plugins/pnotify/animate.min.css'); ?>
 		<?php echo css_url('plugins/pnotify/pnotify.custom.min.css'); ?>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.3.9/vuetify.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.3/vuetify.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/theme/monokai.css">
 		<?php echo css_url('css/theme.css'); ?>

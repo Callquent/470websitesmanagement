@@ -53,7 +53,7 @@
                                         :rows-per-page-items="[-1]"
                                     >
                                         <template slot="items" slot-scope="props">
-                                            <tr :class="props.item.className">
+                                            <tr :class="props.item.class">
                                                 <td>{{ props.item.position }}</td>
                                                 <td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
                                                 <td class="text-xs-left">{{ props.item.meta_title }}</td>
