@@ -90,9 +90,9 @@ class Dashboard extends CI_Controller {
 				
 		$this->load->view('dashboard', $data);
 	}
-	public function modal_whois($whois_id = '')
+	public function modal_whois($id_whois = '')
 	{
-		$whois = $this->model_whois->check_whois($whois_id)->whois;
+		$whois = $this->model_whois->check_whois($id_whois)->whois;
 		$datatable = array(0 => $whois);
 
 		echo $whois;

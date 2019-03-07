@@ -7,7 +7,7 @@ class Model_whois extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_whois')
-				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.id_website')
+				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.id_whois = 470websitesmanagement_website.id_website')
 				 ->order_by('470websitesmanagement_whois.expiration_date', 'ASC');
 
 		$query = $this->db->get();
@@ -17,7 +17,7 @@ class Model_whois extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_whois')
-				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.id_website')
+				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.id_whois = 470websitesmanagement_website.id_website')
 				 ->where('YEAR(470websitesmanagement_whois.expiration_date)',$year)
 				 ->where('MONTH(470websitesmanagement_whois.expiration_date)',$month)
 				 ->order_by('470websitesmanagement_whois.expiration_date', 'ASC');
@@ -25,19 +25,20 @@ class Model_whois extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function check_whois($whois_id)
+	function check_whois($id_whois)
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_whois')
-				 ->where('whois_id', $whois_id);
+				 ->join('470websitesmanagement_website', '470websitesmanagement_whois.id_whois = 470websitesmanagement_website.id_website')
+				 ->where('id_whois', $id_whois);
 
 		$query = $this->db->get();
 		return $query->row();
 	}
-	function create_all_whois($whois_id, $whois, $creation_date, $expiration_date, $registrar)
+	function create_all_whois($id_whois, $whois, $creation_date, $expiration_date, $registrar)
 	{
 		$data = array(
-			'whois_id'				=> $whois_id,
+			'id_whois'				=> $id_whois,
 			'whois'					=> $whois,
 			'expiration_date'		=> $expiration_date,
 			'creation_date'			=> $creation_date,
@@ -47,7 +48,7 @@ class Model_whois extends CI_Model {
 		$this->db->insert('470websitesmanagement_whois', $data);
 		return $this->db->insert_id();
 	}
-	function update_whois($whois_id, $whois, $creation_date, $expiration_date, $registrar)
+	function update_whois($id_whois, $whois, $creation_date, $expiration_date, $registrar)
 	{
 		$data = array(
 			'whois'					=> $whois,
@@ -56,7 +57,7 @@ class Model_whois extends CI_Model {
 			'registrar'				=> $registrar,
 		);
 
-		$this->db->where('whois_id', $whois_id)
+		$this->db->where('id_whois', $id_whois)
 				 ->update('470websitesmanagement_whois', $data);
 	}
 }

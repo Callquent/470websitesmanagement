@@ -4,120 +4,101 @@
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
 		<h2 class="doc-title" id="content"><?php echo lang('website_scrapper_google'); ?></h2>
 	</div>
-	<div class="page-content">
-		<section id="main-content">
-			<section class="wrapper">
-
-			<div class="row">
-				<div class="col-sm-12">
-					<section class="card mb-3">
-						<header class="card-header">
-							<?php echo lang('website_scrapper_google'); ?>
-						</header>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-md-4">
-									<div id="results">
-										<div class="alert alert-success alert-block" v-show="success"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span><?php echo lang('is_index'); ?></h4></div>
-										<div class="alert alert-danger alert-block" v-show="success"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
-									</div>
-									<form class="form-horizontal" id="form-website-scrapper-google" @submit.prevent="WebsiteSearchGoogle">
-										<div class="form-group">
-											<v-autocomplete
-                                                v-model="searchGoogle.url_website"
-                                                :items="list_website"
-                                                label="Select"
-                                                item-text="url_website"
-                                                item-value="url_website">
-                                            </v-autocomplete>
-										</div>
-										<div class="form-group">
-											<div class="col-lg-2">
-												<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
-											</div>
-										</div>
-									</form>
-								</div>
-								<div class="col-md-4"></div>
-								<div class="col-md-4">
-								  <button class="btn btn-success btn-ls float-right" data-title="Ajouter" data-toggle="modal" data-target="#serptools">Simulateur de SERP</button>
-								</div>
-							</div>
-							<div class="space15"></div>
-							<table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" id="table-website-scrapper-google">
-							  <thead>
-								<th class="all"><?php echo lang('website'); ?></th>
-								<th class="desktop"><?php echo lang('meta_title'); ?></th>
-								<th class="desktop"><?php echo lang('meta_description'); ?></th>
-							  </thead>
-							</table>
-						<template>
-								<v-data-table
-                                    :headers="headers"
-                                    :items="list_website_search_google"
-                                    class="elevation-1"
-                                    :rows-per-page-items="[-1]"
-                                >
-                                    <template slot="items" slot-scope="props">
-                                        <td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
-                                        <td class="text-xs-left">{{ props.item.meta_title }}</td>
-                                        <td class="text-xs-left"  v-html="props.item.meta_description">{{ props.item.meta_description }}</td>
-                                    </template>
-                                </v-data-table>
-                            </template>
+        <v-container fluid grid-list-sm>
+            <v-layout row wrap>
+                <v-flex xs4>
+					<div id="results">
+						<div class="alert alert-success alert-block" v-show="success"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span><?php echo lang('is_index'); ?></h4></div>
+						<div class="alert alert-danger alert-block" v-show="success"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
+					</div>
+					<form class="form-horizontal" id="form-website-scrapper-google" @submit.prevent="WebsiteSearchGoogle">
+						<div class="form-group">
+							<v-combobox
+                                v-model="searchGoogle.url_website"
+                                :items="list_website"
+                                label="Select"
+                                item-text="url_website"
+                                item-value="url_website">
+                            </v-combobox>
 						</div>
-					</section>
-				</div>
-			</div>
-			</section>
-		</section>
-	</div>
-  </div>
+						<div class="form-group">
+							<div class="col-lg-2">
+								<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ..."><?php echo lang('search'); ?></button>
+							</div>
+						</div>
+					</form>
+				</v-flex>
+				<v-flex xs4></v-flex>
+				<v-flex xs4>
+					<v-btn absolute right color="success" @click="dialog_serp_google = true"><?php echo lang('serp_simulator'); ?></v-btn>
+				</v-flex>
+				<v-flex xs12>
+					<template>
+						<v-data-table
+						:headers="headers"
+						:items="list_website_search_google"
+						class="elevation-1"
+						:rows-per-page-items="[-1]"
+						>
+							<template slot="items" slot-scope="props">
+								<td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
+								<td class="text-xs-left">{{ props.item.meta_title }}</td>
+								<td class="text-xs-left"  v-html="props.item.meta_description">{{ props.item.meta_description }}</td>
+							</template>
+						</v-data-table>
+					</template>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </div>
 </div>
-<div class="modal fade" id="serptools" tabindex="-1" role="dialog" aria-labelledby="serptools" aria-hidden="true">
-  <div class="modal-dialog">
-	<div class="modal-content">
-	  <div class="modal-header modal-header-success">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-		<h4 class="modal-title custom_align" id="Heading">Simulateur de SERP</h4>
-	  </div>
-	  <div class="modal-body">
-		<form id="form-serptools">
-		  <div class="form-group">
-		   <span id="titlechar">70</span> Nombre de caractères <span id="titlepixels">0</span> / <span id="statuschars">500</span> Nombre de pixels
-			<input class="form-control" type="text" name="meta_title" id="meta_title" placeholder="Titre">
-		  </div>
-		  <div class="form-group">
-			<input class="form-control" type="text" name="meta_url" id="meta_url" placeholder="Url">
-		  </div>
-		  <div class="form-group">
-			<span id="snippetchar">156</span> Nombre de caractères <span id="snippetpixels">0</span> / <span id="statuspixels">930</span> Nombre de pixels
-			<textarea class="form-control" type="text" name="meta_description" id="meta_description" placeholder="Description"></textarea>
-		  </div>
-		</form>
 
-		<div class="thumbnail g">
-			<h3 class="r"><a href="http://www.seomofo.com/snippet-optimizer.html#" onclick="return false;" class="l"><span id="out_title">This is an Example of a Title Tag that is Seventy Characters in Length</span></a></h3>
-			<div class="s">
-				<div class="f kv">
-					<cite><span id="out_url">www.website.com</span><span id="out_dash1" style="display: inline;"></span></cite>
-				</div>
-				<div class="f kv">
-					<span id="out_datesnip"><span class="mofo_date"><span id="out_date" style="display: none;"></span><span id="out_datedots" style="display: none; color: rgb(102, 102, 102);">&nbsp;-&nbsp;</span></span><span class="mofo_snippet"><span id="out_snippet">Here is an example of what a snippet looks like in Google's SERPs. The content that appears here is usually taken from the Meta Description tag if relevant.</span></span></span>
-					<span class="gl"><span id="out_cached" style="display: inline;"></span><span id="out_dash2" style="display: inline;"></span><span id="out_similar" style="display: inline;"></span></span>
-				</div>
-			</div>
-		</div>
-	  </div>
+<v-dialog v-model="dialog_serp_google" width="500">
+    <v-card>
+        <v-card-title class="headline green lighten-2" primary-title>
+            Simulateur de SERP
+        </v-card-title>
 
-	</div>
-  </div>
-</div>
+        <v-card-text>
+            <v-container grid-list-md>
+                <v-layout wrap>
+                    <v-flex xs12>
+                        <span id="titlechar">70</span> Nombre de caractères <span id="titlepixels">0</span> / <span id="statuschars">500</span> Nombre de pixels
+                        <v-text-field label="Titre" name="meta_title" id="meta_title"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                        <v-text-field label="Url" name="meta_url" id="meta_url"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                        <span id="snippetchar">156</span> Nombre de caractères <span id="snippetpixels">0</span> / <span id="statuspixels">930</span> Nombre de pixels
+                        <v-textarea name="input-7-1" label="Description" name="meta_description" id="meta_description" hint="Hint text"></v-textarea>
+                    </v-flex>
+                    <v-flex xs12>
+                        <div class="thumbnail g">
+                            <h3 class="r"><a href="http://www.seomofo.com/snippet-optimizer.html#" onclick="return false;" class="l"><span id="out_title">This is an Example of a Title Tag that is Seventy Characters in Length</span></a></h3>
+                            <div class="s">
+                                <div class="f kv">
+                                    <cite><span id="out_url">www.website.com</span><span id="out_dash1" style="display: inline;"></span></cite>
+                                </div>
+                                <div class="f kv">
+                                    <span id="out_datesnip"><span class="mofo_date"><span id="out_date" style="display: none;"></span><span id="out_datedots" style="display: none; color: rgb(102, 102, 102);">&nbsp;-&nbsp;</span></span><span class="mofo_snippet"><span id="out_snippet">Here is an example of what a snippet looks like in Google's SERPs. The content that appears here is usually taken from the Meta Description tag if relevant.</span></span></span>
+                                    <span class="gl"><span id="out_cached" style="display: inline;"></span><span id="out_dash2" style="display: inline;"></span><span id="out_similar" style="display: inline;"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+            <small>*indicates required field</small>
+        </v-card-text>
+    </v-card>
+</v-dialog>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 var v = new Vue({
     el: '#app',
     data : {
+    	dialog_serp_google: false,
         message:{
             success:'',
             error:'',
@@ -141,7 +122,8 @@ var v = new Vue({
         displayPage(){
 
         },
-        WebsiteSearchGoogle(){
+        async WebsiteSearchGoogle(){
+        	await new Promise(resolve => setTimeout(resolve, 100));
             var formData = new FormData(); 
             formData.append("website",this.searchGoogle.url_website);
             axios.post(this.currentRoute+"/ajaxWebsiteScrapperGoogle/", formData).then(function(response){

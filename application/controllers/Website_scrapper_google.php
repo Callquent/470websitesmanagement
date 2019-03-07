@@ -40,18 +40,20 @@ class Website_scrapper_google extends CI_Controller {
 	public function ajaxWebsiteScrapperGoogle()
 	{
 		$website = ( empty($this->input->post('website')) ? " " : $this->input->post('website') );
+		//$website = 'codeigniter.com';
 
 		$googlescraper = new Googlescraper();
 		$all_websites = $googlescraper->getUrlList(urlencode('site:'.$website),100);
 
 		foreach ($all_websites as $key => $row)
 		{
-			$list = array();
-			$list['website'] = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
-			$list['meta_title'] = strip_tags($row['title']);
-			$list['meta_description'] = strip_tags($row['description']);
+			$list = new stdClass();
+			$list->website = '<a href="https://www.google.com/search?q=info:'.strip_tags($row['url']).'" target="_blank">'.strip_tags($row['url']).'</a>';
+			$list->meta_title = strip_tags($row['title']);
+			$list->meta_description = strip_tags($row['description']);
 			$website_search_preview[] = $list;
 		}
+		//var_dump($website_search_preview);
 		$data['result_websites'] = $website_search_preview;
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}

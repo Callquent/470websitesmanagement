@@ -166,7 +166,7 @@ class Model_back extends CI_Model {
 
 		$this->db->select('*')
 					->from('470websitesmanagement_website')
-					->join('470websitesmanagement_whois', '470websitesmanagement_whois.whois_id = 470websitesmanagement_website.id_website')
+					->join('470websitesmanagement_whois', '470websitesmanagement_whois.id_whois = 470websitesmanagement_website.id_website')
 					->join('470websitesmanagement_website__ftp', '470websitesmanagement_website__ftp.id_website = 470websitesmanagement_website.id_website')
 					->join('470websitesmanagement_website__database', '470websitesmanagement_website__database.id_website = 470websitesmanagement_website.id_website')
 					->join('470websitesmanagement_website__backoffice', '470websitesmanagement_website__backoffice.id_website = 470websitesmanagement_website.id_website')
@@ -223,7 +223,7 @@ class Model_back extends CI_Model {
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__htaccess').";";
 
 			$data = array(
-				'whois_id'  => $row->id_website,
+				'id_whois'  => $row->id_whois,
 				'creation_date' => $row->creation_date,
 				'expiration_date'  => $row->expiration_date,
 				'registrar'  => $row->registrar,

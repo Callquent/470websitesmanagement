@@ -480,13 +480,13 @@ CREATE TABLE IF NOT EXISTS `470websitesmanagement_website` (
 
 DROP TABLE IF EXISTS `470websitesmanagement_whois`;
 CREATE TABLE IF NOT EXISTS `470websitesmanagement_whois` (
-  `whois_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_whois` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `whois` text,
   `creation_date` date DEFAULT NULL,
   `expiration_date` date DEFAULT NULL,
   `registrar` varchar(255) DEFAULT NULL,
   `release_date_whois` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`whois_id`)
+  PRIMARY KEY (`id_whois`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
@@ -561,7 +561,7 @@ ALTER TABLE `470websitesmanagement_website`
 -- Contraintes pour la table `470websitesmanagement_whois`
 --
 ALTER TABLE `470websitesmanagement_whois`
-  ADD CONSTRAINT `fk_whois_id` FOREIGN KEY (`whois_id`) REFERENCES `470websitesmanagement_website` (`id_website`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_id_whois` FOREIGN KEY (`id_whois`) REFERENCES `470websitesmanagement_website` (`id_website`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -4,6 +4,14 @@
 
 	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between" v-if="display_table_whois">
 		<h2 class="doc-title" id="content"><?php echo lang('whois_domain'); ?></h2>
+		<div class="toolbar row no-gutters align-items-center">
+			<button @click="f_whoisCalendar" id="calendar-today-button" type="button" class="btn btn-icon fuse-ripple-ready" aria-label="Today">
+				<i class="icon icon-calendar-today"></i>
+			</button>
+			<button  @click="displayPage" type="button" class="btn btn-icon change-view fuse-ripple-ready" data-view="agendaWeek" aria-label="Week">
+				<i class="icon icon-view-week"></i>
+			</button>
+		</div>
 	</div>
 	<div class="page-header bg-secondary text-auto p-6" v-else>
 		<div class="header-content d-flex flex-column justify-content-between">
@@ -13,20 +21,11 @@
 					<span class="logo-text h4">Calendar</span>
 				</div>
 				<div class="toolbar row no-gutters align-items-center">
-					<button type="button" class="btn btn-icon fuse-ripple-ready" aria-label="Search">
-						<i class="icon icon-magnify"></i>
-					</button>
-					<button id="calendar-today-button" type="button" class="btn btn-icon fuse-ripple-ready" aria-label="Today">
+					<button @click="f_whoisCalendar" id="calendar-today-button" type="button" class="btn btn-icon fuse-ripple-ready" aria-label="Today">
 						<i class="icon icon-calendar-today"></i>
 					</button>
-					<button type="button" class="btn btn-icon change-view fuse-ripple-ready" data-view="agendaDay" aria-label="Day">
-						<i class="icon icon-view-day"></i>
-					</button>
-					<button type="button" class="btn btn-icon change-view fuse-ripple-ready" data-view="agendaWeek" aria-label="Week">
+					<button @click="displayPage" type="button" class="btn btn-icon change-view fuse-ripple-ready" data-view="agendaWeek" aria-label="Week">
 						<i class="icon icon-view-week"></i>
-					</button>
-					<button type="button" class="btn btn-icon change-view fuse-ripple-ready" data-view="month" aria-label="Month">
-						<i class="icon icon-view-module"></i>
 					</button>
 				</div>
 			</div>
@@ -51,25 +50,6 @@
 		  <div class="row">
 			  <div class="col-sm-12">
 				  <section class="card mb-3">
-					  <header class="card-header">
-						<span class="tools pull-right">
-
-
-							  <div class="dropdown">
-								<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  <?php echo lang('type'); ?>
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								  <a class="dropdown-item" id="button-whois-list" @click="displayPage"><?php echo lang('list'); ?></a>
-								  <a class="dropdown-item" id="button-whois-calendar" @click="f_whoisCalendar"><?php echo lang('calendar'); ?></a>
-								</div>
-							  </div>
-
-							<div class="btn-group pull-right">
-							  <a @click="f_whoisRefresh" id="load-refresh-whois" class="btn btn-primary" role="button" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading ...">Refresh</a>
-							</div>
-						   </span>
-					  </header>
 					  <div class="card-body">
 						  <div class="whois-list" v-if="display_table_whois">
 								<h4><?php echo lang('domain_name_included'); ?> : .com, .net, .ca, .org, .za, .uk, .ie, .paris, .ovh, .fr, .re, .pf, .nc, .it, .pt, .se, .fi, .ru, .cn, .jp, .dk, .pl, .cz</h4>
@@ -86,6 +66,7 @@
 											<td class="text-xs-left">{{ props.item.date_delivery }}</td>
 											<td class="text-xs-left">{{ props.item.date_expiration }}</td>
 											<td class="text-xs-left"><a @click="f_dialog_Whois(props.item)"><i class="icon icon-eye"></i></a></td>
+											<td class="text-xs-left"><a @click="f_whoisRefreshDomain(props.item)"><i class="icon icon-refresh"></i></a></td>
 										</template>
 									</v-data-table>
 								</template>
@@ -194,11 +175,11 @@
 
 <v-dialog v-model="dialog_whois" width="800">
 	<v-card>
-        <v-card-title class="headline green lighten-2" primary-title>
-          <?php echo lang('whois'); ?>
-        </v-card-title>
+		<v-card-title class="headline green lighten-2" primary-title>
+			<?php echo lang('whois'); ?>
+		</v-card-title>
 
-        <v-card-text>
+		<v-card-text>
 			<v-container grid-list-md>
 				<v-layout wrap>
 					<v-flex xs12>
@@ -207,7 +188,7 @@
 				</v-layout>
 			</v-container>
 			<small>*indicates required field</small>
-        </v-card-text>
+		</v-card-text>
 	</v-card>
 </v-dialog>
 <?php $this->load->view('include/javascript.php'); ?>
@@ -226,6 +207,7 @@ var v = new Vue({
 			{ text: 'Date de mise en ligne', value: 'date_delivery'},
 			{ text: 'Date d\'expiration', value: 'date_expiration'},
 			{ text: 'Whois', value: 'whois'},
+			{ text: 'Refresh', value: 'refresh'},
 		],
 		list_whois: [],
 		calendar: {
@@ -266,10 +248,14 @@ var v = new Vue({
 				}
 			})
 		},
-		f_whoisRefresh(){
-			axios.get(this.currentRoute+"/ajaxRefresh/").then(function(response){
+		f_whoisRefreshDomain(item){
+			var editedIndex = this.list_whois.indexOf(item);
+			var formData = new FormData(); 
+			formData.append("id_whois",item.id_whois);
+			formData.append("url_website",item.website);
+			axios.post(this.currentRoute+"/ajaxRefreshDomain/", formData).then(function(response){
 				if(response.status = 200){
-
+					Object.assign(v.list_whois[editedIndex], response.data);
 				}else{
 
 				}

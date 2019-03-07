@@ -47,20 +47,21 @@ class Whois_domain extends CI_Controller {
 		$list = array();
 		foreach ($all_whois->result() as $row)
 		{
-			if (strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) <= strtotime(date('Y-m-d')) && strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) != 0 ) {
+			if (strtotime($this->model_whois->check_whois($row->id_whois)->expiration_date) <= strtotime(date('Y-m-d')) && strtotime($this->model_whois->check_whois($row->id_whois)->expiration_date) != 0 ) {
 				$domain = new Whois($row->url_website);
 				$whois = $domain->whoisdomain();
 				$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 				$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
-				$this->model_whois->update_whois($row->whois_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
+				$this->model_whois->update_whois($row->id_whois,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
 				$pos = strrpos($row->url_website, ".fr");
 				if (!$pos === false) {
 					sleep(10);
 				}
 			}
 
+			$list['id_whois'] = $row->id_whois;
 			$list['name_whois'] = $row->name_website;
-			$list['website'] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
+			$list['website'] = $row->url_website;
 			$list['hosting'] = $row->registrar;
 			$list['date_delivery'] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
 			$list['date_expiration'] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
@@ -81,19 +82,19 @@ class Whois_domain extends CI_Controller {
 		}			
 		$this->output->set_content_type('application/json')->set_output(json_encode($calendar_whois));
 	}
-	public function ajaxRefresh()
+	public function ajaxRefreshAll()
 	{
 		$all_whois = $this->model_whois->view_all_whois();
 		$count_websites =  $this->model_front->count_all_websites();
 		$data = array();
 		foreach ($all_whois->result() as $row)
 		{
-			if (strtotime($this->model_whois->check_whois($row->whois_id)->expiration_date) == false ) {
+			if (strtotime($this->model_whois->check_whois($row->id_whois)->expiration_date) == false ) {
 				$domain = new Whois($row->url_website);
 				$whois = $domain->whoisdomain();
 				$date_create = str_replace(array('/', '.'), '-', $whois[1]);
 				$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
-				$this->model_whois->update_whois($row->whois_id,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
+				$this->model_whois->update_whois($row->id_whois,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
 				$pos = strrpos($row->url_website, ".fr");
 				if (!$pos === false) {
 					sleep(10);
@@ -101,8 +102,9 @@ class Whois_domain extends CI_Controller {
 			}
 
 			$list = array();
+			$list['id_whois'] = $row->id_whois;
 			$list['name_whois'] = $row->name_website;
-			$list['website'] = '<a href="'.prep_url($row->url_website).'" target="_blank">'.$row->url_website.'</a>';
+			$list['website'] = $row->url_website;
 			$list['hosting'] = $row->registrar;
 			$list['date_delivery'] = (isset($row->creation_date)?date('d/m/Y', strtotime($row->creation_date)):"");
 			$list['date_expiration'] = (isset($row->expiration_date)?date('d/m/Y', strtotime($row->expiration_date)):"");
@@ -113,12 +115,34 @@ class Whois_domain extends CI_Controller {
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
-	public function modal_whois($whois_id = '')
+	public function ajaxRefreshDomain()
 	{
-		$whois = $this->model_whois->check_whois($whois_id)->whois;
+		$id_whois	= $this->input->post('id_whois');
+		$url_website	= $this->input->post('url_website');
 
-		$datatable = array(0 => $whois);
+		if (strtotime($this->model_whois->check_whois($id_whois)->expiration_date) == false) {
+			$domain = new Whois($url_website);
+			$whois = $domain->whoisdomain();
+			$date_create = str_replace(array('/', '.'), '-', $whois[1]);
+			$date_expire = str_replace(array('/', '.'), '-', $whois[2]);
+			$this->model_whois->update_whois($id_whois,utf8_encode($whois[0]),($whois[1] ? date("Y-m-d", strtotime($date_create)): null),($whois[2] ? date("Y-m-d", strtotime($date_expire)): null), ($whois[3] ? trim($whois[3]): null));
+			$pos = strrpos($url_website, ".fr");
+			if (!$pos === false) {
+				sleep(10);
+			}
+		}
 
-		echo $whois;
+		$whois_website = $this->model_whois->check_whois($id_whois);
+
+		$data = array();
+		$data['name_whois'] = $whois_website->name_website;
+		$data['website'] = $whois_website->url_website;
+		$data['hosting'] = $whois_website->registrar;
+		$data['date_delivery'] = (isset($whois_website->creation_date)?date('d/m/Y', strtotime($whois_website->creation_date)):"");
+		$data['date_expiration'] = (isset($whois_website->expiration_date)?date('d/m/Y', strtotime($whois_website->expiration_date)):"");
+		$data['whois'] = $whois_website->whois;
+
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 }
