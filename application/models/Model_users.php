@@ -16,7 +16,35 @@ class Model_users extends CI_Model {
 	function get_all_groups()
 	{
 		$this->db->select('*')
-				 ->from('470websitesmanagement_groups');
+				 ->from('470websitesmanagement_groups')
+				 ->where('470websitesmanagement_groups.name !=', "Unknown");
+
+		$query = $this->db->get();
+		return $query;
+	}
+	function get_group_all_perms($perm_id)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_groups')
+				 ->where('470websitesmanagement_groups.name !=', "Unknown");
+
+		$query = $this->db->get();
+		foreach ($query->result() as $value) {
+			if ($this->get_group_perm($value->id, $perm_id)->num_rows() > 0 || $value->name == "Admin") {
+				$value->check_group_perm = true;
+			} else {
+				$value->check_group_perm = false;
+			}
+			$value->perm_id = $perm_id;
+		}
+		return $query;
+	}
+	function get_group_perm($group_id, $perm_id)
+	{
+		$this->db->select('*')
+		->from('470websitesmanagement_perm_to_group')
+		->where('470websitesmanagement_perm_to_group.group_id', $group_id)
+		->where('470websitesmanagement_perm_to_group.perm_id', $perm_id);
 
 		$query = $this->db->get();
 		return $query;

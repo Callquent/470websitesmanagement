@@ -40,7 +40,6 @@ class Website_scrapper_google extends CI_Controller {
 	public function ajaxWebsiteScrapperGoogle()
 	{
 		$website = ( empty($this->input->post('website')) ? " " : $this->input->post('website') );
-		//$website = 'codeigniter.com';
 
 		$googlescraper = new Googlescraper();
 		$all_websites = $googlescraper->getUrlList(urlencode('site:'.$website),100);
@@ -53,7 +52,6 @@ class Website_scrapper_google extends CI_Controller {
 			$list->meta_description = strip_tags($row['description']);
 			$website_search_preview[] = $list;
 		}
-		//var_dump($website_search_preview);
 		$data['result_websites'] = $website_search_preview;
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}

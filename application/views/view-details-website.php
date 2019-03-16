@@ -21,6 +21,7 @@
 							<v-container fluid grid-list-sm>
 								<v-layout row wrap>
 									<v-flex xs6 md6 sm12>
+										<?php if($this->aauth->is_group_allowed('create_access_ftp',$user_role[0]->name)) { ?>
 										<v-toolbar flat color="white">
 										  <v-spacer></v-spacer>
 										  <v-dialog v-model="dialog_ftp" max-width="500px">
@@ -52,6 +53,7 @@
 										    </v-card>
 										  </v-dialog>
 										</v-toolbar>
+										<?php } ?>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_ftp'); ?>
@@ -77,6 +79,7 @@
 										</section>
 									</v-flex>
 									<v-flex xs6 md6 sm12>
+										<?php if($this->aauth->is_group_allowed('create_access_database',$user_role[0]->name)) { ?>
 									    <v-toolbar flat color="white">
 									      <v-spacer></v-spacer>
 									      <v-dialog v-model="dialog_database" max-width="500px">
@@ -111,6 +114,7 @@
 									        </v-card>
 									      </v-dialog>
 									    </v-toolbar>
+										<?php } ?>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_sql'); ?>
@@ -138,6 +142,7 @@
 
 									</v-flex>
 									<v-flex xs6 md6 sm12>
+										<?php if($this->aauth->is_group_allowed('create_access_backoffice',$user_role[0]->name)) { ?>
 										<v-toolbar flat color="white">
 										  <v-spacer></v-spacer>
 										  <v-dialog v-model="dialog_backoffice" max-width="500px">
@@ -169,6 +174,7 @@
 										    </v-card>
 										  </v-dialog>
 										</v-toolbar>
+										<?php } ?>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_backoffice'); ?>
@@ -195,6 +201,7 @@
 
 									</v-flex>
 									<v-flex xs6 md6 sm12>
+										<?php if($this->aauth->is_group_allowed('create_access_htaccess',$user_role[0]->name)) { ?>
 										<v-toolbar flat color="white">
 										  <v-spacer></v-spacer>
 										  <v-dialog v-model="dialog_htaccess" max-width="500px">
@@ -223,6 +230,7 @@
 										    </v-card>
 										  </v-dialog>
 										</v-toolbar>
+										<?php } ?>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_htaccess'); ?>

@@ -33,9 +33,11 @@
 									<li class="">
 										<a data-toggle="tab" href="#home"><i class="icon icon-home"></i></a>
 									</li>
+									<?php if($this->aauth->is_group_allowed('page_language',$user_role[0]->name) && $this->aauth->is_group_allowed('page_category',$user_role[0]->name)) { ?>
 									<li class="">
 										<a data-toggle="tab" href="#groupes"><i class="icon icon-tag-multiple"></i></a>
 									</li>
+									<?php } ?>
 									<li class="">
 										<a data-toggle="tab" href="#list-members"><i class="icon icon-account-box"></i></a>
 									</li>
@@ -127,24 +129,27 @@
 											</li> -->
 										</ul>
 									</div>
-									<?php if ($user_role[0]->name == "Admin") { ?>
 									<div id="groupes" class="tab-pane">
 										<ul class="sidebar-menu" id="nav-accordion">
 											<li class="list-title-sidebar subheader">
 												<span class="subheading"><?php echo lang('groups'); ?></span>
 											</li>
+											<?php if($this->aauth->is_group_allowed('page_language',$user_role[0]->name)) { ?>
 											<li class="sub-menu">
 												<a href="<?php echo site_url('language'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-code-tags"></i>
 													<span class="subheading"><?php echo lang('languages'); ?></span>
 												</a>
 											</li>
+											<?php } ?>
+											<?php if($this->aauth->is_group_allowed('page_category',$user_role[0]->name)) { ?>
 											<li>
 												<a href="<?php echo site_url('category'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-table"></i>
 													<span class="subheading"><?php echo lang('categories'); ?></span>
 												</a>
 											</li>
+											<?php } ?>
 										</ul>
 									</div>
 									<div id="list-members" class="tab-pane">
@@ -152,18 +157,22 @@
 											<li class="list-title-sidebar subheader">
 												<span class="subheading"><?php echo lang('members'); ?></span>
 											</li>
+											<?php if($this->aauth->is_group_allowed('page_user',$user_role[0]->name)) { ?>
 											<li>
 												<a href="<?php echo site_url('members'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-account-multiple"></i>
 													<span class="subheading"><?php echo lang('members'); ?></span>
 												</a>
 											</li>
+											<?php } ?>
+											<?php if($this->aauth->is_group_allowed('page_group_members',$user_role[0]->name)) { ?>
 											<li>
 												<a href="<?php echo site_url('group-members'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-account-multiple-plus"></i>
 													<span class="subheading"><?php echo lang('group_members'); ?></span>
 												</a>
 											</li>
+											<?php } ?>
 											<li>
 												<a href="<?php echo site_url('permission-group-members'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-account-settings-variant"></i>
@@ -172,29 +181,36 @@
 											</li>
 										</ul>
 									</div>
+									
 									<div id="admin" class="tab-pane">
 										<ul class="sidebar-menu" id="nav-accordion">
 											<li class="list-title-sidebar subheader">
 												<span class="subheading"><?php echo lang('management'); ?></span>
 											</li>
+											<?php if($this->aauth->is_group_allowed('page_settings',$user_role[0]->name)) { ?>
 											<li>
 												<a href="<?php echo site_url('settings'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-tune-vertical"></i>
 													<span class="subheading"><?php echo lang('settings'); ?></span>
 												</a>
 											</li>
+											<?php } ?>
+											<?php if($this->aauth->is_group_allowed('page_export',$user_role[0]->name)) { ?>
 											<li>
 												<a href="<?php echo site_url('export'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-download"></i>
 													<span class="subheading"><?php echo lang('export'); ?></span>
 												</a>
 											</li>
+											<?php } ?>
+											<?php if($this->aauth->is_group_allowed('page_import',$user_role[0]->name)) { ?>
 											<li>
 												<a href="<?php echo site_url('import'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-upload"></i>
 													<span class="subheading"><?php echo lang('import'); ?></span>
 												</a>
 											</li>
+											<?php } ?>
 											<li>
 												<a href="<?php echo site_url('documentation'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-help-circle"></i>
@@ -203,7 +219,6 @@
 											</li>
 										</ul>
 									</div>
-									<?php } ?>
 								</div>
 							</div>
 

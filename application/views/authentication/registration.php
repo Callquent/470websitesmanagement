@@ -8,7 +8,6 @@
         <?php echo css_url('css/perfect-scrollbar.min.css'); ?>
         <?php echo css_url('css/theme.css'); ?>
         <?php echo css_url('css/style.css'); ?>
-		<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
         <link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
 	</head>
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar">

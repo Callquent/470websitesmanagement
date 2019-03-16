@@ -10,6 +10,7 @@ class Permission_group_members extends CI_Controller {
 		$this->load->database();
 		$this->load->model('model_front');
 		$this->load->model('model_tasks');
+		$this->load->model('model_users');
 		$this->load->model('model_category');
 		$this->load->model('model_settings');
 		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session','email'));
@@ -27,10 +28,16 @@ class Permission_group_members extends CI_Controller {
 		$data['user_role'] = $this->aauth->get_user_groups();
 		
 		$data['all_websites'] = $this->model_front->get_all_websites();
-		$data['list_groups_users'] = $this->aauth->list_groups(); 
+		$data['list_groups'] = $this->model_users->get_all_groups()->result();
 		$data['all_permissions'] = $this->aauth->list_perms();
-		$data['test'] = $this->aauth->list_group_perms(1);
-		var_dump($data['test']);
+		//var_dump($data['list_groups_users']->result());
+
+			$list = array();
+			foreach ($data['all_permissions'] as $key => $perm)
+			{
+				$name_permission = array("name" => $perm->name);
+				$data['list_group_perms'][] = array_merge(array($name_permission),$this->model_users->get_group_all_perms($perm->id)->result());
+			}
 
 		$data['all_domains'] = $this->model_front->get_all_domains();
 		$data['all_subdomains'] = $this->model_front->get_all_subdomains();
@@ -41,14 +48,18 @@ class Permission_group_members extends CI_Controller {
 
 		$this->load->view('members/permission-group-members',$data);
 	}
-	public function submit()
+	public function allow_permissions()
 	{
-		$this->form_validation->set_rules('category', 'Category', 'trim|required');
+		$group_id = $this->input->post('group_id');
+		$perm_id = $this->input->post('perm_id');
 
-		$name_category = $this->input->post('category');
+		$this->aauth->allow_group($group_id,$perm_id);
+	}
+	public function deny_permissions()
+	{
+		$group_id = $this->input->post('group_id');
+		$perm_id = $this->input->post('perm_id');
 
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_category->create_category($name_category);
-		}
+		$this->aauth->deny_group($group_id,$perm_id);
 	}
 }

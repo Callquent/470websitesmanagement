@@ -587,7 +587,7 @@ var v = new Vue({
         currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
         id_project: window.location.href.split('/').pop(),
         id_card: "",
-        user_profil: user_current,
+        user_profil: <?php echo json_encode($user_role[0]); ?>,
         headers: [
             { text: 'Name Task', value: 'name_task', sortable: false},
             { text: 'User', value: 'username' },

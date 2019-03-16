@@ -1,105 +1,107 @@
 <?php $this->load->view('include/header.php'); ?>
-<div class="custom-scrollbar">
-    <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
-        <h2 class="doc-title" id="content">Group Members</h2>
+<div class="content custom-scrollbar">
+    <div class="page-layout simple full-width">
+        <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
+            <h2 class="doc-title" id="content">Group Members</h2>
+        </div>
+
+        <v-container fluid grid-list-sm>
+            <v-layout row wrap>
+              <v-flex xs12>
+                    <v-toolbar flat color="white">
+                      <v-spacer></v-spacer>
+                      <v-dialog v-model="dialog_groups_member" max-width="500px">
+                        <v-btn slot="activator" color="primary" dark class="mb-2">New Groups Member</v-btn>
+                        <v-card>
+                          <v-card-title>
+                            <span class="headline">Add Groups Member</span>
+                          </v-card-title>
+
+                          <v-card-text>
+                            <v-container grid-list-md>
+                              <v-layout wrap>
+                                <v-flex xs12>
+                                  <v-text-field v-model="addGroupMember.group_name" label="Name Group"></v-text-field>
+                                  <v-text-field v-model="addGroupMember.definition" label="Definition"></v-text-field>
+                                </v-flex>
+                              </v-layout>
+                            </v-container>
+                          </v-card-text>
+
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" flat @click="f_addGroupMember()">Save</v-btn>
+                            <v-btn color="blue darken-1" flat @click="dialog_groups_member = false">Cancel</v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-toolbar>
+
+                    <v-card>
+                        <template>
+                                <v-data-table
+                                    :headers="headers"
+                                    :items="list_groups_users"
+                                    class="elevation-1"
+                                    :rows-per-page-items="[10,20,50,100]"
+                                >
+                                    <template slot="items" slot-scope="props">
+                                        <td>
+                                            <v-edit-dialog
+                                                class="text-xs-right"
+                                                @open="props.item._name = props.item.name"
+                                                @save="f_editGroupMember(props.item)"
+                                                @cancel="props.item.name = props.item._name || props.item.name"
+                                                large
+                                                lazy
+                                              >{{ props.item.name }}
+                                                <v-text-field
+                                                    slot="input"
+                                                    label="Edit"
+                                                    v-model="props.item.name"
+                                                    single-line
+                                                    counter
+                                                    autofocus
+                                                ></v-text-field>
+                                            </v-edit-dialog>
+                                        </td>
+                                        <td>
+                                            <v-edit-dialog
+                                                class="text-xs-right"
+                                                @open="props.item._definition = props.item.definition"
+                                                @save="f_editGroupMember(props.item)"
+                                                @cancel="props.item.definition = props.item._definition || props.item.definition"
+                                                large
+                                                lazy
+                                              >{{ props.item.definition }}
+                                                <v-text-field
+                                                    slot="input"
+                                                    label="Edit"
+                                                    v-model="props.item.definition"
+                                                    single-line
+                                                    counter
+                                                    autofocus
+                                                ></v-text-field>
+                                            </v-edit-dialog>
+                                        </td>
+                                        <td class="text-xs-left">
+                                            <div class="dropdown show actions">
+                                                <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+                                                    <i class="icon icon-dots-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" id="delete-dashboard" @click="f_deleteGroupMember(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </template>
+                                </v-data-table>
+                        </template>
+                    </v-card>
+              </v-flex>
+            </v-layout>
+        </v-container>
     </div>
-
-  <v-container fluid grid-list-sm>
-    <v-layout row wrap>
-      <v-flex xs12>
-            <v-toolbar flat color="white">
-              <v-spacer></v-spacer>
-              <v-dialog v-model="dialog_groups_member" max-width="500px">
-                <v-btn slot="activator" color="primary" dark class="mb-2">New Groups Member</v-btn>
-                <v-card>
-                  <v-card-title>
-                    <span class="headline">Add Groups Member</span>
-                  </v-card-title>
-
-                  <v-card-text>
-                    <v-container grid-list-md>
-                      <v-layout wrap>
-                        <v-flex xs12>
-                          <v-text-field v-model="addGroupMember.group_name" label="Name Group"></v-text-field>
-                          <v-text-field v-model="addGroupMember.definition" label="Definition"></v-text-field>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" flat @click="f_addGroupMember()">Save</v-btn>
-                    <v-btn color="blue darken-1" flat @click="dialog_groups_member = false">Cancel</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-toolbar>
-
-            <v-card>
-                <template>
-                        <v-data-table
-                            :headers="headers"
-                            :items="list_groups_users"
-                            class="elevation-1"
-                            :rows-per-page-items="[10,20,50,100]"
-                        >
-                            <template slot="items" slot-scope="props">
-                                <td>
-                                    <v-edit-dialog
-                                        class="text-xs-right"
-                                        @open="props.item._name = props.item.name"
-                                        @save="f_editGroupMember(props.item)"
-                                        @cancel="props.item.name = props.item._name || props.item.name"
-                                        large
-                                        lazy
-                                      >{{ props.item.name }}
-                                        <v-text-field
-                                            slot="input"
-                                            label="Edit"
-                                            v-model="props.item.name"
-                                            single-line
-                                            counter
-                                            autofocus
-                                        ></v-text-field>
-                                    </v-edit-dialog>
-                                </td>
-                                <td>
-                                    <v-edit-dialog
-                                        class="text-xs-right"
-                                        @open="props.item._definition = props.item.definition"
-                                        @save="f_editGroupMember(props.item)"
-                                        @cancel="props.item.definition = props.item._definition || props.item.definition"
-                                        large
-                                        lazy
-                                      >{{ props.item.definition }}
-                                        <v-text-field
-                                            slot="input"
-                                            label="Edit"
-                                            v-model="props.item.definition"
-                                            single-line
-                                            counter
-                                            autofocus
-                                        ></v-text-field>
-                                    </v-edit-dialog>
-                                </td>
-                                <td class="text-xs-left">
-                                    <div class="dropdown show actions">
-                                        <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-                                            <i class="icon icon-dots-vertical"></i>
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" id="delete-dashboard" @click="f_deleteGroupMember(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </template>
-                        </v-data-table>
-                </template>
-            </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
 </div>
 
 <v-dialog

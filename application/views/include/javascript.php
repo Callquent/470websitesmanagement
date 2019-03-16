@@ -5,12 +5,14 @@
 		<?php echo js_url('plugins/jquery.min.js'); ?>
 		<?php echo js_url('plugins/popper.min.js'); ?>
 		<?php echo js_url('plugins/bootstrap.min.js'); ?>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.8/vue.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.5/vuetify.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.6/vuetify.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 		<script type="text/javascript">
-			var user_current = <?php echo json_encode($user_role[0]); ?>;
-			var login = <?php echo json_encode($login); ?>;
+			var v = new Vue({
+				el: '#app',
+				mixins: [mixin],
+			});
 		</script>
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
@@ -67,10 +69,6 @@
 			<?php echo js_url('plugins/advanced-form.js'); ?>
 
 			<?php echo js_url('plugins/jquery.validate.min.js'); ?>
-		<?php } ?>
-		<?php if ($this->uri->segment(1)=='documentation') { ?>
-			<?php echo js_url('plugins/jquery-ui/jquery-ui-1.9.2.custom.min.js'); ?>
-			<?php echo js_url('plugins/tocify/javascripts/jquery.tocify.js'); ?>
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.js"></script>

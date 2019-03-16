@@ -19,7 +19,7 @@ class Dashboard extends CI_Controller {
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
 		);
 		$this->session->set_userdata($sesslanguage);
-		if(check_access() != true) { redirect('index', 'refresh',301); }
+		if(check_access() != true) { redirect('index','refresh',301); }
 	}
 	public function index()
 	{

@@ -46,10 +46,7 @@ if ( ! function_exists('check_access'))
         $CI->load->library("Aauth");
         $CI->load->library('session');
 
-        if($CI->aauth->is_loggedin() && ($CI->aauth->is_member("Admin",$CI->session->userdata['id']) ||
-            $CI->aauth->is_member("Developper",$CI->session->userdata['id']) ||
-            $CI->aauth->is_member("Marketing",$CI->session->userdata['id']) ||
-            $CI->aauth->is_member("Public",$CI->session->userdata['id'])))
+        if($CI->aauth->is_loggedin() && !$CI->aauth->is_member("Unknown",$CI->session->userdata['id']))
         {
             return true;
         } else {

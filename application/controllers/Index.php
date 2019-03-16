@@ -27,17 +27,15 @@ class Index extends CI_Controller {
 			$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 			// Si le formulaira n'est pas bon
-			if($this->form_validation->run() == FALSE){
-				$this->load->view('index');
+			if($this->form_validation->run() == true && $this->aauth->login($email, $password)){
+				redirect('dashboard');
 			}else{
-				if ($this->aauth->login($email, $password)) {
-					redirect(site_url('dashboard'));
-				}else{
-					$this->load->view('index');
-				}
+				$this->load->view('authentication/index');
 			}
-		}elseif($this->aauth->is_loggedin()){
-			redirect(site_url('dashboard'));
+		}elseif(check_access() != true){
+			$this->load->view('authentication/index');
+		} else {
+			redirect('dashboard');
 		}
 	}
 	public function remind_password()

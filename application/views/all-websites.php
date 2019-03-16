@@ -119,8 +119,10 @@
 												<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 													<a class="dropdown-item" id="edit-dashboard" :href="'http://'+props.item.url_website" target="_blank"><i class="icon-link-variant"></i>Open URL Website</a>
 													<a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->id_website.'"><i class="fa fa-envelope"></i><?php echo lang('email') ?></a>
+													<?php if($this->aauth->is_group_allowed('delete_website',$user_role[0]->name)) { ?>
 													<div class="dropdown-divider"></div>
 													<a class="dropdown-item" id="delete-dashboard" @click="f_deleteWebsite(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
+													<?php } ?>
 												</div>
 											</div>
 										</td>

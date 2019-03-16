@@ -7,23 +7,25 @@
                                     <i class="icon icon-menu"></i>
                                 </button>
                                 <div class="toolbar-separator d-block d-lg-none"></div>
-                                <div class="shortcuts-wrapper row no-gutters align-items-center px-0 px-sm-2">
-                                    <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
-                                        <div class="dropdown-toggle btn btn-icon fuse-ripple-ready" role="button" id="dropdownShortcutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="icon icon-plus-circle"></i>
-                                        </div>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownShortcutMenu">
-                                            <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-website'); ?>">
-                                                <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
-                                                    <div class="row no-gutters align-items-center flex-nowrap">
-                                                        <i class="icon icon-plus"></i>
-                                                        <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_website'); ?></font></font></span>
+                                <?php if($this->aauth->is_group_allowed('create_website',$user_role[0]->name)) { ?>
+                                    <div class="shortcuts-wrapper row no-gutters align-items-center px-0 px-sm-2">
+                                        <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
+                                            <div class="dropdown-toggle btn btn-icon fuse-ripple-ready" role="button" id="dropdownShortcutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="icon icon-plus-circle"></i>
+                                            </div>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownShortcutMenu">
+                                                <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('add-website'); ?>">
+                                                    <div class="row no-gutters align-items-center justify-content-between flex-nowrap">
+                                                        <div class="row no-gutters align-items-center flex-nowrap">
+                                                            <i class="icon icon-plus"></i>
+                                                            <span class="px-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo lang('create_website'); ?></font></font></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php } ?>
                                 <div class="toolbar-separator"></div>
                             </div>
                         </div>
