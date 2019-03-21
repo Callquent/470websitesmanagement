@@ -191,10 +191,12 @@
 		</v-card-text>
 	</v-card>
 </v-dialog>
-<?php $this->load->view('include/javascript.php'); ?>
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-	el: '#app',
+var mixin = {
 	data : {
 		dialog_whois: false,
 		registar_whois: '',
@@ -266,6 +268,7 @@ var v = new Vue({
 			v.registar_whois = item.whois;
 		},
 	}
-})
+}
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

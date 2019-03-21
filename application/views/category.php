@@ -82,10 +82,7 @@
   </v-container>
 </div>
 
-<v-dialog
-	  v-model="dialog"
-	  width="500"
-	>
+<v-dialog v-model="dialog" width="500">
 	<v-card>
 		<v-card-title
 		  class="headline grey lighten-2"
@@ -118,10 +115,12 @@
 		</v-card-actions>
 	</v-card>
 </v-dialog>
-<?php $this->load->view('include/javascript.php'); ?>
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-	el: '#app',
+var mixin = {
 	data : {
 		dialog_add_category: false,
 		dialog: false,
@@ -179,6 +178,7 @@ var v = new Vue({
 			})
 		},
 	}
-})
+}
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

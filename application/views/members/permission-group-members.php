@@ -42,10 +42,12 @@
 	</div>
 </div>
 
-<?php $this->load->view('include/javascript.php'); ?>
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-	el: '#app',
+var mixin = {
 	data : {
 		currentRoute: window.location.href,
 		list_permissions: <?php echo json_encode($all_permissions); ?>,
@@ -74,6 +76,7 @@ var v = new Vue({
 			})
 		},
 	}
-})
+}
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

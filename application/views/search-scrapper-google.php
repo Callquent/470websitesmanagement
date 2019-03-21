@@ -100,10 +100,12 @@
         </v-card-text>
     </v-card>
 </v-dialog>
-<?php $this->load->view('include/javascript.php'); ?>
+            </div>
+        </div>
+    </v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-    el: '#app',
+var mixin = {
     data : {
         test:'',
         dialog_serp_google: false,
@@ -156,7 +158,7 @@ var v = new Vue({
             })
         },
     }
-})
+}
 
 
 $( document ).ready(function() {
@@ -397,4 +399,5 @@ $( document ).ready(function() {
 
 });
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

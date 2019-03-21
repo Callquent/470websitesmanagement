@@ -67,7 +67,10 @@
 	</div>
   </div>
 </div>
-<?php $this->load->view('include/javascript.php'); ?>
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
   $(document).ready(function(){
 	  var users_tasksTable = $('#table-users-tasks').dataTable({
@@ -84,4 +87,5 @@
 		});
   });
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

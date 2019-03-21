@@ -3,220 +3,222 @@
   <div class="page-layout simple full-width">
 	<div class="page-content">
 
-  <v-container fluid grid-list-sm>
-    <v-layout row wrap>
-    	<v-flex xs2>
-		    		
-			<v-toolbar color="light-blue" dark>
-				<v-toolbar-title>Project</v-toolbar-title>
-			</v-toolbar>
-			<v-card>
-				<v-container
-				fluid
-				grid-list-lg
-				>
-					<v-layout row wrap>
-						<v-flex xs12>
-							<template>
-								<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
-							</template>
-						</v-flex>
-					</v-layout>
-				</v-container>
-			</v-card>
+	  <v-container fluid grid-list-sm>
+	    <v-layout row wrap>
+	    	<v-flex xs2>
+			    		
+				<v-toolbar color="light-blue" dark>
+					<v-toolbar-title>Project</v-toolbar-title>
+				</v-toolbar>
+				<v-card>
+					<v-container
+					fluid
+					grid-list-lg
+					>
+						<v-layout row wrap>
+							<v-flex xs12>
+								<template>
+									<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+								</template>
+							</v-flex>
+						</v-layout>
+					</v-container>
+				</v-card>
 
-			<v-toolbar color="light-blue" dark>
-				<v-toolbar-title>Members</v-toolbar-title>
-			</v-toolbar>
-			<v-card>
-				<v-container
-				fluid
-				grid-list-lg
-				>
-					<v-layout row wrap>
-						<v-flex xs12>
-							<template>
-								<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
-							</template>
-						</v-flex>
-					</v-layout>
-				</v-container>
-			</v-card>
+				<v-toolbar color="light-blue" dark>
+					<v-toolbar-title>Members</v-toolbar-title>
+				</v-toolbar>
+				<v-card>
+					<v-container
+					fluid
+					grid-list-lg
+					>
+						<v-layout row wrap>
+							<v-flex xs12>
+								<template>
+									<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+								</template>
+							</v-flex>
+						</v-layout>
+					</v-container>
+				</v-card>
 
-			<v-toolbar color="light-blue" dark>
-				<v-toolbar-title>Status</v-toolbar-title>
-			</v-toolbar>
-			<v-card>
-				<v-container
-				fluid
-				grid-list-lg
-				>
-					<v-layout row wrap>
-						<v-flex xs12>
-							<template>
-								<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
-							</template>
-						</v-flex>
-					</v-layout>
-				</v-container>
-			</v-card>
+				<v-toolbar color="light-blue" dark>
+					<v-toolbar-title>Status</v-toolbar-title>
+				</v-toolbar>
+				<v-card>
+					<v-container
+					fluid
+					grid-list-lg
+					>
+						<v-layout row wrap>
+							<v-flex xs12>
+								<template>
+									<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+								</template>
+							</v-flex>
+						</v-layout>
+					</v-container>
+				</v-card>
 
-		</v-flex> 
-		<v-flex xs10>
-	  		<v-card>
-                <template>
-					<v-toolbar flat color="white">
-					  <v-toolbar-title>My CRUD</v-toolbar-title>
-					  <v-divider
-					    class="mx-2"
-					    inset
-					    vertical
-					  ></v-divider>
-					  <v-spacer></v-spacer>
-					  <v-dialog v-model="dialog_add_project" max-width="500px">
-					    <v-btn slot="activator" color="primary" dark class="mb-2">New Project</v-btn>
-					    <v-card>
-					      <v-card-title>
-					        <span class="headline">New Project</span>
-					      </v-card-title>
+			</v-flex> 
+			<v-flex xs10>
+		  		<v-card>
+	                <template>
+						<v-toolbar flat color="white">
+						  <v-toolbar-title>My CRUD</v-toolbar-title>
+						  <v-divider
+						    class="mx-2"
+						    inset
+						    vertical
+						  ></v-divider>
+						  <v-spacer></v-spacer>
+						  <v-dialog v-model="dialog_add_project" max-width="500px">
+						    <v-btn slot="activator" color="primary" dark class="mb-2">New Project</v-btn>
+						    <v-card>
+						      <v-card-title>
+						        <span class="headline">New Project</span>
+						      </v-card-title>
 
-					      <v-card-text>
-					        <v-container grid-list-md>
-					          <v-layout wrap>
-					          		<v-flex xs12>
-										
-									<v-autocomplete
-									v-model="Project.name_website"
-									:items="autocomplete_website"
-									:loading="isLoading"
-									:search-input.sync="search"
-									color="white"
-									hide-no-data
-									hide-selected
-									item-text="url_website"
-									item-value="id_website"
-									label="Website"
-									placeholder="Name Website"
-									return-object
-									></v-autocomplete>
+						      <v-card-text>
+						        <v-container grid-list-md>
+						          <v-layout wrap>
+						          		<v-flex xs12>
+											
+										<v-autocomplete
+										v-model="Project.name_website"
+										:items="autocomplete_website"
+										:loading="isLoading"
+										:search-input.sync="search"
+										color="white"
+										hide-no-data
+										hide-selected
+										item-text="url_website"
+										item-value="id_website"
+										label="Website"
+										placeholder="Name Website"
+										return-object
+										></v-autocomplete>
 
-									</v-flex>
-									<v-flex xs12>
-										<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
-									</v-flex>
-					            	<v-flex xs12 lg6>
-										<v-menu
-										    ref="menu"
-										    :close-on-content-click="false"
-										    v-model="menu1"
-										    :nudge-right="40"
-										    lazy
-										    transition="scale-transition"
-										    offset-y
-										    full-width
-										    min-width="290px"
-										  >
-										    <v-text-field
-										      slot="activator"
-										      v-model="Project.started_project_tasks"
-										      label="Picker in menu"
-										      prepend-icon="event"
-										      readonly
-										    ></v-text-field>
-										    <v-date-picker v-model="Project.started_project_tasks" no-title @input="menu1 = false"> </v-date-picker>
-										</v-menu>
-								      </v-flex>
+										</v-flex>
+										<v-flex xs12>
+											<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+										</v-flex>
+						            	<v-flex xs12 lg6>
+											<v-menu
+											    ref="menu"
+											    :close-on-content-click="false"
+											    v-model="menu1"
+											    :nudge-right="40"
+											    lazy
+											    transition="scale-transition"
+											    offset-y
+											    full-width
+											    min-width="290px"
+											  >
+											    <v-text-field
+											      slot="activator"
+											      v-model="Project.started_project_tasks"
+											      label="Picker in menu"
+											      prepend-icon="event"
+											      readonly
+											    ></v-text-field>
+											    <v-date-picker v-model="Project.started_project_tasks" no-title @input="menu1 = false"> </v-date-picker>
+											</v-menu>
+									      </v-flex>
 
-									<v-flex xs12 lg6>
-										<v-menu
-										    ref="menu"
-										    :close-on-content-click="false"
-										    v-model="menu2"
-										    :nudge-right="40"
-										    lazy
-										    transition="scale-transition"
-										    offset-y
-										    full-width
-										    min-width="290px"
-										  >
-										    <v-text-field
-										      slot="activator"
-										      v-model="Project.deadline_project_tasks"
-										      label="Picker in menu"
-										      prepend-icon="event"
-										      readonly
-										    ></v-text-field>
-										    <v-date-picker v-model="Project.deadline_project_tasks" no-title @input="menu2 = false"></v-date-picker>
-										</v-menu>
-									</v-flex>
-					          </v-layout>
-					        </v-container>
-					      </v-card-text>
+										<v-flex xs12 lg6>
+											<v-menu
+											    ref="menu"
+											    :close-on-content-click="false"
+											    v-model="menu2"
+											    :nudge-right="40"
+											    lazy
+											    transition="scale-transition"
+											    offset-y
+											    full-width
+											    min-width="290px"
+											  >
+											    <v-text-field
+											      slot="activator"
+											      v-model="Project.deadline_project_tasks"
+											      label="Picker in menu"
+											      prepend-icon="event"
+											      readonly
+											    ></v-text-field>
+											    <v-date-picker v-model="Project.deadline_project_tasks" no-title @input="menu2 = false"></v-date-picker>
+											</v-menu>
+										</v-flex>
+						          </v-layout>
+						        </v-container>
+						      </v-card-text>
 
-					      <v-card-actions>
-					        <v-spacer></v-spacer>
-					 		<v-btn color="blue darken-1" flat @click="f_editProject()">Save</v-btn>
-					        <v-btn color="blue darken-1" flat @click="f_dialog_close()">Cancel</v-btn>
-					      </v-card-actions>
-					    </v-card>
-					  </v-dialog>
-					</v-toolbar>
-                        <v-data-table
-                            :headers="headers"
-                            :items="list_projects"
-                            class="elevation-1"
-                            :rows-per-page-items="[10,20,50,100]"
-                        >
-                            <template slot="items" slot-scope="props">
-                                <td>{{ props.item.name_website }}</td>
-                                <td>{{ props.item.name_project_tasks }}</td>
-                                <td>{{ props.item.started_project_tasks }}</td>
-                                <td>{{ props.item.deadline_project_tasks }}</td>
-                                <td>
-									<span v-if="props.item.percentage_tasks == '100'" class="badge badge-success">Success</span>
-									<span v-else class="badge badge-warning">In progress</span>
-                                </td>
-                                <td>
-                                	<div class="progress">
-										  <div class="progress-bar" role="progressbar" :style="{width: props.item.percentage_tasks + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ props.item.percentage_tasks }}%
-										  </div>
-									</div>
-                                </td>
-                                <td>
-                                	<span v-for="itemUser in props.item.users_to_project">
-	                                	<v-avatar color="red">
-											<span class="white--text headline">{{ itemUser.username.substr(0, 2) }}</span>
-										</v-avatar>
-									</span>
-								</td>
-                                <td class="text-xs-left">
-									<div class="dropdown show actions">
-										<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-											<i class="icon icon-dots-vertical"></i>
-										</a>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												<a class="dropdown-item" id="view-project" :href="currentRoute+'/'+props.item.id_project_tasks"><i class="fa fa-eye"></i> View</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" id="edit-project" @click="f_dialog_editProject(props.item)"><i class="fa fa-pencil"></i>  <?php echo lang('edit') ?></a>
-												<a class="dropdown-item" id="delete-project" @click="f_deleteProject(props.item)"><i class="fa fa-trash"></i> <?php echo lang('delete') ?></a>
+						      <v-card-actions>
+						        <v-spacer></v-spacer>
+						 		<v-btn color="blue darken-1" flat @click="f_editProject()">Save</v-btn>
+						        <v-btn color="blue darken-1" flat @click="f_dialog_close()">Cancel</v-btn>
+						      </v-card-actions>
+						    </v-card>
+						  </v-dialog>
+						</v-toolbar>
+	                        <v-data-table
+	                            :headers="headers"
+	                            :items="list_projects"
+	                            class="elevation-1"
+	                            :rows-per-page-items="[10,20,50,100]"
+	                        >
+	                            <template slot="items" slot-scope="props">
+	                                <td>{{ props.item.name_website }}</td>
+	                                <td>{{ props.item.name_project_tasks }}</td>
+	                                <td>{{ props.item.started_project_tasks }}</td>
+	                                <td>{{ props.item.deadline_project_tasks }}</td>
+	                                <td>
+										<span v-if="props.item.percentage_tasks == '100'" class="badge badge-success">Success</span>
+										<span v-else class="badge badge-warning">In progress</span>
+	                                </td>
+	                                <td>
+	                                	<div class="progress">
+											  <div class="progress-bar" role="progressbar" :style="{width: props.item.percentage_tasks + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ props.item.percentage_tasks }}%
+											  </div>
 										</div>
-									</div>
-                                </td>
-                            </template>
-                        </v-data-table>
-                </template>
-            </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+	                                </td>
+	                                <td>
+	                                	<span v-for="itemUser in props.item.users_to_project">
+		                                	<v-avatar color="red">
+												<span class="white--text headline">{{ itemUser.username.substr(0, 2) }}</span>
+											</v-avatar>
+										</span>
+									</td>
+	                                <td class="text-xs-left">
+										<div class="dropdown show actions">
+											<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+												<i class="icon icon-dots-vertical"></i>
+											</a>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+													<a class="dropdown-item" id="view-project" :href="currentRoute+'/'+props.item.id_project_tasks"><i class="fa fa-eye"></i> View</a>
+													<div class="dropdown-divider"></div>
+													<a class="dropdown-item" id="edit-project" @click="f_dialog_editProject(props.item)"><i class="fa fa-pencil"></i>  <?php echo lang('edit') ?></a>
+													<a class="dropdown-item" id="delete-project" @click="f_deleteProject(props.item)"><i class="fa fa-trash"></i> <?php echo lang('delete') ?></a>
+											</div>
+										</div>
+	                                </td>
+	                            </template>
+	                        </v-data-table>
+	                </template>
+	            </v-card>
+	      </v-flex>
+	    </v-layout>
+	  </v-container>
 
 	</div>
   </div>
 </div>
-<?php $this->load->view('include/javascript.php'); ?>
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-    el: '#app',
+var mixin = {
     data : {
     	menu1: false,
     	menu2: false,
@@ -303,6 +305,7 @@ var v = new Vue({
 			}
         },
     }
-})
+}
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

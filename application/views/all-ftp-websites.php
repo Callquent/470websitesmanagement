@@ -29,10 +29,12 @@
       </v-container>
     </div>
 </div>
-<?php $this->load->view('include/javascript.php'); ?>
+            </div>
+        </div>
+    </v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-    el: '#app',
+var mixin = {
     data : {
         currentRoute: window.location.href,
         headers: [
@@ -42,6 +44,7 @@ var v = new Vue({
         ],
         list_website_ftp: <?php echo json_encode($all_websites->result_array()); ?>,
     },
-})
+}
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

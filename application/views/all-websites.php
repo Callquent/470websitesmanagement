@@ -181,11 +181,13 @@
 		  </div>
 		</div>
 	  </div>
-
-<?php $this->load->view('include/javascript.php'); ?>
+	  
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-    el: '#app',
+var mixin = {
     data : {
     	search:"",
     	dialog_email: false,
@@ -255,10 +257,10 @@ var v = new Vue({
 			}
 		}
     }
-})
-
-
-
+}
+</script>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
 $(document).ready(function(){
 	$('#email').on('show.bs.modal',function(event){
 	  var modal = $(this);

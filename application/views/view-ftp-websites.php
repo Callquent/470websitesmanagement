@@ -143,10 +143,7 @@
     </div>
 </div>
 
-    <v-dialog
-      v-model="dialog_renameFile"
-      width="500"
-    >
+    <v-dialog v-model="dialog_renameFile" width="500">
       <v-card>
         <v-card-title
           class="headline grey lighten-2"
@@ -171,10 +168,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog
-      v-model="dialog_createFolder"
-      width="500"
-    >
+    <v-dialog v-model="dialog_createFolder" width="500">
       <v-card>
         <v-card-title
           class="headline grey lighten-2"
@@ -200,10 +194,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog
-      v-model="dialog_chmodPermissions"
-      width="500"
-    >
+    <v-dialog v-model="dialog_chmodPermissions" width="500">
       <v-card>
         <v-card-title
           class="headline grey lighten-2"
@@ -282,10 +273,12 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-<?php $this->load->view('include/javascript.php'); ?>
+            </div>
+        </div>
+    </v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-    el: '#app',
+var mixin = {
     data : {
         dialog_renameFile: false,
         dialog_createFolder: false,
@@ -604,6 +597,7 @@ var v = new Vue({
             }
         },
     },
-});
+}
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

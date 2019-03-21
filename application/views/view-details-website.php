@@ -267,11 +267,12 @@
 	</div>
   </div>
 </div>
-
-<?php $this->load->view('include/javascript.php'); ?>
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-    el: '#app',
+var mixin = {
     data : {
 		dialog_ftp: false,
 		dialog_database: false,
@@ -545,6 +546,7 @@ var v = new Vue({
 			}, 300)
 		}
     }
-})
+}
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

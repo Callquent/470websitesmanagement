@@ -148,10 +148,12 @@
 	</div>
   </div>
 </div>
-<?php $this->load->view('include/javascript.php'); ?>
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
-	var v = new Vue({
-    el: '#app',
+var mixin = {
     data : {
     	display_ftp: 'false',
     	display_db: 'false',
@@ -217,7 +219,7 @@
             })
         },
     },
-});
+}
 /*  $(document).ready(function(){
 		$("#results .alert-success").hide();
 		$("#results .alert-danger").hide();
@@ -255,4 +257,5 @@
 		});
   });*/
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

@@ -82,10 +82,7 @@
   </v-container>
 </div>
 
-<v-dialog
-	  v-model="dialog"
-	  width="500"
-	>
+<v-dialog v-model="dialog" width="500">
 	  <v-card>
 		<v-card-title
 		  class="headline grey lighten-2"
@@ -117,17 +114,13 @@
 			<v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
 		</v-card-actions>
 	  </v-card>
-	</v-dialog>
-
-
-
-
-
-
-<?php $this->load->view('include/javascript.php'); ?>
+</v-dialog>
+			</div>
+		</div>
+	</v-app>
+</div>
 <script type="text/javascript">
-var v = new Vue({
-	el: '#app',
+var mixin = {
 	data : {
 		dialog_add_language: false,
 		  dialog: false,
@@ -188,6 +181,7 @@ var v = new Vue({
 			})
 		},
 	}
-})
+}
 </script>
+<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>
