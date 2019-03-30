@@ -76306,7 +76306,9 @@ input[type=checkbox][disabled] ~ .form-check-description {
     background: rgba(0, 0, 0, 0.54);
     color: #FFF
 }
-
+#app {
+  background: url("../../assets/images/backgrounds/dark-material-bg.jpg") no-repeat;
+}
 #login {
     display: -webkit-box;
     display: -webkit-flex;
@@ -76318,7 +76320,6 @@ input[type=checkbox][disabled] ~ .form-check-description {
     flex: 1 0 auto;
     width: 100%;
     min-height: 100%;
-    background: url("../../assets/images/backgrounds/dark-material-bg.jpg") no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     display: flex;

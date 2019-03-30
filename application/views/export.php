@@ -1,81 +1,109 @@
 <?php $this->load->view('include/header.php'); ?>
-<div class="content custom-scrollbar">
-  <div class="page-layout simple full-width">
-    <div class="page-content">
+                <div class="content custom-scrollbar">
+                  <div class="page-layout simple full-width">
+                    <div class="page-content">
 
-        <section id="main-content">
-            <section class="wrapper">
+                        <section id="main-content">
+                            <section class="wrapper">
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <section class="card mb-3">
-                        <header class="card-header">
-                            <?php echo lang('export'); ?>
-                        </header>
-                        <div class="card-body">
-                            <div class="position-center">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="card mb-3">
+                                        <header class="card-header">
+                                            <?php echo lang('export'); ?>
+                                        </header>
+                                        <div class="card-body">
+                                            <div class="position-center">
 
-    			                        <form class="form-horizontal" id="form-export" method="post" action="<?php echo site_url('/export/export-470websitesmanagement/'); ?>">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 control-label col-lg-3"><?php echo lang('key_secrete'); ?></label>
-                                                <div class="col-lg-6">
-                                                    <div class="input-group m-bot15">
-                                                        <input type="text" name="keysecrete" id="keysecrete" class="form-control" value="<?php echo $key_secrete; ?>">
-                                                        <span class="input-group-btn">
-                                                            <a href="<?php echo site_url('/export/generate-key/'); ?>" class="btn btn-success">Generate</a>
-                                                        </span>
-                                                    </div>
-                                                </div>
+                    			                        <form class="form-horizontal" id="form-export">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-3 control-label col-lg-3"><?php echo lang('key_secrete'); ?></label>
+                                                                <div class="col-lg-6">
+                                                                    <div class="input-group m-bot15">
+                                                                        <input type="text" name="keysecrete" id="keysecrete" class="form-control" value="<?php echo $key_secrete; ?>">
+                                                                        <span class="input-group-btn">
+                                                                            <a href="<?php echo site_url('/export/generate-key/'); ?>" class="btn btn-success">Generate</a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-3 control-label"><?php echo lang('choose_type_export'); ?></label>
+
+                                                                <div class="col-sm-9 icheck minimal">
+                                                                    <div class="radio single-row">
+                                                                        <input tabindex="3" type="radio" name="demo-radio" id="radio_quick_export" checked>
+                                                                        <label><?php echo lang('all_websites_export'); ?></label>
+                                                                    </div>
+
+                                                                    <div class="radio single-row">
+                                                                        <input tabindex="3" type="radio" name="demo-radio" id="radio_custom_export">
+                                                                        <label><?php echo lang('select_websites_export'); ?></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row export-search-table last">
+                                                                <label class="control-label col-md-3">Listes Sites Web :</label>
+                                                                <div class="col-md-9">
+                                                                    <select v-model="export_470websitesmanagement.websites" class="multi-select"  multiple id="my_multi_select3" >
+                                                                        <option v-for="website in list_websites" :value="website.id_website">{{ website.url_website }}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                    			                                <div class="col-lg-offset-2 col-lg-10">
+                    			                                    <button @click="f_export470websitesmanagement" class="btn btn-info"><?php echo lang('export'); ?></button>
+                    			                                </div>
+                    			                            </div>
+                    			                        </form>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 control-label"><?php echo lang('choose_type_export'); ?></label>
-
-                                                <div class="col-sm-9 icheck minimal">
-                                                    <div class="radio single-row">
-                                                        <input tabindex="3" type="radio" name="demo-radio" id="radio_quick_export" checked>
-                                                        <label><?php echo lang('all_websites_export'); ?></label>
-                                                    </div>
-
-                                                    <div class="radio single-row">
-                                                        <input tabindex="3" type="radio" name="demo-radio" id="radio_custom_export">
-                                                        <label><?php echo lang('select_websites_export'); ?></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row export-search-table last">
-                                                <label class="control-label col-md-3">Listes Sites Web :</label>
-                                                <div class="col-md-9">
-                                                    <select name="websites[]" class="multi-select" multiple="" id="my_multi_select3" >
-                                                        <?php foreach ($all_websites->result() as $row) {  ?>
-                                                            <option value="<?php echo $row->id_website; ?>"><?php echo $row->url_website; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-    			                                <div class="col-lg-offset-2 col-lg-10">
-    			                                    <button type="submit" class="btn btn-info"><?php echo lang('export'); ?></button>
-    			                                </div>
-    			                            </div>
-    			                        </form>
+                                        </div>
+                                    </section>
+                                </div>
                             </div>
-                        </div>
-                    </section>
+                            </section>
+                        </section>
+                    </div>
+                  </div>
                 </div>
-            </div>
-            </section>
-        </section>
-    </div>
-  </div>
-</div>
             </div>
         </div>
     </v-app>
 </div>
+<script type="text/javascript">
+var mixin = {
+    data : {
+        dialog_add_category: false,
+        dialog: false,
+        currentRoute: window.location.href,
+        list_websites: <?php echo json_encode($all_websites->result_array()); ?>,
+        export_470websitesmanagement:{
+            key_secrete: '',
+            websites: [],
+        },
+    },
+    created(){
+        this.displayPage();
+    },
+    methods:{
+        displayPage(){
+
+        },
+        f_export470websitesmanagement(){
+            var formData = new FormData(); 
+            formData.append("keysecrete",v.export_470websitesmanagement.key_secrete);
+            formData.append("websites",v.export_470websitesmanagement.websites);
+            axios.post(this.currentRoute+"/export/export-470websitesmanagement/", formData).then(function(response){
+
+            })
+        },
+    }
+}
+</script>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
-        $('#form-export a').click(function(e) {
+        /*$('#form-export a').click(function(e) {
             $.ajax({
                 type: "POST",
                 url: $(this).attr('href'),
@@ -87,7 +115,7 @@
                 }
             });
             e.preventDefault();
-        });
+        });*/
         $("input[type='radio']").on("change", function () {
             if ($("#radio_quick_export").prop("checked") ) {
                 $(".export-search-table").hide();

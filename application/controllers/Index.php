@@ -44,19 +44,20 @@ class Index extends CI_Controller {
 		$config['charset']  = "utf-8";
 		$config['newline'] = "\r\n";
 		$this->email->initialize($config);
-		$emailreset = $this->input->post('emailreset');
+		$email_reset = $this->input->post('email_reset');
+		//$email_reset ="plionquentin@gmail.com";
 
-		$this->aauth->remind_password($emailreset);
+		$this->aauth->remind_password($email_reset);
 	}
-	public function reset_password($codereset = "")
+	public function reset_password()
 	{
 		$config['mailtype'] = "html";
 		$config['charset']  = "utf-8";
 		$config['newline'] = "\r\n";
 		$this->email->initialize($config);
-		$codereset = $this->input->post('codereset');
+		$code_reset = $this->input->post('code_reset');
 		
-		$this->aauth->reset_password($codereset);
+		$this->aauth->reset_password($code_reset);
 	}
 	public function logout()
 	{

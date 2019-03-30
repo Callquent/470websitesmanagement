@@ -4,15 +4,16 @@
 		<meta charset="utf-8">
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<?php echo css_url('css/bootstrap.min.css'); ?>
         <?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.6/vuetify.css" rel="stylesheet">
 		<link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
 	</head>
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
 		<main>
-			<div id="app">
+			<div id="test">
 				<v-app>
 					<div id="wrapper">
 						<div class="content-wrapper">
@@ -35,7 +36,7 @@
 			                                <div class="remember-forgot-password row no-gutters align-items-center justify-content-between pt-4">
 			                                    <div class="mb-4">
 			                                    </div>
-			                                    <a data-toggle="modal" href="#remindpassword" class="forgot-password text-secondary mb-4">Forgot Password?</a>
+			                                    <a @click="dialog_remindpassword = true" class="forgot-password text-secondary mb-4">Forgot Password?</a>
 			                                </div>
 			                                <button type="submit" class="submit-button btn btn-block btn-muted my-4 mx-auto fuse-ripple-ready" aria-label="LOG IN">
 			                                    LOG IN
@@ -62,26 +63,50 @@
 			                        </div>
 			                    </div>
 							</div>
-							<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="remindpassword" class="modal fade">
-							  <div class="modal-dialog">
-							      <div class="modal-content">
-							          <div class="modal-header">
-							              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							              <h4 class="modal-title">Forgot Password ?</h4>
-							          </div>
-										<form action="<?php echo site_url('index/remind_password'); ?>" method="post" id="remindpasswordform" class="form-horizontal" role="form">
-								          <div class="modal-body">
-								              <p>Enter your e-mail address below to reset your password.</p>
-								              <input type="text" name="emailreset" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-								          </div>
-								          <div class="modal-footer">
-								              <button data-dismiss="modal" class="btn btn-default" type="button"><?php echo lang('cancel'); ?></button>
-								              <button class="btn btn-success" type="submit"><?php echo lang('send'); ?></button>
-								          </div>
-								        </form>
-							      </div>
-							  </div>
-							</div>
+							<v-dialog v-model="dialog_remindpassword" width="800">
+								<v-card>
+									<v-card-title class="headline green lighten-2" primary-title>
+										Forgot Password ?
+									</v-card-title>
+									<v-card-text>
+										<v-container grid-list-md>
+											<v-layout wrap>
+												<v-flex xs12>
+													<v-text-field label="Email" v-model="email_reset" required></v-text-field>
+												</v-flex>
+											</v-layout>
+										</v-container>
+										<small>*indicates required field</small>
+									</v-card-text>
+									<v-card-actions>
+										<v-spacer></v-spacer>
+										<v-btn color="blue darken-1" flat @click="f_remindPassword()">Save</v-btn>
+										<v-btn color="blue darken-1" flat @click="dialog_remindpassword = false">Close</v-btn>
+									</v-card-actions>
+								</v-card>
+							</v-dialog>
+							<v-dialog v-model="dialog_resetpassword" width="800">
+								<v-card>
+									<v-card-title class="headline green lighten-2" primary-title>
+										Forgot Password Verification ?
+									</v-card-title>
+									<v-card-text>
+										<v-container grid-list-md>
+											<v-layout wrap>
+												<v-flex xs12>
+													<v-text-field label="Code verification" v-model="code_reset" required></v-text-field>
+												</v-flex>
+											</v-layout>
+										</v-container>
+										<small>*indicates required field</small>
+									</v-card-text>
+									<v-card-actions>
+										<v-spacer></v-spacer>
+										<v-btn color="blue darken-1" flat @click="f_resetPassword()">Save</v-btn>
+										<v-btn color="blue darken-1" flat @click="dialog_remindpassword = false">Close</v-btn>
+									</v-card-actions>
+								</v-card>
+							</v-dialog>
 							<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="resetpassword" class="modal fade">
 							  <div class="modal-dialog">
 							      <div class="modal-content">
@@ -107,53 +132,50 @@
 				</v-app>
 			</div>
 		</main>
-<script type="text/javascript">
-	var mixin = {
-		data : {
-			currentRoute: window.location.href,
-		},
-		created(){
-			this.displayPage();
-		},
-		methods:{
-			displayPage(){
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.6/vuetify.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+		<script type="text/javascript">
+			var mixin = {
+				data : {
+					dialog_remindpassword: false,
+					dialog_resetpassword: false,
+					email_reset: '',
+					code_reset: '',
+					currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+				},
+				created(){
+					this.displayPage();
+				},
+				methods:{
+					displayPage(){
 
-			},
-		}
-	}
-</script>
+					},
+					f_remindPassword(){
+						var formData = new FormData(); 
+						formData.append("email_reset",this.email_reset);
+						axios.post(this.currentRoute+"/index/remind_password/", formData).then(function(response){
+							if(response.status = 200){
+								v.dialog_remindpassword = false;
+								v.dialog_resetpassword = true;
+							}else{
+
+							}
+						})
+					},
+					f_resetPassword(){
+						var formData = new FormData(); 
+						formData.append("code_reset",this.code_reset);
+						axios.post(this.currentRoute+"/index/reset_password/", formData).then(function(response){
+							if(response.status = 200){
+								v.dialog_resetpassword = false;
+							}else{
+
+							}
+						})
+					},
+				}
+			}
+		</script>
 <?php $this->load->view('include/javascript.php'); ?>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#remindpasswordform").submit(function(e){
-			$.ajax({
-				type: "POST",
-				url: $(this).attr('action'),
-				data: $(this).serialize(),
-				success: function(msg){
-					$('#remindpassword').modal('hide');
-					$('#resetpassword').modal('show');
-				},
-				error: function(msg){
-					console.log(msg.responseText);
-				}
-			});
-			e.preventDefault();
-		});
-		$("#resetpasswordform").submit(function(e){
-			$.ajax({
-				type: "POST",
-				url: $(this).attr('action'),
-				data: $(this).serialize(),
-				success: function(msg){
-					$('#resetpassword').modal('hide');
-				},
-				error: function(msg){
-					console.log(msg.responseText);
-				}
-			});
-			e.preventDefault();
-		});
-	});
-</script>
 <?php $this->load->view('include/footer.php'); ?>

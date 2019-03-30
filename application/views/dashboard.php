@@ -105,29 +105,31 @@
 	</v-app>
 </div>
 <script type="text/javascript">
+	var mixin = {
+		data : {
+			currentRoute: window.location.href,
+			headers: [
+				{ text: 'Nom', value: 'name_whois'},
+				{ text: 'Site Web', value: 'website' },
+				{ text: 'Hebergeur', value: 'hosting'},
+				{ text: 'Date de mise en ligne', value: 'date_delivery'},
+				{ text: 'Date d\'expiration', value: 'date_expiration'},
+				{ text: 'Whois', value: 'whois'},
+			],
+			list_whois: <?php echo json_encode($all_whois_renew_tomonth->result_array()); ?>,
+		},
+		created(){
+
+		},
+		methods:{
+
+		}
+	}
+</script>
+<?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
   var pieDataLanguage = JSON.parse('<?php echo $chart_language; ?>');
   var pieDataCategory = JSON.parse('<?php echo $chart_category; ?>');
-
-var mixin = {
-	data : {
-		currentRoute: window.location.href,
-		headers: [
-			{ text: 'Nom', value: 'name_whois'},
-			{ text: 'Site Web', value: 'website' },
-			{ text: 'Hebergeur', value: 'hosting'},
-			{ text: 'Date de mise en ligne', value: 'date_delivery'},
-			{ text: 'Date d\'expiration', value: 'date_expiration'},
-			{ text: 'Whois', value: 'whois'},
-		],
-        list_whois: <?php echo json_encode($all_whois_renew_tomonth->result_array()); ?>,
-    },
-    created(){
-
-    },
-    methods:{
-
-    }
-}
 
   $(document).ready(function(){
 	var pieChartLanguage = {
@@ -291,5 +293,4 @@ var mixin = {
 	  });
   });
 </script>
-<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>
