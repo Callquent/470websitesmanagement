@@ -11,7 +11,7 @@ class Export extends CI_Controller {
 		$this->load->model('model_back');
 		$this->load->model('model_settings');
 		$this->load->library(array('Aauth','encryption','form_validation','session','email'));
-		$this->load->helper(array('functions', 'text', 'url','language'));
+		$this->load->helper(array('functions', 'text', 'url','language','file'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
@@ -41,9 +41,8 @@ class Export extends CI_Controller {
 	}
 	public function export_470websitesmanagement()
 	{
-		header("Cache-Control: ");
 		header("Content-type: text/plain");
-		header("Content-Disposition: attachment; filename=\"websitesmanagement.470\"");
+		header("Content-Disposition: attachment; filename=websitesmanagement.470");
 
 		$key_secrete = $this->input->post('keysecrete');
 		$this->encryption->initialize(

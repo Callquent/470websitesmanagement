@@ -11,7 +11,7 @@ class Position_tracking_google extends CI_Controller {
 		$this->load->model('model_tasks');
 		$this->load->model('model_users');
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth','form_validation', 'encrypt', 'session'));
+		$this->load->library(array('Aauth','form_validation', 'encryption', 'session'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(

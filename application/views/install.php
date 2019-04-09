@@ -15,7 +15,7 @@
   <body class="lock-screen">
 
 <div class="pen-title">
-  <img src="<?php echo img_url('app/logo-470websitesmanagement.png'); ?>" alt="">
+  <img src="<?php echo img_url('app/logo-470websitesmanagement.svg'); ?>" alt="">
 </div>
 
 <!--sidebar end-->

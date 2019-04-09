@@ -20,7 +20,7 @@
                                                                 <label class="col-sm-3 control-label col-lg-3"><?php echo lang('key_secrete'); ?></label>
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group m-bot15">
-                                                                        <input type="text" name="keysecrete" id="keysecrete" class="form-control" value="<?php echo $key_secrete; ?>">
+                                                                        <input v-model="export_470websitesmanagement.key_secrete" type="text" id="keysecrete" class="form-control">
                                                                         <span class="input-group-btn">
                                                                             <a href="<?php echo site_url('/export/generate-key/'); ?>" class="btn btn-success">Generate</a>
                                                                         </span>
@@ -30,29 +30,44 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 control-label"><?php echo lang('choose_type_export'); ?></label>
 
-                                                                <div class="col-sm-9 icheck minimal">
-                                                                    <div class="radio single-row">
-                                                                        <input tabindex="3" type="radio" name="demo-radio" id="radio_quick_export" checked>
-                                                                        <label><?php echo lang('all_websites_export'); ?></label>
-                                                                    </div>
+                                                                <v-radio-group v-model="export_470websitesmanagement.type_export" column>
+                                                                    <v-radio label="<?php echo lang('all_websites_export'); ?>" value="radio_quick_export"></v-radio>
+                                                                    <v-radio label="<?php echo lang('select_websites_export'); ?>" value="radio_custom_export"></v-radio>
+                                                                </v-radio-group>
 
-                                                                    <div class="radio single-row">
-                                                                        <input tabindex="3" type="radio" name="demo-radio" id="radio_custom_export">
-                                                                        <label><?php echo lang('select_websites_export'); ?></label>
-                                                                    </div>
-                                                                </div>
                                                             </div>
-                                                            <div class="form-group row export-search-table last">
+                                                            <div class="form-group row export-search-table" v-if="export_470websitesmanagement.type_export == 'radio_custom_export'">
                                                                 <label class="control-label col-md-3">Listes Sites Web :</label>
                                                                 <div class="col-md-9">
-                                                                    <select v-model="export_470websitesmanagement.websites" class="multi-select"  multiple id="my_multi_select3" >
-                                                                        <option v-for="website in list_websites" :value="website.id_website">{{ website.url_website }}</option>
-                                                                    </select>
+                                                                    <v-select
+                                                                        v-model="export_470websitesmanagement.websites"
+                                                                        :items="list_websites"
+                                                                        item-text="url_website"
+                                                                        item-value="id_website"
+                                                                        label="Websites"
+                                                                        chips
+                                                                        multiple
+                                                                      >
+                                                                        <template v-slot:prepend-item>
+                                                                          <v-list-tile
+                                                                            ripple
+                                                                            @click="toggle"
+                                                                          >
+                                                                            <v-list-tile-action>
+                                                                              <v-icon :color="export_470websitesmanagement.websites.length > 0 ? 'indigo darken-4' : ''">{{ icon }}</v-icon>
+                                                                            </v-list-tile-action>
+                                                                            <v-list-tile-content>
+                                                                              <v-list-tile-title>Select All</v-list-tile-title>
+                                                                            </v-list-tile-content>
+                                                                          </v-list-tile>
+                                                                          <v-divider class="mt-2"></v-divider>
+                                                                        </template>
+                                                                    </v-select>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                     			                                <div class="col-lg-offset-2 col-lg-10">
-                    			                                    <button @click="f_export470websitesmanagement" class="btn btn-info"><?php echo lang('export'); ?></button>
+                    			                                    <v-btn @click="f_export470websitesmanagement"><?php echo lang('export'); ?></v-btn>
                     			                                </div>
                     			                            </div>
                     			                        </form>
@@ -78,23 +93,57 @@ var mixin = {
         currentRoute: window.location.href,
         list_websites: <?php echo json_encode($all_websites->result_array()); ?>,
         export_470websitesmanagement:{
-            key_secrete: '',
+            key_secrete: "<?php echo $key_secrete; ?>",
+            type_export: "radio_quick_export",
             websites: [],
         },
     },
     created(){
         this.displayPage();
     },
+    computed: {
+      likesAllFruit () {
+        return this.export_470websitesmanagement.websites.length === this.list_websites.length
+      },
+      likesSomeFruit () {
+        return this.export_470websitesmanagement.websites.length > 0 && !this.likesAllFruit
+      },
+      icon () {
+        if (this.likesAllFruit) return 'check_box'
+        if (this.likesSomeFruit) return 'indeterminate_check_box'
+        return 'check_box_outline_blank'
+      }
+    },
     methods:{
         displayPage(){
 
+        },
+        toggle () {
+            this.$nextTick(() => {
+                if (this.likesAllFruit) {
+                    this.export_470websitesmanagement.websites = []
+                } else {
+                    this.export_470websitesmanagement.websites = this.list_websites.slice()
+                }
+            })
         },
         f_export470websitesmanagement(){
             var formData = new FormData(); 
             formData.append("keysecrete",v.export_470websitesmanagement.key_secrete);
             formData.append("websites",v.export_470websitesmanagement.websites);
-            axios.post(this.currentRoute+"/export/export-470websitesmanagement/", formData).then(function(response){
-
+            /*axios.post(this.currentRoute+"/export-470websitesmanagement/", formData).then(function(response){
+            })*/
+            axios({
+                method: 'POST',
+                url: this.currentRoute+"/export-470websitesmanagement/",
+                data: formData,
+                responseType:'blob',
+            }).then(function(response){
+                let blob = new Blob([response.data], {type: response.data.type});
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "websitesmanagement.470";
+                link.click();
             })
         },
     }
@@ -116,14 +165,6 @@ var mixin = {
             });
             e.preventDefault();
         });*/
-        $("input[type='radio']").on("change", function () {
-            if ($("#radio_quick_export").prop("checked") ) {
-                $(".export-search-table").hide();
-            }
-            else {
-                $(".export-search-table").show();
-            }
-        });
   });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

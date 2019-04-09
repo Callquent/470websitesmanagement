@@ -8,7 +8,7 @@ class Registration extends CI_Controller {
 		// Chargement des ressources pour ce controller
 		$this->load->database();
 		$this->load->model('model_settings');
-		$this->load->library(array('Aauth', 'form_validation', 'form_validation_470websitesmanagement', 'encrypt', 'session'));
+		$this->load->library(array('Aauth', 'form_validation', 'form_validation_470websitesmanagement', 'encryption', 'session'));
 		$this->load->helper(array('functions','url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$this->session->userdata('imagecaptcha');
