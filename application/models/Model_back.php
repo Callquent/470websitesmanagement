@@ -166,6 +166,7 @@ class Model_back extends CI_Model {
 
 		$this->db->select('*')
 					->from('470websitesmanagement_website')
+					->join('470websitesmanagement_category', '470websitesmanagement_category.id_category = 470websitesmanagement_website.id_category')
 					->join('470websitesmanagement_whois', '470websitesmanagement_whois.id_whois = 470websitesmanagement_website.id_website')
 					->join('470websitesmanagement_website__ftp', '470websitesmanagement_website__ftp.id_website = 470websitesmanagement_website.id_website')
 					->join('470websitesmanagement_website__database', '470websitesmanagement_website__database.id_website = 470websitesmanagement_website.id_website')
@@ -189,36 +190,36 @@ class Model_back extends CI_Model {
 			$data = array(
 				'id_website'  => $row->id_website,
 				'id_ftp'  => $row->id_ftp,
-				'host_ftp'  => $row->host_ftp,
-				'login_ftp'  => $row->login_ftp,
-				'password_ftp' => $row->password_ftp
+				'host_ftp'  => $this->encryption->decrypt($row->host_ftp),
+				'login_ftp'  => $this->encryption->decrypt($row->login_ftp),
+				'password_ftp' => $this->encryption->decrypt($row->password_ftp)
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__ftp').";";
 
 			$data = array(
 				'id_website'  => $row->id_website,
 				'id_database'  => $row->id_database,
-				'host_database'  => $row->host_database,
-				'name_database' => $row->name_database,
-				'login_database' => $row->login_database,
-				'password_database'  => $row->password_database
+				'host_database'  => $this->encryption->decrypt($row->host_database),
+				'name_database' => $this->encryption->decrypt($row->name_database),
+				'login_database' => $this->encryption->decrypt($row->login_database),
+				'password_database'  => $this->encryption->decrypt($row->password_database)
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__database').";";
 
 			$data = array(
 				'id_website'  => $row->id_website,
-				'id_backoffice'  => $row->id_backoffice,
-				'host_backoffice'	=> $row->host_backoffice,
-				'login_backoffice'  => $row->login_backoffice,
-				'password_backoffice'	=> $row->password_backoffice
+				'id_backoffice'  =>  $row->id_backoffice,
+				'host_backoffice'	=>  $this->encryption->decrypt($row->host_backoffice),
+				'login_backoffice'  =>  $this->encryption->decrypt($row->login_backoffice),
+				'password_backoffice'	=>  $this->encryption->decrypt($row->password_backoffice)
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__backoffice').";";
 
 			$data = array(
 				'id_website'  => $row->id_website,
 				'id_backoffice'  => $row->id_backoffice,
-				'login_htaccess'  => $row->login_htaccess,
-				'password_htaccess'	=> $row->password_htaccess
+				'login_htaccess'  =>  $this->encryption->decrypt($row->login_htaccess),
+				'password_htaccess'	=>  $this->encryption->decrypt($row->password_htaccess)
 			);
 			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__htaccess').";";
 
