@@ -100,6 +100,7 @@
 <script type="text/javascript">
 var mixin = {
     data : {
+    	sidebar:"general",
     	dialog_serp_google: false,
         message:{
             success:'',

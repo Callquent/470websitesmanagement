@@ -88,6 +88,7 @@
 <script type="text/javascript">
 var mixin = {
     data : {
+        sidebar:"administration",
         dialog_add_category: false,
         dialog: false,
         currentRoute: window.location.href,

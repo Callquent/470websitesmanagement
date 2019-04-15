@@ -65,7 +65,7 @@
 <script type="text/javascript">
 var mixin = {
     data : {
-        
+        sidebar:"administration",
     },
     created(){
         this.displayPage();

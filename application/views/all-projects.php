@@ -220,6 +220,7 @@
 <script type="text/javascript">
 var mixin = {
     data : {
+    	sidebar:"general",
     	menu1: false,
     	menu2: false,
     	autocomplete_website: <?php echo json_encode($all_websites->result_array()); ?>,

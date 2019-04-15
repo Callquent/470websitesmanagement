@@ -107,6 +107,7 @@
 <script type="text/javascript">
 	var mixin = {
 		data : {
+			sidebar:"general",
 			currentRoute: window.location.href,
 			headers: [
 				{ text: 'Nom', value: 'name_whois'},

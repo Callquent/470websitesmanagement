@@ -31,22 +31,22 @@
 								</div>
 								<ul class="nav nav-tabs">
 									<li class="">
-										<a data-toggle="tab" href="#home"><i class="icon icon-home"></i></a>
+										<a data-toggle="tab" href="#general" :class="{ active: sidebar === 'general' || sidebar === undefined}"><i class="icon icon-home"></i></a>
 									</li>
 									<?php if($this->aauth->is_group_allowed('page_language',$user_role[0]->name) && $this->aauth->is_group_allowed('page_category',$user_role[0]->name)) { ?>
 									<li class="">
-										<a data-toggle="tab" href="#groupes"><i class="icon icon-tag-multiple"></i></a>
+										<a data-toggle="tab" href="#groupes" :class="{ active: sidebar === 'groups'}"><i class="icon icon-tag-multiple"></i></a>
 									</li>
 									<?php } ?>
 									<li class="">
-										<a data-toggle="tab" href="#list-members"><i class="icon icon-account-box"></i></a>
+										<a data-toggle="tab" href="#list-members" :class="{ active: sidebar === 'members'}"><i class="icon icon-account-box"></i></a>
 									</li>
 									<li class="">
-										<a data-toggle="tab" href="#admin"><i class="icon icon-settings"></i></a>
+										<a data-toggle="tab" href="#administration" :class="{ active: sidebar === 'administration'}"><i class="icon icon-settings"></i></a>
 									</li>
 								</ul>
 								<div class="tab-content">
-									<div id="home" class="tab-pane active">
+									<div id="general" :class="{ active: sidebar === 'general' || sidebar === undefined}" class="tab-pane">
 										<ul class="sidebar-menu">
 											<li class="list-title-sidebar subheader">
 												<span class="subheading"><?php echo lang('general'); ?></span>
@@ -129,7 +129,7 @@
 											</li> -->
 										</ul>
 									</div>
-									<div id="groupes" class="tab-pane">
+									<div id="groupes" :class="{ active: sidebar === 'groups'}" class="tab-pane">
 										<ul class="sidebar-menu" id="nav-accordion">
 											<li class="list-title-sidebar subheader">
 												<span class="subheading"><?php echo lang('groups'); ?></span>
@@ -152,7 +152,7 @@
 											<?php } ?>
 										</ul>
 									</div>
-									<div id="list-members" class="tab-pane">
+									<div id="list-members" :class="{ active: sidebar === 'members'}" class="tab-pane">
 										<ul class="sidebar-menu" id="nav-accordion">
 											<li class="list-title-sidebar subheader">
 												<span class="subheading"><?php echo lang('members'); ?></span>
@@ -181,8 +181,7 @@
 											</li>
 										</ul>
 									</div>
-									
-									<div id="admin" class="tab-pane">
+									<div id="administration" :class="{ active: sidebar === 'administration'}" class="tab-pane">
 										<ul class="sidebar-menu" id="nav-accordion">
 											<li class="list-title-sidebar subheader">
 												<span class="subheading"><?php echo lang('management'); ?></span>

@@ -189,6 +189,7 @@
 <script type="text/javascript">
 var mixin = {
     data : {
+    	sidebar:"general",
     	search:"",
     	dialog_email: false,
         currentRoute: window.location.href,

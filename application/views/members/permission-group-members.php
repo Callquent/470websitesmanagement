@@ -49,6 +49,7 @@
 <script type="text/javascript">
 var mixin = {
 	data : {
+		sidebar:"members",
 		currentRoute: window.location.href,
 		list_permissions: <?php echo json_encode($all_permissions); ?>,
 		headers: <?php echo json_encode($list_groups); ?>,

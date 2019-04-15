@@ -148,6 +148,7 @@
 <script type="text/javascript">
 var mixin = {
     data : {
+        sidebar:"members",
         dialog_groups_member: false,
         dialog: false,
         currentRoute: window.location.href,

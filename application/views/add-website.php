@@ -220,42 +220,6 @@ var mixin = {
         },
     },
 }
-/*  $(document).ready(function(){
-		$("#results .alert-success").hide();
-		$("#results .alert-danger").hide();
-		$("#form-add-website").submit(function(e){
-			$("#form-add-website button[type='submit']").button('loading');
-			$.ajax({
-				type: "POST",
-				url: $(this).attr('action'),
-				data:$(this).serialize(),
-				success: function(msg){
-					$("#form-add-website button[type='submit']").button('reset');
-					$("#form-add-website").fadeOut('slow');
-					$('#results .alert-success').fadeIn('fast');
-					$('.badge-all-websites').text(parseInt($(".badge-all-websites").text())+1);
-
-					$("badge-language-"+$('#form-add-website .add-website-languages option:selected').text()).text(parseInt($("badge-language-"+$('#form-add-website .add-website-languages option:selected').text()).text())+1);
-					setTimeout(function() {
-						$('#results .alert-success').fadeOut('slow');
-						$("#form-add-website").find("input[type=text], textarea").val("");
-						$("#form-add-website").fadeIn('slow');
-					}, 3000 );
-				},
-				error: function(msg){
-					$("#form-add-website button[type='submit']").button('reset');
-					$("#form-add-website").fadeOut('slow');
-					$('#results .alert-danger').fadeIn('fast');
-					setTimeout(function() {
-						$('#results .alert-danger').fadeOut('slow');
-						$("#form-add-website").find("input[type=text], textarea").val("");
-						$("#form-add-website").fadeIn('slow');
-					}, 3000 );
-				}
-			});
-			e.preventDefault();
-		});
-  });*/
 </script>
 <?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

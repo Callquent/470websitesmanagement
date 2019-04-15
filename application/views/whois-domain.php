@@ -198,6 +198,7 @@
 <script type="text/javascript">
 var mixin = {
 	data : {
+		sidebar:"general",
 		dialog_whois: false,
 		registar_whois: '',
 		display_table_whois: true,

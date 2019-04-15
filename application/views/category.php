@@ -122,6 +122,7 @@
 <script type="text/javascript">
 var mixin = {
 	data : {
+		sidebar:"groups",
 		dialog_add_category: false,
 		dialog: false,
 		currentRoute: window.location.href,

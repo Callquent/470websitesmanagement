@@ -36,6 +36,7 @@
 <script type="text/javascript">
 var mixin = {
     data : {
+        sidebar:"general",
         currentRoute: window.location.href,
         headers: [
             { text: '<?php echo lang('name'); ?>', value: 'name' },

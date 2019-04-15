@@ -229,6 +229,7 @@
 <script type="text/javascript">
 var mixin = {
 	data : {
+		sidebar:"general",
 		dialog_add_task: false,
 		dialog_add_card: false,
 		first_step: 1,

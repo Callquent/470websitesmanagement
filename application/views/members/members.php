@@ -187,6 +187,7 @@
 <script type="text/javascript">
 var mixin = {
 	data : {
+		sidebar:"members",
 		dialog_add_user: false,
 		dialog_edit_user: false,
 		result: {
