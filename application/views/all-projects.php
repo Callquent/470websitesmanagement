@@ -217,96 +217,97 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-    data : {
-    	sidebar:"general",
-    	menu1: false,
-    	menu2: false,
-    	autocomplete_website: <?php echo json_encode($all_websites->result_array()); ?>,
-        dialog_add_project: false,
-        currentRoute: window.location.href,
-        headers: [
-        	{ text: '<?php echo lang('website'); ?>', value: 'website' },
-			{ text: '<?php echo lang('name'); ?>', value: 'name' },
-			{ text: 'Started on', value: 'started_on' },
-			{ text: 'Deadline', value: 'deadline' },
-			{ text: 'Status', value: 'status' },
-			{ text: 'Progress', value: 'progress' },
-			{ text: 'Member', value: 'member' },
-            { text: '<?php echo lang("actions"); ?>', value: 'actions'},
-        ],
-        list_projects: <?php echo json_encode($all_projects->result_array()); ?>,
-		Project:{
-			id_project_tasks:"",
-			name_website:"",
-			name_project_tasks: "",
-			started_project_tasks: new Date().toISOString().substr(0, 10),
-			deadline_project_tasks: new Date().toISOString().substr(0, 10),
-		},
-		defaultProject:{
-        	id_project_tasks:"",
-			name_website:"",
-			name_project_tasks: "",
-			started_project_tasks: new Date().toISOString().substr(0, 10),
-			deadline_project_tasks: new Date().toISOString().substr(0, 10),
-		},
-		editedIndexProject: -1,
-    },
-    created(){
-        this.displayPage();
-    },
-    methods:{
-        displayPage(){
-
-        },
-        f_editProject(){
-    		var formData = new FormData();
-			
-			formData.append("name_project",v.Project.name_project_tasks);
-			formData.append("date_started",v.Project.started_project_tasks);
-			formData.append("date_deadline",v.Project.deadline_project_tasks);
-			if (v.editedIndexProject > -1) {
-				formData.append("id_project",v.Project.id_project_tasks);
-				axios.post(v.currentRoute+"/edit-project/", formData).then(function(response){
-					v.dialog_add_project = false;
-					Object.assign(v.list_projects[v.editedIndexProject], v.Project)
-				})	
-			} else {
-				formData.append("id_website",v.Project.name_website.id_website);
-				axios.post(v.currentRoute+"/create-project/", formData).then(function(response){
-					v.dialog_add_project = false;
-					//v.list_projects.push(v.editedItem)
-				})
-			}
-
-		},
-		f_dialog_close () {
-			v.dialog_add_project = false
-			setTimeout(() => {
-				v.Project = Object.assign({}, v.defaultProject)
-				v.editedIndexProject = -1
-			}, 300)
-		},
-		f_dialog_editProject(item){
-			var formData = new FormData();
-			v.editedIndexProject = v.list_projects.indexOf(item);
-			v.Project = Object.assign({}, item);
-			v.Project.name_website = item.url_website;
-			v.dialog_add_project = true;
-		},
-        f_deleteProject(item){
-            var formData = new FormData();
-            formData.append("id_project",item.id_project_tasks);
-            if (confirm('Are you sure you want to delete this item?') == true) {
-				axios.post(this.currentRoute+"/delete-project/", formData).then(function(response){
-					const index = v.list_projects.indexOf(item);
-					v.list_projects.splice(index, 1);
-				})
-			}
-        },
-    }
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+	    data : {
+	    	sidebar:"general",
+	    	menu1: false,
+	    	menu2: false,
+	    	autocomplete_website: <?php echo json_encode($all_websites->result_array()); ?>,
+	        dialog_add_project: false,
+	        currentRoute: window.location.href,
+	        headers: [
+	        	{ text: '<?php echo lang('website'); ?>', value: 'website' },
+				{ text: '<?php echo lang('name'); ?>', value: 'name' },
+				{ text: 'Started on', value: 'started_on' },
+				{ text: 'Deadline', value: 'deadline' },
+				{ text: 'Status', value: 'status' },
+				{ text: 'Progress', value: 'progress' },
+				{ text: 'Member', value: 'member' },
+	            { text: '<?php echo lang("actions"); ?>', value: 'actions'},
+	        ],
+	        list_projects: <?php echo json_encode($all_projects->result_array()); ?>,
+			Project:{
+				id_project_tasks:"",
+				name_website:"",
+				name_project_tasks: "",
+				started_project_tasks: new Date().toISOString().substr(0, 10),
+				deadline_project_tasks: new Date().toISOString().substr(0, 10),
+			},
+			defaultProject:{
+	        	id_project_tasks:"",
+				name_website:"",
+				name_project_tasks: "",
+				started_project_tasks: new Date().toISOString().substr(0, 10),
+				deadline_project_tasks: new Date().toISOString().substr(0, 10),
+			},
+			editedIndexProject: -1,
+	    },
+	    created(){
+	        this.displayPage();
+	    },
+	    methods:{
+	        displayPage(){
+
+	        },
+	        f_editProject(){
+	    		var formData = new FormData();
+				
+				formData.append("name_project",v.Project.name_project_tasks);
+				formData.append("date_started",v.Project.started_project_tasks);
+				formData.append("date_deadline",v.Project.deadline_project_tasks);
+				if (v.editedIndexProject > -1) {
+					formData.append("id_project",v.Project.id_project_tasks);
+					axios.post(v.currentRoute+"/edit-project/", formData).then(function(response){
+						v.dialog_add_project = false;
+						Object.assign(v.list_projects[v.editedIndexProject], v.Project)
+					})	
+				} else {
+					formData.append("id_website",v.Project.name_website.id_website);
+					axios.post(v.currentRoute+"/create-project/", formData).then(function(response){
+						v.dialog_add_project = false;
+						//v.list_projects.push(v.editedItem)
+					})
+				}
+
+			},
+			f_dialog_close () {
+				v.dialog_add_project = false
+				setTimeout(() => {
+					v.Project = Object.assign({}, v.defaultProject)
+					v.editedIndexProject = -1
+				}, 300)
+			},
+			f_dialog_editProject(item){
+				var formData = new FormData();
+				v.editedIndexProject = v.list_projects.indexOf(item);
+				v.Project = Object.assign({}, item);
+				v.Project.name_website = item.url_website;
+				v.dialog_add_project = true;
+			},
+	        f_deleteProject(item){
+	            var formData = new FormData();
+	            formData.append("id_project",item.id_project_tasks);
+	            if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete-project/", formData).then(function(response){
+						const index = v.list_projects.indexOf(item);
+						v.list_projects.splice(index, 1);
+					})
+				}
+	        },
+	    }
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>

@@ -277,327 +277,328 @@
         </div>
     </v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-    data : {
-        dialog_renameFile: false,
-        dialog_createFolder: false,
-        dialog_chmodPermissions: false,
-        aside_file_details: false,
-        file_details:{icon: '', title: '', size: '', type: '', last_modified: '', chmod: '', owner: ''},
-        createfolder:'',
-        renamefile:'',
-        cutfile:{old_path:'',file:'',cut_active:false},
-        currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
-        id_website: window.location.href.split('/').pop(),
-        list_view_ftp: <?php echo json_encode($all_storage_server); ?>,
-        path: '<?php echo $path_server; ?>',
-        chmod: [{chmod_check: false, value:400},{chmod_check: false, value:200},{chmod_check: false, value:100},{chmod_check: false, value:40},{chmod_check: false, value:20},{chmod_check: false, value:10},{chmod_check: false, value:4},{chmod_check: false, value:2},{chmod_check: false, value:1}],
-        total_chmod: "000",
-        headers_ftp: [
-            { text: '', value: 'icon', sortable: false},
-            { text: 'Name', value: 'name'},
-            { text: 'Size', value: 'size'},
-            { text: 'Type', value: 'type' },
-            { text: 'Last Modified', value: 'last_modified' },
-            { text: 'Chmod', value: 'chmod'},
-            { text: 'Owner', value: 'owner'},
-        ],
-        headers_list_chmod: [
-            { text: '', value: 'action', sortable: false},
-            { text: 'Read', value: 'read'},
-            { text: 'Write', value: 'write' },
-            { text: 'Execute', value: 'execute'},
-        ],
-        codemirror_show: false,
-        code: '',
-        cmOptions: {
-            tabSize: 4,
-            mode: 'text/javascript',
-            theme: 'monokai',
-            lineNumbers: true,
-            line: true,
-        },
-        contextMenu:{
-            showMenu: false,
-            x: 0,
-            y: 0,
-            selected_item: [],
-        },
-    },
-    created(){
-
-    },
-    methods:{
-        f_showContextMenu (e) {
-            if (e.target.localName == "i") {
-                var filename = e.target.parentElement.parentElement.getElementsByClassName("name")[0].innerHTML;
-            } else if(e.target.localName == "th") {
-                var filename = "";
-            } else {
-                var filename = e.target.parentElement.getElementsByClassName("name")[0].innerHTML;
-            }
-            v.contextMenu.selected_item = this.list_view_ftp.find( item => item.title === filename);
-            e.preventDefault()
-            this.contextMenu.showMenu = false
-            if (filename != ".." && filename != "") {
-                this.contextMenu.x = e.clientX
-                this.contextMenu.y = e.clientY
-                this.$nextTick(() => {
-                    this.contextMenu.showMenu = true
-                })
-            }
-        },
-        f_refresh () {
-            var formData = new FormData(); 
-            formData.append("path",v.path);
-            axios.post(this.currentRoute+"/refreshftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.list_view_ftp = [];
-                    v.list_view_ftp = response.data.folder;
-                }else{
-
-                }
-            })
-        },
-        f_openFolder (item) {
-            var formData = new FormData(); 
-            formData.append("path",v.path);
-            formData.append("file",item.title);
-            axios.post(this.currentRoute+"/openfolderftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.list_view_ftp = [];
-                    v.list_view_ftp = response.data.folder;
-                    v.path = response.data.path;
-                }else{
-
-                }
-            })
-        },
-        f_openFile_details (item){
-            v.file_details = item;
-            v.aside_file_details = true;
-        },
-        f_viewFile(item){
-            var formData = new FormData();
-            formData.append("path",v.path);
-            formData.append("file",item.title);
-            axios.post(this.currentRoute+"/readfileftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.codemirror_show = true;
-                    v.code = response.data;
-                }else{
-
-                }
-            })
-        },
-        f_saveCodemirror(){
-            var formData = new FormData();
-            formData.append("path",v.path);
-            formData.append("file",v.contextMenu.selected_item.title);
-            formData.append("content",v.code);
-            if (confirm('Are you sure you want to delete this item?') == true) {
-                axios.post(this.currentRoute+"/writefileftp/"+this.id_website, formData).then(function(response){
-                    if(response.status = 200){
-                        v.codemirror_show = false;
-                    }else{
-
-                    }
-                })
-            }
-        },
-        f_closeCodemirror (){
-            v.codemirror_show = false;
-        },
-        renameItem () {
-            v.renamefile = v.contextMenu.selected_item.title;
-            v.dialog_renameFile = true;
-        },
-        f_renameFile(){
-            var formData = new FormData();
-            formData.append("path",v.path);
-            formData.append("oldrenamefile",v.contextMenu.selected_item.title);
-            formData.append("renamefile",v.renamefile);
-            axios.post(this.currentRoute+"/renameftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.contextMenu.selected_item.title = v.renamefile;
-                    v.dialog_renameFile = false;
-                }else{
-
-                }
-            })
-        },
-        f_createFolder(item){
-            var formData = new FormData();
-            formData.append("path",v.path);
-            formData.append("createfolder",v.createfolder);
-            axios.post(this.currentRoute+"/mkdirftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.list_view_ftp.push(response.data);
-                    v.dialog_createFolder = false;
-                }else{
-
-                }
-            })
-        },
-        f_uploadFile(){
-            v.file = this.$refs.file.files[0];
-            var formData = new FormData();
-            formData.append('uploadfile', v.file);
-            formData.append('path', v.path);
-            formData.append("file",v.file.name);
-            axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.list_view_ftp.push(response.data);
-                }else{
-
-                }
-            })
-        },
-        f_uploadFolder(){
-            v.file = this.$refs.folder.files[0];
-            var formData = new FormData();
-            formData.append('uploadfile', v.file);
-            formData.append('path', v.path);
-            formData.append("file",v.file.name);
-            /*for( var i = 0; i < v.file.length; i++ ){
-            let file = v.file[i];
-
-            formData.append('files[' + i + ']', file);
-            }*/
-            axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.list_view_ftp.push(response.data);
-                }else{
-
-                }
-            })
-        },
-        f_downloadFile(item){
-            v.contextMenu.selected_item = item;
-            var formData = new FormData();
-            formData.append("path",v.path);
-            formData.append("file",v.contextMenu.selected_item.title);
-            formData.append("chmod_permissions",v.contextMenu.selected_item.chmod.charAt(0));
-            axios({
-                method: 'POST',
-                url: this.currentRoute+"/downloadftp/"+this.id_website,
-                data: formData,
-                responseType:'blob',
-            }).then(function(response){
-                let blob = new Blob([response.data], {type: response.data.type});
-                let link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = v.contextMenu.selected_item.title;
-                link.click();
-            })
-        },
-        f_dialog_chmodPermissions(){
-            v.dialog_chmodPermissions = true;
-            v.total_chmod = 0;
-            var n = 0,m = 0;
-            for (var i = 0; i < v.contextMenu.selected_item.chmod.length; i++) {
-                
-                if (i >= 1 && i <= 3)
-                    m = 100;
-                if (i >= 4 && i <= 6)
-                    m = 10;
-                if (i >= 7 && i <= 9)
-                    m = 1;
-                
-                var l = v.contextMenu.selected_item.chmod.substr(i, 1);
-                
-                if (l != "d" && l != "-") {
-                    
-                    if (l == "r") {
-                        n = 4;
-                        v.chmod[i-1].chmod_check = true;
-                    }
-                    if (l == "w") {
-                        n = 2;
-                        v.chmod[i-1].chmod_check = true;
-                    }
-                    if (l == "x") {
-                        n = 1;
-                        v.chmod[i-1].chmod_check = true;
-                    }
-                    
-                    v.total_chmod += n * m;
-                }
-            }
-        },
-        f_checkboxChmodPermissions (item) {
-            if (item.chmod_check == true) {
-                v.total_chmod = v.total_chmod + item.value;
-            } else {
-                v.total_chmod = v.total_chmod - item.value;
-            }
-        },
-        f_chmodPermissions(){
-            var formData = new FormData();
-            formData.append('chmod', v.total_chmod);
-            formData.append('path', v.path);
-            formData.append("file",v.contextMenu.selected_item.title);
-            axios.post(this.currentRoute+"/chmodftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    console.log(response);
-                }else{
-
-                }
-            })
-        },
-        f_cutFile(item){
-            v.cutfile.old_path = v.path;
-            v.cutfile.file = item.title;
-            v.cutfile.cut_active = true;
-        },
-        f_pasteFile(item){
-            var cutIndex = v.list_view_ftp.indexOf(v.list_view_ftp.find( search => search.title === v.cutfile.file));
-            var formData = new FormData();
-            formData.append('old_path', v.cutfile.old_path);
-            formData.append('new_path', v.path);
-            formData.append("file", v.cutfile.file);
-            axios.post(this.currentRoute+"/moveftp/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    v.cutfile = Object.assign({}, {old_path: '', file: '', cut_active: false});
-                    if (cutIndex == -1) {
-                        v.list_view_ftp.push(response.data);
-                    }
-                }else{
-
-                }
-            })
-        },
-        f_test(){
-            var formData = new FormData();
-            formData.append('path', v.path);
-            formData.append("file",v.file.name);
-            axios.post(this.currentRoute+"/test/"+this.id_website, formData).then(function(response){
-                if(response.status = 200){
-                    
-                }else{
-
-                }
-            })
-        },
-        f_deleteFile(item){
-            var formData = new FormData();
-            formData.append("path",v.path);
-            formData.append("file",item.title);
-            formData.append("chmod_permissions",item.chmod.charAt(0));
-            if (confirm('Are you sure you want to delete this item?') == true) {
-                axios.post(this.currentRoute+"/deleteftp/"+this.id_website, formData).then(function(response){
-                    if(response.status = 200){
-                        const index = v.list_view_ftp.indexOf(v.contextMenu.selected_item);
-                        v.list_view_ftp.splice(index, 1);
-                    }else{
-
-                    }
-                })
-            }
-        },
-    },
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+    var v = new Vue({
+        el: '#app',
+        data : {
+            dialog_renameFile: false,
+            dialog_createFolder: false,
+            dialog_chmodPermissions: false,
+            aside_file_details: false,
+            file_details:{icon: '', title: '', size: '', type: '', last_modified: '', chmod: '', owner: ''},
+            createfolder:'',
+            renamefile:'',
+            cutfile:{old_path:'',file:'',cut_active:false},
+            currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+            id_website: window.location.href.split('/').pop(),
+            list_view_ftp: <?php echo json_encode($all_storage_server); ?>,
+            path: '<?php echo $path_server; ?>',
+            chmod: [{chmod_check: false, value:400},{chmod_check: false, value:200},{chmod_check: false, value:100},{chmod_check: false, value:40},{chmod_check: false, value:20},{chmod_check: false, value:10},{chmod_check: false, value:4},{chmod_check: false, value:2},{chmod_check: false, value:1}],
+            total_chmod: "000",
+            headers_ftp: [
+                { text: '', value: 'icon', sortable: false},
+                { text: 'Name', value: 'name'},
+                { text: 'Size', value: 'size'},
+                { text: 'Type', value: 'type' },
+                { text: 'Last Modified', value: 'last_modified' },
+                { text: 'Chmod', value: 'chmod'},
+                { text: 'Owner', value: 'owner'},
+            ],
+            headers_list_chmod: [
+                { text: '', value: 'action', sortable: false},
+                { text: 'Read', value: 'read'},
+                { text: 'Write', value: 'write' },
+                { text: 'Execute', value: 'execute'},
+            ],
+            codemirror_show: false,
+            code: '',
+            cmOptions: {
+                tabSize: 4,
+                mode: 'text/javascript',
+                theme: 'monokai',
+                lineNumbers: true,
+                line: true,
+            },
+            contextMenu:{
+                showMenu: false,
+                x: 0,
+                y: 0,
+                selected_item: [],
+            },
+        },
+        created(){
+
+        },
+        methods:{
+            f_showContextMenu (e) {
+                if (e.target.localName == "i") {
+                    var filename = e.target.parentElement.parentElement.getElementsByClassName("name")[0].innerHTML;
+                } else if(e.target.localName == "th") {
+                    var filename = "";
+                } else {
+                    var filename = e.target.parentElement.getElementsByClassName("name")[0].innerHTML;
+                }
+                v.contextMenu.selected_item = this.list_view_ftp.find( item => item.title === filename);
+                e.preventDefault()
+                this.contextMenu.showMenu = false
+                if (filename != ".." && filename != "") {
+                    this.contextMenu.x = e.clientX
+                    this.contextMenu.y = e.clientY
+                    this.$nextTick(() => {
+                        this.contextMenu.showMenu = true
+                    })
+                }
+            },
+            f_refresh () {
+                var formData = new FormData(); 
+                formData.append("path",v.path);
+                axios.post(this.currentRoute+"/refreshftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.list_view_ftp = [];
+                        v.list_view_ftp = response.data.folder;
+                    }else{
+
+                    }
+                })
+            },
+            f_openFolder (item) {
+                var formData = new FormData(); 
+                formData.append("path",v.path);
+                formData.append("file",item.title);
+                axios.post(this.currentRoute+"/openfolderftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.list_view_ftp = [];
+                        v.list_view_ftp = response.data.folder;
+                        v.path = response.data.path;
+                    }else{
+
+                    }
+                })
+            },
+            f_openFile_details (item){
+                v.file_details = item;
+                v.aside_file_details = true;
+            },
+            f_viewFile(item){
+                var formData = new FormData();
+                formData.append("path",v.path);
+                formData.append("file",item.title);
+                axios.post(this.currentRoute+"/readfileftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.codemirror_show = true;
+                        v.code = response.data;
+                    }else{
+
+                    }
+                })
+            },
+            f_saveCodemirror(){
+                var formData = new FormData();
+                formData.append("path",v.path);
+                formData.append("file",v.contextMenu.selected_item.title);
+                formData.append("content",v.code);
+                if (confirm('Are you sure you want to delete this item?') == true) {
+                    axios.post(this.currentRoute+"/writefileftp/"+this.id_website, formData).then(function(response){
+                        if(response.status = 200){
+                            v.codemirror_show = false;
+                        }else{
+
+                        }
+                    })
+                }
+            },
+            f_closeCodemirror (){
+                v.codemirror_show = false;
+            },
+            renameItem () {
+                v.renamefile = v.contextMenu.selected_item.title;
+                v.dialog_renameFile = true;
+            },
+            f_renameFile(){
+                var formData = new FormData();
+                formData.append("path",v.path);
+                formData.append("oldrenamefile",v.contextMenu.selected_item.title);
+                formData.append("renamefile",v.renamefile);
+                axios.post(this.currentRoute+"/renameftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.contextMenu.selected_item.title = v.renamefile;
+                        v.dialog_renameFile = false;
+                    }else{
+
+                    }
+                })
+            },
+            f_createFolder(item){
+                var formData = new FormData();
+                formData.append("path",v.path);
+                formData.append("createfolder",v.createfolder);
+                axios.post(this.currentRoute+"/mkdirftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.list_view_ftp.push(response.data);
+                        v.dialog_createFolder = false;
+                    }else{
+
+                    }
+                })
+            },
+            f_uploadFile(){
+                v.file = this.$refs.file.files[0];
+                var formData = new FormData();
+                formData.append('uploadfile', v.file);
+                formData.append('path', v.path);
+                formData.append("file",v.file.name);
+                axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.list_view_ftp.push(response.data);
+                    }else{
+
+                    }
+                })
+            },
+            f_uploadFolder(){
+                v.file = this.$refs.folder.files[0];
+                var formData = new FormData();
+                formData.append('uploadfile', v.file);
+                formData.append('path', v.path);
+                formData.append("file",v.file.name);
+                /*for( var i = 0; i < v.file.length; i++ ){
+                let file = v.file[i];
+
+                formData.append('files[' + i + ']', file);
+                }*/
+                axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.list_view_ftp.push(response.data);
+                    }else{
+
+                    }
+                })
+            },
+            f_downloadFile(item){
+                v.contextMenu.selected_item = item;
+                var formData = new FormData();
+                formData.append("path",v.path);
+                formData.append("file",v.contextMenu.selected_item.title);
+                formData.append("chmod_permissions",v.contextMenu.selected_item.chmod.charAt(0));
+                axios({
+                    method: 'POST',
+                    url: this.currentRoute+"/downloadftp/"+this.id_website,
+                    data: formData,
+                    responseType:'blob',
+                }).then(function(response){
+                    let blob = new Blob([response.data], {type: response.data.type});
+                    let link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = v.contextMenu.selected_item.title;
+                    link.click();
+                })
+            },
+            f_dialog_chmodPermissions(){
+                v.dialog_chmodPermissions = true;
+                v.total_chmod = 0;
+                var n = 0,m = 0;
+                for (var i = 0; i < v.contextMenu.selected_item.chmod.length; i++) {
+                    
+                    if (i >= 1 && i <= 3)
+                        m = 100;
+                    if (i >= 4 && i <= 6)
+                        m = 10;
+                    if (i >= 7 && i <= 9)
+                        m = 1;
+                    
+                    var l = v.contextMenu.selected_item.chmod.substr(i, 1);
+                    
+                    if (l != "d" && l != "-") {
+                        
+                        if (l == "r") {
+                            n = 4;
+                            v.chmod[i-1].chmod_check = true;
+                        }
+                        if (l == "w") {
+                            n = 2;
+                            v.chmod[i-1].chmod_check = true;
+                        }
+                        if (l == "x") {
+                            n = 1;
+                            v.chmod[i-1].chmod_check = true;
+                        }
+                        
+                        v.total_chmod += n * m;
+                    }
+                }
+            },
+            f_checkboxChmodPermissions (item) {
+                if (item.chmod_check == true) {
+                    v.total_chmod = v.total_chmod + item.value;
+                } else {
+                    v.total_chmod = v.total_chmod - item.value;
+                }
+            },
+            f_chmodPermissions(){
+                var formData = new FormData();
+                formData.append('chmod', v.total_chmod);
+                formData.append('path', v.path);
+                formData.append("file",v.contextMenu.selected_item.title);
+                axios.post(this.currentRoute+"/chmodftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        console.log(response);
+                    }else{
+
+                    }
+                })
+            },
+            f_cutFile(item){
+                v.cutfile.old_path = v.path;
+                v.cutfile.file = item.title;
+                v.cutfile.cut_active = true;
+            },
+            f_pasteFile(item){
+                var cutIndex = v.list_view_ftp.indexOf(v.list_view_ftp.find( search => search.title === v.cutfile.file));
+                var formData = new FormData();
+                formData.append('old_path', v.cutfile.old_path);
+                formData.append('new_path', v.path);
+                formData.append("file", v.cutfile.file);
+                axios.post(this.currentRoute+"/moveftp/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        v.cutfile = Object.assign({}, {old_path: '', file: '', cut_active: false});
+                        if (cutIndex == -1) {
+                            v.list_view_ftp.push(response.data);
+                        }
+                    }else{
+
+                    }
+                })
+            },
+            f_test(){
+                var formData = new FormData();
+                formData.append('path', v.path);
+                formData.append("file",v.file.name);
+                axios.post(this.currentRoute+"/test/"+this.id_website, formData).then(function(response){
+                    if(response.status = 200){
+                        
+                    }else{
+
+                    }
+                })
+            },
+            f_deleteFile(item){
+                var formData = new FormData();
+                formData.append("path",v.path);
+                formData.append("file",item.title);
+                formData.append("chmod_permissions",item.chmod.charAt(0));
+                if (confirm('Are you sure you want to delete this item?') == true) {
+                    axios.post(this.currentRoute+"/deleteftp/"+this.id_website, formData).then(function(response){
+                        if(response.status = 200){
+                            const index = v.list_view_ftp.indexOf(v.contextMenu.selected_item);
+                            v.list_view_ftp.splice(index, 1);
+                        }else{
+
+                        }
+                    })
+                }
+            },
+        },
+    }
+</script>
 <?php $this->load->view('include/footer.php'); ?>

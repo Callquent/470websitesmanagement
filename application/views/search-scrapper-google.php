@@ -104,61 +104,63 @@
         </div>
     </v-app>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-var mixin = {
-    data : {
-        sidebar:"general",
-        dialog_serp_google: false,
-        message:{
-            success:'',
-            error:'',
+    var v = new Vue({
+        el: '#app',
+        data : {
+            sidebar:"general",
+            dialog_serp_google: false,
+            message:{
+                success:'',
+                error:'',
+            },
+            position:'',
+            positions:[],
+            searchGoogle:{
+                keyword:'',
+                url_website:'',
+            },
+            currentRoute: window.location.href,
+            headers: [
+                { text: '<?php echo lang("position"); ?>', value: 'position'},
+                { text: '<?php echo lang("website"); ?>', value: 'website' },
+                { text: '<?php echo lang("meta_title"); ?>', value: 'meta_title'},
+                { text: '<?php echo lang("meta_description"); ?>', value: 'meta_description'},
+            ],
+            list_serp_search_google: [],
+            list_website:  <?php echo json_encode($all_websites->result_array()); ?>,
         },
-        position:'',
-        positions:[],
-        searchGoogle:{
-            keyword:'',
-            url_website:'',
+        created(){
+            this.displayPage();
         },
-        currentRoute: window.location.href,
-        headers: [
-            { text: '<?php echo lang("position"); ?>', value: 'position'},
-            { text: '<?php echo lang("website"); ?>', value: 'website' },
-            { text: '<?php echo lang("meta_title"); ?>', value: 'meta_title'},
-            { text: '<?php echo lang("meta_description"); ?>', value: 'meta_description'},
-        ],
-        list_serp_search_google: [],
-        list_website:  <?php echo json_encode($all_websites->result_array()); ?>,
-    },
-    created(){
-        this.displayPage();
-    },
-    methods:{
-        displayPage(){
+        methods:{
+            displayPage(){
 
-        },
-        async SerpSearchGoogle(){
-            await new Promise(resolve => setTimeout(resolve, 100));
-            var formData = new FormData(); 
-            formData.append("keyword_google",this.searchGoogle.keyword);
-            if (typeof this.searchGoogle.url_website === 'string') {
-                formData.append("website",this.searchGoogle.url_website);
-            } else {
-                formData.append("website",this.searchGoogle.url_website.url_website);
-            }
-            axios.post(this.currentRoute+"/ajaxSearchScrapperGoogle/", formData).then(function(response){
-                if(response.data.result_position_website !== undefined){
-                    v.list_serp_search_google = response.data.result_websites;
-                    v.message.success = true;
-                    v.message.error = false;
-                    v.positions = response.data.result_position_website;
-                }else{
-                    v.message.success = false;
-                    v.message.error = true;
+            },
+            async SerpSearchGoogle(){
+                await new Promise(resolve => setTimeout(resolve, 100));
+                var formData = new FormData(); 
+                formData.append("keyword_google",this.searchGoogle.keyword);
+                if (typeof this.searchGoogle.url_website === 'string') {
+                    formData.append("website",this.searchGoogle.url_website);
+                } else {
+                    formData.append("website",this.searchGoogle.url_website.url_website);
                 }
-            })
-        },
-    }
-}
+                axios.post(this.currentRoute+"/ajaxSearchScrapperGoogle/", formData).then(function(response){
+                    if(response.data.result_position_website !== undefined){
+                        v.list_serp_search_google = response.data.result_websites;
+                        v.message.success = true;
+                        v.message.error = false;
+                        v.positions = response.data.result_position_website;
+                    }else{
+                        v.message.success = false;
+                        v.message.error = true;
+                    }
+                })
+            },
+        }
+    });
 
 
 $( document ).ready(function() {
@@ -399,5 +401,4 @@ $( document ).ready(function() {
 
 });
 </script>
-<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

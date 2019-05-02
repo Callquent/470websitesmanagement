@@ -119,70 +119,72 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-	data : {
-		sidebar:"groups",
-		dialog_add_language: false,
-		  dialog: false,
-		currentRoute: window.location.href,
-		headers: [
-			{ text: '<?php echo lang("language"); ?>', value: 'langage' },
-			{ text: '<?php echo lang("actions"); ?>', value: 'actions'},
-		],
-		list_language: <?php echo json_encode($all_languages->result_array()); ?>,
-		list_delete_language: [],
-		addLanguage: {
-			name: '',
-		},
-		deleteLanguage:{
-			id_move_language: '',
-			id_delete_language: '',
-		},
-	},
-	created(){
-		this.displayPage();
-	},
-	methods:{
-		displayPage(){
-
-		},
-		f_addLanguage(){
-			var formData = new FormData(); 
-			formData.append("language",v.addLanguage.name);
-			axios.post(this.currentRoute+"/add-language/", formData).then(function(response){
-				v.dialog_add_language = false;
-				//v.list_language.push(response.data);
-			})
-		},
-		f_editLanguage(item){
-			var formData = new FormData(); 
-			formData.append("id_language",item.id_language);
-			formData.append("name_language",item.name_language);
-			axios.post(this.currentRoute+"/edit-language/", formData).then(function(response){
-				
-			})
-		},
-		dialogLanguage(item){
-			this.dialog = true;
-			this.deleteLanguage.id_delete_language = item.id_language;
-			/*this.list_delete_language = this.list_language.filter(function (el) {
-				return el.name_language !== item.name_language
-			});*/
-			this.list_delete_language = this.list_language.slice();
-			this.list_delete_language.splice(this.list_delete_language.indexOf(item), 1);
-		},
-		f_deleteLanguage(){
-			var formData = new FormData(); 
-			formData.append("id_move_language",this.deleteLanguage.id_move_language);
-			formData.append("id_delete_language",this.deleteLanguage.id_delete_language);
-			axios.post(this.currentRoute+"/delete-language/", formData).then(function(response){
-				  v.dialog = false;
-				v.list_language = v.list_delete_language.slice();
-			})
-		},
-	}
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+		data : {
+			sidebar:"groups",
+			dialog_add_language: false,
+			  dialog: false,
+			currentRoute: window.location.href,
+			headers: [
+				{ text: '<?php echo lang("language"); ?>', value: 'langage' },
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions'},
+			],
+			list_language: <?php echo json_encode($all_languages->result_array()); ?>,
+			list_delete_language: [],
+			addLanguage: {
+				name: '',
+			},
+			deleteLanguage:{
+				id_move_language: '',
+				id_delete_language: '',
+			},
+		},
+		mixins: [mixin],
+		created(){
+			this.displayPage();
+		},
+		methods:{
+			displayPage(){
+
+			},
+			f_addLanguage(){
+				var formData = new FormData(); 
+				formData.append("language",v.addLanguage.name);
+				axios.post(this.currentRoute+"/add-language/", formData).then(function(response){
+					v.dialog_add_language = false;
+					v.list_language.push(response.data);
+				})
+			},
+			f_editLanguage(item){
+				var formData = new FormData(); 
+				formData.append("id_language",item.id_language);
+				formData.append("name_language",item.name_language);
+				axios.post(this.currentRoute+"/edit-language/", formData).then(function(response){
+					
+				})
+			},
+			dialogLanguage(item){
+				this.dialog = true;
+				this.deleteLanguage.id_delete_language = item.id_language;
+				/*this.list_delete_language = this.list_language.filter(function (el) {
+					return el.name_language !== item.name_language
+				});*/
+				this.list_delete_language = this.list_language.slice();
+				this.list_delete_language.splice(this.list_delete_language.indexOf(item), 1);
+			},
+			f_deleteLanguage(){
+				var formData = new FormData(); 
+				formData.append("id_move_language",this.deleteLanguage.id_move_language);
+				formData.append("id_delete_language",this.deleteLanguage.id_delete_language);
+				axios.post(this.currentRoute+"/delete-language/", formData).then(function(response){
+					  v.dialog = false;
+					v.list_language = v.list_delete_language.slice();
+				})
+			},
+		}
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>

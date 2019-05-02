@@ -152,74 +152,76 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-    data : {
-    	display_ftp: 'false',
-    	display_db: 'false',
-    	display_bo: 'false',
-    	display_htaccess: 'false',
-        currentRoute: window.location.href,
-        id_website: window.location.href.split('/').pop(),
-        list_category: <?php echo json_encode($all_categories->result_array()); ?>,
-        list_language: <?php echo json_encode($all_languages->result_array()); ?>,
-        newWebSite:{
-			name_website:"",
-			url_website:"",	
-			id_category:"",
-			id_language:"",
-			host_ftp:"",
-			login_ftp:"",
-			password_ftp:"",
-			host_db:"",
-			name_db:"",
-			login_db:"",
-			password_db:"",
-			host_bo:"",
-			login_bo:"",
-			password_bo:"",
-			login_htaccess:"",
-			password_htaccess:""
-		},
-		message:{
-			success: false,
-			error: false,
-			timeout: 6000,
-		},
-    },
-    created(){
-
-    },
-    methods:{
-        f_submitForm () {
-			var formData = new FormData();
-			formData.append("name_website",v.newWebSite.name_website);
-			formData.append("url_website",v.newWebSite.url_website);
-			formData.append("id_category",v.newWebSite.id_category);
-			formData.append("id_language",v.newWebSite.id_language);
-			formData.append("host_ftp",v.newWebSite.host_ftp);
-			formData.append("login_ftp",v.newWebSite.login_ftp);
-			formData.append("password_ftp",v.newWebSite.password_ftp);
-			formData.append("host_db",v.newWebSite.host_db);
-			formData.append("name_db",v.newWebSite.name_db);
-			formData.append("login_db",v.newWebSite.login_db);
-			formData.append("password_db",v.newWebSite.password_db);
-			formData.append("host_bo",v.newWebSite.host_bo);
-			formData.append("login_bo",v.newWebSite.login_bo);
-			formData.append("password_bo",v.newWebSite.password_bo);
-			formData.append("login_htaccess",v.newWebSite.login_htaccess);
-			formData.append("password_htaccess",v.newWebSite.password_htaccess);
-			axios.post(this.currentRoute+"/submit/", formData).then(function(response){
-				if(response.status = 200){
-					v.message.success = true;
-					v.$refs.form.reset();
-				} else {
-					v.message.error = true;
-                }
-            })
-        },
-    },
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+		data : {
+			display_ftp: 'false',
+			display_db: 'false',
+			display_bo: 'false',
+			display_htaccess: 'false',
+			currentRoute: window.location.href,
+			id_website: window.location.href.split('/').pop(),
+			list_category: <?php echo json_encode($all_categories->result_array()); ?>,
+			list_language: <?php echo json_encode($all_languages->result_array()); ?>,
+			newWebSite:{
+				name_website:"",
+				url_website:"",	
+				id_category:"",
+				id_language:"",
+				host_ftp:"",
+				login_ftp:"",
+				password_ftp:"",
+				host_db:"",
+				name_db:"",
+				login_db:"",
+				password_db:"",
+				host_bo:"",
+				login_bo:"",
+				password_bo:"",
+				login_htaccess:"",
+				password_htaccess:""
+			},
+			message:{
+				success: false,
+				error: false,
+				timeout: 6000,
+			},
+		},
+		mixins: [mixin],
+		created(){
+
+		},
+		methods:{
+	        f_submitForm () {
+				var formData = new FormData();
+				formData.append("name_website",v.newWebSite.name_website);
+				formData.append("url_website",v.newWebSite.url_website);
+				formData.append("id_category",v.newWebSite.id_category);
+				formData.append("id_language",v.newWebSite.id_language);
+				formData.append("host_ftp",v.newWebSite.host_ftp);
+				formData.append("login_ftp",v.newWebSite.login_ftp);
+				formData.append("password_ftp",v.newWebSite.password_ftp);
+				formData.append("host_db",v.newWebSite.host_db);
+				formData.append("name_db",v.newWebSite.name_db);
+				formData.append("login_db",v.newWebSite.login_db);
+				formData.append("password_db",v.newWebSite.password_db);
+				formData.append("host_bo",v.newWebSite.host_bo);
+				formData.append("login_bo",v.newWebSite.login_bo);
+				formData.append("password_bo",v.newWebSite.password_bo);
+				formData.append("login_htaccess",v.newWebSite.login_htaccess);
+				formData.append("password_htaccess",v.newWebSite.password_htaccess);
+				axios.post(this.currentRoute+"/submit/", formData).then(function(response){
+					if(response.status = 200){
+						v.message.success = true;
+						v.$refs.form.reset();
+					} else {
+						v.message.error = true;
+	                }
+	            })
+	        },
+		}
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>

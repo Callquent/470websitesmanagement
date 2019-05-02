@@ -576,130 +576,132 @@
         </div>
     </v-app>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-var mixin = {
-    data : {
-        dialog_add_task: false,
-        dialog_card: false,
-        list_card_tasks_to_do: <?php echo json_encode($all_card_tasks_to_do->result_array()); ?>,
-        list_card_tasks_in_progress: <?php echo json_encode($all_card_tasks_in_progress->result_array()); ?>,
-        list_card_tasks_completed: <?php echo json_encode($all_card_tasks_completed->result_array()); ?>,
-        list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
-        currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
-        id_project: window.location.href.split('/').pop(),
-        id_card: "",
-        user_profil: <?php echo json_encode($user_role[0]); ?>,
-        headers: [
-            { text: 'Name Task', value: 'name_task', sortable: false},
-            { text: 'User', value: 'username' },
-            { text: 'Actions', value: 'name', sortable: false }
-        ],
-        card_tasks:[],
-        newCard:{
-            name_card_tasks:"",
-            id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
-            id_priority:"",
+    var v = new Vue({
+        el: '#app',
+        data : {
+            dialog_add_task: false,
+            dialog_card: false,
+            list_card_tasks_to_do: <?php echo json_encode($all_card_tasks_to_do->result_array()); ?>,
+            list_card_tasks_in_progress: <?php echo json_encode($all_card_tasks_in_progress->result_array()); ?>,
+            list_card_tasks_completed: <?php echo json_encode($all_card_tasks_completed->result_array()); ?>,
+            list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
+            currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+            id_project: window.location.href.split('/').pop(),
+            id_card: "",
+            user_profil: <?php echo json_encode($user_role[0]); ?>,
+            headers: [
+                { text: 'Name Task', value: 'name_task', sortable: false},
+                { text: 'User', value: 'username' },
+                { text: 'Actions', value: 'name', sortable: false }
+            ],
+            card_tasks:[],
+            newCard:{
+                name_card_tasks:"",
+                id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
+                id_priority:"",
+            },
+            newTask:{
+                nametask:'',
+            },
+            display_card:true,
+            valueDeterminate: 0,
         },
-        newTask:{
-            nametask:'',
+        created(){
+            this.displayPage();
         },
-        display_card:true,
-        valueDeterminate: 0,
-    },
-    created(){
-        this.displayPage();
-    },
-    methods:{
-        displayPage(){
-            this.card_tasks.tasks = (this.card_tasks.tasks == null ? [] : this.card_tasks.tasks);
-            this.valueDeterminate = this.f_isNaN((this.card_tasks.count_tasks_completed/this.card_tasks.tasks.length)*100);
-        },
-        f_dialog_editCard(card_tasks){
-            var formData = new FormData(); 
-            formData.append("id_project_tasks",card_tasks.id_project_tasks);
-            formData.append("id_card_tasks",card_tasks.id_card_tasks);
-            axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
-                if(response.status = 200){
-                    v.card_tasks = response.data.card_tasks;
-                }else{
+        methods:{
+            displayPage(){
+                this.card_tasks.tasks = (this.card_tasks.tasks == null ? [] : this.card_tasks.tasks);
+                this.valueDeterminate = this.f_isNaN((this.card_tasks.count_tasks_completed/this.card_tasks.tasks.length)*100);
+            },
+            f_dialog_editCard(card_tasks){
+                var formData = new FormData(); 
+                formData.append("id_project_tasks",card_tasks.id_project_tasks);
+                formData.append("id_card_tasks",card_tasks.id_card_tasks);
+                axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
+                    if(response.status = 200){
+                        v.card_tasks = response.data.card_tasks;
+                    }else{
 
-                }
-            })
-            v.dialog_card = true;
-        },
-        f_checkTask(item){
-            var formData = new FormData();
-            formData.append("id_project_tasks",item.id_project_tasks);
-            formData.append("id_card_tasks",item.id_card_tasks);
-            formData.append("id_task",item.id_task);
-            formData.append("check_tasks",(item.check_tasks^=1));
-            axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
-                if(response.status = 200){
-                    v.editCard = response.data.card_tasks;
-                    v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_completed)/v.card_tasks.tasks.length*100)
-                    Object.assign(v.card_tasks, v.editCard);
-                    //change status
-                    var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
-                    v.list_card_tasks[index].name_tasks_status = response.data.card_tasks.name_tasks_status;
-                }else{
+                    }
+                })
+                v.dialog_card = true;
+            },
+            f_checkTask(item){
+                var formData = new FormData();
+                formData.append("id_project_tasks",item.id_project_tasks);
+                formData.append("id_card_tasks",item.id_card_tasks);
+                formData.append("id_task",item.id_task);
+                formData.append("check_tasks",(item.check_tasks^=1));
+                axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
+                    if(response.status = 200){
+                        v.editCard = response.data.card_tasks;
+                        v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_completed)/v.card_tasks.tasks.length*100)
+                        Object.assign(v.card_tasks, v.editCard);
+                        //change status
+                        var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
+                        v.list_card_tasks[index].name_tasks_status = response.data.card_tasks.name_tasks_status;
+                    }else{
 
-                }
-            })
-        },
-        f_createCard(){
-            var formData = new FormData();
-            formData.append("name_card_tasks",v.newCard.name_card_tasks);
-            formData.append("id_project_tasks",v.id_project);
-            formData.append("id_card_task",v.newCard.id_card_task);
-            formData.append("id_tasks_priority",v.newCard.id_priority);
-            axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
-                if(response.status = 200){
-                    response.data.card_tasks.count_tasks_per_card++;
-                    v.list_card_tasks_to_do.push(response.data.card_tasks);
-                    v.id_card = v.newCard.id_card_task;
-                    v.dialog_add_task = true;
-                    v.display_card = true;
-                }else{
+                    }
+                })
+            },
+            f_createCard(){
+                var formData = new FormData();
+                formData.append("name_card_tasks",v.newCard.name_card_tasks);
+                formData.append("id_project_tasks",v.id_project);
+                formData.append("id_card_task",v.newCard.id_card_task);
+                formData.append("id_tasks_priority",v.newCard.id_priority);
+                axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
+                    if(response.status = 200){
+                        response.data.card_tasks.count_tasks_per_card++;
+                        v.list_card_tasks_to_do.push(response.data.card_tasks);
+                        v.id_card = v.newCard.id_card_task;
+                        v.dialog_add_task = true;
+                        v.display_card = true;
+                    }else{
 
-                }
-            })
-        },
-        f_editCard(card_tasks){
-            var formData = new FormData(); 
-            formData.append("id_project_tasks",card_tasks.id_project_tasks);
-            formData.append("id_card_tasks",card_tasks.id_card_tasks);
-            axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
-                if(response.status = 200){
-                    v.card_tasks = response.data.card_tasks;
-                }else{
+                    }
+                })
+            },
+            f_editCard(card_tasks){
+                var formData = new FormData(); 
+                formData.append("id_project_tasks",card_tasks.id_project_tasks);
+                formData.append("id_card_tasks",card_tasks.id_card_tasks);
+                axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
+                    if(response.status = 200){
+                        v.card_tasks = response.data.card_tasks;
+                    }else{
 
-                }
-            })
-            v.dialog_card = true;
-        },
-        f_createTask(){
-            var formData = new FormData();
-            formData.append("nametask",v.newTask.nametask);
-            formData.append("id_user",v.user_profil.user_id);
-            formData.append("id_project_tasks",v.id_project);
-            formData.append("id_card_tasks",v.id_card);
-            axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
-                if(response.status = 200){
-                    v.dialog_add_task = false;
-                }else{
+                    }
+                })
+                v.dialog_card = true;
+            },
+            f_createTask(){
+                var formData = new FormData();
+                formData.append("nametask",v.newTask.nametask);
+                formData.append("id_user",v.user_profil.user_id);
+                formData.append("id_project_tasks",v.id_project);
+                formData.append("id_card_tasks",v.id_card);
+                axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
+                    if(response.status = 200){
+                        v.dialog_add_task = false;
+                    }else{
 
+                    }
+                })
+            },
+            f_isNaN(val) {
+                if (isNaN(val)) {
+                    return 0;
+                } else {
+                    return val;
                 }
-            })
-        },
-        f_isNaN(val) {
-            if (isNaN(val)) {
-                return 0;
-            } else {
-                return val;
             }
         }
-    }
-}
+    });
 
 /*$(document).ready(function(){
     function restoreRow(pTable, nRow) {
@@ -830,5 +832,4 @@ var mixin = {
         });*/
 
 </script>
-<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

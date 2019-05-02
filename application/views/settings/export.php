@@ -22,7 +22,7 @@
                                                                     <div class="input-group m-bot15">
                                                                         <input v-model="export_470websitesmanagement.key_secrete" type="text" id="keysecrete" class="form-control">
                                                                         <span class="input-group-btn">
-                                                                            <a href="<?php echo site_url('/export/generate-key/'); ?>" class="btn btn-success">Generate</a>
+                                                                            <v-btn color="success" @click="f_generateKey">Generate</v-btn>
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -85,87 +85,80 @@
         </div>
     </v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-    data : {
-        sidebar:"administration",
-        dialog_add_category: false,
-        dialog: false,
-        currentRoute: window.location.href,
-        list_websites: <?php echo json_encode($all_websites->result_array()); ?>,
-        export_470websitesmanagement:{
-            key_secrete: "<?php echo $key_secrete; ?>",
-            type_export: "radio_quick_export",
-            websites: [],
-        },
-    },
-    created(){
-        this.displayPage();
-    },
-    computed: {
-      likesAllFruit () {
-        return this.export_470websitesmanagement.websites.length === this.list_websites.length
-      },
-      likesSomeFruit () {
-        return this.export_470websitesmanagement.websites.length > 0 && !this.likesAllFruit
-      },
-      icon () {
-        if (this.likesAllFruit) return 'check_box'
-        if (this.likesSomeFruit) return 'indeterminate_check_box'
-        return 'check_box_outline_blank'
-      }
-    },
-    methods:{
-        displayPage(){
-
-        },
-        toggle () {
-            this.$nextTick(() => {
-                if (this.likesAllFruit) {
-                    this.export_470websitesmanagement.websites = []
-                } else {
-                    this.export_470websitesmanagement.websites = this.list_websites.slice()
-                }
-            })
-        },
-        f_export470websitesmanagement(){
-            var formData = new FormData(); 
-            formData.append("keysecrete",v.export_470websitesmanagement.key_secrete);
-            formData.append("websites",v.export_470websitesmanagement.websites);
-            /*axios.post(this.currentRoute+"/export-470websitesmanagement/", formData).then(function(response){
-            })*/
-            axios({
-                method: 'POST',
-                url: this.currentRoute+"/export-470websitesmanagement/",
-                data: formData,
-                responseType:'blob',
-            }).then(function(response){
-                let blob = new Blob([response.data], {type: response.data.type});
-                let link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "websitesmanagement.470";
-                link.click();
-            })
-        },
-    }
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-  $(document).ready(function(){
-        /*$('#form-export a').click(function(e) {
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('href'),
-                success: function(msg){
-                    $('#form-export #keysecrete').val(msg);
-                },
-                error: function(msg){
-                    console.log(msg);
-                }
-            });
-            e.preventDefault();
-        });*/
-  });
+    var v = new Vue({
+        el: '#app',
+        data : {
+            sidebar:"administration",
+            dialog_add_category: false,
+            dialog: false,
+            currentRoute: window.location.href,
+            list_websites: <?php echo json_encode($all_websites->result_array()); ?>,
+            export_470websitesmanagement:{
+                key_secrete: "<?php echo $key_secrete; ?>",
+                type_export: "radio_quick_export",
+                websites: [],
+            },
+        },
+        created(){
+            this.displayPage();
+        },
+        computed: {
+          likesAllFruit () {
+            return this.export_470websitesmanagement.websites.length === this.list_websites.length
+          },
+          likesSomeFruit () {
+            return this.export_470websitesmanagement.websites.length > 0 && !this.likesAllFruit
+          },
+          icon () {
+            if (this.likesAllFruit) return 'check_box'
+            if (this.likesSomeFruit) return 'indeterminate_check_box'
+            return 'check_box_outline_blank'
+          }
+        },
+        methods:{
+            displayPage(){
+
+            },
+            toggle () {
+                this.$nextTick(() => {
+                    if (this.likesAllFruit) {
+                        this.export_470websitesmanagement.websites = []
+                    } else {
+                        this.export_470websitesmanagement.websites = this.list_websites.slice()
+                    }
+                })
+            },
+            f_generateKey(){
+                axios.get(this.currentRoute+"/generate-key/").then(function(response){
+                    if(response.status = 200){
+                        v.export_470websitesmanagement.key_secrete = response.data;
+                    }else{
+
+                    }
+                })
+            },
+            f_export470websitesmanagement(){
+                var formData = new FormData(); 
+                formData.append("keysecrete",v.export_470websitesmanagement.key_secrete);
+                formData.append("websites",v.export_470websitesmanagement.websites);
+                /*axios.post(this.currentRoute+"/export-470websitesmanagement/", formData).then(function(response){
+                })*/
+                axios({
+                    method: 'POST',
+                    url: this.currentRoute+"/export-470websitesmanagement/",
+                    data: formData,
+                    responseType:'blob',
+                }).then(function(response){
+                    let blob = new Blob([response.data], {type: response.data.type});
+                    let link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "websitesmanagement.470";
+                    link.click();
+                })
+            },
+        }
+    });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

@@ -7,10 +7,7 @@ class Import extends CI_Controller {
 		parent::__construct();
 		// Chargement des ressources pour ce controller
 		$this->load->database();
-		$this->load->model('model_front');
-		$this->load->model('model_tasks');
-		$this->load->model('model_back');
-		$this->load->model('model_settings');
+		$this->load->model(array('model_front','model_back','model_migration','model_tasks','model_settings'));
 		$this->load->library(array('Aauth','encryption','form_validation','session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -35,7 +32,7 @@ class Import extends CI_Controller {
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		$this->load->view('import', $data);
+		$this->load->view('settings/import', $data);
 	}
 	public function import_470websitesmanagement()
 	{
@@ -53,7 +50,7 @@ class Import extends CI_Controller {
 		}
 		
 		$decrypt = $this->encryption->decrypt($file);
-		$this->model_back->import_website($decrypt);
+		$this->model_migration->import_website($decrypt);
 		if (empty($decrypt)) {
 			echo json_encode(array( 'type'=>'error' ));
 		} else {

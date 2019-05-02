@@ -97,48 +97,49 @@
 		</div>
 	</v-app>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-var mixin = {
-    data : {
-    	sidebar:"general",
-    	dialog_serp_google: false,
-        message:{
-            success:'',
-            error:'',
-        },
-        searchGoogle:{
-            url_website:'',
-        },
-        currentRoute: window.location.href,
-        headers: [
-            { text: '<?php echo lang("website"); ?>', value: 'website' },
-            { text: '<?php echo lang("meta_title"); ?>', value: 'meta_title'},
-            { text: '<?php echo lang("meta_description"); ?>', value: 'meta_description'},
-        ],
-        list_website_search_google: [],
-        list_website:  <?php echo json_encode($all_websites->result_array()); ?>,
-    },
-    created(){
-        this.displayPage();
-    },
-    methods:{
-        displayPage(){
+	var v = new Vue({
+		el: '#app',
+		data : {
+			sidebar:"general",
+			dialog_serp_google: false,
+		    message:{
+		        success:'',
+		        error:'',
+		    },
+		    searchGoogle:{
+		        url_website:'',
+		    },
+		    currentRoute: window.location.href,
+		    headers: [
+		        { text: '<?php echo lang("website"); ?>', value: 'website' },
+		        { text: '<?php echo lang("meta_title"); ?>', value: 'meta_title'},
+		        { text: '<?php echo lang("meta_description"); ?>', value: 'meta_description'},
+		    ],
+		    list_website_search_google: [],
+		    list_website:  <?php echo json_encode($all_websites->result_array()); ?>,
+		},
+		created(){
+		    this.displayPage();
+		},
+		methods:{
+		    displayPage(){
 
-        },
-        async WebsiteSearchGoogle(){
-        	await new Promise(resolve => setTimeout(resolve, 100));
-            var formData = new FormData(); 
-            formData.append("website",this.searchGoogle.url_website);
-            axios.post(this.currentRoute+"/ajaxWebsiteScrapperGoogle/", formData).then(function(response){
-                if(response.data.result_websites !== undefined){
-                    v.list_website_search_google = response.data.result_websites;
-                    v.message.success = true;
-                }
-            })
-        },
-    }
-}
-
+		    },
+		    async WebsiteSearchGoogle(){
+		    	await new Promise(resolve => setTimeout(resolve, 100));
+		        var formData = new FormData(); 
+		        formData.append("website",this.searchGoogle.url_website);
+		        axios.post(this.currentRoute+"/ajaxWebsiteScrapperGoogle/", formData).then(function(response){
+		            if(response.data.result_websites !== undefined){
+		                v.list_website_search_google = response.data.result_websites;
+		                v.message.success = true;
+		            }
+		        })
+		    },
+		}
+	});
 
 $( document ).ready(function() {
 
@@ -378,5 +379,4 @@ $( document ).ready(function() {
 
 });
 </script>
-<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

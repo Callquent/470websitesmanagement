@@ -104,8 +104,10 @@
 		</div>
 	</v-app>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-	var mixin = {
+	var v = new Vue({
+		el: '#app',
 		data : {
 			sidebar:"general",
 			currentRoute: window.location.href,
@@ -119,15 +121,15 @@
 			],
 			list_whois: <?php echo json_encode($all_whois_renew_tomonth->result_array()); ?>,
 		},
+		mixins: [mixin],
 		created(){
 
 		},
 		methods:{
 
 		}
-	}
+	});
 </script>
-<?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
   var pieDataLanguage = JSON.parse('<?php echo $chart_language; ?>');
   var pieDataCategory = JSON.parse('<?php echo $chart_category; ?>');

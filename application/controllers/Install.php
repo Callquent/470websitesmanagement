@@ -26,7 +26,7 @@ class Install extends CI_Controller {
 				$data['install_database'] = true;
 				$this->load->view('install', $data);
 			} else {
-				$this->load->view('index');
+				$this->load->view('authentication/index');
 			}
 		}
 	}

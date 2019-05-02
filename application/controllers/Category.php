@@ -45,8 +45,11 @@ class Category extends CI_Controller {
 		$name_category = $this->input->post('category');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_category->create_category($name_category);
+			$id_category = $this->model_category->create_category($name_category);
+			$data = $this->model_category->get_category($id_category);
 		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 	public function edit_category()
 	{

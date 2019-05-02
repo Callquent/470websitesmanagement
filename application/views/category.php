@@ -119,67 +119,69 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-	data : {
-		sidebar:"groups",
-		dialog_add_category: false,
-		dialog: false,
-		currentRoute: window.location.href,
-		headers: [
-			{ text: '<?php echo lang("category"); ?>', value: 'category' },
-			{ text: '<?php echo lang("actions"); ?>', value: 'actions'},
-		],
-		list_category: <?php echo json_encode($all_categories->result_array()); ?>,
-		list_delete_category: [],
-		addCategory: {
-			name: '',
-		},
-		deleteCategory:{
-			id_move_category: '',
-			id_delete_category: '',
-		},
-	},
-	created(){
-		this.displayPage();
-	},
-	methods:{
-		displayPage(){
-
-		},
-		f_addCategory(){
-			var formData = new FormData(); 
-			formData.append("category",v.addCategory.name);
-			axios.post(this.currentRoute+"/add-category/", formData).then(function(response){
-				v.dialog_add_category = false;
-				//v.list_category.push(response.data);
-			})
-		},
-		f_editCategory(item){
-			var formData = new FormData(); 
-			formData.append("id_category",item.id_category);
-			formData.append("name_category",item.name_category);
-			axios.post(this.currentRoute+"/edit-category/", formData).then(function(response){
-				
-			})
-		},
-		dialogCategory(item){
-			this.dialog = true;
-			this.deleteCategory.id_delete_category = item.id_category;
-			this.list_delete_category = this.list_category.slice();
-			this.list_delete_category.splice(this.list_delete_category.indexOf(item), 1);
-		},
-		f_deleteCategory(){
-			var formData = new FormData(); 
-			formData.append("id_move_category",this.deleteCategory.id_move_category);
-			formData.append("id_delete_category",this.deleteCategory.id_delete_category);
-			axios.post(this.currentRoute+"/delete-category/", formData).then(function(response){
-				v.dialog = false;
-				v.list_category = v.list_delete_category.slice();
-			})
-		},
-	}
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+		data : {
+			sidebar:"groups",
+			dialog_add_category: false,
+			dialog: false,
+			currentRoute: window.location.href,
+			headers: [
+				{ text: '<?php echo lang("category"); ?>', value: 'category' },
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions'},
+			],
+			list_category: <?php echo json_encode($all_categories->result_array()); ?>,
+			list_delete_category: [],
+			addCategory: {
+				name: '',
+			},
+			deleteCategory:{
+				id_move_category: '',
+				id_delete_category: '',
+			},
+		},
+		mixins: [mixin],
+		created(){
+			this.displayPage();
+		},
+		methods:{
+			displayPage(){
+
+			},
+			f_addCategory(){
+				var formData = new FormData(); 
+				formData.append("category",v.addCategory.name);
+				axios.post(this.currentRoute+"/add-category/", formData).then(function(response){
+					v.dialog_add_category = false;
+					v.list_category.push(response.data);
+				})
+			},
+			f_editCategory(item){
+				var formData = new FormData(); 
+				formData.append("id_category",item.id_category);
+				formData.append("name_category",item.name_category);
+				axios.post(this.currentRoute+"/edit-category/", formData).then(function(response){
+					
+				})
+			},
+			dialogCategory(item){
+				this.dialog = true;
+				this.deleteCategory.id_delete_category = item.id_category;
+				this.list_delete_category = this.list_category.slice();
+				this.list_delete_category.splice(this.list_delete_category.indexOf(item), 1);
+			},
+			f_deleteCategory(){
+				var formData = new FormData(); 
+				formData.append("id_move_category",this.deleteCategory.id_move_category);
+				formData.append("id_delete_category",this.deleteCategory.id_delete_category);
+				axios.post(this.currentRoute+"/delete-category/", formData).then(function(response){
+					v.dialog = false;
+					v.list_category = v.list_delete_category.slice();
+				})
+			},
+		}
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>

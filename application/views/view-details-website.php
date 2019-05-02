@@ -271,282 +271,283 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-    data : {
-		dialog_ftp: false,
-		dialog_database: false,
-		dialog_backoffice: false,
-		dialog_htaccess: false,
-        currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
-        id_website: window.location.href.split('/').pop(),
-		headers_ftp: [
-			{ text: '<?php echo lang("host_ftp"); ?>', value: 'host_ftp'},
-			{ text: '<?php echo lang("login_ftp"); ?>', value: 'login_ftp'},
-			{ text: '<?php echo lang("password_ftp"); ?>', value: 'password_ftp'},
-			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
-		],
-		headers_database: [
-			{ text: '<?php echo lang("host_sql"); ?>', value: 'host_database'},
-			{ text: '<?php echo lang("name_sql"); ?>', value: 'name_database'},
-			{ text: '<?php echo lang("login_sql"); ?>', value: 'login_database'},
-			{ text: '<?php echo lang("password_sql"); ?>', value: 'password_database'},
-			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
-		],
-		headers_backoffice: [
-			{ text: '<?php echo lang("host_backoffice"); ?>', value: 'host_backoffice'},
-			{ text: '<?php echo lang("login_backoffice"); ?>', value: 'login_backoffice'},
-			{ text: '<?php echo lang("password_backoffice"); ?>', value: 'password_backoffice'},
-			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
-		],
-		headers_htaccess: [
-			{ text: '<?php echo lang("login_htaccess"); ?>', value: 'login_htaccess'},
-			{ text: '<?php echo lang("password_htaccess"); ?>', value: 'password_htaccess'},
-			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
-		],
-		editedFtpIndex: -1,
-		editedDatabaseIndex: -1,
-		editedBackofficeIndex: -1,
-		editedHtaccessIndex: -1,
-		editedFtp: {
-			id_ftp: '',
-			host_ftp: '',
-			login_ftp: '',
-			password_ftp: '',
-		},
-		editedDatabase: {
-			id_database: '',
-			host_database: '',
-			name_database: '',
-			login_database: '',
-			password_database: '',
-		},
-		editedBackoffice: {
-			id_backoffice: '',
-			host_backoffice: '',
-			login_backoffice: '',
-			password_backoffice: '',
-		},
-		editedHtaccess: {
-			id_htaccess: '',
-			login_htaccess: '',
-			password_htaccess: '',
-		},
-		website:  <?php echo json_encode($website->row()); ?>,
-        list_ftp:  <?php echo json_encode($ftp->result_array()); ?>,
-        list_database:  <?php echo json_encode($database->result_array()); ?>,
-        list_backoffice:  <?php echo json_encode($backoffice->result_array()); ?>,
-        list_htaccess:  <?php echo json_encode($htaccess->result_array()); ?>,
-    },
-	watch: {
-		dialog_ftp (val) {
-			val || this.closeFTP()
-		},
-		dialog_database (val) {
-			val || this.closeDatabase()
-		},
-		dialog_backoffice (val) {
-			val || this.closeBackoffice()
-		},
-		dialog_htaccess (val) {
-			val || this.closeHtaccess()
-		}
-	},
-    created(){
-        this.displayPage();
-    },
-    methods:{
-        displayPage(){
-
-        },
-		f_editFtp (item) {
-			this.editedFtpIndex = this.list_ftp.indexOf(item)
-			this.editedFtp = Object.assign({}, item)
-			this.dialog_ftp = true
-		},
-		f_editDatabase (item) {
-			this.editedDatabaseIndex = this.list_database.indexOf(item)
-			this.editedDatabase = Object.assign({}, item)
-			this.dialog_database = true
-		},
-		f_editBackoffice (item) {
-			this.editedBackofficeIndex = this.list_backoffice.indexOf(item)
-			this.editedBackoffice = Object.assign({}, item)
-			this.dialog_backoffice = true
-		},
-		f_editHtaccess (item) {
-			this.editedHtaccessIndex = this.list_htaccess.indexOf(item)
-			this.editedHtaccess = Object.assign({}, item)
-			this.dialog_htaccess = true
-		},
-		f_deleteFtp (item) {
-			var formData = new FormData();
-			formData.append("id_website",v.id_website);
-			formData.append("id_ftp",item.id_ftp);
-			if (confirm('Are you sure you want to delete this item?') == true) {
-				axios.post(this.currentRoute+"/delete-ftp-website/", formData).then(function(response){
-					if(response.status = 200){
-						const index = v.list_ftp.indexOf(item);
-						v.list_ftp.splice(index, 1);
-					}
-				})
-			}
-		},
-		f_deleteDatabase (item) {
-			var formData = new FormData();
-			formData.append("id_website",v.id_website);
-			formData.append("id_database",item.id_database);
-			if (confirm('Are you sure you want to delete this item?') == true) {
-				axios.post(this.currentRoute+"/delete-database-website/", formData).then(function(response){
-					if(response.status = 200){
-						const index = v.list_database.indexOf(item);
-						v.list_database.splice(index, 1);
-					}
-				})
-			}
-		},
-		f_deleteBackoffice (item) {
-			var formData = new FormData();
-			formData.append("id_website",v.id_website);
-			formData.append("id_backoffice",item.id_backoffice);
-			if (confirm('Are you sure you want to delete this item?') == true) {
-				axios.post(this.currentRoute+"/delete-backoffice-website/", formData).then(function(response){
-					if(response.status = 200){
-						const index = v.list_backoffice.indexOf(item);
-						v.list_backoffice.splice(index, 1);
-					}
-				})
-			}
-		},
-		f_deleteHtaccess (item) {
-			var formData = new FormData();
-			formData.append("id_website",v.id_website);
-			formData.append("id_htaccess",item.id_htaccess);
-			axios.post(this.currentRoute+"/delete-htaccess-website/", formData).then(function(response){
-				if(response.status = 200){
-					const index = v.list_htaccess.indexOf(item);
-        			v.list_htaccess.splice(index, 1);
-				}
-			})
-		},
-		saveFTP () {
-			var formData = new FormData();
-			formData.append("id_website",v.id_website);
-			formData.append("hote_ftp",v.editedFtp.host_ftp);
-			formData.append("login_ftp",v.editedFtp.login_ftp);
-			formData.append("password_ftp",v.editedFtp.password_ftp);
-			if (this.editedFtpIndex > -1) {
-				formData.append("id_ftp",v.editedFtp.id_ftp);
-				axios.post(this.currentRoute+"/edit-ftp-website/", formData).then(function(response){
-					if(response.status = 200){
-						Object.assign(v.list_ftp[v.editedFtpIndex], v.editedFtp)
-					}
-				})
-			} else {
-				axios.post(this.currentRoute+"/create-ftp-website/", formData).then(function(response){
-					if(response.status = 200){
-						v.list_ftp.push(v.editedFtp)
-					}
-				})
-			}
-			this.closeFTP()
-		},
-		saveDatabase () {
-			var formData = new FormData();
-			formData.append("id_website",v.id_website);
-			formData.append("hote_database",v.editedDatabase.host_database);
-			formData.append("name_database",v.editedDatabase.name_database);
-			formData.append("login_database",v.editedDatabase.login_database);
-			formData.append("password_database",v.editedDatabase.password_database);
-			if (this.editedDatabaseIndex > -1) {
-				formData.append("id_database",v.editedDatabase.id_database);
-				axios.post(this.currentRoute+"/edit-database-website/", formData).then(function(response){
-					if(response.status = 200){
-						Object.assign(v.list_database[v.editedDatabaseIndex], v.editedDatabase)
-					}
-				})
-			} else {
-				axios.post(this.currentRoute+"/create-database-website/", formData).then(function(response){
-					if(response.status = 200){
-						v.list_database.push(v.editedDatabase)
-					}
-				})
-			}
-			this.closeDatabase()
-		},
-		saveBackoffice () {
-			var formData = new FormData();
-			formData.append("id_website",v.id_website);
-			formData.append("hote_backoffice",v.editedBackoffice.host_backoffice);
-			formData.append("login_backoffice",v.editedBackoffice.login_backoffice);
-			formData.append("password_backoffice",v.editedBackoffice.password_backoffice);
-			if (this.editedBackofficeIndex > -1) {
-				formData.append("id_backoffice",v.editedBackoffice.id_backoffice);
-				axios.post(this.currentRoute+"/edit-backoffice-website/", formData).then(function(response){
-					if(response.status = 200){
-						Object.assign(v.list_backoffice[v.editedBackofficeIndex], v.editedBackoffice)
-					}
-				})
-			} else {
-				axios.post(this.currentRoute+"/create-backoffice-website/", formData).then(function(response){
-					if(response.status = 200){
-						v.list_backoffice.push(v.editedBackoffice)
-					}
-				})
-			}
-			this.closeBackoffice()
-		},
-		saveHtaccess () {
-			var formData = new FormData();
-			formData.append("id_website",v.id_website);
-			formData.append("login_htaccess",v.editedHtaccess.login_htaccess);
-			formData.append("password_htaccess",v.editedHtaccess.password_htaccess);
-			if (this.editedHtaccessIndex > -1) {
-				formData.append("id_htaccess",v.editedHtaccess.id_htaccess);
-				axios.post(this.currentRoute+"/edit-htaccess-website/", formData).then(function(response){
-					if(response.status = 200){
-						Object.assign(v.list_htaccess[v.editedHtaccessIndex], v.editedHtaccess)
-					}
-				})
-			} else {
-				axios.post(this.currentRoute+"/create-htaccess-website/", formData).then(function(response){
-					if(response.status = 200){
-						v.list_htaccess.push(v.editedHtaccess)
-					}
-				})
-			}
-			this.closeHtaccess()
-		},
-		closeFTP () {
-			this.dialog_ftp = false
-			setTimeout(() => {
-				this.editedFtp = Object.assign({}, {id_ftp: '', host_ftp: '', login_ftp: '', password_ftp: ''})
-				this.editedFtpIndex = -1
-			}, 300)
-		},
-		closeDatabase () {
-			this.dialog_database = false
-			setTimeout(() => {
-				this.editedDatabase = Object.assign({}, {id_database: '', host_database: '', name_database: '', login_database: '', password_database: ''})
-				this.editedDatabaseIndex = -1
-			}, 300)
-		},
-		closeBackoffice () {
-			this.dialog_backoffice = false
-			setTimeout(() => {
-				this.editedBackoffice = Object.assign({}, {id_backoffice: '', host_backoffice: '', login_backoffice: '', password_backoffice: ''})
-				this.editedBackofficeIndex = -1
-			}, 300)
-		},
-		closeHtaccess () {
-			this.dialog_htaccess = false
-			setTimeout(() => {
-				this.editedHtaccess = Object.assign({}, {id_htaccess: '', login_htaccess: '', password_htaccess: ''})
-				this.editedHtaccessIndex = -1
-			}, 300)
-		}
-    }
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+		data : {
+			dialog_ftp: false,
+			dialog_database: false,
+			dialog_backoffice: false,
+			dialog_htaccess: false,
+		    currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+		    id_website: window.location.href.split('/').pop(),
+			headers_ftp: [
+				{ text: '<?php echo lang("host_ftp"); ?>', value: 'host_ftp'},
+				{ text: '<?php echo lang("login_ftp"); ?>', value: 'login_ftp'},
+				{ text: '<?php echo lang("password_ftp"); ?>', value: 'password_ftp'},
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+			],
+			headers_database: [
+				{ text: '<?php echo lang("host_sql"); ?>', value: 'host_database'},
+				{ text: '<?php echo lang("name_sql"); ?>', value: 'name_database'},
+				{ text: '<?php echo lang("login_sql"); ?>', value: 'login_database'},
+				{ text: '<?php echo lang("password_sql"); ?>', value: 'password_database'},
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+			],
+			headers_backoffice: [
+				{ text: '<?php echo lang("host_backoffice"); ?>', value: 'host_backoffice'},
+				{ text: '<?php echo lang("login_backoffice"); ?>', value: 'login_backoffice'},
+				{ text: '<?php echo lang("password_backoffice"); ?>', value: 'password_backoffice'},
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+			],
+			headers_htaccess: [
+				{ text: '<?php echo lang("login_htaccess"); ?>', value: 'login_htaccess'},
+				{ text: '<?php echo lang("password_htaccess"); ?>', value: 'password_htaccess'},
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+			],
+			editedFtpIndex: -1,
+			editedDatabaseIndex: -1,
+			editedBackofficeIndex: -1,
+			editedHtaccessIndex: -1,
+			editedFtp: {
+				id_ftp: '',
+				host_ftp: '',
+				login_ftp: '',
+				password_ftp: '',
+			},
+			editedDatabase: {
+				id_database: '',
+				host_database: '',
+				name_database: '',
+				login_database: '',
+				password_database: '',
+			},
+			editedBackoffice: {
+				id_backoffice: '',
+				host_backoffice: '',
+				login_backoffice: '',
+				password_backoffice: '',
+			},
+			editedHtaccess: {
+				id_htaccess: '',
+				login_htaccess: '',
+				password_htaccess: '',
+			},
+			website:  <?php echo json_encode($website->row()); ?>,
+		    list_ftp:  <?php echo json_encode($ftp->result_array()); ?>,
+		    list_database:  <?php echo json_encode($database->result_array()); ?>,
+		    list_backoffice:  <?php echo json_encode($backoffice->result_array()); ?>,
+		    list_htaccess:  <?php echo json_encode($htaccess->result_array()); ?>,
+		},
+		watch: {
+			dialog_ftp (val) {
+				val || this.closeFTP()
+			},
+			dialog_database (val) {
+				val || this.closeDatabase()
+			},
+			dialog_backoffice (val) {
+				val || this.closeBackoffice()
+			},
+			dialog_htaccess (val) {
+				val || this.closeHtaccess()
+			}
+		},
+		created(){
+		    this.displayPage();
+		},
+		methods:{
+		    displayPage(){
+
+		    },
+			f_editFtp (item) {
+				this.editedFtpIndex = this.list_ftp.indexOf(item)
+				this.editedFtp = Object.assign({}, item)
+				this.dialog_ftp = true
+			},
+			f_editDatabase (item) {
+				this.editedDatabaseIndex = this.list_database.indexOf(item)
+				this.editedDatabase = Object.assign({}, item)
+				this.dialog_database = true
+			},
+			f_editBackoffice (item) {
+				this.editedBackofficeIndex = this.list_backoffice.indexOf(item)
+				this.editedBackoffice = Object.assign({}, item)
+				this.dialog_backoffice = true
+			},
+			f_editHtaccess (item) {
+				this.editedHtaccessIndex = this.list_htaccess.indexOf(item)
+				this.editedHtaccess = Object.assign({}, item)
+				this.dialog_htaccess = true
+			},
+			f_deleteFtp (item) {
+				var formData = new FormData();
+				formData.append("id_website",v.id_website);
+				formData.append("id_ftp",item.id_ftp);
+				if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete-ftp-website/", formData).then(function(response){
+						if(response.status = 200){
+							const index = v.list_ftp.indexOf(item);
+							v.list_ftp.splice(index, 1);
+						}
+					})
+				}
+			},
+			f_deleteDatabase (item) {
+				var formData = new FormData();
+				formData.append("id_website",v.id_website);
+				formData.append("id_database",item.id_database);
+				if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete-database-website/", formData).then(function(response){
+						if(response.status = 200){
+							const index = v.list_database.indexOf(item);
+							v.list_database.splice(index, 1);
+						}
+					})
+				}
+			},
+			f_deleteBackoffice (item) {
+				var formData = new FormData();
+				formData.append("id_website",v.id_website);
+				formData.append("id_backoffice",item.id_backoffice);
+				if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete-backoffice-website/", formData).then(function(response){
+						if(response.status = 200){
+							const index = v.list_backoffice.indexOf(item);
+							v.list_backoffice.splice(index, 1);
+						}
+					})
+				}
+			},
+			f_deleteHtaccess (item) {
+				var formData = new FormData();
+				formData.append("id_website",v.id_website);
+				formData.append("id_htaccess",item.id_htaccess);
+				axios.post(this.currentRoute+"/delete-htaccess-website/", formData).then(function(response){
+					if(response.status = 200){
+						const index = v.list_htaccess.indexOf(item);
+		    			v.list_htaccess.splice(index, 1);
+					}
+				})
+			},
+			saveFTP () {
+				var formData = new FormData();
+				formData.append("id_website",v.id_website);
+				formData.append("hote_ftp",v.editedFtp.host_ftp);
+				formData.append("login_ftp",v.editedFtp.login_ftp);
+				formData.append("password_ftp",v.editedFtp.password_ftp);
+				if (this.editedFtpIndex > -1) {
+					formData.append("id_ftp",v.editedFtp.id_ftp);
+					axios.post(this.currentRoute+"/edit-ftp-website/", formData).then(function(response){
+						if(response.status = 200){
+							Object.assign(v.list_ftp[v.editedFtpIndex], v.editedFtp)
+						}
+					})
+				} else {
+					axios.post(this.currentRoute+"/create-ftp-website/", formData).then(function(response){
+						if(response.status = 200){
+							v.list_ftp.push(v.editedFtp)
+						}
+					})
+				}
+				this.closeFTP()
+			},
+			saveDatabase () {
+				var formData = new FormData();
+				formData.append("id_website",v.id_website);
+				formData.append("hote_database",v.editedDatabase.host_database);
+				formData.append("name_database",v.editedDatabase.name_database);
+				formData.append("login_database",v.editedDatabase.login_database);
+				formData.append("password_database",v.editedDatabase.password_database);
+				if (this.editedDatabaseIndex > -1) {
+					formData.append("id_database",v.editedDatabase.id_database);
+					axios.post(this.currentRoute+"/edit-database-website/", formData).then(function(response){
+						if(response.status = 200){
+							Object.assign(v.list_database[v.editedDatabaseIndex], v.editedDatabase)
+						}
+					})
+				} else {
+					axios.post(this.currentRoute+"/create-database-website/", formData).then(function(response){
+						if(response.status = 200){
+							v.list_database.push(v.editedDatabase)
+						}
+					})
+				}
+				this.closeDatabase()
+			},
+			saveBackoffice () {
+				var formData = new FormData();
+				formData.append("id_website",v.id_website);
+				formData.append("hote_backoffice",v.editedBackoffice.host_backoffice);
+				formData.append("login_backoffice",v.editedBackoffice.login_backoffice);
+				formData.append("password_backoffice",v.editedBackoffice.password_backoffice);
+				if (this.editedBackofficeIndex > -1) {
+					formData.append("id_backoffice",v.editedBackoffice.id_backoffice);
+					axios.post(this.currentRoute+"/edit-backoffice-website/", formData).then(function(response){
+						if(response.status = 200){
+							Object.assign(v.list_backoffice[v.editedBackofficeIndex], v.editedBackoffice)
+						}
+					})
+				} else {
+					axios.post(this.currentRoute+"/create-backoffice-website/", formData).then(function(response){
+						if(response.status = 200){
+							v.list_backoffice.push(v.editedBackoffice)
+						}
+					})
+				}
+				this.closeBackoffice()
+			},
+			saveHtaccess () {
+				var formData = new FormData();
+				formData.append("id_website",v.id_website);
+				formData.append("login_htaccess",v.editedHtaccess.login_htaccess);
+				formData.append("password_htaccess",v.editedHtaccess.password_htaccess);
+				if (this.editedHtaccessIndex > -1) {
+					formData.append("id_htaccess",v.editedHtaccess.id_htaccess);
+					axios.post(this.currentRoute+"/edit-htaccess-website/", formData).then(function(response){
+						if(response.status = 200){
+							Object.assign(v.list_htaccess[v.editedHtaccessIndex], v.editedHtaccess)
+						}
+					})
+				} else {
+					axios.post(this.currentRoute+"/create-htaccess-website/", formData).then(function(response){
+						if(response.status = 200){
+							v.list_htaccess.push(v.editedHtaccess)
+						}
+					})
+				}
+				this.closeHtaccess()
+			},
+			closeFTP () {
+				this.dialog_ftp = false
+				setTimeout(() => {
+					this.editedFtp = Object.assign({}, {id_ftp: '', host_ftp: '', login_ftp: '', password_ftp: ''})
+					this.editedFtpIndex = -1
+				}, 300)
+			},
+			closeDatabase () {
+				this.dialog_database = false
+				setTimeout(() => {
+					this.editedDatabase = Object.assign({}, {id_database: '', host_database: '', name_database: '', login_database: '', password_database: ''})
+					this.editedDatabaseIndex = -1
+				}, 300)
+			},
+			closeBackoffice () {
+				this.dialog_backoffice = false
+				setTimeout(() => {
+					this.editedBackoffice = Object.assign({}, {id_backoffice: '', host_backoffice: '', login_backoffice: '', password_backoffice: ''})
+					this.editedBackofficeIndex = -1
+				}, 300)
+			},
+			closeHtaccess () {
+				this.dialog_htaccess = false
+				setTimeout(() => {
+					this.editedHtaccess = Object.assign({}, {id_htaccess: '', login_htaccess: '', password_htaccess: ''})
+					this.editedHtaccessIndex = -1
+				}, 300)
+			}
+		}
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>

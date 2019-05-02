@@ -6,10 +6,7 @@ class Export extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model('model_front');
-		$this->load->model('model_tasks');
-		$this->load->model('model_back');
-		$this->load->model('model_settings');
+		$this->load->model(array('model_front','model_back','model_migration','model_tasks','model_settings'));
 		$this->load->library(array('Aauth','encryption','form_validation','session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language','file'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -37,7 +34,7 @@ class Export extends CI_Controller {
 
 		$data['key_secrete'] = bin2hex($this->encryption->create_key(6));
 
-		$this->load->view('export', $data);
+		$this->load->view('settings/export', $data);
 	}
 	public function export_470websitesmanagement()
 	{
@@ -54,7 +51,7 @@ class Export extends CI_Controller {
 		);
 		$websites = $this->input->post('websites');
 		
-		$content = $this->model_back->export_website($websites);
+		$content = $this->model_migration->export_website($websites);
 		$crypt = $this->encryption->encrypt($content);
 
 		echo $crypt;

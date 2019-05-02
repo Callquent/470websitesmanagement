@@ -37,7 +37,7 @@ class Profile extends CI_Controller {
 		$data['user'] = $this->aauth->get_user();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		$this->load->view('profile', $data);
+		$this->load->view('settings/profile', $data);
 	}
 	public function change_password()
 	{

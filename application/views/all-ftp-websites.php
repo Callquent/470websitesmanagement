@@ -33,19 +33,20 @@
         </div>
     </v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-    data : {
-        sidebar:"general",
-        currentRoute: window.location.href,
-        headers: [
-            { text: '<?php echo lang('name'); ?>', value: 'name' },
-            { text: '<?php echo lang('website'); ?>', value: 'website'},
-            { text: '<?php echo lang('ftp'); ?>', value: 'ftp'},
-        ],
-        list_website_ftp: <?php echo json_encode($all_websites->result_array()); ?>,
-    },
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+    var v = new Vue({
+        el: '#app',
+        data : {
+            sidebar:"general",
+            currentRoute: window.location.href,
+            headers: [
+                { text: '<?php echo lang('name'); ?>', value: 'name' },
+                { text: '<?php echo lang('website'); ?>', value: 'website'},
+                { text: '<?php echo lang('ftp'); ?>', value: 'ftp'},
+            ],
+            list_website_ftp: <?php echo json_encode($all_websites->result_array()); ?>,
+        },
+    });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

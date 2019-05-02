@@ -184,110 +184,111 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-	data : {
-		sidebar:"members",
-		dialog_add_user: false,
-		dialog_edit_user: false,
-		result: {
-			alert: false,
-			errors: '',
-		},
-		users: <?php echo json_encode($list_users->result_array()); ?>,
-		list_user_groups: <?php echo json_encode($list_groups->result_array()); ?>,
-		currentRoute: window.location.href,
-		headers: [
-			{ text: 'Name User', value: 'username'},
-			{ text: 'Email', value: 'email' },
-			{ text: 'Groupes', value: 'groups' },
-			{ text: 'Actions', value: 'name', sortable: false }
-		],
-		addUser:{
-			id: '',
-			name_user: '',
-			email: '',
-			password: '',
-			password_confirm: '',
-			name_group: 'Unknown',
-		},
-		editUser:{
-			id: '',
-			email: '',
-			name_user: '',
-			name_group: '',
-			old_name_group: '',
-		},
-		editIndexUser: -1,
-	},
-	created(){
-		this.displayPage();
-	},
-	methods:{
-		displayPage(){
-
-		},
-		dialogUser(item){
-			this.dialog_edit_user = true;
-			this.editIndexUser = this.users.indexOf(item);
-			this.editUser = Object.assign({}, item);
-			var old_name_group = v.list_user_groups.filter(function (el) {
-				return el.name == item.name_group;
-			})
-			this.editUser.name_group = Object.assign({},old_name_group[0]);
-			this.editUser.old_name_group = Object.assign({},old_name_group[0]);
-		},
-		f_addUser(){
-				var formData = new FormData();
-				formData.append("name",v.addUser.name_user);
-				formData.append("email",v.addUser.email);
-				formData.append("password",v.addUser.password);
-				formData.append("password_confirm",v.addUser.password_confirm);
-				axios.post(this.currentRoute+"/create-user/", formData).then(function(response){
-					if(response.status = 200){
-						if (response.data.length == 0) {
-							v.users.push(v.addUser);
-							v.dialog_add_user = false;
-						} else {
-							v.result.errors = response.data;
-							v.result.alert = true;
-						}
-					}else{
-
-					}
-				})
-		},
-		f_editUser(){
-				var formData = new FormData();
-				formData.append("id_user",v.editUser.id);
-				formData.append("email_user",v.editUser.email);
-				formData.append("old_idgroup_user",v.editUser.old_name_group.id);
-				formData.append("new_idgroup_user",v.editUser.name_group.id);
-				axios.post(this.currentRoute+"/edit-user/", formData).then(function(response){
-					if(response.status = 200){
-						Object.assign(v.users[v.editIndexUser], {id: v.editUser.id,email: v.editUser.email,name_user: v.editUser.name_user,name_group: v.editUser.name_group.name})
-						v.dialog_edit_user = false;
-					}else{
-
-					}
-				})
-		},
-		f_deleteUser(item){
-			var formData = new FormData();
-			formData.append("id_user",item.id);
-			if (confirm('Are you sure you want to delete this item?') == true) {
-				axios.post(this.currentRoute+"/delete-user/", formData).then(function(response){
-					if(response.status = 200){
-						const index = v.users.indexOf(item)
-						v.users.splice(index, 1)
-					}else{
-
-					}
-				})
-			}
-		},
-	}
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+		data : {
+			sidebar:"members",
+			dialog_add_user: false,
+			dialog_edit_user: false,
+			result: {
+				alert: false,
+				errors: '',
+			},
+			users: <?php echo json_encode($list_users->result_array()); ?>,
+			list_user_groups: <?php echo json_encode($list_groups->result_array()); ?>,
+			currentRoute: window.location.href,
+			headers: [
+				{ text: 'Name User', value: 'username'},
+				{ text: 'Email', value: 'email' },
+				{ text: 'Groupes', value: 'groups' },
+				{ text: 'Actions', value: 'name', sortable: false }
+			],
+			addUser:{
+				id: '',
+				name_user: '',
+				email: '',
+				password: '',
+				password_confirm: '',
+				name_group: 'Unknown',
+			},
+			editUser:{
+				id: '',
+				email: '',
+				name_user: '',
+				name_group: '',
+				old_name_group: '',
+			},
+			editIndexUser: -1,
+		},
+		created(){
+			this.displayPage();
+		},
+		methods:{
+			displayPage(){
+
+			},
+			dialogUser(item){
+				this.dialog_edit_user = true;
+				this.editIndexUser = this.users.indexOf(item);
+				this.editUser = Object.assign({}, item);
+				var old_name_group = v.list_user_groups.filter(function (el) {
+					return el.name == item.name_group;
+				})
+				this.editUser.name_group = Object.assign({},old_name_group[0]);
+				this.editUser.old_name_group = Object.assign({},old_name_group[0]);
+			},
+			f_addUser(){
+					var formData = new FormData();
+					formData.append("name",v.addUser.name_user);
+					formData.append("email",v.addUser.email);
+					formData.append("password",v.addUser.password);
+					formData.append("password_confirm",v.addUser.password_confirm);
+					axios.post(this.currentRoute+"/create-user/", formData).then(function(response){
+						if(response.status = 200){
+							if (response.data.length == 0) {
+								v.users.push(v.addUser);
+								v.dialog_add_user = false;
+							} else {
+								v.result.errors = response.data;
+								v.result.alert = true;
+							}
+						}else{
+
+						}
+					})
+			},
+			f_editUser(){
+					var formData = new FormData();
+					formData.append("id_user",v.editUser.id);
+					formData.append("email_user",v.editUser.email);
+					formData.append("old_idgroup_user",v.editUser.old_name_group.id);
+					formData.append("new_idgroup_user",v.editUser.name_group.id);
+					axios.post(this.currentRoute+"/edit-user/", formData).then(function(response){
+						if(response.status = 200){
+							Object.assign(v.users[v.editIndexUser], {id: v.editUser.id,email: v.editUser.email,name_user: v.editUser.name_user,name_group: v.editUser.name_group.name})
+							v.dialog_edit_user = false;
+						}else{
+
+						}
+					})
+			},
+			f_deleteUser(item){
+				var formData = new FormData();
+				formData.append("id_user",item.id);
+				if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete-user/", formData).then(function(response){
+						if(response.status = 200){
+							const index = v.users.indexOf(item)
+							v.users.splice(index, 1)
+						}else{
+
+						}
+					})
+				}
+			},
+		}
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>

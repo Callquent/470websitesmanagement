@@ -52,7 +52,7 @@
 												<span class="subheading"><?php echo lang('general'); ?></span>
 											</li>
 											<li>
-												<a href="<?php echo site_url('dashboard'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('dashboard'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'dashboard' }">
 													<i class="icon icon-tile-four"></i>
 													<span class="subheading"><?php echo lang('dashboard'); ?></span>
 												</a>
@@ -135,8 +135,8 @@
 												<span class="subheading"><?php echo lang('groups'); ?></span>
 											</li>
 											<?php if($this->aauth->is_group_allowed('page_language',$user_role[0]->name)) { ?>
-											<li class="sub-menu">
-												<a href="<?php echo site_url('language'); ?>" class="nav-link ripple fuse-ripple-ready">
+											<li>
+												<a href="<?php echo site_url('language'); ?>" :class="{ active: url === 'language' }" class="nav-link ripple fuse-ripple-ready" >
 													<i class="icon icon-code-tags"></i>
 													<span class="subheading"><?php echo lang('languages'); ?></span>
 												</a>
@@ -144,7 +144,7 @@
 											<?php } ?>
 											<?php if($this->aauth->is_group_allowed('page_category',$user_role[0]->name)) { ?>
 											<li>
-												<a href="<?php echo site_url('category'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('category'); ?>" :class="{ active: url === 'category' }" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-table"></i>
 													<span class="subheading"><?php echo lang('categories'); ?></span>
 												</a>

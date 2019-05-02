@@ -186,81 +186,82 @@
 		</div>
 	</v-app>
 </div>
+<?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-var mixin = {
-    data : {
-    	sidebar:"general",
-    	search:"",
-    	dialog_email: false,
-        currentRoute: window.location.href,
-		headers: [
-			{ text: '<?php echo lang("name"); ?>', value: 'name_website'},
-			{ text: '<?php echo lang("website"); ?>', value: 'url_website'},
-			{ text: '<?php echo lang("address_ip"); ?>', value: 'address_ip' },
-			{ text: '<?php echo lang("categories"); ?>', value: 'name_category'},
-			{ text: '<?php echo lang("languages"); ?>', value: 'name_language'},
-			{ text: '<?php echo lang("access"); ?>', value: 'access'},
-			{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
-		],
-        list_website: <?php echo json_encode($all_websites->result_array()); ?>,
-        list_category: <?php echo json_encode($all_categories->result_array()); ?>,
-        list_language: <?php echo json_encode($all_languages->result_array()); ?>,
-        list_ftp:  [],
-        list_database:  [],
-        list_backoffice:  [],
-        list_htaccess:  [],
-    },
-    created(){
-        this.displayPage();
-    },
-    methods:{
-        displayPage(){
+	var v = new Vue({
+		el: '#app',
+	    data : {
+	    	sidebar:"general",
+	    	search:"",
+	    	dialog_email: false,
+	        currentRoute: window.location.href,
+			headers: [
+				{ text: '<?php echo lang("name"); ?>', value: 'name_website'},
+				{ text: '<?php echo lang("website"); ?>', value: 'url_website'},
+				{ text: '<?php echo lang("address_ip"); ?>', value: 'address_ip' },
+				{ text: '<?php echo lang("categories"); ?>', value: 'name_category'},
+				{ text: '<?php echo lang("languages"); ?>', value: 'name_language'},
+				{ text: '<?php echo lang("access"); ?>', value: 'access'},
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+			],
+	        list_website: <?php echo json_encode($all_websites->result_array()); ?>,
+	        list_category: <?php echo json_encode($all_categories->result_array()); ?>,
+	        list_language: <?php echo json_encode($all_languages->result_array()); ?>,
+	        list_ftp:  [],
+	        list_database:  [],
+	        list_backoffice:  [],
+	        list_htaccess:  [],
+	    },
+	    created(){
+	        this.displayPage();
+	    },
+	    methods:{
+	        displayPage(){
 
-        },
-        f_editWebsite(item){
-			var formData = new FormData(); 
-			formData.append("id_website",item.id_website);
-			formData.append("name_website",item.name_website);
-			formData.append("url_website",item.url_website);
-			formData.append("id_category",item.id_category);
-			formData.append("id_language",item.id_language);
-			axios.post(this.currentRoute+"/edit-website/", formData).then(function(response){
-				console.log(response);
-			})
-		},
-		f_opendialog_Access(item){
-			var formData = new FormData();
-			formData.append("id_website",item.id_website);
-			axios.post(this.currentRoute+"/view-access-website/", formData).then(function(response){
-				if(response.status = 200){
-					v.list_ftp = response.data.ftp;
-					v.list_database = response.data.databas;
-					v.list_backoffice = response.data.backoffice;
-					v.list_htaccess = response.data.htaccess;
-				}else{
-
-				}
-			})
-			v.dialog_access = true;
-		},
-		f_deleteWebsite(item){
-			var formData = new FormData();
-			formData.append("id_website",item.id_website);
-			if (confirm('Are you sure you want to delete this item?') == true) {
-				axios.post(this.currentRoute+"/delete-website/", formData).then(function(response){
+	        },
+	        f_editWebsite(item){
+				var formData = new FormData(); 
+				formData.append("id_website",item.id_website);
+				formData.append("name_website",item.name_website);
+				formData.append("url_website",item.url_website);
+				formData.append("id_category",item.id_category);
+				formData.append("id_language",item.id_language);
+				axios.post(this.currentRoute+"/edit-website/", formData).then(function(response){
+					console.log(response);
+				})
+			},
+			f_opendialog_Access(item){
+				var formData = new FormData();
+				formData.append("id_website",item.id_website);
+				axios.post(this.currentRoute+"/view-access-website/", formData).then(function(response){
 					if(response.status = 200){
-						const index = v.list_website.indexOf(item)
-						v.list_website.splice(index, 1)
+						v.list_ftp = response.data.ftp;
+						v.list_database = response.data.databas;
+						v.list_backoffice = response.data.backoffice;
+						v.list_htaccess = response.data.htaccess;
 					}else{
 
 					}
 				})
+				v.dialog_access = true;
+			},
+			f_deleteWebsite(item){
+				var formData = new FormData();
+				formData.append("id_website",item.id_website);
+				if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete-website/", formData).then(function(response){
+						if(response.status = 200){
+							const index = v.list_website.indexOf(item)
+							v.list_website.splice(index, 1)
+						}else{
+
+						}
+					})
+				}
 			}
-		}
-    }
-}
+	    }
+	});
 </script>
-<?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#email').on('show.bs.modal',function(event){

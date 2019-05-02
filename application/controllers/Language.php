@@ -45,8 +45,11 @@ class Language extends CI_Controller {
 		$name_language = $this->input->post('language');
 
 		if ($this->form_validation->run() !== FALSE){
-			$this->model_language->create_language($name_language);
+			$id_language = $this->model_language->create_language($name_language);
+			$data = $this->model_language->get_language($id_language);
 		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 	public function edit_language()
 	{

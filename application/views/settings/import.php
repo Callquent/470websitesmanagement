@@ -62,22 +62,23 @@
         </div>
     </v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-    data : {
-        sidebar:"administration",
-    },
-    created(){
-        this.displayPage();
-    },
-    methods:{
-        displayPage(){
-
-        },
-    }
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+    var v = new Vue({
+        el: '#app',
+        data : {
+            sidebar:"administration",
+        },
+        created(){
+            this.displayPage();
+        },
+        methods:{
+            displayPage(){
+
+            },
+        }
+    });
+</script>
 <script type="text/javascript">
   $(document).ready(function(){
         $("#results .alert-success").hide();

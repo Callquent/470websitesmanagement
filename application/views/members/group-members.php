@@ -145,63 +145,64 @@
         </div>
     </v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-    data : {
-        sidebar:"members",
-        dialog_groups_member: false,
-        dialog: false,
-        currentRoute: window.location.href,
-        headers: [
-            { text: 'Name Members', value: 'name_members' },
-            { text: 'Definition', value: 'definition' },
-            { text: '<?php echo lang("actions"); ?>', value: 'actions'},
-        ],
-        list_groups_users: <?php echo json_encode($list_groups_users); ?>,
-        list_delete_language: [],
-        addGroupMember: {
-            group_name: '',
-            definition: '',
-        },
-        deleteLanguage:{
-            id_move_language: '',
-            id_delete_language: '',
-        },
-    },
-    created(){
-        this.displayPage();
-    },
-    methods:{
-        displayPage(){
-
-        },
-        f_addGroupMember(){
-            var formData = new FormData(); 
-            formData.append("group_name",v.addGroupMember.group_name);
-            formData.append("definition",v.addGroupMember.definition);
-            axios.post(this.currentRoute+"/add-group-members/", formData).then(function(response){
-                v.dialog_groups_member = false;
-                //v.list_language.push(response.data);
-            })
-        },
-        f_editGroupMember(item){
-            var formData = new FormData();
-            formData.append("id_group_members",item.id);
-            formData.append("group_name",item.name);
-            formData.append("definition",item.definition);
-            axios.post(this.currentRoute+"/edit-group-members/", formData).then(function(response){
-                
-            })
-        },
-        f_deleteGroupMember(item){
-            var formData = new FormData(); 
-            formData.append("id_group_members",item.id);
-            axios.post(this.currentRoute+"/delete-group-members/", formData).then(function(response){
-                v.list_groups_users.splice(v.list_groups_users.indexOf(item), 1)
-            })
-        },
-    }
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+    var v = new Vue({
+        el: '#app',
+        data : {
+            sidebar:"members",
+            dialog_groups_member: false,
+            dialog: false,
+            currentRoute: window.location.href,
+            headers: [
+                { text: 'Name Members', value: 'name_members' },
+                { text: 'Definition', value: 'definition' },
+                { text: '<?php echo lang("actions"); ?>', value: 'actions'},
+            ],
+            list_groups_users: <?php echo json_encode($list_groups_users); ?>,
+            list_delete_language: [],
+            addGroupMember: {
+                group_name: '',
+                definition: '',
+            },
+            deleteLanguage:{
+                id_move_language: '',
+                id_delete_language: '',
+            },
+        },
+        created(){
+            this.displayPage();
+        },
+        methods:{
+            displayPage(){
+
+            },
+            f_addGroupMember(){
+                var formData = new FormData(); 
+                formData.append("group_name",v.addGroupMember.group_name);
+                formData.append("definition",v.addGroupMember.definition);
+                axios.post(this.currentRoute+"/add-group-members/", formData).then(function(response){
+                    v.dialog_groups_member = false;
+                    //v.list_language.push(response.data);
+                })
+            },
+            f_editGroupMember(item){
+                var formData = new FormData();
+                formData.append("id_group_members",item.id);
+                formData.append("group_name",item.name);
+                formData.append("definition",item.definition);
+                axios.post(this.currentRoute+"/edit-group-members/", formData).then(function(response){
+                    
+                })
+            },
+            f_deleteGroupMember(item){
+                var formData = new FormData(); 
+                formData.append("id_group_members",item.id);
+                axios.post(this.currentRoute+"/delete-group-members/", formData).then(function(response){
+                    v.list_groups_users.splice(v.list_groups_users.indexOf(item), 1)
+                })
+            },
+        }
+    });
+</script>
 <?php $this->load->view('include/footer.php'); ?>

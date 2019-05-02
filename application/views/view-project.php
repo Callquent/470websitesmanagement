@@ -226,168 +226,169 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-	data : {
-		sidebar:"general",
-		dialog_add_task: false,
-		dialog_add_card: false,
-		first_step: 1,
-		last_step: <?php echo json_encode($all_card_tasks->num_rows()); ?>,
-		stepper: "",
-    	list_card_tasks: <?php echo json_encode($all_card_tasks->result_array()); ?>,
-    	list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
-    	card_tasks: <?php echo json_encode($card_tasks); ?>,
-        users: <?php echo json_encode($list_users->result_array()); ?>,
-		currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
-		id_project: window.location.href.split('/').pop(),
-		id_card: <?php echo json_encode($all_card_tasks->row()->id_card_tasks); ?>,
-		headers: [
-			{ text: 'Name Task', value: 'name_task', sortable: false},
-			{ text: 'User', value: 'username' },
-			{ text: 'Actions', value: 'name', sortable: false }
-		],
-		newCard:{
-			name_card_tasks:"",
-			id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
-			id_priority:"",
-			min: "1",
-			max: <?php echo $all_card_tasks->num_rows()+1; ?>,
-		},
-		editCard:[],
-		newTask:{
-		    nametask:'',
-		    user:'',
-		},
-		valueDeterminate: 0,
-    },
-    created(){
-		this.displayPage();
-    },
-    methods:{
-    	displayPage(){
-    		this.card_tasks.tasks = (this.card_tasks.tasks == null ? [] : this.card_tasks.tasks);
-    		this.valueDeterminate = this.f_isNaN((this.card_tasks.count_tasks_completed/this.card_tasks.tasks.length)*100);
-    		
-        },
-		f_prevBtn(id_card) {
-			v.stepper=id_card;
-			this.changeCard(id_card);
-		},
-		f_nextBtn(id_card) {
-			v.stepper=id_card;
-			this.changeCard(id_card);
-		},
-		changeCard(id_card_task){
-			var formData = new FormData(); 
-    		formData.append("id_project_tasks",this.id_project);
-			formData.append("id_card_tasks",id_card_task);
-    		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
-				if(response.status = 200){
-					v.check_tasks_complete = 0;
-					v.card_tasks.tasks = [];
-
-					v.id_card = id_card_task;
-					if (response.data.card_tasks.tasks != null) {
-						v.card_tasks = response.data.card_tasks;
-					}
-					v.valueDeterminate = v.f_isNaN((v.card_tasks.count_tasks_completed/v.card_tasks.tasks.length)*100);
-					v.name_card_tasks = response.data.name_card_tasks;
-				}else{
-
-				}
-			})
-        },
-		f_createCard(){
-			var formData = new FormData();
-			formData.append("name_card_tasks",v.newCard.name_card_tasks);
-			formData.append("id_project_tasks",v.id_project);
-			formData.append("id_card_task",v.newCard.id_card_task);
-			formData.append("id_tasks_priority",v.newCard.id_priority);
-			axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
-				if(response.status = 200){
-					v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.id_project});
-					v.newCard.max = v.newCard.max + 1;
-					v.dialog_add_card = false;
-				}else{
-
-				}
-			})
-		},
-		deleteCard(item){
-			var formData = new FormData();
-			formData.append("id_project_tasks",this.id_project);
-			formData.append("id_card_task",this.id_card);
-			if (confirm('Are you sure you want to delete this item?') == true) {
-				axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
-					if(response.status = 200){
-						const index = v.list_card_tasks.indexOf(item);
-						v.list_card_tasks.splice(index, 1);
-						v.newCard.max = v.newCard.max - 1
-					}else{
-
-					}
-				})
-			}
-		},
-		f_checkTask(item){
-			var formData = new FormData();
-			formData.append("id_project_tasks",this.id_project);
-			formData.append("id_card_tasks",this.id_card);
-			formData.append("id_task",item.id_task);
-			formData.append("check_tasks",(item.check_tasks^=1));
-			axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
-				if(response.status = 200){
-					v.editCard = response.data.card_tasks;
-					v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_completed)/v.card_tasks.tasks.length*100)
-					Object.assign(v.card_tasks, v.editCard);
-					//change status
-					var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
-					v.list_card_tasks[index].name_tasks_status = response.data.card_tasks.name_tasks_status;
-				}else{
-
-				}
-			})
-		},
-		f_createTask(){
-			var formData = new FormData();
-			formData.append("nametask",this.newTask.nametask);
-			formData.append("id_user",this.newTask.user);
-			formData.append("id_project_tasks",this.id_project);
-			formData.append("id_card_tasks",this.id_card);
-			axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
-				if(response.status = 200){
-					v.card_tasks.tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
-				}else{
-
-				}
-			})
-		},
-		deleteTask(item){
-			var formData = new FormData();
-			formData.append("id_project_tasks",this.id_project);
-			formData.append("id_card_tasks",this.id_card);
-			formData.append("id_task",item.id_task);
-			if (confirm('Are you sure you want to delete this item?') == true) {
-				axios.post(this.currentRoute+"/delete_task/", formData).then(function(response){
-					if(response.status = 200){
-						const index = v.card_tasks.tasks.indexOf(item)
-						v.card_tasks.tasks.splice(index, 1)
-					}else{
-
-					}
-				})
-			}
-		},
-		f_isNaN(val) {
-			if (isNaN(val)) {
-				return 0;
-			} else {
-				return val;
-			}
-		}
-    }
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+		data : {
+			sidebar:"general",
+			dialog_add_task: false,
+			dialog_add_card: false,
+			first_step: 1,
+			last_step: <?php echo json_encode($all_card_tasks->num_rows()); ?>,
+			stepper: "",
+	    	list_card_tasks: <?php echo json_encode($all_card_tasks->result_array()); ?>,
+	    	list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
+	    	card_tasks: <?php echo json_encode($card_tasks); ?>,
+	        users: <?php echo json_encode($list_users->result_array()); ?>,
+			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+			id_project: window.location.href.split('/').pop(),
+			id_card: <?php echo json_encode($all_card_tasks->row()->id_card_tasks); ?>,
+			headers: [
+				{ text: 'Name Task', value: 'name_task', sortable: false},
+				{ text: 'User', value: 'username' },
+				{ text: 'Actions', value: 'name', sortable: false }
+			],
+			newCard:{
+				name_card_tasks:"",
+				id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
+				id_priority:"",
+				min: "1",
+				max: <?php echo $all_card_tasks->num_rows()+1; ?>,
+			},
+			editCard:[],
+			newTask:{
+			    nametask:'',
+			    user:'',
+			},
+			valueDeterminate: 0,
+	    },
+	    created(){
+			this.displayPage();
+	    },
+	    methods:{
+	    	displayPage(){
+	    		this.card_tasks.tasks = (this.card_tasks.tasks == null ? [] : this.card_tasks.tasks);
+	    		this.valueDeterminate = this.f_isNaN((this.card_tasks.count_tasks_completed/this.card_tasks.tasks.length)*100);
+	    		
+	        },
+			f_prevBtn(id_card) {
+				v.stepper=id_card;
+				this.changeCard(id_card);
+			},
+			f_nextBtn(id_card) {
+				v.stepper=id_card;
+				this.changeCard(id_card);
+			},
+			changeCard(id_card_task){
+				var formData = new FormData(); 
+	    		formData.append("id_project_tasks",this.id_project);
+				formData.append("id_card_tasks",id_card_task);
+	    		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
+					if(response.status = 200){
+						v.check_tasks_complete = 0;
+						v.card_tasks.tasks = [];
+
+						v.id_card = id_card_task;
+						if (response.data.card_tasks.tasks != null) {
+							v.card_tasks = response.data.card_tasks;
+						}
+						v.valueDeterminate = v.f_isNaN((v.card_tasks.count_tasks_completed/v.card_tasks.tasks.length)*100);
+						v.name_card_tasks = response.data.name_card_tasks;
+					}else{
+
+					}
+				})
+	        },
+			f_createCard(){
+				var formData = new FormData();
+				formData.append("name_card_tasks",v.newCard.name_card_tasks);
+				formData.append("id_project_tasks",v.id_project);
+				formData.append("id_card_task",v.newCard.id_card_task);
+				formData.append("id_tasks_priority",v.newCard.id_priority);
+				axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
+					if(response.status = 200){
+						v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.id_project});
+						v.newCard.max = v.newCard.max + 1;
+						v.dialog_add_card = false;
+					}else{
+
+					}
+				})
+			},
+			deleteCard(item){
+				var formData = new FormData();
+				formData.append("id_project_tasks",this.id_project);
+				formData.append("id_card_task",this.id_card);
+				if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
+						if(response.status = 200){
+							const index = v.list_card_tasks.indexOf(item);
+							v.list_card_tasks.splice(index, 1);
+							v.newCard.max = v.newCard.max - 1
+						}else{
+
+						}
+					})
+				}
+			},
+			f_checkTask(item){
+				var formData = new FormData();
+				formData.append("id_project_tasks",this.id_project);
+				formData.append("id_card_tasks",this.id_card);
+				formData.append("id_task",item.id_task);
+				formData.append("check_tasks",(item.check_tasks^=1));
+				axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
+					if(response.status = 200){
+						v.editCard = response.data.card_tasks;
+						v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_completed)/v.card_tasks.tasks.length*100)
+						Object.assign(v.card_tasks, v.editCard);
+						//change status
+						var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
+						v.list_card_tasks[index].name_tasks_status = response.data.card_tasks.name_tasks_status;
+					}else{
+
+					}
+				})
+			},
+			f_createTask(){
+				var formData = new FormData();
+				formData.append("nametask",this.newTask.nametask);
+				formData.append("id_user",this.newTask.user);
+				formData.append("id_project_tasks",this.id_project);
+				formData.append("id_card_tasks",this.id_card);
+				axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
+					if(response.status = 200){
+						v.card_tasks.tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
+					}else{
+
+					}
+				})
+			},
+			deleteTask(item){
+				var formData = new FormData();
+				formData.append("id_project_tasks",this.id_project);
+				formData.append("id_card_tasks",this.id_card);
+				formData.append("id_task",item.id_task);
+				if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete_task/", formData).then(function(response){
+						if(response.status = 200){
+							const index = v.card_tasks.tasks.indexOf(item)
+							v.card_tasks.tasks.splice(index, 1)
+						}else{
+
+						}
+					})
+				}
+			},
+			f_isNaN(val) {
+				if (isNaN(val)) {
+					return 0;
+				} else {
+					return val;
+				}
+			}
+	    }
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>

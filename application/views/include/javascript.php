@@ -5,10 +5,12 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.9/vuetify.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 		<script type="text/javascript">
-			var v = new Vue({
-				el: '#app',
-				mixins: [mixin],
-			});
+			var mixin = {
+				data : {
+					sidebar: 'general',
+					url: window.location.href.split('/').pop(),
+				}
+			}
 		</script>
 		<?php echo js_url('plugins/mobile-detect.min.js'); ?>
 		<?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
@@ -39,20 +41,6 @@
 		<?php } ?>
 		<?php if ($this->uri->segment(1)=='export') { ?>
 			<?php echo js_url('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js'); ?>
-			<?php echo js_url('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
-			<?php echo js_url('plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
-			<?php echo js_url('plugins/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>
-			<?php echo js_url('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js'); ?>
-			<?php echo js_url('plugins/jquery-multi-select/js/jquery.multi-select.js'); ?>
-			<?php echo js_url('plugins/jquery-multi-select/js/jquery.quicksearch.js'); ?>
-			<?php echo js_url('plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js'); ?>
-			<?php echo js_url('plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js'); ?>
-			<?php echo js_url('plugins/jquery-tags-input/jquery.tagsinput.min.js'); ?>
-			<?php echo js_url('plugins/advanced-form.js'); ?>
-
-			<?php echo js_url('plugins/jquery.validate.min.js'); ?>
-		<?php } ?>
-		<?php if ($this->uri->segment(1)=='add-website') { ?>
 			<?php echo js_url('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>
 			<?php echo js_url('plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>
 			<?php echo js_url('plugins/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>

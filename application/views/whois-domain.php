@@ -195,81 +195,82 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-	data : {
-		sidebar:"general",
-		dialog_whois: false,
-		registar_whois: '',
-		display_table_whois: true,
-		currentRoute: window.location.href,
-		headers: [
-			{ text: 'Nom', value: 'name_whois'},
-			{ text: 'Site Web', value: 'website' },
-			{ text: 'Hebergeur', value: 'hosting'},
-			{ text: 'Date de mise en ligne', value: 'date_delivery'},
-			{ text: 'Date d\'expiration', value: 'date_expiration'},
-			{ text: 'Whois', value: 'whois'},
-			{ text: 'Refresh', value: 'refresh'},
-		],
-		list_whois: [],
-		calendar: {
-			today:  '<?php echo date("Y-m-d"); ?>',
-			date:  '<?php echo date("Y-m-d"); ?>',
-			events: [],
-		},
-	},
-	computed: {
-	  // convert the list of events into a map of lists keyed by date
-	  eventsMap () {
-		const map = {}
-		this.calendar.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
-		return map
-	  }
-	},
-	created(){
-		this.displayPage();
-	},
-	methods:{
-		displayPage(){
-			axios.get(this.currentRoute+"/ajaxWhois/").then(function(response){
-				if(response.status = 200){
-					v.list_whois = response.data;
-					v.display_table_whois = true;
-				}else{
-
-				}
-			})
-		},
-		f_whoisCalendar(){
-			axios.get(this.currentRoute+"/ajaxCalendarWhois/").then(function(response){
-				if(response.status = 200){
-					v.calendar.events = response.data;
-					v.display_table_whois = false;
-				}else{
-
-				}
-			})
-		},
-		f_whoisRefreshDomain(item){
-			var editedIndex = this.list_whois.indexOf(item);
-			var formData = new FormData(); 
-			formData.append("id_whois",item.id_whois);
-			formData.append("url_website",item.website);
-			axios.post(this.currentRoute+"/ajaxRefreshDomain/", formData).then(function(response){
-				if(response.status = 200){
-					Object.assign(v.list_whois[editedIndex], response.data);
-				}else{
-
-				}
-			})
-		},
-		f_dialog_Whois(item){
-			v.dialog_whois = true;
-			v.registar_whois = item.whois;
-		},
-	}
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+		data : {
+			sidebar:"general",
+			dialog_whois: false,
+			registar_whois: '',
+			display_table_whois: true,
+			currentRoute: window.location.href,
+			headers: [
+				{ text: 'Nom', value: 'name_whois'},
+				{ text: 'Site Web', value: 'website' },
+				{ text: 'Hebergeur', value: 'hosting'},
+				{ text: 'Date de mise en ligne', value: 'date_delivery'},
+				{ text: 'Date d\'expiration', value: 'date_expiration'},
+				{ text: 'Whois', value: 'whois'},
+				{ text: 'Refresh', value: 'refresh'},
+			],
+			list_whois: [],
+			calendar: {
+				today:  '<?php echo date("Y-m-d"); ?>',
+				date:  '<?php echo date("Y-m-d"); ?>',
+				events: [],
+			},
+		},
+		computed: {
+		  // convert the list of events into a map of lists keyed by date
+		  eventsMap () {
+			const map = {}
+			this.calendar.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
+			return map
+		  }
+		},
+		created(){
+			this.displayPage();
+		},
+		methods:{
+			displayPage(){
+				axios.get(this.currentRoute+"/ajaxWhois/").then(function(response){
+					if(response.status = 200){
+						v.list_whois = response.data;
+						v.display_table_whois = true;
+					}else{
+
+					}
+				})
+			},
+			f_whoisCalendar(){
+				axios.get(this.currentRoute+"/ajaxCalendarWhois/").then(function(response){
+					if(response.status = 200){
+						v.calendar.events = response.data;
+						v.display_table_whois = false;
+					}else{
+
+					}
+				})
+			},
+			f_whoisRefreshDomain(item){
+				var editedIndex = this.list_whois.indexOf(item);
+				var formData = new FormData(); 
+				formData.append("id_whois",item.id_whois);
+				formData.append("url_website",item.website);
+				axios.post(this.currentRoute+"/ajaxRefreshDomain/", formData).then(function(response){
+					if(response.status = 200){
+						Object.assign(v.list_whois[editedIndex], response.data);
+					}else{
+
+					}
+				})
+			},
+			f_dialog_Whois(item){
+				v.dialog_whois = true;
+				v.registar_whois = item.whois;
+			},
+		}
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>

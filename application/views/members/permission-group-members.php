@@ -46,38 +46,39 @@
 		</div>
 	</v-app>
 </div>
-<script type="text/javascript">
-var mixin = {
-	data : {
-		sidebar:"members",
-		currentRoute: window.location.href,
-		list_permissions: <?php echo json_encode($all_permissions); ?>,
-		headers: <?php echo json_encode($list_groups); ?>,
-		list_group_permissions: <?php echo json_encode($list_group_perms); ?>,
-	},
-	created(){
-		this.displayPage();
-	},
-	methods:{
-		displayPage(){
-
-		},
-		f_allow_permissions(item){
-			var formData = new FormData(); 
-			formData.append("group_id",item.id);
-			formData.append("perm_id",item.perm_id);
-			axios.post(this.currentRoute+"/allow-permissions/", formData).then(function(response){
-			})
-		},
-		f_deny_permissions(item){
-			var formData = new FormData(); 
-			formData.append("group_id",item.id);
-			formData.append("perm_id",item.perm_id);
-			axios.post(this.currentRoute+"/deny-permissions/", formData).then(function(response){
-			})
-		},
-	}
-}
-</script>
 <?php $this->load->view('include/javascript.php'); ?>
+<script type="text/javascript">
+	var v = new Vue({
+		el: '#app',
+		data : {
+			sidebar:"members",
+			currentRoute: window.location.href,
+			list_permissions: <?php echo json_encode($all_permissions); ?>,
+			headers: <?php echo json_encode($list_groups); ?>,
+			list_group_permissions: <?php echo json_encode($list_group_perms); ?>,
+		},
+		created(){
+			this.displayPage();
+		},
+		methods:{
+			displayPage(){
+
+			},
+			f_allow_permissions(item){
+				var formData = new FormData(); 
+				formData.append("group_id",item.id);
+				formData.append("perm_id",item.perm_id);
+				axios.post(this.currentRoute+"/allow-permissions/", formData).then(function(response){
+				})
+			},
+			f_deny_permissions(item){
+				var formData = new FormData(); 
+				formData.append("group_id",item.id);
+				formData.append("perm_id",item.perm_id);
+				axios.post(this.currentRoute+"/deny-permissions/", formData).then(function(response){
+				})
+			},
+		}
+	});
+</script>
 <?php $this->load->view('include/footer.php'); ?>
