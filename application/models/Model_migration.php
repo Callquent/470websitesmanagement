@@ -163,8 +163,8 @@ class Model_migration extends CI_Model {
 	{
 		foreach ($decrypt['470websitesmanagement_category'] as $row) {
 			$data = array(
-				'name_category' => $name_category,
-				'name_url_category' => str_replace(" ", "-", strtolower($name_category))
+				'name_category' => $row->name_category,
+				'name_url_category' => $row->name_category
 			);
 
 			$this->db->insert('470websitesmanagement_category', $data);

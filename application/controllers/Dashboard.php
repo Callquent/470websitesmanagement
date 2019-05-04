@@ -6,12 +6,10 @@ class Dashboard extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->config->load('version');
+		
 		$this->load->database();
-		$this->load->model('model_front');
-		$this->load->model('model_tasks');
-		$this->load->model('model_users');
-		$this->load->model('model_whois');
-		$this->load->model('model_settings');
+		$this->load->model(array('model_front','model_tasks','model_users','model_whois','model_settings'));
 		$this->load->library(array('Aauth','form_validation', 'encryption', 'session'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -23,6 +21,8 @@ class Dashboard extends CI_Controller {
 	}
 	public function index()
 	{
+		$data['app_470websitesmanagement'] = $this->config->item('470websitesmanagement');
+
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
 
@@ -87,7 +87,7 @@ class Dashboard extends CI_Controller {
 
 		$chart_category = array('labels' => $chart_name_category, 'datasets' => [array('data' => $chart_c_percent, 'backgroundColor' => $chart_c_color )]);
 		$data['chart_category'] = json_encode($chart_category);*/
-				
+
 		$this->load->view('dashboard', $data);
 	}
 	public function modal_whois($id_whois = '')

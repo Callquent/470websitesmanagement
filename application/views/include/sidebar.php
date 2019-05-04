@@ -224,4 +224,5 @@
 						</ul>
 					</div>
 				</div>
+				<?php echo $app_470websitesmanagement['version']; ?>
 			</aside>
