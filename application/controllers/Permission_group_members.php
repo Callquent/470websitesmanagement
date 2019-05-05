@@ -8,11 +8,7 @@ class Permission_group_members extends CI_Controller {
 		parent::__construct();
 		// Chargement des ressources pour ce controller
 		$this->load->database();
-		$this->load->model('model_front');
-		$this->load->model('model_tasks');
-		$this->load->model('model_users');
-		$this->load->model('model_category');
-		$this->load->model('model_settings');
+		$this->load->model(array('model_front','model_tasks','model_users','model_category','model_settings'));
 		$this->load->library(array('Aauth','form_validation', 'encryption', 'session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);

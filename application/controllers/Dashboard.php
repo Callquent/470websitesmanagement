@@ -6,8 +6,6 @@ class Dashboard extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->config->load('version');
-		
 		$this->load->database();
 		$this->load->model(array('model_front','model_tasks','model_users','model_whois','model_settings'));
 		$this->load->library(array('Aauth','form_validation', 'encryption', 'session'));
@@ -21,8 +19,6 @@ class Dashboard extends CI_Controller {
 	}
 	public function index()
 	{
-		$data['app_470websitesmanagement'] = $this->config->item('470websitesmanagement');
-
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
 

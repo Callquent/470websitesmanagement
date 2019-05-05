@@ -8,11 +8,7 @@ class Documentation extends CI_Controller {
 		parent::__construct();
 		// Chargement des ressources pour ce controller
 		$this->load->database();
-		$this->load->model('model_front');
-		$this->load->model('model_tasks');
-		$this->load->model('model_back');
-		$this->load->model('model_whois');
-		$this->load->model('model_settings');
+		$this->load->model(array('model_front','model_tasks','model_back','model_whois','model_settings'));
 		$this->load->library(array('Aauth','Whois','form_validation', 'encryption', 'session','email'));
 		$this->load->helper(array('functions','url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);

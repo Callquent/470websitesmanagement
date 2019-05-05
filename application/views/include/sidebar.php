@@ -220,9 +220,8 @@
 									</div>
 								</div>
 							</div>
-
 						</ul>
+						<div class="version">Version <?php echo APP_470WEBSITESMANAGEMENT; ?></div>
 					</div>
 				</div>
-				<?php echo $app_470websitesmanagement['version']; ?>
 			</aside>

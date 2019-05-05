@@ -9,7 +9,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @package		470websitesmanagement
  * @subpackage	470websitesmanagement
  * @author		Callquent
- * @link		https://codeigniter.com/user_guide/
  */
 
 /**
@@ -18,7 +17,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @var	string
  *
  */
-
-$config["470websitesmanagement"] = array(
- 'version'                  => '1.0.0',
-);
+defined('APP_470WEBSITESMANAGEMENT')  OR define('APP_470WEBSITESMANAGEMENT', '1.0.0');
+defined('APP_PHP_REQUIRED')  OR define('APP_PHP_REQUIRED', '7.0.0');
+defined('APP_MYSQL_REQUIRED')  OR define('APP_PHP_REQUIRED', '5.0');
