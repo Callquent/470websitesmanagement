@@ -13,7 +13,7 @@
 	</head>
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
 		<main>
-			<div id="test">
+			<div id="app">
 				<v-app>
 					<div id="wrapper">
 						<div class="content-wrapper">
@@ -136,46 +136,47 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.6/vuetify.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 		<script type="text/javascript">
-			var mixin = {
-				data : {
-					dialog_remindpassword: false,
-					dialog_resetpassword: false,
-					email_reset: '',
-					code_reset: '',
-					currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+		var v = new Vue({
+			el: '#app',
+			data : {
+				dialog_remindpassword: false,
+				dialog_resetpassword: false,
+				email_reset: '',
+				code_reset: '',
+				currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+			},
+			created(){
+				this.displayPage();
+			},
+			methods:{
+				displayPage(){
+
 				},
-				created(){
-					this.displayPage();
+				f_remindPassword(){
+					var formData = new FormData(); 
+					formData.append("email_reset",this.email_reset);
+					axios.post(this.currentRoute+"/index/remind_password/", formData).then(function(response){
+						if(response.status = 200){
+							v.dialog_remindpassword = false;
+							v.dialog_resetpassword = true;
+						}else{
+
+						}
+					})
 				},
-				methods:{
-					displayPage(){
+				f_resetPassword(){
+					var formData = new FormData(); 
+					formData.append("code_reset",this.code_reset);
+					axios.post(this.currentRoute+"/index/reset_password/", formData).then(function(response){
+						if(response.status = 200){
+							v.dialog_resetpassword = false;
+						}else{
 
-					},
-					f_remindPassword(){
-						var formData = new FormData(); 
-						formData.append("email_reset",this.email_reset);
-						axios.post(this.currentRoute+"/index/remind_password/", formData).then(function(response){
-							if(response.status = 200){
-								v.dialog_remindpassword = false;
-								v.dialog_resetpassword = true;
-							}else{
-
-							}
-						})
-					},
-					f_resetPassword(){
-						var formData = new FormData(); 
-						formData.append("code_reset",this.code_reset);
-						axios.post(this.currentRoute+"/index/reset_password/", formData).then(function(response){
-							if(response.status = 200){
-								v.dialog_resetpassword = false;
-							}else{
-
-							}
-						})
-					},
-				}
+						}
+					})
+				},
 			}
+		});
 		</script>
 <?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>

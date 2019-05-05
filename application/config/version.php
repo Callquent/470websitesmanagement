@@ -19,4 +19,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 defined('APP_470WEBSITESMANAGEMENT')  OR define('APP_470WEBSITESMANAGEMENT', '1.0.0');
 defined('APP_PHP_REQUIRED')  OR define('APP_PHP_REQUIRED', '7.0.0');
-defined('APP_MYSQL_REQUIRED')  OR define('APP_PHP_REQUIRED', '5.0');
+defined('APP_MYSQL_REQUIRED')  OR define('APP_MYSQL_REQUIRED', '5.0');
