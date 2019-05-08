@@ -7,20 +7,21 @@ class Model_migration extends CI_Model {
 	{
 		$this->db->select('*')
 					->from('470websitesmanagement_category');
-		$query = $this->db->get();
-		$allqueries['470websitesmanagement_category'] = $query->result();
+		$query_category = $this->db->get();
+		$allqueries['470websitesmanagement_category'] = $query_category->result();
 
 		$this->db->select('*')
 					->from('470websitesmanagement_language');
-		$query = $this->db->get();
-		$allqueries['470websitesmanagement_language'] = $query->result();
-
+		$query_language = $this->db->get();
+		$allqueries['470websitesmanagement_language'] = $query_language->result();
+		
 		$this->db->select('*')
 					->from('470websitesmanagement_website');
 		if (!empty ($websites)) {
 			$this->db->where_in('470websitesmanagement_website.id_website', $websites);
 		}
 		$query = $this->db->get();
+
 		foreach ($query->result() as $value) {
 			$value->ftp = $this->export_ftp($value->id_website)->result();
 			$value->database = $this->export_database($value->id_website)->result();
@@ -171,7 +172,7 @@ class Model_migration extends CI_Model {
 			return $this->db->insert_id();
 
 			if ($query->num_rows() > 0) {
-				$
+				
 			}
 
 			array_search($row->id_category, array_column($decrypt['470websitesmanagement_website'], 'id_category'));

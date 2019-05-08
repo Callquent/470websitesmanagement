@@ -69,6 +69,7 @@
         data : {
             sidebar:"administration",
         },
+        mixins: [mixin],
         created(){
             this.displayPage();
         },

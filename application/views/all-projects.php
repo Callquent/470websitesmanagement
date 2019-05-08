@@ -255,6 +255,7 @@
 			},
 			editedIndexProject: -1,
 	    },
+	    mixins: [mixin],
 	    created(){
 	        this.displayPage();
 	    },

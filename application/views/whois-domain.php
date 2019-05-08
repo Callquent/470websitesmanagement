@@ -221,6 +221,7 @@
 				events: [],
 			},
 		},
+		mixins: [mixin],
 		computed: {
 		  // convert the list of events into a map of lists keyed by date
 		  eventsMap () {

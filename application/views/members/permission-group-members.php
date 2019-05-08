@@ -57,6 +57,7 @@
 			headers: <?php echo json_encode($list_groups); ?>,
 			list_group_permissions: <?php echo json_encode($list_group_perms); ?>,
 		},
+		mixins: [mixin],
 		created(){
 			this.displayPage();
 		},

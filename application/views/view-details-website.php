@@ -340,6 +340,7 @@
 		    list_backoffice:  <?php echo json_encode($backoffice->result_array()); ?>,
 		    list_htaccess:  <?php echo json_encode($htaccess->result_array()); ?>,
 		},
+		mixins: [mixin],
 		watch: {
 			dialog_ftp (val) {
 				val || this.closeFTP()

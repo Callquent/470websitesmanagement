@@ -120,6 +120,7 @@
 		    list_website_search_google: [],
 		    list_website:  <?php echo json_encode($all_websites->result_array()); ?>,
 		},
+		mixins: [mixin],
 		created(){
 		    this.displayPage();
 		},

@@ -196,7 +196,7 @@
 											<?php } ?>
 											<?php if($this->aauth->is_group_allowed('page_export',$user_role[0]->name)) { ?>
 											<li>
-												<a href="<?php echo site_url('export'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('export'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'export' }">
 													<i class="icon icon-download"></i>
 													<span class="subheading"><?php echo lang('export'); ?></span>
 												</a>
@@ -204,7 +204,7 @@
 											<?php } ?>
 											<?php if($this->aauth->is_group_allowed('page_import',$user_role[0]->name)) { ?>
 											<li>
-												<a href="<?php echo site_url('import'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('import'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'import' }">
 													<i class="icon icon-upload"></i>
 													<span class="subheading"><?php echo lang('import'); ?></span>
 												</a>
@@ -221,7 +221,7 @@
 								</div>
 							</div>
 						</ul>
-						<div class="version">Version <?php echo APP_470WEBSITESMANAGEMENT; ?></div>
+						<div class="version">v <?php echo APP_470WEBSITESMANAGEMENT; ?></div>
 					</div>
 				</div>
 			</aside>

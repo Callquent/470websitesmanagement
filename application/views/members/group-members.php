@@ -170,6 +170,7 @@
                 id_delete_language: '',
             },
         },
+        mixins: [mixin],
         created(){
             this.displayPage();
         },

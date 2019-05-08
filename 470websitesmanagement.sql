@@ -792,13 +792,13 @@ ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
 ALTER TABLE `470websitesmanagement_tasks`
   ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `470websitesmanagement_users` (`id`),
   ADD CONSTRAINT `fk_task_to_card_tasks` FOREIGN KEY (`id_card_tasks`) REFERENCES `470websitesmanagement_tasks__card` (`id_card_tasks`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_task_to_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`);
+  ADD CONSTRAINT `fk_task_to_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `470websitesmanagement_tasks__card`
 --
 ALTER TABLE `470websitesmanagement_tasks__card`
-  ADD CONSTRAINT `fk_id_card_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`),
+  ADD CONSTRAINT `fk_id_card_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_id_priority_tasks` FOREIGN KEY (`id_tasks_priority`) REFERENCES `470websitesmanagement_tasks__priority` (`id_tasks_priority`),
   ADD CONSTRAINT `fk_id_status_tasks` FOREIGN KEY (`id_tasks_status`) REFERENCES `470websitesmanagement_tasks__status` (`id_tasks_status`);
 
@@ -806,7 +806,7 @@ ALTER TABLE `470websitesmanagement_tasks__card`
 -- Contraintes pour la table `470websitesmanagement_tasks__project`
 --
 ALTER TABLE `470websitesmanagement_tasks__project`
-  ADD CONSTRAINT `fk_id_pt` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`id_website`);
+  ADD CONSTRAINT `fk_id_pt` FOREIGN KEY (`id_website`) REFERENCES `470websitesmanagement_website` (`id_website`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `470websitesmanagement_website`

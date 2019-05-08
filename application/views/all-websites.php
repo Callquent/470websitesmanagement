@@ -212,6 +212,7 @@
 	        list_backoffice:  [],
 	        list_htaccess:  [],
 	    },
+	    mixins: [mixin],
 	    created(){
 	        this.displayPage();
 	    },

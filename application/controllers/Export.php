@@ -38,8 +38,12 @@ class Export extends CI_Controller {
 	}
 	public function export_470websitesmanagement()
 	{
-		header("Content-type: text/plain");
-		header("Content-Disposition: attachment; filename=websitesmanagement.470");
+		$file_name = "websitesmanagement.470";
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=".$file_name);
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
 
 		$key_secrete = $this->input->post('keysecrete');
 		$this->encryption->initialize(
@@ -49,12 +53,17 @@ class Export extends CI_Controller {
 			        'key' => $key_secrete
 			)
 		);
-		$websites = $this->input->post('websites');
+		$websites = json_decode($this->input->post('websites'));
 		
 		$content = $this->model_migration->export_website($websites);
-		$crypt = $this->encryption->encrypt($content);
 
-		echo $crypt;
+		$crypt = $this->encryption->encrypt(serialize($content));
+
+		$file = fopen($file_name, "w");
+		fwrite($file, $crypt);
+		fclose($file);
+		readfile($file_name);
+		exit;
 	}
 	public function generate_key()
 	{

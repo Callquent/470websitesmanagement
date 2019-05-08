@@ -263,6 +263,7 @@
 			},
 			valueDeterminate: 0,
 	    },
+	    mixins: [mixin],
 	    created(){
 			this.displayPage();
 	    },

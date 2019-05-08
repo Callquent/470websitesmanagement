@@ -608,6 +608,7 @@
             display_card:true,
             valueDeterminate: 0,
         },
+        mixins: [mixin],
         created(){
             this.displayPage();
         },

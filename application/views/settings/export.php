@@ -101,19 +101,20 @@
                 websites: [],
             },
         },
+        mixins: [mixin],
         created(){
             this.displayPage();
         },
         computed: {
-          likesAllFruit () {
+          likesAllWebsites () {
             return this.export_470websitesmanagement.websites.length === this.list_websites.length
           },
-          likesSomeFruit () {
-            return this.export_470websitesmanagement.websites.length > 0 && !this.likesAllFruit
+          likesSomeWebsite () {
+            return this.export_470websitesmanagement.websites.length > 0 && !this.likesAllWebsites
           },
           icon () {
-            if (this.likesAllFruit) return 'check_box'
-            if (this.likesSomeFruit) return 'indeterminate_check_box'
+            if (this.likesAllWebsites) return 'check_box'
+            if (this.likesSomeWebsite) return 'indeterminate_check_box'
             return 'check_box_outline_blank'
           }
         },
@@ -123,10 +124,16 @@
             },
             toggle () {
                 this.$nextTick(() => {
-                    if (this.likesAllFruit) {
-                        this.export_470websitesmanagement.websites = []
+                    if (this.likesAllWebsites) {
+                        this.export_470websitesmanagement.websites = [];
                     } else {
-                        this.export_470websitesmanagement.websites = this.list_websites.slice()
+                        for (var website in this.list_websites) {
+                          this.export_470websitesmanagement.websites.push(this.list_websites[website].id_website);
+                        };
+                        /*this.list_websites.forEach(response, function(key, value) {
+                            response
+                        });
+*/                        
                     }
                 })
             },
@@ -142,9 +149,7 @@
             f_export470websitesmanagement(){
                 var formData = new FormData(); 
                 formData.append("keysecrete",v.export_470websitesmanagement.key_secrete);
-                formData.append("websites",v.export_470websitesmanagement.websites);
-                /*axios.post(this.currentRoute+"/export-470websitesmanagement/", formData).then(function(response){
-                })*/
+                formData.append("websites",JSON.stringify(v.export_470websitesmanagement.websites));
                 axios({
                     method: 'POST',
                     url: this.currentRoute+"/export-470websitesmanagement/",

@@ -47,6 +47,7 @@
             ],
             list_website_ftp: <?php echo json_encode($all_websites->result_array()); ?>,
         },
+        mixins: [mixin],
     });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

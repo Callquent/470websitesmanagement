@@ -327,6 +327,7 @@
                 selected_item: [],
             },
         },
+        mixins: [mixin],
         created(){
 
         },
