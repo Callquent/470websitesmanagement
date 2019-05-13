@@ -22,8 +22,8 @@ class Position_tracking_google extends CI_Controller {
 		$data['login'] = $this->session->userdata['username'];
 		$data['user_role'] = $this->aauth->get_user_groups();
 
-		$data['all_languages'] = $this->model_front->get_all_languages();
-		$data['all_categories'] = $this->model_front->get_all_categories();
+		$data['all_languages'] = $this->model_language->get_all_languages();
+		$data['all_categories'] = $this->model_category->get_all_categories();
 
 		$data['all_domains'] = $this->model_front->get_all_domains();
 		$data['all_subdomains'] = $this->model_front->get_all_subdomains();

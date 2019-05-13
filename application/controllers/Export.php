@@ -6,7 +6,7 @@ class Export extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model(array('model_front','model_back','model_migration','model_tasks','model_settings'));
+		$this->load->model(array('model_front','model_language','model_category','model_back','model_migration','model_whois','model_tasks','model_settings'));
 		$this->load->library(array('Aauth','encryption','form_validation','session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language','file'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -14,6 +14,14 @@ class Export extends CI_Controller {
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
 		);
 		$this->session->set_userdata($sesslanguage);
+		$this->encryption->initialize(
+			array(
+				'cipher' => 'aes-256',
+				'mode' => 'ctr',
+				'key' => $this->config->item('encryption_key')
+			)
+		);
+
 		if(check_access() != true) { redirect('index', 'refresh',301); }
 	}
 	public function index()
@@ -22,8 +30,8 @@ class Export extends CI_Controller {
 		$data['user_role'] = $this->aauth->get_user_groups();
 		
 		$data['all_websites'] = $this->model_front->get_all_websites();
-		$data['all_languages'] = $this->model_front->get_all_languages();
-		$data['all_categories'] = $this->model_front->get_all_categories();
+		$data['all_languages'] = $this->model_language->get_all_languages();
+		$data['all_categories'] = $this->model_category->get_all_categories();
 
 		$data['all_domains'] = $this->model_front->get_all_domains();
 		$data['all_subdomains'] = $this->model_front->get_all_subdomains();
@@ -46,24 +54,29 @@ class Export extends CI_Controller {
 		header('Pragma: public');
 
 		$key_secrete = $this->input->post('keysecrete');
-		$this->encryption->initialize(
-			array(
-			        'cipher' => 'aes-256',
-			        'mode' => 'ctr',
-			        'key' => $key_secrete
-			)
-		);
 		$websites = json_decode($this->input->post('websites'));
 		
-		$content = $this->model_migration->export_website($websites);
+		$allqueries['470websitesmanagement_language'] = $this->model_language->get_all_languages()->result();
+		$allqueries['470websitesmanagement_category'] = $this->model_category->get_all_categories()->result();
+		$allqueries['470websitesmanagement_website'] = $this->model_front->get_selected_websites($websites)->result();
 
-		$crypt = $this->encryption->encrypt(serialize($content));
+		foreach ($allqueries['470websitesmanagement_website'] as $value) {
+			$value->ftp = $this->model_front->get_website_per_ftp($value->id_website)->result();
+			$value->database = $this->model_front->get_website_per_database($value->id_website)->result();
+			$value->backoffice = $this->model_front->get_website_per_backoffice($value->id_website)->result();
+			$value->htaccess = $this->model_front->get_website_per_htaccess($value->id_website)->result();
+			$value->whois = $this->model_whois->get_website_per_whois($value->id_website)->result();
+		}
+		$this->encryption->initialize(
+			array(
+				'cipher' => 'aes-256',
+				'mode' => 'ctr',
+				'key' => $key_secrete
+			)
+		);
+		$crypt = $this->encryption->encrypt(serialize($allqueries));
 
-		$file = fopen($file_name, "w");
-		fwrite($file, $crypt);
-		fclose($file);
-		readfile($file_name);
-		exit;
+		echo $crypt;
 	}
 	public function generate_key()
 	{

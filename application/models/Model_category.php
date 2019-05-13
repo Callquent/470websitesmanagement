@@ -2,6 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_category extends CI_Model {
+	function get_all_categories()
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_category');
+
+		$query = $this->db->get();
+		return $query;
+	}
 	function get_category($id_category)
 	{
 		$this->db->select('*')
@@ -21,6 +29,15 @@ class Model_category extends CI_Model {
 
 		$this->db->insert('470websitesmanagement_category', $data);
 		return $this->db->insert_id();
+	}
+	function check_name_category($name_category)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_category')
+				 ->where('name_category', $name_category);
+
+		$query = $this->db->get();
+		return $query->row();
 	}
 	function update_category($id_category, $name_category)
 	{

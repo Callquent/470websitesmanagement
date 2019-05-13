@@ -2,108 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_migration extends CI_Model {
-	
-	function export_website($websites = "")
+	function import_website($decrypt)
 	{
-		$this->db->select('*')
-					->from('470websitesmanagement_category');
-		$query_category = $this->db->get();
-		$allqueries['470websitesmanagement_category'] = $query_category->result();
-
-		$this->db->select('*')
-					->from('470websitesmanagement_language');
-		$query_language = $this->db->get();
-		$allqueries['470websitesmanagement_language'] = $query_language->result();
-		
-		$this->db->select('*')
-					->from('470websitesmanagement_website');
-		if (!empty ($websites)) {
-			$this->db->where_in('470websitesmanagement_website.id_website', $websites);
-		}
-		$query = $this->db->get();
-
-		foreach ($query->result() as $value) {
-			$value->ftp = $this->export_ftp($value->id_website)->result();
-			$value->database = $this->export_database($value->id_website)->result();
-			$value->backoffice = $this->export_backoffice($value->id_website)->result();
-			$value->htaccess = $this->export_htaccess($value->id_website)->result();
-			$value->whois = $this->export_whois($value->id_website)->row();
-		}
-		$allqueries['470websitesmanagement_website'] = $query->result();
-		return $allqueries;
-	}
-	function export_ftp($id_website = "")
-	{
-		$this->db->select('*')
-					->from('470websitesmanagement_website__ftp')
-					->where('470websitesmanagement_website__ftp.id_website', $id_website);
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function export_database($id_website = "")
-	{
-		$this->db->select('*')
-					->from('470websitesmanagement_website__database')
-					->where('470websitesmanagement_website__database.id_website', $id_website);
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function export_backoffice($id_website = "")
-	{
-		$this->db->select('*')
-					->from('470websitesmanagement_website__backoffice')
-					->where('470websitesmanagement_website__backoffice.id_website', $id_website);
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function export_htaccess($id_website = "")
-	{
-		$this->db->select('*')
-					->from('470websitesmanagement_website__htaccess')
-					->where('470websitesmanagement_website__htaccess.id_website', $id_website);
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function export_whois($id_website = "")
-	{
-		$this->db->select('*')
-					->from('470websitesmanagement_whois')
-					->where('470websitesmanagement_whois.id_whois', $id_website);
-
-		$query = $this->db->get();
-		return $query;
-	}
-
-		/*$sql = "";
-		$this->db->select('*')
-					->from('470websitesmanagement_category');
-		$query = $this->db->get();
-		foreach ($query->result() as $row) {
-			$data = array(
-				'id_category'  => $row->id_category,
-				'name_category'  => $row->name_category,
-				'name_url_category' => $row->name_url_category
-			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_category').";";
-		}*/
-		
-		/*$this->db->select('*')
-					->from('470websitesmanagement_website')
-					->join('470websitesmanagement_whois', '470websitesmanagement_whois.id_whois = 470websitesmanagement_website.id_website')
-					->join('470websitesmanagement_website__ftp', '470websitesmanagement_website__ftp.id_website = 470websitesmanagement_website.id_website')
-					->join('470websitesmanagement_website__database', '470websitesmanagement_website__database.id_website = 470websitesmanagement_website.id_website')
-					->join('470websitesmanagement_website__backoffice', '470websitesmanagement_website__backoffice.id_website = 470websitesmanagement_website.id_website')
-					->join('470websitesmanagement_website__htaccess', '470websitesmanagement_website__htaccess.id_website = 470websitesmanagement_website.id_website');
-		if (!empty ($websites)) {
-			$this->db->where_in('470websitesmanagement_website.id_website', $websites);
-		}
-
-		$query = $this->db->get();
-		foreach ($query->result() as $row) {
+		foreach ($decrypt as $row) {
 			$data = array(
 				'id_website' => $row->id_website,
 				'id_category'  => $row->id_category,
@@ -111,7 +12,7 @@ class Model_migration extends CI_Model {
 				'name_website' => $row->name_website,
 				'url_website'  => $row->url_website
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website').";";
+			$this->db->insert('470websitesmanagement_website', $data);
 
 			$data = array(
 				'id_website'  => $row->id_website,
@@ -120,7 +21,7 @@ class Model_migration extends CI_Model {
 				'login_ftp'  => $this->encryption->decrypt($row->login_ftp),
 				'password_ftp' => $this->encryption->decrypt($row->password_ftp)
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__ftp').";";
+			$this->db->insert('470websitesmanagement_website__ftp', $data);
 
 			$data = array(
 				'id_website'  => $row->id_website,
@@ -130,7 +31,7 @@ class Model_migration extends CI_Model {
 				'login_database' => $this->encryption->decrypt($row->login_database),
 				'password_database'  => $this->encryption->decrypt($row->password_database)
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__database').";";
+			$this->db->insert('470websitesmanagement_website__database', $data);
 
 			$data = array(
 				'id_website'  => $row->id_website,
@@ -139,7 +40,7 @@ class Model_migration extends CI_Model {
 				'login_backoffice'  =>  $this->encryption->decrypt($row->login_backoffice),
 				'password_backoffice'	=>  $this->encryption->decrypt($row->password_backoffice)
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__backoffice').";";
+			$this->db->insert('470websitesmanagement_website__backoffice', $data);
 
 			$data = array(
 				'id_website'  => $row->id_website,
@@ -147,7 +48,7 @@ class Model_migration extends CI_Model {
 				'login_htaccess'  =>  $this->encryption->decrypt($row->login_htaccess),
 				'password_htaccess'	=>  $this->encryption->decrypt($row->password_htaccess)
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_website__htaccess').";";
+			$this->db->insert('470websitesmanagement_website__htaccess', $data);
 
 			$data = array(
 				'id_whois'  => $row->id_whois,
@@ -156,30 +57,10 @@ class Model_migration extends CI_Model {
 				'registrar'  => $row->registrar,
 				'release_date_whois'  => $row->release_date_whois
 			);
-			$sql .= $this->db->set($data)->get_compiled_insert('470websitesmanagement_whois').";";
-		}
-		
-		return $sql;*/
-	function import_website($decrypt)
-	{
-		foreach ($decrypt['470websitesmanagement_category'] as $row) {
-			$data = array(
-				'name_category' => $row->name_category,
-				'name_url_category' => $row->name_category
-			);
-
-			$this->db->insert('470websitesmanagement_category', $data);
-			return $this->db->insert_id();
-
-			if ($query->num_rows() > 0) {
-				
-			}
-
-			array_search($row->id_category, array_column($decrypt['470websitesmanagement_website'], 'id_category'));
-			
+			$this->db->insert('470websitesmanagement_whois', $data);
 		}
 		/**********************************/
-		$insert_sql = explode(";", $decrypt,-1);
+		/*$insert_sql = explode(";", $decrypt,-1);
 
 		$this->db->select('*')
 				->from('470websitesmanagement_category')
@@ -211,6 +92,6 @@ class Model_migration extends CI_Model {
 			$result .= preg_replace($patterns,$replacements, $row);
 
 			$this->db->query($result);
-		}
+		}*/
 	}
 }

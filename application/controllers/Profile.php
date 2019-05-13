@@ -8,7 +8,7 @@ class Profile extends CI_Controller {
 		parent::__construct();
 		// Chargement des ressources pour ce controller
 		$this->load->database();
-		$this->load->model(array('model_front','model_tasks','model_settings'));
+		$this->load->model(array('model_front','model_language','model_category','model_tasks','model_settings'));
 		$this->load->library(array('Aauth','form_validation', 'encryption', 'session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -24,8 +24,8 @@ class Profile extends CI_Controller {
 		$data['user_role'] = $this->aauth->get_user_groups();
 
 		$data['all_websites'] = $this->model_front->get_all_websites();
-		$data['all_languages'] = $this->model_front->get_all_languages();
-		$data['all_categories'] = $this->model_front->get_all_categories();
+		$data['all_languages'] = $this->model_language->get_all_languages();
+		$data['all_categories'] = $this->model_category->get_all_categories();
 
 		$data['all_domains'] = $this->model_front->get_all_domains();
 		$data['all_subdomains'] = $this->model_front->get_all_subdomains();

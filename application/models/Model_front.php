@@ -52,12 +52,6 @@ class Model_front extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function count_all_websites_per_page()
-	{
-		$this->_get_datatables_query();
-		$query = $this->db->get();
-		return $query;
-	}
 	function get_all_websites_per_category($url)
 	{
 		$this->db->select('*')
@@ -82,52 +76,26 @@ class Model_front extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_all_languages()
+	function get_selected_websites($websites = "")
 	{
 		$this->db->select('*')
-				 ->from('470websitesmanagement_language');
-
+					->from('470websitesmanagement_website')
+					->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
+					->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category');
+		if (!empty ($websites)) {
+			$this->db->where_in('470websitesmanagement_website.id_website', $websites);
+		}
 		$query = $this->db->get();
-		return $query;
-	}
-	function get_all_categories()
-	{
-		$this->db->select('*')
-				 ->from('470websitesmanagement_category');
 
-		$query = $this->db->get();
 		return $query;
 	}
 	function get_website($id)
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
-				->join('470websitesmanagement_website__ftp', '470websitesmanagement_website__ftp.id_website = 470websitesmanagement_website.id_website', 'left')
-				->join('470websitesmanagement_website__database', '470websitesmanagement_website__database.id_website = 470websitesmanagement_website.id_website', 'left')
-				->join('470websitesmanagement_website__backoffice', '470websitesmanagement_website__backoffice.id_website = 470websitesmanagement_website.id_website', 'left')
 				->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
 				->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
 				->where('470websitesmanagement_website.id_website', $id)
-				->limit(1);
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function get_category($id)
-	{
-		$this->db->select('*')
-				->from('470websitesmanagement_category')
-				->where('id_category', $id)
-				->limit(1);
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function get_language($id)
-	{
-		$this->db->select('*')
-				->from('470websitesmanagement_language')
-				->where('id_language', $id)
 				->limit(1);
 
 		$query = $this->db->get();

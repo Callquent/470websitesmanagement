@@ -189,9 +189,20 @@ h3.r{font-size:18px;margin:0;padding:0}
 .table-user-information > tbody > tr > td{border-top:0}
 .toppad{margin-top:20px}
 /*********************/
-/*      Export       */
+/*      EXPORT       */
 /*********************/
 
+/*********************/
+/*      IMPORT       */
+/*********************/
+#import .custom-file-input {
+	position: absolute;
+	height: auto;
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+}
 /***********************/
 /*      Datables       */
 /***********************/

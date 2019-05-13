@@ -26,14 +26,13 @@ class Permission_group_members extends CI_Controller {
 		$data['all_websites'] = $this->model_front->get_all_websites();
 		$data['list_groups'] = $this->model_users->get_all_groups()->result();
 		$data['all_permissions'] = $this->aauth->list_perms();
-		//var_dump($data['list_groups_users']->result());
 
-			$list = array();
-			foreach ($data['all_permissions'] as $key => $perm)
-			{
-				$name_permission = array("name" => $perm->name);
-				$data['list_group_perms'][] = array_merge(array($name_permission),$this->model_users->get_group_all_perms($perm->id)->result());
-			}
+		$list = array();
+		foreach ($data['all_permissions'] as $key => $perm)
+		{
+			$name_permission = array("name" => $perm->name);
+			$data['list_group_perms'][] = array_merge(array($name_permission),$this->model_users->get_group_all_perms($perm->id)->result());
+		}
 
 		$data['all_domains'] = $this->model_front->get_all_domains();
 		$data['all_subdomains'] = $this->model_front->get_all_subdomains();

@@ -2,6 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_language extends CI_Model {
+	function get_all_languages()
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_language');
+
+		$query = $this->db->get();
+		return $query;
+	}
 	function get_language($id_language)
 	{
 		$this->db->select('*')
@@ -21,6 +29,15 @@ class Model_language extends CI_Model {
 
 		$this->db->insert('470websitesmanagement_language', $data);
 		return $this->db->insert_id();
+	}
+	function check_name_language($name_language)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_language')
+				 ->where('name_language', $name_language);
+
+		$query = $this->db->get();
+		return $query->row();
 	}
 	function update_language($id_language, $name_language)
 	{

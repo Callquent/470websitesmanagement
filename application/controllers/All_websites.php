@@ -7,7 +7,7 @@ class All_websites extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model(array('model_front','model_tasks','model_back','model_settings'));
+		$this->load->model(array('model_front','model_language','model_category','model_tasks','model_back','model_settings'));
 		$this->load->library(array('Aauth','form_validation', 'encryption', 'session','email'));
 		$this->load->helper(array('functions', 'text', 'url','date','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -17,9 +17,9 @@ class All_websites extends CI_Controller {
 		$this->session->set_userdata($sesslanguage);
 		$this->encryption->initialize(
 			array(
-			        'cipher' => 'aes-256',
-			        'mode' => 'ctr',
-			        'key' => $this->config->item('encryption_key')
+				'cipher' => 'aes-256',
+				'mode' => 'ctr',
+				'key' => $this->config->item('encryption_key')
 			)
 		);
 
@@ -31,8 +31,8 @@ class All_websites extends CI_Controller {
 		$data['user_role'] = $this->aauth->get_user_groups();
 		
 		$data['all_websites'] = $this->model_front->get_all_websites();
-		$data['all_languages'] = $this->model_front->get_all_languages();
-		$data['all_categories'] = $this->model_front->get_all_categories();
+		$data['all_languages'] = $this->model_language->get_all_languages();
+		$data['all_categories'] = $this->model_category->get_all_categories();
 
 		$data['all_domains'] = $this->model_front->get_all_domains();
 		$data['all_subdomains'] = $this->model_front->get_all_subdomains();

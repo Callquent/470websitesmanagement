@@ -7,7 +7,7 @@ class Language extends CI_Controller {
 		parent::__construct();
 		// Chargement des ressources pour ce controller
 		$this->load->database();
-		$this->load->model(array('model_tasks','model_front','model_language','model_settings'));
+		$this->load->model(array('model_front','model_language','model_category','model_tasks','model_settings'));
 		$this->load->library(array('Aauth','form_validation', 'encryption', 'session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language'));
 		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -23,8 +23,8 @@ class Language extends CI_Controller {
 		$data['user_role'] = $this->aauth->get_user_groups();
 
 		$data['all_websites'] = $this->model_front->get_all_websites_per_language($name_url_language);
-		$data['all_languages'] = $this->model_front->get_all_languages();
-		$data['all_categories'] = $this->model_front->get_all_categories();
+		$data['all_languages'] = $this->model_language->get_all_languages();
+		$data['all_categories'] = $this->model_category->get_all_categories();
 
 		$data['all_domains'] = $this->model_front->get_all_domains();
 		$data['all_subdomains'] = $this->model_front->get_all_subdomains();
@@ -64,7 +64,7 @@ class Language extends CI_Controller {
 		$id_language_new = $this->input->post('id_move_language');
 		$id_language_old = $this->input->post('id_delete_language');
 
-		if ($this->model_front->get_language($id_language_old)->num_rows() == 1){
+		if ($this->model_language->get_language($id_language_old)->num_rows() == 1){
 			$this->model_language->transfert_website_language($id_language_old, $id_language_new);
 			$this->model_language->delete_language($id_language_old);
 		}

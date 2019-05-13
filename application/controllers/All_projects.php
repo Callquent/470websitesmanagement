@@ -27,8 +27,8 @@ class All_projects extends CI_Controller {
 		$data['list_users'] = $this->model_users->get_all_users();
 		$data['list_groups'] = $this->model_users->get_all_groups();
 
-		$data['all_languages'] = $this->model_front->get_all_languages();
-		$data['all_categories'] = $this->model_front->get_all_categories();
+		$data['all_languages'] = $this->model_language->get_all_languages();
+		$data['all_categories'] = $this->model_category->get_all_categories();
 
 		$data['all_count_websites'] = $this->model_front->count_all_websites()->row();
 		$data['all_count_websites_per_category'] = $this->model_front->count_websites_per_category();

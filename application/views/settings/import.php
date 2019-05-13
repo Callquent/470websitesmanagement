@@ -19,18 +19,18 @@
     			                            <div class="form-group">
                                                 <label class="col-sm-3 control-label col-lg-3"><?php echo lang('save_key_secrete'); ?></label>
                                                 <div class="col-lg-6">
-    			                                    <input type="text" class="form-control" name="keysecrete" id="keysecrete" placeholder="Cle Secrete">
+    			                                    <input v-model="key_secrete" type="text" class="form-control" id="keysecrete">
     			                                </div>
     			                            </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label col-lg-3"><?php echo lang('charge_file_470'); ?></label>
                                                 <div class="col-lg-6">
                                                     <div class="fileupload fileupload-new" data-provides="fileupload">
-                                                                <span class="btn btn-white btn-file">
-                                                                    <span class="fileupload-new"><i class="icon icon-attachment"></i> Select file</span>
-                                                                    <span class="fileupload-exists"><i class="icon icon-replay"></i> Change</span>
-                                                                    <input type="file" name="importfile" class="default" />
-                                                                </span>
+                                                        <span class="btn btn-white btn-file">
+                                                            <span v-if="file" class="fileupload-new"><i class="icon icon-attachment"></i> Select file</span>
+                                                            <span v-else="" class="fileupload-exists"><i class="icon icon-replay"></i> Change</span>
+                                                            <input type="file" ref="file" class="custom-file-input" name="uploadfile" id="uploadfile" />
+                                                        </span>
                                                         <span class="fileupload-preview" style="margin-left:5px;"></span>
                                                         <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
                                                     </div>
@@ -38,7 +38,7 @@
                                             </div>
     			                            <div class="form-group">
     			                                <div class="col-lg-offset-2 col-lg-10">
-    			                                    <button type="submit" class="btn btn-danger"><?php echo lang('import'); ?></button>
+                                                    <v-btn @click="f_import470websitesmanagement"><?php echo lang('import'); ?></v-btn>
     			                                </div>
     			                            </div>
     			                        </form>
@@ -68,6 +68,9 @@
         el: '#app',
         data : {
             sidebar:"administration",
+            currentRoute: window.location.href,
+            sidebar:"administration",
+            key_secrete: "",
         },
         mixins: [mixin],
         created(){
@@ -77,11 +80,24 @@
             displayPage(){
 
             },
+            f_import470websitesmanagement(){
+                v.file = this.$refs.file.files[0];
+                var formData = new FormData();
+                formData.append('keysecrete', v.key_secrete);
+                formData.append('uploadfile', v.file);
+                axios.post(this.currentRoute+"/import-470websitesmanagement/", formData).then(function(response){
+                    if(response.status = 200){
+                        
+                    }else{
+
+                    }
+                })
+            }
         }
     });
 </script>
 <script type="text/javascript">
-  $(document).ready(function(){
+  /*$(document).ready(function(){
         $("#results .alert-success").hide();
         $("#results .alert-danger").hide();
         $('#form-import').submit(function(e) {
@@ -126,6 +142,6 @@
             });
             e.preventDefault();
         });
-  });
+  });*/
 </script>
 <?php $this->load->view('include/footer.php'); ?>
