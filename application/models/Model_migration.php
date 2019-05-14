@@ -13,7 +13,6 @@ class Model_migration extends CI_Model {
 				'url_website'  => $row->url_website
 			);
 			$this->db->insert('470websitesmanagement_website', $data);
-			if ($row->ftp > 0) {
 				foreach ($row->ftp as $value) {
 					$data = array(
 						'id_website'  => $value->id_website,
@@ -24,9 +23,7 @@ class Model_migration extends CI_Model {
 					);
 					$this->db->insert('470websitesmanagement_website__ftp', $data);
 				}
-			}
-			if ($row->database > 0) {
-				foreach ($value->database as $value) {
+				foreach ($row->database as $value) {
 					$data = array(
 						'id_website'  => $value->id_website,
 						'id_database'  => $value->id_database,
@@ -37,9 +34,7 @@ class Model_migration extends CI_Model {
 					);
 					$this->db->insert('470websitesmanagement_website__database', $data);
 				}
-			}
-			if ($row->backoffice > 0) {
-				foreach ($value->backoffice as $value) {
+				foreach ($row->backoffice as $value) {
 					$data = array(
 						'id_website'  => $value->id_website,
 						'id_backoffice'  =>  $value->id_backoffice,
@@ -49,9 +44,7 @@ class Model_migration extends CI_Model {
 					);
 					$this->db->insert('470websitesmanagement_website__backoffice', $data);
 				}
-			}
-			if ($row->htaccess > 0) {
-				foreach ($value->htaccess as $value) {
+				foreach ($row->htaccess as $value) {
 					$data = array(
 						'id_website'  => $value->id_website,
 						'id_backoffice'  => $value->id_backoffice,
@@ -60,9 +53,7 @@ class Model_migration extends CI_Model {
 					);
 					$this->db->insert('470websitesmanagement_website__htaccess', $data);
 				}
-			}
-			if ($row->whois > 0) {
-				foreach ($value->whois as $value) {
+				foreach ($row->whois as $value) {
 					$data = array(
 						'id_whois'  => $value->id_whois,
 						'creation_date' => $value->creation_date,
@@ -72,7 +63,6 @@ class Model_migration extends CI_Model {
 					);
 					$this->db->insert('470websitesmanagement_whois', $data);
 				}
-			}
 		}
 			
 
