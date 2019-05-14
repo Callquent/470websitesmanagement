@@ -13,55 +13,65 @@ class Model_migration extends CI_Model {
 				'url_website'  => $row->url_website
 			);
 			$this->db->insert('470websitesmanagement_website', $data);
-			foreach ($row->ftp as $value) {
-				$data = array(
-					'id_website'  => $value->id_website,
-					'id_ftp'  => $value->id_ftp,
-					'host_ftp'  => $this->encryption->decrypt($value->host_ftp),
-					'login_ftp'  => $this->encryption->decrypt($value->login_ftp),
-					'password_ftp' => $this->encryption->decrypt($value->password_ftp)
-				);
-				$this->db->insert('470websitesmanagement_website__ftp', $data);
+			if ($row->ftp > 0) {
+				foreach ($row->ftp as $value) {
+					$data = array(
+						'id_website'  => $value->id_website,
+						'id_ftp'  => $value->id_ftp,
+						'host_ftp'  => $this->encryption->decrypt($value->host_ftp),
+						'login_ftp'  => $this->encryption->decrypt($value->login_ftp),
+						'password_ftp' => $this->encryption->decrypt($value->password_ftp)
+					);
+					$this->db->insert('470websitesmanagement_website__ftp', $data);
+				}
 			}
-			foreach ($value->database as $value) {
-				$data = array(
-					'id_website'  => $value->id_website,
-					'id_database'  => $value->id_database,
-					'host_database'  => $this->encryption->decrypt($value->host_database),
-					'name_database' => $this->encryption->decrypt($value->name_database),
-					'login_database' => $this->encryption->decrypt($value->login_database),
-					'password_database'  => $this->encryption->decrypt($value->password_database)
-				);
-				$this->db->insert('470websitesmanagement_website__database', $data);
+			if ($row->database > 0) {
+				foreach ($value->database as $value) {
+					$data = array(
+						'id_website'  => $value->id_website,
+						'id_database'  => $value->id_database,
+						'host_database'  => $this->encryption->decrypt($value->host_database),
+						'name_database' => $this->encryption->decrypt($value->name_database),
+						'login_database' => $this->encryption->decrypt($value->login_database),
+						'password_database'  => $this->encryption->decrypt($value->password_database)
+					);
+					$this->db->insert('470websitesmanagement_website__database', $data);
+				}
 			}
-			foreach ($value->backoffice as $value) {
-				$data = array(
-					'id_website'  => $value->id_website,
-					'id_backoffice'  =>  $value->id_backoffice,
-					'host_backoffice'	=>  $this->encryption->decrypt($value->host_backoffice),
-					'login_backoffice'  =>  $this->encryption->decrypt($value->login_backoffice),
-					'password_backoffice'	=>  $this->encryption->decrypt($value->password_backoffice)
-				);
-				$this->db->insert('470websitesmanagement_website__backoffice', $data);
+			if ($row->backoffice > 0) {
+				foreach ($value->backoffice as $value) {
+					$data = array(
+						'id_website'  => $value->id_website,
+						'id_backoffice'  =>  $value->id_backoffice,
+						'host_backoffice'	=>  $this->encryption->decrypt($value->host_backoffice),
+						'login_backoffice'  =>  $this->encryption->decrypt($value->login_backoffice),
+						'password_backoffice'	=>  $this->encryption->decrypt($value->password_backoffice)
+					);
+					$this->db->insert('470websitesmanagement_website__backoffice', $data);
+				}
 			}
-			foreach ($value->htaccess as $value) {
-				$data = array(
-					'id_website'  => $value->id_website,
-					'id_backoffice'  => $value->id_backoffice,
-					'login_htaccess'  =>  $this->encryption->decrypt($value->login_htaccess),
-					'password_htaccess'	=>  $this->encryption->decrypt($value->password_htaccess)
-				);
-				$this->db->insert('470websitesmanagement_website__htaccess', $data);
+			if ($row->htaccess > 0) {
+				foreach ($value->htaccess as $value) {
+					$data = array(
+						'id_website'  => $value->id_website,
+						'id_backoffice'  => $value->id_backoffice,
+						'login_htaccess'  =>  $this->encryption->decrypt($value->login_htaccess),
+						'password_htaccess'	=>  $this->encryption->decrypt($value->password_htaccess)
+					);
+					$this->db->insert('470websitesmanagement_website__htaccess', $data);
+				}
 			}
-			foreach ($value->whois as $value) {
-				$data = array(
-					'id_whois'  => $value->id_whois,
-					'creation_date' => $value->creation_date,
-					'expiration_date'  => $value->expiration_date,
-					'registrar'  => $value->registrar,
-					'release_date_whois'  => $value->release_date_whois
-				);
-				$this->db->insert('470websitesmanagement_whois', $data);
+			if ($row->whois > 0) {
+				foreach ($value->whois as $value) {
+					$data = array(
+						'id_whois'  => $value->id_whois,
+						'creation_date' => $value->creation_date,
+						'expiration_date'  => $value->expiration_date,
+						'registrar'  => $value->registrar,
+						'release_date_whois'  => $value->release_date_whois
+					);
+					$this->db->insert('470websitesmanagement_whois', $data);
+				}
 			}
 		}
 			

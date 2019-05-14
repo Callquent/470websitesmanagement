@@ -75,7 +75,7 @@ class Import extends CI_Controller {
 		}
 		foreach ($file_unserialize['470websitesmanagement_language'] as $row) {
 
-			$query = $this->model_language->check_name_category($row->name_language);
+			$query = $this->model_language->check_name_language($row->name_language);
 			if(empty($query)){
 				$new_id_language = $this->model_language->create_language($row->name_language);
 			}
@@ -93,7 +93,7 @@ class Import extends CI_Controller {
 			}
 		}
 		
-		$this->model_migration->import_website($file_unserialize['470websitesmanagement_website'])
+		$this->model_migration->import_website($file_unserialize['470websitesmanagement_website']);
 
 	}
 }
