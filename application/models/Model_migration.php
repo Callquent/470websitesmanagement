@@ -18,9 +18,9 @@ class Model_migration extends CI_Model {
 					$data = array(
 						'id_website'  => $value->id_website,
 						'id_ftp'  => $value->id_ftp,
-						'host_ftp'  => $this->encryption->decrypt($value->host_ftp),
-						'login_ftp'  => $this->encryption->decrypt($value->login_ftp),
-						'password_ftp' => $this->encryption->decrypt($value->password_ftp)
+						'host_ftp'  => $this->encryption->encrypt($value->host_ftp),
+						'login_ftp'  => $this->encryption->encrypt($value->login_ftp),
+						'password_ftp' => $this->encryption->encrypt($value->password_ftp)
 					);
 					$this->db->insert('470websitesmanagement_website__ftp', $data);
 				}
@@ -30,10 +30,10 @@ class Model_migration extends CI_Model {
 					$data = array(
 						'id_website'  => $value->id_website,
 						'id_database'  => $value->id_database,
-						'host_database'  => $this->encryption->decrypt($value->host_database),
-						'name_database' => $this->encryption->decrypt($value->name_database),
-						'login_database' => $this->encryption->decrypt($value->login_database),
-						'password_database'  => $this->encryption->decrypt($value->password_database)
+						'host_database'  => $this->encryption->encrypt($value->host_database),
+						'name_database' => $this->encryption->encrypt($value->name_database),
+						'login_database' => $this->encryption->encrypt($value->login_database),
+						'password_database'  => $this->encryption->encrypt($value->password_database)
 					);
 					$this->db->insert('470websitesmanagement_website__database', $data);
 				}
@@ -43,9 +43,9 @@ class Model_migration extends CI_Model {
 					$data = array(
 						'id_website'  => $value->id_website,
 						'id_backoffice'  =>  $value->id_backoffice,
-						'host_backoffice'	=>  $this->encryption->decrypt($value->host_backoffice),
-						'login_backoffice'  =>  $this->encryption->decrypt($value->login_backoffice),
-						'password_backoffice'	=>  $this->encryption->decrypt($value->password_backoffice)
+						'host_backoffice'	=>  $this->encryption->encrypt($value->host_backoffice),
+						'login_backoffice'  =>  $this->encryption->encrypt($value->login_backoffice),
+						'password_backoffice'	=>  $this->encryption->encrypt($value->password_backoffice)
 					);
 					$this->db->insert('470websitesmanagement_website__backoffice', $data);
 				}
@@ -55,8 +55,8 @@ class Model_migration extends CI_Model {
 					$data = array(
 						'id_website'  => $value->id_website,
 						'id_backoffice'  => $value->id_backoffice,
-						'login_htaccess'  =>  $this->encryption->decrypt($value->login_htaccess),
-						'password_htaccess'	=>  $this->encryption->decrypt($value->password_htaccess)
+						'login_htaccess'  =>  $this->encryption->encrypt($value->login_htaccess),
+						'password_htaccess'	=>  $this->encryption->encrypt($value->password_htaccess)
 					);
 					$this->db->insert('470websitesmanagement_website__htaccess', $data);
 				}

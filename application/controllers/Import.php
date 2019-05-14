@@ -93,6 +93,13 @@ class Import extends CI_Controller {
 			}
 		}
 		
+		$this->encryption->initialize(
+			array(
+				'cipher' => 'aes-256',
+				'mode' => 'ctr',
+				'key' => $this->config->item('encryption_key')
+			)
+		);
 		$this->model_migration->import_website($file_unserialize['470websitesmanagement_website']);
 
 	}
