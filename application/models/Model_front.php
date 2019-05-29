@@ -76,14 +76,14 @@ class Model_front extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_selected_websites($websites = "")
+	function get_selected_websites($id_websites = "")
 	{
 		$this->db->select('*')
 					->from('470websitesmanagement_website')
 					->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
 					->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category');
-		if (!empty ($websites)) {
-			$this->db->where_in('470websitesmanagement_website.id_website', $websites);
+		if (!empty ($id_websites)) {
+			$this->db->where_in('470websitesmanagement_website.id_website', $id_websites);
 		}
 		$query = $this->db->get();
 
@@ -101,12 +101,90 @@ class Model_front extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_website_per_ftp($id)
+	function check_url_website($url_website)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_website')
+				 ->where('470websitesmanagement_website.url_website', $url_website)
+				  ->limit(1);
+
+
+		$query = $this->db->get();
+		return $query->row();
+	}
+	function get_website_by_ftp($id_website,$id_ftp)
+	{
+		$this->db->select('*')
+				->from('470websitesmanagement_website__ftp')
+				->where('470websitesmanagement_website__ftp.id_website', $id_website)
+				->where('470websitesmanagement_website__ftp.id_ftp', $id_ftp);
+
+		$query = $this->db->get()->row();
+		
+		$query->id_ftp = $query->id_ftp;
+		$query->host_ftp = $this->encryption->decrypt($query->host_ftp);
+		$query->login_ftp = $this->encryption->decrypt($query->login_ftp);
+		$query->password_ftp = $this->encryption->decrypt($query->password_ftp);
+
+		return $query;
+	}
+	function get_website_by_database($id_website,$id_database)
+	{
+		$this->db->select('*')
+				->from('470websitesmanagement_website__database')
+				->where('470websitesmanagement_website__database.id_website', $id_website)
+				->where('470websitesmanagement_website__database.id_database', $id_database);
+
+		$query = $this->db->get()->row();
+
+		$query->id_database = $query->id_database;
+		$query->host_database = $this->encryption->decrypt($query->host_database);
+		$query->name_database = $this->encryption->decrypt($query->name_database);
+		$query->login_database = $this->encryption->decrypt($query->login_database);
+		$query->password_database = $this->encryption->decrypt($query->password_database);
+
+		return $query;
+	}
+	function get_website_by_backoffice($id_website,$id_backoffice)
+	{
+		$this->db->select('*')
+				->from('470websitesmanagement_website__backoffice')
+				->where('470websitesmanagement_website__backoffice.id_website', $id_website)
+				->where('470websitesmanagement_website__database.id_backoffice', $id_backoffice);
+
+		$query = $this->db->get()->row();
+
+		$query->id_backoffice = $query->id_backoffice;
+		$query->host_backoffice = $this->encryption->decrypt($query->host_backoffice);
+		$query->login_backoffice = $this->encryption->decrypt($query->login_backoffice);
+		$query->password_backoffice = $this->encryption->decrypt($query->password_backoffice);
+
+		return $query;
+	}
+	function get_website_by_htaccess($id_website,$id_htaccess)
+	{
+		$this->db->select('*')
+				->from('470websitesmanagement_website__htaccess')
+				->where('470websitesmanagement_website__htaccess.id_website', $id_website)
+				->where('470websitesmanagement_website__database.id_htaccess', $id_htaccess);
+
+		$query = $this->db->get()->row();
+
+		$query->id_htaccess = $query->id_htaccess;
+		$query->login_htaccess = $this->encryption->decrypt($query->login_htaccess);
+		$query->password_htaccess = $this->encryption->decrypt($query->password_htaccess);
+
+		return $query;
+	}
+
+
+
+	function get_website_all_ftp($id_website)
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
 				->join('470websitesmanagement_website__ftp', '470websitesmanagement_website__ftp.id_website = 470websitesmanagement_website.id_website')
-				->where('470websitesmanagement_website__ftp.id_website', $id);
+				->where('470websitesmanagement_website__ftp.id_website', $id_website);
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
@@ -117,12 +195,12 @@ class Model_front extends CI_Model {
 		}
 		return $query;
 	}
-	function get_website_per_database($id)
+	function get_website_all_database($id_website)
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
 				->join('470websitesmanagement_website__database', '470websitesmanagement_website__database.id_website = 470websitesmanagement_website.id_website')
-				->where('470websitesmanagement_website__database.id_website', $id);
+				->where('470websitesmanagement_website__database.id_website', $id_website);
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
@@ -134,12 +212,12 @@ class Model_front extends CI_Model {
 		}
 		return $query;
 	}
-	function get_website_per_backoffice($id)
+	function get_website_all_backoffice($id_website)
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
 				->join('470websitesmanagement_website__backoffice', '470websitesmanagement_website__backoffice.id_website = 470websitesmanagement_website.id_website')
-				->where('470websitesmanagement_website__backoffice.id_website', $id);
+				->where('470websitesmanagement_website__backoffice.id_website', $id_website);
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
@@ -150,12 +228,12 @@ class Model_front extends CI_Model {
 		}
 		return $query;
 	}
-	function get_website_per_htaccess($id)
+	function get_website_all_htaccess($id_website)
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
 				->join('470websitesmanagement_website__htaccess', '470websitesmanagement_website__htaccess.id_website = 470websitesmanagement_website.id_website')
-				->where('470websitesmanagement_website__htaccess.id_website', $id);
+				->where('470websitesmanagement_website__htaccess.id_website', $id_website);
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {

@@ -100,7 +100,49 @@ class Import extends CI_Controller {
 				'key' => $this->config->item('encryption_key')
 			)
 		);
-		$this->model_migration->import_website($file_unserialize['470websitesmanagement_website']);
+
+
+		
+		foreach ($decrypt as $row) {
+			$id_website = $this->model_front->check_url_website($row->url_website);
+			if ($row->id_website != $id_website) {
+				$id_website = $this->model_back->create_websites($id_category, $id_language, $name_website, $url_website);
+			}
+				foreach ($row->ftp as $value) {
+					$ftp = $this->model_front->get_website_by_ftp($row->url_website,$value->id_ftp);
+					if ($value->host_ftp != $ftp->host_ftp && $value->login_ftp != $ftp->login_ftp && $value->password_ftp != $ftp->password_ftp) {
+						$this->model_back->create_ftp_website($value->website_id, $this->encryption->encrypt($value->host_ftp), $this->encryption->encrypt($value->login_ftp), $this->encryption->encrypt($value->password_ftp));
+					}
+				}
+				foreach ($row->database as $value) {
+					$database = $this->model_front->get_website_by_database($row->url_website,$value->id_database);
+					if ($value->host_db != $database->host_db && $value->name_db != $database->name_db &&  $value->login_db != $database->login_db && $value->password_db != $database->password_db) {
+						$this->model_back->create_database_website($value->website_id, $this->encryption->encrypt($value->host_db), $this->encryption->encrypt($value->name_db), $this->encryption->encrypt($value->login_db), $this->encryption->encrypt($value->password_db));
+					}
+				}
+				foreach ($row->backoffice as $value) {
+					$backoffice = $this->model_front->get_website_by_backoffice($row->url_website,$value->id_backoffice);
+					if ($value->host_bo != $backoffice->host_bo &&  $value->login_bo != $backoffice->login_bo && $value->password_bo != $backoffice->password_bo) {
+						$this->model_back->create_backoffice_website($value->website_id, $this->encryption->encrypt($value->host_bo), $this->encryption->encrypt($value->login_bo), $this->encryption->encrypt($value->password_bo));
+					}
+				}
+				foreach ($row->htaccess as $value) {
+					$htaccess = $this->model_front->get_website_by_htaccess($row->url_website,$value->id_htaccess);
+					if ($value->login_htaccess != $htaccess->login_htaccess && $value->password_htaccess != $htaccess->password_htaccess) {
+						$this->model_back->create_htaccess_website($value->website_id, $this->encryption->encrypt($value->login_htaccess), $this->encryption->encrypt($value->password_htaccess));
+					}
+				}
+				foreach ($row->whois as $value) {
+					$data = array(
+						'id_whois'  => $value->id_whois,
+						'creation_date' => $value->creation_date,
+						'expiration_date'  => $value->expiration_date,
+						'registrar'  => $value->registrar,
+						'release_date_whois'  => $value->release_date_whois
+					);
+					$this->db->insert('470websitesmanagement_whois', $data);
+				}
+		}
 
 	}
 }
