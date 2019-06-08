@@ -64,16 +64,16 @@ class All_websites extends CI_Controller {
 		} elseif($this->uri->total_segments() == 2) {
 			$data['website'] = $this->model_front->get_website($id_website);
 
-			$website_ftp = $this->model_front->get_website_per_ftp($id_website);
+			$website_ftp = $this->model_front->get_website_all_ftp($id_website);
 			$data['ftp'] = $website_ftp;
 
-			$website_database = $this->model_front->get_website_per_database($id_website);
+			$website_database = $this->model_front->get_website_all_database($id_website);
 			$data['database'] = $website_database;
 
-			$website_backoffice = $this->model_front->get_website_per_backoffice($id_website);
+			$website_backoffice = $this->model_front->get_website_all_backoffice($id_website);
 			$data['backoffice'] = $website_backoffice;
 
-			$website_htaccess = $this->model_front->get_website_per_htaccess($id_website);
+			$website_htaccess = $this->model_front->get_website_all_htaccess($id_website);
 			$data['htaccess'] = $website_htaccess;
 
 			$this->load->view('view-details-website', $data);

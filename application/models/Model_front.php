@@ -106,7 +106,7 @@ class Model_front extends CI_Model {
 		$this->db->select('*')
 				 ->from('470websitesmanagement_website')
 				 ->where('470websitesmanagement_website.url_website', $url_website)
-				  ->limit(1);
+				 ->limit(1);
 
 
 		$query = $this->db->get();

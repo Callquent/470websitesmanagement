@@ -103,10 +103,10 @@ class Import extends CI_Controller {
 
 
 		
-		foreach ($decrypt as $row) {
+		foreach ($file_unserialize['470websitesmanagement_website'] as $row) {
 			$id_website = $this->model_front->check_url_website($row->url_website);
 			if ($row->id_website != $id_website) {
-				$id_website = $this->model_back->create_websites($id_category, $id_language, $name_website, $url_website);
+				$id_website = $this->model_back->create_websites($row->id_category, $row->id_language, $row->name_website, $row->url_website);
 			}
 				foreach ($row->ftp as $value) {
 					$ftp = $this->model_front->get_website_by_ftp($row->url_website,$value->id_ftp);
@@ -143,6 +143,5 @@ class Import extends CI_Controller {
 					$this->db->insert('470websitesmanagement_whois', $data);
 				}
 		}
-
 	}
 }

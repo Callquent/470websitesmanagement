@@ -60,11 +60,11 @@ class Export extends CI_Controller {
 		$allqueries['470websitesmanagement_category'] = $this->model_category->get_all_categories()->result();
 		$allqueries['470websitesmanagement_website'] = $this->model_front->get_selected_websites($websites)->result();
 		foreach ($allqueries['470websitesmanagement_website'] as $value) {
-			$value->ftp = $this->model_front->get_website_per_ftp($value->id_website)->result();
-			$value->database = $this->model_front->get_website_per_database($value->id_website)->result();
-			$value->backoffice = $this->model_front->get_website_per_backoffice($value->id_website)->result();
-			$value->htaccess = $this->model_front->get_website_per_htaccess($value->id_website)->result();
-			$value->whois = $this->model_whois->get_website_per_whois($value->id_website)->result();
+			$value->ftp = $this->model_front->get_website_all_ftp($value->id_website)->result();
+			$value->database = $this->model_front->get_website_all_database($value->id_website)->result();
+			$value->backoffice = $this->model_front->get_website_all_backoffice($value->id_website)->result();
+			$value->htaccess = $this->model_front->get_website_all_htaccess($value->id_website)->result();
+			$value->whois = $this->model_whois->get_website_all_whois($value->id_website)->result();
 		}
 
 		$this->encryption->initialize(
