@@ -13,13 +13,13 @@ class Model_whois extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_website_all_whois($id_website = "")
+	function get_website_by_whois($id_website = "")
 	{
 		$this->db->select('*')
 					->from('470websitesmanagement_whois')
 					->where('470websitesmanagement_whois.id_whois', $id_website);
 
-		$query = $this->db->get();
+		$query = $this->db->get()->row();
 		return $query;
 	}
 	function get_all_whois_renew_tomonth($year,$month)

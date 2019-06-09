@@ -64,7 +64,7 @@ class Export extends CI_Controller {
 			$value->database = $this->model_front->get_website_all_database($value->id_website)->result();
 			$value->backoffice = $this->model_front->get_website_all_backoffice($value->id_website)->result();
 			$value->htaccess = $this->model_front->get_website_all_htaccess($value->id_website)->result();
-			$value->whois = $this->model_whois->get_website_all_whois($value->id_website)->result();
+			$value->whois = $this->model_whois->get_website_by_whois($value->id_website);
 		}
 
 		$this->encryption->initialize(

@@ -150,7 +150,7 @@ class Model_front extends CI_Model {
 		$this->db->select('*')
 				->from('470websitesmanagement_website__backoffice')
 				->where('470websitesmanagement_website__backoffice.id_website', $id_website)
-				->where('470websitesmanagement_website__database.id_backoffice', $id_backoffice);
+				->where('470websitesmanagement_website__backoffice.id_backoffice', $id_backoffice);
 
 		$query = $this->db->get()->row();
 
@@ -166,7 +166,7 @@ class Model_front extends CI_Model {
 		$this->db->select('*')
 				->from('470websitesmanagement_website__htaccess')
 				->where('470websitesmanagement_website__htaccess.id_website', $id_website)
-				->where('470websitesmanagement_website__database.id_htaccess', $id_htaccess);
+				->where('470websitesmanagement_website__htaccess.id_htaccess', $id_htaccess);
 
 		$query = $this->db->get()->row();
 
