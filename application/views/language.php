@@ -126,7 +126,7 @@
 		data : {
 			sidebar:"groups",
 			dialog_add_language: false,
-			  dialog: false,
+			dialog: false,
 			currentRoute: window.location.href,
 			headers: [
 				{ text: '<?php echo lang("language"); ?>', value: 'langage' },

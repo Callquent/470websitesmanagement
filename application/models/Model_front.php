@@ -89,17 +89,23 @@ class Model_front extends CI_Model {
 
 		return $query;
 	}
-	function get_website($id)
+	function get_website($id_websites)
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_website')
 				->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
 				->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category')
-				->where('470websitesmanagement_website.id_website', $id)
+				->where('470websitesmanagement_website.id_website', $id_websites)
 				->limit(1);
 
 		$query = $this->db->get();
-		return $query;
+		foreach ($query->result() as $value) {
+			$value->ftp = $this->get_website_all_ftp($id_websites)->result();
+			$value->database = $this->get_website_all_database($id_websites)->result();
+			$value->backoffice = $this->get_website_all_backoffice($id_websites)->result();
+			$value->htaccess = $this->get_website_all_htaccess($id_websites)->result();
+		}
+		return $query->row();
 	}
 	function check_url_website($url_website)
 	{
