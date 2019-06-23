@@ -8,31 +8,10 @@ $lang['modify'] = "Modification";
 $lang['search'] = "Rechercher";
 $lang['send'] = "Envoyer";
 $lang['email'] = "Email";
-/***********************/
-/*        navbar        */
-/***********************/
-$lang['create_website'] = " Ajouter Site web";
+
+
 $lang['create_category'] = " Ajouter Categorie";
 $lang['create_language'] = " Ajouter Langage";
-$lang['export'] = " Export";
-$lang['import'] = " Import";
-$lang['update'] = "Mise à jour";
-
-$lang['profile'] = " Mon profil";
-$lang['settings'] = " Paramètres";
-$lang['log_out'] = " Déconnexion";
-/***********************/
-/*        sidebar        */
-/***********************/
-$lang['general'] = "Général";
-$lang['dashboard'] = "Tableau de bord";
-$lang['all_websites'] = "Tous les Sites";
-$lang['website_languages'] = "Site Web par Langages";
-$lang['website_categories'] = "Site Web par Catégories";
-$lang['groups'] = "Groupes";
-$lang['management'] = "Administration";
-$lang['members'] = "Membres";
-$lang['documentation'] = "Documentation";
 /***********************/
 /*      language       */
 /***********************/

@@ -9,7 +9,7 @@ class Export extends CI_Controller {
 		$this->load->model(array('model_front','model_language','model_category','model_back','model_migration','model_whois','model_tasks','model_settings'));
 		$this->load->library(array('Aauth','encryption','form_validation','session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language','file'));
-		$this->lang->load(unserialize($this->model_settings->view_settings_lang()->value_s)['file'], unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
+		$this->lang->load(array('general','sidebar','navbar'), unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
 		        'language'  => unserialize($this->model_settings->view_settings_lang()->value_s)['language']
 		);

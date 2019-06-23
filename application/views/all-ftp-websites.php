@@ -103,9 +103,8 @@
             },
             f_connectFtpWebsite(){
                 var formData = new FormData(); 
-                formData.append("id_website",item.id_website);
                 formData.append("id_ftp",item.id_ftp);
-                axios.post(this.currentRoute+"/index/", formData).then(function(response){
+                axios.post(this.currentRoute+"/ftp-websites/"+item.id_website, formData).then(function(response){
                     if(response.status = 200){
                         v.dialog_ftp = true;
                         v.website_by_ftp = response.data;

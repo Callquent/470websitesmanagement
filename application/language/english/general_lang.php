@@ -8,31 +8,9 @@ $lang['modify'] = "Modify";
 $lang['search'] = "Search";
 $lang['send'] = "Send";
 $lang['email'] = "Email";
-/***********************/
-/*        navbar        */
-/***********************/
-$lang['create_website'] = " Create Website";
+
 $lang['create_category'] = " Create Category";
 $lang['create_language'] = " Create Language";
-$lang['export'] = " Export";
-$lang['import'] = " Import";
-$lang['update'] = " Update";
-
-$lang['profile'] = " Profile";
-$lang['settings'] = " Settings";
-$lang['log_out'] = " Log Out";
-/***********************/
-/*        sidebar        */
-/***********************/
-$lang['general'] = "General";
-$lang['dashboard'] = "Dashboard";
-$lang['all_websites'] = "All Websites";
-$lang['website_languages'] = "Website Languages";
-$lang['website_categories'] = "Website Categories";
-$lang['groups'] = "Groups";
-$lang['management'] = "Management";
-$lang['members'] = "Members";
-$lang['documentation'] = "Documentation";
 /***********************/
 /*     add website     */
 /***********************/

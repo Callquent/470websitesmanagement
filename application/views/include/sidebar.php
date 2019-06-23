@@ -84,37 +84,37 @@
 												</ul>
 											</li>
 											<li>
-												<a href="<?php echo site_url('ftp-websites'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('all-ftp-websites'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-swap-horizontal"></i>
-													<span class="subheading">FTP Website</span>
+													<span class="subheading"><?php echo lang('ftp_websites'); ?></span>
 												</a>
 											</li>
 											<li>
 												<a href="<?php echo site_url('whois-domain'); ?>" class="nav-link ripple fuse-ripple-ready">
 													<i class="icon icon-file-document-box"></i>
-													<span class="subheading">Whois Domain</span>
+													<span class="subheading"><?php echo lang('whois_domain'); ?></span>
 												</a>
 											</li>
 											<li>
 												<a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-projects">
 													<i class="icon icon-bulletin-board"></i>
-													<span class="subheading">Projects</span>
+													<span class="subheading"><?php echo lang('projects'); ?></span>
 												</a>
 												<ul id="collapse-projects" class="collapse" role="tabpanel" data-children=".nav-item">
-													<li><a href="<?php echo site_url('all-projects'); ?>" class="nav-link ripple fuse-ripple-ready">All Projects</a></li>
-													<li><a href="<?php echo site_url('my-tasks'); ?>" class="nav-link ripple fuse-ripple-ready">My Tasks <span class="badge badge-my-tasks"><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span></a></li>
-													<li><a href="<?php echo site_url('users-tasks'); ?>" class="nav-link ripple fuse-ripple-ready">Users Tasks</a></li>
+													<li><a href="<?php echo site_url('all-projects'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_projects'); ?></a></li>
+													<li><a href="<?php echo site_url('my-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('my_tasks'); ?><span class="badge badge-my-tasks"><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span></a></li>
+													<li><a href="<?php echo site_url('users-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('user_tasks'); ?></a></li>
 												</ul>
 											</li>
 											</li>
 											<li>
 												<a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-scrapperseo">
 													<i class="icon icon-search-web"></i>
-													<span class="subheading">Scrapper SEO</span>
+													<span class="subheading"><?php echo lang('scrapper_seo'); ?></span>
 												</a>
 												<ul id="collapse-scrapperseo" class="collapse" role="tabpanel" data-children=".nav-item">
-													<li><a href="<?php echo site_url('search-scrapper-google'); ?>" class="nav-link ripple fuse-ripple-ready">Search Scrapper Google</a></li>
-													<li><a href="<?php echo site_url('website-scrapper-google'); ?>" class="nav-link ripple fuse-ripple-ready">Website Scrapper Google</a></li>
+													<li><a href="<?php echo site_url('search-scrapper-google'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('search_scrapper_seo'); ?></a></li>
+													<li><a href="<?php echo site_url('website-scrapper-google'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('website_scrapper_seo'); ?></a></li>
 												</ul>
 											</li>
 											<!-- <li>
