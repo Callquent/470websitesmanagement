@@ -23,7 +23,7 @@
             <div class="page-header bg-secondary text-auto p-6">
                 <div class="header-content d-flex flex-column justify-content-between">
                     <div class="toolbar row no-gutters justify-content-between">
-                        <a href="<?php echo site_url('ftp-websites'); ?>" class="btn btn-icon fuse-ripple-ready">
+                        <a href="<?php echo site_url('all-ftp-websites'); ?>" class="btn btn-icon fuse-ripple-ready">
                             <i class="icon icon-arrow-left-thick s-10"></i>
                         </a>
                         <div class="right-side row no-gutters">
@@ -600,6 +600,6 @@
                 }
             },
         },
-    }
+    });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

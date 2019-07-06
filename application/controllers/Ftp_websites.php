@@ -47,9 +47,9 @@ class Ftp_websites extends CI_Controller {
 			$row = $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 			if (!empty($row->host_ftp) && !empty($row->login_ftp) && !empty($row->password_ftp)) {
-				$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-				$config['username'] = $this->encryption->decrypt($row->login_ftp);
-				$config['password'] = $this->encryption->decrypt($row->password_ftp);
+				$config['hostname'] = $row->host_ftp;
+				$config['username'] = $row->login_ftp;
+				$config['password'] = $row->password_ftp;
 
 				$this->ftp->connect($config);
 				$data['path_server'] = '/';
@@ -66,9 +66,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 
@@ -82,9 +82,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 		
@@ -109,9 +109,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 
@@ -136,9 +136,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 
@@ -158,9 +158,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 		if ($chmod_permissions != "d") {
@@ -179,9 +179,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 		$this->ftp->move(path_jointure_file($old_path,$file), path_jointure_file($new_path,$file));
@@ -199,9 +199,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 		$this->ftp->rename(path_jointure_file($path,$oldrename), path_jointure_file($path,$newrename));
@@ -218,9 +218,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 		$data = $this->ftp->chmod($item_download, $chmod);
@@ -238,9 +238,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 
@@ -257,9 +257,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 
@@ -276,9 +276,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 		$data = $this->ftp->read_file(path_jointure_file($path,$file));
@@ -292,9 +292,9 @@ class Ftp_websites extends CI_Controller {
 
 		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
 
-		$config['hostname'] = $this->encryption->decrypt($row->host_ftp);
-		$config['username'] = $this->encryption->decrypt($row->login_ftp);
-		$config['password'] = $this->encryption->decrypt($row->password_ftp);
+		$config['hostname'] = $row->host_ftp;
+		$config['username'] = $row->login_ftp;
+		$config['password'] = $row->password_ftp;
 
 		$this->ftp->connect($config);
 

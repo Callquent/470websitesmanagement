@@ -8,7 +8,7 @@ class All_ftp_websites extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model(array('model_front','model_language','model_category','model_tasks','model_users','model_settings'));
-		$this->load->library(array('user_agent','Aauth','form_validation','encryption','session','ftp'));
+		$this->load->library(array('user_agent','Aauth','form_validation','encryption','session'));
 		$this->load->helper(array('functions', 'text', 'number', 'url','language','file'));
 		$this->lang->load(array('general','sidebar','navbar'), unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
 		$sesslanguage = array(
