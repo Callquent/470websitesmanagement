@@ -1,90 +1,75 @@
 <?php $this->load->view('include/header.php'); ?>
-                <div class="content custom-scrollbar">
-                  <div class="page-layout simple full-width">
-                    <div class="page-content">
+    <div class="content custom-scrollbar">
+        <div class="page-layout simple full-width">
+            <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
+                <h2 class="doc-title" id="content"><?php echo lang('export'); ?></h2>
+            </div>
 
-                        <section id="main-content">
-                            <section class="wrapper">
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <section class="card mb-3">
-                                        <header class="card-header">
-                                            <?php echo lang('export'); ?>
-                                        </header>
-                                        <div class="card-body">
-                                            <div class="position-center">
+                    <div class="card-body">
+                        <div class="position-center">
 
-                    			                        <form class="form-horizontal" id="form-export">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-3 control-label col-lg-3"><?php echo lang('key_secrete'); ?></label>
-                                                                <div class="col-lg-6">
-                                                                    <div class="input-group m-bot15">
-                                                                        <input v-model="export_470websitesmanagement.key_secrete" type="text" id="keysecrete" class="form-control">
-                                                                        <span class="input-group-btn">
-                                                                            <v-btn color="success" @click="f_generateKey">Generate</v-btn>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-3 control-label"><?php echo lang('choose_type_export'); ?></label>
-
-                                                                <v-radio-group v-model="export_470websitesmanagement.type_export" column>
-                                                                    <v-radio label="<?php echo lang('all_websites_export'); ?>" value="radio_quick_export"></v-radio>
-                                                                    <v-radio label="<?php echo lang('select_websites_export'); ?>" value="radio_custom_export"></v-radio>
-                                                                </v-radio-group>
-
-                                                            </div>
-                                                            <div class="form-group row export-search-table" v-if="export_470websitesmanagement.type_export == 'radio_custom_export'">
-                                                                <label class="control-label col-md-3">Listes Sites Web :</label>
-                                                                <div class="col-md-9">
-                                                                    <v-select
-                                                                        v-model="export_470websitesmanagement.websites"
-                                                                        :items="list_websites"
-                                                                        item-text="url_website"
-                                                                        item-value="id_website"
-                                                                        label="Websites"
-                                                                        chips
-                                                                        multiple
-                                                                      >
-                                                                        <template v-slot:prepend-item>
-                                                                          <v-list-tile
-                                                                            ripple
-                                                                            @click="toggle"
-                                                                          >
-                                                                            <v-list-tile-action>
-                                                                              <v-icon :color="export_470websitesmanagement.websites.length > 0 ? 'indigo darken-4' : ''">{{ icon }}</v-icon>
-                                                                            </v-list-tile-action>
-                                                                            <v-list-tile-content>
-                                                                              <v-list-tile-title>Select All</v-list-tile-title>
-                                                                            </v-list-tile-content>
-                                                                          </v-list-tile>
-                                                                          <v-divider class="mt-2"></v-divider>
-                                                                        </template>
-                                                                    </v-select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                    			                                <div class="col-lg-offset-2 col-lg-10">
-                    			                                    <v-btn @click="f_export470websitesmanagement"><?php echo lang('export'); ?></v-btn>
-                    			                                </div>
-                    			                            </div>
-                    			                        </form>
+                                    <form class="form-horizontal" id="form-export">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label col-lg-3"><?php echo lang('key_secrete'); ?></label>
+                                            <div class="col-lg-6">
+                                                <div class="input-group m-bot15">
+                                                    <input v-model="export_470websitesmanagement.key_secrete" type="text" id="keysecrete" class="form-control">
+                                                    <span class="input-group-btn">
+                                                        <v-btn color="success" @click="f_generateKey">Generate</v-btn>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </section>
-                                </div>
-                            </div>
-                            </section>
-                        </section>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 control-label"><?php echo lang('choose_type_export'); ?></label>
+
+                                            <v-radio-group v-model="export_470websitesmanagement.type_export" column>
+                                                <v-radio label="<?php echo lang('all_websites_export'); ?>" value="radio_quick_export"></v-radio>
+                                                <v-radio label="<?php echo lang('select_websites_export'); ?>" value="radio_custom_export"></v-radio>
+                                            </v-radio-group>
+
+                                        </div>
+                                        <div class="form-group row export-search-table" v-if="export_470websitesmanagement.type_export == 'radio_custom_export'">
+                                            <label class="control-label col-md-3">Listes Sites Web :</label>
+                                            <div class="col-md-9">
+                                                <v-select
+                                                    v-model="export_470websitesmanagement.websites"
+                                                    :items="list_websites"
+                                                    item-text="url_website"
+                                                    item-value="id_website"
+                                                    label="Websites"
+                                                    chips
+                                                    multiple
+                                                  >
+                                                    <template v-slot:prepend-item>
+                                                      <v-list-tile
+                                                        ripple
+                                                        @click="toggle"
+                                                      >
+                                                        <v-list-tile-action>
+                                                          <v-icon :color="export_470websitesmanagement.websites.length > 0 ? 'indigo darken-4' : ''">{{ icon }}</v-icon>
+                                                        </v-list-tile-action>
+                                                        <v-list-tile-content>
+                                                          <v-list-tile-title>Select All</v-list-tile-title>
+                                                        </v-list-tile-content>
+                                                      </v-list-tile>
+                                                      <v-divider class="mt-2"></v-divider>
+                                                    </template>
+                                                </v-select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <v-btn @click="f_export470websitesmanagement"><?php echo lang('export'); ?></v-btn>
+                                            </div>
+                                        </div>
+                                    </form>
+                        </div>
                     </div>
-                  </div>
-                </div>
+
             </div>
         </div>
-    </v-app>
-</div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
     var v = new Vue({

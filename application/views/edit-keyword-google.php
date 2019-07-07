@@ -46,6 +46,4 @@
 </div>
 			</div>
 		</div>
-	</v-app>
-</div>
 <?php $this->load->view('include/footer.php'); ?>

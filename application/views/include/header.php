@@ -5,13 +5,11 @@
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<?php echo css_url('css/bootstrap.min.css'); ?>
-		<?php echo css_url('plugins/bootstrap-colorpicker/css/colorpicker.css'); ?>
-		<?php echo css_url('plugins/jquery-multi-select/css/multi-select.css'); ?>
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('plugins/nvd3/nv.d3.min.css'); ?>
 		<?php echo css_url('plugins/jquery-ui/jquery-ui.min.css'); ?>
+		<?php echo css_url('plugins/vuetify/vuetify.css'); ?>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.16/vuetify.css" rel="stylesheet">
 		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.css">
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/theme/monokai.css">

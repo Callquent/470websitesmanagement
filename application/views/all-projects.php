@@ -215,8 +215,6 @@
 </div>
 			</div>
 		</div>
-	</v-app>
-</div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 	var v = new Vue({

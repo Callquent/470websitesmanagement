@@ -7,8 +7,8 @@
         <?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
+		<?php echo css_url('plugins/vuetify/vuetify.css'); ?>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.6/vuetify.css" rel="stylesheet">
 		<link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
 	</head>
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
@@ -132,9 +132,9 @@
 				</v-app>
 			</div>
 		</main>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.6/vuetify.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+		<?php echo js_url('plugins/vue.js'); ?>
+		<?php echo js_url('plugins/vuetify/vuetify.js'); ?>
+		<?php echo js_url('plugins/axios.min.js'); ?>
 		<script type="text/javascript">
 		var v = new Vue({
 			el: '#app',
@@ -178,5 +178,4 @@
 			}
 		});
 		</script>
-<?php $this->load->view('include/javascript.php'); ?>
 <?php $this->load->view('include/footer.php'); ?>
