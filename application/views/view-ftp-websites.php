@@ -488,6 +488,7 @@
                 }).then(function(response){
                     let blob = new Blob([response.data], {type: response.data.type});
                     let link = document.createElement('a');
+                    document.body.appendChild(link);
                     link.href = window.URL.createObjectURL(blob);
                     link.download = v.contextMenu.selected_item.title;
                     link.click();

@@ -60,11 +60,11 @@ class Ftp_websites extends CI_Controller {
 			}
 		}
 	}
-	public function refreshftp($id_ftp_websites = '')
+	public function refreshftp($id_website = '')
 	{
 		$path = $this->input->post('path');
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -75,12 +75,12 @@ class Ftp_websites extends CI_Controller {
 		$data['folder'] = $this->ftp->list_files_details($path);
 		echo json_encode($data);
 	}
-	public function openfolderftp($id_ftp_websites = '')
+	public function openfolderftp($id_website = '')
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -101,13 +101,13 @@ class Ftp_websites extends CI_Controller {
 		$data['folder'] = $this->ftp->list_files_details($path);
 		echo json_encode($data);
 	}
-	public function mkdirftp($id_ftp_websites = '')
+	public function mkdirftp($id_website = '')
 	{
 		$path = $this->input->post('path');
 		$createfolder = $this->input->post('createfolder');
 		$item_download = path_jointure_file($path,$createfolder);
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -122,7 +122,7 @@ class Ftp_websites extends CI_Controller {
 
 		echo json_encode($data);
 	}
-	public function uploadftp($id_ftp_websites = '')
+	public function uploadftp($id_website = '')
 	{
 		ini_set('upload_max_filesize', '0');
 		ini_set('post_max_size', '0');
@@ -134,7 +134,7 @@ class Ftp_websites extends CI_Controller {
 
 		$source_to_local = $_FILES["uploadfile"]["tmp_name"];
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -149,14 +149,14 @@ class Ftp_websites extends CI_Controller {
 
 		echo json_encode($data);
 	}
-	public function downloadftp($id_ftp_websites = '')
+	public function downloadftp($id_website = '')
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
 		$chmod_permissions = $this->input->post('chmod_permissions');
 		$item_download = path_jointure_file($path,$file);
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -171,13 +171,13 @@ class Ftp_websites extends CI_Controller {
 		
 		$this->ftp->close();
 	}
-	public function moveftp($id_ftp_websites = '')
+	public function moveftp($id_website = '')
 	{
 		$old_path = $this->input->post('old_path');
 		$new_path = $this->input->post('new_path');
 		$file = $this->input->post('file');
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -191,13 +191,13 @@ class Ftp_websites extends CI_Controller {
 
 		echo json_encode($data);
 	}
-	public function renameftp($id_ftp_websites = '')
+	public function renameftp($id_website = '')
 	{
 		$path = $this->input->post('path');
 		$oldrename = $this->input->post('oldrenamefile');
 		$newrename = $this->input->post('renamefile');
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -208,7 +208,7 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->close();
 	}
-	public function chmodftp($id_ftp_websites = '')
+	public function chmodftp($id_website = '')
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
@@ -216,7 +216,7 @@ class Ftp_websites extends CI_Controller {
 
 		$item_download = path_jointure_file($path,$file);
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -228,7 +228,7 @@ class Ftp_websites extends CI_Controller {
 		$this->ftp->close();
 		echo json_encode($data);
 	}
-	public function test($id_ftp_websites = '')
+	public function test($id_website = '')
 	{
 		//$file = "/civuejs.zip";
 
@@ -236,7 +236,7 @@ class Ftp_websites extends CI_Controller {
 		$path = $this->input->post('path');
 		$item_delete = path_jointure_file($path,$file);*/
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -248,14 +248,14 @@ class Ftp_websites extends CI_Controller {
 
 		$this->ftp->close();
 	}
-	public function deleteftp($id_ftp_websites = '')
+	public function deleteftp($id_website = '')
 	{
 		$file = $this->input->post('file');
 		$path = $this->input->post('path');
 		$chmod_permissions = $this->input->post('chmod_permissions');
 		$item_delete = path_jointure_file($path,$file);
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -269,12 +269,12 @@ class Ftp_websites extends CI_Controller {
 			$this->ftp->delete_dir($item_delete);
 		}
 	}
-	public function readfileftp($id_ftp_websites = '')
+	public function readfileftp($id_website = '')
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -284,13 +284,13 @@ class Ftp_websites extends CI_Controller {
 		$data = $this->ftp->read_file(path_jointure_file($path,$file));
 		echo json_encode($data);
 	}
-	public function writefileftp($id_ftp_websites = '')
+	public function writefileftp($id_website = '')
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
 		$content = $this->input->post('content');
 
-		$row =  $this->model_front->get_website_by_ftp($id_ftp_web, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
