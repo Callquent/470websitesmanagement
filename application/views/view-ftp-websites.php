@@ -290,6 +290,7 @@
             cutfile:{old_path:'',file:'',cut_active:false},
             currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
             id_website: window.location.href.split('/').pop(),
+            id_ftp: <?php echo $id_ftp; ?>,
             list_view_ftp: <?php echo json_encode($all_storage_server); ?>,
             path: '<?php echo $path_server; ?>',
             chmod: [{chmod_check: false, value:400},{chmod_check: false, value:200},{chmod_check: false, value:100},{chmod_check: false, value:40},{chmod_check: false, value:20},{chmod_check: false, value:10},{chmod_check: false, value:4},{chmod_check: false, value:2},{chmod_check: false, value:1}],
@@ -352,6 +353,7 @@
             f_refresh () {
                 var formData = new FormData(); 
                 formData.append("path",v.path);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/refreshftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         v.list_view_ftp = [];
@@ -365,6 +367,7 @@
                 var formData = new FormData(); 
                 formData.append("path",v.path);
                 formData.append("file",item.title);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/openfolderftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         v.list_view_ftp = [];
@@ -383,6 +386,7 @@
                 var formData = new FormData();
                 formData.append("path",v.path);
                 formData.append("file",item.title);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/readfileftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         v.codemirror_show = true;
@@ -397,6 +401,7 @@
                 formData.append("path",v.path);
                 formData.append("file",v.contextMenu.selected_item.title);
                 formData.append("content",v.code);
+                formData.append("id_ftp",v.id_ftp);
                 if (confirm('Are you sure you want to delete this item?') == true) {
                     axios.post(this.currentRoute+"/writefileftp/"+this.id_website, formData).then(function(response){
                         if(response.status = 200){
@@ -419,6 +424,7 @@
                 formData.append("path",v.path);
                 formData.append("oldrenamefile",v.contextMenu.selected_item.title);
                 formData.append("renamefile",v.renamefile);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/renameftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         v.contextMenu.selected_item.title = v.renamefile;
@@ -432,6 +438,7 @@
                 var formData = new FormData();
                 formData.append("path",v.path);
                 formData.append("createfolder",v.createfolder);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/mkdirftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         v.list_view_ftp.push(response.data);
@@ -447,6 +454,7 @@
                 formData.append('uploadfile', v.file);
                 formData.append('path', v.path);
                 formData.append("file",v.file.name);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/uploadftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         v.list_view_ftp.push(response.data);
@@ -461,6 +469,7 @@
                 formData.append('uploadfile', v.file);
                 formData.append('path', v.path);
                 formData.append("file",v.file.name);
+                formData.append("id_ftp",v.id_ftp);
                 /*for( var i = 0; i < v.file.length; i++ ){
                 let file = v.file[i];
 
@@ -480,6 +489,7 @@
                 formData.append("path",v.path);
                 formData.append("file",v.contextMenu.selected_item.title);
                 formData.append("chmod_permissions",v.contextMenu.selected_item.chmod.charAt(0));
+                formData.append("id_ftp",v.id_ftp);
                 axios({
                     method: 'POST',
                     url: this.currentRoute+"/downloadftp/"+this.id_website,
@@ -540,6 +550,7 @@
                 formData.append('chmod', v.total_chmod);
                 formData.append('path', v.path);
                 formData.append("file",v.contextMenu.selected_item.title);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/chmodftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         console.log(response);
@@ -559,6 +570,7 @@
                 formData.append('old_path', v.cutfile.old_path);
                 formData.append('new_path', v.path);
                 formData.append("file", v.cutfile.file);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/moveftp/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         v.cutfile = Object.assign({}, {old_path: '', file: '', cut_active: false});
@@ -574,6 +586,7 @@
                 var formData = new FormData();
                 formData.append('path', v.path);
                 formData.append("file",v.file.name);
+                formData.append("id_ftp",v.id_ftp);
                 axios.post(this.currentRoute+"/test/"+this.id_website, formData).then(function(response){
                     if(response.status = 200){
                         
@@ -587,6 +600,7 @@
                 formData.append("path",v.path);
                 formData.append("file",item.title);
                 formData.append("chmod_permissions",item.chmod.charAt(0));
+                formData.append("id_ftp",v.id_ftp);
                 if (confirm('Are you sure you want to delete this item?') == true) {
                     axios.post(this.currentRoute+"/deleteftp/"+this.id_website, formData).then(function(response){
                         if(response.status = 200){

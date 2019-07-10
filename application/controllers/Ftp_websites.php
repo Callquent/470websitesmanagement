@@ -41,10 +41,10 @@ class Ftp_websites extends CI_Controller {
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		$id_ftp = $this->input->post('id_ftp');
+		$data['id_ftp'] = $this->input->post('id_ftp');
 
-		if (!empty($id_website) && !empty($id_ftp) ) {
-			$row = $this->model_front->get_website_by_ftp($id_website, $id_ftp);
+		if (!empty($id_website) && !empty($data['id_ftp']) ) {
+			$row = $this->model_front->get_website_by_ftp($id_website, $data['id_ftp']);
 
 			if (!empty($row->host_ftp) && !empty($row->login_ftp) && !empty($row->password_ftp)) {
 				$config['hostname'] = $row->host_ftp;
@@ -63,8 +63,9 @@ class Ftp_websites extends CI_Controller {
 	public function refreshftp($id_website = '')
 	{
 		$path = $this->input->post('path');
+		$id_ftp = $this->input->post('id_ftp');
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -79,8 +80,9 @@ class Ftp_websites extends CI_Controller {
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
+		$id_ftp = $this->input->post('id_ftp');
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -106,8 +108,9 @@ class Ftp_websites extends CI_Controller {
 		$path = $this->input->post('path');
 		$createfolder = $this->input->post('createfolder');
 		$item_download = path_jointure_file($path,$createfolder);
+		$id_ftp = $this->input->post('id_ftp');
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -131,10 +134,11 @@ class Ftp_websites extends CI_Controller {
 
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
+		$id_ftp = $this->input->post('id_ftp');
 
 		$source_to_local = $_FILES["uploadfile"]["tmp_name"];
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -153,10 +157,11 @@ class Ftp_websites extends CI_Controller {
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
+		$id_ftp = $this->input->post('id_ftp');
 		$chmod_permissions = $this->input->post('chmod_permissions');
 		$item_download = path_jointure_file($path,$file);
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -176,8 +181,9 @@ class Ftp_websites extends CI_Controller {
 		$old_path = $this->input->post('old_path');
 		$new_path = $this->input->post('new_path');
 		$file = $this->input->post('file');
+		$id_ftp = $this->input->post('id_ftp');
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -196,8 +202,9 @@ class Ftp_websites extends CI_Controller {
 		$path = $this->input->post('path');
 		$oldrename = $this->input->post('oldrenamefile');
 		$newrename = $this->input->post('renamefile');
+		$id_ftp = $this->input->post('id_ftp');
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -213,10 +220,11 @@ class Ftp_websites extends CI_Controller {
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
 		$chmod = $this->input->post('chmod');
+		$id_ftp = $this->input->post('id_ftp');
 
 		$item_download = path_jointure_file($path,$file);
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -236,7 +244,7 @@ class Ftp_websites extends CI_Controller {
 		$path = $this->input->post('path');
 		$item_delete = path_jointure_file($path,$file);*/
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -254,8 +262,9 @@ class Ftp_websites extends CI_Controller {
 		$path = $this->input->post('path');
 		$chmod_permissions = $this->input->post('chmod_permissions');
 		$item_delete = path_jointure_file($path,$file);
+		$id_ftp = $this->input->post('id_ftp');
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -273,8 +282,9 @@ class Ftp_websites extends CI_Controller {
 	{
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
+		$id_ftp = $this->input->post('id_ftp');
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
@@ -289,8 +299,9 @@ class Ftp_websites extends CI_Controller {
 		$path = $this->input->post('path');
 		$file = $this->input->post('file');
 		$content = $this->input->post('content');
+		$id_ftp = $this->input->post('id_ftp');
 
-		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftpsites);
+		$row =  $this->model_front->get_website_by_ftp($id_website, $id_ftp);
 
 		$config['hostname'] = $row->host_ftp;
 		$config['username'] = $row->login_ftp;
