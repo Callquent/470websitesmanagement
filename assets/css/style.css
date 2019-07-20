@@ -274,6 +274,7 @@ table#table-view-project .progress{width:20%;display:inline-block}
 .prevBtn,.nextBtn{background-color:#039be5;border-radius:50%;width:56px;height:56px;color:#fff}
 .nextBtn{margin-left:auto}
 #academy-course .sidebar .steps .step.completed .index span{border:2px solid #5cb85c}
+.v-stepper__label {flex-direction: row;}
 /*********************/
 /*      CUSTOM       */
 /*********************/

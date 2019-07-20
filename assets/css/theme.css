@@ -25240,7 +25240,6 @@ body>main {
     flex: 1
 }
 
-i,
 [class^="icon-"],
 [class*=" icon-"] {
     color: rgba(0, 0, 0, 0.54);
@@ -37226,13 +37225,6 @@ input[type=checkbox][disabled] ~ .form-check-description {
 .nav-link [class^="icon-"],
 .nav-link [class*=" icon-"] {
     margin-right: 1.6rem
-}
-
-.nav-link>span {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1
 }
 
 .nav-link.with-arrow:after {

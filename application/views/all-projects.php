@@ -54,7 +54,22 @@
 						<v-layout row wrap>
 							<v-flex xs12>
 								<template>
-									<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
+									<v-list>
+										<v-list-tile>
+											<v-list-tile-content>
+												<v-list-tile-title>test</v-list-tile-title>
+											</v-list-tile-content>
+											<v-list-tile-content>
+												<v-list-tile-title>test</v-list-tile-title>
+											</v-list-tile-content>
+										</v-list-tile>
+									</v-list>
+									<table>
+										<td>
+											<span class="badge badge-success">Success</span>
+											<span class="badge badge-warning">In progress</span>
+		                                </td>
+									</table>
 								</template>
 							</v-flex>
 						</v-layout>
@@ -190,17 +205,32 @@
 										</span>
 									</td>
 	                                <td class="text-xs-left">
-										<div class="dropdown show actions">
-											<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-												<i class="icon icon-dots-vertical"></i>
-											</a>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-													<a class="dropdown-item" id="view-project" :href="currentRoute+'/'+props.item.id_project_tasks"><i class="fa fa-eye"></i> View</a>
-													<div class="dropdown-divider"></div>
-													<a class="dropdown-item" id="edit-project" @click="f_dialog_editProject(props.item)"><i class="fa fa-pencil"></i>  <?php echo lang('edit') ?></a>
-													<a class="dropdown-item" id="delete-project" @click="f_deleteProject(props.item)"><i class="fa fa-trash"></i> <?php echo lang('delete') ?></a>
-											</div>
-										</div>
+
+											<v-menu bottom left>
+												<template v-slot:activator="{ on }">
+													<v-btn flat icon v-on="on" color="grey darken-1">
+														<v-icon>more_vert</v-icon>
+													</v-btn>
+												</template>
+
+												<v-list>
+													<v-list-tile>
+														<v-list-tile-content>
+															<v-list-tile-title id="view-project" :href="currentRoute+'/'+props.item.id_project_tasks">View</v-list-tile-title>
+														</v-list-tile-content>
+													</v-list-tile>
+													<v-list-tile>
+														<v-list-tile-content>
+															<v-list-tile-title id="edit-project" @click="f_dialog_editProject(props.item)"><?php echo lang('edit') ?></v-list-tile-title>
+														</v-list-tile-content>
+													</v-list-tile>
+													<v-list-tile>
+														<v-list-tile-content>
+															<v-list-tile-title id="delete-project" @click="f_deleteProject(props.item)"><?php echo lang('delete') ?></v-list-tile-title>
+														</v-list-tile-content>
+													</v-list-tile>
+												</v-list>
+											</v-menu>
 	                                </td>
 	                            </template>
 	                        </v-data-table>

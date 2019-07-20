@@ -64,12 +64,21 @@
 												</a>
 												<ul id="collapse-websitesmanagement" class="collapse" role="tabpanel" data-children=".nav-item">
 													<li>
-														<a href="<?php echo site_url('all-websites'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_websites'); ?> <span class="badge badge-all-websites"><?php echo $all_count_websites->count_all_websites; ?></span></a></li>
+														<a href="<?php echo site_url('all-websites'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_websites'); ?>
+															<v-chip color="green" text-color="white"><?php echo $all_count_websites->count_all_websites; ?></v-chip>
+														</a>
+													</li>
 													<li>
 														<a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitelanguages"><i class="fa fa-plus"></i><?php echo lang('website_languages'); ?></a>
 														<ul id="collapse-websitelanguages" class="collapse" role="tabpanel" data-children=".nav-item">
 															<?php foreach ($all_count_websites_per_language->result() as $row) {  ?>
-															<li><a href="<?php echo site_url('all-websites/language/'.$row->name_url_language); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->name_language; ?> <span class="badge badge-language-<?php echo $row->name_language; ?>"><?php echo $row->count_websites_per_language; ?></span></a></li>
+															<li>
+																<a href="<?php echo site_url('all-websites/language/'.$row->name_url_language); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->name_language; ?>
+																<v-chip color="green" text-color="white">
+																	<span><?php echo $row->count_websites_per_language; ?></span>
+																</v-chip>
+																</a>
+															</li>
 															<?php } ?>
 														</ul>
 													</li>
@@ -77,7 +86,13 @@
 														<a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-websitecategories"><i class="fa fa-plus"></i><?php echo lang('website_categories'); ?></a>
 														<ul id="collapse-websitecategories" class="collapse" role="tabpanel" data-children=".nav-item">
 															<?php foreach ($all_count_websites_per_category->result() as $row) {  ?>
-															<li><a href="<?php echo site_url('all-websites/category/'.$row->name_url_category); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->name_category; ?> <span class="badge badge-category-<?php echo $row->name_category; ?>"><?php echo $row->count_websites_per_category; ?></span></a></li>
+															<li>
+																<a href="<?php echo site_url('all-websites/category/'.$row->name_url_category); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo $row->name_category; ?>
+																	<v-chip color="green" text-color="white">
+																		<span><?php echo $row->count_websites_per_category; ?></span>
+																	</v-chip>
+																</a>
+															</li>
 															<?php } ?>
 														</ul>
 													</li>
@@ -101,9 +116,17 @@
 													<span class="subheading"><?php echo lang('projects'); ?></span>
 												</a>
 												<ul id="collapse-projects" class="collapse" role="tabpanel" data-children=".nav-item">
-													<li><a href="<?php echo site_url('all-projects'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_projects'); ?></a></li>
-													<li><a href="<?php echo site_url('my-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('my_tasks'); ?><span class="badge badge-my-tasks"><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span></a></li>
-													<li><a href="<?php echo site_url('users-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('user_tasks'); ?></a></li>
+													<li><a href="<?php echo site_url('all-projects'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_projects'); ?></a>
+													</li>
+													<li>
+														<a href="<?php echo site_url('my-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('my_tasks'); ?>
+															<v-chip color="green" text-color="white">
+																<span><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span>
+															</v-chip>
+														</a>
+													</li>
+													<li><a href="<?php echo site_url('users-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('user_tasks'); ?></a>
+													</li>
 												</ul>
 											</li>
 											</li>

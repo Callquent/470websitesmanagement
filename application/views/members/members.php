@@ -41,19 +41,19 @@
 			<v-layout row wrap>
 
 				<v-flex xs12 sm2>
-				      <v-card>
-				        <v-toolbar color="light-blue" dark>
-				          <v-toolbar-title>Groups</v-toolbar-title>
-				        </v-toolbar>
+					<v-card>
+						<v-toolbar color="light-blue" dark>
+							<v-toolbar-title>Groups</v-toolbar-title>
+						</v-toolbar>
 
-				        <v-list two-line subheader>
-				        	<v-list-tile v-for="group in list_user_groups" @click="">
-				        		<v-list-tile-content>
-				            		<v-list-tile-title>{{ group.name }}</v-list-tile-title>
+						<v-list two-line subheader>
+							<v-list-tile v-for="group in list_user_groups" @click="">
+								<v-list-tile-content>
+									<v-list-tile-title>{{ group.name }}</v-list-tile-title>
 								</v-list-tile-content>
 							</v-list-tile>
-				        </v-list>
-				      </v-card>
+						</v-list>
+					</v-card>
 				</v-flex>
 
 				<v-flex xs12 sm10>
