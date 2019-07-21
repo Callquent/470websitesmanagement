@@ -64,15 +64,22 @@
 													<td>{{ props.item.login_ftp }}</td>
 													<td>{{ props.item.password_ftp }}</td>
 													<td>
-														<div class="dropdown show actions">
-															<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-																<i class="icon icon-dots-vertical"></i>
-															</a>
-															<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-																<a class="dropdown-item" id="edit-task" @click="f_editFtp(props.item)"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
-																<a class="dropdown-item" id="delete-task" @click="f_deleteFtp(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
-															</div>
-														</div>
+														<v-menu bottom left>
+															<template v-slot:activator="{ on }">
+																<v-btn flat icon v-on="on" color="grey darken-1">
+																	<v-icon>more_vert</v-icon>
+																</v-btn>
+															</template>
+
+															<v-list>
+																<v-list-tile @click="f_editFtp(props.item)">
+																		<v-list-tile-title><?php echo lang('edit') ?></v-list-tile-title>
+																</v-list-tile>
+																<v-list-tile @click="f_deleteFtp(props.item)">
+																		<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
+																</v-list-tile>
+															</v-list>
+														</v-menu>
 													</td>
 												</template>
 											</v-data-table>
@@ -126,15 +133,22 @@
 													<td>{{ props.item.login_database }}</td>
 													<td>{{ props.item.password_database }}</td>
 													<td>
-														<div class="dropdown show actions">
-															<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-																<i class="icon icon-dots-vertical"></i>
-															</a>
-															<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-																<a class="dropdown-item" id="edit-task" @click="f_editDatabase(props.item)"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
-																<a class="dropdown-item" id="delete-task" @click="f_deleteDatabase(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
-															</div>
-														</div>
+														<v-menu bottom left>
+															<template v-slot:activator="{ on }">
+																<v-btn flat icon v-on="on" color="grey darken-1">
+																	<v-icon>more_vert</v-icon>
+																</v-btn>
+															</template>
+
+															<v-list>
+																<v-list-tile @click="f_editDatabase(props.item)">
+																		<v-list-tile-title><?php echo lang('edit') ?></v-list-tile-title>
+																</v-list-tile>
+																<v-list-tile  @click="f_deleteDatabase(props.item)">
+																		<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
+																</v-list-tile>
+															</v-list>
+														</v-menu>
 													</td>
 												</template>
 											</v-data-table>
@@ -185,15 +199,22 @@
 													<td>{{ props.item.login_backoffice }}</td>
 													<td>{{ props.item.password_backoffice }}</td>
 													<td>
-														<div class="dropdown show actions">
-															<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-																<i class="icon icon-dots-vertical"></i>
-															</a>
-															<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-																<a class="dropdown-item" id="edit-task" @click="f_editBackoffice(props.item)"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
-																<a class="dropdown-item" id="delete-task" @click="f_deleteBackoffice(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
-															</div>
-														</div>
+														<v-menu bottom left>
+															<template v-slot:activator="{ on }">
+																<v-btn flat icon v-on="on" color="grey darken-1">
+																	<v-icon>more_vert</v-icon>
+																</v-btn>
+															</template>
+
+															<v-list>
+																<v-list-tile @click="f_editBackoffice(props.item)">
+																		<v-list-tile-title><?php echo lang('edit') ?></v-list-tile-title>
+																</v-list-tile>
+																<v-list-tile  @click="f_deleteBackoffice(props.item)">
+																		<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
+																</v-list-tile>
+															</v-list>
+														</v-menu>
 													</td>
 												</template>
 											</v-data-table>
@@ -240,15 +261,22 @@
 													<td>{{ props.item.login_htaccess }}</td>
 													<td>{{ props.item.password_htaccess }}</td>
 													<td>
-														<div class="dropdown show actions">
-															<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-																<i class="icon icon-dots-vertical"></i>
-															</a>
-															<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-																<a class="dropdown-item" id="edit-task" @click="f_editHtaccess(props.item)"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
-																<a class="dropdown-item" id="delete-task" @click="f_deleteHtaccess(props.item)" ><i class="icon icon-trash"></i><?php echo lang('delete') ?></a>
-															</div>
-														</div>
+														<v-menu bottom left>
+															<template v-slot:activator="{ on }">
+																<v-btn flat icon v-on="on" color="grey darken-1">
+																	<v-icon>more_vert</v-icon>
+																</v-btn>
+															</template>
+
+															<v-list>
+																<v-list-tile  @click="f_editHtaccess(props.item)">
+																		<v-list-tile-title><?php echo lang('edit') ?></v-list-tile-title>
+																</v-list-tile>
+																<v-list-tile  @click="f_deleteHtaccess(props.item)">
+																		<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
+																</v-list-tile>
+															</v-list>
+														</v-menu>
 													</td>
 												</template>
 											</v-data-table>
@@ -267,6 +295,84 @@
 	</div>
   </div>
 </div>
+
+<v-dialog v-model="dialog_email" width="500">
+	<v-card>
+        <v-card-title class="headline green lighten-2" primary-title>
+        	Envoyer un email
+        </v-card-title>
+        <v-card-text>
+			<v-container grid-list-md>
+				<v-layout wrap>
+					<v-flex xs12>
+						<v-checkbox v-model="checkbox1"></v-checkbox>
+					</v-flex>
+					<v-flex xs12>
+						<v-checkbox v-model="checkbox1"></v-checkbox>
+					</v-flex>
+					<v-flex xs12>
+						<v-checkbox v-model="checkbox1"></v-checkbox>
+					</v-flex>
+					<v-flex xs12>
+						<v-checkbox v-model="checkbox1"></v-checkbox>
+					</v-flex>
+				</v-layout>
+			</v-container>
+			<small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        	<v-btn color="blue darken-1" flat @click="f_createCard()">Evoyer</v-btn>
+        	<v-btn color="blue darken-1" flat @click="dialog_email = false">Annuler</v-btn>
+        </v-card-actions>
+	</v-card>
+</v-dialog>
+
+	  <div class="modal fade" id="email" tabindex="-1" role="dialog" aria-labelledby="email" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header modal-header-warning">
+			  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+			  <h4 class="modal-title custom_align" id="Heading">Envoyer un email à un client</h4>
+			</div>
+			<form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact'); ?>">
+			  <div class="modal-body">
+				<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+				  <input type="email" class="form-control" name="email" placeholder="Email">
+				</div>
+				<div class="form-check form-check-inline">
+				  <label class="form-check-label">
+					  <input name="check_bo" type="checkbox" class="form-check-input">
+					  <span class="checkbox-icon fuse-ripple-ready"></span>
+					  <span>Acces Backoffice</span>
+				  </label>
+				</div>
+				<div class="form-check form-check-inline">
+				  <label class="form-check-label">
+					  <input name="check_ftp" type="checkbox" class="form-check-input">
+					  <span class="checkbox-icon fuse-ripple-ready"></span>
+					  <span>Acces FTP</span>
+				  </label>
+				</div>
+				<div class="form-check form-check-inline">
+				  <label class="form-check-label">
+					  <input name="check_db" type="checkbox" class="form-check-input">
+					  <span class="checkbox-icon fuse-ripple-ready"></span>
+					  <span>Acces Base de Donnée</span>
+				  </label>
+				</div>
+				</div>
+			  </div>
+			  <div class="modal-footer ">
+				<button type="submit" class="btn btn-warning btn-lg"> Envoyer</button>
+				<button type="button" class="btn btn-default btn-lg" data-dismiss="modal"> Annuler</button>
+			  </div>
+			</form>
+		  </div>
+		</div>
+	  </div>
+
 			</div>
 		</div>
 <?php $this->load->view('include/javascript.php'); ?>
@@ -274,6 +380,8 @@
 	var v = new Vue({
 		el: '#app',
 		data : {
+	    	checkbox1: false,
+	    	dialog_email: false,
 			dialog_ftp: false,
 			dialog_database: false,
 			dialog_backoffice: false,
@@ -548,5 +656,30 @@
 			}
 		}
 	});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#email').on('show.bs.modal',function(event){
+	  var modal = $(this);
+	  var id = $(event.relatedTarget).data('id');
+	  
+	  $('[name="id"]').val(id);
+	});
+	$("#form-email").submit(function(e){
+	  $.ajax({
+		type: "POST",
+		url: $(this).attr('action'),
+		data: $(this).serialize(),
+		success: function(msg){
+		  $("#email").modal('hide');
+		},
+		error: function(msg){
+		  console.log(msg.responseText);
+		}
+	  });
+	  e.preventDefault();
+	});
+
+});
 </script>
 <?php $this->load->view('include/footer.php'); ?>

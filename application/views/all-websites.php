@@ -109,22 +109,29 @@
 											</v-edit-dialog>
 										</td>
 										<td>
-											<a :href="currentRoute+'/'+props.item.id_website"><i class="icon icon-eye"></i></a>
+											<v-btn :href="currentRoute+'/'+props.item.id_website" flat icon color="grey darken-1">
+												<v-icon>remove_red_eye</v-icon>
+											</v-btn>
 										</td>
 										<td class="text-xs-left">
-											<div class="dropdown show actions">
-												<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-													<i class="icon icon-dots-vertical"></i>
-												</a>
-												<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-													<a class="dropdown-item" id="edit-dashboard" :href="'http://'+props.item.url_website" target="_blank"><i class="icon-link-variant"></i>Open URL Website</a>
-													<a class="dropdown-item email" href="javascript:void(0);" data-toggle="modal" data-target="#email" data-id="'.$row->id_website.'"><i class="fa fa-envelope"></i><?php echo lang('email') ?></a>
+											<v-menu bottom left>
+												<template v-slot:activator="{ on }">
+													<v-btn flat icon v-on="on" color="grey darken-1">
+														<v-icon>more_vert</v-icon>
+													</v-btn>
+												</template>
+
+												<v-list>
+													<v-list-tile :href="'http://'+props.item.url_website" target="_blank" id="edit-dashboard">
+															<v-list-tile-title>Open URL Website</v-list-tile-title>
+													</v-list-tile>
 													<?php if($this->aauth->is_group_allowed('delete_website',$user_role[0]->name)) { ?>
-													<div class="dropdown-divider"></div>
-													<a class="dropdown-item" id="delete-dashboard" @click="f_deleteWebsite(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
+													<v-list-tile  @click="f_deleteWebsite(props.item)"  id="delete-dashboard">
+															<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
+													</v-list-tile>
 													<?php } ?>
-												</div>
-											</div>
+												</v-list>
+											</v-menu>
 										</td>
 									</template>
 								</v-data-table>
@@ -137,50 +144,7 @@
   </div>
 </div>
 
-	  <div class="modal fade" id="email" tabindex="-1" role="dialog" aria-labelledby="email" aria-hidden="true">
-		<div class="modal-dialog">
-		  <div class="modal-content">
-			<div class="modal-header modal-header-warning">
-			  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-			  <h4 class="modal-title custom_align" id="Heading">Envoyer un email à un client</h4>
-			</div>
-			<form id="form-email" method="post" action="<?php echo site_url('/all-websites/contact'); ?>">
-			  <div class="modal-body">
-				<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-				  <input type="email" class="form-control" name="email" placeholder="Email">
-				</div>
-				<div class="form-check form-check-inline">
-				  <label class="form-check-label">
-					  <input name="check_bo" type="checkbox" class="form-check-input">
-					  <span class="checkbox-icon fuse-ripple-ready"></span>
-					  <span>Acces Backoffice</span>
-				  </label>
-				</div>
-				<div class="form-check form-check-inline">
-				  <label class="form-check-label">
-					  <input name="check_ftp" type="checkbox" class="form-check-input">
-					  <span class="checkbox-icon fuse-ripple-ready"></span>
-					  <span>Acces FTP</span>
-				  </label>
-				</div>
-				<div class="form-check form-check-inline">
-				  <label class="form-check-label">
-					  <input name="check_db" type="checkbox" class="form-check-input">
-					  <span class="checkbox-icon fuse-ripple-ready"></span>
-					  <span>Acces Base de Donnée</span>
-				  </label>
-				</div>
-				</div>
-			  </div>
-			  <div class="modal-footer ">
-				<button type="submit" class="btn btn-warning btn-lg"> Envoyer</button>
-				<button type="button" class="btn btn-default btn-lg" data-dismiss="modal"> Annuler</button>
-			  </div>
-			</form>
-		  </div>
-		</div>
-	  </div>
+
 	  
 			</div>
 		</div>
@@ -191,7 +155,6 @@
 	    data : {
 	    	sidebar:"general",
 	    	search:"",
-	    	dialog_email: false,
 	        currentRoute: window.location.href,
 			headers: [
 				{ text: '<?php echo lang("name"); ?>', value: 'name_website'},
@@ -260,30 +223,5 @@
 			}
 	    }
 	});
-</script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#email').on('show.bs.modal',function(event){
-	  var modal = $(this);
-	  var id = $(event.relatedTarget).data('id');
-	  
-	  $('[name="id"]').val(id);
-	});
-	$("#form-email").submit(function(e){
-	  $.ajax({
-		type: "POST",
-		url: $(this).attr('action'),
-		data: $(this).serialize(),
-		success: function(msg){
-		  $("#email").modal('hide');
-		},
-		error: function(msg){
-		  console.log(msg.responseText);
-		}
-	  });
-	  e.preventDefault();
-	});
-
-});
 </script>
 <?php $this->load->view('include/footer.php'); ?>
