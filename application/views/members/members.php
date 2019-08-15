@@ -47,7 +47,7 @@
 						</v-toolbar>
 
 						<v-list two-line subheader>
-							<v-list-tile v-for="group in list_user_groups" @click="">
+							<v-list-tile v-for="group in list_user_groups" @click="search">
 								<v-list-tile-content>
 									<v-list-tile-title>{{ group.name }}</v-list-tile-title>
 								</v-list-tile-content>
@@ -103,8 +103,9 @@
 									:items="users"
 									class="elevation-1"
 									:rows-per-page-items="[10,20,50,100]"
+									:search="search"
+									:custom-filter="customFilter"
 									select-all
-									class="elevation-1"
 								>
 									<template slot="items" slot-scope="props">
 										<td>
@@ -187,6 +188,7 @@
 	var v = new Vue({
 		el: '#app',
 		data : {
+			search: '',
 			sidebar:"members",
 			dialog_add_user: false,
 			dialog_edit_user: false,
@@ -227,6 +229,10 @@
 		methods:{
 			displayPage(){
 
+			},
+			customFilter(items, search, filter) {
+				search = search.toString().toLowerCase()
+				return items.filter(row => filter(row["name_group"], search));
 			},
 			dialogUser(item){
 				this.dialog_edit_user = true;
