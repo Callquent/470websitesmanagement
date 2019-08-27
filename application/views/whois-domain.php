@@ -59,14 +59,30 @@
 										:items="list_whois"
 										class="elevation-1"
 									>
-										<template slot="items" slot-scope="props">
-											<td>{{ props.item.name_whois }}</td>
-											<td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
-											<td class="text-xs-left">{{ props.item.hosting }}</td>
-											<td class="text-xs-left">{{ props.item.date_delivery }}</td>
-											<td class="text-xs-left">{{ props.item.date_expiration }}</td>
-											<td class="text-xs-left"><a @click="f_dialog_Whois(props.item)"><i class="icon icon-eye"></i></a></td>
-											<td class="text-xs-left"><a @click="f_whoisRefreshDomain(props.item)"><i class="icon icon-refresh"></i></a></td>
+										<template v-slot:item.name_whois="props">
+											{{ props.item.name_whois }}
+										</template>
+										<template v-slot:item.website="props">
+											{{ props.item.website }}
+										</template>
+										<template v-slot:item.hosting="props">
+											{{ props.item.hosting }}
+										</template>
+										<template v-slot:item.date_delivery="props">
+											{{ props.item.date_delivery }}
+										</template>
+										<template v-slot:item.date_expiration="props">
+											{{ props.item.date_expiration }}
+										</template>
+										<template v-slot:item.whois="props">
+											<v-btn @click="f_dialog_Whois(props.item)" icon color="grey darken-1">
+												<v-icon>remove_red_eye</v-icon>
+											</v-btn>
+										</template>
+										<template v-slot:item.refresh="props">
+											<v-btn @click="f_whoisRefreshDomain(props.item)" icon color="grey darken-1">
+												<v-icon>autorenew</v-icon>
+											</v-btn>
 										</template>
 									</v-data-table>
 								</template>
@@ -197,6 +213,7 @@
 <script type="text/javascript">
 	var v = new Vue({
 		el: '#app',
+		vuetify: new Vuetify(),
 		data : {
 			sidebar:"general",
 			dialog_whois: false,

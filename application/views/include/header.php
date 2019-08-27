@@ -4,12 +4,12 @@
 		<meta charset="utf-8">
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
 		<?php echo css_url('css/bootstrap.min.css'); ?>
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('plugins/nvd3/nv.d3.min.css'); ?>
 		<?php echo css_url('plugins/jquery-ui/jquery-ui.min.css'); ?>
 		<?php echo css_url('plugins/vuetify/vuetify.css'); ?>
-		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
 		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.css">
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/theme/monokai.css">

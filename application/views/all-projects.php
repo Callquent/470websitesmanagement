@@ -249,6 +249,7 @@
 <script type="text/javascript">
 	var v = new Vue({
 		el: '#app',
+		vuetify: new Vuetify(),
 	    data : {
 	    	sidebar:"general",
 	    	menu1: false,

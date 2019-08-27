@@ -176,8 +176,7 @@
 											</td>
 										</template>
 									</v-data-table>
-
-        </v-card>
+								</v-card>
 
 
 								<div class="step-navigation hidden-md-and-up">
@@ -254,6 +253,7 @@
 <script type="text/javascript">
 	var v = new Vue({
 		el: '#app',
+		vuetify: new Vuetify(),
 		data : {
 			sidebar:"general",
 			dialog_add_task: false,

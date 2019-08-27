@@ -7,72 +7,75 @@
 		<v-container fluid grid-list-sm>
 			<v-layout row wrap>
 			  <v-flex xs12>
-					<v-toolbar flat color="white">
-					  <v-spacer></v-spacer>
-					  <v-dialog v-model="dialog_add_category" max-width="500px">
-						<v-btn slot="activator" color="primary" dark class="mb-2">New Category</v-btn>
-						<v-card>
-						  <v-card-title>
-							<span class="headline">Add Category</span>
-						  </v-card-title>
-
-						  <v-card-text>
-							<v-container grid-list-md>
-							  <v-layout wrap>
-								<v-flex xs12>
-								  <v-text-field v-model="addCategory.name" label="add category"></v-text-field>
-								</v-flex>
-							  </v-layout>
-							</v-container>
-						  </v-card-text>
-
-						  <v-card-actions>
-							<v-spacer></v-spacer>
-							<v-btn color="blue darken-1" flat @click="f_addCategory()">Save</v-btn>
-							<v-btn color="blue darken-1" flat @click="dialog_add_category = false">Cancel</v-btn>
-						  </v-card-actions>
-						</v-card>
-					  </v-dialog>
-					</v-toolbar>
-
 					<v-card>
 						<template>
 								<v-data-table
 									:headers="headers"
 									:items="list_category"
-									class="elevation-1"
-									:rows-per-page-items="[10,20,50,100]"
+									:class="elevation-1"
+									:footer-props="{
+									'items-per-page-options': [10,20,50,100]
+									}"
 								>
-									<template slot="items" slot-scope="props">
-										<td>
-										  <v-edit-dialog
-										  class="text-xs-right"
-										  @open="props.item._name_category = props.item.name_category"
-										  @save="f_editCategory(props.item)"
-										  @cancel="props.item.name_category = props.item._name_category || props.item.name_category"
-										  large
-										  lazy
-										  >{{ props.item.name_category }}
-										  	<v-text-field
-											slot="input"
-											label="Edit"
-											v-model="props.item.name_category"
-											single-line
-											counter
-											autofocus
-											></v-text-field>
-										  </v-edit-dialog>
-										</td>
-										<td class="text-xs-left">
-											<div class="dropdown show actions">
-												<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-													<i class="icon icon-dots-vertical"></i>
-												</a>
-												<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-													<a class="dropdown-item" id="delete-dashboard" @click="dialogCategory(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
-												</div>
+									<template v-slot:top>
+										<v-toolbar flat color="white">
+											<v-spacer></v-spacer>
+											<v-dialog v-model="dialog_add_category" max-width="500px">
+												<template v-slot:activator="{ on }">
+													<v-btn color="primary" dark class="mb-2" v-on="on">New Category</v-btn>
+												</template>
+												<v-card>
+												  <v-card-title>
+													<span class="headline">Add Category</span>
+												  </v-card-title>
+
+													<v-card-text>
+														<v-container>
+															<v-row>
+																<v-col cols="12" sm="12" md="12">
+																	<v-text-field v-model="addCategory.name" label="add category"></v-text-field>
+																</v-col>
+															</v-row>
+														</v-container>
+													</v-card-text>
+
+													<v-card-actions>
+														<div class="flex-grow-1"></div>
+														<v-btn color="blue darken-1" text @click="f_addCategory()">Save</v-btn>
+														<v-btn color="blue darken-1" text @click="dialog_add_category = false">Cancel</v-btn>
+													</v-card-actions>
+												</v-card>
+											</v-dialog>
+										</v-toolbar>
+									</template>
+									<template v-slot:item.category="props">
+									  <v-edit-dialog
+									  class="text-xs-right"
+									  @open="props.item._name_category = props.item.name_category"
+									  @save="f_editCategory(props.item)"
+									  @cancel="props.item.name_category = props.item._name_category || props.item.name_category"
+									  large
+									  lazy
+									  >{{ props.item.name_category }}
+									  	<v-text-field
+										slot="input"
+										label="Edit"
+										v-model="props.item.name_category"
+										single-line
+										counter
+										autofocus
+										></v-text-field>
+									  </v-edit-dialog>
+									</template>
+									<template v-slot:item.actions="props">
+										<div class="dropdown show actions">
+											<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
+												<i class="icon icon-dots-vertical"></i>
+											</a>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+												<a class="dropdown-item" id="delete-dashboard" @click="dialogCategory(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
 											</div>
-										</td>
+										</div>
 									</template>
 								</v-data-table>
 						</template>
@@ -111,8 +114,8 @@
 		</v-card-text>
 		<v-card-actions>
 		  <v-spacer></v-spacer>
-			<v-btn color="blue darken-1" flat @click="f_deleteCategory()">Save</v-btn>
-			<v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+			<v-btn color="blue darken-1" @click="f_deleteCategory()">Save</v-btn>
+			<v-btn color="blue darken-1" @click="dialog = false">Close</v-btn>
 		</v-card-actions>
 	</v-card>
 </v-dialog>
@@ -122,6 +125,7 @@
 <script type="text/javascript">
 	var v = new Vue({
 		el: '#app',
+		vuetify: new Vuetify(),
 		data : {
 			sidebar:"groups",
 			dialog_add_category: false,

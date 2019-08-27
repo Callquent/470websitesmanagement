@@ -138,6 +138,7 @@
 		<script type="text/javascript">
 		var v = new Vue({
 			el: '#app',
+			vuetify: new Vuetify(),
 			data : {
 				dialog_remindpassword: false,
 				dialog_resetpassword: false,

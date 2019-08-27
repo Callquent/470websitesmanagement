@@ -74,6 +74,7 @@
 <script type="text/javascript">
     var v = new Vue({
         el: '#app',
+        vuetify: new Vuetify(),
         data : {
             sidebar:"administration",
             dialog_add_category: false,

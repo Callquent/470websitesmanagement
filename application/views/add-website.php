@@ -154,6 +154,7 @@
 <script type="text/javascript">
 	var v = new Vue({
 		el: '#app',
+		vuetify: new Vuetify(),
 		data : {
 			display_ftp: 'false',
 			display_db: 'false',

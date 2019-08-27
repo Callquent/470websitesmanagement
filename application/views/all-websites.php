@@ -13,7 +13,7 @@
 						<template>
 							<v-card-title>
 								Search ...
-								<v-spacer></v-spacer>
+								<div class="flex-grow-1"></div>
 								<v-text-field
 								v-model="search"
 								append-icon="search"
@@ -26,12 +26,14 @@
 									:headers="headers"
 									:items="list_website"
 									class="elevation-1"
-									:rows-per-page-items="[10,20,50,100]"
 									:search="search"
+									:footer-props="{
+									'items-per-page-options': [10,20,50,100]
+									}"
 								>
-									<template slot="items" slot-scope="props">
-										<td>
+										<template v-slot:item.name_website="props">
 											<v-edit-dialog
+												:return-value.sync="props.item.name_website"
 												@open="props.item._name_website = props.item.name_website"
 												@save="f_editWebsite(props.item)"
 												@cancel="props.item.name_website = props.item._name_website || props.item.name_website"
@@ -47,9 +49,10 @@
 													autofocus
 												></v-text-field>
 											</v-edit-dialog>
-										</td>
-										<td>
+										</template>
+										<template v-slot:item.url_website="props">
 											<v-edit-dialog
+												:return-value.sync="props.item.url_website"
 												@open="props.item._url_website = props.item.url_website"
 												@save="f_editWebsite(props.item)"
 												@cancel="props.item.url_website = props.item._url_website || props.item.url_website"
@@ -64,10 +67,13 @@
 														autofocus
 													></v-text-field>
 											</v-edit-dialog>
-										</td>
-										<td>{{ props.item.address_ip }}</td>
-										<td>
+										</template>
+										<template v-slot:item.address_ip="props">
+											{{ props.item.address_ip }}
+										</template>
+										<template v-slot:item.name_category="props">
 											<v-edit-dialog
+												:return-value.sync="props.item.name_category"
 												@open="props.item._name_category = props.item.name_category"
 												@save="f_editWebsite(props.item)"
 												@cancel="props.item.name_category = props.item._name_category || props.item.name_category"
@@ -87,9 +93,10 @@
 												return-object>
 												</v-select>
 											</v-edit-dialog>
-										</td>
-										<td>
+										</template>
+										<template v-slot:item.name_language="props">
 											<v-edit-dialog
+												:return-value.sync="props.item.name_language"
 												@open="props.item._name_language = props.item.name_language"
 												@save="f_editWebsite(props.item)"
 												@cancel="props.item.name_language = props.item._name_language || props.item.name_language"
@@ -107,33 +114,36 @@
 												autofocus>
 												</v-select>
 											</v-edit-dialog>
-										</td>
-										<td>
+										</template>
+										<template v-slot:item.access="props">
 											<v-btn :href="currentRoute+'/'+props.item.id_website" flat icon color="grey darken-1">
 												<v-icon>remove_red_eye</v-icon>
 											</v-btn>
-										</td>
-										<td class="text-xs-left">
+										</template>
+										<template v-slot:item.actions="props">
+
+
+
 											<v-menu bottom left>
 												<template v-slot:activator="{ on }">
 													<v-btn flat icon v-on="on" color="grey darken-1">
 														<v-icon>more_vert</v-icon>
 													</v-btn>
 												</template>
+												        <v-divider></v-divider>
 
 												<v-list>
-													<v-list-tile :href="'http://'+props.item.url_website" target="_blank" id="edit-dashboard">
-															<v-list-tile-title>Open URL Website</v-list-tile-title>
-													</v-list-tile>
+													<v-list-item :href="'http://'+props.item.url_website" target="_blank" id="edit-dashboard">
+															<v-list-item-title>Open URL Website</v-list-item-title>
+													</v-list-item>
 													<?php if($this->aauth->is_group_allowed('delete_website',$user_role[0]->name)) { ?>
-													<v-list-tile  @click="f_deleteWebsite(props.item)"  id="delete-dashboard">
-															<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
-													</v-list-tile>
+													<v-list-item  @click="f_deleteWebsite(props.item)"  id="delete-dashboard">
+															<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+													</v-list-item>
 													<?php } ?>
 												</v-list>
 											</v-menu>
-										</td>
-									</template>
+										</template>
 								</v-data-table>
 						</template>
 					</v-card>
@@ -152,6 +162,7 @@
 <script type="text/javascript">
 	var v = new Vue({
 		el: '#app',
+		vuetify: new Vuetify(),
 	    data : {
 	    	sidebar:"general",
 	    	search:"",

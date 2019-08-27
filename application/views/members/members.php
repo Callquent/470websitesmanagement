@@ -42,16 +42,17 @@
 
 				<v-flex xs12 sm2>
 					<v-card>
-						<v-toolbar color="light-blue" dark>
+						<v-toolbar color="light-blue">
 							<v-toolbar-title>Groups</v-toolbar-title>
 						</v-toolbar>
-
-						<v-list two-line subheader>
-							<v-list-tile v-for="group in list_user_groups" @click="search">
-								<v-list-tile-content>
-									<v-list-tile-title>{{ group.name }}</v-list-tile-title>
-								</v-list-tile-content>
-							</v-list-tile>
+						<v-list>
+							<v-list-item-group>
+								<v-list-item v-for="group in list_user_groups" @click="search">
+									<v-list-item-content>
+										<v-list-item-title>{{ group.name }}</v-list-item-title>
+									</v-list-item-content>
+								</v-list-item>
+							</v-list-item-group>
 						</v-list>
 					</v-card>
 				</v-flex>
@@ -60,7 +61,7 @@
 					<v-toolbar flat color="white">
 					  <v-spacer></v-spacer>
 					  <v-dialog v-model="dialog_add_user" max-width="500px">
-						<v-btn slot="activator" color="primary" dark class="mb-2">New User</v-btn>
+						<v-btn slot="activator" color="primary" class="mb-2">New User</v-btn>
 						<v-card>
 						  <v-card-title>
 							<span class="headline">Add User</span>
@@ -89,8 +90,8 @@
 							</div>
 						  <v-card-actions>
 							<v-spacer></v-spacer>
-							<v-btn color="blue darken-1" flat @click="f_addUser()">Save</v-btn>
-							<v-btn color="blue darken-1" flat @click="dialog_add_user = false">Cancel</v-btn>
+							<v-btn color="blue" flat @click="f_addUser()">Save</v-btn>
+							<v-btn color="blue" flat @click="dialog_add_user = false">Cancel</v-btn>
 						  </v-card-actions>
 						</v-card>
 					  </v-dialog>
@@ -100,11 +101,9 @@
 						<template>
 								<v-data-table
 									:headers="headers"
-									:items="users"
+									:items="filteredItems"
 									class="elevation-1"
 									:rows-per-page-items="[10,20,50,100]"
-									:search="search"
-									:custom-filter="customFilter"
 									select-all
 								>
 									<template slot="items" slot-scope="props">
@@ -175,8 +174,8 @@
 
 	  <v-card-actions>
 		<v-spacer></v-spacer>
-		<v-btn color="blue darken-1" flat @click="f_editUser()">Save</v-btn>
-		<v-btn color="blue darken-1" flat @click="dialog_edit_user = false">Cancel</v-btn>
+		<v-btn color="blue" flat @click="f_editUser()">Save</v-btn>
+		<v-btn color="blue" flat @click="dialog_edit_user = false">Cancel</v-btn>
 	  </v-card-actions>
 	</v-card>
 </v-dialog>
@@ -187,6 +186,7 @@
 <script type="text/javascript">
 	var v = new Vue({
 		el: '#app',
+		vuetify: new Vuetify(),
 		data : {
 			search: '',
 			sidebar:"members",
@@ -226,13 +226,16 @@
 		created(){
 			this.displayPage();
 		},
+		computed: {
+					filteredItems() {
+			      return this.users.filter((i) => {
+			        return !this.foodType || (i.name_group === this.foodType);
+			      })
+			    },
+		},
 		methods:{
 			displayPage(){
 
-			},
-			customFilter(items, search, filter) {
-				search = search.toString().toLowerCase()
-				return items.filter(row => filter(row["name_group"], search));
 			},
 			dialogUser(item){
 				this.dialog_edit_user = true;

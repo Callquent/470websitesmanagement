@@ -578,6 +578,7 @@
 <script type="text/javascript">
     var v = new Vue({
         el: '#app',
+        vuetify: new Vuetify(),
         data : {
             dialog_add_task: false,
             dialog_card: false,

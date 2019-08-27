@@ -48,6 +48,7 @@
 <script type="text/javascript">
     var v = new Vue({
         el: '#app',
+        vuetify: new Vuetify(),
         data : {
             sidebar:"administration",
             currentRoute: window.location.href,
