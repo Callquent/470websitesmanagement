@@ -121,17 +121,13 @@
 											</v-btn>
 										</template>
 										<template v-slot:item.actions="props">
-
-
-
 											<v-menu bottom left>
 												<template v-slot:activator="{ on }">
 													<v-btn flat icon v-on="on" color="grey darken-1">
 														<v-icon>more_vert</v-icon>
 													</v-btn>
 												</template>
-												        <v-divider></v-divider>
-
+												<v-divider></v-divider>
 												<v-list>
 													<v-list-item :href="'http://'+props.item.url_website" target="_blank" id="edit-dashboard">
 															<v-list-item-title>Open URL Website</v-list-item-title>

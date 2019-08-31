@@ -14,7 +14,9 @@
 									:headers="headers"
 									:items="list_group_permissions"
 									class="elevation-1"
-									:rows-per-page-items="[-1]"
+									:footer-props="{
+									'items-per-page-options': [10,20,50,100]
+									}"
 								>
 									<template slot="headers" slot-scope="props">
 										<tr>

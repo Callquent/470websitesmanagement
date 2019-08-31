@@ -38,12 +38,18 @@
 						:headers="headers"
 						:items="list_website_search_google"
 						class="elevation-1"
-						:rows-per-page-items="[-1]"
+						:footer-props="{
+                        'items-per-page-options': [-1]
+                        }"
 						>
-							<template slot="items" slot-scope="props">
-								<td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
-								<td class="text-xs-left">{{ props.item.meta_title }}</td>
-								<td class="text-xs-left"  v-html="props.item.meta_description">{{ props.item.meta_description }}</td>
+							<template v-slot:item.website="props">
+								<a :href="props.item.website">{{ props.item.website }}</a>
+							</template>
+							<template v-slot:item.meta_title="props">
+								{{ props.item.meta_title }}
+							</template>
+							<template v-slot:item.meta_description="props">
+								<span v-html="props.item.meta_description">{{ props.item.meta_description }}</span>
 							</template>
 						</v-data-table>
 					</template>

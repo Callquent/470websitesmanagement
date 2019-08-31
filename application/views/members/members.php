@@ -103,31 +103,38 @@
 									:headers="headers"
 									:items="filteredItems"
 									class="elevation-1"
-									:rows-per-page-items="[10,20,50,100]"
-									select-all
+									:footer-props="{
+									'items-per-page-options': [10,20,50,100]
+									}"
 								>
-									<template slot="items" slot-scope="props">
-										<td>
-											<v-checkbox
-											v-model="props.selected"
-											primary
-											hide-details
-											></v-checkbox>
-										</td>
-										<td>{{ props.item.name_user }}</td>
-										<td>{{ props.item.email }}</td>
-										<td>{{ props.item.name_group }}</td>
-										<td class="text-xs-left">
-											<div class="dropdown show actions">
-												<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-												  <i class="icon icon-dots-vertical"></i>
-												</a>
-												<div  class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												  <a @click="dialogUser(props.item)" class="dropdown-item" id="edit-members"><i class="fa fa-pencil"></i> Edit</a>
-												  <a @click="f_deleteUser(props.item)" class="dropdown-item" id="delete-members"><i class="fa fa-trash"></i> Delete</a>
-												</div>
-											</div>
-										</td>
+									<template v-slot:item.username="props">
+										{{ props.item.name_user }}
+									</template>
+									<template v-slot:item.email="props">
+										{{ props.item.email }}
+									</template>
+									<template v-slot:item.groups="props">
+										{{ props.item.name_group }}
+									</template>
+									<template v-slot:item.actions="props">
+										<v-menu bottom left>
+											<template v-slot:activator="{ on }">
+												<v-btn flat icon v-on="on" color="grey darken-1">
+													<v-icon>more_vert</v-icon>
+												</v-btn>
+											</template>
+											<v-divider></v-divider>
+											<v-list>
+												<v-list-item @click="dialogUser(props.item)" id="edit-members">
+														<v-list-item-title>Edit</v-list-item-title>
+												</v-list-item>
+												<?php if($this->aauth->is_group_allowed('delete_website',$user_role[0]->name)) { ?>
+												<v-list-item  @click="f_deleteUser(props.item)"  id="delete-dashboard">
+														<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+												</v-list-item>
+												<?php } ?>
+											</v-list>
+										</v-menu>
 									</template>
 								</v-data-table>
 						</template>
@@ -203,7 +210,7 @@
 				{ text: 'Name User', value: 'username'},
 				{ text: 'Email', value: 'email' },
 				{ text: 'Groupes', value: 'groups' },
-				{ text: 'Actions', value: 'name', sortable: false }
+				{ text: 'Actions', value: 'actions', sortable: false }
 			],
 			addUser:{
 				id: '',

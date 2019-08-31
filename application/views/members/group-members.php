@@ -43,57 +43,63 @@
                                     :headers="headers"
                                     :items="list_groups_users"
                                     class="elevation-1"
-                                    :rows-per-page-items="[10,20,50,100]"
+                                    :footer-props="{
+                                    'items-per-page-options': [10,20,50,100]
+                                    }"
                                 >
-                                    <template slot="items" slot-scope="props">
-                                        <td>
-                                            <v-edit-dialog
-                                                class="text-xs-right"
-                                                @open="props.item._name = props.item.name"
-                                                @save="f_editGroupMember(props.item)"
-                                                @cancel="props.item.name = props.item._name || props.item.name"
-                                                large
-                                                lazy
-                                              >{{ props.item.name }}
-                                                <v-text-field
-                                                    slot="input"
-                                                    label="Edit"
-                                                    v-model="props.item.name"
-                                                    single-line
-                                                    counter
-                                                    autofocus
-                                                ></v-text-field>
-                                            </v-edit-dialog>
-                                        </td>
-                                        <td>
-                                            <v-edit-dialog
-                                                class="text-xs-right"
-                                                @open="props.item._definition = props.item.definition"
-                                                @save="f_editGroupMember(props.item)"
-                                                @cancel="props.item.definition = props.item._definition || props.item.definition"
-                                                large
-                                                lazy
-                                              >{{ props.item.definition }}
-                                                <v-text-field
-                                                    slot="input"
-                                                    label="Edit"
-                                                    v-model="props.item.definition"
-                                                    single-line
-                                                    counter
-                                                    autofocus
-                                                ></v-text-field>
-                                            </v-edit-dialog>
-                                        </td>
-                                        <td class="text-xs-left">
-                                            <div class="dropdown show actions">
-                                                <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-                                                    <i class="icon icon-dots-vertical"></i>
-                                                </a>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <a class="dropdown-item" id="delete-dashboard" @click="f_deleteGroupMember(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                    <template v-slot:item.name_members="props">
+                                        <v-edit-dialog
+                                            class="text-xs-right"
+                                            @open="props.item._name = props.item.name"
+                                            @save="f_editGroupMember(props.item)"
+                                            @cancel="props.item.name = props.item._name || props.item.name"
+                                            large
+                                            lazy
+                                          >{{ props.item.name }}
+                                            <v-text-field
+                                                slot="input"
+                                                label="Edit"
+                                                v-model="props.item.name"
+                                                single-line
+                                                counter
+                                                autofocus
+                                            ></v-text-field>
+                                        </v-edit-dialog>
+                                    </template>
+                                    <template v-slot:item.definition="props">
+                                        <v-edit-dialog
+                                            class="text-xs-right"
+                                            @open="props.item._definition = props.item.definition"
+                                            @save="f_editGroupMember(props.item)"
+                                            @cancel="props.item.definition = props.item._definition || props.item.definition"
+                                            large
+                                            lazy
+                                          >{{ props.item.definition }}
+                                            <v-text-field
+                                                slot="input"
+                                                label="Edit"
+                                                v-model="props.item.definition"
+                                                single-line
+                                                counter
+                                                autofocus
+                                            ></v-text-field>
+                                        </v-edit-dialog>
+                                    </template>
+                                    <template v-slot:item.actions="props">
+                                        <v-menu bottom left>
+                                            <template v-slot:activator="{ on }">
+                                                <v-btn flat icon v-on="on" color="grey darken-1">
+                                                    <v-icon>more_vert</v-icon>
+                                                </v-btn>
+                                            </template>
+                                            <v-list>
+                                                <?php if($this->aauth->is_group_allowed('delete_website',$user_role[0]->name)) { ?>
+                                                <v-list-item @click="f_deleteGroupMember(props.item)" id="delete-dashboard">
+                                                        <v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+                                                </v-list-item>
+                                                <?php } ?>
+                                            </v-list>
+                                        </v-menu>
                                     </template>
                                 </v-data-table>
                         </template>
