@@ -42,7 +42,7 @@
                         'items-per-page-options': [-1]
                         }"
 						>
-							<template v-slot:item.website="props">
+							<!-- <template v-slot:item.website="props">
 								<a :href="props.item.website">{{ props.item.website }}</a>
 							</template>
 							<template v-slot:item.meta_title="props">
@@ -50,7 +50,14 @@
 							</template>
 							<template v-slot:item.meta_description="props">
 								<span v-html="props.item.meta_description">{{ props.item.meta_description }}</span>
-							</template>
+							</template> -->
+							<template v-slot:body="{ items }">
+                                <tr v-for="item in items" :key="item.name">
+                                    <td>{{ item.website }}</td>
+                                    <td>{{ item.meta_title }}</td>
+                                    <td v-html="item.meta_description">{{ item.meta_description }}</td>
+                                </tr>
+                            </template>
 						</v-data-table>
 					</template>
                 </v-flex>

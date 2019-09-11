@@ -198,7 +198,7 @@
                                             <div class="list-header-name ng-star-inserted" fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box;"> TO-DO</div>
                                         </scrumboard-board-edit-list-name>
                                         <div fxflex="0 1 auto" style="flex: 0 1 auto; box-sizing: border-box;">
-                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">more_vert</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
+                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">mdi-dots-vertical</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
                                             <mat-menu class="ng-tns-c35-40"></mat-menu>
                                         </div>
                                     </div>
@@ -249,7 +249,7 @@
                                             <div class="list-header-name ng-star-inserted" fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box;"> IN PROGRESS</div>
                                         </scrumboard-board-edit-list-name>
                                         <div fxflex="0 1 auto" style="flex: 0 1 auto; box-sizing: border-box;">
-                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">more_vert</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
+                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">mdi-dots-vertical</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
                                             <mat-menu class="ng-tns-c35-40"></mat-menu>
                                         </div>
                                     </div>
@@ -290,7 +290,7 @@
                                             <div class="list-header-name ng-star-inserted" fxflex="1 0 auto" style="flex: 1 0 auto; box-sizing: border-box;"> COMPLETED</div>
                                         </scrumboard-board-edit-list-name>
                                         <div fxflex="0 1 auto" style="flex: 0 1 auto; box-sizing: border-box;">
-                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">more_vert</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
+                                            <button aria-haspopup="true" class="list-header-option-button mat-icon-button" mat-icon-button=""><span class="mat-button-wrapper"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">mdi-dots-vertical</mat-icon></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
                                             <mat-menu class="ng-tns-c35-40"></mat-menu>
                                         </div>
                                     </div>

@@ -31,116 +31,116 @@
 									'items-per-page-options': [10,20,50,100]
 									}"
 								>
-										<template v-slot:item.name_website="props">
-											<v-edit-dialog
-												:return-value.sync="props.item.name_website"
-												@open="props.item._name_website = props.item.name_website"
-												@save="f_editWebsite(props.item)"
-												@cancel="props.item.name_website = props.item._name_website || props.item.name_website"
-												large
-												lazy
-											  >{{ props.item.name_website }}
-												<v-text-field
-													slot="input"
-													label="Edit"
-													v-model="props.item.name_website"
-													single-line
-													counter
-													autofocus
-												></v-text-field>
-											</v-edit-dialog>
-										</template>
-										<template v-slot:item.url_website="props">
-											<v-edit-dialog
-												:return-value.sync="props.item.url_website"
-												@open="props.item._url_website = props.item.url_website"
-												@save="f_editWebsite(props.item)"
-												@cancel="props.item.url_website = props.item._url_website || props.item.url_website"
-												large
-												lazy>{{ props.item.url_website }}
-													<v-text-field
-														slot="input"
-														label="Edit"
-														v-model="props.item.url_website"
-														single-line
-														counter
-														autofocus
-													></v-text-field>
-											</v-edit-dialog>
-										</template>
-										<template v-slot:item.address_ip="props">
-											{{ props.item.address_ip }}
-										</template>
-										<template v-slot:item.name_category="props">
-											<v-edit-dialog
-												:return-value.sync="props.item.name_category"
-												@open="props.item._name_category = props.item.name_category"
-												@save="f_editWebsite(props.item)"
-												@cancel="props.item.name_category = props.item._name_category || props.item.name_category"
-												large
-												lazy
-											  >{{ props.item.name_category }}
-												<v-select
-												v-model="props.item.id_category"
+								<template v-slot:item.name_website="props">
+									<v-edit-dialog
+										:return-value.sync="props.item.name_website"
+										@open="props.item._name_website = props.item.name_website"
+										@save="f_editWebsite(props.item)"
+										@cancel="props.item.name_website = props.item._name_website || props.item.name_website"
+										large
+										lazy
+									  >{{ props.item.name_website }}
+										<v-text-field
+											slot="input"
+											label="Edit"
+											v-model="props.item.name_website"
+											single-line
+											counter
+											autofocus
+										></v-text-field>
+									</v-edit-dialog>
+								</template>
+								<template v-slot:item.url_website="props">
+									<v-edit-dialog
+										:return-value.sync="props.item.url_website"
+										@open="props.item._url_website = props.item.url_website"
+										@save="f_editWebsite(props.item)"
+										@cancel="props.item.url_website = props.item._url_website || props.item.url_website"
+										large
+										lazy>{{ props.item.url_website }}
+											<v-text-field
 												slot="input"
-												:items="list_category"
-												item-text="name_category"
-												item-value="id_category"
-												label="Choose category"
+												label="Edit"
+												v-model="props.item.url_website"
 												single-line
+												counter
 												autofocus
-												persistent-hint
-												return-object>
-												</v-select>
-											</v-edit-dialog>
-										</template>
-										<template v-slot:item.name_language="props">
-											<v-edit-dialog
-												:return-value.sync="props.item.name_language"
-												@open="props.item._name_language = props.item.name_language"
-												@save="f_editWebsite(props.item)"
-												@cancel="props.item.name_language = props.item._name_language || props.item.name_language"
-												large
-												lazy
-											  >{{ props.item.name_language }}
-												<v-select
-												v-model="props.item.id_language"
-												slot="input"
-												label="Choose language"
-												:items="list_language"
-												item-text="name_language"
-												item-value="id_language"
-												single-line
-												autofocus>
-												</v-select>
-											</v-edit-dialog>
-										</template>
-										<template v-slot:item.access="props">
-											<v-btn :href="currentRoute+'/'+props.item.id_website" flat icon color="grey darken-1">
-												<v-icon>remove_red_eye</v-icon>
+											></v-text-field>
+									</v-edit-dialog>
+								</template>
+								<template v-slot:item.address_ip="props">
+									{{ props.item.address_ip }}
+								</template>
+								<template v-slot:item.name_category="props">
+									<v-edit-dialog
+										:return-value.sync="props.item.name_category"
+										@open="props.item._name_category = props.item.name_category"
+										@save="f_editWebsite(props.item)"
+										@cancel="props.item.name_category = props.item._name_category || props.item.name_category"
+										large
+										lazy
+									  >{{ props.item.name_category }}
+										<v-select
+										v-model="props.item.id_category"
+										slot="input"
+										:items="list_category"
+										item-text="name_category"
+										item-value="id_category"
+										label="Choose category"
+										single-line
+										autofocus
+										persistent-hint
+										return-object>
+										</v-select>
+									</v-edit-dialog>
+								</template>
+								<template v-slot:item.name_language="props">
+									<v-edit-dialog
+										:return-value.sync="props.item.name_language"
+										@open="props.item._name_language = props.item.name_language"
+										@save="f_editWebsite(props.item)"
+										@cancel="props.item.name_language = props.item._name_language || props.item.name_language"
+										large
+										lazy
+									  >{{ props.item.name_language }}
+										<v-select
+										v-model="props.item.id_language"
+										slot="input"
+										label="Choose language"
+										:items="list_language"
+										item-text="name_language"
+										item-value="id_language"
+										single-line
+										autofocus>
+										</v-select>
+									</v-edit-dialog>
+								</template>
+								<template v-slot:item.access="props">
+									<v-btn :href="currentRoute+'/'+props.item.id_website" icon color="grey darken-1">
+										<v-icon>mdi-eye</v-icon>
+									</v-btn>
+								</template>
+								<template v-slot:item.actions="props">
+									<v-menu bottom left>
+										<template v-slot:activator="{ on }">
+											<v-btn icon v-on="on" color="grey darken-1">
+												<v-icon>mdi-dots-vertical</v-icon>
 											</v-btn>
 										</template>
-										<template v-slot:item.actions="props">
-											<v-menu bottom left>
-												<template v-slot:activator="{ on }">
-													<v-btn flat icon v-on="on" color="grey darken-1">
-														<v-icon>more_vert</v-icon>
-													</v-btn>
-												</template>
-												<v-divider></v-divider>
-												<v-list>
-													<v-list-item :href="'http://'+props.item.url_website" target="_blank" id="edit-dashboard">
-															<v-list-item-title>Open URL Website</v-list-item-title>
-													</v-list-item>
-													<?php if($this->aauth->is_group_allowed('delete_website',$user_role[0]->name)) { ?>
-													<v-list-item  @click="f_deleteWebsite(props.item)"  id="delete-dashboard">
-															<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
-													</v-list-item>
-													<?php } ?>
-												</v-list>
-											</v-menu>
-										</template>
-								</v-data-table>
+										<v-divider></v-divider>
+										<v-list>
+											<v-list-item :href="'http://'+props.item.url_website" target="_blank" id="edit-dashboard">
+													<v-list-item-title>Open URL Website</v-list-item-title>
+											</v-list-item>
+											<?php if($this->aauth->is_group_allowed('delete_website',$user_role[0]->name)) { ?>
+											<v-list-item  @click="f_deleteWebsite(props.item)"  id="delete-dashboard">
+													<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+											</v-list-item>
+											<?php } ?>
+										</v-list>
+									</v-menu>
+								</template>
+							</v-data-table>
 						</template>
 					</v-card>
 				</v-flex>

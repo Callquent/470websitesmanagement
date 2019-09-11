@@ -17,23 +17,15 @@
 									:footer-props="{
 									'items-per-page-options': [10,20,50,100]
 									}"
-								>
-									<template slot="headers" slot-scope="props">
-										<tr>
-											<th>
-												Permisssion
-											</th>
-											<th v-for="header in props.headers" :key="header.name" >
-												{{ header.name }}
-											</th>
-										</tr>
-									</template>
-									<template slot="items" slot-scope="props">
-											<td v-for="(group_permissions, index) in props.item">
+								>						
+									<template v-slot:body="{ items }">
+										<tr v-for="item in items" :key="item.name">
+											<td v-for="(group_permissions, index) in item">
 												<span v-if="index == 0">{{ group_permissions.name }}</span>
 												<v-checkbox v-else-if="group_permissions.check_group_perm && group_permissions.name == 'Admin'" input-value="true" value disabled></v-checkbox>
 												<v-checkbox v-else v-model="group_permissions.check_group_perm" @change="group_permissions.check_group_perm == true?f_allow_permissions(group_permissions):f_deny_permissions(group_permissions)"></v-checkbox>
 											</td>
+										</tr>
 									</template>
 								</v-data-table>
 						</template>
@@ -55,7 +47,7 @@
 			sidebar:"members",
 			currentRoute: window.location.href,
 			list_permissions: <?php echo json_encode($all_permissions); ?>,
-			headers: <?php echo json_encode($list_groups); ?>,
+			headers: <?php echo json_encode($header_groups); ?>,
 			list_group_permissions: <?php echo json_encode($list_group_perms); ?>,
 		},
 		mixins: [mixin],

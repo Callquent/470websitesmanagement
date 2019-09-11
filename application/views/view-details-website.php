@@ -67,7 +67,7 @@
 														<v-menu bottom left>
 															<template v-slot:activator="{ on }">
 																<v-btn flat icon v-on="on" color="grey darken-1">
-																	<v-icon>more_vert</v-icon>
+																	<v-icon>mdi-dots-vertical</v-icon>
 																</v-btn>
 															</template>
 
@@ -136,7 +136,7 @@
 														<v-menu bottom left>
 															<template v-slot:activator="{ on }">
 																<v-btn flat icon v-on="on" color="grey darken-1">
-																	<v-icon>more_vert</v-icon>
+																	<v-icon>mdi-dots-vertical</v-icon>
 																</v-btn>
 															</template>
 
@@ -202,7 +202,7 @@
 														<v-menu bottom left>
 															<template v-slot:activator="{ on }">
 																<v-btn flat icon v-on="on" color="grey darken-1">
-																	<v-icon>more_vert</v-icon>
+																	<v-icon>mdi-dots-vertical</v-icon>
 																</v-btn>
 															</template>
 
@@ -264,7 +264,7 @@
 														<v-menu bottom left>
 															<template v-slot:activator="{ on }">
 																<v-btn flat icon v-on="on" color="grey darken-1">
-																	<v-icon>more_vert</v-icon>
+																	<v-icon>mdi-dots-vertical</v-icon>
 																</v-btn>
 															</template>
 

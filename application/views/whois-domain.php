@@ -76,12 +76,12 @@
 										</template>
 										<template v-slot:item.whois="props">
 											<v-btn @click="f_dialog_Whois(props.item)" icon color="grey darken-1">
-												<v-icon>remove_red_eye</v-icon>
+												<v-icon>mdi-eye</v-icon>
 											</v-btn>
 										</template>
 										<template v-slot:item.refresh="props">
 											<v-btn @click="f_whoisRefreshDomain(props.item)" icon color="grey darken-1">
-												<v-icon>autorenew</v-icon>
+												<v-icon>mdi-reload</v-icon>
 											</v-btn>
 										</template>
 									</v-data-table>
@@ -146,7 +146,7 @@
 														<v-icon>favorite</v-icon>
 													  </v-btn>
 													  <v-btn icon>
-														<v-icon>more_vert</v-icon>
+														<v-icon>mdi-dots-vertical</v-icon>
 													  </v-btn>
 													</v-toolbar>
 													<v-card-title primary-title>

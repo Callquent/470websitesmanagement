@@ -4,7 +4,8 @@
 		<meta charset="utf-8">
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<?php echo css_url('css/materialdesignicons.min.css'); ?>
 		<?php echo css_url('css/bootstrap.min.css'); ?>
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('plugins/nvd3/nv.d3.min.css'); ?>

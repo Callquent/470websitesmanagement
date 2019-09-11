@@ -27,6 +27,19 @@ class Permission_group_members extends CI_Controller {
 		$data['list_groups'] = $this->model_users->get_all_groups()->result();
 		$data['all_permissions'] = $this->aauth->list_perms();
 
+		$list = new stdClass();
+		$list->text = "Permisssion";
+		$list->value = "permisssion";
+		$list_permissions[] = $list;
+		foreach ($data['list_groups'] as $key => $row)
+		{
+			$list = new stdClass();
+  			$list->text = $row->name;
+			$list->value = $row->name;
+			$list_permissions[] = $list;
+		}
+		$data['header_groups'] = $list_permissions;
+
 		$list = array();
 		foreach ($data['all_permissions'] as $key => $perm)
 		{

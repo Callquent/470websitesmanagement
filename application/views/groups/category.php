@@ -68,14 +68,19 @@
 									  </v-edit-dialog>
 									</template>
 									<template v-slot:item.actions="props">
-										<div class="dropdown show actions">
-											<a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-												<i class="icon icon-dots-vertical"></i>
-											</a>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												<a class="dropdown-item" id="delete-dashboard" @click="dialogCategory(props.item)"><i class="fa fa-trash"></i><?php echo lang('delete') ?></a>
-											</div>
-										</div>
+										<v-menu bottom left>
+											<template v-slot:activator="{ on }">
+												<v-btn icon v-on="on" color="grey darken-1">
+													<v-icon>mdi-dots-vertical</v-icon>
+												</v-btn>
+											</template>
+											<v-divider></v-divider>
+											<v-list>
+												<v-list-item  @click="dialogCategory(props.item)"  id="delete-dashboard">
+														<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+												</v-list-item>
+											</v-list>
+										</v-menu>
 									</template>
 								</v-data-table>
 						</template>

@@ -45,20 +45,14 @@
                             'items-per-page-options': [-1]
                             }"
                         >
-                                <tr :class="props.item.class">
-                                    <template v-slot:item.position="props">
-                                        {{ props.item.position }}
-                                    </template>
-                                    <template v-slot:item.website="props" v-html="props.item.website">
-                                        {{ props.item.website }}
-                                    </template>
-                                    <template v-slot:item.meta_title="props">
-                                        {{ props.item.meta_title }}
-                                    </template>
-                                    <template v-slot:item.meta_description="props">
-                                        <span v-html="props.item.meta_description">{{ props.item.meta_description }}</span>
-                                    </template>
+                            <template v-slot:body="{ items }">
+                                <tr :class="item.class" v-for="item in items" :key="item.name">
+                                    <td>{{ item.position }}</td>
+                                    <td v-html="item.website">{{ item.website }}</td>
+                                    <td>{{ item.meta_title }}</td>
+                                    <td v-html="item.meta_description">{{ item.meta_description }}</td>
                                 </tr>
+                            </template>
                         </v-data-table>
                     </template>
                 </v-flex>
