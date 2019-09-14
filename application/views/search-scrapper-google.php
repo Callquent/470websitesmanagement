@@ -4,7 +4,6 @@
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
         <h2 class="doc-title" id="content"><?php echo lang('search_scrapper_google'); ?></h2>
     </div>
-
         <v-container fluid grid-list-sm>
             <v-layout row wrap>
                 <v-flex xs4>
@@ -23,7 +22,8 @@
                                 :items="list_website"
                                 label="Select"
                                 item-text="url_website"
-                                item-value="url_website">
+                                item-value="url_website"
+                                :return-object="false">
                             </v-combobox>
                         </div>
                         <div class="form-group">
@@ -41,8 +41,9 @@
                             :headers="headers"
                             :items="list_serp_search_google"
                             class="elevation-1"
+                            :items-per-page="-1"
                             :footer-props="{
-                            'items-per-page-options': [-1]
+                            'items-per-page-options': [10, 20, 30, 40, 50, -1]
                             }"
                         >
                             <template v-slot:body="{ items }">
@@ -144,11 +145,7 @@
                 await new Promise(resolve => setTimeout(resolve, 100));
                 var formData = new FormData(); 
                 formData.append("keyword_google",this.searchGoogle.keyword);
-                if (typeof this.searchGoogle.url_website === 'string') {
-                    formData.append("website",this.searchGoogle.url_website);
-                } else {
-                    formData.append("website",this.searchGoogle.url_website.url_website);
-                }
+                formData.append("website",this.searchGoogle.url_website);
                 axios.post(this.currentRoute+"/ajaxSearchScrapperGoogle/", formData).then(function(response){
                     if(response.data.result_position_website !== undefined){
                         v.list_serp_search_google = response.data.result_websites;

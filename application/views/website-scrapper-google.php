@@ -8,8 +8,8 @@
             <v-layout row wrap>
                 <v-flex xs4>
 					<div id="results">
-						<div class="alert alert-success alert-block" v-show="success"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span><?php echo lang('is_index'); ?></h4></div>
-						<div class="alert alert-danger alert-block" v-show="success"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
+						<div class="alert alert-success alert-block" v-show="message.success"><h4><i class="icon-ok-sign"></i><?php echo lang('your_website'); ?><span class="message-website"></span><?php echo lang('is_index'); ?></h4></div>
+						<div class="alert alert-danger alert-block" v-show="message.error"><h4><i class="icon-ok-sign"></i><?php echo lang('websites_no_index_keyword'); ?></h4></div>
 					</div>
 					<form class="form-horizontal" id="form-website-scrapper-google" @submit.prevent="WebsiteSearchGoogle">
 						<div class="form-group">
@@ -18,7 +18,8 @@
                                 :items="list_website"
                                 label="Select"
                                 item-text="url_website"
-                                item-value="url_website">
+                                item-value="url_website"
+                                :return-object="false">
                             </v-combobox>
 						</div>
 						<div class="form-group">
@@ -38,8 +39,9 @@
 						:headers="headers"
 						:items="list_website_search_google"
 						class="elevation-1"
+						:items-per-page="-1"
 						:footer-props="{
-                        'items-per-page-options': [-1]
+                        'items-per-page-options': [10, 20, 30, 40, 50]
                         }"
 						>
 							<!-- <template v-slot:item.website="props">
@@ -53,7 +55,7 @@
 							</template> -->
 							<template v-slot:body="{ items }">
                                 <tr v-for="item in items" :key="item.name">
-                                    <td>{{ item.website }}</td>
+                                    <td v-html="item.website">{{ item.website }}</td>
                                     <td>{{ item.meta_title }}</td>
                                     <td v-html="item.meta_description">{{ item.meta_description }}</td>
                                 </tr>

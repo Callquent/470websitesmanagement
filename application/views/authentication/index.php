@@ -26,21 +26,19 @@
 			                            <div class="title mt-4 mb-8">Log in to your account</div>
 			                            <form name="loginForm" action="<?php echo site_url('index'); ?>" method="post" id="loginform">
 			                                <div class="form-group mb-4">
-			                                    <input type="text" name="email" id="email" class="form-control">
-			                                    <label for="loginFormInputEmail">Email address</label>
+												<v-text-field type="text" name="email" id="email" label="Email"></v-text-field>
 			                                </div>
 			                                <div class="form-group mb-4">
-			                                    <input type="password" name="password" id="password" class="form-control">
-			                                    <label for="loginFormInputPassword">Password</label>
+												<v-text-field type="password" name="password" id="password" label="Password"></v-text-field>
 			                                </div>
 			                                <div class="remember-forgot-password row no-gutters align-items-center justify-content-between pt-4">
 			                                    <div class="mb-4">
 			                                    </div>
 			                                    <a @click="dialog_remindpassword = true" class="forgot-password text-secondary mb-4">Forgot Password?</a>
 			                                </div>
-			                                <button type="submit" class="submit-button btn btn-block btn-muted my-4 mx-auto fuse-ripple-ready" aria-label="LOG IN">
-			                                    LOG IN
-			                                </button>
+			                                <v-row justify="center">
+			                                	<v-btn type="submit" flat x-large>LOG IN</v-btn>
+			                                </v-row>
 											<?php if($this->session->flashdata('success')){ ?>
 											<div class="alert alert-success">
 												<?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
