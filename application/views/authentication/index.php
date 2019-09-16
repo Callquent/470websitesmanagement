@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <?php echo css_url('css/perfect-scrollbar.min.css'); ?>
+		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
 		<?php echo css_url('plugins/vuetify/vuetify.css'); ?>
@@ -18,27 +18,23 @@
 					<div id="wrapper">
 						<div class="content-wrapper">
 							<div class="content custom-scrollbar">
-			                    <div id="login" class="p-8">
-			                        <div class="form-wrapper md-elevation-8 p-8">
-			                            <div class="logo">
-			                                <img src="<?php echo img_url('app/logo-470websitesmanagement.svg'); ?>" alt="">
-			                            </div>
-			                            <div class="title mt-4 mb-8">Log in to your account</div>
-			                            <form name="loginForm" action="<?php echo site_url('index'); ?>" method="post" id="loginform">
-			                                <div class="form-group mb-4">
-												<v-text-field type="text" name="email" id="email" label="Email"></v-text-field>
-			                                </div>
-			                                <div class="form-group mb-4">
-												<v-text-field type="password" name="password" id="password" label="Password"></v-text-field>
-			                                </div>
-			                                <div class="remember-forgot-password row no-gutters align-items-center justify-content-between pt-4">
-			                                    <div class="mb-4">
-			                                    </div>
-			                                    <a @click="dialog_remindpassword = true" class="forgot-password text-secondary mb-4">Forgot Password?</a>
-			                                </div>
-			                                <v-row justify="center">
-			                                	<v-btn type="submit" flat x-large>LOG IN</v-btn>
-			                                </v-row>
+								<div id="login" class="p-8">
+									<div class="form-wrapper md-elevation-8 p-8">
+										<div class="logo">
+											<img src="<?php echo img_url('app/logo-470websitesmanagement.svg'); ?>" alt="">
+										</div>
+										<div class="title mt-4 mb-8">Log in to your account</div>
+										<v-form ref="form" class="form-horizontal" id="loginform" method="post" name="loginForm" action="<?php echo site_url('index'); ?>">
+											<v-text-field type="text" name="email" id="email" label="Email"></v-text-field>
+											<v-text-field type="password" name="password" id="password" label="Password"></v-text-field>
+											<div class="remember-forgot-password row no-gutters align-items-center justify-content-between pt-4">
+												<div class="mb-4">
+												</div>
+												<a @click="dialog_remindpassword = true" class="forgot-password text-secondary mb-4">Forgot Password?</a>
+											</div>
+											<v-row justify="center">
+												<v-btn type="submit" x-large>LOG IN</v-btn>
+											</v-row>
 											<?php if($this->session->flashdata('success')){ ?>
 											<div class="alert alert-success">
 												<?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
@@ -52,14 +48,14 @@
 											<?php if(validation_errors()){
 												echo validation_errors('<div class="alert alert-danger">', ' <a class="close" data-dismiss="alert" href="#">×</a></div>');
 											} ?>
-			                            </form>
-			                            <div class="register d-flex flex-column flex-sm-row align-items-center justify-content-center mt-8 mb-6 mx-auto">
-			                                <span class="text mr-sm-2">Don't have an account?</span>
-			                                <a class="link text-secondary" href="<?php echo site_url('registration'); ?>">Create an account</a>
-			                            </div>
+										</v-form>
+										<div class="register d-flex flex-column flex-sm-row align-items-center justify-content-center mt-8 mb-6 mx-auto">
+											<span class="text mr-sm-2">Don't have an account?</span>
+											<a class="link text-secondary" href="<?php echo site_url('registration'); ?>">Create an account</a>
+										</div>
 
-			                        </div>
-			                    </div>
+									</div>
+								</div>
 							</div>
 							<v-dialog v-model="dialog_remindpassword" width="800">
 								<v-card>
@@ -105,26 +101,6 @@
 									</v-card-actions>
 								</v-card>
 							</v-dialog>
-							<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="resetpassword" class="modal fade">
-							  <div class="modal-dialog">
-							      <div class="modal-content">
-							          <div class="modal-header">
-							              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							              <h4 class="modal-title">Forgot Password Verification ?</h4>
-							          </div>
-										<form action="<?php echo site_url('index/reset_password'); ?>" method="post" id="resetpasswordform" class="form-horizontal" role="form">
-								          <div class="modal-body">
-								              <p>Enter your code verification below to reset your password.</p>
-								              <input type="text" name="codereset" placeholder="Code verification" autocomplete="off" class="form-control placeholder-no-fix">
-								          </div>
-								          <div class="modal-footer">
-								              <button data-dismiss="modal" class="btn btn-default" type="button"><?php echo lang('cancel'); ?></button>
-								              <button class="btn btn-success" type="submit"><?php echo lang('send'); ?></button>
-								          </div>
-								        </form>
-							      </div>
-							  </div>
-							</div>
 						</div>
 					</div>
 				</v-app>
