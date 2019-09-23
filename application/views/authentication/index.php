@@ -5,7 +5,6 @@
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
-		<?php echo css_url('css/theme.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
 		<?php echo css_url('plugins/vuetify/vuetify.css'); ?>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
@@ -15,15 +14,25 @@
 		<main>
 			<div id="app">
 				<v-app>
-					<div id="wrapper">
-						<div class="content-wrapper">
-							<div class="content custom-scrollbar">
-								<div id="login" class="p-8">
-									<div class="form-wrapper md-elevation-8 p-8">
-										<div class="logo">
-											<img src="<?php echo img_url('app/logo-470websitesmanagement.svg'); ?>" alt="">
-										</div>
-										<div class="title mt-4 mb-8">Log in to your account</div>
+					<v-container fluid fill-height>
+						<v-row>
+	        				<v-col cols="12">
+								<v-card
+								max-width="500"
+								class="d-flex align-content-center flex-wrap mx-auto pa-12"
+								>
+									<v-card-text>
+										<v-row align="center" justify="center">
+											<v-img
+											max-width="145"
+											aspect-ratio="1"
+											src="<?php echo img_url('app/logo-470websitesmanagement.svg'); ?>"
+											>
+											</v-img>
+										</v-row>
+										<v-row align="center" justify="center">
+											<div class="title mt-4 mb-8">Log in to your account</div>
+										</v-row>
 										<v-form ref="form" class="form-horizontal" id="loginform" method="post" name="loginForm" action="<?php echo site_url('index'); ?>">
 											<v-text-field type="text" name="email" id="email" label="Email"></v-text-field>
 											<v-text-field type="password" name="password" id="password" label="Password"></v-text-field>
@@ -53,56 +62,59 @@
 											<span class="text mr-sm-2">Don't have an account?</span>
 											<a class="link text-secondary" href="<?php echo site_url('registration'); ?>">Create an account</a>
 										</div>
+									</v-card-text>
+									<v-card-actions>
 
-									</div>
-								</div>
-							</div>
-							<v-dialog v-model="dialog_remindpassword" width="800">
-								<v-card>
-									<v-card-title class="headline green lighten-2" primary-title>
-										Forgot Password ?
-									</v-card-title>
-									<v-card-text>
-										<v-container grid-list-md>
-											<v-layout wrap>
-												<v-flex xs12>
-													<v-text-field label="Email" v-model="email_reset" required></v-text-field>
-												</v-flex>
-											</v-layout>
-										</v-container>
-										<small>*indicates required field</small>
-									</v-card-text>
-									<v-card-actions>
-										<v-spacer></v-spacer>
-										<v-btn color="blue darken-1" flat @click="f_remindPassword()">Save</v-btn>
-										<v-btn color="blue darken-1" flat @click="dialog_remindpassword = false">Close</v-btn>
 									</v-card-actions>
 								</v-card>
-							</v-dialog>
-							<v-dialog v-model="dialog_resetpassword" width="800">
-								<v-card>
-									<v-card-title class="headline green lighten-2" primary-title>
-										Forgot Password Verification ?
-									</v-card-title>
-									<v-card-text>
-										<v-container grid-list-md>
-											<v-layout wrap>
-												<v-flex xs12>
-													<v-text-field label="Code verification" v-model="code_reset" required></v-text-field>
-												</v-flex>
-											</v-layout>
-										</v-container>
-										<small>*indicates required field</small>
-									</v-card-text>
-									<v-card-actions>
-										<v-spacer></v-spacer>
-										<v-btn color="blue darken-1" flat @click="f_resetPassword()">Save</v-btn>
-										<v-btn color="blue darken-1" flat @click="dialog_remindpassword = false">Close</v-btn>
-									</v-card-actions>
-								</v-card>
-							</v-dialog>
-						</div>
-					</div>
+								<v-dialog v-model="dialog_remindpassword" width="800">
+								    <v-card>
+								        <v-card-title class="headline green lighten-2" primary-title>
+								            Forgot Password ?
+								        </v-card-title>
+								        <v-card-text>
+								            <v-container grid-list-md>
+								                <v-layout wrap>
+								                    <v-flex xs12>
+								                        <v-text-field label="Email" v-model="email_reset" required></v-text-field>
+								                    </v-flex>
+								                </v-layout>
+								            </v-container>
+								            <small>*indicates required field</small>
+								        </v-card-text>
+								        <v-card-actions>
+								            <v-spacer></v-spacer>
+								            <v-btn color="primary" flat @click="f_remindPassword()">Save</v-btn>
+								            <v-btn color="primary" flat @click="dialog_remindpassword = false">Close</v-btn>
+								        </v-card-actions>
+								    </v-card>
+								</v-dialog>
+								<v-dialog v-model="dialog_resetpassword" width="800">
+								    <v-card>
+								        <v-card-title class="headline green lighten-2" primary-title>
+								            Forgot Password Verification ?
+								        </v-card-title>
+								        <v-card-text>
+								            <v-container grid-list-md>
+								                <v-layout wrap>
+								                    <v-flex xs12>
+								                        <v-text-field label="Code verification" v-model="code_reset" required></v-text-field>
+								                    </v-flex>
+								                </v-layout>
+								            </v-container>
+								            <small>*indicates required field</small>
+								        </v-card-text>
+								        <v-card-actions>
+								            <v-spacer></v-spacer>
+								            <v-btn color="primary" flat @click="f_resetPassword()">Save</v-btn>
+								            <v-btn color="primary" flat @click="dialog_remindpassword = false">Close</v-btn>
+
+								        </v-card-actions>
+								    </v-card>
+								</v-dialog>
+							</v-col>
+						</v-row>
+					</v-container>
 				</v-app>
 			</div>
 		</main>
