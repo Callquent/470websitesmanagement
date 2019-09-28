@@ -55,14 +55,14 @@
 							<v-flex xs12>
 								<template>
 									<v-list>
-										<v-list-tile>
-											<v-list-tile-content>
-												<v-list-tile-title>test</v-list-tile-title>
-											</v-list-tile-content>
-											<v-list-tile-content>
-												<v-list-tile-title>test</v-list-tile-title>
-											</v-list-tile-content>
-										</v-list-tile>
+										<v-list-item>
+											<v-list-item-content>
+												<v-list-item-title>item</v-list-item-title>
+											</v-list-item-content>
+											<v-list-item-content>
+												<v-list-item-title>item</v-list-item-title>
+											</v-list-item-content>
+										</v-list-item>
 									</v-list>
 									<table>
 										<td>
@@ -180,31 +180,41 @@
 	                            :headers="headers"
 	                            :items="list_projects"
 	                            class="elevation-1"
-	                            :rows-per-page-items="[10,20,50,100]"
+	                            :items-per-page="-1"
+								:footer-props="{
+		                        'items-per-page-options': [10, 20, 30, 40, 50]
+		                        }"
 	                        >
-	                            <template slot="items" slot-scope="props">
-	                                <td>{{ props.item.name_website }}</td>
-	                                <td>{{ props.item.name_project_tasks }}</td>
-	                                <td>{{ props.item.started_project_tasks }}</td>
-	                                <td>{{ props.item.deadline_project_tasks }}</td>
-	                                <td>
+	                            <template v-slot:item.name_website="props">
+	                            	{{ props.item.name_website }}
+	                            </template>
+	                            <template v-slot:item.name_project_tasks="props">
+	                                {{ props.item.name_project_tasks }}
+	                            </template>
+	                            <template v-slot:item.started_project_tasks="props">
+	                                {{ props.item.started_project_tasks }}
+                                </template>
+                                <template v-slot:item.deadline_project_tasks="props">
+	                                {{ props.item.deadline_project_tasks }}
+                                </template>
+	                            <template v-slot:item.status="props">
 										<span v-if="props.item.percentage_tasks == '100'" class="badge badge-success">Success</span>
 										<span v-else class="badge badge-warning">In progress</span>
-	                                </td>
-	                                <td>
+	                            </template>
+	                            <template v-slot:item.progress="props">
 	                                	<div class="progress">
 											  <div class="progress-bar" role="progressbar" :style="{width: props.item.percentage_tasks + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ props.item.percentage_tasks }}%
 											  </div>
 										</div>
-	                                </td>
-	                                <td>
+	                            </template>
+	                            <template v-slot:item.member="props">
 	                                	<span v-for="itemUser in props.item.users_to_project">
 		                                	<v-avatar color="red">
 												<span class="white--text headline">{{ itemUser.username.substr(0, 2) }}</span>
 											</v-avatar>
 										</span>
-									</td>
-	                                <td class="text-xs-left">
+								</template>
+	                            <template v-slot:item.actions="props">
 
 											<v-menu bottom left>
 												<template v-slot:activator="{ on }">
@@ -214,25 +224,24 @@
 												</template>
 
 												<v-list>
-													<v-list-tile>
-														<v-list-tile-content>
-															<v-list-tile-title id="view-project" :href="currentRoute+'/'+props.item.id_project_tasks">View</v-list-tile-title>
-														</v-list-tile-content>
-													</v-list-tile>
-													<v-list-tile>
-														<v-list-tile-content>
-															<v-list-tile-title id="edit-project" @click="f_dialog_editProject(props.item)"><?php echo lang('edit') ?></v-list-tile-title>
-														</v-list-tile-content>
-													</v-list-tile>
-													<v-list-tile>
-														<v-list-tile-content>
-															<v-list-tile-title id="delete-project" @click="f_deleteProject(props.item)"><?php echo lang('delete') ?></v-list-tile-title>
-														</v-list-tile-content>
-													</v-list-tile>
+													<v-list-item>
+														<v-list-item-content>
+															<v-list-item-title id="view-project" :href="currentRoute+'/'+props.item.id_project_tasks">View</v-list-item-title>
+														</v-list-item-content>
+													</v-list-item>
+													<v-list-item>
+														<v-list-item-content>
+															<v-list-item-title id="edit-project" @click="f_dialog_editProject(props.item)"><?php echo lang('edit') ?></v-list-item-title>
+														</v-list-item-content>
+													</v-list-item>
+													<v-list-item>
+														<v-list-item-content>
+															<v-list-item-title id="delete-project" @click="f_deleteProject(props.item)"><?php echo lang('delete') ?></v-list-item-title>
+														</v-list-item-content>
+													</v-list-item>
 												</v-list>
 											</v-menu>
-	                                </td>
-	                            </template>
+	                                </template>
 	                        </v-data-table>
 	                </template>
 	            </v-card>
@@ -258,10 +267,10 @@
 	        dialog_add_project: false,
 	        currentRoute: window.location.href,
 	        headers: [
-	        	{ text: '<?php echo lang('website'); ?>', value: 'website' },
-				{ text: '<?php echo lang('name'); ?>', value: 'name' },
-				{ text: 'Started on', value: 'started_on' },
-				{ text: 'Deadline', value: 'deadline' },
+	        	{ text: '<?php echo lang('website'); ?>', value: 'url_website' },
+				{ text: '<?php echo lang('name'); ?>', value: 'name_website' },
+				{ text: 'Started on', value: 'started_project_tasks' },
+				{ text: 'Deadline', value: 'deadline_project_tasks' },
 				{ text: 'Status', value: 'status' },
 				{ text: 'Progress', value: 'progress' },
 				{ text: 'Member', value: 'member' },

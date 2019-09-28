@@ -47,14 +47,14 @@
                             <i class="icon icon-plus"></i>
                         </button>
                         <v-list>
-                            <v-list-tile>
-                                <v-list-tile-title>Choisir un fichier</v-list-tile-title>
+                            <v-list-item>
+                                <v-list-item-title>Choisir un fichier</v-list-item-title>
                                 <input type="file" ref="file" class="custom-file-input" name="uploadfile" id="uploadfile" @change="f_uploadFile()" />
-                            </v-list-tile>
-                            <v-list-tile>
-                                <v-list-tile-title>Choisir un dossier</v-list-tile-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>Choisir un dossier</v-list-item-title>
                                 <input type="file" ref="folder" class="custom-file-input" name="uploadfile[]" id="uploadfolder" @change="f_uploadFolder()" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
-                            </v-list-tile>
+                            </v-list-item>
                         </v-list>
                     </v-menu>
                 </form>
@@ -69,17 +69,20 @@
                             :headers="headers_ftp"
                             :items="list_view_ftp"
                             class="elevation-1"
-                            :rows-per-page-items="[-1]"
+                            :items-per-page="-1"
+                            :footer-props="{
+                            'items-per-page-options': [10, 20, 30, 40, 50]
+                            }"
                         >
-                            <template slot="items" slot-scope="props">
-                                <tr @click="f_openFile_details(props.item)" @dblclick="f_openFolder(props.item)">
-                                    <td class="file-icon" ><i :class="[props.item.icon,{'icon-cut' : cutfile.old_path+cutfile.file == path+props.item.title }]"></i></td>
-                                    <td class="name">{{ props.item.title }}</td>
-                                    <td>{{ props.item.size }}</td>
-                                    <td>{{ props.item.type }}</td>
-                                    <td>{{ props.item.last_modified }}</td>
-                                    <td>{{ props.item.chmod }}</td>
-                                    <td>{{ props.item.owner }}</td>
+                            <template v-slot:body="{ items }">
+                                <tr v-for="item in items" :key="item.name" @click="f_openFile_details(item)" @dblclick="f_openFolder(item)">
+                                    <td class="file-icon" ><i :class="[item.icon,{'icon-cut' : cutfile.old_path+cutfile.file == path+item.title }]"></i></td>
+                                    <td class="name">{{ item.title }}</td>
+                                    <td>{{ item.size }}</td>
+                                    <td>{{ item.type }}</td>
+                                    <td>{{ item.last_modified }}</td>
+                                    <td>{{ item.chmod }}</td>
+                                    <td>{{ item.owner }}</td>
                                 </tr>
                             </template>
                         </v-data-table>
@@ -244,33 +247,33 @@
       offset-y
     >
       <v-list>
-        <v-list-tile @click='f_viewFile(contextMenu.selected_item)'>
-          <v-list-tile-title>Editer</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click='renameItem()'>
-          <v-list-tile-title>Renommer</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click='cutfile.cut_active == false?f_cutFile(contextMenu.selected_item):f_pasteFile(contextMenu.selected_item)'>
-          <v-list-tile-title v-if="cutfile.cut_active == false">Cut</v-list-tile-title>
-          <v-list-tile-title v-else>Paste</v-list-tile-title>
-        </v-list-tile>
+        <v-list-item @click='f_viewFile(contextMenu.selected_item)'>
+          <v-list-item-title>Editer</v-list-tile-title>
+        </v-list-item>
+        <v-list-item @click='renameItem()'>
+          <v-list-item-title>Renommer</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click='cutfile.cut_active == false?f_cutFile(contextMenu.selected_item):f_pasteFile(contextMenu.selected_item)'>
+          <v-list-item-title v-if="cutfile.cut_active == false">Cut</v-list-item-title>
+          <v-list-item-title v-else>Paste</v-list-item-title>
+        </v-list-item>
         <v-divider></v-divider>
-        <v-list-tile @click='dialog_createFolder = true'>
-          <v-list-tile-title>Créer un dossier</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click='f_downloadFile(contextMenu.selected_item)'>
-          <v-list-tile-title>Télécharger</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click='f_dialog_chmodPermissions'>
-          <v-list-tile-title>Chmod</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-title>Décompresser</v-list-tile-title>
-        </v-list-tile>
+        <v-list-item @click='dialog_createFolder = true'>
+          <v-list-item-title>Créer un dossier</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click='f_downloadFile(contextMenu.selected_item)'>
+          <v-list-item-title>Télécharger</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click='f_dialog_chmodPermissions'>
+          <v-list-item-title>Chmod</v-list-item-title>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-title>Décompresser</v-list-item-title>
+        </v-list-item>
         <v-divider></v-divider>
-        <v-list-tile @click='f_deleteFile(contextMenu.selected_item)'>
-          <v-list-tile-title>Supprimer</v-list-tile-title>
-        </v-list-tile>
+        <v-list-item @click='f_deleteFile(contextMenu.selected_item)'>
+          <v-list-item-title>Supprimer</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
             </div>

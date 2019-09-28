@@ -49,13 +49,25 @@
 										:items="list_whois"
 										class="elevation-1"
 									>
-										<template slot="items" slot-scope="props">
-											<td>{{ props.item.name_whois }}</td>
-											<td class="text-xs-left" v-html="props.item.website">{{ props.item.website }}</td>
-											<td class="text-xs-left">{{ props.item.hosting }}</td>
-											<td class="text-xs-left">{{ props.item.date_delivery }}</td>
-											<td class="text-xs-left">{{ props.item.date_expiration }}</td>
-											<td class="text-xs-left" v-html="props.item.whois">{{ props.item.whois }}</td>
+										<template v-slot:item.name_whois="props">
+											{{ props.item.name_whois }}
+										</template>
+										<template v-slot:item.website="props">
+											{{ props.item.website }}
+										</template>
+										<template v-slot:item.hosting="props">
+											{{ props.item.hosting }}
+										</template>
+										<template v-slot:item.date_delivery="props">
+											{{ props.item.date_delivery }}
+										</template>
+										<template v-slot:item.date_expiration="props">
+											{{ props.item.date_expiration }}
+										</template>
+										<template v-slot:item.whois="props">
+											<v-btn @click="f_dialog_Whois(props.item)" icon color="grey darken-1">
+												<v-icon>mdi-eye</v-icon>
+											</v-btn>
 										</template>
 									</v-data-table>
 								</template>
@@ -77,29 +89,24 @@
 	</div>
   </div>
 </div>
-	  <div class="modal fade" id="view-whois" tabindex="-1" role="dialog" aria-labelledby="view" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-		  <div class="modal-content">
-			<div class="modal-header modal-header-success">
-			  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-			  <h4 class="modal-title custom_align" id="Heading">Afficher Whois</h4>
-			</div>
-			<div class="modal-body">
-			  <form id="acces-ftp" class="form-horizontal" role="form" action="#">
-				<fieldset>
-				 <table class="table table-striped table-hover table-bordered table-dashboard" id="table-ftp-dashboard">
-					  <thead>
-					  </thead>
-					  <tbody>
+<v-dialog v-model="dialog_whois" width="800">
+	<v-card>
+		<v-card-title class="headline green lighten-2" primary-title>
+			<?php echo lang('whois'); ?>
+		</v-card-title>
 
-					  </tbody>
-				  </table>
-				</fieldset>
-			  </form>
-			</div>
-		  </div>
-		</div>
-	  </div>
+		<v-card-text>
+			<v-container grid-list-md>
+				<v-layout wrap>
+					<v-flex xs12>
+						<pre>{{ registar_whois }}</pre>
+					</v-flex>
+				</v-layout>
+			</v-container>
+			<small>*indicates required field</small>
+		</v-card-text>
+	</v-card>
+</v-dialog>
 			</div>
 		</div>
 <?php $this->load->view('include/javascript.php'); ?>
@@ -109,6 +116,8 @@
 		vuetify: new Vuetify(),
 		data : {
 			sidebar:"general",
+			dialog_whois: false,
+			registar_whois: '',
 			currentRoute: window.location.href,
 			headers: [
 				{ text: 'Nom', value: 'name_whois'},

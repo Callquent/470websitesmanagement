@@ -16,10 +16,14 @@
                             class="elevation-1"
                             :rows-per-page-items="[10,20,50,100]"
                         >
-                            <template slot="items" slot-scope="props">
-                                <td>{{ props.item.name_website }}</td>
-                                <td><a :href="'http://'+props.item.url_website" target="_blank">{{props.item.url_website}}</a></td>
-                                <td><a href="javascript:void(0);" @click="dialogFtp(props.item)">Connect FTP</a></td>
+                            <template v-slot:item.name_website="props">
+                                {{ props.item.name_website }}
+                            </template>
+                            <template v-slot:item.url_website="props">
+                                {{ props.item.url_website }}
+                            </template>
+                            <template v-slot:item.ftp="props">
+                                <a href="javascript:void(0);" @click="dialogFtp(props.item)">Connect FTP</a>
                             </template>
                         </v-data-table>
                 </template>
@@ -78,8 +82,8 @@
             test: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
             dialog_ftp: false,
             headers: [
-                { text: '<?php echo lang('name'); ?>', value: 'name' },
-                { text: '<?php echo lang('website'); ?>', value: 'website'},
+                { text: '<?php echo lang('name'); ?>', value: 'name_website' },
+                { text: '<?php echo lang('website'); ?>', value: 'url_website'},
                 { text: '<?php echo lang('ftp'); ?>', value: 'ftp'},
             ],
             website_by_ftp: [],
