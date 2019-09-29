@@ -37,6 +37,6 @@ class Users_tasks extends CI_Controller {
 
 		$data['all_tasks_per_user'] = $this->model_tasks->get_all_tasks_per_users();
 
-		$this->load->view('users-tasks', $data);
+		$this->load->view('general/users-tasks', $data);
 	}
 }

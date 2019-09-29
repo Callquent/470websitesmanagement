@@ -33,7 +33,7 @@ class Search_scrapper_google extends CI_Controller {
 		$data['all_count_websites_per_language'] = $this->model_front->count_websites_per_language();
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
-		$this->load->view('search-scrapper-google', $data);
+		$this->load->view('general/search-scrapper-google', $data);
 	}
 	public function ajaxSearchScrapperGoogle()
 	{

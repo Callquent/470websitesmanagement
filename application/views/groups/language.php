@@ -48,41 +48,41 @@
 											</v-dialog>
 										</v-toolbar>
 									</template>
-										<template v-slot:item.langage="props">
-											<v-edit-dialog
-												class="text-xs-right"
-												:return-value.sync="props.item.name_language"
-												@open="props.item._name_language = props.item.name_language"
-												@save="f_editLanguage(props.item)"
-												@cancel="props.item.name_language = props.item._name_language || props.item.name_language"
-												large
-												lazy
-											  >{{ props.item.name_language }}
-												<v-text-field
-													slot="input"
-													label="Edit"
-													v-model="props.item.name_language"
-													single-line
-													counter
-													autofocus
-												></v-text-field>
-											</v-edit-dialog>
-										</template>
-										<template v-slot:item.actions="props">
-											<v-menu bottom left>
-												<template v-slot:activator="{ on }">
-													<v-btn icon v-on="on" color="grey darken-1">
-														<v-icon>mdi-dots-vertical</v-icon>
-													</v-btn>
-												</template>
-												<v-divider></v-divider>
-												<v-list>
-													<v-list-item  @click="dialogLanguage(props.item)"  id="delete-dashboard">
-															<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
-													</v-list-item>
-												</v-list>
-											</v-menu>
-										</template>
+									<template v-slot:item.langage="props">
+										<v-edit-dialog
+											class="text-xs-right"
+											:return-value.sync="props.item.name_language"
+											@open="props.item._name_language = props.item.name_language"
+											@save="f_editLanguage(props.item)"
+											@cancel="props.item.name_language = props.item._name_language || props.item.name_language"
+											large
+											lazy
+										  >{{ props.item.name_language }}
+											<v-text-field
+												slot="input"
+												label="Edit"
+												v-model="props.item.name_language"
+												single-line
+												counter
+												autofocus
+											></v-text-field>
+										</v-edit-dialog>
+									</template>
+									<template v-slot:item.actions="props">
+										<v-menu bottom left>
+											<template v-slot:activator="{ on }">
+												<v-btn icon v-on="on" color="grey darken-1">
+													<v-icon>mdi-dots-vertical</v-icon>
+												</v-btn>
+											</template>
+											<v-divider></v-divider>
+											<v-list>
+												<v-list-item  @click="dialogLanguage(props.item)"  id="delete-dashboard">
+														<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+												</v-list-item>
+											</v-list>
+										</v-menu>
+									</template>
 								</v-data-table>
 						</template>
 					</v-card>

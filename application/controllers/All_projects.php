@@ -39,7 +39,7 @@ class All_projects extends CI_Controller {
 		if($this->uri->total_segments() == 1){
 			$data['all_projects'] = $this->model_tasks->get_all_projects();
 
-			$this->load->view('all-projects', $data);
+			$this->load->view('general/all-projects', $data);
 		} elseif($this->uri->total_segments() == 2) {
 			$data['project'] = $this->model_tasks->get_project($id_project_tasks);
 
@@ -54,7 +54,7 @@ class All_projects extends CI_Controller {
 
 			$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $data['all_card_tasks']->row()->id_card_tasks);
 
-			$this->load->view('view-project', $data);
+			$this->load->view('general/view-project', $data);
 		}
 	}
 	public function create_project()

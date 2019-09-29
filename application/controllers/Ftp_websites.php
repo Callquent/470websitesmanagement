@@ -56,7 +56,7 @@ class Ftp_websites extends CI_Controller {
 
 				$data['all_storage_server'] = $this->ftp->list_files_details($data['path_server']);
 				$data['id_website'] = $id_website;
-				$this->load->view('view-ftp-websites', $data);
+				$this->load->view('general/view-ftp-websites', $data);
 			}
 		}
 	}

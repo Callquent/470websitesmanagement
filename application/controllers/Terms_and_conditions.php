@@ -18,6 +18,6 @@ class Terms_and_conditions extends CI_Controller {
 	}
 	public function index()
 	{
-		$this->load->view('terms-and-conditions');
+		$this->load->view('authentication/terms-and-conditions');
 	}
 }

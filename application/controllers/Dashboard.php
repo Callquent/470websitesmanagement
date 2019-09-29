@@ -84,7 +84,7 @@ class Dashboard extends CI_Controller {
 		$chart_category = array('labels' => $chart_name_category, 'datasets' => [array('data' => $chart_c_percent, 'backgroundColor' => $chart_c_color )]);
 		$data['chart_category'] = json_encode($chart_category);*/
 
-		$this->load->view('dashboard', $data);
+		$this->load->view('general/dashboard', $data);
 	}
 	public function modal_whois($id_whois = '')
 	{

@@ -59,7 +59,7 @@ class All_websites extends CI_Controller {
 				//$data['websites'][] = $list;
 			}
 
-			$this->load->view('all-websites', $data);
+			$this->load->view('general/all-websites', $data);
 
 		} elseif($this->uri->total_segments() == 2) {
 			$data['website'] = $this->model_front->get_website($id_website);
@@ -76,7 +76,7 @@ class All_websites extends CI_Controller {
 			$website_htaccess = $this->model_front->get_website($id_website)->htaccess;
 			$data['htaccess'] = $website_htaccess;
 
-			$this->load->view('view-details-website', $data);
+			$this->load->view('general/view-details-website', $data);
 		}
 	}
 	public function delete_website()
