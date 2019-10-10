@@ -6,9 +6,7 @@
 		<a href="<?php echo site_url('/all-projects'); ?>" class="btn btn-icon fuse-ripple-ready">
 			<i class="icon icon-arrow-left-thick"></i>
 		</a>
-		<a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
-			<i class="icon icon-plus"></i>
-		</a>
+		
 	</div>
 
 
@@ -18,14 +16,6 @@
 	<v-container fluid grid-list-sm>
 		<v-layout row wrap>
 			<v-flex hidden-sm-and-down md2>
-				<v-list>
-					<v-list-tile>
-						<v-list-tile-avatar><v-icon>add</v-icon></v-list-tile-avatar>
-						<v-list-tile-content>
-							<v-list-tile-title>Ajouter</v-list-tile-title>
-						</v-list-tile-content>
-					</v-list-tile>
-				</v-list>
 				<v-stepper v-model="stepper" non-linear vertical>
 					<template v-for="n in list_card_tasks.length">
 						<v-stepper-step
@@ -51,24 +41,22 @@
 			<v-toolbar-side-icon></v-toolbar-side-icon>
 			<v-toolbar-title>{{ card_tasks.name_card_tasks }}</v-toolbar-title>
 			<v-spacer></v-spacer>
+			<a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
+					<i class="icon icon-plus"></i>
+				</a>
 			<v-menu bottom left>
 				<template v-slot:activator="{ on }">
 					<v-btn dark icon v-on="on">
 					<v-icon>mdi-dots-vertical</v-icon>
 					</v-btn>
 				</template>
-
 				<v-list>
-					<v-list-tile>
-						<v-list-tile-content>
-							<v-list-tile-title @click="deleteCard(step)">Editer</v-list-tile-title>
-						</v-list-tile-content>
-					</v-list-tile>
-					<v-list-tile>
-						<v-list-tile-content>
-							<v-list-tile-title @click="deleteCard(step)">Supprimer</v-list-tile-title>
-						</v-list-tile-content>
-					</v-list-tile>
+					<v-list-item>
+						<v-list-item-title @click="deleteCard(step)">Editer</v-list-item-title>
+					</v-list-item>
+					<v-list-item>
+						<v-list-item-title @click="deleteCard(step)">Supprimer</v-list-item-title>
+					</v-list-item>
 				</v-list>
 			</v-menu>
 		</v-toolbar>
@@ -126,15 +114,13 @@
 													                slot-scope="data"
 													              >
 													                <template v-if="typeof data.item !== 'object'">
-													                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
+													                  <v-list-item-content v-text="data.item"></v-list-item-content>
 													                </template>
 													                <template v-else>
 																		<v-avatar color="red">
 																			<span class="white--text headline">J</span>
 																		</v-avatar>
-													                  <v-list-tile-content>
-													                    <v-list-tile-title v-html="data.item.name_user"></v-list-tile-title>
-													                  </v-list-tile-content>
+													                    <v-list-item-title v-html="data.item.name_user"></v-list-item-title>
 													                </template>
 													              </template>
 													            </v-autocomplete>
@@ -255,7 +241,7 @@
 		el: '#app',
 		vuetify: new Vuetify(),
 		data : {
-			sidebar:"general",
+			sidebar:"projects",
 			dialog_add_task: false,
 			dialog_add_card: false,
 			first_step: 1,

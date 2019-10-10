@@ -19,7 +19,7 @@ class Position_tracking_google extends CI_Controller {
 	}
 	public function index()
 	{
-		$data['login'] = $this->session->userdata['username'];
+		$data['user'] = $this->aauth->get_user();
 		$data['user_role'] = $this->aauth->get_user_groups();
 
 		$data['all_languages'] = $this->model_language->get_all_languages();

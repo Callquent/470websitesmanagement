@@ -5,38 +5,6 @@
 		<h2 class="doc-title" id="content"><?php echo lang('members'); ?></h2>
 	</div>
 	<div class="page-content-wrapper">
-		<!-- <aside class="page-sidebar p-6" data-fuse-bar="contacts-sidebar" data-fuse-bar-media-step="md">
-			<div class="page-sidebar-card">
-				<div class="header p-4">
-					<div class="row no-gutters align-items-center">
-						<span class="w-40 avatar circle green" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo $login; ?>" value="<?php echo $login; ?>"><?php echo substr($login, 0, 2); ?></span>
-						<span class="font-weight-bold"><?php echo $login; ?></span>
-					</div>
-				</div>
-				<div class="divider"></div>
-				<div class="content">
-					<ul class="nav flex-column groups-members">
-						<div class="divider"></div>
-						<li class="nav-item">
-							<a class="all-groups-members nav-link ripple active fuse-ripple-ready" href="#">
-								<span>All</span>
-							</a>
-						</li>
-						<div class="divider"></div>
-						<li class="subheader">Groups</li>
-						<div class="divider"></div>
-						<?php foreach ($list_groups->result() as $row){  ?>
-							<li class="nav-item">
-								<a class="nav-link ripple active fuse-ripple-ready" href="#">
-									<span><?php echo $row->name; ?></span>
-								</a>
-							</li>
-						<?php } ?>
-					</ul>
-				</div>
-			</div>
-		</aside> -->
-
 		<v-container fluid grid-list-sm>
 			<v-layout row wrap>
 

@@ -35,7 +35,7 @@
                                         <div class="avatar-wrapper">
                                             <img class="avatar" alt="" src="<?php echo img_url('users/profile.jpg'); ?>">
                                         </div>
-                                        <span class="username mx-3 d-none d-md-block"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo $login; ?></font></font></span>
+                                        <span class="username mx-3 d-none d-md-block"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo $user->username; ?></font></font></span>
                                     </div>
                                     <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">
                                         <a class="dropdown-item fuse-ripple-ready" href="<?php echo site_url('profile'); ?>">

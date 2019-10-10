@@ -19,7 +19,7 @@ class Language extends CI_Controller {
 	}
 	public function index($name_url_language = '')
 	{
-		$data['login'] = $this->session->userdata['username'];
+		$data['user'] = $this->aauth->get_user();
 		$data['user_role'] = $this->aauth->get_user_groups();
 
 		$data['all_websites'] = $this->model_front->get_all_websites_per_language($name_url_language);

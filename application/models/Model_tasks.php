@@ -72,6 +72,18 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	function get_all_tasks_hours_to_user($id_project_tasks,$id_card_tasks,$id_user)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_tasks')
+				 ->join('470websitesmanagement_tasks__hours', '470websitesmanagement_tasks.id_task = 470websitesmanagement_tasks__hours.id_task')
+				 ->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
+				 ->where('470websitesmanagement_tasks.id_card_task', $id_card_tasks)
+				 ->where('470websitesmanagement_tasks.id_user', $id_user); 
+
+		$query = $this->db->get();
+		return $query;
+	}
 	function count_tasks_per_user($id_user)
 	{
 		$this->db->select('count(*) as count_tasks_per_user')

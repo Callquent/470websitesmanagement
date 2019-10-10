@@ -22,7 +22,7 @@
 										</div>
 										<div class="admin-user-info">
 											<ul class="user-info">
-												<li><span class="text-semibold text-size-large"><?php echo $login; ?></span></li>
+												<li><span class="text-semibold text-size-large"><?php echo $user->username; ?></span></li>
 												<li><span><small><?php echo $user_role[0]->name; ?></small></span></li>
 											</ul>
 											<div class="logout-icon"><a href="<?php echo site_url('index/logout'); ?>"><i class="fa fa-sign-out"></i></a></div>
@@ -38,6 +38,9 @@
 										<a data-toggle="tab" href="#groupes" :class="{ active: sidebar === 'groups'}"><i class="icon icon-tag-multiple"></i></a>
 									</li>
 									<?php } ?>
+									<li class="">
+										<a data-toggle="tab" href="#projects" :class="{ active: sidebar === 'projects'}"><i class="icon icon-bulletin-board"></i></a>
+									</li>
 									<li class="">
 										<a data-toggle="tab" href="#list-members" :class="{ active: sidebar === 'members'}"><i class="icon icon-account-box"></i></a>
 									</li>
@@ -111,26 +114,6 @@
 												</a>
 											</li>
 											<li>
-												<a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-projects">
-													<i class="icon icon-bulletin-board"></i>
-													<span class="subheading"><?php echo lang('projects'); ?></span>
-												</a>
-												<ul id="collapse-projects" class="collapse" role="tabpanel" data-children=".nav-item">
-													<li><a href="<?php echo site_url('all-projects'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_projects'); ?></a>
-													</li>
-													<li>
-														<a href="<?php echo site_url('my-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('my_tasks'); ?>
-															<v-chip color="green" text-color="white">
-																<span><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span>
-															</v-chip>
-														</a>
-													</li>
-													<li><a href="<?php echo site_url('users-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('user_tasks'); ?></a>
-													</li>
-												</ul>
-											</li>
-											</li>
-											<li>
 												<a href="javascript:void(0);" class="nav-link ripple with-arrow collapsed" data-toggle="collapse" data-target="#collapse-scrapperseo">
 													<i class="icon icon-search-web"></i>
 													<span class="subheading"><?php echo lang('scrapper_seo'); ?></span>
@@ -173,6 +156,29 @@
 												</a>
 											</li>
 											<?php } ?>
+										</ul>
+									</div>
+									<div id="projects" :class="{ active: sidebar === 'projects'}" class="tab-pane">
+										<ul class="sidebar-menu" id="nav-accordion">
+											<li class="list-title-sidebar subheader">
+												<span class="subheading"><?php echo lang('projects'); ?></span>
+											</li>
+											<li>
+												<a href="<?php echo site_url('all-projects'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_projects'); ?></a>
+											</li>
+											<li>
+												<a href="<?php echo site_url('my-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('my_tasks'); ?>
+													<v-chip color="green" text-color="white">
+														<span><?php echo $all_count_tasks_per_user->count_tasks_per_user; ?></span>
+													</v-chip>
+												</a>
+											</li>
+											<li>
+												<a href="<?php echo site_url('users-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('user_tasks'); ?></a>
+											</li>
+											<li>
+												<a href="<?php echo site_url('time-spent-tasks'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('time_spent_tasks'); ?></a>
+											</li>
 										</ul>
 									</div>
 									<div id="list-members" :class="{ active: sidebar === 'members'}" class="tab-pane">

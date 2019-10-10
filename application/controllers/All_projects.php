@@ -19,7 +19,7 @@ class All_projects extends CI_Controller {
 	}
 	public function index($id_project_tasks = '')
 	{
-		$data['login'] = $this->session->userdata['username'];
+		$data['user'] = $this->aauth->get_user();
 		$data['user_role'] = $this->aauth->get_user_groups();
 		
 		$data['all_websites'] = $this->model_front->get_all_websites();
@@ -39,7 +39,7 @@ class All_projects extends CI_Controller {
 		if($this->uri->total_segments() == 1){
 			$data['all_projects'] = $this->model_tasks->get_all_projects();
 
-			$this->load->view('general/all-projects', $data);
+			$this->load->view('projects/all-projects', $data);
 		} elseif($this->uri->total_segments() == 2) {
 			$data['project'] = $this->model_tasks->get_project($id_project_tasks);
 
@@ -54,7 +54,7 @@ class All_projects extends CI_Controller {
 
 			$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $data['all_card_tasks']->row()->id_card_tasks);
 
-			$this->load->view('general/view-project', $data);
+			$this->load->view('projects/view-project', $data);
 		}
 	}
 	public function create_project()

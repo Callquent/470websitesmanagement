@@ -19,7 +19,7 @@ class Users_tasks extends CI_Controller {
 	}
 	public function index($id_project_tasks = '')
 	{
-		$data['login'] = $this->session->userdata['username'];
+		$data['user'] = $this->aauth->get_user();
 		$data['user_role'] = $this->aauth->get_user_groups();
 		
 		$data['all_websites'] = $this->model_front->get_all_websites();
@@ -37,6 +37,6 @@ class Users_tasks extends CI_Controller {
 
 		$data['all_tasks_per_user'] = $this->model_tasks->get_all_tasks_per_users();
 
-		$this->load->view('general/users-tasks', $data);
+		$this->load->view('projects/users-tasks', $data);
 	}
 }

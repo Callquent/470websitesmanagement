@@ -19,7 +19,7 @@ class My_tasks extends CI_Controller {
 	}
 	public function index($id_project_tasks = '')
 	{
-		$data['login'] = $this->session->userdata['username'];
+		$data['user'] = $this->aauth->get_user();
 		$data['user_role'] = $this->aauth->get_user_groups();
 		
 		$data['all_websites'] = $this->model_front->get_all_websites();
@@ -36,7 +36,7 @@ class My_tasks extends CI_Controller {
 			$data['all_projects_per_users'] = $this->model_tasks->get_all_projects_to_user($this->session->userdata['id']);
 			$data['all_tasks_priority_to_user'] =$this->model_tasks->get_all_tasks_priority_to_user($this->session->userdata['id'])->row();
 			
-			$this->load->view('general/my-projects', $data);
+			$this->load->view('projects/my-projects', $data);
 		} elseif($this->uri->total_segments() == 2) {
 			$data['project'] = $this->model_tasks->get_project($id_project_tasks);
 
@@ -56,7 +56,7 @@ class My_tasks extends CI_Controller {
 
 			$data['id_project_tasks'] = $id_project_tasks;
 
-			$this->load->view('general/view-my-project', $data);
+			$this->load->view('projects/view-my-project', $data);
 		}
 	}
 	public function view_card_tasks()

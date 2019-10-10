@@ -219,33 +219,26 @@
 									</span>
 							</template>
 						    <template v-slot:item.actions="props">
-
-										<v-menu bottom left>
-											<template v-slot:activator="{ on }">
-												<v-btn flat icon v-on="on" color="grey darken-1">
-													<v-icon>mdi-dots-vertical</v-icon>
-												</v-btn>
-											</template>
-
-											<v-list>
-												<v-list-item>
-													<v-list-item-content>
-														<v-list-item-title id="view-project" :href="currentRoute+'/'+props.item.id_project_tasks">View</v-list-item-title>
-													</v-list-item-content>
-												</v-list-item>
-												<v-list-item>
-													<v-list-item-content>
-														<v-list-item-title id="edit-project" @click="f_dialog_editProject(props.item)"><?php echo lang('edit') ?></v-list-item-title>
-													</v-list-item-content>
-												</v-list-item>
-												<v-list-item>
-													<v-list-item-content>
-														<v-list-item-title id="delete-project" @click="f_deleteProject(props.item)"><?php echo lang('delete') ?></v-list-item-title>
-													</v-list-item-content>
-												</v-list-item>
-											</v-list>
-										</v-menu>
-						        </template>
+								<v-menu bottom left>
+									<template v-slot:activator="{ on }">
+										<v-btn icon v-on="on" color="grey darken-1">
+											<v-icon>mdi-dots-vertical</v-icon>
+										</v-btn>
+									</template>
+									<v-divider></v-divider>
+									<v-list>
+										<v-list-item :href="currentRoute+'/'+props.item.id_project_tasks">
+											<v-list-item-title id="view-project" >View</v-list-item-title>
+										</v-list-item>
+										<v-list-item @click="f_dialog_editProject(props.item)">
+											<v-list-item-title id="edit-project" ><?php echo lang('edit') ?></v-list-item-title>
+										</v-list-item>
+										<v-list-item @click="f_deleteProject(props.item)">
+											<v-list-item-title id="delete-project"><?php echo lang('delete') ?></v-list-item-title>
+										</v-list-item>
+									</v-list>
+								</v-menu>
+						    </template>
 						</v-data-table>
 	                </template>
 	            </v-card>
@@ -264,7 +257,7 @@
 		el: '#app',
 		vuetify: new Vuetify(),
 	    data : {
-	    	sidebar:"general",
+	    	sidebar:"projects",
 	    	menu1: false,
 	    	menu2: false,
 	    	autocomplete_website: <?php echo json_encode($all_websites->result_array()); ?>,
