@@ -36,7 +36,6 @@ class Time_spent_tasks extends CI_Controller {
 
 		$data['all_projects'] = $this->model_tasks->get_all_projects();
 		$data['user'] = $this->aauth->get_user();
-		var_dump($this->aauth->get_user());
 
 		$this->load->view('projects/time-spent-tasks', $data);
 	}
@@ -46,17 +45,16 @@ class Time_spent_tasks extends CI_Controller {
 
 		$data['all_card_tasks'] = $this->model_tasks->get_all_tasks_card($id_project_tasks)->result_array();
 
-		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
+		$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
 	}
 	public function view_tasks()
 	{
 		$id_project_tasks	= $this->input->post('id_project_tasks');
 		$id_card_tasks		= $this->input->post('id_card_tasks');
 
-		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
+		$data['tasks'] = $this->model_tasks->get_all_tasks_hours_to_user($id_project_tasks, $id_card_tasks, $this->aauth->get_user()->id)->result_array();
 
-		$data['name_card_tasks'] = $data['card_tasks']->name_card_tasks;
 
-		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
+		$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
 	}
 }

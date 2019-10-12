@@ -41,7 +41,7 @@
 						class="elevation-1"
 						:items-per-page="-1"
 						:footer-props="{
-                        'items-per-page-options': [10, 20, 30, 40, 50]
+                        'items-per-page-options': [10, 20, 30, 40, 50, -1]
                         }"
 						>
 							<!-- <template v-slot:item.website="props">

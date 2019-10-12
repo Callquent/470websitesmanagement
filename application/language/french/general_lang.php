@@ -140,6 +140,9 @@ $lang['domain_name_included'] = "Nom de Domaine inclus";
 $lang['days'] = "Jours";
 $lang['time_spent'] = "Temps passé :";
 $lang['remaining_time'] = "Temps restant :";
+$lang['name_task'] = "Nom Tâche";
+$lang['nb_hours_tasks'] = "Nombre Heures de Tâche";
+$lang['date_hours_tasks'] = "Date Effectué Heures de Tâche";
 /***********************/
 /*    Documentation    */
 /***********************/

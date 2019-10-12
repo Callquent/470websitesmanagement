@@ -28,7 +28,7 @@
 						 <div class="col-md-6">
 							 <div class="profile-desk">
 								 <h1><?php echo $user->username; ?></h1>
-								 <span class="text-muted"<?php echo lang('date_create_profile'); ?><?php echo $user->date_created; ?></span>
+								 <span class="text-muted"><?php echo lang('date_create_profile'); ?><?php echo $user->date_created; ?></span>
 								<div class="change-password">
 								  <form action="<?php echo site_url('profile/change-password'); ?>" method="post" id="changepassword-form" class="form-horizontal" role="form">
 									<input class="form-control input-lg" name="newpassword" placeholder="<?php echo lang('enter_new_password'); ?>" type="password">

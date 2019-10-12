@@ -78,7 +78,7 @@ class Model_tasks extends CI_Model {
 				 ->from('470websitesmanagement_tasks')
 				 ->join('470websitesmanagement_tasks__hours', '470websitesmanagement_tasks.id_task = 470websitesmanagement_tasks__hours.id_task')
 				 ->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
-				 ->where('470websitesmanagement_tasks.id_card_task', $id_card_tasks)
+				 ->where('470websitesmanagement_tasks.id_card_tasks', $id_card_tasks)
 				 ->where('470websitesmanagement_tasks.id_user', $id_user); 
 
 		$query = $this->db->get();

@@ -27,9 +27,7 @@
                                 return-object>
                             </v-autocomplete>
                         </div>
-                        <div class="form-group">
-                            <v-btn large color="error" @click="SerpSearchGoogle"><?php echo lang('search'); ?></v-btn>
-                        </div>
+
                     </v-form>
                 </v-flex>
                 <v-flex xs4></v-flex>
@@ -44,12 +42,75 @@
                             'items-per-page-options': [10, 20, 30, 40, 50, -1]
                             }"
                         >
+                         <template v-slot:top>
+      <v-toolbar flat color="white">
+        <v-toolbar-title>My CRUD</v-toolbar-title>
+        <v-divider
+          class="mx-4"
+          inset
+          vertical
+        ></v-divider>
+        <div class="flex-grow-1"></div>
+        <v-dialog v-model="dialog" max-width="500px">
+          <template v-slot:activator="{ on }">
+            <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <div class="flex-grow-1"></div>
+              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
                             <template v-slot:body="{ items }">
                                 <tr :class="item.class" v-for="item in items" :key="item.name">
-                                    <td>{{ item.position }}</td>
-                                    <td v-html="item.website">{{ item.website }}</td>
-                                    <td>{{ item.meta_title }}</td>
-                                    <td v-html="item.meta_description">{{ item.meta_description }}</td>
+                                    <td>{{ item.name_task }}</td>
+                                    <td>{{ item.nb_hours_tasks }}</td>
+                                    <td>{{ item.date_hours_tasks }}</td>
+                                    <td>
+                                        <v-menu bottom left>
+                                            <template v-slot:activator="{ on }">
+                                                <v-btn icon v-on="on" color="grey darken-1">
+                                                    <v-icon>mdi-dots-vertical</v-icon>
+                                                </v-btn>
+                                            </template>
+                                            <v-divider></v-divider>
+                                            <v-list>
+                                                <v-list-item>
+                                                        <v-list-item-title>Open URL Website</v-list-item-title>
+                                                </v-list-item>
+                                            </v-list>
+                                        </v-menu>
+                                    </td>
                                 </tr>
                             </template>
                         </v-data-table>
@@ -81,10 +142,10 @@
             },
             currentRoute: window.location.href,
             headers: [
-                { text: '<?php echo lang("position"); ?>', value: 'position'},
-                { text: '<?php echo lang("website"); ?>', value: 'website' },
-                { text: '<?php echo lang("meta_title"); ?>', value: 'meta_title'},
-                { text: '<?php echo lang("meta_description"); ?>', value: 'meta_description'},
+                { text: '<?php echo lang("name_task"); ?>', value: 'name_task'},
+                { text: '<?php echo lang("nb_hours_tasks"); ?>', value: 'nb_hours_tasks' },
+                { text: '<?php echo lang("date_hours_tasks"); ?>', value: 'date_hours_tasks'},
+                { text: '<?php echo lang("actions"); ?>', value: 'actions'},
             ],
             list_serp_search_google: [],
             list_projects: <?php echo json_encode($all_projects->result_array()); ?>,
@@ -111,7 +172,7 @@
                 formData.append("id_project_tasks",item.id_project_tasks);
                 formData.append("id_card_tasks",item.id_card_tasks);
                 axios.post(this.currentRoute+"/view-tasks/", formData).then(function(response){
-                    v.list_tasks = response.data.card_tasks;
+                    v.list_tasks = response.data.tasks;
                 })
             },
         }

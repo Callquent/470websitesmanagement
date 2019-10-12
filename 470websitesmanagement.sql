@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  lun. 15 avr. 2019 à 18:43
+-- Généré le :  sam. 12 oct. 2019 à 06:57
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.1.20
 
@@ -283,6 +283,19 @@ CREATE TABLE `470websitesmanagement_tasks__card` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `470websitesmanagement_tasks__hours`
+--
+
+CREATE TABLE `470websitesmanagement_tasks__hours` (
+  `id_hours_tasks` int(11) UNSIGNED NOT NULL,
+  `id_task` int(11) UNSIGNED NOT NULL,
+  `date_hours_tasks` date NOT NULL,
+  `nb_hours_tasks` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `470websitesmanagement_tasks__priority`
 --
 
@@ -296,10 +309,10 @@ CREATE TABLE `470websitesmanagement_tasks__priority` (
 --
 
 INSERT INTO `470websitesmanagement_tasks__priority` (`id_tasks_priority`, `name_tasks_priority`) VALUES
-(1, 'Low'),
-(2, 'Medium'),
-(3, 'Hight'),
-(4, 'Critical');
+(1, 'low'),
+(2, 'medium'),
+(3, 'hight'),
+(4, 'critical');
 
 -- --------------------------------------------------------
 
@@ -552,9 +565,10 @@ ALTER TABLE `470websitesmanagement_settings`
 -- Index pour la table `470websitesmanagement_tasks`
 --
 ALTER TABLE `470websitesmanagement_tasks`
-  ADD PRIMARY KEY (`id_project_tasks`,`id_task`,`id_card_tasks`),
+  ADD PRIMARY KEY (`id_task`),
   ADD KEY `id_users` (`id_user`),
-  ADD KEY `fk_task_to_list_tasks` (`id_card_tasks`);
+  ADD KEY `fk_id_project_tasks` (`id_project_tasks`),
+  ADD KEY `fk_task_to_card_tasks` (`id_card_tasks`);
 
 --
 -- Index pour la table `470websitesmanagement_tasks__card`
@@ -564,6 +578,13 @@ ALTER TABLE `470websitesmanagement_tasks__card`
   ADD KEY `fk_id_list_tasks` (`id_project_tasks`),
   ADD KEY `fk_id_status_tasks` (`id_tasks_status`),
   ADD KEY `fk_id_priority_tasks` (`id_tasks_priority`);
+
+--
+-- Index pour la table `470websitesmanagement_tasks__hours`
+--
+ALTER TABLE `470websitesmanagement_tasks__hours`
+  ADD PRIMARY KEY (`id_hours_tasks`),
+  ADD KEY `fk_id_tasks_hours` (`id_task`);
 
 --
 -- Index pour la table `470websitesmanagement_tasks__priority`
@@ -654,7 +675,7 @@ ALTER TABLE `470websitesmanagement_whois`
 -- AUTO_INCREMENT pour la table `470websitesmanagement_category`
 --
 ALTER TABLE `470websitesmanagement_category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_groups`
@@ -672,7 +693,7 @@ ALTER TABLE `470websitesmanagement_language`
 -- AUTO_INCREMENT pour la table `470websitesmanagement_login_attempts`
 --
 ALTER TABLE `470websitesmanagement_login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_perms`
@@ -705,6 +726,12 @@ ALTER TABLE `470websitesmanagement_settings`
   MODIFY `id_s` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__hours`
+--
+ALTER TABLE `470websitesmanagement_tasks__hours`
+  MODIFY `id_hours_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__priority`
 --
 ALTER TABLE `470websitesmanagement_tasks__priority`
@@ -714,7 +741,7 @@ ALTER TABLE `470websitesmanagement_tasks__priority`
 -- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__project`
 --
 ALTER TABLE `470websitesmanagement_tasks__project`
-  MODIFY `id_project_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_project_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__status`
@@ -726,7 +753,7 @@ ALTER TABLE `470websitesmanagement_tasks__status`
 -- AUTO_INCREMENT pour la table `470websitesmanagement_users`
 --
 ALTER TABLE `470websitesmanagement_users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=564;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_user_variables`
@@ -738,37 +765,37 @@ ALTER TABLE `470websitesmanagement_user_variables`
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website`
 --
 ALTER TABLE `470websitesmanagement_website`
-  MODIFY `id_website` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_website` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website__backoffice`
 --
 ALTER TABLE `470websitesmanagement_website__backoffice`
-  MODIFY `id_backoffice` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_backoffice` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website__database`
 --
 ALTER TABLE `470websitesmanagement_website__database`
-  MODIFY `id_database` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_database` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website__ftp`
 --
 ALTER TABLE `470websitesmanagement_website__ftp`
-  MODIFY `id_ftp` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ftp` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website__htaccess`
 --
 ALTER TABLE `470websitesmanagement_website__htaccess`
-  MODIFY `id_htaccess` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_htaccess` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_whois`
 --
 ALTER TABLE `470websitesmanagement_whois`
-  MODIFY `id_whois` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_whois` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Contraintes pour les tables déchargées
@@ -790,9 +817,9 @@ ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
 -- Contraintes pour la table `470websitesmanagement_tasks`
 --
 ALTER TABLE `470websitesmanagement_tasks`
+  ADD CONSTRAINT `fk_id_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`),
   ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `470websitesmanagement_users` (`id`),
-  ADD CONSTRAINT `fk_task_to_card_tasks` FOREIGN KEY (`id_card_tasks`) REFERENCES `470websitesmanagement_tasks__card` (`id_card_tasks`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_task_to_project_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_task_to_card_tasks` FOREIGN KEY (`id_card_tasks`) REFERENCES `470websitesmanagement_tasks__card` (`id_card_tasks`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_tasks__card`
@@ -801,6 +828,12 @@ ALTER TABLE `470websitesmanagement_tasks__card`
   ADD CONSTRAINT `fk_id_card_tasks` FOREIGN KEY (`id_project_tasks`) REFERENCES `470websitesmanagement_tasks__project` (`id_project_tasks`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_id_priority_tasks` FOREIGN KEY (`id_tasks_priority`) REFERENCES `470websitesmanagement_tasks__priority` (`id_tasks_priority`),
   ADD CONSTRAINT `fk_id_status_tasks` FOREIGN KEY (`id_tasks_status`) REFERENCES `470websitesmanagement_tasks__status` (`id_tasks_status`);
+
+--
+-- Contraintes pour la table `470websitesmanagement_tasks__hours`
+--
+ALTER TABLE `470websitesmanagement_tasks__hours`
+  ADD CONSTRAINT `fk_id_tasks_hours` FOREIGN KEY (`id_task`) REFERENCES `470websitesmanagement_tasks` (`id_task`);
 
 --
 -- Contraintes pour la table `470websitesmanagement_tasks__project`

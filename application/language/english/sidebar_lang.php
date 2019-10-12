@@ -12,6 +12,7 @@ $lang['whois_domain'] = "Whois Domain";
 $lang['projects'] = "Projects";
 $lang['all_projects'] = "All Projects";
 $lang['my_tasks'] = "My Tasks";
+$lang['time_spent_tasks'] = "Time spent by tasks";
 $lang['user_tasks'] = "User by tasks";
 $lang['scrapper_seo'] = "Scrapper SEO";
 $lang['search_scrapper_seo'] = "Search Scrapper Google";
