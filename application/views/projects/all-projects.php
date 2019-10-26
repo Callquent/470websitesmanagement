@@ -129,7 +129,7 @@
 													<v-menu
 													    ref="menu"
 													    :close-on-content-click="false"
-													    v-model="menu1"
+													    v-model="Project.started_project_tasks"
 													    :nudge-right="40"
 													    lazy
 													    transition="scale-transition"

@@ -47,7 +47,9 @@ class Model_tasks extends CI_Model {
 		$this->db->select('*')
 				->from('470websitesmanagement_tasks')
 				->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
-				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
+				->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks.id_card_tasks = 470websitesmanagement_tasks__card.id_card_tasks')
+				->join('470websitesmanagement_tasks__project', '470websitesmanagement_tasks__card.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
+				->where('470websitesmanagement_tasks__project.id_project_tasks', $id_project_tasks)
 				->where('470websitesmanagement_tasks.id_card_tasks', $id_card_tasks)
 				->order_by("470websitesmanagement_tasks.id_card_tasks", "asc");
 		
@@ -65,9 +67,10 @@ class Model_tasks extends CI_Model {
 	{
 		$this->db->select('*')
 				 ->from('470websitesmanagement_tasks')
-				 ->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks__card.id_card_tasks = 470websitesmanagement_tasks.id_card_tasks')
+				 ->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks.id_card_tasks = 470websitesmanagement_tasks__card.id_card_tasks')
+				 ->join('470websitesmanagement_tasks__project', '470websitesmanagement_tasks__card.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
 				 ->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
-				 ->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks); 
+				 ->where('470websitesmanagement_tasks__project.id_project_tasks', $id_project_tasks); 
 
 		$query = $this->db->get();
 		return $query;
@@ -77,7 +80,9 @@ class Model_tasks extends CI_Model {
 		$this->db->select('*')
 				 ->from('470websitesmanagement_tasks')
 				 ->join('470websitesmanagement_tasks__hours', '470websitesmanagement_tasks.id_task = 470websitesmanagement_tasks__hours.id_task')
-				 ->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
+				 ->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks.id_card_tasks = 470websitesmanagement_tasks__card.id_card_tasks')
+				 ->join('470websitesmanagement_tasks__project', '470websitesmanagement_tasks__card.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
+				 ->where('470websitesmanagement_tasks__project.id_project_tasks', $id_project_tasks)
 				 ->where('470websitesmanagement_tasks.id_card_tasks', $id_card_tasks)
 				 ->where('470websitesmanagement_tasks.id_user', $id_user); 
 
@@ -112,9 +117,11 @@ class Model_tasks extends CI_Model {
 	}
 	function get_percentage($id_project_tasks)
 	{
-		$this->db->select('ROUND(SUM(CASE WHEN check_tasks = "1" THEN 1 ELSE 0 END)/count(*)*100,0) as percentage')
+		$this->db->select('ROUND(SUM(CASE WHEN 470websitesmanagement_tasks.check_tasks = "1" THEN 1 ELSE 0 END)/count(*)*100,0) as percentage')
 				->from('470websitesmanagement_tasks')
-				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks);
+				->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks.id_card_tasks = 470websitesmanagement_tasks__card.id_card_tasks')
+				->join('470websitesmanagement_tasks__project', '470websitesmanagement_tasks__card.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
+				->where('470websitesmanagement_tasks__project.id_project_tasks', $id_project_tasks);
 
 		$query = $this->db->get();
 		return $query;
@@ -123,8 +130,10 @@ class Model_tasks extends CI_Model {
 	{
 		$this->db->select('470websitesmanagement_users.username')
 				->from('470websitesmanagement_tasks')
+				->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks.id_card_tasks = 470websitesmanagement_tasks__card.id_card_tasks')
+				->join('470websitesmanagement_tasks__project', '470websitesmanagement_tasks__card.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
 				->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
-				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
+				->where('470websitesmanagement_tasks__project.id_project_tasks', $id_project_tasks)
 				->group_by('470websitesmanagement_tasks.id_user');
 
 		$query = $this->db->get();
@@ -388,6 +397,18 @@ class Model_tasks extends CI_Model {
 		);
 
 		$this->db->insert('470websitesmanagement_tasks', $data);
+		return $this->db->insert_id();
+	}
+	function create_tasks_hours($id_task, $name_task, $nb_hours_tasks, $date_hours_tasks)
+	{
+		$data = array(
+			'id_task'				=> $id_task,
+			'name_task'				=> $name_task,
+			'nb_hours_tasks'		=> $nb_hours_tasks,
+			'date_hours_tasks'		=> $date_hours_tasks
+		);
+
+		$this->db->insert('470websitesmanagement_hours_tasks', $data);
 		return $this->db->insert_id();
 	}
 	function update_task($id_project_tasks, $id_card_tasks, $id_task, $name_task, $check_tasks, $iduser)

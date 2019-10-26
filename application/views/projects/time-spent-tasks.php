@@ -35,7 +35,7 @@
                     <template>
                         <v-data-table
                             :headers="headers"
-                            :items="list_tasks"
+                            :items="list_hours_tasks"
                             class="elevation-1"
                             :items-per-page="-1"
                             :footer-props="{
@@ -43,56 +43,70 @@
                             }"
                         >
                          <template v-slot:top>
-      <v-toolbar flat color="white">
-        <v-toolbar-title>My CRUD</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
-        <div class="flex-grow-1"></div>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
+                              <v-toolbar flat color="white">
+                                <v-toolbar-title>My CRUD</v-toolbar-title>
+                                <v-divider
+                                  class="mx-4"
+                                  inset
+                                  vertical
+                                ></v-divider>
+                                <div class="flex-grow-1"></div>
+                                <v-dialog v-model="dialog_time_spend_tasks" max-width="500px">
+                                  <template v-slot:activator="{ on }">
+                                    <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+                                  </template>
+                                  <v-card>
+                                    <v-card-text>
+                                      <v-container>
+                                        <v-row>
+                                          <v-col cols="12">
+                                            <v-text-field
+                                                v-model="editedTimeSpendTasks.nb_hours_tasks"
+                                                label="Label Text"
+                                                value="12:30:00"
+                                                type="time"
+                                            ></v-text-field>
+                                          </v-col>
+                                          <v-col cols="12">
+                                                <v-menu
+                                                    ref="menu"
+                                                    :close-on-content-click="false"
+                                                    v-model="editedTimeSpendTasks.date_hours_tasks"
+                                                    :nudge-right="40"
+                                                    lazy
+                                                    transition="scale-transition"
+                                                    offset-y
+                                                    full-width
+                                                    min-width="290px"
+                                                  >
+                                                  <template v-slot:activator="{ on }">
+                                                    <v-text-field
+                                                      slot="activator"
+                                                      v-model="editedTimeSpendTasks.date_hours_tasks"
+                                                      label="Picker in menu"
+                                                      prepend-icon="event"
+                                                      readonly
+                                                      v-on="on"
+                                                    ></v-text-field>
+                                                   </template>
+                                                    <v-date-picker v-model="editedTimeSpendTasks.date_hours_tasks" no-title @input="editedTimeSpendTasks.date_hours_tasks = false"> </v-date-picker>
+                                                </v-menu>
+                                          </v-col>
+                                        </v-row>
+                                      </v-container>
+                                    </v-card-text>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <div class="flex-grow-1"></div>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
+                                    <v-card-actions>
+                                      <div class="flex-grow-1"></div>
+                                      <v-btn color="blue darken-1" text @click="dialog_time_spend_tasks = false">Cancel</v-btn>
+                                      <v-btn color="blue darken-1" text @click="saveTimeSpentTasks()">Save</v-btn>
+                                    </v-card-actions>
+                                  </v-card>
+                                </v-dialog>
+                              </v-toolbar>
+                            </template>
                             <template v-slot:body="{ items }">
-                                <tr :class="item.class" v-for="item in items" :key="item.name">
+                                <tr v-for="item in items" :key="item.name">
                                     <td>{{ item.name_task }}</td>
                                     <td>{{ item.nb_hours_tasks }}</td>
                                     <td>{{ item.date_hours_tasks }}</td>
@@ -106,7 +120,10 @@
                                             <v-divider></v-divider>
                                             <v-list>
                                                 <v-list-item>
-                                                        <v-list-item-title>Open URL Website</v-list-item-title>
+                                                    <v-list-item-title id="edit-project" ><?php echo lang('edit') ?></v-list-item-title>
+                                                </v-list-item>
+                                                <v-list-item>
+                                                    <v-list-item-title id="delete-project"><?php echo lang('delete') ?></v-list-item-title>
                                                 </v-list-item>
                                             </v-list>
                                         </v-menu>
@@ -129,7 +146,7 @@
         vuetify: new Vuetify(),
         data : {
             sidebar:"general",
-            dialog_serp_google: false,
+            dialog_time_spend_tasks: false,
             message:{
                 success:'',
                 error:'',
@@ -147,10 +164,17 @@
                 { text: '<?php echo lang("date_hours_tasks"); ?>', value: 'date_hours_tasks'},
                 { text: '<?php echo lang("actions"); ?>', value: 'actions'},
             ],
+            editedTimeSpendTasks: {
+                id_task: '',
+                name_task: '',
+                nb_hours_tasks: '',
+                date_hours_tasks: '',
+            },
             list_serp_search_google: [],
             list_projects: <?php echo json_encode($all_projects->result_array()); ?>,
             list_card_tasks: [],
             list_tasks: [],
+            list_hours_tasks: [],
         },
         mixins: [mixin],
         created(){
@@ -173,7 +197,29 @@
                 formData.append("id_card_tasks",item.id_card_tasks);
                 axios.post(this.currentRoute+"/view-tasks/", formData).then(function(response){
                     v.list_tasks = response.data.tasks;
+                    v.list_hours_tasks = response.data.tasks_hours;
                 })
+            },
+            saveTimeSpentTasks () {
+                var formData = new FormData();
+                formData.append("id_task",v.editedTimeSpendTasks.id_task);
+                formData.append("name_task",v.editedTimeSpendTasks.name_task);
+                formData.append("nb_hours_tasks",v.editedTimeSpendTasks.nb_hours_tasks);
+                formData.append("date_hours_tasks",v.editedTimeSpendTasks.date_hours_tasks);
+                if (this.editedFtpIndex > -1) {
+                    formData.append("id_ftp",v.editedFtp.id_ftp);
+                    axios.post(this.currentRoute+"/edit-tasks-hours/", formData).then(function(response){
+                        if(response.status = 200){
+                            Object.assign(v.list_ftp[v.editedFtpIndex], v.editedFtp)
+                        }
+                    })
+                } else {
+                    axios.post(this.currentRoute+"/create-tasks-hours/", formData).then(function(response){
+                        if(response.status = 200){
+                            v.list_tasks.push(v.editedTimeSpendTasks)
+                        }
+                    })
+                }
             },
         }
     });
