@@ -15,50 +15,55 @@
 		  <div class="row">
 			  <div class="col-sm-12">
 				  <section class="card mb-3">
-
 					<v-card>
 						<template>
 							<v-container fluid grid-list-sm>
 								<v-layout row wrap>
 									<v-flex xs6 md6 sm12>
-										<?php if($this->aauth->is_group_allowed('create_access_ftp',$user_role[0]->name)) { ?>
-										<v-toolbar flat color="white">
-										  <v-spacer></v-spacer>
-										  <v-dialog v-model="dialog_ftp" max-width="500px">
-										    <v-btn slot="activator" color="primary" dark class="mb-2">New Ftp</v-btn>
-										    <v-card>
-										      <v-card-title>
-										        <span class="headline">Add Ftp</span>
-										      </v-card-title>
-										      <v-card-text>
-										        <v-container grid-list-md>
-										          <v-layout wrap>
-										            <v-flex xs12 sm6 md4>
-										              <v-text-field v-model="editedFtp.host_ftp" label="<?php echo lang("host_ftp"); ?>"></v-text-field>
-										            </v-flex>
-										            <v-flex xs12 sm6 md4>
-										              <v-text-field v-model="editedFtp.login_ftp" label="<?php echo lang("login_ftp"); ?>"></v-text-field>
-										            </v-flex>
-										            <v-flex xs12 sm6 md4>
-										              <v-text-field v-model="editedFtp.password_ftp" label="<?php echo lang("password_ftp"); ?>"></v-text-field>
-										            </v-flex>
-										          </v-layout>
-										        </v-container>
-										      </v-card-text>
-										      <v-card-actions>
-										        <v-spacer></v-spacer>
-										        <v-btn color="blue darken-1" flat @click="closeFTP()">Cancel</v-btn>
-										        <v-btn color="blue darken-1" flat @click="saveFTP()">Save</v-btn>
-										      </v-card-actions>
-										    </v-card>
-										  </v-dialog>
-										</v-toolbar>
-										<?php } ?>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_ftp'); ?>
 											</header>
 											<v-data-table :headers="headers_ftp" :items="list_ftp">
+												<?php if($this->aauth->is_group_allowed('create_access_ftp',$user_role[0]->name)) { ?>
+													<template v-slot:top>
+														<v-toolbar flat color="white">
+															<v-spacer></v-spacer>
+															<v-dialog v-model="dialog_ftp" max-width="500px">
+																<template v-slot:activator="{ on }">
+																	<v-btn color="primary" dark class="mb-2" v-on="on">New Ftp</v-btn>
+																</template>
+																<v-card>
+																	<v-card-title>
+																		<span class="headline">Add Ftp</span>
+																	</v-card-title>
+
+																	<v-card-text>
+																		<v-container>
+																			<v-row>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedFtp.host_ftp" label="<?php echo lang("host_ftp"); ?>"></v-text-field>
+																				</v-col>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedFtp.login_ftp" label="<?php echo lang("login_ftp"); ?>"></v-text-field>
+																				</v-col>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedFtp.password_ftp" label="<?php echo lang("password_ftp"); ?>"></v-text-field>
+																				</v-col>
+																			</v-row>
+																		</v-container>
+																	</v-card-text>
+																
+																	<v-card-actions>
+																		<div class="flex-grow-1"></div>
+																		<v-btn color="blue darken-1" flat @click="saveFTP()">Save</v-btn>
+																		<v-btn color="blue darken-1" flat @click="closeFTP()">Cancel</v-btn>
+																	</v-card-actions>
+																</v-card>
+															</v-dialog>
+														</v-toolbar>
+													</template>
+												<?php } ?>
 												<template slot="items" slot-scope="props">
 													<td>{{ props.item.host_ftp }}</td>
 													<td>{{ props.item.login_ftp }}</td>
@@ -86,47 +91,53 @@
 										</section>
 									</v-flex>
 									<v-flex xs6 md6 sm12>
-										<?php if($this->aauth->is_group_allowed('create_access_database',$user_role[0]->name)) { ?>
-									    <v-toolbar flat color="white">
-									      <v-spacer></v-spacer>
-									      <v-dialog v-model="dialog_database" max-width="500px">
-									        <v-btn slot="activator" color="primary" dark class="mb-2">New Database</v-btn>
-									        <v-card>
-									          <v-card-title>
-									            <span class="headline">Add Database</span>
-									          </v-card-title>
-									          <v-card-text>
-									            <v-container grid-list-md>
-									              <v-layout wrap>
-									                <v-flex xs12 sm6 md4>
-									                  <v-text-field v-model="editedDatabase.host_database" label="<?php echo lang("host_sql"); ?>"></v-text-field>
-									                </v-flex>
-									                <v-flex xs12 sm6 md4>
-									                  <v-text-field v-model="editedDatabase.name_database" label="<?php echo lang("name_sql"); ?>"></v-text-field>
-									                </v-flex>
-									                <v-flex xs12 sm6 md4>
-									                  <v-text-field v-model="editedDatabase.login_database" label="<?php echo lang("login_sql"); ?>"></v-text-field>
-									                </v-flex>
-									                <v-flex xs12 sm6 md4>
-									                  <v-text-field v-model="editedDatabase.password_database" label="<?php echo lang("password_sql"); ?>"></v-text-field>
-									                </v-flex>
-									              </v-layout>
-									            </v-container>
-									          </v-card-text>
-									          <v-card-actions>
-									            <v-spacer></v-spacer>
-									            <v-btn color="blue darken-1" flat @click="closeDatabase()">Cancel</v-btn>
-									            <v-btn color="blue darken-1" flat @click="saveDatabase()">Save</v-btn>
-									          </v-card-actions>
-									        </v-card>
-									      </v-dialog>
-									    </v-toolbar>
-										<?php } ?>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_sql'); ?>
 											</header>
 											<v-data-table :headers="headers_database" :items="list_database">
+												<?php if($this->aauth->is_group_allowed('create_access_database',$user_role[0]->name)) { ?>
+													<template v-slot:top>
+														<v-toolbar flat color="white">
+															<v-spacer></v-spacer>
+															<v-dialog v-model="dialog_database" max-width="500px">
+																<template v-slot:activator="{ on }">
+																	<v-btn color="primary" dark class="mb-2" v-on="on">New Database</v-btn>
+																</template>
+																<v-card>
+																	<v-card-title>
+																		<span class="headline">Add Database</span>
+																	</v-card-title>
+
+																	<v-card-text>
+																		<v-container>
+																			<v-row>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedDatabase.host_database" label="<?php echo lang("host_sql"); ?>"></v-text-field>
+																				</v-col>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedDatabase.name_database" label="<?php echo lang("name_sql"); ?>"></v-text-field>
+																				</v-col>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedDatabase.login_database" label="<?php echo lang("login_sql"); ?>"></v-text-field>
+																				</v-col>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedDatabase.password_database" label="<?php echo lang("password_sql"); ?>"></v-text-field>
+																				</v-col>
+																			</v-row>
+																		</v-container>
+																	</v-card-text>
+																
+																	<v-card-actions>
+																		<div class="flex-grow-1"></div>
+																		<v-btn color="blue darken-1" flat @click="saveDatabase()">Save</v-btn>
+																		<v-btn color="blue darken-1" flat @click="closeDatabase()">Cancel</v-btn>
+																	</v-card-actions>
+																</v-card>
+															</v-dialog>
+														</v-toolbar>
+													</template>
+												<?php } ?>
 												<template slot="items" slot-scope="props">
 													<td>{{ props.item.host_database }}</td>
 													<td>{{ props.item.name_database }}</td>
@@ -156,44 +167,50 @@
 
 									</v-flex>
 									<v-flex xs6 md6 sm12>
-										<?php if($this->aauth->is_group_allowed('create_access_backoffice',$user_role[0]->name)) { ?>
-										<v-toolbar flat color="white">
-										  <v-spacer></v-spacer>
-										  <v-dialog v-model="dialog_backoffice" max-width="500px">
-										    <v-btn slot="activator" color="primary" dark class="mb-2">New Backoffice</v-btn>
-										    <v-card>
-										      <v-card-title>
-										        <span class="headline">Add Backoffice</span>
-										      </v-card-title>
-										      <v-card-text>
-										        <v-container grid-list-md>
-										          <v-layout wrap>
-										            <v-flex xs12 sm6 md4>
-										              <v-text-field v-model="editedBackoffice.host_backoffice" label="<?php echo lang("host_backoffice"); ?>"></v-text-field>
-										            </v-flex>
-										            <v-flex xs12 sm6 md4>
-										              <v-text-field v-model="editedBackoffice.login_backoffice" label="<?php echo lang("login_backoffice"); ?>"></v-text-field>
-										            </v-flex>
-										            <v-flex xs12 sm6 md4>
-										              <v-text-field v-model="editedBackoffice.password_backoffice" label="<?php echo lang("password_backoffice"); ?>"></v-text-field>
-										            </v-flex>
-										          </v-layout>
-										        </v-container>
-										      </v-card-text>
-										      <v-card-actions>
-										        <v-spacer></v-spacer>
-										        <v-btn color="blue darken-1" flat @click="closeBackoffice()">Cancel</v-btn>
-										        <v-btn color="blue darken-1" flat @click="saveBackoffice()">Save</v-btn>
-										      </v-card-actions>
-										    </v-card>
-										  </v-dialog>
-										</v-toolbar>
-										<?php } ?>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_backoffice'); ?>
 											</header>
 											<v-data-table :headers="headers_backoffice" :items="list_backoffice">
+												<?php if($this->aauth->is_group_allowed('create_access_backoffice',$user_role[0]->name)) { ?>
+													<template v-slot:top>
+														<v-toolbar flat color="white">
+															<v-spacer></v-spacer>
+															<v-dialog v-model="dialog_backoffice" max-width="500px">
+																<template v-slot:activator="{ on }">
+																	<v-btn color="primary" dark class="mb-2" v-on="on">New Backoffice</v-btn>
+																</template>
+																<v-card>
+																	<v-card-title>
+																		<span class="headline">Add Backoffice</span>
+																	</v-card-title>
+
+																	<v-card-text>
+																		<v-container>
+																			<v-row>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedBackoffice.host_backoffice" label="<?php echo lang("host_backoffice"); ?>"></v-text-field>
+																				</v-col>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedBackoffice.login_backoffice" label="<?php echo lang("login_backoffice"); ?>"></v-text-field>
+																				</v-col>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedBackoffice.password_backoffice" label="<?php echo lang("password_backoffice"); ?>"></v-text-field>
+																				</v-col>
+																			</v-row>
+																		</v-container>
+																	</v-card-text>
+																
+																	<v-card-actions>
+																		<div class="flex-grow-1"></div>
+																		<v-btn color="blue darken-1" flat @click="saveBackoffice()">Save</v-btn>
+																		<v-btn color="blue darken-1" flat @click="closeBackoffice()">Cancel</v-btn>
+																	</v-card-actions>
+																</v-card>
+															</v-dialog>
+														</v-toolbar>
+													</template>
+												<?php } ?>
 												<template slot="items" slot-scope="props">
 													<td>{{ props.item.host_backoffice }}</td>
 													<td>{{ props.item.login_backoffice }}</td>
@@ -222,41 +239,47 @@
 
 									</v-flex>
 									<v-flex xs6 md6 sm12>
-										<?php if($this->aauth->is_group_allowed('create_access_htaccess',$user_role[0]->name)) { ?>
-										<v-toolbar flat color="white">
-										  <v-spacer></v-spacer>
-										  <v-dialog v-model="dialog_htaccess" max-width="500px">
-										    <v-btn slot="activator" color="primary" dark class="mb-2">New Htaccess</v-btn>
-										    <v-card>
-										      <v-card-title>
-										        <span class="headline">Add Htaccess</span>
-										      </v-card-title>
-										      <v-card-text>
-										        <v-container grid-list-md>
-										          <v-layout wrap>
-										            <v-flex xs12 sm6 md4>
-										              <v-text-field v-model="editedHtaccess.login_htaccess" label="<?php echo lang("login_htaccess"); ?>"></v-text-field>
-										            </v-flex>
-										            <v-flex xs12 sm6 md4>
-										              <v-text-field v-model="editedHtaccess.password_htaccess" label="<?php echo lang("password_htaccess"); ?>"></v-text-field>
-										            </v-flex>
-										          </v-layout>
-										        </v-container>
-										      </v-card-text>
-										      <v-card-actions>
-										        <v-spacer></v-spacer>
-										        <v-btn color="blue darken-1" flat @click="closeHtaccess()">Cancel</v-btn>
-										        <v-btn color="blue darken-1" flat @click="saveHtaccess()">Save</v-btn>
-										      </v-card-actions>
-										    </v-card>
-										  </v-dialog>
-										</v-toolbar>
-										<?php } ?>
 										<section class="card mb-3">
 											<header class="card-header">
 												<?php echo lang('access_htaccess'); ?>
 											</header>
 											<v-data-table :headers="headers_htaccess" :items="list_htaccess">
+												<?php if($this->aauth->is_group_allowed('create_access_htaccess',$user_role[0]->name)) { ?>
+													<template v-slot:top>
+														<v-toolbar flat color="white">
+															<v-spacer></v-spacer>
+															<v-dialog v-model="dialog_htaccess" max-width="500px">
+																<template v-slot:activator="{ on }">
+																	<v-btn color="primary" dark class="mb-2" v-on="on">New Htaccess</v-btn>
+																</template>
+																<v-card>
+																	<v-card-title>
+																		<span class="headline">Add Htaccess</span>
+																	</v-card-title>
+
+																	<v-card-text>
+																		<v-container>
+																			<v-row>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedHtaccess.login_htaccess" label="<?php echo lang("login_htaccess"); ?>"></v-text-field>
+																				</v-col>
+																				<v-col cols="12" sm="12" md="12">
+																					<v-text-field v-model="editedHtaccess.password_htaccess" label="<?php echo lang("password_htaccess"); ?>"></v-text-field>
+																				</v-col>
+																			</v-row>
+																		</v-container>
+																	</v-card-text>
+																
+																	<v-card-actions>
+																		<div class="flex-grow-1"></div>
+																		<v-btn color="blue darken-1" flat @click="saveHtaccess()">Save</v-btn>
+																		<v-btn color="blue darken-1" flat @click="closeHtaccess()">Cancel</v-btn>
+																	</v-card-actions>
+																</v-card>
+															</v-dialog>
+														</v-toolbar>
+													</template>
+												<?php } ?>
 												<template slot="items" slot-scope="props">
 													<td>{{ props.item.login_htaccess }}</td>
 													<td>{{ props.item.password_htaccess }}</td>

@@ -43,7 +43,7 @@ class Time_spent_tasks extends CI_Controller {
 	{
 		$id_project_tasks	= $this->input->post('id_project_tasks');
 
-		$data['all_card_tasks'] = $this->model_tasks->get_all_tasks_card($id_project_tasks)->result_array();
+		$data['all_card_tasks'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks)->result_array();
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
 	}

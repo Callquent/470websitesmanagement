@@ -26,45 +26,6 @@
 				</v-flex>
 
 				<v-flex xs12 sm10>
-					<v-toolbar flat color="white">
-					  <v-spacer></v-spacer>
-					  <v-dialog v-model="dialog_add_user" max-width="500px">
-						<v-btn slot="activator" color="primary" class="mb-2">New User</v-btn>
-						<v-card>
-						  <v-card-title>
-							<span class="headline">Add User</span>
-						  </v-card-title>
-
-						  <v-card-text>
-							<v-container grid-list-md>
-							  <v-layout wrap>
-								<v-flex xs12 sm12 md12>
-									<v-text-field v-model="addUser.name_user" label="Name User"></v-text-field>
-								</v-flex>
-								<v-flex xs12 sm12 md12>
-									<v-text-field v-model="addUser.email" label="Email"></v-text-field>
-								</v-flex>
-								<v-flex xs12 sm12 md12>
-									<v-text-field v-model="addUser.password" label="Password" type="password"></v-text-field>
-								</v-flex>
-								<v-flex xs12 sm12 md12>
-									<v-text-field v-model="addUser.password_confirm" label="Password Confirm" type="password"></v-text-field>
-								</v-flex>
-							  </v-layout>
-							</v-container>
-						  </v-card-text>
-							<div id="results">
-								<v-alert v-for="error in result.errors" v-model="result.alert" type="error"> {{ error }}</v-alert>
-							</div>
-						  <v-card-actions>
-							<v-spacer></v-spacer>
-							<v-btn color="blue" flat @click="f_addUser()">Save</v-btn>
-							<v-btn color="blue" flat @click="dialog_add_user = false">Cancel</v-btn>
-						  </v-card-actions>
-						</v-card>
-					  </v-dialog>
-					</v-toolbar>
-
 					<v-card>
 						<template>
 								<v-data-table
@@ -75,6 +36,48 @@
 									'items-per-page-options': [10,20,50,100]
 									}"
 								>
+									<template v-slot:top>
+										<v-toolbar flat color="white">
+											<v-spacer></v-spacer>
+											<v-dialog v-model="dialog_add_user" max-width="500px">
+												<template v-slot:activator="{ on }">
+													<v-btn color="primary" dark class="mb-2" v-on="on">New User</v-btn>
+												</template>
+												<v-card>
+													<v-card-title>
+														<span class="headline">Add User</span>
+													</v-card-title>
+
+													<v-card-text>
+														<v-container>
+															<v-row>
+																<v-col cols="12" sm="12" md="12">
+																	<v-text-field v-model="addUser.name_user" label="Name User"></v-text-field>
+																</v-col>
+																<v-col cols="12" sm="12" md="12">
+																	<v-text-field v-model="addUser.email" label="Email"></v-text-field>
+																</v-col>
+																<v-col cols="12" sm="12" md="12">
+																	<v-text-field v-model="addUser.password" label="Password" type="password"></v-text-field>
+																</v-col>
+																<v-col cols="12" sm="12" md="12">
+																	<v-text-field v-model="addUser.password_confirm" label="Password Confirm" type="password"></v-text-field>
+																</v-col>
+															</v-row>
+														</v-container>
+													</v-card-text>
+													<div id="results">
+														<v-alert v-for="error in result.errors" v-model="result.alert" type="error"> {{ error }}</v-alert>
+													</div>
+													<v-card-actions>
+														<div class="flex-grow-1"></div>
+														<v-btn color="blue darken-1" text @click="f_addUser()">Save</v-btn>
+														<v-btn color="blue darken-1" text @click="dialog_add_user = false">Cancel</v-btn>
+													</v-card-actions>
+												</v-card>
+											</v-dialog>
+										</v-toolbar>
+									</template>
 									<template v-slot:item.username="props">
 										{{ props.item.name_user }}
 									</template>

@@ -67,7 +67,7 @@
 												</a>
 												<ul id="collapse-websitesmanagement" class="collapse" role="tabpanel" data-children=".nav-item">
 													<li>
-														<a href="<?php echo site_url('all-websites'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('all_websites'); ?>
+														<a href="<?php echo site_url('all-websites'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'all-websites' }"><?php echo lang('all_websites'); ?>
 															<v-chip color="green" text-color="white"><?php echo $all_count_websites->count_all_websites; ?></v-chip>
 														</a>
 													</li>
@@ -102,13 +102,13 @@
 												</ul>
 											</li>
 											<li>
-												<a href="<?php echo site_url('all-ftp-websites'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('all-ftp-websites'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'all-ftp-websites' }">
 													<i class="icon icon-swap-horizontal"></i>
 													<span class="subheading"><?php echo lang('ftp_websites'); ?></span>
 												</a>
 											</li>
 											<li>
-												<a href="<?php echo site_url('whois-domain'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('whois-domain'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'whois-domain' }">
 													<i class="icon icon-file-document-box"></i>
 													<span class="subheading"><?php echo lang('whois_domain'); ?></span>
 												</a>
@@ -123,16 +123,6 @@
 													<li><a href="<?php echo site_url('website-scrapper-google'); ?>" class="nav-link ripple fuse-ripple-ready"><?php echo lang('website_scrapper_seo'); ?></a></li>
 												</ul>
 											</li>
-											<!-- <li>
-												<a href="javascript:void(0);">
-													<i class="fa fa-bar-chart"></i>
-													<span>Position Tracking</span>
-												</a>
-												<ul class="sub">
-													<li><a href="<?php echo site_url('position-tracking-google'); ?>">Position Tracking Google</a></li>
-													<li><a href="<?php echo site_url('edit-keyword-google'); ?>">Edit Keyword Google</a></li>
-												</ul>
-											</li> -->
 										</ul>
 									</div>
 									<div id="groupes" :class="{ active: sidebar === 'groups'}" class="tab-pane">
@@ -188,7 +178,7 @@
 											</li>
 											<?php if($this->aauth->is_group_allowed('page_user',$user_role[0]->name)) { ?>
 											<li>
-												<a href="<?php echo site_url('members'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('members'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'members' }">
 													<i class="icon icon-account-multiple"></i>
 													<span class="subheading"><?php echo lang('members'); ?></span>
 												</a>
@@ -196,14 +186,14 @@
 											<?php } ?>
 											<?php if($this->aauth->is_group_allowed('page_group_members',$user_role[0]->name)) { ?>
 											<li>
-												<a href="<?php echo site_url('group-members'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('group-members'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'group-members' }">
 													<i class="icon icon-account-multiple-plus"></i>
 													<span class="subheading"><?php echo lang('group_members'); ?></span>
 												</a>
 											</li>
 											<?php } ?>
 											<li>
-												<a href="<?php echo site_url('permission-group-members'); ?>" class="nav-link ripple fuse-ripple-ready">
+												<a href="<?php echo site_url('permission-group-members'); ?>" class="nav-link ripple fuse-ripple-ready" :class="{ active: url === 'permission-group-members' }">
 													<i class="icon icon-account-settings-variant"></i>
 													<span class="subheading"><?php echo lang('permission_group_members'); ?></span>
 												</a>

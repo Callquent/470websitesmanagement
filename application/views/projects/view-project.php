@@ -19,7 +19,7 @@
 				<v-stepper v-model="stepper" non-linear vertical>
 					<template v-for="n in list_card_tasks.length">
 						<v-stepper-step
-							@click.native="changeCard(list_card_tasks[n-1].id_card_tasks)"
+							@click.native="changeCard(list_card_tasks[n-1].order_card_tasks)"
 							:step="n"
 							:edit-icon="'check'"
 							editable
@@ -27,7 +27,7 @@
 							>
 							<span>{{ list_card_tasks[n-1].name_card_tasks  }}</span>
 						</v-stepper-step>
-						<v-stepper-content :step="list_card_tasks[n-1].id_card_tasks"></v-stepper-content>
+						<v-stepper-content :step="list_card_tasks[n-1].order_card_tasks"></v-stepper-content>
 					</template>
 				</v-stepper>
 			</v-flex>
@@ -140,7 +140,7 @@
 
 									<v-data-table
 										:headers="headers"
-										:items="card_tasks.tasks"
+										:items="card_tasks"
 										item-key="name_task"
 										select-all
 										class="elevation-1"
@@ -220,7 +220,7 @@
 						</v-select>
 					</v-flex>
 					<v-flex xs12>
-						<v-text-field v-model="newCard.id_card_task" type="number" :min="newCard.min" :max="newCard.max" required></v-text-field>
+						<v-text-field v-model="newCard.order_card_task" type="number" :min="newCard.min" :max="newCard.max" required></v-text-field>
 					</v-flex>
 				</v-layout>
 			</v-container>
@@ -249,7 +249,7 @@
 			stepper: "",
 	    	list_card_tasks: <?php echo json_encode($all_card_tasks->result_array()); ?>,
 	    	list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
-	    	card_tasks: <?php echo json_encode($card_tasks); ?>,
+	    	card_tasks: <?php echo json_encode($card_tasks->result_array()); ?>,
 	        users: <?php echo json_encode($list_users->result_array()); ?>,
 			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
 			id_project: window.location.href.split('/').pop(),
@@ -261,10 +261,10 @@
 			],
 			newCard:{
 				name_card_tasks:"",
-				id_card_task: <?php echo $all_card_tasks->num_rows()+1; ?>,
+				id_card_task: <?php echo $all_card_tasks->row()->order_card_tasks; ?>,
 				id_priority:"",
 				min: "1",
-				max: <?php echo $all_card_tasks->num_rows()+1; ?>,
+				max: <?php echo $order_card_tasks->row()->order_card_tasks; ?>,
 			},
 			editCard:[],
 			newTask:{

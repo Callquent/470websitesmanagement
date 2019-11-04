@@ -278,7 +278,7 @@ CREATE TABLE `470websitesmanagement_tasks__card` (
   `description_card_tasks` text NOT NULL,
   `id_tasks_priority` int(11) NOT NULL,
   `id_tasks_status` int(11) NOT NULL,
-  `order` int(10) UNSIGNED NOT NULL
+  `order_card_tasks` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

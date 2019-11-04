@@ -50,9 +50,12 @@ class All_projects extends CI_Controller {
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
-			$data['all_card_tasks'] = $this->model_tasks->get_all_tasks_card($id_project_tasks);
+			$data['all_card_tasks'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks);
 
-			$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $data['all_card_tasks']->row()->id_card_tasks);
+			$data['card_tasks'] = $this->model_tasks->get_all_tasks_by_card($data['all_card_tasks']->row()->id_card_tasks);
+			$data['order_card_tasks'] = $this->model_tasks->get_card_tasks_order_max($id_project_tasks);
+			var_dump($data['order_card_tasks']);
+			//$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $data['all_card_tasks']->row()->id_card_tasks);
 
 			$this->load->view('projects/view-project', $data);
 		}

@@ -47,12 +47,12 @@ class My_tasks extends CI_Controller {
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
-			$data['all_tasks'] = $this->model_tasks->get_all_tasks($id_project_tasks);
+			$data['all_tasks'] = $this->model_tasks->get_all_tasks_by_card($id_project_tasks);
 
-			$data['all_card_tasks'] = $this->model_tasks->get_all_tasks_card($id_project_tasks);
-			$data['all_card_tasks_to_do'] = $this->model_tasks->get_all_tasks_card($id_project_tasks,"1",$this->session->userdata['id']);
-			$data['all_card_tasks_in_progress'] = $this->model_tasks->get_all_tasks_card($id_project_tasks,"2",$this->session->userdata['id']);
-			$data['all_card_tasks_completed'] = $this->model_tasks->get_all_tasks_card($id_project_tasks,"3",$this->session->userdata['id']);
+			$data['all_card_tasks'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks);
+			$data['all_card_tasks_to_do'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks,"1",$this->session->userdata['id']);
+			$data['all_card_tasks_in_progress'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks,"2",$this->session->userdata['id']);
+			$data['all_card_tasks_completed'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks,"3",$this->session->userdata['id']);
 
 			$data['id_project_tasks'] = $id_project_tasks;
 
