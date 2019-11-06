@@ -39,7 +39,7 @@
 
 		<v-toolbar color="indigo" dark>
 			<v-toolbar-side-icon></v-toolbar-side-icon>
-			<v-toolbar-title>{{ card_tasks.name_card_tasks }}</v-toolbar-title>
+			<v-toolbar-title>{{ list_tasks.name_card_tasks }}</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
 					<i class="icon icon-plus"></i>
@@ -63,7 +63,7 @@
 
         <v-card>
 				<div>
-					<span>{{card_tasks.count_tasks_check_per_card}} / {{card_tasks.tasks.length}}</span>
+					<span>{{list_tasks.count_tasks_check_per_card}} / {{list_tasks.tasks.length}}</span>
 					<v-progress-linear v-model="valueDeterminate" height="25">
 						<strong>{{ Math.ceil(valueDeterminate) }}%</strong>
 					</v-progress-linear>
@@ -140,7 +140,7 @@
 
 									<v-data-table
 										:headers="headers"
-										:items="card_tasks"
+										:items="list_tasks"
 										item-key="name_task"
 										select-all
 										class="elevation-1"
@@ -242,18 +242,18 @@
 		vuetify: new Vuetify(),
 		data : {
 			sidebar:"projects",
+			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
 			dialog_add_task: false,
 			dialog_add_card: false,
 			first_step: 1,
-			last_step: <?php echo json_encode($all_card_tasks->num_rows()); ?>,
+			last_step: <?php echo json_encode($all_card_by_project->num_rows()); ?>,
 			stepper: "",
-	    	list_card_tasks: <?php echo json_encode($all_card_tasks->result_array()); ?>,
-	    	list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
-	    	card_tasks: <?php echo json_encode($card_tasks->result_array()); ?>,
-	        users: <?php echo json_encode($list_users->result_array()); ?>,
-			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+			list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
+			list_card_tasks: <?php echo json_encode($all_card_by_project->result_array()); ?>,
+			list_tasks: <?php echo json_encode($all_tasks_by_card->result_array()); ?>,
+			users: <?php echo json_encode($list_users->result_array()); ?>,
 			id_project: window.location.href.split('/').pop(),
-			id_card: <?php echo json_encode($all_card_tasks->row()->id_card_tasks); ?>,
+			id_card: <?php echo json_encode($all_card_by_project->row()->id_card_tasks); ?>,
 			headers: [
 				{ text: 'Name Task', value: 'name_task', sortable: false},
 				{ text: 'User', value: 'username' },
@@ -261,10 +261,10 @@
 			],
 			newCard:{
 				name_card_tasks:"",
-				id_card_task: <?php echo $all_card_tasks->row()->order_card_tasks; ?>,
+				id_card_task: <?php echo $all_card_by_project->row()->id_card_tasks; ?>,
 				id_priority:"",
 				min: "1",
-				max: <?php echo $order_card_tasks->row()->order_card_tasks; ?>,
+				max: <?php echo $order_card_tasks->order_card_tasks; ?>,
 			},
 			editCard:[],
 			newTask:{
@@ -279,8 +279,8 @@
 	    },
 	    methods:{
 	    	displayPage(){
-	    		this.card_tasks.tasks = (this.card_tasks.tasks == null ? [] : this.card_tasks.tasks);
-	    		this.valueDeterminate = this.f_isNaN((this.card_tasks.count_tasks_check_per_card/this.card_tasks.tasks.length)*100);
+	    		this.list_tasks.tasks = (this.list_tasks.tasks == null ? [] : this.list_tasks.tasks);
+	    		this.valueDeterminate = this.f_isNaN((this.list_tasks.count_tasks_check_per_card/this.list_tasks.tasks.length)*100);
 	    		
 	        },
 			f_prevBtn(id_card) {
@@ -298,14 +298,14 @@
 	    		axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
 					if(response.status = 200){
 						v.check_tasks_complete = 0;
-						v.card_tasks.tasks = [];
+						v.list_tasks.tasks = [];
 
 						v.id_card = id_card_task;
-						if (response.data.card_tasks.tasks != null) {
-							v.card_tasks = response.data.card_tasks;
+						if (response.data.list_tasks.tasks != null) {
+							v.list_tasks = response.data.list_tasks;
 						}
-						v.valueDeterminate = v.f_isNaN((v.card_tasks.count_tasks_check_per_card/v.card_tasks.tasks.length)*100);
-						v.card_tasks.name_card_tasks = response.data.name_card_tasks;
+						v.valueDeterminate = v.f_isNaN((v.list_tasks.count_tasks_check_per_card/v.list_tasks.tasks.length)*100);
+						v.list_tasks.name_card_tasks = response.data.name_card_tasks;
 					}else{
 
 					}
@@ -351,12 +351,12 @@
 				formData.append("check_tasks",(item.check_tasks^=1));
 				axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
 					if(response.status = 200){
-						v.editCard = response.data.card_tasks;
-						v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_check_per_card)/v.card_tasks.tasks.length*100)
-						Object.assign(v.card_tasks, v.editCard);
+						v.editCard = response.data.list_tasks;
+						v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_check_per_card)/v.list_tasks.tasks.length*100)
+						Object.assign(v.list_tasks, v.editCard);
 						//change status
 						var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
-						v.list_card_tasks[index].name_tasks_status = response.data.card_tasks.name_tasks_status;
+						v.list_card_tasks[index].name_tasks_status = response.data.list_tasks.name_tasks_status;
 					}else{
 
 					}
@@ -370,7 +370,7 @@
 				formData.append("id_card_tasks",this.id_card);
 				axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
 					if(response.status = 200){
-						v.card_tasks.tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
+						v.list_tasks.tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
 					}else{
 
 					}
@@ -384,7 +384,7 @@
 				formData.append("id_card_tasks",this.id_card);
 				axios.post(this.currentRoute+"/create-task/", formData).then(function(response){
 					if(response.status = 200){
-						v.card_tasks.tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
+						v.list_tasks.tasks.push({name_task: v.newTask.nametask,username: v.newTask.user})
 					}else{
 
 					}
@@ -398,8 +398,8 @@
 				if (confirm('Are you sure you want to delete this item?') == true) {
 					axios.post(this.currentRoute+"/delete_task/", formData).then(function(response){
 						if(response.status = 200){
-							const index = v.card_tasks.tasks.indexOf(item)
-							v.card_tasks.tasks.splice(index, 1)
+							const index = v.list_tasks.tasks.indexOf(item)
+							v.list_tasks.tasks.splice(index, 1)
 						}else{
 
 						}
