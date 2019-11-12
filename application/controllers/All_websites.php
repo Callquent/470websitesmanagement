@@ -102,7 +102,6 @@ class All_websites extends CI_Controller {
 		if ($this->form_validation->run() !== FALSE){
 			$this->model_back->update_website($id_website, $id_category, $id_language, $name_website, $url_website);
 		}
-		echo "string";
 	}
 	public function contact()
 	{

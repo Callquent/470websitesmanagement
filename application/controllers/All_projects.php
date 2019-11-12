@@ -89,9 +89,9 @@ class All_projects extends CI_Controller {
 		//$id_project_tasks	= $this->input->post('id_project_tasks');
 		$id_card_tasks		= $this->input->post('id_card_tasks');
 
-		$data['card_tasks'] = $this->model_tasks->get_all_tasks_by_card($id_card_tasks);
+		$data['all_tasks_by_card'] = $this->model_tasks->get_all_tasks_by_card($id_card_tasks)->result_array();
 
-		$data['name_card_tasks'] = $data['card_tasks']->name_card_tasks;
+		//$data['name_card_tasks'] = $data['card_tasks']->name_card_tasks;
 
 		$this->output->set_content_type('application/json')->set_output( json_encode($data)); 
 	}
@@ -113,39 +113,30 @@ class All_projects extends CI_Controller {
 	}
 	public function create_task()
 	{
-		$id_project_tasks		= $this->input->post('id_project_tasks');
 		$id_card_tasks			= $this->input->post('id_card_tasks');
-		$nametask				= $this->input->post('nametask');
+		$name_task				= $this->input->post('name_task');
 		$id_user				= $this->input->post('id_user');
 		
-		$this->model_tasks->create_task($id_project_tasks, $id_card_tasks, $nametask, $id_user);
+		$this->model_tasks->create_task($id_card_tasks, $name_task, $id_user);
 	}
 	public function check_tasks()
 	{
-		$id_project_tasks		= $this->input->post('id_project_tasks');
-		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$id_task				= $this->input->post('id_task');
 		$check_tasks			= $this->input->post('check_tasks');
 
-		$this->model_tasks->update_check_task($id_project_tasks, $id_card_tasks, $id_task, $check_tasks);
+		$this->model_tasks->update_check_task($id_task, $check_tasks);
 
-		$this->model_tasks->update_check_card_completed($id_project_tasks, $id_card_tasks);
-
-		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_project_tasks, $id_card_tasks);
+		$this->model_tasks->update_check_card_completed($id_card_tasks);
 
 		$this->output->set_content_type('application/json')->set_output( json_encode($data));
 	}
-	public function edit_task($id_project_tasks = '')
+	public function edit_task()
 	{
-		$id_project_tasks	= $this->input->post('idproject');
-		$id_card_tasks		= $this->input->post('idcard');
-		$id_task			= $this->input->post('idtask');
-		$nametask			= $this->input->post('titletask');
-		$iduser				= $this->input->post('user');
+		$id_task			= $this->input->post('id_task');
+		$name_task			= $this->input->post('name_task');
+		$id_user			= $this->input->post('id_user');
 
-		if ($this->form_validation->run() !== FALSE){
-			$this->model_tasks->update_task($id_project_tasks, $id_card_tasks, $id_task, $name_task, $check_tasks, $iduser);
-		}
+		$this->model_tasks->update_task($id_task, $name_task, $id_user);
 	}
 	public function delete_task()
 	{

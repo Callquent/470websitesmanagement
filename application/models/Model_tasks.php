@@ -69,7 +69,7 @@ class Model_tasks extends CI_Model {
 	}
 	function get_all_tasks_by_card($id_card_tasks)
 	{
-		$this->db->select('*')
+		$this->db->select('*, 470websitesmanagement_users.username as name_user')
 				 ->from('470websitesmanagement_tasks')
 				 ->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
 				 ->where('470websitesmanagement_tasks.id_card_tasks', $id_card_tasks); 
@@ -326,12 +326,11 @@ class Model_tasks extends CI_Model {
 		$this->db->where('id_card_tasks', $id_card_tasks)
 				->update('470websitesmanagement_tasks__card', $data);
 	}
-	function update_check_card_completed($id_project_tasks, $id_card_tasks)
+	function update_check_card_completed($id_card_tasks)
 	{
 		$this->db->select('SUM(CASE WHEN check_tasks = 1 THEN 1 ELSE 0 END) as check_card_completed, count(*) as count_tasks_per_card')
 				->from('470websitesmanagement_tasks')
 				->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
-				->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
 				->where('470websitesmanagement_tasks.id_card_tasks', $id_card_tasks);
 
 		$query = $this->db->get()->row();
@@ -341,16 +340,14 @@ class Model_tasks extends CI_Model {
 				'id_tasks_status' => 3
 			);
 
-			$this->db->where('id_project_tasks', $id_project_tasks)
-					->where('id_card_tasks', $id_card_tasks)
+			$this->db->where('id_card_tasks', $id_card_tasks)
 					->update('470websitesmanagement_tasks__card', $data);
 		} else {
 			$data = array(
 				'id_tasks_status' => 1
 			);
 
-			$this->db->where('id_project_tasks', $id_project_tasks)
-					->where('id_card_tasks', $id_card_tasks)
+			$this->db->where('id_card_tasks', $id_card_tasks)
 					->update('470websitesmanagement_tasks__card', $data);
 		}
 	}
@@ -369,7 +366,6 @@ class Model_tasks extends CI_Model {
 	}
 	function create_task($id_card_tasks, $nametask, $iduser)
 	{
-		$this->db->where('id_project_tasks', $id_project_tasks);
 		$this->db->where('id_card_tasks', $id_card_tasks);
 		$query = $this->db->get('470websitesmanagement_tasks');
 		$data = array(
@@ -394,28 +390,23 @@ class Model_tasks extends CI_Model {
 		$this->db->insert('470websitesmanagement_hours_tasks', $data);
 		return $this->db->insert_id();
 	}
-	function update_task($id_project_tasks, $id_card_tasks, $id_task, $name_task, $check_tasks, $iduser)
+	function update_task($id_task, $name_task, $id_user)
 	{
 		$data = array(
 			'name_task'		=> $name_task,
-			'check_tasks'	=> $check_tasks,
-			'iduser'		=> $iduser
+			'id_user'		=> $id_user
 		);
 
-		$this->db->where('id_project_tasks', $id_project_tasks)
-				->where('id_card_tasks', $id_card_tasks)
-				->where('id_task', $id_task)
+		$this->db->where('id_task', $id_task)
 				->update('470websitesmanagement_tasks', $data);
 	}
-	function update_check_task($id_project_tasks, $id_card_tasks, $id_task, $check_tasks)
+	function update_check_task($id_task, $check_tasks)
 	{
 		$data = array(
 			'check_tasks'	=> $check_tasks,
 		);
 
-		$this->db->where('id_project_tasks', $id_project_tasks)
-				->where('id_card_tasks', $id_card_tasks)
-				->where('id_task', $id_task)
+		$this->db->where('id_task', $id_task)
 				->update('470websitesmanagement_tasks', $data);
 	}
 	function delete_tasks($id_task)
