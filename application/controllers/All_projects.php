@@ -43,6 +43,7 @@ class All_projects extends CI_Controller {
 		} elseif($this->uri->total_segments() == 2) {
 			$data['project'] = $this->model_tasks->get_project($id_project_tasks);
 
+
 			$data['datetimestart'] = past_time_project($id_project_tasks);
 			$data['datetimedeadline'] = remaining_time_project($id_project_tasks);
 			$data['percentage_project'] = $this->model_tasks->get_percentage($id_project_tasks)->row();
@@ -51,8 +52,10 @@ class All_projects extends CI_Controller {
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
 			$data['all_card_by_project'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks);
-
 			$data['all_tasks_by_card'] = $this->model_tasks->get_all_tasks_by_card($data['all_card_by_project']->row()->id_card_tasks);
+
+			$data['card_tasks'] = $this->model_tasks->get_card_tasks($data['all_card_by_project']->row()->id_card_tasks);
+
 			$data['order_card_tasks'] = $this->model_tasks->get_card_tasks_order_max($id_project_tasks);
 			
 			$this->load->view('projects/view-project', $data);

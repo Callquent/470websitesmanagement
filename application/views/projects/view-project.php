@@ -58,7 +58,7 @@
 
 		<v-card>
 			<div>
-				<span>{{list_tasks.count_tasks_check_per_card}} / {{list_tasks.length}}</span>
+				<span>{{ current_card.count_tasks_check_per_card }} / {{ list_tasks.length }}</span>
 				<v-progress-linear v-model="valueDeterminate" height="25">
 					<strong>{{ Math.ceil(valueDeterminate) }}%</strong>
 				</v-progress-linear>
@@ -256,8 +256,8 @@
 		data : {
 			sidebar:"projects",
 			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
-			dialog_add_task: false,
 			dialog_add_card: false,
+			dialog_add_task: false,
 			first_step: 1,
 			last_step: <?php echo json_encode($all_card_by_project->num_rows()); ?>,
 			stepper: "",
@@ -266,7 +266,7 @@
 			list_tasks: <?php echo json_encode($all_tasks_by_card->result_array()); ?>,
 			users: <?php echo json_encode($list_users->result_array()); ?>,
 			id_project: window.location.href.split('/').pop(),
-			id_card: <?php echo json_encode($all_card_by_project->row()->id_card_tasks); ?>,
+			current_card: <?php echo json_encode($card_tasks); ?>,
 			headers: [
 				{ text: '', value: 'check_tasks', sortable: false},
 				{ text: 'Name Task', value: 'name_task', sortable: false},
@@ -296,7 +296,6 @@
 			displayPage(){
 				this.list_tasks.tasks = (this.list_tasks.tasks == null ? [] : this.list_tasks.tasks);
 				this.valueDeterminate = this.f_isNaN((this.list_tasks.count_tasks_check_per_card/this.list_tasks.length)*100);
-				
 			},
 			f_prevBtn(id_card) {
 				v.stepper=id_card;

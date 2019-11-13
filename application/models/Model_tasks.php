@@ -30,21 +30,13 @@ class Model_tasks extends CI_Model {
 	function get_card_tasks($id_card_tasks)
 	{
 		$this->db->select('*')
-			->from('470websitesmanagement_tasks__card')
-			->join('470websitesmanagement_tasks__status', '470websitesmanagement_tasks__card.id_tasks_status = 470websitesmanagement_tasks__status.id_tasks_status')
-			->join('470websitesmanagement_tasks__priority', '470websitesmanagement_tasks__card.id_tasks_priority = 470websitesmanagement_tasks__priority.id_tasks_priority')
-			->where('470websitesmanagement_tasks__card.id_card_tasks', $id_card_tasks)
-			->limit(1);
+				->from('470websitesmanagement_tasks__card')
+				->where('id_card_tasks', $id_card_tasks)
+				->limit(1);
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
-			$value->count_tasks_check_per_card = $this->get_tasks_user_per_card_task($id_project_tasks,$value->id_card_tasks,"",1)->num_rows();
-			$value->count_tasks_per_card = $this->get_tasks_user_per_card_task($id_project_tasks,$value->id_card_tasks)->num_rows();
-			if ($this->get_all_tasks_by_card($id_project_tasks,$id_card_tasks)->result()) {
-				$value->tasks = $this->get_all_tasks_by_card($id_project_tasks,$id_card_tasks)->result();
-			} else {
-				$value->tasks = null;
-			}
+			$value->count_tasks_check_per_card = $this->get_tasks_user_per_card_task($value->id_card_tasks,"",1)->num_rows();
 		}
 		return $query->row();
 	}
@@ -65,6 +57,9 @@ class Model_tasks extends CI_Model {
 			}
 
 			$query = $this->db->get();
+			foreach ($query->result() as $value) {
+				$value->count_tasks_check_per_card = $this->get_tasks_user_per_card_task($value->id_card_tasks,"",1)->num_rows();
+			}
 			return $query;
 	}
 	function get_all_tasks_by_card($id_card_tasks)
@@ -93,14 +88,13 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	private function get_tasks_user_per_card_task($id_project_tasks,$id_card_tasks,$id_user="",$check_tasks="")
+	private function get_tasks_user_per_card_task($id_card_tasks,$id_user="",$check_tasks="")
 	{
 		$this->db->select('*')
 				->from('470websitesmanagement_tasks')
 				->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
 				->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks.id_card_tasks = 470websitesmanagement_tasks__card.id_card_tasks')
 				->join('470websitesmanagement_tasks__project', '470websitesmanagement_tasks__card.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
-				->where('470websitesmanagement_tasks__project.id_project_tasks', $id_project_tasks)
 				->where('470websitesmanagement_tasks.id_card_tasks', $id_card_tasks)
 				->order_by("470websitesmanagement_tasks.id_card_tasks", "asc");
 		
