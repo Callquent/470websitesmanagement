@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_tasks extends CI_Model {
-	
+	const CHECKED_TASK = 1;  
 	function get_all_projects()
 	{
 		$this->db->select('*')
@@ -36,7 +36,7 @@ class Model_tasks extends CI_Model {
 
 		$query = $this->db->get();
 		foreach ($query->result() as $value) {
-			$value->count_tasks_check_per_card = $this->get_tasks_user_per_card_task($value->id_card_tasks,"",1)->num_rows();
+			$value->count_tasks_check_per_card = $this->get_tasks_user_per_card_task($value->id_card_tasks,"",self::CHECKED_TASK)->num_rows();
 		}
 		return $query->row();
 	}
@@ -58,7 +58,7 @@ class Model_tasks extends CI_Model {
 
 			$query = $this->db->get();
 			foreach ($query->result() as $value) {
-				$value->count_tasks_check_per_card = $this->get_tasks_user_per_card_task($value->id_card_tasks,"",1)->num_rows();
+				$value->count_tasks_check_per_card = $this->get_tasks_user_per_card_task($value->id_card_tasks,"",self::CHECKED_TASK)->num_rows();
 			}
 			return $query;
 	}
