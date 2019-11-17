@@ -5,12 +5,11 @@
     <meta name="robots" content="noindex, nofollow"  />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php echo css_url('css/bootstrap.min.css'); ?>
-    <?php echo css_url('css/bootstrap-table.min.css'); ?>
     <?php echo css_url('css/theme.css'); ?>
-    <?php echo css_url('css/theme-responsive.css'); ?>
     <?php echo css_url('css/jquery.steps.css'); ?>
     <?php echo css_url('css/style.css'); ?>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+    <link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
   </head>
   <body class="lock-screen">
 
@@ -147,9 +146,9 @@
             
         });
     </script>
-    <?php echo js_url('plugins/jquery.dcjqaccordion.2.7.js'); ?>
     <?php echo js_url('plugins/mobile-detect.min.js'); ?>
     <?php echo js_url('plugins/perfect-scrollbar.jquery.min.js'); ?>
     <?php echo js_url('plugins/fuse-html.min.js'); ?>
     <?php echo js_url('plugins/jquery-steps/jquery.steps.js'); ?>
-    <?php echo js_url('plugins/scripts.js'); ?>
+    <?php echo js_url('plugins/vue.js'); ?>
+    <?php echo js_url('plugins/vuetify/vuetify.js'); ?>
