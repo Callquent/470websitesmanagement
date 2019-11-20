@@ -124,10 +124,11 @@ class All_projects extends CI_Controller {
 	}
 	public function check_tasks()
 	{
+		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$id_task				= $this->input->post('id_task');
 		$check_tasks			= $this->input->post('check_tasks');
 
-		$this->model_tasks->update_check_task($id_task, $check_tasks);
+		$data['all_tasks'] = $this->model_tasks->update_check_task($id_task, $check_tasks);
 
 		$this->model_tasks->update_check_card_completed($id_card_tasks);
 

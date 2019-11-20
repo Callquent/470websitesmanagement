@@ -20,7 +20,7 @@
 							editable
 							:complete="list_card_tasks[n-1].name_tasks_status=='completed' ? true : false"
 							>
-							<span>{{ list_card_tasks[n-1].name_card_tasks  }}</span>
+							<span>{{ list_card_tasks[n-1].name_card_tasks }}</span>
 						</v-stepper-step>
 						<v-stepper-content :step="list_card_tasks[n-1].order_card_tasks"></v-stepper-content>
 					</template>
@@ -145,7 +145,7 @@
 					</v-toolbar>
 				</template>
 				<template v-slot:item.check_tasks="props">
-					<v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks == 1" primary hide-details></v-checkbox>
+					<v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks" false-value="0" true-value="1" primary hide-details></v-checkbox>
 				</template>
 				<template v-slot:item.name_task="props">
 					{{ props.item.name_task }}
@@ -360,15 +360,21 @@
 			f_checkTask(item){
 				var formData = new FormData();
 				formData.append("id_task",item.id_task);
-				formData.append("check_tasks",(item.check_tasks^=1));
+				formData.append("id_card_tasks",item.id_card_tasks);
+				formData.append("check_tasks",(item.check_tasks));
 				axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
 					if(response.status = 200){
 						v.editCard = response.data.list_tasks;
-						v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_check_per_card)/v.list_tasks.length*100)
+						//v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_check_per_card)/v.list_tasks.length*100)
 						Object.assign(v.list_tasks, v.editCard);
 						//change status
-						var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
-						v.list_card_tasks[index].name_tasks_status = response.data.list_tasks.name_tasks_status;
+						/*var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
+						v.list_card_tasks[index].name_tasks_status = response.data.list_tasks.name_tasks_status;*/
+						if (response.data.list_tasks.check_tasks == 0) {
+							current_card.count_tasks_check_per_card--
+						} else {
+							current_card.count_tasks_check_per_card++
+						}
 					}else{
 
 					}
