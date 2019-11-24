@@ -1,3 +1,5 @@
+					</div>
+				</div>
 			</v-app>
 		</div>
 		<?php echo js_url('plugins/jquery.min.js'); ?>

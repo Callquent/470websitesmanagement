@@ -572,8 +572,6 @@
         </v-card-actions>
     </v-card>
 </v-dialog>
-            </div>
-        </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
     var v = new Vue({

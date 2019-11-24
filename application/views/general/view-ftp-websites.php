@@ -196,7 +196,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     <v-dialog v-model="dialog_chmodPermissions" width="500">
       <v-card>
         <v-card-title
@@ -276,8 +275,6 @@
         </v-list-item>
       </v-list>
     </v-menu>
-            </div>
-        </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
     var v = new Vue({

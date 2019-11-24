@@ -6,7 +6,6 @@
 		<a href="<?php echo site_url('/all-projects'); ?>" class="btn btn-icon fuse-ripple-ready">
 			<i class="icon icon-arrow-left-thick"></i>
 		</a>
-		
 	</div>
 	<v-container fluid grid-list-sm>
 		<v-layout row wrap>
@@ -34,11 +33,11 @@
 
 		<v-toolbar color="indigo" dark>
 			<v-toolbar-side-icon></v-toolbar-side-icon>
-			<v-toolbar-title>{{ list_tasks.name_card_tasks }}</v-toolbar-title>
+			<v-toolbar-title>{{ current_card.name_card_tasks }}</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
 					<i class="icon icon-plus"></i>
-				</a>
+			</a>
 			<v-menu bottom left>
 				<template v-slot:activator="{ on }">
 					<v-btn dark icon v-on="on">
@@ -82,7 +81,7 @@
 							</template>
 							<v-card>
 							  <v-card-title>
-								<span class="headline">Add Category</span>
+								<span class="headline">Tasks</span>
 							  </v-card-title>
 
 								<v-card-text>
@@ -97,24 +96,23 @@
 												  :items="users"
 												  chips
 												  label="Select"
+												  value="editTask.name_user"
 												  item-text="name_user"
-												  item-value="id">
-												  <template
-													slot="selection"
-													slot-scope="data"
-												  >
-													<v-chip
-													  :selected="data.selected"
-													  close
-													  class="chip--select-multi"
-													  @input="remove(data.item)"
-													>
-													  <v-avatar>
-														<img :src="data.item.avatar">
-													  </v-avatar>
-													  {{ data.item.name_user }}
-													</v-chip>
-												  </template>
+												  item-value="id_user">
+													<template v-slot:selection="data">
+														<v-chip
+														v-bind="data.attrs"
+														:input-value="data.selected"
+														close
+														@click="data.select"
+														@click:close="remove(data.item)"
+														>
+															<v-avatar left>
+																<v-img :src="data.item.avatar"></v-img>
+															</v-avatar>
+															{{ data.item.name_user }}
+														</v-chip>
+													</template>
 												  <template
 													slot="item"
 													slot-scope="data"
@@ -162,9 +160,6 @@
 						</template>
 						<v-divider></v-divider>
 						<v-list>
-							<v-list-item :href="currentRoute+'/'+props.item.id_project_tasks">
-								<v-list-item-title id="view-project" >View</v-list-item-title>
-							</v-list-item>
 							<v-list-item @click="f_editTask(props.item)">
 								<v-list-item-title id="edit-project" ><?php echo lang('edit') ?></v-list-item-title>
 							</v-list-item>
@@ -240,14 +235,13 @@
 			<small>*indicates required field</small>
 		</v-card-text>
 		<v-card-actions>
-		  <v-spacer></v-spacer>
-			<v-btn color="blue darken-1" flat @click="f_createCard()">Save</v-btn>
-			<v-btn color="blue darken-1" flat @click="dialog_add_card = false">Close</v-btn>
+			<div class="flex-grow-1"></div>
+			<v-btn color="blue darken-1" text @click="f_createCard()">Save</v-btn>
+			<v-btn color="blue darken-1" text @click="dialog_add_card = false">Cancel</v-btn>
 		</v-card-actions>
+		<v-card-actions>
 	</v-card>
 </v-dialog>
-			</div>
-		</div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 	var v = new Vue({
@@ -275,7 +269,7 @@
 			],
 			newCard:{
 				name_card_tasks:"",
-				id_card_task: <?php echo $all_card_by_project->row()->id_card_tasks; ?>,
+				order_card_task: <?php echo $order_card_tasks->order_card_tasks; ?>,
 				id_priority:"",
 				min: "1",
 				max: <?php echo $order_card_tasks->order_card_tasks; ?>,
@@ -311,15 +305,14 @@
 				formData.append("id_card_tasks",id_card_task);
 				axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
 					if(response.status = 200){
-						v.check_tasks_complete = 0;
-						v.list_tasks = [];
-
-						v.id_card = id_card_task;
-						if (response.data.all_tasks_by_card != null) {
+						if (response.data.all_tasks_by_card == null) {
+							v.list_tasks = [];
+						} else {
 							v.list_tasks = response.data.all_tasks_by_card;
 						}
-						v.valueDeterminate = v.f_isNaN((v.list_tasks.count_tasks_check_per_card/v.list_tasks.length)*100);
-						v.list_tasks.name_card_tasks = response.data.name_card_tasks;
+						v.current_card = response.data.card_tasks;
+
+						//v.valueDeterminate = v.f_isNaN((v.list_tasks.count_tasks_check_per_card/v.list_tasks.length)*100);
 					}else{
 
 					}
@@ -329,8 +322,8 @@
 				var formData = new FormData();
 				formData.append("name_card_tasks",v.newCard.name_card_tasks);
 				formData.append("id_project_tasks",v.id_project);
-				formData.append("id_card_task",v.newCard.id_card_task);
 				formData.append("id_tasks_priority",v.newCard.id_priority);
+				formData.append("order_card_tasks",v.newCard.order_card_task);
 				axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
 					if(response.status = 200){
 						v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.id_project});
@@ -370,10 +363,10 @@
 						//change status
 						/*var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
 						v.list_card_tasks[index].name_tasks_status = response.data.list_tasks.name_tasks_status;*/
-						if (response.data.list_tasks.check_tasks == 0) {
-							current_card.count_tasks_check_per_card--
+						if (response.data.check_tasks == 0) {
+							v.current_card.count_tasks_check_per_card--
 						} else {
-							current_card.count_tasks_check_per_card++
+							v.current_card.count_tasks_check_per_card++
 						}
 					}else{
 
@@ -408,6 +401,7 @@
 						}
 					})
 				}
+				this.dialog_add_task = false;
 			},
 			f_deleteTask(item){
 				var formData = new FormData();

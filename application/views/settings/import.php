@@ -42,8 +42,8 @@
                     </div>
                 </div>
 
-            </div>
         </div>
+    </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
     var v = new Vue({

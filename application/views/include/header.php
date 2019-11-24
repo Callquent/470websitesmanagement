@@ -24,7 +24,7 @@
 			<div id="app">
 				<v-app>
 					<div id="wrapper">
-					<?php $this->load->view('include/sidebar.php'); ?>
-		            <div class="content-wrapper">
-					<?php $this->load->view('include/navbar.php'); ?>
+						<?php $this->load->view('include/sidebar.php'); ?>
+							<div class="content-wrapper">
+								<?php $this->load->view('include/navbar.php'); ?>
 		
