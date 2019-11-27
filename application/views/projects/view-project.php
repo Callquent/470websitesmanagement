@@ -46,7 +46,7 @@
 				</template>
 				<v-list>
 					<v-list-item>
-						<v-list-item-title @click="deleteCard(step)">Editer</v-list-item-title>
+						<v-list-item-title @click="editCard(step)">Editer</v-list-item-title>
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-title @click="deleteCard(step)">Supprimer</v-list-item-title>
@@ -269,10 +269,10 @@
 			],
 			newCard:{
 				name_card_tasks:"",
-				order_card_task: <?php echo $order_card_tasks->order_card_tasks; ?>,
+				order_card_task: <?php echo $order_card_tasks; ?>,
 				id_priority:"",
 				min: "1",
-				max: <?php echo $order_card_tasks->order_card_tasks; ?>,
+				max: <?php echo $order_card_tasks; ?>,
 			},
 			editCard:[],
 			editedTaskIndex: -1,

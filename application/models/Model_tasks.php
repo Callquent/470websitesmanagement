@@ -228,7 +228,7 @@ class Model_tasks extends CI_Model {
 				->from('470websitesmanagement_tasks__card')
 				->where('470websitesmanagement_tasks__card.id_project_tasks', $id_project_tasks);
 
-		$query = $this->db->get()->row();
+		$query = $this->db->get()->row()->order_card_tasks;
 		return $query;
 	}
 /*	function get_percentage_per_tasks($id_project_tasks,$id_card_tasks)
@@ -276,12 +276,13 @@ class Model_tasks extends CI_Model {
 	function create_card_tasks($id_project_tasks, $name_card_tasks, $id_tasks_priority, $order_card_tasks)
 	{
 		if ($this->get_card_tasks_order_max($id_project_tasks) > $order_card_tasks) {
-			$query = $this->get_project($id_project_tasks);
 
-			foreach (array_reverse($query->result()) as $value) {
-				if ($value->order_card_tasks >= $order_card_tasks) {
-					$this->update_card_tasks($value->id_card_tasks, $value->name_card_tasks, $value->description_card_tasks, $value->id_tasks_priority, $value->id_tasks_status, ++$value->order_card_tasks);
-				}
+			$this->db->where('id_project_tasks', $id_project_tasks);
+			$this->db->where('id_card_tasks  >=', $id_card_tasks);
+			$query = $this->db->get('470websitesmanagement_tasks__card');
+			
+			foreach ($query->result() as $value) {
+				$this->update_card_tasks($value->id_card_tasks, $value->name_card_tasks, $value->description_card_tasks, $value->id_tasks_priority, $value->id_tasks_status, ++$value->order_card_tasks);
 			}
 		}
 		$this->db->where('id_project_tasks', $id_project_tasks); 
@@ -297,38 +298,6 @@ class Model_tasks extends CI_Model {
 		$this->db->insert('470websitesmanagement_tasks__card', $data);
 		return $this->db->insert_id();
 	}
-	/*function create_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $id_tasks_status, $order_card_tasks)
-	{
-		if ($id_card_tasks=="") {
-			$this->db->where('id_project_tasks', $id_project_tasks); 
-			$query = $this->db->get('470websitesmanagement_tasks__card');
-			$data = array(
-				'id_project_tasks'		=> $id_project_tasks,
-				'name_card_tasks'		=> $name_card_tasks,
-				'id_tasks_priority'		=> $id_tasks_priority,
-				'order_card_tasks'		=> $order_card_tasks,
-				'id_tasks_status'		=> "1"
-			);
-		} else {
-			$this->db->where('id_project_tasks', $id_project_tasks);
-			$this->db->where('id_card_tasks  >=', $id_card_tasks); 
-			$query = $this->db->get('470websitesmanagement_tasks__card');
-
-			foreach (array_reverse($query->result()) as $value) {
-				$this->update_card_tasks($value->id_project_tasks, $value->id_card_tasks, $value->name_card_tasks, $value->description_card_tasks, $value->id_tasks_priority, $value->id_tasks_status, +1);
-			}
-
-			$data = array(
-				'id_card_tasks'			=> $id_card_tasks,
-				'id_project_tasks'		=> $id_project_tasks,
-				'name_card_tasks'		=> $name_card_tasks,
-				'id_tasks_priority'		=> $id_tasks_priority,
-				'id_tasks_status'		=> "1"
-			);
-		}
-		$this->db->insert('470websitesmanagement_tasks__card', $data);
-		return $this->db->insert_id();
-	}*/
 	function update_card_tasks($id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $id_tasks_status, $order_card_tasks)
 	{
 		$data = array(
@@ -368,17 +337,17 @@ class Model_tasks extends CI_Model {
 					->update('470websitesmanagement_tasks__card', $data);
 		}
 	}
-	function delete_card_tasks($id_project_tasks,$id_card_tasks)
+	function delete_card_tasks($id_project_tasks, $id_card_tasks)
 	{
 		$this->db->where('id_card_tasks', $id_card_tasks);
 		$this->db->delete('470websitesmanagement_tasks__card');
 
 		$this->db->where('id_project_tasks', $id_project_tasks);
-		$this->db->where('id_card_tasks  >=', $id_card_tasks); 
+		$this->db->where('id_card_tasks  >=', $id_card_tasks);
 		$query = $this->db->get('470websitesmanagement_tasks__card');
 
 		foreach ($query->result() as $value) {
-			$this->update_card_tasks($value->id_project_tasks, $value->id_card_tasks, $value->name_card_tasks, $value->description_card_tasks, $value->id_tasks_priority, $value->id_tasks_status, $value->order_card_tasks-1);
+			$this->update_card_tasks($value->id_card_tasks, $value->name_card_tasks, $value->description_card_tasks, $value->id_tasks_priority, $value->id_tasks_status, --$value->order_card_tasks);
 		}
 	}
 	function create_task($id_card_tasks, $nametask, $iduser)
