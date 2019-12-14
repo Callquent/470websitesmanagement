@@ -46,7 +46,8 @@ class Model_tasks extends CI_Model {
 					->from('470websitesmanagement_tasks__card')
 					->join('470websitesmanagement_tasks__status', '470websitesmanagement_tasks__card.id_tasks_status = 470websitesmanagement_tasks__status.id_tasks_status')
 					->join('470websitesmanagement_tasks__priority', '470websitesmanagement_tasks__card.id_tasks_priority = 470websitesmanagement_tasks__priority.id_tasks_priority')
-					->where('470websitesmanagement_tasks__card.id_project_tasks', $id_project_tasks);
+					->where('470websitesmanagement_tasks__card.id_project_tasks', $id_project_tasks)
+					->order_by("470websitesmanagement_tasks__card.order_card_tasks", "asc");
 					
 			if (!empty($id_tasks_status)) {
 				$this->db->where('470websitesmanagement_tasks__card.id_tasks_status', $id_tasks_status);
@@ -224,11 +225,11 @@ class Model_tasks extends CI_Model {
 	}
 	function get_card_tasks_order_max($id_project_tasks)
 	{
-		$this->db->select_max('order_card_tasks')
+		$this->db->select('order_card_tasks')
 				->from('470websitesmanagement_tasks__card')
 				->where('470websitesmanagement_tasks__card.id_project_tasks', $id_project_tasks);
 
-		$query = $this->db->get()->row()->order_card_tasks;
+		$query = $this->db->get()->num_rows();
 		return $query;
 	}
 /*	function get_percentage_per_tasks($id_project_tasks,$id_card_tasks)
@@ -278,7 +279,7 @@ class Model_tasks extends CI_Model {
 		if ($this->get_card_tasks_order_max($id_project_tasks) > $order_card_tasks) {
 
 			$this->db->where('id_project_tasks', $id_project_tasks);
-			$this->db->where('id_card_tasks  >=', $id_card_tasks);
+			$this->db->where('order_card_tasks  >=', $order_card_tasks);
 			$query = $this->db->get('470websitesmanagement_tasks__card');
 			
 			foreach ($query->result() as $value) {

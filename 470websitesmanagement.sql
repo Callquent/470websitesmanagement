@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  sam. 26 oct. 2019 à 09:43
+-- Généré le :  sam. 14 déc. 2019 à 07:24
 -- Version du serveur :  5.7.19
--- Version de PHP :  7.1.20
+-- Version de PHP :  7.2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -107,6 +107,7 @@ CREATE TABLE `470websitesmanagement_login_attempts` (
   `timestamp` datetime DEFAULT NULL,
   `login_attempts` tinyint(2) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -310,10 +311,10 @@ CREATE TABLE `470websitesmanagement_tasks__priority` (
 --
 
 INSERT INTO `470websitesmanagement_tasks__priority` (`id_tasks_priority`, `name_tasks_priority`) VALUES
-(1, 'low'),
-(2, 'medium'),
-(3, 'hight'),
-(4, 'critical');
+(1, 'Low'),
+(2, 'Medium'),
+(3, 'Hight'),
+(4, 'Critical');
 
 -- --------------------------------------------------------
 
@@ -328,6 +329,7 @@ CREATE TABLE `470websitesmanagement_tasks__project` (
   `started_project_tasks` date NOT NULL,
   `deadline_project_tasks` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -675,31 +677,31 @@ ALTER TABLE `470websitesmanagement_whois`
 -- AUTO_INCREMENT pour la table `470websitesmanagement_category`
 --
 ALTER TABLE `470websitesmanagement_category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_groups`
 --
 ALTER TABLE `470websitesmanagement_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_language`
 --
 ALTER TABLE `470websitesmanagement_language`
-  MODIFY `id_language` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_language` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_login_attempts`
 --
 ALTER TABLE `470websitesmanagement_login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_perms`
 --
 ALTER TABLE `470websitesmanagement_perms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_pms`
@@ -723,43 +725,49 @@ ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
 -- AUTO_INCREMENT pour la table `470websitesmanagement_settings`
 --
 ALTER TABLE `470websitesmanagement_settings`
-  MODIFY `id_s` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_s` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `470websitesmanagement_tasks`
+--
+ALTER TABLE `470websitesmanagement_tasks`
+  MODIFY `id_task` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__card`
 --
 ALTER TABLE `470websitesmanagement_tasks__card`
-  MODIFY `id_card_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_card_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__hours`
 --
 ALTER TABLE `470websitesmanagement_tasks__hours`
-  MODIFY `id_hours_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_hours_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__priority`
 --
 ALTER TABLE `470websitesmanagement_tasks__priority`
-  MODIFY `id_tasks_priority` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_tasks_priority` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__project`
 --
 ALTER TABLE `470websitesmanagement_tasks__project`
-  MODIFY `id_project_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_project_tasks` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_tasks__status`
 --
 ALTER TABLE `470websitesmanagement_tasks__status`
-  MODIFY `id_tasks_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_tasks_status` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_users`
 --
 ALTER TABLE `470websitesmanagement_users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=564;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_user_variables`
@@ -771,37 +779,37 @@ ALTER TABLE `470websitesmanagement_user_variables`
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website`
 --
 ALTER TABLE `470websitesmanagement_website`
-  MODIFY `id_website` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_website` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website__backoffice`
 --
 ALTER TABLE `470websitesmanagement_website__backoffice`
-  MODIFY `id_backoffice` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_backoffice` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website__database`
 --
 ALTER TABLE `470websitesmanagement_website__database`
-  MODIFY `id_database` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_database` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website__ftp`
 --
 ALTER TABLE `470websitesmanagement_website__ftp`
-  MODIFY `id_ftp` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_ftp` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_website__htaccess`
 --
 ALTER TABLE `470websitesmanagement_website__htaccess`
-  MODIFY `id_htaccess` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_htaccess` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `470websitesmanagement_whois`
 --
 ALTER TABLE `470websitesmanagement_whois`
-  MODIFY `id_whois` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_whois` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées

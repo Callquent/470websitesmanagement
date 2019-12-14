@@ -142,10 +142,8 @@ class All_projects extends CI_Controller {
 	}
 	public function delete_task()
 	{
-		$id_project_tasks	= $this->input->post('id_project_tasks');
-		$id_card_tasks		= $this->input->post('id_card_tasks');
 		$id_task			= $this->input->post('id_task');
 
-		$this->model_tasks->delete_tasks($id_project_tasks,$id_card_tasks,$id_task);
+		$this->model_tasks->delete_tasks($id_task);
 	}
 }
