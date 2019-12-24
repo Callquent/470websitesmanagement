@@ -296,3 +296,13 @@ label.btn-block{text-align:left;position:relative}
 label .btn-label{position:absolute;left:0;top:0;display:inline-block;padding:0 10px;background:rgba(0,0,0,.15);height:100%}
 .btn-white{background-clip:padding-box;background-color:#FFF;border-color:rgba(150,160,180,.3);box-shadow:0 -1px 1px rgba(0,0,0,.05) inset}
 label .glyphicon{top:34%}
+/*********************/
+/*      RESPONSIVE   */
+/*********************/
+@media (max-width: 991px) {
+	.v-dialog__content {
+		top: initial;
+		left: initial;
+		width: 100%;
+	}
+}

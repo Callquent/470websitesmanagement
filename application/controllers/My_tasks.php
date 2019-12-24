@@ -33,7 +33,7 @@ class My_tasks extends CI_Controller {
 		$data['all_count_tasks_per_user'] = $this->model_tasks->count_tasks_per_user($this->session->userdata['id'])->row();
 
 		if($this->uri->total_segments() == 1){
-			$data['all_projects_per_users'] = $this->model_tasks->get_all_projects_to_user($this->session->userdata['id']);
+			$data['all_projects'] = $this->model_tasks->get_all_projects($this->session->userdata['id']);
 			$data['all_tasks_priority_to_user'] =$this->model_tasks->get_all_tasks_priority_to_user($this->session->userdata['id'])->row();
 			
 			$this->load->view('projects/my-projects', $data);
@@ -47,9 +47,9 @@ class My_tasks extends CI_Controller {
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
-			$data['all_tasks'] = $this->model_tasks->get_all_tasks_by_card($id_project_tasks);
+			$data['all_card_by_project'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks);
+			$data['all_tasks_by_card'] = $this->model_tasks->get_all_tasks_by_card($data['all_card_by_project']->row()->id_card_tasks);
 
-			$data['all_card_tasks'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks);
 			$data['all_card_tasks_to_do'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks,"1",$this->session->userdata['id']);
 			$data['all_card_tasks_in_progress'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks,"2",$this->session->userdata['id']);
 			$data['all_card_tasks_completed'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks,"3",$this->session->userdata['id']);

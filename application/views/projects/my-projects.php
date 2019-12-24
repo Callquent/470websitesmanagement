@@ -1,209 +1,104 @@
 <?php $this->load->view('include/header.php'); ?>
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
-	<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
-		<h2 class="doc-title" id="content"><?php echo lang('websites_management'); ?></h2>
-	</div>
 	<div class="page-content">
-	  <section id="main-content">
-		  <section class="wrapper">
 
-		  <div class="row">
-			<div class="col-12 col-sm-6 col-xl-3 p-3">
-			  <div class="widget-tasks card">
-				  <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
-					  <div class="col">
-						  <span class="h6">Critical</span>
-					  </div>
-					  <button type="button" class="btn btn-icon fuse-ripple-ready">
-						  <i class="icon icon-dots-vertical"></i>
-					  </button>
-				  </div>
-
-				  <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
-					  <div class="title text-danger"><?php echo $all_tasks_priority_to_user->all_tasks_critical_user; ?></div>
-					  <div class="sub-title h6 text-muted">TASKS</div>
-				  </div>
-
-				  <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
-					  <span class="text-muted">Yesterday's:</span>
-					  <span class="ml-2">2</span>
-				  </div>
-			  </div>
-			</div>
-			<div class="col-12 col-sm-6 col-xl-3 p-3">
-			  <div class="widget-tasks card">
-				  <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
-					  <div class="col">
-						  <span class="h6">Hight</span>
-					  </div>
-					  <button type="button" class="btn btn-icon fuse-ripple-ready">
-						  <i class="icon icon-dots-vertical"></i>
-					  </button>
-				  </div>
-
-				  <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
-					  <div class="title text-warning"><?php echo $all_tasks_priority_to_user->all_tasks_hight_user; ?></div>
-					  <div class="sub-title h6 text-muted">TASKS</div>
-				  </div>
-
-				  <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
-					  <span class="text-muted">Yesterday's:</span>
-					  <span class="ml-2">2</span>
-				  </div>
-			  </div>
-			</div>
-			<div class="col-12 col-sm-6 col-xl-3 p-3">
-			  <div class="widget-tasks card">
-				  <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
-					  <div class="col">
-						  <span class="h6">Medium</span>
-					  </div>
-					  <button type="button" class="btn btn-icon fuse-ripple-ready">
-						  <i class="icon icon-dots-vertical"></i>
-					  </button>
-				  </div>
-
-				  <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
-					  <div class="title text-primary"><?php echo $all_tasks_priority_to_user->all_tasks_medium_user; ?></div>
-					  <div class="sub-title h6 text-muted">TASKS</div>
-				  </div>
-
-				  <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
-					  <span class="text-muted">Yesterday's:</span>
-					  <span class="ml-2">2</span>
-				  </div>
-			  </div>
-			</div>
-			<div class="col-12 col-sm-6 col-xl-3 p-3">
-			  <div class="widget-tasks card">
-				  <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
-					  <div class="col">
-						  <span class="h6">Low</span>
-					  </div>
-					  <button type="button" class="btn btn-icon fuse-ripple-ready">
-						  <i class="icon icon-dots-vertical"></i>
-					  </button>
-				  </div>
-
-				  <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
-					  <div class="title text-info"><?php echo $all_tasks_priority_to_user->all_tasks_low_user; ?></div>
-					  <div class="sub-title h6 text-muted">TASKS</div>
-				  </div>
-
-				  <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
-					  <span class="text-muted">Yesterday's:</span>
-					  <span class="ml-2">2</span>
-				  </div>
-			  </div>
-			</div>
-		  </div>
-		  <div class="row">
-			  <div class="col-sm-2">
-				  <section class="card mb-3">
-					  <header class="card-header">
-						  Editable Table
-					  </header>
-					  <div class="card-body">
-						  <h4 class="">Projects</h4>
-						  <hr>
-						  <input type="text" class="form-control" name="searchproject" id="searchProjects" >
-					  </div>
-				  </section>
-				  <section class="card mb-3">
-					  <header class="card-header">
-						  Editable Table
-					  </header>
-					  <div class="card-body">
-						  <h4 class="">Status</h4>
-						  <hr>
-					  </div>
-				  </section>
-			  </div>
-			  <div class="col-sm-10">
-				  <section class="card mb-3">
-					  <header class="card-header">
-						  Editable Table
-					  </header>
-					  <div class="card-body">
-						  <div class="row">
-							  <div class="col-sm-12 float-right">
-								  <div class="float-right">
-								  </div>
-							  </div>
-						  </div>
-						  <table class="table table-striped table-bordered table-hover dt-responsive table-dashboard" width="100%" id="table-my-projects">
-							  <thead>
-								<tr>
-									<th class="all"><?php echo lang('website'); ?></th>
-									<th class="desktop"><?php echo lang('name'); ?></th>
-									<th class="desktop">Started on</th>
-									<th class="desktop">Deadline</th>
-									<th class="desktop">Progress</th>
-									<th class="desktop">Status</th>
-									<?php if ($user_role[0]->name == "Admin" || $user_role[0]->name == "Developper") { ?>
-									  <th class="desktop"><?php echo lang('actions'); ?></th>
-									<?php } ?>
-								</tr>
-							  </thead>
-							  <tbody>
-								<?php foreach ($all_projects_per_users->result() as $row) { ?>
-								  <tr>
-									<td><?php echo $row->name_website; ?></td>
-									<td><?php echo $row->name_project_tasks; ?></td>
-									<td><?php echo $row->started_project_tasks; ?></td>
-									<td><?php echo $row->deadline_project_tasks; ?></td>
-									<td>
-									  <div class="progress">
-										  <div class="progress-bar" role="progressbar" style="width: <?php echo $row->percentage_tasks; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $row->percentage_tasks; ?>%
+	  <v-container fluid grid-list-sm>
+	    <v-layout row wrap>
+			<v-flex xs12>
+		  		<v-card>
+	                <template>
+						<v-data-table
+						    :headers="headers"
+						    :items="list_projects"
+						    class="elevation-1"
+						    :items-per-page="-1"
+							:footer-props="{
+							'items-per-page-options': [10, 20, 30, 40, 50]
+							}"
+						>
+						    <template v-slot:item.name_website="props">
+						    	{{ props.item.name_website }}
+						    </template>
+						    <template v-slot:item.name_project_tasks="props">
+						        {{ props.item.name_project_tasks }}
+						    </template>
+						    <template v-slot:item.started_project_tasks="props">
+						        {{ props.item.started_project_tasks }}
+						    </template>
+						    <template v-slot:item.deadline_project_tasks="props">
+						        {{ props.item.deadline_project_tasks }}
+						    </template>
+						    <template v-slot:item.status="props">
+									<span v-if="props.item.percentage_tasks == '100'" class="badge badge-success">Success</span>
+									<span v-else class="badge badge-warning">In progress</span>
+						    </template>
+						    <template v-slot:item.progress="props">
+						        	<div class="progress">
+										  <div class="progress-bar" role="progressbar" :style="{width: props.item.percentage_tasks + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ props.item.percentage_tasks }}%
 										  </div>
-									  </div>
-									</td>
-									<td>
-									  <span class="badge badge-danger"><?php echo $row->priority_project_tasks->all_tasks_critical_user; ?> Critical</span><span class="badge badge-warning"><?php echo $row->priority_project_tasks->all_tasks_hight_user; ?> Hight</span><span class="badge badge-primary"><?php echo $row->priority_project_tasks->all_tasks_medium_user; ?> Medium</span><span class="badge badge-success"><?php echo $row->priority_project_tasks->all_tasks_low_user; ?> Low</span>
-									</td>
-									<td>
-									  <div class="dropdown show actions">
-										  <a class="btn btn-icon fuse-ripple-ready" href="javascript:void(0);" role="button" data-toggle="dropdown" >
-											<i class="icon icon-dots-vertical"></i>
-										  </a>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" id="view-project" href="<?php echo site_url('my-tasks/'.$row->id_project_tasks); ?>"><i class="fa fa-eye"></i> View</a>
-										  </div>
-									  </div>
-									</td>
-								  </tr>
-								<?php } ?>
-							  </tbody>
-						  </table>
-					  </div>
-				  </section>
-			  </div>
-		  </div>
-		  </section>
-	  </section>
+									</div>
+							</template>
+						    <template v-slot:item.actions="props">
+								<v-menu bottom left>
+									<template v-slot:activator="{ on }">
+										<v-btn icon v-on="on" color="grey darken-1">
+											<v-icon>mdi-dots-vertical</v-icon>
+										</v-btn>
+									</template>
+									<v-divider></v-divider>
+									<v-list>
+										<v-list-item :href="currentRoute+'/'+props.item.id_project_tasks">
+											<v-list-item-title id="view-project" >View</v-list-item-title>
+										</v-list-item>
+										<v-list-item @click="f_dialog_editProject(props.item)">
+											<v-list-item-title id="edit-project" ><?php echo lang('edit') ?></v-list-item-title>
+										</v-list-item>
+										<v-list-item @click="f_deleteProject(props.item)">
+											<v-list-item-title id="delete-project"><?php echo lang('delete') ?></v-list-item-title>
+										</v-list-item>
+									</v-list>
+								</v-menu>
+						    </template>
+						</v-data-table>
+	                </template>
+	            </v-card>
+	      </v-flex>
+	    </v-layout>
+	  </v-container>
+
 	</div>
   </div>
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-  $(document).ready(function(){
-	var myprojectsTable = $('#table-my-projects').DataTable({
-			  'columnDefs': [{ // set default column settings
-			  'orderable': true,
-			  'targets': [0]
-		  }, {
-			  "searchable": true,
-			  "targets": [0]
-		  }],
-		  "order": [
-			  [0, "asc"]
-		  ]
-	  });
+	var v = new Vue({
+		el: '#app',
+		vuetify: new Vuetify(),
+		data : {
+			sidebar:"projects",
+			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+	        headers: [
+	        	{ text: '<?php echo lang('website'); ?>', value: 'url_website' },
+				{ text: '<?php echo lang('name'); ?>', value: 'name_website' },
+				{ text: 'Started on', value: 'started_project_tasks' },
+				{ text: 'Deadline', value: 'deadline_project_tasks' },
+				{ text: 'Status', value: 'status' },
+				{ text: 'Progress', value: 'progress' },
+	            { text: '<?php echo lang("actions"); ?>', value: 'actions'},
+	        ],
+	        list_projects: <?php echo json_encode($all_projects->result_array()); ?>,
 
-	$('#searchProjects').on( 'keyup', function () {
-		myprojectsTable.columns(1).search( this.value ).draw();
+		},
+		mixins: [mixin],
+		created(){
+			this.displayPage();
+		},
+		methods:{
+			displayPage(){
+
+			},
+		}
 	});
-  });
 </script>
 <?php $this->load->view('include/footer.php'); ?>

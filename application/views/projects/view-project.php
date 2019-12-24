@@ -2,14 +2,18 @@
 <div class="content custom-scrollbar">
 	<div class="page-layout simple full-width">
 		<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
-			<h2 class="doc-title" id="content"><?php echo $project->name_project_tasks; ?></h2>
-			<a href="<?php echo site_url('/all-projects'); ?>" class="btn btn-icon fuse-ripple-ready">
-				<i class="icon icon-arrow-left-thick"></i>
-			</a>
+			<h2 class="doc-title" id="content">{{ current_project.name_project_tasks }}</h2>
+			<v-progress-linear :value="current_project.percentage_tasks" height="25">
+				<strong>{{ Math.ceil(current_project.percentage_tasks) }}%</strong>
+			</v-progress-linear>
 		</div>
 		<v-container fluid grid-list-sm>
 			<v-layout row wrap>
 				<v-flex hidden-sm-and-down md2>
+					<v-btn color="primary" flat @click="dialog_add_card = true" block>ADD TASK</v-btn>
+					<!-- <a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
+						<i class="icon icon-plus"></i>
+					</a> -->
 					<v-stepper v-model="stepper" non-linear vertical>
 						<template v-for="n in list_card_tasks.length">
 							<v-stepper-step
@@ -35,9 +39,7 @@
 										<v-toolbar-side-icon></v-toolbar-side-icon>
 										<v-toolbar-title>{{ current_card.name_card_tasks }}</v-toolbar-title>
 										<v-spacer></v-spacer>
-										<a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
-												<i class="icon icon-plus"></i>
-										</a>
+										
 										<v-menu bottom left>
 											<template v-slot:activator="{ on }">
 												<v-btn dark icon v-on="on">
@@ -58,7 +60,7 @@
 									<v-card>
 										<div>
 											<span>{{ current_card.count_tasks_check_per_card }} / {{ list_tasks.length }}</span>
-											<v-progress-linear v-model="valueDeterminate" height="25">
+											<v-progress-linear :value="valueDeterminate" height="25">
 												<strong>{{ Math.ceil(valueDeterminate) }}%</strong>
 											</v-progress-linear>
 										</div>
@@ -259,7 +261,7 @@
 			list_card_tasks: <?php echo json_encode($all_card_by_project->result_array()); ?>,
 			list_tasks: <?php echo json_encode($all_tasks_by_card->result_array()); ?>,
 			users: <?php echo json_encode($list_users->result_array()); ?>,
-			id_project: window.location.href.split('/').pop(),
+			current_project: <?php echo json_encode($project); ?>,
 			current_card: <?php echo json_encode($card_tasks); ?>,
 			headers: [
 				{ text: '', value: 'check_tasks', sortable: false},
@@ -289,7 +291,7 @@
 		methods:{
 			displayPage(){
 				this.list_tasks.tasks = (this.list_tasks.tasks == null ? [] : this.list_tasks.tasks);
-				this.valueDeterminate = this.f_isNaN((this.current_card.count_tasks_check_per_card/this.list_card_tasks.length)*100);
+				this.valueDeterminate = this.f_isNaN((this.current_card.count_tasks_check_per_card/this.list_tasks.length)*100);
 			},
 			f_prevBtn(id_card) {
 				v.stepper=id_card;
@@ -311,7 +313,7 @@
 						}
 						v.current_card = response.data.card_tasks;
 
-						v.valueDeterminate = v.f_isNaN((v.current_card.count_tasks_check_per_card/v.list_card_tasks.length)*100);
+						v.valueDeterminate = v.f_isNaN((v.current_card.count_tasks_check_per_card/v.list_tasks.length)*100);
 					}else{
 
 					}
@@ -320,12 +322,12 @@
 			f_createCard(){
 				var formData = new FormData();
 				formData.append("name_card_tasks",v.newCard.name_card_tasks);
-				formData.append("id_project_tasks",v.id_project);
+				formData.append("id_project_tasks",v.current_project.id_project_tasks);
 				formData.append("id_tasks_priority",v.newCard.id_priority);
 				formData.append("order_card_tasks",v.newCard.order_card_task);
 				axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
 					if(response.status = 200){
-						v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.id_project});
+						v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.current_project.id_project_tasks});
 						v.newCard.max = v.newCard.max + 1;
 						v.dialog_add_card = false;
 					}else{
@@ -335,8 +337,8 @@
 			},
 			deleteCard(item){
 				var formData = new FormData();
-				formData.append("id_project_tasks",this.id_project);
-				formData.append("id_card_task",this.id_card);
+				formData.append("id_project_tasks",this.current_project.id_project_tasks);
+				formData.append("id_card_task",this.current_card.id_card_tasks);
 				if (confirm('Are you sure you want to delete this item?') == true) {
 					axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
@@ -357,16 +359,13 @@
 				axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
 					if(response.status = 200){
 						v.editCard = response.data.list_tasks;
-						//v.valueDeterminate = v.f_isNaN((v.editCard.count_tasks_check_per_card)/v.list_tasks.length*100)
 						Object.assign(v.list_tasks, v.editCard);
-						//change status
-						/*var index = v.list_card_tasks.findIndex(i => i.id_card_tasks === item.id_card_tasks)
-						v.list_card_tasks[index].name_tasks_status = response.data.list_tasks.name_tasks_status;*/
 						if (response.data.check_tasks == 0) {
 							v.current_card.count_tasks_check_per_card--
 						} else {
 							v.current_card.count_tasks_check_per_card++
 						}
+						v.valueDeterminate = v.f_isNaN((v.current_card.count_tasks_check_per_card/v.list_tasks.length)*100);
 					}else{
 
 					}

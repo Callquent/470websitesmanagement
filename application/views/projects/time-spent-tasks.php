@@ -2,35 +2,51 @@
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
     <div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
-        <h2 class="doc-title" id="content"><?php echo lang('search_scrapper_google'); ?></h2>
+        <h2 class="doc-title" id="content"></h2>
     </div>
         <v-container fluid grid-list-sm>
             <v-layout row wrap>
-                <v-flex xs4>
+                <v-flex xs12>
                     <v-form ref="form">
-                        <div class="form-group">
-                            <v-autocomplete
-                                @change="f_viewCardTasks"
-                                :items="list_projects"
-                                label="Project Tasks"
-                                item-text="name_project_tasks"
-                                item-value="id_project_tasks">
-                            </v-autocomplete>
-                        </div>
-                        <div class="form-group">
-                            <v-autocomplete
-                                @change="f_viewTasks"
-                                :items="list_card_tasks"
-                                label="Card Tasks"
-                                item-text="name_card_tasks"
-                                item-value="id_card_tasks"
-                                return-object>
-                            </v-autocomplete>
-                        </div>
-
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12" md="4">
+                                    <v-autocomplete
+                                        v-model="editedTimeSpendTasks.id_project_tasks"
+                                        @change="f_viewCardTasks"
+                                        :items="list_projects"
+                                        label="Project Tasks"
+                                        item-text="name_project_tasks"
+                                        item-value="id_project_tasks">
+                                    </v-autocomplete>
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-autocomplete
+                                        v-model="editedTimeSpendTasks.id_card_tasks"
+                                        @change="f_viewTasks"
+                                        :items="list_card_tasks"
+                                        label="Card Tasks"
+                                        item-text="name_card_tasks"
+                                        item-value="id_card_tasks"
+                                        return-object>
+                                    </v-autocomplete>
+                                    
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-autocomplete
+                                        v-model="editedTimeSpendTasks.id_task"
+                                        :items="list_tasks"
+                                        label="Tasks"
+                                        clearable
+                                        item-text="name_task"
+                                        item-value="id_task"
+                                        return-object>
+                                    </v-autocomplete>
+                                </v-col>
+                            </v-row>
+                        </v-container>
                     </v-form>
                 </v-flex>
-                <v-flex xs4></v-flex>
                 <v-flex xs12>
                     <template>
                         <v-data-table
@@ -42,7 +58,7 @@
                             'items-per-page-options': [10, 20, 30, 40, 50, -1]
                             }"
                         >
-                         <template v-slot:top>
+                            <template v-if="editedTimeSpendTasks.id_task" v-slot:top>
                               <v-toolbar flat color="white">
                                 <v-toolbar-title>My CRUD</v-toolbar-title>
                                 <v-divider
@@ -70,26 +86,27 @@
                                           <v-col cols="12">
                                                 <v-menu
                                                     ref="menu"
+                                                    v-model="menu"
                                                     :close-on-content-click="false"
-                                                    v-model="editedTimeSpendTasks.date_hours_tasks"
-                                                    :nudge-right="40"
-                                                    lazy
+                                                    :return-value.sync="date"
                                                     transition="scale-transition"
                                                     offset-y
-                                                    full-width
                                                     min-width="290px"
                                                   >
                                                   <template v-slot:activator="{ on }">
                                                     <v-text-field
-                                                      slot="activator"
-                                                      v-model="editedTimeSpendTasks.date_hours_tasks"
-                                                      label="Picker in menu"
-                                                      prepend-icon="event"
-                                                      readonly
-                                                      v-on="on"
+                                                        v-model="editedTimeSpendTasks.date_hours_tasks"
+                                                        label="Picker in menu"
+                                                        prepend-icon="event"
+                                                        readonly
+                                                        v-on="on"
                                                     ></v-text-field>
                                                    </template>
-                                                    <v-date-picker v-model="editedTimeSpendTasks.date_hours_tasks" no-title @input="editedTimeSpendTasks.date_hours_tasks = false"> </v-date-picker>
+                                                   <v-date-picker v-model="editedTimeSpendTasks.date_hours_tasks" no-title scrollable>
+                                                      <v-spacer></v-spacer>
+                                                      <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                                                      <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                                                    </v-date-picker>
                                                 </v-menu>
                                           </v-col>
                                         </v-row>
@@ -145,16 +162,6 @@
         data : {
             sidebar:"general",
             dialog_time_spend_tasks: false,
-            message:{
-                success:'',
-                error:'',
-            },
-            position:'',
-            positions:[],
-            searchGoogle:{
-                keyword:'',
-                url_website:'',
-            },
             currentRoute: window.location.href,
             headers: [
                 { text: '<?php echo lang("name_task"); ?>', value: 'name_task'},
@@ -162,7 +169,10 @@
                 { text: '<?php echo lang("date_hours_tasks"); ?>', value: 'date_hours_tasks'},
                 { text: '<?php echo lang("actions"); ?>', value: 'actions'},
             ],
+            editedTimeSpendTaskIndex: -1,
             editedTimeSpendTasks: {
+                id_project_tasks: '',
+                id_card_tasks: '',
                 id_task: '',
                 name_task: '',
                 nb_hours_tasks: '',
@@ -200,21 +210,20 @@
             },
             saveTimeSpentTasks () {
                 var formData = new FormData();
-                formData.append("id_task",v.editedTimeSpendTasks.id_task);
                 formData.append("name_task",v.editedTimeSpendTasks.name_task);
                 formData.append("nb_hours_tasks",v.editedTimeSpendTasks.nb_hours_tasks);
                 formData.append("date_hours_tasks",v.editedTimeSpendTasks.date_hours_tasks);
-                if (this.editedFtpIndex > -1) {
-                    formData.append("id_ftp",v.editedFtp.id_ftp);
+                if (this.editedTimeSpendTaskIndex > -1) {
+                    formData.append("id_task",v.editedTimeSpendTasks.id_task);
                     axios.post(this.currentRoute+"/edit-tasks-hours/", formData).then(function(response){
                         if(response.status = 200){
-                            Object.assign(v.list_ftp[v.editedFtpIndex], v.editedFtp)
+                            Object.assign(v.list_hours_tasks[v.editedTimeSpendTaskIndex], v.editedTimeSpendTasks)
                         }
                     })
                 } else {
                     axios.post(this.currentRoute+"/create-tasks-hours/", formData).then(function(response){
                         if(response.status = 200){
-                            v.list_tasks.push(v.editedTimeSpendTasks)
+                            v.list_tasks.push({name_task: v.editedTimeSpendTasks.name_task,username: v.editTask.username})
                         }
                     })
                 }
