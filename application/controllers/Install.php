@@ -32,21 +32,21 @@ class Install extends CI_Controller {
 	}
 	public function step1()
 	{
-		$databasename = $this->input->post('databasename');
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		$databasehost = $this->input->post('databasehost');
+		$database_name = $this->input->post('database_name');
+		$database_username = $this->input->post('database_username');
+		$database_password = $this->input->post('database_password');
+		$database_host = $this->input->post('database_host');
 
-		$this->form_validation->set_rules('databasename', 'Databasename', 'trim|required|min_length[4]');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]');
-		$this->form_validation->set_rules('databasehost', 'Databasehost', 'trim|required|min_length[4]');
+		$this->form_validation->set_rules('database_name', 'Databasename', 'trim|required|min_length[4]');
+		$this->form_validation->set_rules('database_username', 'Username', 'trim|required|min_length[4]');
+		$this->form_validation->set_rules('database_password', 'Password', 'trim|required|min_length[4]');
+		$this->form_validation->set_rules('database_host', 'Databasehost', 'trim|required|min_length[4]');
 
 		$fichier = APPPATH."./config/database.php";
 		$text=fopen($fichier,'r+') or die("Fichier manquant"); 
 		$contenu=file_get_contents($fichier); 
 		$patterns = array('/\'username\' => \'(.*)\'/','/\'password\' => \'(.*)\'/','/\'database\' => \'(.*)\'/');
-		$replacements = array('\'username\' => \''.$username.'\'', '\'password\' => \''.$password.'\'', '\'database\' => \''.$databasename.'\'');
+		$replacements = array('\'username\' => \''.$database_username.'\'', '\'password\' => \''.$database_password.'\'', '\'database\' => \''.$database_name.'\'');
 		$contenuMod=preg_replace($patterns,$replacements, $contenu);
 		fwrite($text,$contenuMod);
 		fclose($text);

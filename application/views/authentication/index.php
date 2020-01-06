@@ -5,9 +5,10 @@
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
-		<?php echo css_url('css/style.css'); ?>
 		<?php echo css_url('plugins/vuetify/vuetify.css'); ?>
+		<?php echo css_url('css/style.css'); ?>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+		<?php echo css_url('css/materialdesignicons.min.css'); ?>
 		<link rel="shortcut icon" href="<?php echo img_url('app/favicon-470websitesmanagement-32x32.png'); ?>" />
 	</head>
 	<body id="<?php echo $this->uri->segment('1'); ?>" class="lock-screen layout layout-vertical layout-left-navigation layout-below-toolbar media-step-xl">
@@ -165,4 +166,5 @@
 			}
 		});
 		</script>
-<?php $this->load->view('include/footer.php'); ?>
+	</body>
+</html>
