@@ -104,6 +104,15 @@ class All_projects extends CI_Controller {
 
 		$this->model_tasks->create_card_tasks($id_project_tasks, $name_card_tasks, $id_tasks_priority, $order_card_tasks);
 	}
+	public function edit_card_tasks()
+	{
+		$id_card_task		= $this->input->post('id_card_task');
+		$name_card_tasks		= $this->input->post('name_card_tasks');
+		$id_tasks_priority		= $this->input->post('id_tasks_priority');
+		$order_card_tasks		= $this->input->post('order_card_tasks');
+
+		$this->model_tasks->update_card_tasks($id_card_task, $name_card_tasks, $id_tasks_priority, $order_card_tasks);
+	}
 	public function delete_card_tasks()
 	{
 		$id_project_tasks		= $this->input->post('id_project_tasks');

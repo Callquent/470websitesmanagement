@@ -282,7 +282,7 @@ class Model_tasks extends CI_Model {
 	{
 		$this->db->where('id_project_tasks', $id_project_tasks)->delete('470websitesmanagement_tasks__project');
 	}
-	function create_card_tasks($id_project_tasks, $name_card_tasks, $id_tasks_priority, $order_card_tasks)
+	function create_card_tasks($id_project_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $order_card_tasks)
 	{
 		if ($this->get_card_tasks_order_max($id_project_tasks) > $order_card_tasks) {
 
@@ -307,9 +307,22 @@ class Model_tasks extends CI_Model {
 		$this->db->insert('470websitesmanagement_tasks__card', $data);
 		return $this->db->insert_id();
 	}
-	function update_card_tasks($id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $id_tasks_status, $order_card_tasks)
+	function update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $id_tasks_status, $order_card_tasks)
 	{
+		if ($this->get_card_tasks_order_max($id_project_tasks) > $order_card_tasks) {
+
+			$this->db->where('id_project_tasks', $id_project_tasks);
+			$this->db->where('order_card_tasks  >=', $order_card_tasks);
+			$query = $this->db->get('470websitesmanagement_tasks__card');
+			
+			foreach ($query->result() as $value) {
+				$this->update_card_tasks($value->id_card_tasks, $value->name_card_tasks, $value->description_card_tasks, $value->id_tasks_priority, $value->id_tasks_status, ++$value->order_card_tasks);
+			}
+		}
+		$this->db->where('id_project_tasks', $id_project_tasks); 
+		$query = $this->db->get('470websitesmanagement_tasks__card');
 		$data = array(
+			'id_project_tasks'			=> $id_project_tasks,
 			'id_card_tasks'				=> $id_card_tasks,
 			'name_card_tasks'			=> $name_card_tasks,
 			'description_card_tasks'	=> $description_card_tasks,

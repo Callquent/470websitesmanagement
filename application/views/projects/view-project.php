@@ -11,9 +11,6 @@
 			<v-layout row wrap>
 				<v-flex hidden-sm-and-down md2>
 					<v-btn color="primary" flat @click="dialog_add_card = true" block>ADD TASK</v-btn>
-					<!-- <a id="add-event-button" class="btn btn-danger btn-fab fuse-ripple-ready" @click="dialog_add_card = true">
-						<i class="icon icon-plus"></i>
-					</a> -->
 					<v-stepper v-model="stepper" non-linear vertical>
 						<template v-for="n in list_card_tasks.length">
 							<v-stepper-step
@@ -48,10 +45,10 @@
 											</template>
 											<v-list>
 												<v-list-item>
-													<v-list-item-title @click="editCard(step)">Editer</v-list-item-title>
+													<v-list-item-title @click="f_editCard(current_card)">Editer</v-list-item-title>
 												</v-list-item>
 												<v-list-item>
-													<v-list-item-title @click="deleteCard(step)">Supprimer</v-list-item-title>
+													<v-list-item-title @click="f_deleteCard(current_card)">Supprimer</v-list-item-title>
 												</v-list-item>
 											</v-list>
 										</v-menu>
@@ -137,7 +134,7 @@
 															<v-card-actions>
 																<div class="flex-grow-1"></div>
 																<v-btn color="blue darken-1" text @click="saveTask()">Save</v-btn>
-																<v-btn color="blue darken-1" text @click="dialog_add_task = false">Cancel</v-btn>
+																<v-btn color="blue darken-1" text @click="closeTask()">Cancel</v-btn>
 															</v-card-actions>
 														</v-card>
 													</v-dialog>
@@ -152,7 +149,7 @@
 											<template v-slot:item.username="props">
 												{{ props.item.username }}
 											</template>
-											<template v-slot:item.actions="props">
+											<template v-slot:item.actions="{ item }">
 												<v-menu bottom left>
 													<template v-slot:activator="{ on }">
 														<v-btn icon v-on="on" color="grey darken-1">
@@ -161,10 +158,10 @@
 													</template>
 													<v-divider></v-divider>
 													<v-list>
-														<v-list-item @click="f_editTask(props.item)">
+														<v-list-item @click="f_editTask(item)">
 															<v-list-item-title id="edit-project" ><?php echo lang('edit') ?></v-list-item-title>
 														</v-list-item>
-														<v-list-item @click="f_deleteTask(props.item)">
+														<v-list-item @click="f_deleteTask(item)">
 															<v-list-item-title id="delete-project"><?php echo lang('delete') ?></v-list-item-title>
 														</v-list-item>
 													</v-list>
@@ -215,11 +212,11 @@
 			<v-container grid-list-md>
 				<v-layout wrap>
 					<v-flex xs12>
-						<v-text-field label="Titre Task"  v-model="newCard.name_card_tasks" required></v-text-field>
+						<v-text-field label="Titre Task"  v-model="editCard.name_card_tasks" required></v-text-field>
 					</v-flex>
 					<v-flex xs12>
 						<v-select
-						v-model="newCard.id_priority"
+						v-model="editCard.id_priority"
 						slot="input"
 						label="Choose Priority"
 						single-line
@@ -230,7 +227,7 @@
 						</v-select>
 					</v-flex>
 					<v-flex xs12>
-						<v-text-field v-model="newCard.order_card_task" type="number" :min="newCard.min" :max="newCard.max" required></v-text-field>
+						<v-text-field v-model="editCard.order_card_tasks" type="number" :min="editCard.min" :max="editCard.max" required></v-text-field>
 					</v-flex>
 				</v-layout>
 			</v-container>
@@ -269,22 +266,32 @@
 				{ text: 'User', value: 'username' },
 				{ text: 'Actions', value: 'actions', sortable: false }
 			],
-			newCard:{
+			editCard:{
 				name_card_tasks:"",
-				order_card_task: <?php echo $order_card_tasks; ?>,
+				order_card_tasks: <?php echo $order_card_tasks; ?>,
 				id_priority:"",
 				min: "1",
 				max: <?php echo $order_card_tasks; ?>,
 			},
-			editCard:[],
+			editedCardIndex: -1,
+			//editCard:[],
 			editedTaskIndex: -1,
 			editTask:{
+				name_task:'',
+				id_user:'',
+			},
+			newTask:{
 				name_task:'',
 				id_user:'',
 			},
 			valueDeterminate: 0,
 		},
 		mixins: [mixin],
+		watch: {
+			dialog_add_task (val) {
+				val || this.closeTask()
+			},
+		},
 		created(){
 			this.displayPage();
 		},
@@ -319,21 +326,37 @@
 					}
 				})
 			},
-			f_createCard(){
+			f_editCard(item){
+				this.editedTaskIndex = this.list_card_tasks.indexOf(item);
+				this.editCard = Object.assign({}, item)
+				this.dialog_add_card = true;
+			},
+			saveCard(){
 				var formData = new FormData();
-				formData.append("name_card_tasks",v.newCard.name_card_tasks);
-				formData.append("id_project_tasks",v.current_project.id_project_tasks);
-				formData.append("id_tasks_priority",v.newCard.id_priority);
-				formData.append("order_card_tasks",v.newCard.order_card_task);
-				axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
-					if(response.status = 200){
-						v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.current_project.id_project_tasks});
-						v.newCard.max = v.newCard.max + 1;
-						v.dialog_add_card = false;
-					}else{
+				formData.append("name_card_tasks",v.editCard.name_card_tasks);
+				formData.append("id_project_tasks",v.editCard.id_project_tasks);
+				formData.append("id_tasks_priority",v.editCard.id_priority);
+				formData.append("order_card_tasks",v.editCard.order_card_tasks);
+				if (this.editedCardIndex > -1) {
+					formData.append("id_card_tasks",this.editCard.id_card_tasks);
+					axios.post(this.currentRoute+"/edit-card-tasks/", formData).then(function(response){
+						if(response.status = 200){
+							Object.assign(v.list_card_tasks[v.editedCardIndex], v.editCard)
+						}else{
 
-					}
-				})
+						}
+					})
+				} else {
+					axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
+						if(response.status = 200){
+							v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.current_project.id_project_tasks});
+							v.newCard.max = v.newCard.max + 1;
+							v.dialog_add_card = false;
+						}else{
+
+						}
+					})
+				}
 			},
 			deleteCard(item){
 				var formData = new FormData();
@@ -399,7 +422,14 @@
 						}
 					})
 				}
+				this.closeTask()
+			},
+			closeTask(){
 				this.dialog_add_task = false;
+		        setTimeout(() => {
+		          this.editTask = Object.assign({}, this.newTask)
+		          this.editedTaskIndex = -1
+		        }, 300)
 			},
 			f_deleteTask(item){
 				var formData = new FormData();
