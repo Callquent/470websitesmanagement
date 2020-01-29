@@ -44,11 +44,11 @@
 												</v-btn>
 											</template>
 											<v-list>
-												<v-list-item>
-													<v-list-item-title @click="f_editCard(current_card)">Editer</v-list-item-title>
+												<v-list-item @click="f_editCard(current_card)">
+													<v-list-item-title>Editer</v-list-item-title>
 												</v-list-item>
-												<v-list-item>
-													<v-list-item-title @click="f_deleteCard(current_card)">Supprimer</v-list-item-title>
+												<v-list-item @click="f_deleteCard(current_card)">
+													<v-list-item-title>Supprimer</v-list-item-title>
 												</v-list-item>
 											</v-list>
 										</v-menu>
@@ -212,11 +212,14 @@
 			<v-container grid-list-md>
 				<v-layout wrap>
 					<v-flex xs12>
-						<v-text-field label="Titre Task"  v-model="editCard.name_card_tasks" required></v-text-field>
+						<v-text-field label="Name Task"  v-model="editCard.name_card_tasks" required></v-text-field>
+					</v-flex>
+					<v-flex xs12>
+						<v-textarea label="Description Task"  v-model="editCard.description_card_tasks" required></v-textarea>
 					</v-flex>
 					<v-flex xs12>
 						<v-select
-						v-model="editCard.id_priority"
+						v-model="editCard.id_tasks_priority"
 						slot="input"
 						label="Choose Priority"
 						single-line
@@ -235,7 +238,7 @@
 		</v-card-text>
 		<v-card-actions>
 			<div class="flex-grow-1"></div>
-			<v-btn color="blue darken-1" text @click="f_createCard()">Save</v-btn>
+			<v-btn color="blue darken-1" text @click="saveCard()">Save</v-btn>
 			<v-btn color="blue darken-1" text @click="dialog_add_card = false">Cancel</v-btn>
 		</v-card-actions>
 		<v-card-actions>
@@ -256,7 +259,7 @@
 			stepper: "",
 			list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
 			list_card_tasks: <?php echo json_encode($all_card_by_project->result_array()); ?>,
-			list_tasks: <?php echo json_encode($all_tasks_by_card->result_array()); ?>,
+			list_tasks: <?php echo json_encode($all_tasks_by_card); ?>,
 			users: <?php echo json_encode($list_users->result_array()); ?>,
 			current_project: <?php echo json_encode($project); ?>,
 			current_card: <?php echo json_encode($card_tasks); ?>,
@@ -266,15 +269,14 @@
 				{ text: 'User', value: 'username' },
 				{ text: 'Actions', value: 'actions', sortable: false }
 			],
+			editedCardBoolean: false,
 			editCard:{
 				name_card_tasks:"",
 				order_card_tasks: <?php echo $order_card_tasks; ?>,
-				id_priority:"",
+				id_tasks_priority:"",
 				min: "1",
 				max: <?php echo $order_card_tasks; ?>,
 			},
-			editedCardIndex: -1,
-			//editCard:[],
 			editedTaskIndex: -1,
 			editTask:{
 				name_task:'',
@@ -290,6 +292,9 @@
 		watch: {
 			dialog_add_task (val) {
 				val || this.closeTask()
+			},
+			dialog_add_card (val) {
+				val || this.closeCard()
 			},
 		},
 		created(){
@@ -327,21 +332,23 @@
 				})
 			},
 			f_editCard(item){
-				this.editedTaskIndex = this.list_card_tasks.indexOf(item);
+				this.editedCardBoolean = true;
 				this.editCard = Object.assign({}, item)
 				this.dialog_add_card = true;
 			},
 			saveCard(){
 				var formData = new FormData();
 				formData.append("name_card_tasks",v.editCard.name_card_tasks);
-				formData.append("id_project_tasks",v.editCard.id_project_tasks);
-				formData.append("id_tasks_priority",v.editCard.id_priority);
+				formData.append("description_card_tasks",v.editCard.description_card_tasks);
+				formData.append("id_project_tasks",v.current_project.id_project_tasks);
+				formData.append("id_tasks_priority",v.editCard.id_tasks_priority);
+				formData.append("id_tasks_status",v.editCard.id_tasks_status);
 				formData.append("order_card_tasks",v.editCard.order_card_tasks);
-				if (this.editedCardIndex > -1) {
+				if (this.editedCardBoolean == true) {
 					formData.append("id_card_tasks",this.editCard.id_card_tasks);
 					axios.post(this.currentRoute+"/edit-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
-							Object.assign(v.list_card_tasks[v.editedCardIndex], v.editCard)
+							Object.assign(v.list_card_tasks[v.editedCardBoolean], v.editCard)
 						}else{
 
 						}
@@ -349,16 +356,17 @@
 				} else {
 					axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
-							v.list_card_tasks.push({name_card_tasks: v.newCard.name_card_tasks,id_card_tasks: v.newCard.id_card_task,id_project_tasks: v.current_project.id_project_tasks});
-							v.newCard.max = v.newCard.max + 1;
+							v.list_card_tasks.push(v.editCard);
+							v.editCard.max = v.editCard.max + 1;
 							v.dialog_add_card = false;
 						}else{
 
 						}
 					})
 				}
+				this.closeCard()
 			},
-			deleteCard(item){
+			f_deleteCard(item){
 				var formData = new FormData();
 				formData.append("id_project_tasks",this.current_project.id_project_tasks);
 				formData.append("id_card_task",this.current_card.id_card_tasks);

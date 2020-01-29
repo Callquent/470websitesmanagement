@@ -51,9 +51,15 @@ class All_projects extends CI_Controller {
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
 
 			$data['all_card_by_project'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks);
-			$data['all_tasks_by_card'] = $this->model_tasks->get_all_tasks_by_card($data['all_card_by_project']->row()->id_card_tasks);
 
-			$data['card_tasks'] = $this->model_tasks->get_card_tasks($data['all_card_by_project']->row()->id_card_tasks);
+			//Si l'identifiant card tasks n'existe pas
+			if (isset($data['all_card_by_project']->row()->id_card_tasks)) {
+				$data['all_tasks_by_card'] = $this->model_tasks->get_all_tasks_by_card($data['all_card_by_project']->row()->id_card_tasks)->result_array();
+				$data['card_tasks'] = $this->model_tasks->get_card_tasks($data['all_card_by_project']->row()->id_card_tasks);
+			} else {
+				$data['all_tasks_by_card'] = array();
+				$data['card_tasks'] = array();
+			}
 
 			$data['order_card_tasks'] = $this->model_tasks->get_card_tasks_order_max($id_project_tasks);
 			
@@ -97,21 +103,25 @@ class All_projects extends CI_Controller {
 	}
 	public function create_card_tasks()
 	{
-		$id_project_tasks		= $this->input->post('id_project_tasks');
-		$name_card_tasks		= $this->input->post('name_card_tasks');
-		$id_tasks_priority		= $this->input->post('id_tasks_priority');
-		$order_card_tasks		= $this->input->post('order_card_tasks');
+		$id_project_tasks			= $this->input->post('id_project_tasks');
+		$name_card_tasks			= $this->input->post('name_card_tasks');
+		$description_card_tasks		= $this->input->post('description_card_tasks');
+		$id_tasks_priority			= $this->input->post('id_tasks_priority');
+		$order_card_tasks			= $this->input->post('order_card_tasks');
 
-		$this->model_tasks->create_card_tasks($id_project_tasks, $name_card_tasks, $id_tasks_priority, $order_card_tasks);
+		$this->model_tasks->create_card_tasks($id_project_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $order_card_tasks);
 	}
 	public function edit_card_tasks()
 	{
-		$id_card_task		= $this->input->post('id_card_task');
-		$name_card_tasks		= $this->input->post('name_card_tasks');
-		$id_tasks_priority		= $this->input->post('id_tasks_priority');
-		$order_card_tasks		= $this->input->post('order_card_tasks');
+		$id_project_tasks			= $this->input->post('id_project_tasks');
+		$id_card_task				= $this->input->post('id_card_task');
+		$name_card_tasks			= $this->input->post('name_card_tasks');
+		$description_card_tasks		= $this->input->post('description_card_tasks');
+		$id_tasks_priority			= $this->input->post('id_tasks_priority');
+		$id_tasks_status			= $this->input->post('id_tasks_status');
+		$order_card_tasks			= $this->input->post('order_card_tasks');
 
-		$this->model_tasks->update_card_tasks($id_card_task, $name_card_tasks, $id_tasks_priority, $order_card_tasks);
+		$this->model_tasks->update_card_tasks($id_project_tasks, $id_card_task, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $id_tasks_status, $order_card_tasks);
 	}
 	public function delete_card_tasks()
 	{
