@@ -79,8 +79,8 @@ class All_projects extends CI_Controller {
 	{
 		$id_project				= $this->input->post('id_project');
 		$name_project			= $this->input->post('name_project');
-		$started_project			= $this->input->post('date_started');
-		$deadline_project				= $this->input->post('date_deadline');
+		$started_project		= $this->input->post('date_started');
+		$deadline_project		= $this->input->post('date_deadline');
 
 		/*if ($this->form_validation->run() !== FALSE){*/
 			$this->model_tasks->update_project($id_project, $name_project, date("Y-m-d", strtotime($started_project)), date("Y-m-d", strtotime($deadline_project)));
@@ -114,14 +114,17 @@ class All_projects extends CI_Controller {
 	public function edit_card_tasks()
 	{
 		$id_project_tasks			= $this->input->post('id_project_tasks');
-		$id_card_task				= $this->input->post('id_card_task');
+		$id_card_tasks				= $this->input->post('id_card_tasks');
 		$name_card_tasks			= $this->input->post('name_card_tasks');
 		$description_card_tasks		= $this->input->post('description_card_tasks');
 		$id_tasks_priority			= $this->input->post('id_tasks_priority');
 		$id_tasks_status			= $this->input->post('id_tasks_status');
 		$order_card_tasks			= $this->input->post('order_card_tasks');
 
-		$this->model_tasks->update_card_tasks($id_project_tasks, $id_card_task, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $id_tasks_status, $order_card_tasks);
+		$this->model_tasks->update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $id_tasks_status, $order_card_tasks);
+		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_card_tasks);
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
 	}
 	public function delete_card_tasks()
 	{

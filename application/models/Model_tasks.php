@@ -291,7 +291,7 @@ class Model_tasks extends CI_Model {
 			$query = $this->db->get('470websitesmanagement_tasks__card');
 			
 			foreach ($query->result() as $value) {
-				$this->update_card_tasks($value->id_card_tasks, $value->name_card_tasks, $value->description_card_tasks, $value->id_tasks_priority, $value->id_tasks_status, ++$value->order_card_tasks);
+				$this->update_card_tasks($value->id_project_tasks, $value->id_card_tasks, $value->name_card_tasks, $value->description_card_tasks, $value->id_tasks_priority, $value->id_tasks_status, ++$value->order_card_tasks);
 			}
 		}
 		$this->db->where('id_project_tasks', $id_project_tasks); 
