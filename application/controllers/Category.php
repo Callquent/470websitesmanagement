@@ -64,7 +64,7 @@ class Category extends CI_Controller {
 		$id_category_new = $this->input->post('id_move_category');
 		$id_category_old = $this->input->post('id_delete_category');
 
-		if ($this->model_category->get_category($id_category_old)->num_rows() == 1){
+		if ($this->model_category->get_category($id_category_old)){
 			$this->model_category->transfert_website_category($id_category_old, $id_category_new);
 			$this->model_category->delete_category($id_category_old);
 		}

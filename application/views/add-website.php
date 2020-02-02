@@ -131,11 +131,9 @@
 										  </div>
 									  </div>
 									</v-form>
-									<div id="results">
+									<div id="message">
 										<v-snackbar v-model="message.success" color="success" :timeout="message.timeout" top right><?php echo lang('website_registered'); ?></v-snackbar>
 										<v-snackbar v-model="message.error" color="error" :timeout="message.timeout" :top="message.y" :left="message.x"><?php echo lang('website_registered'); ?></v-snackbar>
-										<v-alert  type="success"></v-alert>
-										<v-alert v-if="message.error" type="error"><?php echo lang('website_not_registered'); ?></v-alert>
 									</div>
 								</div>
 

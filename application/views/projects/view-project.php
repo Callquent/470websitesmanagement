@@ -10,8 +10,8 @@
 		<v-container fluid grid-list-sm>
 			<v-layout row wrap>
 				<v-flex hidden-sm-and-down md2>
-					<v-btn color="primary" flat @click="dialog_add_card = true" block>ADD TASK</v-btn>
-					<v-stepper v-model="stepper" non-linear vertical>
+					<v-btn color="primary" flat @click="dialog_add_card.show = true" block>ADD TASK</v-btn>
+					<v-stepper v-model="current_step" non-linear vertical>
 						<template v-for="n in list_card_tasks.length">
 							<v-stepper-step
 								@click.native="changeCard(list_card_tasks[n-1].id_card_tasks)"
@@ -172,14 +172,14 @@
 
 
 									<div class="step-navigation hidden-md-and-up">
-										<button class="prevBtn mat-accent white-fg mat-fab" @click="f_prevBtn(--id_card)" v-if="first_step != stepper">
+										<button class="prevBtn mat-accent white-fg mat-fab" @click="f_prevBtn(--id_card)" v-if="first_step != current_step">
 											<span class="mat-button-wrapper">
 												<i class="icon-chevron-left" aria-hidden="true"></i>
 											</span>
 											<div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
 											<div class="mat-button-focus-overlay"></div>
 										</button>
-										<button class="nextBtn mat-accent white-fg mat-fab" @click="f_nextBtn(++id_card)"  v-if="last_step != stepper">
+										<button class="nextBtn mat-accent white-fg mat-fab" @click="f_nextBtn(++id_card)"  v-if="last_step != current_step">
 											<span class="mat-button-wrapper">
 												<i class="icon-chevron-right" aria-hidden="true"></i>
 											</span>
@@ -200,7 +200,7 @@
 	</div>
 </div>
 <v-dialog
-	  v-model="dialog_add_card"
+	  v-model="dialog_add_card.show"
 	  width="500"
 	>
 	<v-card>
@@ -230,7 +230,7 @@
 						</v-select>
 					</v-flex>
 					<v-flex xs12>
-						<v-text-field v-model="editCard.order_card_tasks" type="number" :min="editCard.min" :max="editCard.max" required></v-text-field>
+						<v-text-field v-model="editCard.order_card_tasks" type="number" :min="dialog_add_card.min" :max="dialog_add_card.max" required></v-text-field>
 					</v-flex>
 				</v-layout>
 			</v-container>
@@ -239,7 +239,7 @@
 		<v-card-actions>
 			<div class="flex-grow-1"></div>
 			<v-btn color="blue darken-1" text @click="saveCard()">Save</v-btn>
-			<v-btn color="blue darken-1" text @click="dialog_add_card = false">Cancel</v-btn>
+			<v-btn color="blue darken-1" text @click="dialog_add_card.show = false">Cancel</v-btn>
 		</v-card-actions>
 		<v-card-actions>
 	</v-card>
@@ -252,11 +252,15 @@
 		data : {
 			sidebar:"projects",
 			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
-			dialog_add_card: false,
+			dialog_add_card: {
+				show: false,
+				min: "1",
+				max: <?php echo $order_card_tasks; ?>,
+			},
 			dialog_add_task: false,
 			first_step: 1,
 			last_step: <?php echo json_encode($all_card_by_project->num_rows()); ?>,
-			stepper: "",
+			current_step: "",
 			list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
 			list_card_tasks: <?php echo json_encode($all_card_by_project->result_array()); ?>,
 			list_tasks: <?php echo json_encode($all_tasks_by_card); ?>,
@@ -269,18 +273,16 @@
 				{ text: 'User', value: 'username' },
 				{ text: 'Actions', value: 'actions', sortable: false }
 			],
-			editedCardBoolean: false,
+			editedCardBoolean: -1,
 			editCard:{
-				name_card_tasks:"",
+				name_card_tasks:'',
 				order_card_tasks: <?php echo $order_card_tasks; ?>,
-				id_tasks_priority:"",
-				min: "1",
-				max: <?php echo $order_card_tasks; ?>,
+				id_tasks_priority:'',
 			},
 			editedTaskIndex: -1,
 			editTask:{
 				name_task:'',
-				id_user:'',
+				id_user:''
 			},
 			newTask:{
 				name_task:'',
@@ -293,8 +295,10 @@
 			dialog_add_task (val) {
 				val || this.closeTask()
 			},
-			dialog_add_card (val) {
-				val || this.closeCard()
+			dialog_add_card: {
+				show (val) {
+					val || this.closeCard()
+				}
 			},
 		},
 		created(){
@@ -306,11 +310,11 @@
 				this.valueDeterminate = this.f_isNaN((this.current_card.count_tasks_check_per_card/this.list_tasks.length)*100);
 			},
 			f_prevBtn(id_card) {
-				v.stepper=id_card;
+				v.current_step=id_card;
 				this.changeCard(id_card);
 			},
 			f_nextBtn(id_card) {
-				v.stepper=id_card;
+				v.current_step=id_card;
 				this.changeCard(id_card);
 			},
 			changeCard(id_card_task){
@@ -332,9 +336,13 @@
 				})
 			},
 			f_editCard(item){
-				this.editedCardBoolean = true;
+				this.editedCardBoolean = this.list_card_tasks.map(
+					function (item) {
+           				return _this.getValue(item);
+         			 });
+				//indexOf(item);
 				this.editCard = Object.assign({}, item)
-				this.dialog_add_card = true;
+				this.dialog_add_card.show = true;
 			},
 			saveCard(){
 				var formData = new FormData();
@@ -357,14 +365,20 @@
 					axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
 							v.list_card_tasks.push(v.editCard);
-							v.editCard.max = v.editCard.max + 1;
-							v.dialog_add_card = false;
+							v.dialog_add_card.max++;
 						}else{
 
 						}
 					})
 				}
 				this.closeCard()
+			},
+			closeCard(){
+				this.dialog_add_card.show = false;
+		        setTimeout(() => {
+		          this.editCard = Object.assign({}, this.current_card)
+		          this.editedCardBoolean = false
+		        }, 300)
 			},
 			f_deleteCard(item){
 				var formData = new FormData();
@@ -375,7 +389,7 @@
 						if(response.status = 200){
 							const index = v.list_card_tasks.indexOf(item);
 							v.list_card_tasks.splice(index, 1);
-							v.newCard.max = v.newCard.max - 1
+							v.dialog_add_card.max--;
 						}else{
 
 						}

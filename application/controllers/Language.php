@@ -64,7 +64,7 @@ class Language extends CI_Controller {
 		$id_language_new = $this->input->post('id_move_language');
 		$id_language_old = $this->input->post('id_delete_language');
 
-		if ($this->model_language->get_language($id_language_old)->num_rows() == 1){
+		if ($this->model_language->get_language($id_language_old)){
 			$this->model_language->transfert_website_language($id_language_old, $id_language_new);
 			$this->model_language->delete_language($id_language_old);
 		}

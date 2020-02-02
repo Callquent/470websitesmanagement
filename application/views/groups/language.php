@@ -124,6 +124,8 @@
 		</v-card-actions>
 	  </v-card>
 </v-dialog>
+<v-snackbar v-model="message.success" color="success" :timeout="message.timeout" top right><?php echo lang('language_registered'); ?></v-snackbar>
+<v-snackbar v-model="message.error" color="error" :timeout="message.timeout" :top="message.y" :left="message.x"><?php echo lang('language_registered'); ?></v-snackbar>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 	var v = new Vue({
@@ -146,6 +148,11 @@
 			deleteLanguage:{
 				id_move_language: '',
 				id_delete_language: '',
+			},
+			message:{
+				success: false,
+				error: false,
+				timeout: 6000,
 			},
 		},
 		mixins: [mixin],

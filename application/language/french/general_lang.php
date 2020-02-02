@@ -50,6 +50,8 @@ $lang['login_htaccess'] = "Login Htaccess";
 $lang['password_htaccess'] = "Mot de passe Htaccess";
 
 $lang['website_registered'] = "Votre site web a bien été enregistré !";
+$lang['category_registered'] = "Votre catégorie a bien été enregistré !";
+$lang['language_registered'] = "Votre type de langage web a bien été enregistré !";
 $lang['website_not_registered'] = "Votre nom de domaine n'est pas valide.";
 /*************************/
 /*     add categorie     */

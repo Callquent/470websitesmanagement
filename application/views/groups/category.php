@@ -33,7 +33,10 @@
 														<v-container>
 															<v-row>
 																<v-col cols="12" sm="12" md="12">
-																	<v-text-field v-model="addCategory.name" label="add category"></v-text-field>
+																	<v-text-field
+																	v-model="addCategory.name"
+																	label="add category"
+																	></v-text-field>
 																</v-col>
 															</v-row>
 														</v-container>
@@ -119,11 +122,13 @@
 		</v-card-text>
 		<v-card-actions>
 		  <v-spacer></v-spacer>
-			<v-btn color="blue darken-1" @click="f_deleteCategory()">Save</v-btn>
-			<v-btn color="blue darken-1" @click="dialog = false">Close</v-btn>
+			<v-btn color="blue darken-1" text @click="f_deleteCategory()">Save</v-btn>
+			<v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
 		</v-card-actions>
 	</v-card>
 </v-dialog>
+<v-snackbar v-model="message.success" color="success" :timeout="message.timeout" top right><?php echo lang('category_registered'); ?></v-snackbar>
+<v-snackbar v-model="message.error" color="error" :timeout="message.timeout" :top="message.y" :left="message.x"><?php echo lang('category_registered'); ?></v-snackbar>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
 	var v = new Vue({
@@ -147,6 +152,11 @@
 				id_move_category: '',
 				id_delete_category: '',
 			},
+			message:{
+				success: false,
+				error: false,
+				timeout: 6000,
+			},
 		},
 		mixins: [mixin],
 		created(){
@@ -160,6 +170,7 @@
 				var formData = new FormData(); 
 				formData.append("category",v.addCategory.name);
 				axios.post(this.currentRoute+"/add-category/", formData).then(function(response){
+					v.message.success = true;
 					v.dialog_add_category = false;
 					v.list_category.push(response.data);
 				})
