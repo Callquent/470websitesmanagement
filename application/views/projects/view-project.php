@@ -18,7 +18,7 @@
 								:step="n"
 								:edit-icon="'check'"
 								editable
-								:complete="list_card_tasks[n-1].name_tasks_status=='completed' ? true : false"
+								:complete="list_card_tasks[n-1].tasks_status.name_tasks_status=='completed' ? true : false"
 								>
 								<span>{{ list_card_tasks[n-1].name_card_tasks }}</span>
 							</v-stepper-step>
@@ -254,7 +254,7 @@
 			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
 			dialog_add_card: {
 				show: false,
-				min: "1",
+				min: 1,
 				max: <?php echo $order_card_tasks; ?>,
 			},
 			dialog_add_task: false,
@@ -273,11 +273,17 @@
 				{ text: 'User', value: 'username' },
 				{ text: 'Actions', value: 'actions', sortable: false }
 			],
-			editedCardBoolean: -1,
+			editedCardIndex: -1,
 			editCard:{
 				name_card_tasks:'',
 				order_card_tasks: <?php echo $order_card_tasks; ?>,
 				id_tasks_priority:'',
+			},
+			newCard:{
+				name_card_tasks:'',
+				description_card_tasks:'',
+				id_tasks_priority:'',
+				order_card_tasks:'',
 			},
 			editedTaskIndex: -1,
 			editTask:{
@@ -296,9 +302,10 @@
 				val || this.closeTask()
 			},
 			dialog_add_card: {
-				show (val) {
-					val || this.closeCard()
-				}
+				handler: function(val) {
+					val.show || this.closeCard()
+				},
+				deep: true
 			},
 		},
 		created(){
@@ -336,11 +343,11 @@
 				})
 			},
 			f_editCard(item){
-				this.editedCardBoolean = this.list_card_tasks.map(
-					function (item) {
-           				return _this.getValue(item);
-         			 });
-				//indexOf(item);
+				this.editedCardIndex = this.list_card_tasks.map(
+					function (e) {
+           				return e.id_card_tasks;
+         			 }
+         		).indexOf(item.id_card_tasks);
 				this.editCard = Object.assign({}, item)
 				this.dialog_add_card.show = true;
 			},
@@ -352,11 +359,11 @@
 				formData.append("id_tasks_priority",v.editCard.id_tasks_priority);
 				formData.append("id_tasks_status",v.editCard.id_tasks_status);
 				formData.append("order_card_tasks",v.editCard.order_card_tasks);
-				if (this.editedCardBoolean == true) {
+				if (this.editedCardIndex > -1) {
 					formData.append("id_card_tasks",this.editCard.id_card_tasks);
 					axios.post(this.currentRoute+"/edit-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
-							Object.assign(v.list_card_tasks[v.editedCardBoolean], v.editCard)
+							Object.assign(v.list_card_tasks[v.editedCardIndex], v.editCard)
 						}else{
 
 						}
@@ -376,14 +383,14 @@
 			closeCard(){
 				this.dialog_add_card.show = false;
 		        setTimeout(() => {
-		          this.editCard = Object.assign({}, this.current_card)
-		          this.editedCardBoolean = false
+		          this.editCard = Object.assign({}, this.newCard)
+		          this.editedCardIndex = -1
 		        }, 300)
 			},
 			f_deleteCard(item){
 				var formData = new FormData();
 				formData.append("id_project_tasks",this.current_project.id_project_tasks);
-				formData.append("id_card_task",this.current_card.id_card_tasks);
+				formData.append("id_card_task",this.editCard.id_card_tasks);
 				if (confirm('Are you sure you want to delete this item?') == true) {
 					axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
@@ -403,8 +410,8 @@
 				formData.append("check_tasks",(item.check_tasks));
 				axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
 					if(response.status = 200){
-						v.editCard = response.data.list_tasks;
-						Object.assign(v.list_tasks, v.editCard);
+						v.current_card = response.data.list_tasks;
+						Object.assign(v.list_tasks, v.current_card);
 						if (response.data.check_tasks == 0) {
 							v.current_card.count_tasks_check_per_card--
 						} else {

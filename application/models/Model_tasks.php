@@ -2,7 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_tasks extends CI_Model {
-	const CHECKED_TASK = 1;  
+	const NOT_CHECKED_TASK = 0;
+	const CHECKED_TASK = 1;
 	function get_all_projects($id_user = "")
 	{
 		if (empty($id_user)) {
@@ -26,22 +27,6 @@ class Model_tasks extends CI_Model {
 		}
 		return $query;
 	}
-	/*function get_all_projects_to_user($id_user)
-	{
-		$this->db->select('470websitesmanagement_tasks__project.id_project_tasks, 470websitesmanagement_tasks__project.name_project_tasks, name_website, started_project_tasks, deadline_project_tasks')
-				 ->from('470websitesmanagement_tasks__project')
-				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
-				 ->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.id_website')
-				 ->where('470websitesmanagement_tasks.id_user', $id_user)
-				 ->group_by(array('470websitesmanagement_tasks__project.id_project_tasks', '470websitesmanagement_tasks__project.name_project_tasks'));
-
-		$query = $this->db->get();
-		foreach ($query->result() as $value) {
-			$value->percentage_tasks = $this->get_percentage_user($value->id_project_tasks, $id_user)->row()->percentage;
-			$value->priority_project_tasks = $this->get_all_tasks_priority_to_user($id_user, $value->id_project_tasks)->row();
-		}
-		return $query;
-	}*/
 	function get_project($id_project_tasks)
 	{
 		$this->db->select('*')
@@ -72,8 +57,6 @@ class Model_tasks extends CI_Model {
 	{
 			$this->db->select('*')
 					->from('470websitesmanagement_tasks__card')
-					/*->join('470websitesmanagement_tasks__status', '470websitesmanagement_tasks__card.id_tasks_status = 470websitesmanagement_tasks__status.id_tasks_status')
-					->join('470websitesmanagement_tasks__priority', '470websitesmanagement_tasks__card.id_tasks_priority = 470websitesmanagement_tasks__priority.id_tasks_priority')*/
 					->where('470websitesmanagement_tasks__card.id_project_tasks', $id_project_tasks)
 					->order_by("470websitesmanagement_tasks__card.order_card_tasks", "asc");
 					
@@ -87,11 +70,13 @@ class Model_tasks extends CI_Model {
 
 			$query = $this->db->get();
 			foreach ($query->result() as $value) {
+				$value->tasks_priority = $this->get_tasks_priority($value->id_tasks_priority);
+				$value->tasks_status = $this->get_tasks_status($value->id_tasks_status);
 				$value->count_tasks_check_per_card = $this->get_tasks_user_per_card_task($value->id_card_tasks,"",self::CHECKED_TASK)->num_rows();
 			}
 			return $query;
 	}
-	function get_all_tasks_by_card($id_card_tasks)
+	function get_all_tasks_by_card($id_card_tasks, $id_user = "")
 	{
 		$this->db->select('*, 470websitesmanagement_users.username as name_user')
 				 ->from('470websitesmanagement_tasks')
@@ -101,6 +86,31 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	/************/
+		function get_all_tasks_per_users()
+	{
+		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, 470websitesmanagement_users.username, 470websitesmanagement_users.email, SUM(IF(check_tasks = "0", 1,0)) as all_tasks_progress_user, SUM(IF(check_tasks = "1", 1,0)) as all_tasks_completed_user')
+				 ->from('470websitesmanagement_tasks')
+				 ->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
+				 ->group_by(array('470websitesmanagement_tasks.id_user','470websitesmanagement_users.username'));
+
+		$query = $this->db->get();
+		foreach ($query->result() as $value) {
+			$value->priority_project_tasks = $this->get_all_tasks_priority_to_user($value->id_user)->row();
+		}
+		return $query;
+	}
+	/************/
+	function get_tasks_status($id_tasks_status)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_tasks__status')
+				 ->where('id_tasks_status', $id_tasks_status)
+				 ->limit(1);
+
+		$query = $this->db->get();
+		return $query->row();
+	}
 	function get_all_tasks_status()
 	{
 		$this->db->select('*')
@@ -108,6 +118,16 @@ class Model_tasks extends CI_Model {
 
 		$query = $this->db->get();
 		return $query;
+	}
+	function get_tasks_priority($id_tasks_priority)
+	{
+		$this->db->select('*')
+				 ->from('470websitesmanagement_tasks__priority')
+				 ->where('id_tasks_priority', $id_tasks_priority)
+				 ->limit(1);
+
+		$query = $this->db->get();
+		return $query->row();
 	}
 	function get_all_tasks_priority()
 	{
@@ -117,7 +137,22 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	//
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
+	function count_tasks_per_user($id_user)
+	{
+		$this->db->select('count(*) as count_tasks_per_user')
+				 ->from('470websitesmanagement_tasks')
+				 ->where('470websitesmanagement_tasks.id_user', $id_user)
+				 ->where_in('check_tasks', self::NOT_CHECKED_TASK); 
+
+		$query = $this->db->get();
+		return $query;
+	}
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
 	private function get_tasks_user_per_card_task($id_card_tasks,$id_user="",$check_tasks="")
 	{
 		$this->db->select('*')
@@ -144,16 +179,6 @@ class Model_tasks extends CI_Model {
 				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_task = 470websitesmanagement_tasks__hours.id_task')
 				 ->where('470websitesmanagement_tasks.id_card_tasks', $id_card_tasks)
 				 ->where('470websitesmanagement_tasks.id_user', $id_user); 
-
-		$query = $this->db->get();
-		return $query;
-	}
-	function count_tasks_per_user($id_user)
-	{
-		$this->db->select('count(*) as count_tasks_per_user')
-				 ->from('470websitesmanagement_tasks')
-				 ->where('470websitesmanagement_tasks.id_user', $id_user)
-				 ->where_in('check_tasks', "0"); 
 
 		$query = $this->db->get();
 		return $query;
@@ -207,19 +232,6 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_all_tasks_per_users()
-	{
-		$this->db->select('count(*) as all_tasks_user, 470websitesmanagement_tasks.id_user, 470websitesmanagement_users.username, 470websitesmanagement_users.email, SUM(IF(check_tasks = "0", 1,0)) as all_tasks_progress_user, SUM(IF(check_tasks = "1", 1,0)) as all_tasks_completed_user')
-				 ->from('470websitesmanagement_tasks')
-				 ->join('470websitesmanagement_users', '470websitesmanagement_users.id = 470websitesmanagement_tasks.id_user')
-				 ->group_by(array('470websitesmanagement_tasks.id_user','470websitesmanagement_users.username'));
-
-		$query = $this->db->get();
-		foreach ($query->result() as $value) {
-			$value->priority_project_tasks = $this->get_all_tasks_priority_to_user($value->id_user)->row();
-		}
-		return $query;
-	}
 	function get_all_tasks_priority_per_users($id_project_tasks,$id_user=1)
 	{
 		$this->db->select('SUM(CASE WHEN id_tasks_priority = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_tasks_priority = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_tasks_priority = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_tasks_priority = "4", 1,0)) as all_tasks_critical_user')
@@ -231,6 +243,9 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
 	function get_card_tasks_order_max($id_project_tasks)
 	{
 		$this->db->select('order_card_tasks')

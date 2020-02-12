@@ -1,8 +1,69 @@
 <?php $this->load->view('include/header.php'); ?>
 <div class="content custom-scrollbar">
   <div class="page-layout simple full-width">
-    <div class="page-content">
-	  
+	<div class="page-content">
+
+	  <v-container fluid grid-list-sm>
+	    <v-layout row wrap>
+	    	<v-flex>
+	    				  		<v-card>
+	                <template>
+						<v-data-table
+						    :headers="headers"
+						    :items="list_tasks_per_user"
+						    class="elevation-1"
+						    :items-per-page="-1"
+							:footer-props="{
+							'items-per-page-options': [10, 20, 30, 40, 50]
+							}"
+						>
+							<template v-slot:item.username="props">
+						    	{{ props.item.username }}
+							</template>
+							<template v-slot:item.all_tasks_progress_user="props">
+								<v-chip color="orange" text-color="white" label>
+									<span>{{ props.item.all_tasks_progress_user }}</span>
+								</v-chip>
+							</template>
+							<template v-slot:item.all_tasks_completed_user="props">
+								<v-chip color="green" text-color="white" label>
+									<span>{{ props.item.all_tasks_completed_user }}</span>
+								</v-chip>
+							</template>
+							<template v-slot:item.all_tasks_user="props">
+								<v-chip color="teal" text-color="white" label>
+									<span>{{ props.item.all_tasks_user }}</span>
+								</v-chip>
+							</template>
+							<template v-slot:item.priority_project_tasks.all_tasks_critical_user="props">
+								<v-chip color="teal" text-color="white" label>
+									<span>{{ props.item.priority_project_tasks.all_tasks_critical_user }}</span>
+								</v-chip>
+							</template>
+							<template v-slot:item.email="props">
+								{{ props.item.email }}
+							</template>
+							<template v-slot:item.actions="props">
+								<v-menu bottom left>
+									<template v-slot:activator="{ on }">
+										<v-btn icon v-on="on" color="grey darken-1">
+											<v-icon>mdi-dots-vertical</v-icon>
+										</v-btn>
+									</template>
+									<v-divider></v-divider>
+									<v-list>
+										<v-list-item :href="'mailto:'+props.item.email">
+											<v-list-item-title id="view-project" >Email</v-list-item-title>
+										</v-list-item>
+									</v-list>
+								</v-menu>
+						    </template>
+						</v-data-table>
+	                </template>
+	            </v-card>
+	    	</v-flex>
+	    </v-layout>
+	</v-container>
 	  <section id="main-content">
 		  <section class="wrapper">
 
@@ -69,19 +130,35 @@
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-  $(document).ready(function(){
-	  var users_tasksTable = $('#table-users-tasks').dataTable({
-	  "columnDefs": [{ // set default column settings
-				'orderable': true,
-				'targets': [0]
-			}, {
-				"searchable": true,
-				"targets": [0]
-			}],
-			"order": [
-				[0, "asc"]
-			]
-		});
-  });
+	var v = new Vue({
+		el: '#app',
+		vuetify: new Vuetify(),
+		data : {
+			sidebar:"projects",
+			menu1: false,
+			menu2: false,
+		    dialog_add_project: false,
+			currentRoute: window.location.href,
+			headers: [
+				{ text: '<?php echo lang('name'); ?>', value: 'username' },
+				{ text: 'Tasks Progress', value: 'all_tasks_progress_user' },
+				{ text: 'Tasks Completed', value: 'all_tasks_completed_user' },
+				{ text: 'All Tasks', value: 'all_tasks_user' },
+				{ text: 'Tasks Priority', value: 'progress' },
+				{ text: 'Email', value: 'email' },
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions'},
+			],
+			list_tasks_per_user: <?php echo json_encode($all_tasks_per_user->result_array()); ?>,
+		},
+		mixins: [mixin],
+		created(){
+			this.displayPage();
+		},
+		methods:{
+			displayPage(){
+
+			},
+		}
+	});
 </script>
 <?php $this->load->view('include/footer.php'); ?>
