@@ -35,10 +35,11 @@
 									<span>{{ props.item.all_tasks_user }}</span>
 								</v-chip>
 							</template>
-							<template v-slot:item.priority_project_tasks.all_tasks_critical_user="props">
-								<v-chip color="teal" text-color="white" label>
-									<span>{{ props.item.priority_project_tasks.all_tasks_critical_user }}</span>
-								</v-chip>
+							<template v-slot:item.priority_project_tasks="props">
+								{{ props.item.priority_project_tasks.all_tasks_critical_user }}
+								{{ props.item.priority_project_tasks.all_tasks_hight_user }}
+								{{ props.item.priority_project_tasks.all_tasks_medium_user }}
+								{{ props.item.priority_project_tasks.all_tasks_low_user }}
 							</template>
 							<template v-slot:item.email="props">
 								{{ props.item.email }}
@@ -144,7 +145,7 @@
 				{ text: 'Tasks Progress', value: 'all_tasks_progress_user' },
 				{ text: 'Tasks Completed', value: 'all_tasks_completed_user' },
 				{ text: 'All Tasks', value: 'all_tasks_user' },
-				{ text: 'Tasks Priority', value: 'progress' },
+				{ text: 'Tasks Priority', value: 'priority_project_tasks' },
 				{ text: 'Email', value: 'email' },
 				{ text: '<?php echo lang("actions"); ?>', value: 'actions'},
 			],
