@@ -11,7 +11,7 @@
 			<v-layout row wrap>
 				<v-flex hidden-sm-and-down md2>
 					<v-btn color="primary" flat @click="dialog_add_card.show = true" block>ADD TASK</v-btn>
-					<v-stepper v-model="current_step" non-linear vertical>
+					<v-stepper v-model="step.current_step" non-linear vertical>
 						<template v-for="n in list_card_tasks.length">
 							<v-stepper-step
 								@click.native="changeCard(list_card_tasks[n-1].id_card_tasks)"
@@ -178,14 +178,14 @@
 
 
 									<div class="step-navigation hidden-md-and-up">
-										<button class="prevBtn mat-accent white-fg mat-fab" @click="f_prevBtn(--id_card)" v-if="first_step != current_step">
+										<button class="prevBtn mat-accent white-fg mat-fab" @click="f_prevBtn(--id_card)" v-if="step.first_step != step.current_step">
 											<span class="mat-button-wrapper">
 												<i class="icon-chevron-left" aria-hidden="true"></i>
 											</span>
 											<div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
 											<div class="mat-button-focus-overlay"></div>
 										</button>
-										<button class="nextBtn mat-accent white-fg mat-fab" @click="f_nextBtn(++id_card)"  v-if="last_step != current_step">
+										<button class="nextBtn mat-accent white-fg mat-fab" @click="f_nextBtn(++id_card)"  v-if="step.last_step != step.current_step">
 											<span class="mat-button-wrapper">
 												<i class="icon-chevron-right" aria-hidden="true"></i>
 											</span>
@@ -244,7 +244,7 @@
 		el: '#app',
 		vuetify: new Vuetify(),
 		data : {
-			sidebar:"projects",
+			sidebar:'projects',
 			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
 			dialog_add_card: {
 				show: false,
@@ -252,15 +252,18 @@
 				max: <?php echo $order_card_tasks; ?>,
 			},
 			dialog_add_task: false,
-			first_step: 1,
-			last_step: <?php echo json_encode($all_card_by_project->num_rows()); ?>,
-			current_step: "",
+			step: {
+				first_step: 1,
+				last_step: <?php echo json_encode($all_card_by_project->num_rows()); ?>,
+				current_step: '',
+			},
 			list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
 			list_card_tasks: <?php echo json_encode($all_card_by_project->result_array()); ?>,
 			list_tasks: <?php echo json_encode($all_tasks_by_card); ?>,
 			users: <?php echo json_encode($list_users->result_array()); ?>,
 			current_project: <?php echo json_encode($project); ?>,
 			current_card: <?php echo json_encode($card_tasks); ?>,
+			current_order_card_tasks: <?php echo $order_card_tasks; ?>,
 			headers: [
 				{ text: '', value: 'check_tasks', sortable: false},
 				{ text: 'Name Task', value: 'name_task', sortable: false},
@@ -271,14 +274,14 @@
 			editedCardIndex: -1,
 			editCard:{
 				name_card_tasks:'',
-				order_card_tasks: <?php echo $order_card_tasks; ?>,
+				order_card_tasks:this.current_order_card_tasks,
 				id_tasks_priority:'',
 			},
 			newCard:{
 				name_card_tasks:'',
 				description_card_tasks:'',
 				id_tasks_priority:'',
-				order_card_tasks:'',
+				order_card_tasks:this.current_order_card_tasks,
 			},
 			editedTaskIndex: -1,
 			editTask:{
@@ -312,11 +315,11 @@
 				this.valueDeterminate = this.f_isNaN((this.current_card.count_tasks_check_per_card/this.list_tasks.length)*100);
 			},
 			f_prevBtn(id_card) {
-				v.current_step=id_card;
+				v.step.current_step=id_card;
 				this.changeCard(id_card);
 			},
 			f_nextBtn(id_card) {
-				v.current_step=id_card;
+				v.step.current_step=id_card;
 				this.changeCard(id_card);
 			},
 			changeCard(id_card_task){
@@ -377,14 +380,15 @@
 			closeCard(){
 				this.dialog_add_card.show = false;
 		        setTimeout(() => {
-		          this.editCard = Object.assign({}, this.newCard)
-		          this.editedCardIndex = -1
+					this.current_order_card_tasks = this.editCard.order_card_tasks;
+					this.editCard = Object.assign({}, this.newCard)
+					this.editedCardIndex = -1
 		        }, 300)
 			},
 			f_deleteCard(item){
 				var formData = new FormData();
 				formData.append("id_project_tasks",this.current_project.id_project_tasks);
-				formData.append("id_card_task",this.editCard.id_card_tasks);
+				formData.append("id_card_task",this.current_card.id_card_tasks);
 				if (confirm('Are you sure you want to delete this item?') == true) {
 					axios.post(this.currentRoute+"/delete-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
