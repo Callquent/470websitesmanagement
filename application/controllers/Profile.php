@@ -41,11 +41,11 @@ class Profile extends CI_Controller {
 	{
 		$data['user'] = $this->aauth->get_user();
 
-		$this->form_validation->set_rules('newpassword', 'NewPassword', 'trim|required');
+		$this->form_validation->set_rules('new_password', 'NewPassword', 'trim|required');
 
 		/*$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[32]');*/
 
-		$u_newpassword = $this->input->post('newpassword');
+		$u_newpassword = $this->input->post('new_password');
 
 		$this->aauth->reset_password($data['user']->id, $u_newpassword);
 		$this->aauth->update_user($data['user']->id, FALSE, $u_newpassword, FALSE);

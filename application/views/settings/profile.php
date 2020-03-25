@@ -30,15 +30,26 @@
 								 <h1><?php echo $user->username; ?></h1>
 								 <span class="text-muted"><?php echo lang('date_create_profile'); ?><?php echo $user->date_created; ?></span>
 								<div class="change-password">
-								  <form action="<?php echo site_url('profile/change-password'); ?>" method="post" id="changepassword-form" class="form-horizontal" role="form">
-									<input class="form-control input-lg" name="newpassword" placeholder="<?php echo lang('enter_new_password'); ?>" type="password">
-									<button class="btn btn-primary" type="submit"><?php echo lang('modify'); ?></button>
+									<v-card-text>
+										<v-container>
+											<v-row>
+												<v-col cols="12" sm="12" md="12">
+													<v-text-field v-model="newpassword" label="<?php echo lang("enter_new_password"); ?>" type="password"></v-text-field>
+												</v-col>
+											</v-row>
+										</v-container>
+									</v-card-text>
+									<input class="form-control input-lg" name="newpassword">
+									<v-card-actions>
+										<div class="flex-grow-1"></div>
+										<v-btn color="blue darken-1" flat @click="f_changePassword()"><?php echo lang('modify'); ?></v-btn>
+									</v-card-actions>
+									<button class="btn btn-primary" type="submit" ><?php echo lang('modify'); ?></button>
 									<?php if($this->session->flashdata('success')){ ?>
 									<div class="alert alert-success">
 									  <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
 									</div>
 									<?php } ?>
-								  </form>
 								</div>
 							 </div>
 						 </div>
@@ -61,20 +72,32 @@
 </div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-  $(document).ready(function(){
-	  $("#changepassword-form").submit(function(e){
-		$.ajax({
-		  type: "POST",
-		  url: $(this).attr('action'),
-		  data:$(this).serialize(),
-		  success: function(msg){
-		  },
-		  error: function(msg){
-			console.log(msg.responseText);
-		  }
-		});
-		e.preventDefault();
-	  });
-  });
+    var v = new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data : {
+            sidebar:"general",
+            currentRoute: window.location.href,
+            newpassword: "",
+        },
+        mixins: [mixin],
+        created(){
+            this.displayPage();
+        },
+        methods:{
+            displayPage(){
+
+            },
+            f_changePassword(){
+                var formData = new FormData(); 
+                formData.append("newpassword",v.newpassword);
+                axios.post(this.currentRoute+"/change-password/", formData).then(function(response){
+                    if(response.status = 200){
+                    	console.log(msg.responseText);
+                    }
+                })
+            }
+        }
+    });
 </script>
 <?php $this->load->view('include/footer.php'); ?>
