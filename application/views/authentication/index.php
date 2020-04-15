@@ -17,7 +17,7 @@
 				<v-app>
 					<v-container fluid fill-height>
 						<v-row>
-	        				<v-col cols="12">
+							<v-col cols="12">
 								<v-card
 								max-width="500"
 								class="d-flex align-content-center flex-wrap mx-auto pa-12"
@@ -69,49 +69,48 @@
 									</v-card-actions>
 								</v-card>
 								<v-dialog v-model="dialog_remindpassword" width="800">
-								    <v-card>
-								        <v-card-title class="headline green lighten-2" primary-title>
-								            Forgot Password ?
-								        </v-card-title>
-								        <v-card-text>
-								            <v-container grid-list-md>
-								                <v-layout wrap>
-								                    <v-flex xs12>
-								                        <v-text-field label="Email" v-model="email_reset" required></v-text-field>
-								                    </v-flex>
-								                </v-layout>
-								            </v-container>
-								            <small>*indicates required field</small>
-								        </v-card-text>
-								        <v-card-actions>
-								            <v-spacer></v-spacer>
-								            <v-btn color="primary" flat @click="f_remindPassword()">Save</v-btn>
-								            <v-btn color="primary" flat @click="dialog_remindpassword = false">Close</v-btn>
-								        </v-card-actions>
-								    </v-card>
+									<v-card>
+										<v-card-title class="headline green lighten-2 white--text" primary-title>
+											Forgot Password ?
+										</v-card-title>
+										<v-card-text>
+											<v-container grid-list-md>
+												<v-layout wrap>
+													<v-flex xs12>
+														<v-text-field label="Email" v-model="email_reset" required></v-text-field>
+													</v-flex>
+												</v-layout>
+											</v-container>
+											<small>*indicates required field</small>
+										</v-card-text>
+										<v-card-actions>
+											<v-spacer></v-spacer>
+											<v-btn color="success" flat @click="f_remindPassword()">Save</v-btn>
+											<v-btn color="error" flat @click="dialog_remindpassword = false">Close</v-btn>
+										</v-card-actions>
+									</v-card>
 								</v-dialog>
 								<v-dialog v-model="dialog_resetpassword" width="800">
-								    <v-card>
-								        <v-card-title class="headline green lighten-2" primary-title>
-								            Forgot Password Verification ?
-								        </v-card-title>
-								        <v-card-text>
-								            <v-container grid-list-md>
-								                <v-layout wrap>
-								                    <v-flex xs12>
-								                        <v-text-field label="Code verification" v-model="code_reset" required></v-text-field>
-								                    </v-flex>
-								                </v-layout>
-								            </v-container>
-								            <small>*indicates required field</small>
-								        </v-card-text>
-								        <v-card-actions>
-								            <v-spacer></v-spacer>
-								            <v-btn color="primary" flat @click="f_resetPassword()">Save</v-btn>
-								            <v-btn color="primary" flat @click="dialog_remindpassword = false">Close</v-btn>
-
-								        </v-card-actions>
-								    </v-card>
+									<v-card>
+										<v-card-title class="headline green lighten-2 white--text" primary-title>
+											Forgot Password Verification ?
+										</v-card-title>
+										<v-card-text>
+											<v-container grid-list-md>
+												<v-layout wrap>
+													<v-flex xs12>
+														<v-text-field label="Code verification" v-model="code_reset" required></v-text-field>
+													</v-flex>
+												</v-layout>
+											</v-container>
+											<small>*indicates required field</small>
+										</v-card-text>
+										<v-card-actions>
+											<v-spacer></v-spacer>
+											<v-btn color="success" flat @click="f_resetPassword()">Save</v-btn>
+											<v-btn color="error" flat @click="dialog_remindpassword = false">Close</v-btn>
+										</v-card-actions>
+									</v-card>
 								</v-dialog>
 							</v-col>
 						</v-row>

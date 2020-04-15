@@ -44,7 +44,7 @@ h1 {
 /***********************/
 /*      DIALOG       */
 /***********************/
-.v-dialog__content {top: 64px;left: 276px;width: calc(100% - 276px)}
+body:not(.lock-screen) .v-dialog__content {top: 64px;left: 276px;width: calc(100% - 276px)}
 /***********************/
 /*      SNACKBAR       */
 /***********************/

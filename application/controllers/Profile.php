@@ -47,8 +47,8 @@ class Profile extends CI_Controller {
 
 		$u_newpassword = $this->input->post('new_password');
 
-		$this->aauth->reset_password($data['user']->id, $u_newpassword);
+		//$this->aauth->reset_password($data['user']->id, $u_newpassword);
 		$this->aauth->update_user($data['user']->id, FALSE, $u_newpassword, FALSE);
-		echo json_encode("Le mot de passe de votre profil est à jour");
+		//echo json_encode("Le mot de passe de votre profil est à jour");
 	}
 }

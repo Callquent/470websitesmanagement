@@ -2,7 +2,18 @@
 <div class="content custom-scrollbar">
 	<div class="page-layout simple full-width">
 		<div class="page-header bg-secondary text-auto p-6 row no-gutters align-items-center justify-content-between">
-			<h2 class="doc-title" id="content">{{ current_project.name_project_tasks }}</h2>
+			<v-row no-gutters>
+				<v-col md="3">
+					<h2 class="doc-title" id="content">{{ current_project.name_project_tasks }}</h2>
+				</v-col>
+				<v-col md="3" offset-md="6">
+					<span class="display-1 no-margin"><?php echo lang('time_spent'); ?></span>
+					<span class="no-margin"><?php echo $datetimestart; ?> <?php echo lang('days'); ?></span>
+					<br/>
+					<span class="display-1 no-margin m-t-5"><?php echo lang('remaining_time'); ?></span>
+					<span class="no-margin m-t-5"><?php echo $datetimedeadline; ?> <?php echo lang('days'); ?></span>
+				</v-col>
+			</v-row>
 			<v-progress-linear :value="current_project.percentage_tasks" height="25">
 				<strong>{{ Math.ceil(current_project.percentage_tasks) }}%</strong>
 			</v-progress-linear>
@@ -232,8 +243,8 @@
 		</v-card-text>
 		<v-card-actions>
 			<div class="flex-grow-1"></div>
-			<v-btn color="blue darken-1" text @click="saveCard()">Save</v-btn>
-			<v-btn color="blue darken-1" text @click="dialog_add_card.show = false">Cancel</v-btn>
+			<v-btn color="blue" text @click="saveCard()">Save</v-btn>
+			<v-btn color="blue" text @click="dialog_add_card.show = false">Cancel</v-btn>
 		</v-card-actions>
 		<v-card-actions>
 	</v-card>

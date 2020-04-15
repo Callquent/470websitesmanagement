@@ -154,3 +154,7 @@ $lang['notice'] = "Documentation";
 /***********************/
 $lang['group_members'] = "Group Members";
 $lang['permission_group_members'] = "Permission Group Members";
+/***********************/
+/*    Profile    */
+/***********************/
+$lang['your_password_modify'] = "Votre mot de passe a été modifier";

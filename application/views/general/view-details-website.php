@@ -56,36 +56,34 @@
 																
 																	<v-card-actions>
 																		<div class="flex-grow-1"></div>
-																		<v-btn color="blue darken-1" flat @click="saveFTP()">Save</v-btn>
-																		<v-btn color="blue darken-1" flat @click="closeFTP()">Cancel</v-btn>
+																		<v-btn color="primary" text @click="saveFTP()">Save</v-btn>
+																		<v-btn color="primary" text @click="closeFTP()">Cancel</v-btn>
 																	</v-card-actions>
 																</v-card>
 															</v-dialog>
 														</v-toolbar>
 													</template>
 												<?php } ?>
-												<template slot="items" slot-scope="props">
-													<td>{{ props.item.host_ftp }}</td>
-													<td>{{ props.item.login_ftp }}</td>
-													<td>{{ props.item.password_ftp }}</td>
-													<td>
-														<v-menu bottom left>
-															<template v-slot:activator="{ on }">
-																<v-btn flat icon v-on="on" color="grey darken-1">
-																	<v-icon>mdi-dots-vertical</v-icon>
-																</v-btn>
-															</template>
-
-															<v-list>
-																<v-list-tile @click="f_editFtp(props.item)">
-																		<v-list-tile-title><?php echo lang('edit') ?></v-list-tile-title>
-																</v-list-tile>
-																<v-list-tile @click="f_deleteFtp(props.item)">
-																		<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
-																</v-list-tile>
-															</v-list>
-														</v-menu>
-													</td>
+												<template v-slot:item.host_ftp="props">{{ props.item.host_ftp }}</template>
+												<template v-slot:item.login_ftp="props">{{ props.item.login_ftp }}</template>
+												<template v-slot:item.password_ftp="props">{{ props.item.password_ftp }}</template>
+												<template v-slot:item.actions="props">
+													<v-menu bottom left>
+														<template v-slot:activator="{ on }">
+															<v-btn icon v-on="on" color="grey darken-1">
+																<v-icon>mdi-dots-vertical</v-icon>
+															</v-btn>
+														</template>
+														<v-divider></v-divider>
+														<v-list>
+															<v-list-item @click="f_editFtp(props.item)">
+																	<v-list-item-title><?php echo lang('edit') ?></v-list-item-title>
+															</v-list-item>
+															<v-list-item @click="f_deleteFtp(props.item)">
+																	<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+															</v-list-item>
+														</v-list>
+													</v-menu>
 												</template>
 											</v-data-table>
 										</section>
@@ -130,37 +128,35 @@
 																
 																	<v-card-actions>
 																		<div class="flex-grow-1"></div>
-																		<v-btn color="blue darken-1" flat @click="saveDatabase()">Save</v-btn>
-																		<v-btn color="blue darken-1" flat @click="closeDatabase()">Cancel</v-btn>
+																		<v-btn color="primary" text @click="saveDatabase()">Save</v-btn>
+																		<v-btn color="primary" text @click="closeDatabase()">Cancel</v-btn>
 																	</v-card-actions>
 																</v-card>
 															</v-dialog>
 														</v-toolbar>
 													</template>
 												<?php } ?>
-												<template slot="items" slot-scope="props">
-													<td>{{ props.item.host_database }}</td>
-													<td>{{ props.item.name_database }}</td>
-													<td>{{ props.item.login_database }}</td>
-													<td>{{ props.item.password_database }}</td>
-													<td>
-														<v-menu bottom left>
-															<template v-slot:activator="{ on }">
-																<v-btn flat icon v-on="on" color="grey darken-1">
-																	<v-icon>mdi-dots-vertical</v-icon>
-																</v-btn>
-															</template>
-
-															<v-list>
-																<v-list-tile @click="f_editDatabase(props.item)">
-																		<v-list-tile-title><?php echo lang('edit') ?></v-list-tile-title>
-																</v-list-tile>
-																<v-list-tile  @click="f_deleteDatabase(props.item)">
-																		<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
-																</v-list-tile>
-															</v-list>
-														</v-menu>
-													</td>
+												<template v-slot:item.host_database="props">{{ props.item.host_database }}</template>
+												<template v-slot:item.name_database="props">{{ props.item.name_database }}</template>
+												<template v-slot:item.login_database="props">{{ props.item.login_database }}</template>
+												<template v-slot:item.password_database="props">{{ props.item.password_database }}</template>
+												<template v-slot:item.actions="props">
+													<v-menu bottom left>
+														<template v-slot:activator="{ on }">
+															<v-btn icon v-on="on" color="grey darken-1">
+																<v-icon>mdi-dots-vertical</v-icon>
+															</v-btn>
+														</template>
+														<v-divider></v-divider>
+														<v-list>
+															<v-list-item @click="f_editDatabase(props.item)">
+																	<v-list-item-title><?php echo lang('edit') ?></v-list-item-title>
+															</v-list-item>
+															<v-list-item @click="f_deleteDatabase(props.item)">
+																	<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+															</v-list-item>
+														</v-list>
+													</v-menu>
 												</template>
 											</v-data-table>
 										</section>
@@ -203,36 +199,34 @@
 																
 																	<v-card-actions>
 																		<div class="flex-grow-1"></div>
-																		<v-btn color="blue darken-1" flat @click="saveBackoffice()">Save</v-btn>
-																		<v-btn color="blue darken-1" flat @click="closeBackoffice()">Cancel</v-btn>
+																		<v-btn color="primary" text @click="saveBackoffice()">Save</v-btn>
+																		<v-btn color="primary" text @click="closeBackoffice()">Cancel</v-btn>
 																	</v-card-actions>
 																</v-card>
 															</v-dialog>
 														</v-toolbar>
 													</template>
 												<?php } ?>
-												<template slot="items" slot-scope="props">
-													<td>{{ props.item.host_backoffice }}</td>
-													<td>{{ props.item.login_backoffice }}</td>
-													<td>{{ props.item.password_backoffice }}</td>
-													<td>
-														<v-menu bottom left>
-															<template v-slot:activator="{ on }">
-																<v-btn flat icon v-on="on" color="grey darken-1">
-																	<v-icon>mdi-dots-vertical</v-icon>
-																</v-btn>
-															</template>
-
-															<v-list>
-																<v-list-tile @click="f_editBackoffice(props.item)">
-																		<v-list-tile-title><?php echo lang('edit') ?></v-list-tile-title>
-																</v-list-tile>
-																<v-list-tile  @click="f_deleteBackoffice(props.item)">
-																		<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
-																</v-list-tile>
-															</v-list>
-														</v-menu>
-													</td>
+												<template v-slot:item.host_backoffice="props">{{ props.item.host_backoffice }}</template>
+												<template v-slot:item.login_backoffice="props">{{ props.item.login_backoffice }}</template>
+												<template v-slot:item.password_backoffice="props">{{ props.item.password_backoffice }}</template>
+												<template v-slot:item.actions="props">
+													<v-menu bottom left>
+														<template v-slot:activator="{ on }">
+															<v-btn icon v-on="on" color="grey darken-1">
+																<v-icon>mdi-dots-vertical</v-icon>
+															</v-btn>
+														</template>
+														<v-divider></v-divider>
+														<v-list>
+															<v-list-item @click="f_editBackoffice(props.item)">
+																	<v-list-item-title><?php echo lang('edit') ?></v-list-item-title>
+															</v-list-item>
+															<v-list-item @click="f_deleteBackoffice(props.item)">
+																	<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+															</v-list-item>
+														</v-list>
+													</v-menu>
 												</template>
 											</v-data-table>
 										</section>
@@ -272,35 +266,33 @@
 																
 																	<v-card-actions>
 																		<div class="flex-grow-1"></div>
-																		<v-btn color="blue darken-1" flat @click="saveHtaccess()">Save</v-btn>
-																		<v-btn color="blue darken-1" flat @click="closeHtaccess()">Cancel</v-btn>
+																		<v-btn color="primary" text @click="saveHtaccess()">Save</v-btn>
+																		<v-btn color="primary" text @click="closeHtaccess()">Cancel</v-btn>
 																	</v-card-actions>
 																</v-card>
 															</v-dialog>
 														</v-toolbar>
 													</template>
 												<?php } ?>
-												<template slot="items" slot-scope="props">
-													<td>{{ props.item.login_htaccess }}</td>
-													<td>{{ props.item.password_htaccess }}</td>
-													<td>
-														<v-menu bottom left>
-															<template v-slot:activator="{ on }">
-																<v-btn flat icon v-on="on" color="grey darken-1">
-																	<v-icon>mdi-dots-vertical</v-icon>
-																</v-btn>
-															</template>
-
-															<v-list>
-																<v-list-tile  @click="f_editHtaccess(props.item)">
-																		<v-list-tile-title><?php echo lang('edit') ?></v-list-tile-title>
-																</v-list-tile>
-																<v-list-tile  @click="f_deleteHtaccess(props.item)">
-																		<v-list-tile-title><?php echo lang('delete') ?></v-list-tile-title>
-																</v-list-tile>
-															</v-list>
-														</v-menu>
-													</td>
+												<template v-slot:item.login_htaccess="props">{{ props.item.login_htaccess }}</template>
+												<template v-slot:item.password_htaccess="props">{{ props.item.password_htaccess }}</template>
+												<template v-slot:item.actions="props">
+													<v-menu bottom left>
+														<template v-slot:activator="{ on }">
+															<v-btn icon v-on="on" color="grey darken-1">
+																<v-icon>mdi-dots-vertical</v-icon>
+															</v-btn>
+														</template>
+														<v-divider></v-divider>
+														<v-list>
+															<v-list-item @click="f_editHtaccess(props.item)">
+																	<v-list-item-title><?php echo lang('edit') ?></v-list-item-title>
+															</v-list-item>
+															<v-list-item @click="f_deleteHtaccess(props.item)">
+																	<v-list-item-title><?php echo lang('delete') ?></v-list-item-title>
+															</v-list-item>
+														</v-list>
+													</v-menu>
 												</template>
 											</v-data-table>
 										</section>
@@ -345,8 +337,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-        	<v-btn color="blue darken-1" flat @click="f_createCard()">Evoyer</v-btn>
-        	<v-btn color="blue darken-1" flat @click="dialog_email = false">Annuler</v-btn>
+        	<v-btn color="primary" text @click="f_createCard()">Evoyer</v-btn>
+        	<v-btn color="primary" text @click="dialog_email = false">Annuler</v-btn>
         </v-card-actions>
 	</v-card>
 </v-dialog>

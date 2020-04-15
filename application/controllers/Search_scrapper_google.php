@@ -42,7 +42,7 @@ class Search_scrapper_google extends CI_Controller {
 
 		$googlescraper = new Googlescraper();
 		$all_websites = $googlescraper->getUrlList(urlencode($keyword_google),100);
-
+		
 		foreach ($all_websites as $key => $row)
 		{
 			$list = new stdClass();

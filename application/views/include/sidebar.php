@@ -1,3 +1,4 @@
+<v-navigation-drawer permanent>
 			<aside id="aside" class="aside aside-left" data-fuse-bar="aside" data-fuse-bar-media-step="md" data-fuse-bar-position="left">
 				<div class="aside-content-wrapper">
 					<div class="aside-content bg-primary-700 text-auto">
@@ -244,3 +245,4 @@
 					</div>
 				</div>
 			</aside>
+</v-navigation-drawer>

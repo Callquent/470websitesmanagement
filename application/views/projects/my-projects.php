@@ -77,7 +77,7 @@
 		vuetify: new Vuetify(),
 		data : {
 			sidebar:"projects",
-			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+			currentRoute: window.location.href,
 	        headers: [
 	        	{ text: '<?php echo lang('website'); ?>', value: 'url_website' },
 				{ text: '<?php echo lang('name'); ?>', value: 'name_website' },

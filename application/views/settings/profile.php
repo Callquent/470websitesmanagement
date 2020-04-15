@@ -34,17 +34,15 @@
 										<v-container>
 											<v-row>
 												<v-col cols="12" sm="12" md="12">
-													<v-text-field v-model="newpassword" label="<?php echo lang("enter_new_password"); ?>" type="password"></v-text-field>
+													<v-text-field v-model="new_password" label="<?php echo lang("enter_new_password"); ?>" type="password"></v-text-field>
 												</v-col>
 											</v-row>
 										</v-container>
 									</v-card-text>
-									<input class="form-control input-lg" name="newpassword">
 									<v-card-actions>
 										<div class="flex-grow-1"></div>
-										<v-btn color="blue darken-1" flat @click="f_changePassword()"><?php echo lang('modify'); ?></v-btn>
+										<v-btn color="success" flat @click="f_changePassword()"><?php echo lang('modify'); ?></v-btn>
 									</v-card-actions>
-									<button class="btn btn-primary" type="submit" ><?php echo lang('modify'); ?></button>
 									<?php if($this->session->flashdata('success')){ ?>
 									<div class="alert alert-success">
 									  <?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
@@ -70,15 +68,24 @@
 	</div>
   </div>
 </div>
+<div id="message">
+	<v-snackbar v-model="message.success" color="success" :timeout="message.timeout" top right><?php echo lang('your_password_modify'); ?></v-snackbar>
+	<v-snackbar v-model="message.error" color="error" :timeout="message.timeout" :top="message.y" :left="message.x"><?php echo lang('website_registered'); ?></v-snackbar>
+</div>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
     var v = new Vue({
         el: '#app',
         vuetify: new Vuetify(),
         data : {
-            sidebar:"general",
-            currentRoute: window.location.href,
-            newpassword: "",
+			sidebar:"general",
+			currentRoute: window.location.href,
+			new_password: "",
+			message:{
+				success: false,
+				error: false,
+				timeout: 6000,
+			},
         },
         mixins: [mixin],
         created(){
@@ -90,11 +97,13 @@
             },
             f_changePassword(){
                 var formData = new FormData(); 
-                formData.append("newpassword",v.newpassword);
+                formData.append("new_password",v.new_password);
                 axios.post(this.currentRoute+"/change-password/", formData).then(function(response){
                     if(response.status = 200){
-                    	console.log(msg.responseText);
-                    }
+						v.message.success = true;
+					} else {
+						v.message.error = true;
+	                }
                 })
             }
         }

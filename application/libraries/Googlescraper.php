@@ -52,13 +52,13 @@ class Googlescraper
 				exit;
 			} else {
 
-				preg_match_all('/<div\sclass="rc">.*<span.*class="st">.*<\/span>.*<\/div>/siU', $data, $meta_google_search);
+				preg_match_all('/<!--m--><div\sclass="rc".*>.*<\/div><!--n-->/siU', $data, $meta_google_search);
 
 				for ($j = 0; $j <= count($meta_google_search[0])-1; $j++) {
 
 					preg_match_all('/<cite.*>([^\"]*)<\/cite>/siU', $meta_google_search[0][$j], $meta_cite);
 					preg_match_all('/<div\s*class="r".*><a\s[^>]*href=\"(.*)\".*>.*<\/a>/siU', $meta_google_search[0][$j], $meta_url);
-					preg_match_all('/<h3\s*class="LC20lb".*>(.*)<\/h3>/siU', $meta_google_search[0][$j], $meta_title);
+					preg_match_all('/<h3\s.*>(.*)<\/h3>/siU', $meta_google_search[0][$j], $meta_title);
 					preg_match_all('/<span\s*class="st">(<span\s*class="f">.*<\/span>(.*)<\/span>|(.*)<\/span>)/siU', $meta_google_search[0][$j], $meta_description);
 
 					if ($meta_title[1][0] && $meta_url[1][0] && $meta_description[1][0]) {

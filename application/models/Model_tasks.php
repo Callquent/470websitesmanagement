@@ -64,8 +64,7 @@ class Model_tasks extends CI_Model {
 				$this->db->where('470websitesmanagement_tasks__card.id_tasks_status', $id_tasks_status);
 				$this->db->where('id_card_tasks IN (SELECT id_card_tasks 
                    FROM 470websitesmanagement_tasks 
-                   WHERE 470websitesmanagement_tasks.id_card_tasks = '.$id_card_tasks.'
-                   AND 470websitesmanagement_tasks.id_user = '.$id_user.')');
+                   WHERE 470websitesmanagement_tasks.id_user = '.$id_user.')');
 			}
 
 			$query = $this->db->get();
@@ -185,13 +184,16 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_percentage($id_project_tasks)
+	function get_percentage($id_project_tasks,$id_user="")
 	{
 		$this->db->select('ROUND(SUM(CASE WHEN 470websitesmanagement_tasks.check_tasks = "1" THEN 1 ELSE 0 END)/count(*)*100,0) as percentage')
 				->from('470websitesmanagement_tasks')
 				->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks.id_card_tasks = 470websitesmanagement_tasks__card.id_card_tasks')
 				->join('470websitesmanagement_tasks__project', '470websitesmanagement_tasks__card.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')
 				->where('470websitesmanagement_tasks__project.id_project_tasks', $id_project_tasks);
+		if (!empty($id_user)) {
+			$this->db->where('470websitesmanagement_tasks.id_user', $id_user);
+		}
 
 		$query = $this->db->get();
 		return $query;
@@ -224,7 +226,7 @@ class Model_tasks extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_percentage_user($id_project_tasks,$id_user)
+	/*function get_percentage_user($id_project_tasks)
 	{
 		$this->db->select('ROUND(SUM(CASE WHEN check_tasks = "1" THEN 1 ELSE 0 END)/count(*)*100,0) as percentage')
 				->from('470websitesmanagement_tasks')
@@ -233,7 +235,7 @@ class Model_tasks extends CI_Model {
 
 		$query = $this->db->get();
 		return $query;
-	}
+	}*/
 	function get_all_tasks_priority_per_users($id_project_tasks,$id_user=1)
 	{
 		$this->db->select('SUM(CASE WHEN id_tasks_priority = "1" THEN 1 ELSE 0 END) as all_tasks_low_user, SUM(IF(id_tasks_priority = "2", 1,0)) as all_tasks_medium_user, SUM(IF(id_tasks_priority = "3", 1,0)) as all_tasks_hight_user, SUM(IF(id_tasks_priority = "4", 1,0)) as all_tasks_critical_user')

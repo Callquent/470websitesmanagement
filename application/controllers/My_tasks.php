@@ -42,7 +42,7 @@ class My_tasks extends CI_Controller {
 
 			$data['datetimestart'] = past_time_project($id_project_tasks);
 			$data['datetimedeadline'] = remaining_time_project($id_project_tasks);
-			$data['percentage_project'] = $this->model_tasks->get_percentage_user($id_project_tasks,$this->session->userdata['id'])->row();
+			$data['percentage_project'] = $this->model_tasks->get_percentage($id_project_tasks,$this->session->userdata['id'])->row();
 
 			$data['all_tasks_status'] = $this->model_tasks->get_all_tasks_status();
 			$data['all_tasks_priority'] = $this->model_tasks->get_all_tasks_priority();
@@ -54,8 +54,15 @@ class My_tasks extends CI_Controller {
 			$data['all_card_tasks_in_progress'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks,"2",$this->session->userdata['id']);
 			$data['all_card_tasks_completed'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks,"3",$this->session->userdata['id']);
 
-			$data['id_project_tasks'] = $id_project_tasks;
-
+			//Si l'identifiant card tasks n'existe pas
+			if (isset($data['all_card_by_project']->row()->id_card_tasks)) {
+				$data['all_tasks_by_card'] = $this->model_tasks->get_all_tasks_by_card($data['all_card_by_project']->row()->id_card_tasks)->result_array();
+				$data['card_tasks'] = $this->model_tasks->get_card_tasks($data['all_card_by_project']->row()->id_card_tasks);
+			} else {
+				$data['all_tasks_by_card'] = array();
+				$data['card_tasks'] = array();
+			}
+			
 			$this->load->view('projects/view-my-project', $data);
 		}
 	}

@@ -23,6 +23,10 @@
 			<?php echo js_url('plugins/nvd3/d3.min.js'); ?>
 			<?php echo js_url('plugins/nvd3/nv.d3.min.js'); ?>
 		<?php } ?>
+		<?php if ($this->uri->segment(1)=='my-tasks') { ?>
+			<script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+		<?php } ?>
 		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.js"></script>
 			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-codemirror@4.0.6/dist/vue-codemirror.min.js"></script>
