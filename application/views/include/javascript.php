@@ -12,6 +12,7 @@
 			var mixin = {
 				data : {
 					sidebar: 'general',
+					drawer: true,
 					url: '<?php echo $this->uri->segment(1); ?>',
 				}
 			}

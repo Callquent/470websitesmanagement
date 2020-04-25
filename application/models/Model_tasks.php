@@ -11,7 +11,7 @@ class Model_tasks extends CI_Model {
 				 ->from('470websitesmanagement_tasks__project')
 				 ->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.id_website');
 		} else {
-			$this->db->select('470websitesmanagement_tasks__project.id_project_tasks, 470websitesmanagement_tasks__project.name_project_tasks, name_website, started_project_tasks, deadline_project_tasks')
+			$this->db->select('470websitesmanagement_tasks__project.id_project_tasks, 470websitesmanagement_tasks__project.name_project_tasks, name_website, url_website, started_project_tasks, deadline_project_tasks')
 				 	->from('470websitesmanagement_tasks__project')
 				 	->join('470websitesmanagement_website', '470websitesmanagement_tasks__project.id_website = 470websitesmanagement_website.id_website')
 					->join('470websitesmanagement_tasks__card', '470websitesmanagement_tasks__card.id_project_tasks = 470websitesmanagement_tasks__project.id_project_tasks')

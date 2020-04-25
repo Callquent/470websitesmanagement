@@ -5,7 +5,7 @@
     tile
   >
     <v-toolbar>
-        <v-app-bar-nav-icon  @click="setDrawer(!drawer)"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <?php if($this->aauth->is_group_allowed('create_website',$user_role[0]->name)) { ?>
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">

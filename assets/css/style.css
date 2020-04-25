@@ -72,6 +72,8 @@ ul.sidebar-menu .list-title-sidebar span{color:#FFF;display:block;text-transform
 /***********************/
 /*      SIDEBAR       */
 /***********************/
+#sidebar-left.v-navigation-drawer--close {width: 0 !important}
+#sidebar-left .v-list-item__content {padding: 7px 0}
 #aside .badge { background: #1fb5ac !important; color: #ffffff;}
 #aside .nav.nav-tabs {margin: 0;position: relative;top: -44px !important;}
 #aside .nav > li > a {display: flex;align-items: center;justify-content: center;padding:9px 0px;text-decoration:none;}

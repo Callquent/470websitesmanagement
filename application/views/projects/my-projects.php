@@ -17,6 +17,9 @@
 							'items-per-page-options': [10, 20, 30, 40, 50]
 							}"
 						>
+							<template v-slot:item.url_website="props">
+						    	{{ props.item.url_website }}
+						    </template>
 						    <template v-slot:item.name_website="props">
 						    	{{ props.item.name_website }}
 						    </template>

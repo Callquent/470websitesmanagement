@@ -78497,7 +78497,6 @@ nvd3.show-line-points .nv-line .nv-scatter .nv-groups .nv-point {
 }
 
 [data-fuse-bar].fuse-bar {
-    position: absolute!important;
     box-shadow: 0 0 12px 0 rgba(0, 0, 0, .25);
     z-index: 1021;
     display: block;
@@ -78527,10 +78526,6 @@ nvd3.show-line-points .nv-line .nv-scatter .nv-groups .nv-point {
     max-height: 100%
 }
 
-[data-fuse-bar].fuse-bar.position-left,
-[data-fuse-bar].fuse-bar.position-right {
-    max-width: 90%
-}
 
 [data-fuse-bar].fuse-bar.position-right {
     top: 0;
@@ -78545,7 +78540,6 @@ nvd3.show-line-points .nv-line .nv-scatter .nv-groups .nv-point {
     bottom: 0;
     left: 0;
     right: auto;
-    transform: translate3D(-100%, 0, 0)
 }
 
 [data-fuse-bar].fuse-bar.position-top {
@@ -78572,27 +78566,6 @@ nvd3.show-line-points .nv-line .nv-scatter .nv-groups .nv-point {
     bottom: 0;
     z-index: 1020;
     background: rgba(0, 0, 0, .54)
-}
-
-@media (max-width:767px) {
-    [data-fuse-bar-media-step=sm] {
-        position: absolute!important;
-        visibility: hidden
-    }
-}
-
-@media (max-width:991px) {
-    [data-fuse-bar-media-step=md] {
-        position: absolute!important;
-        visibility: hidden
-    }
-}
-
-@media (max-width:1199px) {
-    [data-fuse-bar-media-step=lg] {
-        position: absolute!important;
-        visibility: hidden
-    }
 }
 
 /***********/

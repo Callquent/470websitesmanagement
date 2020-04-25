@@ -1,18 +1,15 @@
-<v-navigation-drawer permanent>
+<v-navigation-drawer id="sidebar-left" class="bg-primary-700 text-auto" v-model="drawer">
+	<v-list-item>
+		<v-list-item-content>
+			<v-list-item-title class="title">
+				<img class="d-none logo-folded" src="<?php echo img_url('app/logo-470websitesmanagement-folded.png'); ?>" alt="">
+				<img class="logo-expanded" src="<?php echo img_url('app/logo-470websitesmanagement-expanded.png'); ?>" alt="">
+			</v-list-item-title>
+		</v-list-item-content>
+	</v-list-item>
 			<aside id="aside" class="aside aside-left" data-fuse-bar="aside" data-fuse-bar-media-step="md" data-fuse-bar-position="left">
 				<div class="aside-content-wrapper">
 					<div class="aside-content bg-primary-700 text-auto">
-						<div class="aside-toolbar">
-							<div class="logo">
-								<a href="<?php echo site_url('dashboard'); ?>" class="logo">
-									<img class="d-none logo-folded" src="<?php echo img_url('app/logo-470websitesmanagement-folded.png'); ?>" alt="">
-									<img class="logo-expanded" src="<?php echo img_url('app/logo-470websitesmanagement-expanded.png'); ?>" alt="">
-								</a>
-							</div>
-							<button id="toggle-fold-aside-button" type="button" class="btn btn-icon d-none d-lg-block fuse-ripple-ready" data-fuse-aside-toggle-fold="">
-								<i class="icon icon-menu"></i>
-							</button>
-						</div>
 						<ul class="nav flex-column custom-scrollbar ps ps--theme_default" id="sidenav" data-children=".nav-item" data-ps-id="e22c9d1b-78a1-dbad-8fc7-5aaeace92bb4">
 							<!-- sidebar menu start-->
 							<div class="leftside-navigation">
@@ -241,8 +238,12 @@
 								</div>
 							</div>
 						</ul>
-						<div class="version">v <?php echo APP_470WEBSITESMANAGEMENT; ?></div>
 					</div>
 				</div>
 			</aside>
+	<template v-slot:append>
+		<div class="pa-2">
+			<div class="version">v <?php echo APP_470WEBSITESMANAGEMENT; ?></div>
+		</div>
+	</template>
 </v-navigation-drawer>
