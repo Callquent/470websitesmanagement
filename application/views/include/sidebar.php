@@ -1,4 +1,4 @@
-<v-navigation-drawer id="sidebar-left" class="bg-primary-700 text-auto" v-model="drawer">
+<v-navigation-drawer id="sidebar-left" class="bg-primary-700 text-auto" v-model="drawer" hide-overlay stateless>
 	<v-list-item>
 		<v-list-item-content>
 			<v-list-item-title class="title">

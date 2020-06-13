@@ -261,7 +261,6 @@ CREATE TABLE `470websitesmanagement_tasks` (
   `id_card_tasks` int(11) UNSIGNED NOT NULL,
   `id_task` int(11) UNSIGNED NOT NULL,
   `name_task` varchar(255) NOT NULL,
-  `id_tasks_priority` int(11) NOT NULL,
   `check_tasks` tinyint(1) NOT NULL,
   `id_user` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -569,8 +568,7 @@ ALTER TABLE `470websitesmanagement_settings`
 ALTER TABLE `470websitesmanagement_tasks`
   ADD PRIMARY KEY (`id_task`),
   ADD KEY `id_users` (`id_user`),
-  ADD KEY `fk_task_to_card_tasks` (`id_card_tasks`),
-  ADD KEY `fk_id_priority_tasks` (`id_tasks_priority`);
+  ADD KEY `fk_task_to_card_tasks` (`id_card_tasks`);
 
 --
 -- Index pour la table `470websitesmanagement_tasks__card`
@@ -831,7 +829,6 @@ ALTER TABLE `470websitesmanagement_positiontracking_scheduled`
 -- Contraintes pour la table `470websitesmanagement_tasks`
 --
 ALTER TABLE `470websitesmanagement_tasks`
-  ADD CONSTRAINT `fk_id_priority_tasks` FOREIGN KEY (`id_tasks_priority`) REFERENCES `470websitesmanagement_tasks__priority` (`id_tasks_priority`),
   ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `470websitesmanagement_users` (`id`),
   ADD CONSTRAINT `fk_task_to_card_tasks` FOREIGN KEY (`id_card_tasks`) REFERENCES `470websitesmanagement_tasks__card` (`id_card_tasks`);
 

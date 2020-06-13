@@ -25,7 +25,7 @@
 						</v-card>
 				</template>
 			</draggable>
-			<v-btn color="deep-purple lighten-2" block text @click="dialog_add_card = true">Add Card</v-btn>
+			<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
 		</v-list>
 	</v-flex>
 	<v-flex xs3>
@@ -50,7 +50,7 @@
 							</v-card>
 				</template>
 			</draggable>
-			<v-btn color="deep-purple lighten-2" block text @click="dialog_add_card = true">Add Card</v-btn>
+			<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
 		</v-list>
 	</v-flex>
 	<v-flex xs3>
@@ -75,7 +75,7 @@
 							</v-card>
 				</template>
 			</draggable>
-			<v-btn color="deep-purple lighten-2" block text @click="dialog_add_card = true">Add Card</v-btn>
+			<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
 		</v-list>
 	</v-flex>
 	<v-flex xs3>
@@ -100,7 +100,7 @@
 							</v-card>
 				</template>
 			</draggable>
-			<v-btn color="deep-purple lighten-2" block text @click="dialog_add_card = true">Add Card</v-btn>
+			<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
 		</v-list>
 	</v-flex>
 </v-layout>
@@ -109,86 +109,85 @@
 </div>
 
 <v-dialog
-			v-model="dialog_card"
-			width="720"
-		>
-		<v-card>
-				<v-card-title class="headline green lighten-2" primary-title>
-					Card
-				</v-card-title>
-
-				<v-card-text>
-						<v-container grid-list-md>
-								<v-layout wrap>
-										<v-flex xs12>
-												<v-text-field label="Titre Card Task" v-model="card_tasks.name_card_tasks" required></v-text-field>
-										</v-flex>
-										<v-flex xs12>
-												<v-textarea v-model="card_tasks.description_card_tasks">
-														<div slot="label">Decription Card Task <small>(optional)</small></div>
-												</v-textarea>
-										</v-flex>
-										<v-flex xs6>
-												Priority
-										</v-flex>
-										<v-flex xs6>
-												User
-										</v-flex>
-										<v-flex xs12>
-												<div>{{card_tasks.count_tasks_check_per_card}} / {{card_tasks.count_tasks_per_card}} <v-progress-linear v-model="valueDeterminate"></v-progress-linear></div>
-												<v-card>
-														<template>
-																<v-data-table
-																		:headers="headers"
-																		:items="card_tasks.tasks"
-																		item-key="name_task"
-																		select-all
-																		class="elevation-1"
-																>
-																		<template slot="items" slot-scope="props">
-																				<td><v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks == 1" primary hide-details></v-checkbox></td>
-																				<td>{{ props.item.name_task }}</td>
-																				<td>{{ props.item.username }}</td>
-																				<td>
-																						<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
-																				</td>
-																		</template>
-																</v-data-table>
-														</template>
-												</v-card>
-										</v-flex>
-								</v-layout>
-						</v-container>
-						<small>*indicates required field</small>
-				</v-card-text>
-				<v-card-actions>
-						<div class="flex-grow-1"></div>
-						<v-btn color="primary" text @click="f_createCard()">Save</v-btn>
-						<v-btn color="primary" text @click="dialog_card = false">Close</v-btn>
-				</v-card-actions>
-		</v-card>
+	v-model="dialog_card"
+	width="720"
+	>
+	<v-card>
+		<v-card-title class="headline green lighten-2" primary-title>
+			Card
+		</v-card-title>
+		<v-card-text>
+			<v-container grid-list-md>
+				<v-layout wrap>
+					<v-flex xs12>
+						<v-text-field label="Titre Card Task" v-model="card_tasks.name_card_tasks" required></v-text-field>
+					</v-flex>
+					<v-flex xs12>
+						<v-textarea v-model="card_tasks.description_card_tasks">
+							<div slot="label">Decription Card Task <small>(optional)</small></div>
+						</v-textarea>
+					</v-flex>
+					<v-flex xs6>
+							Priority
+					</v-flex>
+					<v-flex xs6>
+							User
+					</v-flex>
+					<v-flex xs12>
+						<div>{{card_tasks.count_tasks_check_per_card}} / {{card_tasks.count_tasks_per_card}} <v-progress-linear v-model="valueDeterminate"></v-progress-linear></div>
+						<v-card>
+							<template>
+								<v-data-table
+										:headers="headers"
+										:items="card_tasks.tasks"
+										item-key="name_task"
+										select-all
+										class="elevation-1"
+								>
+									<template slot="items" slot-scope="props">
+										<td><v-checkbox @change="f_checkTask(props.item)" v-model="props.item.check_tasks == 1" primary hide-details></v-checkbox></td>
+										<td>{{ props.item.name_task }}</td>
+										<td>{{ props.item.username }}</td>
+										<td>
+											<a class="dropdown-item" id="edit-task" @click="editTask()"><i class="icon icon-pencil"></i><?php echo lang('edit') ?></a>
+										</td>
+									</template>
+								</v-data-table>
+							</template>
+						</v-card>
+					</v-flex>
+				</v-layout>
+			</v-container>
+			<small>*indicates required field</small>
+		</v-card-text>
+		<v-card-actions>
+				<div class="flex-grow-1"></div>
+				<v-btn color="primary" text @click="f_createCard()">Save</v-btn>
+				<v-btn color="primary" text @click="dialog_card = false">Close</v-btn>
+		</v-card-actions>
+	</v-card>
 </v-dialog>
 <v-dialog v-model="dialog_add_task" persistent width="500">
 		<v-card>
-				<v-card-title class="headline green lighten-2" primary-title>
-						Ajouter une tâche
-				</v-card-title>
+			<v-card-title class="headline green lighten-2" primary-title>
+					Ajouter une tâche
+			</v-card-title>
 
-				<v-card-text>
-						<v-container grid-list-md>
-								<v-layout wrap>
-										<v-flex xs12>
-												<v-text-field label="Titre Task"  v-model="newTask.nametask" required :rules="[() => !!newTask.nametask || 'Name is required']"></v-text-field>
-										</v-flex>
-								</v-layout>
-						</v-container>
-						<small>*indicates required field</small>
-				</v-card-text>
-				<v-card-actions>
-					<v-spacer></v-spacer>
-						<v-btn color="primary" flat @click="f_createTask()">Save</v-btn>
-						<v-btn color="primary" flat @click="dialog_add_task = false">Close</v-btn>
-				</v-card-actions>
+			<v-card-text>
+				<v-container grid-list-md>
+					<v-layout wrap>
+						<v-flex xs12>
+								<v-text-field label="Titre Task"  v-model="newTask.nametask" required :rules="[() => !!newTask.nametask || 'Name is required']"></v-text-field>
+						</v-flex>
+					</v-layout>
+				</v-container>
+				<small>*indicates required field</small>
+			</v-card-text>
+			<v-card-actions>
+				<v-spacer></v-spacer>
+					<v-btn color="primary" flat @click="f_createTask()">Save</v-btn>
+					<v-btn color="primary" flat @click="dialog_add_task = false">Close</v-btn>
+			</v-card-actions>
 		</v-card>
 </v-dialog>
 <?php $this->load->view('include/javascript.php'); ?>

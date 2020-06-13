@@ -100,18 +100,6 @@
 																		<v-col cols="12" sm="12" md="12">
 																			<v-text-field label="Titre Task" v-model="editTask.name_task" required></v-text-field>
 																		</v-col>
-																		<v-col xs12>
-																			<v-select
-																			v-model="editTask.id_tasks_priority"
-																			slot="input"
-																			label="Choose Priority"
-																			single-line
-																			autofocus
-																			:items="list_tasks_priority"
-																			item-text="name_tasks_priority"
-																			item-value="id_tasks_priority">
-																			</v-select>
-																		</v-col>
 																		<v-col cols="12" sm="12" md="12">
 																			<v-autocomplete
 																			  v-model="editTask.id_user"
@@ -233,6 +221,18 @@
 					</v-flex>
 					<v-flex xs12>
 						<v-textarea label="Description Task"  v-model="editCard.description_card_tasks" required></v-textarea>
+					</v-flex>
+					<v-flex xs12>
+						<v-select
+						v-model="editTask.id_tasks_priority"
+						slot="input"
+						label="Choose Priority"
+						single-line
+						autofocus
+						:items="list_tasks_priority"
+						item-text="name_tasks_priority"
+						item-value="id_tasks_priority">
+						</v-select>
 					</v-flex>
 					<v-flex xs12>
 						<v-text-field v-model="editCard.order_card_tasks" type="number" :min="dialog_add_card.min" :max="dialog_add_card.max" required></v-text-field>
@@ -366,6 +366,7 @@
 				formData.append("description_card_tasks",v.editCard.description_card_tasks);
 				formData.append("id_project_tasks",v.current_project.id_project_tasks);
 				formData.append("id_tasks_status",v.editCard.id_tasks_status);
+				formData.append("id_tasks_priority",v.editTask.id_tasks_priority);
 				formData.append("order_card_tasks",v.editCard.order_card_tasks);
 				if (this.editedCardIndex > -1) {
 					formData.append("id_card_tasks",this.editCard.id_card_tasks);
@@ -440,7 +441,6 @@
 			saveTask(){
 				var formData = new FormData();
 				formData.append("name_task",this.editTask.name_task);
-				formData.append("id_tasks_priority",v.editTask.id_tasks_priority);
 				formData.append("id_user",this.editTask.id_user);
 				formData.append("id_card_tasks",this.current_card.id_card_tasks);
 				if (this.editedTaskIndex > -1) {

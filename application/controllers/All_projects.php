@@ -106,9 +106,10 @@ class All_projects extends CI_Controller {
 		$id_project_tasks			= $this->input->post('id_project_tasks');
 		$name_card_tasks			= $this->input->post('name_card_tasks');
 		$description_card_tasks		= $this->input->post('description_card_tasks');
+		$id_tasks_priority			= $this->input->post('id_tasks_priority');
 		$order_card_tasks			= $this->input->post('order_card_tasks');
 
-		$this->model_tasks->create_card_tasks($id_project_tasks, $name_card_tasks, $description_card_tasks, $order_card_tasks);
+		$this->model_tasks->create_card_tasks($id_project_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_priority, $order_card_tasks);
 	}
 	public function edit_card_tasks()
 	{
@@ -117,9 +118,10 @@ class All_projects extends CI_Controller {
 		$name_card_tasks			= $this->input->post('name_card_tasks');
 		$description_card_tasks		= $this->input->post('description_card_tasks');
 		$id_tasks_status			= $this->input->post('id_tasks_status');
+		$id_tasks_priority			= $this->input->post('id_tasks_priority');
 		$order_card_tasks			= $this->input->post('order_card_tasks');
 
-		$this->model_tasks->update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_status, $order_card_tasks);
+		$this->model_tasks->update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_status, $id_tasks_priority, $order_card_tasks);
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_card_tasks);
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
@@ -135,10 +137,9 @@ class All_projects extends CI_Controller {
 	{
 		$id_card_tasks			= $this->input->post('id_card_tasks');
 		$name_task				= $this->input->post('name_task');
-		$id_tasks_priority		= $this->input->post('id_tasks_priority');
 		$id_user				= $this->input->post('id_user');
 		
-		$this->model_tasks->create_task($id_card_tasks, $name_task, $id_tasks_priority, $id_user);
+		$this->model_tasks->create_task($id_card_tasks, $name_task, $id_user);
 	}
 	public function check_tasks()
 	{
@@ -157,10 +158,9 @@ class All_projects extends CI_Controller {
 	{
 		$id_task			= $this->input->post('id_task');
 		$name_task			= $this->input->post('name_task');
-		$id_tasks_priority	= $this->input->post('id_tasks_priority');
 		$id_user			= $this->input->post('id_user');
 
-		$this->model_tasks->update_task($id_task, $name_task, $id_tasks_priority, $id_user);
+		$this->model_tasks->update_task($id_task, $name_task, $id_user);
 	}
 	public function delete_task()
 	{

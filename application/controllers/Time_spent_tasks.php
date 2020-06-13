@@ -7,7 +7,7 @@ class Time_spent_tasks extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model(array('model_front','model_language','model_category','model_tasks','model_users','model_settings'));
+		$this->load->model(array('model_front','model_language','model_category','model_tasks','model_tasks_hours','model_users','model_settings'));
 		$this->load->library(array('Aauth','form_validation', 'encryption', 'session'));
 		$this->load->helper(array('functions', 'text', 'url','language','date'));
 		$this->lang->load(array('general','sidebar','navbar'), unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -44,6 +44,7 @@ class Time_spent_tasks extends CI_Controller {
 		$id_project_tasks	= $this->input->post('id_project_tasks');
 
 		$data['all_card_tasks'] = $this->model_tasks->get_all_card_tasks_by_project($id_project_tasks)->result_array();
+		$data['tasks_hours'] = $this->model_tasks_hours->get_all_hours_to_card($id_project_tasks, $this->aauth->get_user()->id)->result_array();
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($data)); 
 	}
@@ -53,7 +54,18 @@ class Time_spent_tasks extends CI_Controller {
 		$id_card_tasks		= $this->input->post('id_card_tasks');
 
 		$data['tasks'] = $this->model_tasks->get_all_tasks_by_card($id_card_tasks)->result_array();
-		$data['tasks_hours'] = $this->model_tasks->get_all_tasks_hours_to_card($id_card_tasks, $this->aauth->get_user()->id)->result_array();
+		$data['tasks_hours'] = $this->model_tasks_hours->get_all_hours_to_card($id_card_tasks, $this->aauth->get_user()->id)->result_array();
+
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
+	}
+	public function view_tasks_hours()
+	{
+		$id_project_tasks	= $this->input->post('id_project_tasks');
+		$id_card_tasks		= $this->input->post('id_card_tasks');
+		$id_task		= $this->input->post('id_task');
+
+		$data['tasks_hours'] = $this->model_tasks_hours->get_all_hours_to_task($id_card_tasks, $id_task, $this->aauth->get_user()->id)->result_array();
 
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
@@ -61,11 +73,10 @@ class Time_spent_tasks extends CI_Controller {
 	public function create_tasks_hours()
 	{
 		$id_task				= $this->input->post('id_task');
-		$name_task				= $this->input->post('name_task');
 		$nb_hours_tasks			= $this->input->post('nb_hours_tasks');
 		$date_hours_tasks		= $this->input->post('date_hours_tasks');
 
-		$this->model_tasks->create_tasks_hours($id_task, $name_task, $nb_hours_tasks, $date_hours_tasks);
+		$this->model_tasks_hours->create_tasks_hours($id_task, $nb_hours_tasks, $date_hours_tasks);
 	}
 	public function edit_tasks_hours()
 	{
@@ -75,6 +86,6 @@ class Time_spent_tasks extends CI_Controller {
 		$nb_hours_tasks			= $this->input->post('nb_hours_tasks');
 		$date_hours_tasks		= $this->input->post('date_hours_tasks');
 
-		$this->model_tasks->edit_tasks_hours($id_task, $name_task, $nb_hours_tasks, $date_hours_tasks);
+		$this->model_tasks_hours->edit_tasks_hours($id_task, $name_task, $nb_hours_tasks, $date_hours_tasks);
 	}
 }

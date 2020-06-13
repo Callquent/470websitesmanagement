@@ -13,7 +13,7 @@
                                 <v-col cols="12" md="4">
                                     <v-autocomplete
                                         v-model="editedTimeSpendTasks.id_project_tasks"
-                                        @change="f_viewCardTasks"
+                                        @change="f_viewProjectTasks"
                                         :items="list_projects"
                                         label="Project Tasks"
                                         item-text="name_project_tasks"
@@ -22,8 +22,8 @@
                                 </v-col>
                                 <v-col cols="12" md="4">
                                     <v-autocomplete
-                                        v-model="editedTimeSpendTasks.id_card_tasks"
-                                        @change="f_viewTasks"
+                                        v-model="editedTimeSpendTasks.card_tasks"
+                                        @change="f_viewCardTasks"
                                         :items="list_card_tasks"
                                         label="Card Tasks"
                                         item-text="name_card_tasks"
@@ -34,7 +34,8 @@
                                 </v-col>
                                 <v-col cols="12" md="4">
                                     <v-autocomplete
-                                        v-model="editedTimeSpendTasks.id_task"
+                                        v-model="editedTimeSpendTasks.task"
+                                        @change="f_viewTasks"
                                         :items="list_tasks"
                                         label="Tasks"
                                         clearable
@@ -58,9 +59,8 @@
                             'items-per-page-options': [10, 20, 30, 40, 50, -1]
                             }"
                         >
-                            <template v-if="editedTimeSpendTasks.id_task" v-slot:top>
+                            <template v-if="editedTimeSpendTasks.task.id_task" v-slot:top>
                               <v-toolbar flat color="white">
-                                <v-toolbar-title>My CRUD</v-toolbar-title>
                                 <v-divider
                                   class="mx-4"
                                   inset
@@ -69,7 +69,7 @@
                                 <div class="flex-grow-1"></div>
                                 <v-dialog v-model="dialog_time_spend_tasks" max-width="500px">
                                   <template v-slot:activator="{ on }">
-                                    <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+                                    <v-btn color="primary" dark class="mb-2" v-on="on">Add hours</v-btn>
                                   </template>
                                   <v-card>
                                     <v-card-text>
@@ -115,8 +115,8 @@
 
                                     <v-card-actions>
                                       <div class="flex-grow-1"></div>
-                                      <v-btn color="blue darken-1" text @click="dialog_time_spend_tasks = false">Cancel</v-btn>
                                       <v-btn color="blue darken-1" text @click="saveTimeSpentTasks()">Save</v-btn>
+                                      <v-btn color="blue darken-1" text @click="dialog_time_spend_tasks = false">Cancel</v-btn>
                                     </v-card-actions>
                                   </v-card>
                                 </v-dialog>
@@ -124,7 +124,6 @@
                             </template>
                             <template v-slot:body="{ items }">
                                 <tr v-for="item in items" :key="item.name">
-                                    <td>{{ item.name_task }}</td>
                                     <td>{{ item.nb_hours_tasks }}</td>
                                     <td>{{ item.date_hours_tasks }}</td>
                                     <td>
@@ -160,11 +159,10 @@
         el: '#app',
         vuetify: new Vuetify(),
         data : {
-            sidebar:"general",
+            sidebar:"projects",
             dialog_time_spend_tasks: false,
             currentRoute: window.location.href,
             headers: [
-                { text: '<?php echo lang("name_task"); ?>', value: 'name_task'},
                 { text: '<?php echo lang("nb_hours_tasks"); ?>', value: 'nb_hours_tasks' },
                 { text: '<?php echo lang("date_hours_tasks"); ?>', value: 'date_hours_tasks'},
                 { text: '<?php echo lang("actions"); ?>', value: 'actions'},
@@ -172,9 +170,8 @@
             editedTimeSpendTaskIndex: -1,
             editedTimeSpendTasks: {
                 id_project_tasks: '',
-                id_card_tasks: '',
-                id_task: '',
-                name_task: '',
+                card_tasks: '',
+                task: '',
                 nb_hours_tasks: '',
                 date_hours_tasks: '',
             },
@@ -192,14 +189,15 @@
             displayPage(){
 
             },
-            f_viewCardTasks(item){
+            f_viewProjectTasks(item){
                 var formData = new FormData();
                 formData.append("id_project_tasks",item);
                 axios.post(this.currentRoute+"/view-card-tasks/", formData).then(function(response){
+                    v.list_tasks = response.data.tasks;
                     v.list_card_tasks = response.data.all_card_tasks;
                 })
             },
-            f_viewTasks(item){
+            f_viewCardTasks(item){
                 var formData = new FormData();
                 formData.append("id_project_tasks",item.id_project_tasks);
                 formData.append("id_card_tasks",item.id_card_tasks);
@@ -208,9 +206,18 @@
                     v.list_hours_tasks = response.data.tasks_hours;
                 })
             },
+            f_viewTasks(item){
+                var formData = new FormData();
+                formData.append("id_project_tasks",item.id_project_tasks);
+                formData.append("id_card_tasks",item.id_card_tasks);
+                formData.append("id_task",item.id_task);
+                axios.post(this.currentRoute+"/view-tasks-hours/", formData).then(function(response){
+                    v.list_hours_tasks = response.data.tasks_hours;
+                })
+            },
             saveTimeSpentTasks () {
                 var formData = new FormData();
-                formData.append("name_task",v.editedTimeSpendTasks.name_task);
+                formData.append("id_task",v.editedTimeSpendTasks.task.id_task);
                 formData.append("nb_hours_tasks",v.editedTimeSpendTasks.nb_hours_tasks);
                 formData.append("date_hours_tasks",v.editedTimeSpendTasks.date_hours_tasks);
                 if (this.editedTimeSpendTaskIndex > -1) {
@@ -223,7 +230,7 @@
                 } else {
                     axios.post(this.currentRoute+"/create-tasks-hours/", formData).then(function(response){
                         if(response.status = 200){
-                            v.list_tasks.push({name_task: v.editedTimeSpendTasks.name_task,username: v.editTask.username})
+                           /* v.list_tasks.push({username: v.editTask.username})*/
                         }
                     })
                 }
