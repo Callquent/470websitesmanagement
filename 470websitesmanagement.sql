@@ -93,7 +93,9 @@ INSERT INTO `470websitesmanagement_language` (`id_language`, `name_language`, `n
 (5, 'Prestashop', 'prestashop'),
 (6, 'Joomla', 'joomla'),
 (7, 'Drupal', 'drupal'),
-(8, 'OpenCart', 'opencart');
+(8, 'OpenCart', 'opencart'),
+(9, 'Magento', 'magento'),
+(10, 'TYPO3', 'typo3');
 
 -- --------------------------------------------------------
 

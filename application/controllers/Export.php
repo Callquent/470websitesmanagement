@@ -46,28 +46,20 @@ class Export extends CI_Controller {
 	}
 	public function export_470websitesmanagement()
 	{
-		$file_name = "websitesmanagement.470";
+		/*$file_name = "websitesmanagement.470";
 		header("Content-type: application/octet-stream");
 		header("Content-Disposition: attachment; filename=".$file_name);
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate');
-		header('Pragma: public');
+		header('Pragma: public');*/
 
 		$key_secrete = $this->input->post('keysecrete');
 		$websites = json_decode($this->input->post('websites'));
 		
-		$allqueries['470websitesmanagement_language'] = $this->model_language->get_all_languages()->result();
-		$allqueries['470websitesmanagement_category'] = $this->model_category->get_all_categories()->result();
 		$allqueries['470websitesmanagement_website'] = $this->model_front->get_selected_websites($websites)->result();
-		foreach ($allqueries['470websitesmanagement_website'] as $value) {
-			$value->ftp = $this->model_front->get_website_all_ftp($value->id_website)->result();
-			$value->database = $this->model_front->get_website_all_database($value->id_website)->result();
-			$value->backoffice = $this->model_front->get_website_all_backoffice($value->id_website)->result();
-			$value->htaccess = $this->model_front->get_website_all_htaccess($value->id_website)->result();
-			$value->whois = $this->model_whois->get_website_by_whois($value->id_website);
-		}
 
-		$this->encryption->initialize(
+		var_dump($allqueries);
+		/*$this->encryption->initialize(
 			array(
 				'cipher' => 'aes-256',
 				'mode' => 'ctr',
@@ -76,7 +68,7 @@ class Export extends CI_Controller {
 		);
 		$crypt = $this->encryption->encrypt(serialize($allqueries));
 
-		echo $crypt;
+		echo $crypt;*/
 	}
 	public function generate_key()
 	{

@@ -76,19 +76,6 @@ class Model_front extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	function get_selected_websites($id_websites = "")
-	{
-		$this->db->select('*')
-					->from('470websitesmanagement_website')
-					->join('470websitesmanagement_language', '470websitesmanagement_website.id_language = 470websitesmanagement_language.id_language')
-					->join('470websitesmanagement_category', '470websitesmanagement_website.id_category = 470websitesmanagement_category.id_category');
-		if (!empty ($id_websites)) {
-			$this->db->where_in('470websitesmanagement_website.id_website', $id_websites);
-		}
-		$query = $this->db->get();
-
-		return $query;
-	}
 	function get_website($id_websites)
 	{
 		$this->db->select('*')
@@ -107,17 +94,7 @@ class Model_front extends CI_Model {
 		}
 		return $query->row();
 	}
-	function check_url_website($url_website)
-	{
-		$this->db->select('*')
-				 ->from('470websitesmanagement_website')
-				 ->where('470websitesmanagement_website.url_website', $url_website)
-				 ->limit(1);
 
-
-		$query = $this->db->get();
-		return $query->row();
-	}
 	function get_website_by_ftp($id_website,$id_ftp)
 	{
 		$this->db->select('*')
