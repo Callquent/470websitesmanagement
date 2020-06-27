@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_import extends CI_Model {
+class Model_import_export extends CI_Model {
 	function check_url_website($url_website)
 	{
 		$this->db->select('*')
