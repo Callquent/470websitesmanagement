@@ -6,7 +6,7 @@ class Export extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model(array('model_front','model_language','model_category','model_back','model_migration','model_whois','model_tasks','model_settings'));
+		$this->load->model(array('model_front','model_language','model_category','model_back','model_migration','model_whois','model_tasks','model_import_export','model_settings'));
 		$this->load->library(array('Aauth','encryption','form_validation','session','email'));
 		$this->load->helper(array('functions', 'text', 'url','language','file'));
 		$this->lang->load(array('general','sidebar','navbar'), unserialize($this->model_settings->view_settings_lang()->value_s)['language']);
@@ -56,7 +56,7 @@ class Export extends CI_Controller {
 		$key_secrete = $this->input->post('keysecrete');
 		$websites = json_decode($this->input->post('websites'));
 		
-		$allqueries['470websitesmanagement_website'] = $this->model_front->get_selected_websites($websites)->result();
+		$allqueries['470websitesmanagement_website'] = $this->model_import_export->get_selected_websites($websites)->result();
 
 		var_dump($allqueries);
 		/*$this->encryption->initialize(

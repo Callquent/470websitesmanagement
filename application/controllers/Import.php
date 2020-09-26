@@ -56,13 +56,13 @@ class Import extends CI_Controller {
 		
 		foreach ($file_unserialize['470websitesmanagement_category'] as $row) {
 
+			$query = $this->model_back->create_websites($row);
+
 			$query = $this->model_category->check_name_category($row->name_category);
-			if(empty($query)){
-				$new_id_category = $this->model_category->create_category($row->name_category);
-			}
 			foreach ($file_unserialize['470websitesmanagement_website'] as $value) {
 				if ($row->id_category == $value->id_category) {
 					if(empty($query)){
+						$new_id_category = $this->model_category->create_category($row->name_category);
 						$value->id_category = $new_id_category;
 						//$this->model_migration->import_website($file_unserialize);
 						//array_replace($decrypt['470websitesmanagement_website'], 'id_category' => $this->db->insert_id());
