@@ -41,6 +41,13 @@ class Googlescraper
 		curl_close($ch);
 		return $data;
 	}
+	function getUrlList($keyword,$number_page,$proxy='') {
+		$this->keyword=$keyword;
+		$this->number_page=$number_page;
+		$this->fetchUrlList();
+		sleep(2);
+		return $this->metaList;
+	}
 	function fetchUrlList()
 	{
 		$data=$this->getpagedata('https://www.google.com/search?q='.$this->keyword.'&num='.$this->number_page);
@@ -53,19 +60,14 @@ class Googlescraper
 			} else {
 
 				preg_match_all('/<!--m--><div\sclass="rc".*>.*<\/div><!--n-->/siU', $data, $meta_google_search);
-
-				for ($j = 0; $j <= count($meta_google_search[0])-1; $j++) {
-
+				for ($j = 0; $j < count($meta_google_search[0]); $j++) {
 					preg_match_all('/<cite.*>([^\"]*)<\/cite>/siU', $meta_google_search[0][$j], $meta_cite);
-					preg_match_all('/<div\s*class="r".*><a\s[^>]*href=\"(.*)\".*>.*<\/a>/siU', $meta_google_search[0][$j], $meta_url);
 					preg_match_all('/<h3\s.*>(.*)<\/h3>/siU', $meta_google_search[0][$j], $meta_title);
-					preg_match_all('/<span\s*class="st">(<span\s*class="f">.*<\/span>(.*)<\/span>|(.*)<\/span>)/siU', $meta_google_search[0][$j], $meta_description);
+					preg_match_all('/<span\s*class="aCOpRe">(<span\s*class="f">.*<\/span>(.*)<\/span>|(.*)<\/span>)/siU', $meta_google_search[0][$j], $meta_description);
 
-					if ($meta_title[1][0] && $meta_url[1][0] && $meta_description[1][0]) {
-						$this->getMetaUrl($meta_url,$j);
-						$this->getMetaTitle($meta_title,$j);
-						$this->getMetaDescription($meta_description,$j);
-					}
+					$this->getMetaUrl($meta_cite,$j);
+					$this->getMetaTitle($meta_title,$j);
+					$this->getMetaDescription($meta_description,$j);
 				}
 			}
 		} 
@@ -77,18 +79,21 @@ class Googlescraper
 	}
 	function getMetaUrl($meta_url,$j)
 	{
+		$this->metaList[$j]['url'] = "";
 		if (isset($meta_url[1][0]) && !is_null($meta_url[1][0])) {
 			$this->metaList[$j]['url'] =  html_entity_decode($meta_url[1][0],ENT_QUOTES);
 		}
 	}
 	function getMetaTitle($meta_title,$j)
 	{
+		$this->metaList[$j]['title'] = "";
 		if (isset($meta_title[1][0]) && !is_null($meta_title[1][0])) {
 			$this->metaList[$j]['title'] =  html_entity_decode($meta_title[1][0],ENT_QUOTES);
 		}
 	}
 	function getMetaDescription($meta_description,$j)
 	{
+		$this->metaList[$j]['description'] = "";
 		if ($meta_description) {
 			if (!empty($meta_description[2][0]) ) {
 				$this->metaList[$j]['description'] = ($meta_description[2][0]);
@@ -96,13 +101,6 @@ class Googlescraper
 				$this->metaList[$j]['description'] = ($meta_description[3][0]);
 			}
 		}
-	}
-	function getUrlList($keyword,$number_page,$proxy='') {
-		$this->keyword=$keyword;
-		$this->number_page=$number_page;
-		$this->fetchUrlList();
-		sleep(2);
-		return $this->metaList;
 	}
 }	
 ?>
