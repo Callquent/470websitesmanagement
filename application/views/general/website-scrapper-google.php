@@ -54,11 +54,13 @@
 								<span v-html="props.item.meta_description">{{ props.item.meta_description }}</span>
 							</template> -->
 							<template v-slot:body="{ items }">
-                                <tr v-for="item in items" :key="item.name">
-                                    <td v-html="item.website">{{ item.website }}</td>
-                                    <td>{{ item.meta_title }}</td>
-                                    <td v-html="item.meta_description">{{ item.meta_description }}</td>
-                                </tr>
+								<tbody>
+									<tr v-for="item in items" :key="item.name">
+										<td v-html="item.website">{{ item.website }}</td>
+										<td>{{ item.meta_title }}</td>
+										<td v-html="item.meta_description">{{ item.meta_description }}</td>
+									</tr>
+								</tbody>
                             </template>
 						</v-data-table>
 					</template>

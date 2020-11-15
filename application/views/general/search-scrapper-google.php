@@ -47,12 +47,14 @@
                             }"
                         >
                             <template v-slot:body="{ items }">
-                                <tr :class="item.class" v-for="item in items" :key="item.name">
-                                    <td>{{ item.position }}</td>
-                                    <td v-html="item.website">{{ item.website }}</td>
-                                    <td>{{ item.meta_title }}</td>
-                                    <td v-html="item.meta_description">{{ item.meta_description }}</td>
-                                </tr>
+                                <tbody>
+                                    <tr :class="item.class" v-for="item in items" :key="item.name">
+                                        <td>{{ item.position }}</td>
+                                        <td v-html="item.website">{{ item.website }}</td>
+                                        <td>{{ item.meta_title }}</td>
+                                        <td v-html="item.meta_description">{{ item.meta_description }}</td>
+                                    </tr>
+                                </tbody>
                             </template>
                         </v-data-table>
                     </template>
