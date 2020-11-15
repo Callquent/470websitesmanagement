@@ -5,8 +5,8 @@
 		<?php echo js_url('plugins/jquery.min.js'); ?>
 		<?php echo js_url('plugins/popper.min.js'); ?>
 		<?php echo js_url('plugins/bootstrap.min.js'); ?>
-		<?php echo js_url('plugins/vue.js'); ?>
-		<?php echo js_url('plugins/vuetify/vuetify.js'); ?>
+		<?php echo js_url('plugins/vue.min.js'); ?>
+		<?php echo js_url('plugins/vuetify/vuetify.min.js'); ?>
 		<?php echo js_url('plugins/axios.min.js'); ?>
 		<script type="text/javascript">
 			var mixin = {
