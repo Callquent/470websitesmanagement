@@ -9,7 +9,7 @@
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
 		<?php echo css_url('plugins/nvd3/nv.d3.min.css'); ?>
 		<?php echo css_url('plugins/jquery-ui/jquery-ui.min.css'); ?>
-		<?php echo css_url('plugins/vuetify/vuetify.css'); ?>
+		<?php echo css_url('plugins/vuetify/vuetify.min.css'); ?>
 		<?php if ($this->uri->segment(1)=='ftp-websites') { ?>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.css">
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/theme/monokai.css">
