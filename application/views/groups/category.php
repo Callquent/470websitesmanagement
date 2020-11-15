@@ -12,7 +12,6 @@
 								<v-data-table
 									:headers="headers"
 									:items="list_category"
-									:class="elevation-1"
 									:footer-props="{
 									'items-per-page-options': [10,20,50,100]
 									}"
