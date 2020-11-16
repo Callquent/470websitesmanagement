@@ -5,7 +5,7 @@
 		<meta name="robots" content="noindex, nofollow"  />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php echo css_url('css/perfect-scrollbar.min.css'); ?>
-		<?php echo css_url('plugins/vuetify/vuetify.css'); ?>
+		<?php echo css_url('plugins/vuetify/vuetify.min.css'); ?>
 		<?php echo css_url('css/style.css'); ?>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
 		<?php echo css_url('css/materialdesignicons.min.css'); ?>
@@ -36,7 +36,15 @@
 										</v-row>
 										<v-form ref="form" class="form-horizontal" id="loginform" method="post" name="loginForm" action="<?php echo site_url('index'); ?>">
 											<v-text-field type="text" name="email" id="email" label="Email"></v-text-field>
-											<v-text-field type="password" name="password" id="password" label="Password"></v-text-field>
+											<v-text-field
+											:append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+											:rules="[rules.required, rules.min]"
+											:type="show_password ? 'text' : 'password'"
+											hint="At least 8 characters"
+											@click:append="show_password = !show_password"
+											name="password"
+											id="password"
+											label="Password"></v-text-field>
 											<div class="remember-forgot-password row no-gutters align-items-center justify-content-between pt-4">
 												<div class="mb-4">
 												</div>
@@ -46,17 +54,17 @@
 												<v-btn type="submit" x-large>LOG IN</v-btn>
 											</v-row>
 											<?php if($this->session->flashdata('success')){ ?>
-											<div class="alert alert-success">
-												<?php echo $this->session->flashdata('success'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
-											</div>
+												<v-alert type="success" dismissible>
+													<?php echo $this->session->flashdata('success'); ?>
+												</v-alert>
 											<?php } ?>
 											<?php if($this->session->flashdata('disconnect')){ ?>
-											<div class="alert alert-danger">
-												<?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
-											</div>
+												<v-alert type="error" dismissible>
+													<?php echo $this->session->flashdata('disconnect'); ?> <a class="close" data-dismiss="alert" href="#">×</a>
+												</v-alert>
 											<?php } ?>
 											<?php if(validation_errors()){
-												echo validation_errors('<div class="alert alert-danger">', ' <a class="close" data-dismiss="alert" href="#">×</a></div>');
+												echo validation_errors('<v-alert type="error" dismissible>', ' </v-alert>');
 											} ?>
 										</v-form>
 										<div class="register d-flex flex-column flex-sm-row align-items-center justify-content-center mt-8 mb-6 mx-auto">
@@ -118,8 +126,8 @@
 				</v-app>
 			</div>
 		</main>
-		<?php echo js_url('plugins/vue.js'); ?>
-		<?php echo js_url('plugins/vuetify/vuetify.js'); ?>
+		<?php echo js_url('plugins/vue.min.js'); ?>
+		<?php echo js_url('plugins/vuetify/vuetify.min.js'); ?>
 		<?php echo js_url('plugins/axios.min.js'); ?>
 		<script type="text/javascript">
 		var v = new Vue({
@@ -131,6 +139,12 @@
 				email_reset: '',
 				code_reset: '',
 				currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
+				show_password: false,
+				rules: {
+					required: value => !!value || 'Required.',
+					min: v => v.length >= 8 || 'Min 8 characters',
+					emailMatch: () => (`The email and password you entered don't match`),
+				},
 			},
 			created(){
 				this.displayPage();
