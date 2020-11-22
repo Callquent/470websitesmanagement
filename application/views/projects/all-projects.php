@@ -109,8 +109,6 @@
 												<v-autocomplete
 												v-model="Project.name_website"
 												:items="autocomplete_website"
-												:loading="isLoading"
-												:search-input.sync="search"
 												color="white"
 												hide-no-data
 												hide-selected

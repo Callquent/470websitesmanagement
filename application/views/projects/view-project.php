@@ -224,7 +224,7 @@
 					</v-flex>
 					<v-flex xs12>
 						<v-select
-						v-model="editTask.id_tasks_priority"
+						v-model="editCard.id_tasks_priority"
 						slot="input"
 						label="Choose Priority"
 						single-line
@@ -415,13 +415,13 @@
 			},
 			f_checkTask(item){
 				var formData = new FormData();
+				formData.append("id_project_tasks",this.current_project.id_project_tasks);
 				formData.append("id_task",item.id_task);
 				formData.append("id_card_tasks",item.id_card_tasks);
 				formData.append("check_tasks",(item.check_tasks));
 				axios.post(this.currentRoute+"/check-tasks/", formData).then(function(response){
 					if(response.status = 200){
-						v.current_card = response.data.list_tasks;
-						Object.assign(v.list_tasks, v.current_card);
+						v.current_project.percentage_tasks = response.data.project_percentage;
 						if (response.data.check_tasks == 0) {
 							v.current_card.count_tasks_check_per_card--
 						} else {
