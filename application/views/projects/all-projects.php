@@ -5,7 +5,7 @@
 
 	  <v-container fluid grid-list-sm>
 	    <v-layout row wrap>
-	    	<v-flex xs2>
+	    	<v-flex xs4>
 			    		
 				<v-toolbar color="light-blue" dark>
 					<v-toolbar-title>Project</v-toolbar-title>
@@ -24,7 +24,8 @@
 						</v-layout>
 					</v-container>
 				</v-card>
-
+			</v-flex>
+			<v-flex xs4>
 				<v-toolbar color="light-blue" dark>
 					<v-toolbar-title>Members</v-toolbar-title>
 				</v-toolbar>
@@ -42,7 +43,8 @@
 						</v-layout>
 					</v-container>
 				</v-card>
-
+			</v-flex>
+			<v-flex xs4>
 				<v-toolbar color="light-blue" dark>
 					<v-toolbar-title>Status</v-toolbar-title>
 				</v-toolbar>
@@ -75,9 +77,10 @@
 						</v-layout>
 					</v-container>
 				</v-card>
-
-			</v-flex> 
-			<v-flex xs10>
+			</v-flex>
+		</v-layout>
+		<v-layout row wrap>
+			<v-flex xs12>
 		  		<v-card>
 	                <template>
 						<v-data-table

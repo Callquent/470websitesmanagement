@@ -366,7 +366,7 @@
 				formData.append("description_card_tasks",v.editCard.description_card_tasks);
 				formData.append("id_project_tasks",v.current_project.id_project_tasks);
 				formData.append("id_tasks_status",v.editCard.id_tasks_status);
-				formData.append("id_tasks_priority",v.editTask.id_tasks_priority);
+				formData.append("id_tasks_priority",v.editCard.id_tasks_priority);
 				formData.append("order_card_tasks",v.editCard.order_card_tasks);
 				if (this.editedCardIndex > -1) {
 					formData.append("id_card_tasks",this.editCard.id_card_tasks);
