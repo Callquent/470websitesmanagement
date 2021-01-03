@@ -60,14 +60,14 @@ class Model_crud_tasks extends CI_Model {
 	function update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_status, $id_tasks_priority, $order_card_tasks)
 	{
 		$data = array(
-			'id_project_tasks'			=> $id_project_tasks,
 			'name_card_tasks'			=> $name_card_tasks,
 			'description_card_tasks'	=> $description_card_tasks,
 			'id_tasks_status'			=> $id_tasks_status,
 			'id_tasks_priority'			=> $id_tasks_priority,
 			'order_card_tasks'			=> $order_card_tasks
 		);
-		$this->db->where('id_card_tasks', $id_card_tasks)
+		$this->db->where('id_project_tasks', $id_project_tasks)
+				->where('id_card_tasks', $id_card_tasks)
 				->update('470websitesmanagement_tasks__card', $data);
 
 		//if ($this->model_tasks->get_card_tasks_order_max($id_project_tasks) > $order_card_tasks) {
@@ -79,20 +79,20 @@ class Model_crud_tasks extends CI_Model {
 
 				if($value->id_card_tasks != $id_card_tasks){
 					$data = array(
-						'id_project_tasks'			=> $value->id_project_tasks,
 						'name_card_tasks'			=> $value->name_card_tasks,
 						'description_card_tasks'	=> $value->description_card_tasks,
 						'id_tasks_status'			=> $value->id_tasks_status,
 						'id_tasks_priority'			=> $value->id_tasks_priority
 					);
-					if($value->order_card_tasks >= $order_card_tasks) {
+					if($value->order_card_tasks > $order_card_tasks) {
 						$data['order_card_tasks'] = ++$order_card_tasks;
 					} else {
 						$data['order_card_tasks'] = --$order_card_tasks;
 					}
 					
-					$this->db->where('id_card_tasks', $id_card_tasks)
-					->update('470websitesmanagement_tasks__card', $data);
+					$this->db->where('id_project_tasks', $id_project_tasks)
+							->where('id_card_tasks', $value->id_card_tasks)
+							->update('470websitesmanagement_tasks__card', $data);
 				}
 
 			}
