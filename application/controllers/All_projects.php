@@ -119,9 +119,10 @@ class All_projects extends CI_Controller {
 		$description_card_tasks		= $this->input->post('description_card_tasks');
 		$id_tasks_status			= $this->input->post('id_tasks_status');
 		$id_tasks_priority			= $this->input->post('id_tasks_priority');
-		$order_card_tasks			= $this->input->post('order_card_tasks');
+		$order_card_tasks_old		= $this->input->post('order_card_tasks_old');
+		$order_card_tasks_new		= $this->input->post('order_card_tasks_new');
 
-		$this->model_crud_tasks->update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_status, $id_tasks_priority, $order_card_tasks);
+		$this->model_crud_tasks->update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_status, $id_tasks_priority, $order_card_tasks, $order_card_tasks_new, $order_card_tasks_old);
 		$data['card_tasks'] = $this->model_tasks->get_card_tasks($id_card_tasks);
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($data)); 

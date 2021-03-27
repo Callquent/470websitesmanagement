@@ -57,43 +57,46 @@ class Model_crud_tasks extends CI_Model {
 		$this->db->insert('470websitesmanagement_tasks__card', $data);
 		return $this->db->insert_id();
 	}
-	function update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_status, $id_tasks_priority, $order_card_tasks)
+	function update_card_tasks($id_project_tasks, $id_card_tasks, $name_card_tasks, $description_card_tasks, $id_tasks_status, $id_tasks_priority, $order_card_tasks_new, $order_card_tasks_old)
 	{
-		$data = array(
-			'name_card_tasks'			=> $name_card_tasks,
-			'description_card_tasks'	=> $description_card_tasks,
-			'id_tasks_status'			=> $id_tasks_status,
-			'id_tasks_priority'			=> $id_tasks_priority,
-			'order_card_tasks'			=> $order_card_tasks
-		);
-		$this->db->where('id_project_tasks', $id_project_tasks)
-				->where('id_card_tasks', $id_card_tasks)
-				->update('470websitesmanagement_tasks__card', $data);
 
 		//if ($this->model_tasks->get_card_tasks_order_max($id_project_tasks) > $order_card_tasks) {
 
-			$this->db->where('id_project_tasks', $id_project_tasks);
+			
+			if ($order_card_tasks_new > $order_card_tasks_old) {
+				$min = $order_card_tasks_old;
+				$max = $order_card_tasks_new;
+			} else {
+				$min = $order_card_tasks_new;
+				$max = $order_card_tasks_old;
+			}
+
+			$this->db->where('id_project_tasks', $id_project_tasks)
+					->where('id_card_tasks', $id_card_tasks)
+					->where('order_card_tasks >', $min)
+					->where('order_card_tasks <', $max);
 			$query = $this->db->get('470websitesmanagement_tasks__card');
 			
 			foreach ($query->result() as $value) {
 
-				if($value->id_card_tasks != $id_card_tasks){
+				if($value->id_card_tasks == $id_card_tasks) {
 					$data = array(
-						'name_card_tasks'			=> $value->name_card_tasks,
-						'description_card_tasks'	=> $value->description_card_tasks,
-						'id_tasks_status'			=> $value->id_tasks_status,
-						'id_tasks_priority'			=> $value->id_tasks_priority
+						'name_card_tasks'			=> $name_card_tasks,
+						'description_card_tasks'	=> $description_card_tasks,
+						'id_tasks_status'			=> $id_tasks_status,
+						'id_tasks_priority'			=> $id_tasks_priority,
+						'order_card_tasks'			=> $order_card_tasks_new
 					);
-					if($value->order_card_tasks > $order_card_tasks) {
-						$data['order_card_tasks'] = ++$order_card_tasks;
+				} else {
+					if($min < $value->order_card_tasks && $max > $value->order_card_tasks) {
+						$data['order_card_tasks'] = ++$value->order_card_tasks;
 					} else {
-						$data['order_card_tasks'] = --$order_card_tasks;
+						$data['order_card_tasks'] = --$value->order_card_tasks;
 					}
-					
-					$this->db->where('id_project_tasks', $id_project_tasks)
-							->where('id_card_tasks', $value->id_card_tasks)
-							->update('470websitesmanagement_tasks__card', $data);
 				}
+				$this->db->where('id_project_tasks', $id_project_tasks)
+						 ->where('id_card_tasks', $value->id_card_tasks)
+						 ->update('470websitesmanagement_tasks__card', $data);
 
 			}
 		//}

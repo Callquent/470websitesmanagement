@@ -365,11 +365,12 @@
 				formData.append("name_card_tasks",v.editCard.name_card_tasks);
 				formData.append("description_card_tasks",v.editCard.description_card_tasks);
 				formData.append("id_project_tasks",v.current_project.id_project_tasks);
+				formData.append("id_card_tasks",v.editCard.id_card_tasks);
 				formData.append("id_tasks_status",v.editCard.id_tasks_status);
 				formData.append("id_tasks_priority",v.editCard.id_tasks_priority);
-				formData.append("order_card_tasks",v.editCard.order_card_tasks);
 				if (this.editedCardIndex > -1) {
-					formData.append("id_card_tasks",this.editCard.id_card_tasks);
+					formData.append("order_card_tasks_old",this.editCard.order_card_tasks);
+					formData.append("order_card_tasks_new",this.current_card.order_card_tasks);
 					axios.post(this.currentRoute+"/edit-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
 							Object.assign(v.list_card_tasks[v.editedCardIndex], v.editCard)
