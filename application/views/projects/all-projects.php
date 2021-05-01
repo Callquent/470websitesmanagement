@@ -4,81 +4,6 @@
 	<div class="page-content">
 
 	  <v-container fluid grid-list-sm>
-	    <v-layout row wrap>
-	    	<v-flex xs4>
-			    		
-				<v-toolbar color="light-blue" dark>
-					<v-toolbar-title>Project</v-toolbar-title>
-				</v-toolbar>
-				<v-card>
-					<v-container
-					fluid
-					grid-list-lg
-					>
-						<v-layout row wrap>
-							<v-flex xs12>
-								<template>
-									<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
-								</template>
-							</v-flex>
-						</v-layout>
-					</v-container>
-				</v-card>
-			</v-flex>
-			<v-flex xs4>
-				<v-toolbar color="light-blue" dark>
-					<v-toolbar-title>Members</v-toolbar-title>
-				</v-toolbar>
-				<v-card>
-					<v-container
-					fluid
-					grid-list-lg
-					>
-						<v-layout row wrap>
-							<v-flex xs12>
-								<template>
-									<v-text-field v-model="Project.name_project_tasks" label="Name Project"></v-text-field>
-								</template>
-							</v-flex>
-						</v-layout>
-					</v-container>
-				</v-card>
-			</v-flex>
-			<v-flex xs4>
-				<v-toolbar color="light-blue" dark>
-					<v-toolbar-title>Status</v-toolbar-title>
-				</v-toolbar>
-				<v-card>
-					<v-container
-					fluid
-					grid-list-lg
-					>
-						<v-layout row wrap>
-							<v-flex xs12>
-								<template>
-									<v-list>
-										<v-list-item>
-											<v-list-item-content>
-												<v-list-item-title>item</v-list-item-title>
-											</v-list-item-content>
-											<v-list-item-content>
-												<v-list-item-title>item</v-list-item-title>
-											</v-list-item-content>
-										</v-list-item>
-									</v-list>
-									<table>
-										<td>
-											<span class="badge badge-success">Success</span>
-											<span class="badge badge-warning">In progress</span>
-		                                </td>
-									</table>
-								</template>
-							</v-flex>
-						</v-layout>
-					</v-container>
-				</v-card>
-			</v-flex>
-		</v-layout>
 		<v-layout row wrap>
 			<v-flex xs12>
 		  		<v-card>
@@ -214,9 +139,7 @@
 						    </template>
 						    <template v-slot:item.member="props">
 						        	<span v-for="itemUser in props.item.users_to_project">
-						            	<v-avatar color="red">
-											<span class="white--text headline">{{ itemUser.username.substr(0, 2) }}</span>
-										</v-avatar>
+									<span class="badge badge-success">{{ itemUser.username }}</span><br>
 									</span>
 							</template>
 						    <template v-slot:item.actions="props">
@@ -228,7 +151,7 @@
 									</template>
 									<v-divider></v-divider>
 									<v-list>
-										<v-list-item :href="currentRoute+'/'+props.item.id_project_tasks">
+										<v-list-item :href="window.location.origin+'/view-project/'+props.item.id_project_tasks">
 											<v-list-item-title id="view-project" >View</v-list-item-title>
 										</v-list-item>
 										<v-list-item @click="f_dialog_editProject(props.item)">

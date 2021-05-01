@@ -21,7 +21,7 @@
 		<v-container fluid grid-list-sm>
 			<v-layout row wrap>
 				<v-flex hidden-sm-and-down md2>
-					<v-btn color="primary" flat @click="dialog_add_card.show = true" block>ADD TASK</v-btn>
+					<v-btn color="primary" flat @click="dialog.add_card.show = true" block>ADD TASK</v-btn>
 					<v-stepper v-model="step.current_step" non-linear vertical>
 						<template v-for="n in list_card_tasks.length">
 							<v-stepper-step
@@ -85,7 +85,7 @@
 											<template v-slot:top>
 												<v-toolbar flat color="white">
 													<v-spacer></v-spacer>
-													<v-dialog v-model="dialog_add_task" max-width="500px">
+													<v-dialog v-model="dialog.add_task" max-width="500px">
 														<template v-slot:activator="{ on }">
 															<v-btn color="primary" dark class="mb-2" v-on="on">New Task</v-btn>
 														</template>
@@ -138,6 +138,97 @@
 																			  </template>
 																			</v-autocomplete>
 																		</v-col>
+																		<v-col cols="12" sm="12" md="12">
+																			<v-data-table
+																				:headers="headers_tasks_hours"
+																				:items="list_tasks_hours"
+																				:items-per-page="-1"
+																				class="elevation-1"
+																			>
+
+																			<template v-slot:top>
+																				<v-toolbar flat color="white">
+																					<v-spacer></v-spacer>
+																					<v-dialog v-model="dialog.add_tasks_hours" max-width="500px">
+																						<template v-slot:activator="{ on }">
+																							<v-btn color="primary" dark class="mb-2" v-on="on">New Hours</v-btn>
+																						</template>
+																						<v-card>
+																						<v-card-title>
+																							<span class="headline">Hours</span>
+																						</v-card-title>
+
+																							<v-card-text>
+																								<v-container>
+																									<v-row>
+																										<v-col cols="12" sm="12" md="12">
+																											<v-flex xs12 lg6>
+																												<v-menu
+																													ref="menu1"
+																													:close-on-content-click="false"
+																													v-model="menu1"
+																													:nudge-right="40"
+																													lazy
+																													transition="scale-transition"
+																													offset-y
+																													full-width
+																													min-width="290px"
+																												>
+																												<template v-slot:activator="{ on }">
+																													<v-text-field
+																													slot="activator"
+																													v-model="editTaskHours.date_hours_tasks"
+																													label="Picker in menu"
+																													prepend-icon="event"
+																													readonly
+																													v-on="on"
+																													></v-text-field>
+																												</template>
+																													<v-date-picker v-model="editTaskHours.date_hours_tasks" no-title @input="menu1 = false"></v-date-picker>
+																												</v-menu>
+																											</v-flex>
+																										</v-col>
+																										<v-col>
+																											<v-flex xs12>
+																												<template>
+																													<v-text-field v-model="editTaskHours.nb_hours_tasks" type="time" label="Name Project" suffix="PST"></v-text-field>
+																												</template>
+																											</v-flex>
+																										</v-col>
+																									</v-row>
+																								</v-container>
+																							</v-card-text>
+
+																							<v-card-actions>
+																								<div class="flex-grow-1"></div>
+																								<v-btn color="blue darken-1" text @click="saveTaskHours()">Save</v-btn>
+																								<v-btn color="blue darken-1" text @click="closeTaskHours()">Cancel</v-btn>
+																							</v-card-actions>
+																						</v-card>
+																					</v-dialog>
+																				</v-toolbar>
+																			</template>
+																			<template v-slot:item.actions="{ item }">
+																				<v-menu bottom left>
+																					<template v-slot:activator="{ on }">
+																						<v-btn icon v-on="on" color="grey darken-1">
+																							<v-icon>mdi-dots-vertical</v-icon>
+																						</v-btn>
+																					</template>
+																					<v-divider></v-divider>
+																					<v-list>
+																						<v-list-item @click="f_editTaskHours(item)">
+																							<v-list-item-title id="edit-project" ><?php echo lang('edit') ?></v-list-item-title>
+																						</v-list-item>
+																						<v-list-item @click="f_deleteTaskHours(item)">
+																							<v-list-item-title id="delete-project"><?php echo lang('delete') ?></v-list-item-title>
+																						</v-list-item>
+																					</v-list>
+																				</v-menu>
+																			</template>
+
+																			</v-data-table>
+																		</v-col>
 																	</v-row>
 																</v-container>
 															</v-card-text>
@@ -175,7 +266,6 @@
 										</v-data-table>
 									</v-card>
 
-
 									<div class="step-navigation hidden-md-and-up">
 										<button class="prevBtn mat-accent white-fg mat-fab" @click="f_prevBtn(--id_card)" v-if="step.first_step != step.current_step">
 											<span class="mat-button-wrapper">
@@ -197,7 +287,6 @@
 							</div>
 						</div>
 					</div>
-
 					
 				</v-flex>
 			</v-layout>
@@ -205,7 +294,7 @@
 	</div>
 </div>
 <v-dialog
-	  v-model="dialog_add_card.show"
+	  v-model="dialog.add_card.show"
 	  width="500"
 	>
 	<v-card>
@@ -235,7 +324,7 @@
 						</v-select>
 					</v-flex>
 					<v-flex xs12>
-						<v-text-field v-model="editCard.order_card_tasks" type="number" :min="dialog_add_card.min" :max="dialog_add_card.max" required></v-text-field>
+						<v-text-field v-model="editCard.order_card_tasks" type="number" :min="dialog.add_card.min" :max="dialog.add_card.max" required></v-text-field>
 					</v-flex>
 				</v-layout>
 			</v-container>
@@ -244,7 +333,7 @@
 		<v-card-actions>
 			<div class="flex-grow-1"></div>
 			<v-btn color="blue" text @click="saveCard()">Save</v-btn>
-			<v-btn color="blue" text @click="dialog_add_card.show = false">Cancel</v-btn>
+			<v-btn color="blue" text @click="dialog.add_card.show = false">Cancel</v-btn>
 		</v-card-actions>
 		<v-card-actions>
 	</v-card>
@@ -257,12 +346,27 @@
 		data : {
 			sidebar:'projects',
 			currentRoute: window.location.href.substr(0, window.location.href.lastIndexOf('/')),
-			dialog_add_card: {
-				show: false,
-				min: 1,
-				max: <?php echo $order_card_tasks; ?>,
+	    	menu1: false,
+			editedTaskHoursIndex: -1,
+			newTaskHours:{
+				id_hours_tasks:"",
+				nb_hours_tasks:"",
+				date_hours_tasks: new Date().toISOString().substr(0, 10),
 			},
-			dialog_add_task: false,
+			editTaskHours:{
+				id_hours_tasks:"",
+				nb_hours_tasks:"",
+				date_hours_tasks: new Date().toISOString().substr(0, 10),
+			},
+			dialog: {
+				add_card: {
+					show: false,
+					min: 1,
+					max: <?php echo $order_card_tasks; ?>,
+				},
+				add_task: false,
+				add_tasks_hours : false,
+			},
 			step: {
 				first_step: 1,
 				last_step: <?php echo json_encode($all_card_by_project->num_rows()); ?>,
@@ -271,6 +375,10 @@
 			list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
 			list_card_tasks: <?php echo json_encode($all_card_by_project->result_array()); ?>,
 			list_tasks: <?php echo json_encode($all_tasks_by_card); ?>,
+			list_tasks_hours: [{
+				date_hours_tasks: '',
+				nb_hours_tasks: 0
+			}],
 			users: <?php echo json_encode($list_users->result_array()); ?>,
 			current_project: <?php echo json_encode($project); ?>,
 			current_card: <?php echo json_encode($card_tasks); ?>,
@@ -282,17 +390,22 @@
 				{ text: 'Priority', value: 'tasks_priority.name_tasks_priority' },
 				{ text: 'Actions', value: 'actions', sortable: false }
 			],
+			headers_tasks_hours: [
+				{ text: 'Date Task', value: 'date_hours_tasks' },
+				{ text: 'Hour Task', value: 'nb_hours_tasks' },
+				{ text: '<?php echo lang("actions"); ?>', value: 'actions' },
+			],
 			editedCardIndex: -1,
 			editCard:{
 				name_card_tasks:'',
-				order_card_tasks:this.current_order_card_tasks,
+				order_card_tasks:<?php echo $order_card_tasks; ?>,
 				id_tasks_priority:'',
 			},
 			newCard:{
 				name_card_tasks:'',
 				description_card_tasks:'',
 				id_tasks_priority:'',
-				order_card_tasks:this.current_order_card_tasks,
+				order_card_tasks:<?php echo $order_card_tasks; ?>,
 			},
 			editedTaskIndex: -1,
 			editTask:{
@@ -307,14 +420,18 @@
 		},
 		mixins: [mixin],
 		watch: {
-			dialog_add_task (val) {
-				val || this.closeTask()
+			dialog:{
+				add_task (val) {
+					val || this.closeTask()
+				}
 			},
-			dialog_add_card: {
-				handler: function(val) {
-					val.show || this.closeCard()
-				},
-				deep: true
+			dialog:{
+				add_card: {
+					handler: function(val) {
+						val.show || this.closeCard()
+					},
+					deep: true
+				}
 			},
 		},
 		created(){
@@ -358,7 +475,7 @@
          			 }
          		).indexOf(item.id_card_tasks);
 				this.editCard = Object.assign({}, item)
-				this.dialog_add_card.show = true;
+				this.dialog.add_card.show = true;
 			},
 			saveCard(){
 				var formData = new FormData();
@@ -369,8 +486,8 @@
 				formData.append("id_tasks_status",v.editCard.id_tasks_status);
 				formData.append("id_tasks_priority",v.editCard.id_tasks_priority);
 				if (this.editedCardIndex > -1) {
-					formData.append("order_card_tasks_old",this.editCard.order_card_tasks);
-					formData.append("order_card_tasks_new",this.current_card.order_card_tasks);
+					formData.append("order_card_tasks_old",this.current_card.order_card_tasks);
+					formData.append("order_card_tasks_new",this.editCard.order_card_tasks);
 					axios.post(this.currentRoute+"/edit-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
 							Object.assign(v.list_card_tasks[v.editedCardIndex], v.editCard)
@@ -379,10 +496,11 @@
 						}
 					})
 				} else {
+					formData.append("order_card_tasks",this.editCard.order_card_tasks);
 					axios.post(this.currentRoute+"/create-card-tasks/", formData).then(function(response){
 						if(response.status = 200){
 							v.list_card_tasks.push(v.editCard);
-							v.dialog_add_card.max++;
+							v.dialog.add_card.max++;
 						}else{
 
 						}
@@ -391,7 +509,7 @@
 				this.closeCard()
 			},
 			closeCard(){
-				this.dialog_add_card.show = false;
+				this.dialog.add_card.show = false;
 		        setTimeout(() => {
 					this.current_order_card_tasks = this.editCard.order_card_tasks;
 					this.editCard = Object.assign({}, this.newCard)
@@ -407,7 +525,7 @@
 						if(response.status = 200){
 							const index = v.list_card_tasks.indexOf(item);
 							v.list_card_tasks.splice(index, 1);
-							v.dialog_add_card.max--;
+							v.dialog.add_card.max--;
 						}else{
 
 						}
@@ -437,7 +555,20 @@
 			f_editTask(item){
 				this.editedTaskIndex = this.list_tasks.indexOf(item);
 				this.editTask = Object.assign({}, item);
-				this.dialog_add_task = true;
+				var formData = new FormData();
+				formData.append("id_user",this.editTask.id_user);
+				formData.append("id_task",this.editTask.id_task);
+				if (this.editedTaskIndex > -1) {
+					axios.post(this.currentRoute+"/view-task/", formData).then(function(response){
+						if(response.status = 200){
+							v.list_tasks_hours = response.data.tasks_hours;
+						}else{
+
+						}
+					})
+				} 
+
+				this.dialog.add_task = true;
 			},
 			saveTask(){
 				var formData = new FormData();
@@ -465,7 +596,7 @@
 				this.closeTask()
 			},
 			closeTask(){
-				this.dialog_add_task = false;
+				this.dialog.add_task = false;
 		        setTimeout(() => {
 		          this.editTask = Object.assign({}, this.newTask)
 		          this.editedTaskIndex = -1
@@ -484,6 +615,61 @@
 						}
 					})
 				}
+			},
+			f_editTaskHours(item){
+				this.editedTaskHoursIndex = this.list_tasks_hours.map(
+					function (e) {
+           				return e.id_hours_tasks;
+         			 }
+         		).indexOf(item.id_hours_tasks);
+				this.editTaskHours = Object.assign({}, item)
+				this.dialog.add_tasks_hours = true;
+			},
+			saveTaskHours(){
+				var formData = new FormData();
+				formData.append("id_task",this.editTask.id_task);
+				formData.append("nb_hours_tasks",this.editTaskHours.nb_hours_tasks);
+				formData.append("date_hours_tasks",this.editTaskHours.date_hours_tasks);
+				if (this.editedTaskHoursIndex > -1) {
+					formData.append("id_hours_tasks",this.editTaskHours.id_hours_tasks);
+					axios.post(this.currentRoute+"/edit-tasks-hours/", formData).then(function(response){
+						if(response.status = 200){
+							Object.assign(v.list_tasks_hours[v.editedTaskHoursIndex], v.editTaskHours)
+						}else{
+
+						}
+					})
+				} else {
+					axios.post(this.currentRoute+"/create-tasks-hours/", formData).then(function(response){
+						if(response.status = 200){
+							v.list_tasks_hours.push({name_task: v.editTaskHours.name_task,username: v.editTaskHours.username})
+						}else{
+
+						}
+					})
+				}
+				this.closeTaskHours()
+			},
+			f_deleteTaskHours(item){
+				var formData = new FormData();
+				formData.append("id_task",item.id_task);
+				if (confirm('Are you sure you want to delete this item?') == true) {
+					axios.post(this.currentRoute+"/delete-tasks-hours/", formData).then(function(response){
+						if(response.status = 200){
+							const index = v.list_tasks.indexOf(item)
+							v.list_tasks.splice(index, 1)
+						}else{
+
+						}
+					})
+				}
+			},
+			closeTaskHours(){
+				this.dialog.add_tasks_hours = false;
+		        setTimeout(() => {
+		          this.editTaskHours = Object.assign({}, this.newTaskHours)
+		          this.editedTaskHoursIndex = -1
+		        }, 300)
 			},
 			f_isNaN(val) {
 				if (isNaN(val)) {

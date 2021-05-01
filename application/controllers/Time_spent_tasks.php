@@ -62,11 +62,9 @@ class Time_spent_tasks extends CI_Controller {
 	public function view_tasks_hours()
 	{
 		$id_project_tasks	= $this->input->post('id_project_tasks');
-		$id_card_tasks		= $this->input->post('id_card_tasks');
 		$id_task		= $this->input->post('id_task');
 
-		$data['tasks_hours'] = $this->model_tasks_hours->get_all_hours_to_task($id_card_tasks, $id_task, $this->aauth->get_user()->id)->result_array();
-
+		$data['tasks_hours'] = $this->model_tasks_hours->get_all_hours_to_task($id_task, $this->aauth->get_user()->id)->result_array();
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}

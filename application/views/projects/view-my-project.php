@@ -1,111 +1,105 @@
 <?php $this->load->view('include/header.php'); ?>
 <div class="content custom-scrollbar">
-
-
-<v-layout>
-	<v-flex xs3>
-		<v-list two-line>
-			<v-subheader>
-				TO DO
-			</v-subheader>
-			<draggable v-model="list_card_tasks_to_do" :options="{group:'people'}" style="min-height: 10px" >
-				<template v-for="item in list_card_tasks_to_do">
-					<v-card @click="dialog_card = true"
-							:loading="loading"
-							class="mx-auto my-12"
-							max-width="374"
-						>
-							<v-card-title>{{item.name_card_tasks}}</v-card-title>
-							<v-divider class="mx-4"></v-divider>
-							<v-card-text>
-								<v-avatar color="red">
-									<span class="white--text headline">CJ</span>
-								</v-avatar>
-							</v-card-text>
-						</v-card>
-				</template>
-			</draggable>
-			<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
-		</v-list>
-	</v-flex>
-	<v-flex xs3>
-		<v-list two-line>
-			<v-subheader>
-				IN PROGRESS
-			</v-subheader>
-			<draggable v-model="list_card_tasks_in_progress" :options="{group:'people'}" style="min-height: 10px">
-				<template v-for="item in list_card_tasks_in_progress">
-						<v-card
-								:loading="loading"
-								class="mx-auto my-12"
-								max-width="374"
-							>
-								<v-card-title>{{item.name_card_tasks}}</v-card-title>
-								<v-divider class="mx-4"></v-divider>
-								<v-card-text>
-									<v-avatar color="red">
-										<span class="white--text headline">CJ</span>
-									</v-avatar>
-								</v-card-text>
-							</v-card>
-				</template>
-			</draggable>
-			<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
-		</v-list>
-	</v-flex>
-	<v-flex xs3>
-		<v-list two-line>
-			<v-subheader>
-				COMPLETED
-			</v-subheader>
-			<draggable v-model="list_card_tasks_completed" :options="{group:'people'}" style="min-height: 10px">
-				<template v-for="item in list_card_tasks_completed">
-						<v-card
-								:loading="loading"
-								class="mx-auto my-12"
-								max-width="374"
-							>
-								<v-card-title>{{item.name_card_tasks}}</v-card-title>
-								<v-divider class="mx-4"></v-divider>
-								<v-card-text>
-									<v-avatar color="red">
-										<span class="white--text headline">CJ</span>
-									</v-avatar>
-								</v-card-text>
-							</v-card>
-				</template>
-			</draggable>
-			<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
-		</v-list>
-	</v-flex>
-	<v-flex xs3>
-		<v-list two-line>
-			<v-subheader>
-				CANCELLED
-			</v-subheader>
-			<draggable v-model="items4" :options="{group:'people'}" style="min-height: 10px">
-				<template v-for="item in items4">
-						<v-card
-								:loading="loading"
-								class="mx-auto my-12"
-								max-width="374"
-							>
-								<v-card-title>{{item.title}}</v-card-title>
-								<v-divider class="mx-4"></v-divider>
-								<v-card-text>
-									<v-avatar color="red">
-										<span class="white--text headline">CJ</span>
-									</v-avatar>
-								</v-card-text>
-							</v-card>
-				</template>
-			</draggable>
-			<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
-		</v-list>
-	</v-flex>
-</v-layout>
-
-
+	<div class="page-layout simple full-width">
+		<v-layout>
+			<v-flex xs3>
+				<v-list two-line>
+					<v-subheader>
+						TO DO
+					</v-subheader>
+					<draggable v-model="list_card_tasks_to_do" :options="{group:'people'}" style="min-height: 10px" >
+						<template v-for="item in list_card_tasks_to_do">
+							<v-card @click="dialog_card = true"
+									class="mx-auto my-12"
+									max-width="374"
+								>
+									<v-card-title>{{item.name_card_tasks}}</v-card-title>
+									<v-divider class="mx-4"></v-divider>
+									<v-card-text>
+										<v-avatar color="red">
+											<span class="white--text headline">CJ</span>
+										</v-avatar>
+									</v-card-text>
+								</v-card>
+						</template>
+					</draggable>
+					<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
+				</v-list>
+			</v-flex>
+			<v-flex xs3>
+				<v-list two-line>
+					<v-subheader>
+						IN PROGRESS
+					</v-subheader>
+					<draggable v-model="list_card_tasks_in_progress" :options="{group:'people'}" style="min-height: 10px">
+						<template v-for="item in list_card_tasks_in_progress">
+								<v-card
+										class="mx-auto my-12"
+										max-width="374"
+									>
+										<v-card-title>{{item.name_card_tasks}}</v-card-title>
+										<v-divider class="mx-4"></v-divider>
+										<v-card-text>
+											<v-avatar color="red">
+												<span class="white--text headline">CJ</span>
+											</v-avatar>
+										</v-card-text>
+									</v-card>
+						</template>
+					</draggable>
+					<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
+				</v-list>
+			</v-flex>
+			<v-flex xs3>
+				<v-list two-line>
+					<v-subheader>
+						COMPLETED
+					</v-subheader>
+					<draggable v-model="list_card_tasks_completed" :options="{group:'people'}" style="min-height: 10px">
+						<template v-for="item in list_card_tasks_completed">
+								<v-card
+										class="mx-auto my-12"
+										max-width="374"
+									>
+										<v-card-title>{{item.name_card_tasks}}</v-card-title>
+										<v-divider class="mx-4"></v-divider>
+										<v-card-text>
+											<v-avatar color="red">
+												<span class="white--text headline">CJ</span>
+											</v-avatar>
+										</v-card-text>
+									</v-card>
+						</template>
+					</draggable>
+					<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
+				</v-list>
+			</v-flex>
+			<v-flex xs3>
+				<v-list two-line>
+					<v-subheader>
+						CANCELLED
+					</v-subheader>
+					<draggable v-model="items4" :options="{group:'people'}" style="min-height: 10px">
+						<template v-for="item in items4">
+								<v-card
+										class="mx-auto my-12"
+										max-width="374"
+									>
+										<v-card-title>{{item.title}}</v-card-title>
+										<v-divider class="mx-4"></v-divider>
+										<v-card-text>
+											<v-avatar color="red">
+												<span class="white--text headline">CJ</span>
+											</v-avatar>
+										</v-card-text>
+									</v-card>
+						</template>
+					</draggable>
+					<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
+				</v-list>
+			</v-flex>
+		</v-layout>
+	</div>
 </div>
 
 <v-dialog
@@ -192,7 +186,7 @@
 </v-dialog>
 <?php $this->load->view('include/javascript.php'); ?>
 <script type="text/javascript">
-		var v = new Vue({
+			var v = new Vue({
 				el: '#app',
 				vuetify: new Vuetify(),
 				data : {

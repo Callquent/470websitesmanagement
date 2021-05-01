@@ -293,7 +293,7 @@ CREATE TABLE `470websitesmanagement_tasks__hours` (
   `id_hours_tasks` int(11) UNSIGNED NOT NULL,
   `id_task` int(11) UNSIGNED NOT NULL,
   `date_hours_tasks` date NOT NULL,
-  `nb_hours_tasks` int(11) NOT NULL
+  `nb_hours_tasks` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
