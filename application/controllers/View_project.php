@@ -188,7 +188,7 @@ class View_project extends CI_Controller {
 		$nb_hours_tasks			= $this->input->post('nb_hours_tasks');
 		$date_hours_tasks		= $this->input->post('date_hours_tasks');
 
-		$this->model_tasks_hours->edit_tasks_hours($id_hours_tasks, $id_task, $nb_hours_tasks, $date_hours_tasks);
+		$this->model_tasks_hours->update_tasks_hours($id_hours_tasks, $id_task, $nb_hours_tasks, $date_hours_tasks);
 	}
 	public function delete_tasks_hours()
 	{

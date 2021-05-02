@@ -6,6 +6,7 @@ class Model_tasks_hours extends CI_Model {
 	function get_all_hours_to_project($id_project_tasks,$id_user)
 	{
 		$this->db->select('*')
+				 ->select('TIME_FORMAT(nb_hours_tasks, "%h:%i") AS nb_hours_tasks')
 				 ->from('470websitesmanagement_tasks__hours')
 				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_task = 470websitesmanagement_tasks__hours.id_task')
 				 ->where('470websitesmanagement_tasks.id_project_tasks', $id_project_tasks)
@@ -19,6 +20,7 @@ class Model_tasks_hours extends CI_Model {
 	function get_all_hours_to_card($id_card_tasks,$id_user)
 	{
 		$this->db->select('*')
+			 	->select('TIME_FORMAT(nb_hours_tasks, "%h:%i") AS nb_hours_tasks')
 				 ->from('470websitesmanagement_tasks__hours')
 				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_task = 470websitesmanagement_tasks__hours.id_task')
 				 ->where('470websitesmanagement_tasks.id_card_tasks', $id_card_tasks)
@@ -32,6 +34,7 @@ class Model_tasks_hours extends CI_Model {
 	function get_all_hours_to_task($id_task,$id_user)
 	{
 		$this->db->select('*')
+				 ->select('TIME_FORMAT(nb_hours_tasks, "%h:%i") AS nb_hours_tasks')
 				 ->from('470websitesmanagement_tasks__hours')
 				 ->join('470websitesmanagement_tasks', '470websitesmanagement_tasks.id_task = 470websitesmanagement_tasks__hours.id_task')
 				 ->where('470websitesmanagement_tasks.id_task', $id_task)
