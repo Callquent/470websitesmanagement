@@ -74,7 +74,7 @@
 					<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
 				</v-list>
 			</v-flex>
-			<v-flex xs3>
+			<!-- <v-flex xs3>
 				<v-list two-line>
 					<v-subheader>
 						CANCELLED
@@ -97,7 +97,7 @@
 					</draggable>
 					<v-btn color="deep-purple lighten-2" block text @click="dialog_card = true">Add Card</v-btn>
 				</v-list>
-			</v-flex>
+			</v-flex> -->
 		</v-layout>
 	</div>
 </div>
@@ -200,6 +200,12 @@
 						list_tasks_priority: <?php echo json_encode($all_tasks_priority->result_array()); ?>,
 						current_project: <?php echo json_encode($project); ?>,
 						current_card: <?php echo json_encode($card_tasks); ?>,
+						headers: [
+							{ text: '', value: 'check_tasks', sortable: false},
+							{ text: 'Name Task', value: 'name_task', sortable: false},
+							{ text: 'User', value: 'username' },
+							{ text: 'Actions', value: 'actions', sortable: false }
+						],
 						user_profil: <?php echo json_encode($user_role[0]); ?>,
 						card_tasks:[],
 						editedCardIndex: -1,
@@ -240,7 +246,26 @@
 								} else {
 										return val;
 								}
-						}
+						},
+						f_editTask(item){
+							this.editedTaskIndex = this.list_tasks.indexOf(item);
+							this.editTask = Object.assign({}, item);
+							var formData = new FormData();
+							formData.append("id_user",this.editTask.id_user);
+							formData.append("id_task",this.editTask.id_task);
+							if (this.editedTaskIndex > -1) {
+								axios.post(this.currentRoute+"/view-task/", formData).then(function(response){
+									if(response.status = 200){
+										v.list_tasks_hours = response.data.tasks_hours;
+									}else{
+
+									}
+								})
+							} 
+
+							this.dialog.add_task = true;
+						},
+
 				}
 		});
 </script>

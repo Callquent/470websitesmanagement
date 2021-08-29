@@ -387,7 +387,6 @@
 				{ text: '', value: 'check_tasks', sortable: false},
 				{ text: 'Name Task', value: 'name_task', sortable: false},
 				{ text: 'User', value: 'username' },
-				{ text: 'Priority', value: 'tasks_priority.name_tasks_priority' },
 				{ text: 'Actions', value: 'actions', sortable: false }
 			],
 			headers_tasks_hours: [
