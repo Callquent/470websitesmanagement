@@ -1,0 +1,33 @@
+CRITICAL - 2021-08-07 17:44:19 --> Undefined property: CodeIgniter\View\View::$uri
+#0 C:\laragon\www\470websitesmanagement-new\app\Views\authentication\index.php(14): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\laragon\\www\\...', 14, Array)
+#1 C:\laragon\www\470websitesmanagement-new\system\View\View.php(230): include('C:\\laragon\\www\\...')
+#2 C:\laragon\www\470websitesmanagement-new\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\laragon\www\470websitesmanagement-new\system\Common.php(1271): CodeIgniter\View\View->render('authentication/...', Array, true)
+#4 C:\laragon\www\470websitesmanagement-new\app\Controllers\Index.php(42): view('authentication/...', Array)
+#5 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(928): App\Controllers\Index->index()
+#6 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+#7 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\470websitesmanagement-new\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-08-07 17:45:16 --> Undefined property: CodeIgniter\View\View::$session
+#0 C:\laragon\www\470websitesmanagement-new\app\Views\authentication\index.php(56): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\laragon\\www\\...', 56, Array)
+#1 C:\laragon\www\470websitesmanagement-new\system\View\View.php(230): include('C:\\laragon\\www\\...')
+#2 C:\laragon\www\470websitesmanagement-new\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\laragon\www\470websitesmanagement-new\system\Common.php(1271): CodeIgniter\View\View->render('authentication/...', Array, true)
+#4 C:\laragon\www\470websitesmanagement-new\app\Controllers\Index.php(42): view('authentication/...', Array)
+#5 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(928): App\Controllers\Index->index()
+#6 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+#7 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\470websitesmanagement-new\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-08-07 17:45:17 --> Undefined property: CodeIgniter\View\View::$session
+#0 C:\laragon\www\470websitesmanagement-new\app\Views\authentication\index.php(56): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\laragon\\www\\...', 56, Array)
+#1 C:\laragon\www\470websitesmanagement-new\system\View\View.php(230): include('C:\\laragon\\www\\...')
+#2 C:\laragon\www\470websitesmanagement-new\system\View\View.php(232): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\laragon\www\470websitesmanagement-new\system\Common.php(1271): CodeIgniter\View\View->render('authentication/...', Array, true)
+#4 C:\laragon\www\470websitesmanagement-new\app\Controllers\Index.php(42): view('authentication/...', Array)
+#5 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(928): App\Controllers\Index->index()
+#6 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+#7 C:\laragon\www\470websitesmanagement-new\system\CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\470websitesmanagement-new\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
